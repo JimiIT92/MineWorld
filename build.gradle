@@ -1,4 +1,3 @@
-
 plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
