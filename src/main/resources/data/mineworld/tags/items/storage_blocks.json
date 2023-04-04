@@ -3,6 +3,8 @@
   "values": [
     "mineworld:raw_silver_block",
     "mineworld:raw_aluminum_block",
-    "mineworld:raw_bronze_block"
+    "mineworld:raw_bronze_block",
+    "mineworld:pyrite_block",
+    "mineworld:charcoal_block"
   ]
 }

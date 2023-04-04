@@ -5,6 +5,7 @@ import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SmithingTemplateItem;
@@ -119,6 +120,53 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerFuel(final String name, final int burnTime) {
         return registerItem(name, () -> new Item(basicProperties()){
+            /**
+             * Get the {@link ItemStack Item Stack} burn time in ticks
+             *
+             * @param itemStack {@link ItemStack The Item Stack} being used as fuel
+             * @param recipeType {@link RecipeType The recipe type}
+             * @return {@link Integer Burn time} in ticks
+             */
+            @Override
+            public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
+                return burnTime * 20;
+            }
+        });
+    }
+
+    /**
+     * Register a {@link Block block fuel item}
+     *
+     * @param name          {@link String The item name}
+     * @param blockSupplier {@link Block The block referred from this item}
+     * @param burnTime      {@link Integer The fuel burn time} in seconds
+     */
+    public static void registerFuelBlockItem(final String name, final Supplier<Block> blockSupplier, final int burnTime) {
+        registerItem(name, () -> new BlockItem(blockSupplier.get(), basicProperties()) {
+            /**
+             * Get the {@link ItemStack Item Stack} burn time in ticks
+             *
+             * @param itemStack {@link ItemStack The Item Stack} being used as fuel
+             * @param recipeType {@link RecipeType The recipe type}
+             * @return {@link Integer Burn time} in ticks
+             */
+            @Override
+            public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
+                return burnTime * 20;
+            }
+        });
+    }
+
+    /**
+     * Register a {@link Item fuel block item}
+     *
+     * @param name {@link String The item name}
+     * @param block {@link Block The block referred from this item}
+     * @param burnTime {@link Integer The fuel burn time} in seconds
+     * @return {@link RegistryObject<Item> The registered item}
+     */
+    private static RegistryObject<Item> registerFuelBlockItem(final String name, final Block block, final int burnTime) {
+        return registerItem(name, () -> new BlockItem(block, basicProperties()){
             /**
              * Get the {@link ItemStack Item Stack} burn time in ticks
              *

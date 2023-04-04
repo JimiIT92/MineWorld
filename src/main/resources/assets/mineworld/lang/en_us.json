@@ -39,6 +39,8 @@
   "block.mineworld.bronze_block": "Bronze Block",
   "block.mineworld.ruby_block": "Ruby Block",
   "block.mineworld.sapphire_block": "Sapphire Block",
+  "block.mineworld.charcoal_block": "Charcoal Block",
+  "block.mineworld.pyrite_block": "Pyrite Block",
   "smithing.minecraft.raw_bronze": "Raw Bronze",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Raw Copper",

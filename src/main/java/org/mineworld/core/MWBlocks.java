@@ -37,14 +37,16 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SAPPHIRE_ORE = registerOverworldOreBlock("sapphire_ore", false);
     public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = registerOverworldOreBlock("deepslate_sapphire_ore", true);
     public static final RegistryObject<Block> PYRITE_ORE = registerNetherOreBlock("pyrite_ore");
-    public static final RegistryObject<Block> RAW_SILVER_BLOCK = registerRawOreBlock("raw_silver_block", MaterialColor.RAW_IRON);
-    public static final RegistryObject<Block> RAW_ALUMINUM_BLOCK = registerRawOreBlock("raw_aluminum_block", MaterialColor.RAW_IRON);
-    public static final RegistryObject<Block> RAW_BRONZE_BLOCK = registerRawOreBlock("raw_bronze_block", MaterialColor.COLOR_BROWN);
-    public static final RegistryObject<Block> SILVER_BLOCK = registerMetalOreStorageBlock("silver_block", MaterialColor.RAW_IRON);
-    public static final RegistryObject<Block> ALUMINUM_BLOCK = registerMetalOreStorageBlock("aluminum_block", MaterialColor.RAW_IRON);
-    public static final RegistryObject<Block> BRONZE_BLOCK = registerSimpleBlock("bronze_block", Material.METAL, MaterialColor.COLOR_BROWN,3.0F, 6.0F, true, SoundType.COPPER);
-    public static final RegistryObject<Block> RUBY_BLOCK = registerMetalOreStorageBlock("ruby_block", MaterialColor.FIRE);
-    public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerMetalOreStorageBlock("sapphire_block", MaterialColor.COLOR_BLUE);
+    public static final RegistryObject<Block> RAW_SILVER_BLOCK = registerRawOreBlock("raw_silver_block", MWColors.RAW_SILVER.toMaterialColor());
+    public static final RegistryObject<Block> RAW_ALUMINUM_BLOCK = registerRawOreBlock("raw_aluminum_block", MWColors.RAW_ALUMINUM.toMaterialColor());
+    public static final RegistryObject<Block> RAW_BRONZE_BLOCK = registerRawOreBlock("raw_bronze_block", MWColors.RAW_BRONZE.toMaterialColor());
+    public static final RegistryObject<Block> SILVER_BLOCK = registerMetalOreStorageBlock("silver_block", MWColors.SILVER.toMaterialColor());
+    public static final RegistryObject<Block> ALUMINUM_BLOCK = registerMetalOreStorageBlock("aluminum_block", MWColors.ALUMINUM.toMaterialColor());
+    public static final RegistryObject<Block> BRONZE_BLOCK = registerSimpleBlock("bronze_block", Material.METAL, MWColors.BRONZE.toMaterialColor(),3.0F, 6.0F, true, SoundType.COPPER);
+    public static final RegistryObject<Block> RUBY_BLOCK = registerMetalOreStorageBlock("ruby_block", MWColors.RUBY.toMaterialColor());
+    public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerMetalOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMaterialColor());
+    public static final RegistryObject<Block> PYRITE_BLOCK = registerFuelBlock("pyrite_block", MWColors.PYRITE.toMaterialColor(), 1200);
+    public static final RegistryObject<Block> CHARCOAL_BLOCK = registerFuelBlock("charcoal_block", MWColors.CHARCOAL.toMaterialColor(), 800);
 
     //#endregion
 
@@ -178,6 +180,19 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerOreStorageBlock(final String name, final Material material, final MaterialColor color, final SoundType sound) {
         return registerSimpleBlock(name, Material.STONE, color,5.0F, 6.0F, true, sound);
+    }
+
+    /**
+     * Register a {@link Block fuel block}
+     *
+     * @param name {@link String The block name}
+     * @param color {@link MaterialColor The block color on maps}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerFuelBlock(final String name, final MaterialColor color, final int burnTime) {
+        RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new Block(basicBlockProperties(Material.STONE, color, 5.0F, 6.0F, true)));
+        MWItems.registerFuelBlockItem(name, block, burnTime);
+        return block;
     }
 
     /**

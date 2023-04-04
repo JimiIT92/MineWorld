@@ -13,6 +13,8 @@
     "mineworld:aluminum_block",
     "mineworld:bronze_block",
     "mineworld:ruby_block",
-    "mineworld:sapphire_block"
+    "mineworld:sapphire_block",
+    "mineworld:charcoal_block",
+    "mineworld:pyrite_block"
   ]
 }

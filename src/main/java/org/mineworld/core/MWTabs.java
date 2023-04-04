@@ -93,11 +93,13 @@ public final class MWTabs {
             //pressure plate
             //button
             addToTab(event,
+                    MWBlocks.CHARCOAL_BLOCK,
                     MWBlocks.SILVER_BLOCK,
                     MWBlocks.ALUMINUM_BLOCK,
                     MWBlocks.BRONZE_BLOCK,
                     MWBlocks.RUBY_BLOCK,
                     MWBlocks.SAPPHIRE_BLOCK,
+                    MWBlocks.PYRITE_BLOCK,
                     MWBlocks.RAW_SILVER_BLOCK,
                     MWBlocks.RAW_ALUMINUM_BLOCK,
                     MWBlocks.RAW_BRONZE_BLOCK);
