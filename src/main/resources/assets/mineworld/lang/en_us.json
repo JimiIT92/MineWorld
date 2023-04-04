@@ -22,6 +22,10 @@
   "item.mineworld.bronze_ingot": "Bronze Ingot",
   "item.mineworld.bronze_nugget": "Bronze Nugget",
   "item.mineworld.copper_nugget": "Copper Nugget",
-  "item.mineworld.raw_bronze_smithing_template": "Raw Bronze Smithing Template",
+  "smithing.minecraft.raw_bronze": "Raw Bronze",
+  "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",
+  "item.mineworld.smithing_template.raw_bronze.applies_to": "Raw Copper",
+  "item.mineworld.smithing_template.raw_bronze.base_slot_description": "Add Raw Aluminum",
+  "item.mineworld.smithing_template.raw_bronze.ingredients": "Raw Aluminum",
   "trim_material.mineworld.ruby": "Ruby Material"
 }

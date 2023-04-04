@@ -22,6 +22,10 @@
   "item.mineworld.bronze_ingot": "Lingotto di bronzo",
   "item.mineworld.bronze_nugget": "Pepita di bronzo",
   "item.mineworld.copper_nugget": "Pepita di rame",
-  "item.mineworld.raw_bronze_smithing_template": "Raw Bronze Smithing Template",
-  "trim_material.mineworld.ruby": "Ruby Material"
+  "smithing.minecraft.raw_bronze": "Bronzo grezzo",
+  "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
+  "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",
+  "item.mineworld.smithing_template.raw_bronze.base_slot_description": "Inserisci dell'alluminio grezzo",
+  "item.mineworld.smithing_template.raw_bronze.ingredients": "Alluminio grezzo",
+  "trim_material.mineworld.ruby": "Di rubino"
 }
