@@ -47,16 +47,25 @@ public final class MWTabs {
      */
     @SubscribeEvent
     public static void onRegisterCreativeTabs(final CreativeModeTabEvent.Register event) {
-        BUILDING_BLOCKS = registerTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
-        COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS,()  -> MWItems.getDefaultStack(Blocks.BEDROCK));
-        NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
-        FUNCTIONAL = registerTab(event, "functional", NATURAL, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
-        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
-        TOOLS = registerTab(event, "tools", REDSTONE, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
-        COMBAT = registerTab(event, "combat", TOOLS, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
-        FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
+        BUILDING_BLOCKS = registerTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> MWItems.getDefaultStack(MWBlocks.SAPPHIRE_BLOCK));
+        COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, MWTabs::getDisabledTabIcon);
+        NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.DEEPSLATE_RUBY_ORE));
+        FUNCTIONAL = registerTab(event, "functional", NATURAL, MWTabs::getDisabledTabIcon);
+        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, MWTabs::getDisabledTabIcon);
+        TOOLS = registerTab(event, "tools", REDSTONE, MWTabs::getDisabledTabIcon);
+        COMBAT = registerTab(event, "combat", TOOLS, MWTabs::getDisabledTabIcon);
+        FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, MWTabs::getDisabledTabIcon);
         INGREDIENTS = registerTab(event, "ingredients", FOOD_AND_DRINK, () -> MWItems.getDefaultStack(MWItems.RUBY));
-        SPAWN_EGGS = registerTab(event, "spawn_eggs", INGREDIENTS, () -> MWItems.getDefaultStack(Blocks.BEDROCK));
+        SPAWN_EGGS = registerTab(event, "spawn_eggs", INGREDIENTS, MWTabs::getDisabledTabIcon);
+    }
+
+    /**
+     * Get the disabled {@link ItemStack tab icon}
+     *
+     * @return {@link ItemStack The item stack to use as tab icon}
+     */
+    private static ItemStack getDisabledTabIcon() {
+        return MWItems.getDefaultStack(Blocks.BEDROCK);
     }
 
     /**
@@ -83,15 +92,32 @@ public final class MWTabs {
             //trapdoor
             //pressure plate
             //button
-            event.accept(Blocks.STRUCTURE_VOID);
+            addToTab(event,
+                    MWBlocks.SILVER_BLOCK,
+                    MWBlocks.ALUMINUM_BLOCK,
+                    MWBlocks.BRONZE_BLOCK,
+                    MWBlocks.RUBY_BLOCK,
+                    MWBlocks.SAPPHIRE_BLOCK,
+                    MWBlocks.RAW_SILVER_BLOCK,
+                    MWBlocks.RAW_ALUMINUM_BLOCK,
+                    MWBlocks.RAW_BRONZE_BLOCK);
         }
         else if(tab.equals(COLORED_BLOCKS)) {
             //base - white - l gray - gray - black - brown - red - orange - yellow - lime - green - cyan - l blue - blue - purple - magenta - pink
             event.accept(Blocks.STRUCTURE_VOID);
         }
         else if(tab.equals(NATURAL)) {
-            //grass/terrain - stone - ores - raw blocks - logs - leaves - saplings - flowers - deco blocks
-            event.accept(Blocks.STRUCTURE_VOID);
+            //grass/terrain - stone - ores - nether ores - raw blocks - logs - leaves - saplings - flowers - deco blocks
+            addToTab(event,
+                    MWBlocks.SILVER_ORE,
+                    MWBlocks.DEEPSLATE_SILVER_ORE,
+                    MWBlocks.ALUMINUM_ORE,
+                    MWBlocks.DEEPSLATE_ALUMINUM_ORE,
+                    MWBlocks.RUBY_ORE,
+                    MWBlocks.DEEPSLATE_RUBY_ORE,
+                    MWBlocks.SAPPHIRE_ORE,
+                    MWBlocks.DEEPSLATE_SAPPHIRE_ORE,
+                    MWBlocks.PYRITE_ORE);
         }
         else if(tab.equals(FUNCTIONAL)) {
             //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests

@@ -1,0 +1,50 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "mineworld:item/trimmed_armors/golden_boots_prismarine_trim",
+      "predicate": {
+        "trim_type": 0.01
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/golden_boots_echo_shard_trim",
+      "predicate": {
+        "trim_type": 0.02
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/golden_boots_ruby_trim",
+      "predicate": {
+        "trim_type": 0.03
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/golden_boots_sapphire_trim",
+      "predicate": {
+        "trim_type": 0.04
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/golden_boots_silver_trim",
+      "predicate": {
+        "trim_type": 0.05
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/golden_boots_aluminum_trim",
+      "predicate": {
+        "trim_type": 0.06
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/golden_boots_bronze_trim",
+      "predicate": {
+        "trim_type": 0.07
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "minecraft:item/golden_boots"
+  }
+}

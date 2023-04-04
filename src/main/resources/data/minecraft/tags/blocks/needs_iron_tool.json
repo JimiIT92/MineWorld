@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#mineworld:ruby_ores",
+    "#mineworld:sapphire_ores",
+    "mineworld:ruby_block",
+    "mineworld:sapphire_block"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:raw_silver_block",
+    "mineworld:raw_aluminum_block",
+    "mineworld:raw_bronze_block"
+  ]
+}

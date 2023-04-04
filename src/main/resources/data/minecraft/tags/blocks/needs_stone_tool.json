@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "#mineworld:silver_ores",
+    "#mineworld:aluminum_ores",
+    "#mineworld:pyrite_ores",
+    "mineworld:raw_silver_block",
+    "mineworld:raw_aluminum_block",
+    "mineworld:raw_bronze_block",
+    "mineworld:silver_block",
+    "mineworld:aluminum_block",
+    "mineworld:bronze_block"
+  ]
+}

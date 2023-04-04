@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "group": "pyrite",
+  "ingredient": {
+    "item": "mineworld:pyrite_ore"
+  },
+  "result": "mineworld:pyrite"
+}

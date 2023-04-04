@@ -91,7 +91,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag Required feature flags} to be enabled for this item to be added
      * @return {@link Item.Properties item properties}
      */
-    public static Item.Properties basicProperties(FeatureFlag... featureFlags) {
+    public static Item.Properties basicProperties(final FeatureFlag... featureFlags) {
         Item.Properties properties = new Item.Properties();
         if(featureFlags != null) {
             properties = properties.requiredFeatures(featureFlags);
@@ -106,7 +106,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag Required feature flags} to be enabled for this item to be added
      * @return {@link RegistryObject<Item> The registered item}
      */
-    private static RegistryObject<Item> registerSimpleItem(final String name, FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerSimpleItem(final String name, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(basicProperties(featureFlags)));
     }
 
@@ -150,7 +150,7 @@ public final class MWItems {
      * @param registryObject {@link RegistryObject<Block> The block registry object}
      * @return {@link ItemStack The default Item Stack}
      */
-    public static ItemStack getDefaultStack(RegistryObject<? extends ItemLike> registryObject) {
+    public static ItemStack getDefaultStack(final RegistryObject<? extends ItemLike> registryObject) {
         return getDefaultStack(registryObject.get().asItem());
     }
 
@@ -161,7 +161,7 @@ public final class MWItems {
      * @param object {@link ItemLike The object}
      * @return {@link ItemStack The default Item Stack}
      */
-    public static ItemStack getDefaultStack(ItemLike object) {
+    public static ItemStack getDefaultStack(final ItemLike object) {
         return getDefaultStack(object.asItem());
     }
 
@@ -171,7 +171,7 @@ public final class MWItems {
      * @param item {@link Item The item}
      * @return {@link ItemStack The default Item Stack}
      */
-    public static ItemStack getDefaultStack(Item item) {
+    public static ItemStack getDefaultStack(final Item item) {
         return item.getDefaultInstance();
     }
 

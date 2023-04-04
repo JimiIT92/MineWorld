@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "mineworld:item/trimmed_armors/leather_chestplate_prismarine_trim",
+      "predicate": {
+        "trim_type": 0.01
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/leather_chestplate_echo_shard_trim",
+      "predicate": {
+        "trim_type": 0.02
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/leather_chestplate_ruby_trim",
+      "predicate": {
+        "trim_type": 0.03
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/leather_chestplate_sapphire_trim",
+      "predicate": {
+        "trim_type": 0.04
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/leather_chestplate_silver_trim",
+      "predicate": {
+        "trim_type": 0.05
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/leather_chestplate_aluminum_trim",
+      "predicate": {
+        "trim_type": 0.06
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/leather_chestplate_bronze_trim",
+      "predicate": {
+        "trim_type": 0.07
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "minecraft:item/leather_chestplate",
+    "layer1": "minecraft:item/leather_chestplate_overlay"
+  }
+}
