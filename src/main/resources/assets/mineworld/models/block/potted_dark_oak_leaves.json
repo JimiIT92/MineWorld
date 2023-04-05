@@ -1,0 +1,6 @@
+{
+    "parent": "mineworld:block/potted_leaves_all",
+    "textures": {
+        "all": "block/dark_oak_leaves"
+    }
+}

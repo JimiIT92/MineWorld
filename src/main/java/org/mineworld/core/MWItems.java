@@ -89,7 +89,7 @@ public final class MWItems {
     /**
      * Get the basic {@link Item.Properties item properties}
      *
-     * @param featureFlags {@link FeatureFlag Required feature flags} to be enabled for this item to be added
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link Item.Properties item properties}
      */
     public static Item.Properties basicProperties(final FeatureFlag... featureFlags) {
@@ -104,7 +104,7 @@ public final class MWItems {
      * Register a basic {@link Item item}
      *
      * @param name {@link String The item name}
-     * @param featureFlags {@link FeatureFlag Required feature flags} to be enabled for this item to be added
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
     private static RegistryObject<Item> registerSimpleItem(final String name, final FeatureFlag... featureFlags) {
@@ -116,10 +116,11 @@ public final class MWItems {
      *
      * @param name {@link String The item name}
      * @param burnTime {@link Integer The fuel burn time} in seconds
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    private static RegistryObject<Item> registerFuel(final String name, final int burnTime) {
-        return registerItem(name, () -> new Item(basicProperties()){
+    private static RegistryObject<Item> registerFuel(final String name, final int burnTime, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new Item(basicProperties(featureFlags)) {
             /**
              * Get the {@link ItemStack Item Stack} burn time in ticks
              *
@@ -140,9 +141,10 @@ public final class MWItems {
      * @param name          {@link String The item name}
      * @param blockSupplier {@link Block The block referred from this item}
      * @param burnTime      {@link Integer The fuel burn time} in seconds
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      */
-    public static void registerFuelBlockItem(final String name, final Supplier<Block> blockSupplier, final int burnTime) {
-        registerItem(name, () -> new BlockItem(blockSupplier.get(), basicProperties()) {
+    public static void registerFuelBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final int burnTime, final FeatureFlag... featureFlags) {
+        registerItem(name, () -> new BlockItem(blockSupplier.get(), basicProperties(featureFlags)) {
             /**
              * Get the {@link ItemStack Item Stack} burn time in ticks
              *
@@ -163,10 +165,11 @@ public final class MWItems {
      * @param name {@link String The item name}
      * @param block {@link Block The block referred from this item}
      * @param burnTime {@link Integer The fuel burn time} in seconds
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    private static RegistryObject<Item> registerFuelBlockItem(final String name, final Block block, final int burnTime) {
-        return registerItem(name, () -> new BlockItem(block, basicProperties()){
+    private static RegistryObject<Item> registerFuelBlockItem(final String name, final Block block, final int burnTime, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new BlockItem(block, basicProperties(featureFlags)) {
             /**
              * Get the {@link ItemStack Item Stack} burn time in ticks
              *
@@ -188,7 +191,7 @@ public final class MWItems {
      * @param itemSupplier {@link Supplier<Item> The item supplier}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerItem(final String name, final Supplier<Item> itemSupplier) {
+    public static RegistryObject<Item> registerItem(final String name, final Supplier<? extends Item> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
     }
 
