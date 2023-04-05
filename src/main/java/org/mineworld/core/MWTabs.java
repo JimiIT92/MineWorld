@@ -49,7 +49,7 @@ public final class MWTabs {
     public static void onRegisterCreativeTabs(final CreativeModeTabEvent.Register event) {
         BUILDING_BLOCKS = registerTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> MWItems.getDefaultStack(MWBlocks.SAPPHIRE_BLOCK));
         COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.PINK_MARBLE));
-        NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.DEEPSLATE_RUBY_ORE));
+        NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.BLUE_ROSE));
         FUNCTIONAL = registerTab(event, "functional", NATURAL, MWTabs::getDisabledTabIcon);
         REDSTONE = registerTab(event, "redstone", FUNCTIONAL, MWTabs::getDisabledTabIcon);
         TOOLS = registerTab(event, "tools", REDSTONE, MWTabs::getDisabledTabIcon);
@@ -136,7 +136,11 @@ public final class MWTabs {
                     MWBlocks.DEEPSLATE_RUBY_ORE,
                     MWBlocks.SAPPHIRE_ORE,
                     MWBlocks.DEEPSLATE_SAPPHIRE_ORE,
-                    MWBlocks.PYRITE_ORE);
+                    MWBlocks.PYRITE_ORE,
+                    MWBlocks.BLUE_ROSE,
+                    MWBlocks.WHITE_ROSE,
+                    MWBlocks.BLUE_ROSE_BUSH,
+                    MWBlocks.WHITE_ROSE_BUSH);
         }
         else if(tab.equals(FUNCTIONAL)) {
             //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests

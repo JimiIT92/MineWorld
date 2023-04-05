@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:potted_blue_rose",
+    "mineworld:potted_blue_rose_bush",
+    "mineworld:potted_white_rose",
+    "mineworld:potted_white_rose_bush"
+  ]
+}

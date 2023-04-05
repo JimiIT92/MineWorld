@@ -1,10 +1,10 @@
 package org.mineworld.core;
 
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -14,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 
+import java.util.HashMap;
 import java.util.function.Supplier;
 
 /**
@@ -21,6 +22,10 @@ import java.util.function.Supplier;
  */
 public final class MWBlocks {
 
+    /**
+     * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
+     */
+    private static final HashMap<RegistryObject<Block>, RegistryObject<Block>> flowerPots = new HashMap<>();
     /**
      * {@link DeferredRegister<Block> The block registry}
      */
@@ -47,7 +52,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerMetalOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMaterialColor());
     public static final RegistryObject<Block> PYRITE_BLOCK = registerFuelBlock("pyrite_block", MWColors.PYRITE.toMaterialColor(), 1200);
     public static final RegistryObject<Block> CHARCOAL_BLOCK = registerFuelBlock("charcoal_block", MWColors.CHARCOAL.toMaterialColor(), 800);
-
     public static final RegistryObject<Block> MARBLE = registerBlock("marble", () -> new Block(basicBlockProperties(Material.STONE, MWColors.MARBLE.toMaterialColor(), 1.5F, 6.0F, true, SoundType.CALCITE)));
     public static final RegistryObject<Block> WHITE_MARBLE = registerBlock("white_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
     public static final RegistryObject<Block> ORANGE_MARBLE = registerBlock("orange_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
@@ -65,6 +69,14 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GREEN_MARBLE = registerBlock("green_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
     public static final RegistryObject<Block> RED_MARBLE = registerBlock("red_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
     public static final RegistryObject<Block> BLACK_MARBLE = registerBlock("black_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> BLUE_ROSE = registerFlower("blue_rose", () -> MobEffects.SATURATION);
+    public static final RegistryObject<Block> POTTED_BLUE_ROSE = registerFlowerPot("potted_blue_rose", BLUE_ROSE);
+    public static final RegistryObject<Block> BLUE_ROSE_BUSH = registerTallFlower("blue_rose_bush");
+    public static final RegistryObject<Block> POTTED_BLUE_ROSE_BUSH = registerFlowerPot("potted_blue_rose_bush", BLUE_ROSE_BUSH);
+    public static final RegistryObject<Block> WHITE_ROSE = registerFlower("white_rose", () -> MobEffects.HEAL);
+    public static final RegistryObject<Block> POTTED_WHITE_ROSE = registerFlowerPot("potted_white_rose", WHITE_ROSE);
+    public static final RegistryObject<Block> WHITE_ROSE_BUSH = registerTallFlower("white_rose_bush");
+    public static final RegistryObject<Block> POTTED_WHITE_ROSE_BUSH = registerFlowerPot("potted_white_rose_bush", WHITE_ROSE_BUSH);
 
     //#endregion
 
@@ -214,6 +226,40 @@ public final class MWBlocks {
     }
 
     /**
+     * Register a {@link FlowerBlock flower block}
+     *
+     * @param name {@link String The block name}
+     * @param effectSupplier {@link Supplier<MobEffect> The flower effect when used in suspicious stews}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerFlower(final String name, final Supplier<MobEffect> effectSupplier) {
+        return registerBlock(name, () -> new FlowerBlock(effectSupplier, 5, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ)));
+    }
+
+    /**
+     * Register a {@link TallFlowerBlock tall flower block}
+     *
+     * @param name {@link String The block name}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerTallFlower(final String name) {
+        return registerBlock(name, () -> new TallFlowerBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ)));
+    }
+
+    /**
+     * Register a {@link FlowerPotBlock flower pot block}
+     *
+     * @param name {@link String The block name}
+     * @param flowerSupplier {@link Supplier<Block> The flower this pot is referring to}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerFlowerPot(final String name, final RegistryObject<Block> flowerSupplier) {
+        final RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flowerSupplier, BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
+        flowerPots.put(flowerSupplier, block);
+        return block;
+    }
+
+    /**
      * Register a {@link Block block} using the {@link Material material color} and the base {@link SoundType block sound}
      *
      * @param name {@link String The block name}
@@ -293,6 +339,14 @@ public final class MWBlocks {
      */
     private static <T extends Block> void registerBlockItem(final String name, final RegistryObject<T> block) {
         MWItems.registerItem(name, () -> new BlockItem(block.get(), MWItems.basicProperties()));
+    }
+
+    /**
+     * Register the {@link MineWorld MineWorld} flower pots
+     */
+    public static void registerFlowerPots() {
+        final FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        flowerPots.forEach((flower, pot) -> flowerPot.addPlant(flower.getId(), pot));
     }
 
     /**
