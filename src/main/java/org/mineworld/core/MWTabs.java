@@ -48,7 +48,7 @@ public final class MWTabs {
     @SubscribeEvent
     public static void onRegisterCreativeTabs(final CreativeModeTabEvent.Register event) {
         BUILDING_BLOCKS = registerTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> MWItems.getDefaultStack(MWBlocks.SAPPHIRE_BLOCK));
-        COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, MWTabs::getDisabledTabIcon);
+        COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.PINK_MARBLE));
         NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.DEEPSLATE_RUBY_ORE));
         FUNCTIONAL = registerTab(event, "functional", NATURAL, MWTabs::getDisabledTabIcon);
         REDSTONE = registerTab(event, "redstone", FUNCTIONAL, MWTabs::getDisabledTabIcon);
@@ -105,12 +105,29 @@ public final class MWTabs {
                     MWBlocks.RAW_BRONZE_BLOCK);
         }
         else if(tab.equals(COLORED_BLOCKS)) {
-            //base - white - l gray - gray - black - brown - red - orange - yellow - lime - green - cyan - l blue - blue - purple - magenta - pink
-            event.accept(Blocks.STRUCTURE_VOID);
+            addToTab(event,
+                    MWBlocks.MARBLE,
+                    MWBlocks.WHITE_MARBLE,
+                    MWBlocks.LIGHT_GRAY_MARBLE,
+                    MWBlocks.GRAY_MARBLE,
+                    MWBlocks.BLACK_MARBLE,
+                    MWBlocks.BROWN_MARBLE,
+                    MWBlocks.RED_MARBLE,
+                    MWBlocks.ORANGE_MARBLE,
+                    MWBlocks.YELLOW_MARBLE,
+                    MWBlocks.LIME_MARBLE,
+                    MWBlocks.GREEN_MARBLE,
+                    MWBlocks.CYAN_MARBLE,
+                    MWBlocks.LIGHT_BLUE_MARBLE,
+                    MWBlocks.BLACK_MARBLE,
+                    MWBlocks.PURPLE_MARBLE,
+                    MWBlocks.MAGENTA_MARBLE,
+                    MWBlocks.PINK_MARBLE);
         }
         else if(tab.equals(NATURAL)) {
             //grass/terrain - stone - ores - nether ores - raw blocks - logs - leaves - saplings - flowers - deco blocks
             addToTab(event,
+                    MWBlocks.MARBLE,
                     MWBlocks.SILVER_ORE,
                     MWBlocks.DEEPSLATE_SILVER_ORE,
                     MWBlocks.ALUMINUM_ORE,

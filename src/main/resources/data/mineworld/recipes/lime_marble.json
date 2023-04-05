@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "marble",
+  "ingredients": [
+    {
+      "item": "minecraft:lime_dye"
+    },
+    {
+      "item": "mineworld:marble"
+    }
+  ],
+  "result": {
+    "item": "mineworld:lime_marble"
+  }
+}

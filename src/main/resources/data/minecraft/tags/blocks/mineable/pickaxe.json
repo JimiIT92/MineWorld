@@ -15,6 +15,7 @@
     "mineworld:ruby_block",
     "mineworld:sapphire_block",
     "mineworld:charcoal_block",
-    "mineworld:pyrite_block"
+    "mineworld:pyrite_block",
+    "#mineworld:marbles"
   ]
 }

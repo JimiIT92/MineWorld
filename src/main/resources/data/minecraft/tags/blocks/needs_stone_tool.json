@@ -9,6 +9,7 @@
     "mineworld:raw_bronze_block",
     "mineworld:silver_block",
     "mineworld:aluminum_block",
-    "mineworld:bronze_block"
+    "mineworld:bronze_block",
+    "#mineworld:marbles"
   ]
 }

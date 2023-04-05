@@ -48,6 +48,24 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PYRITE_BLOCK = registerFuelBlock("pyrite_block", MWColors.PYRITE.toMaterialColor(), 1200);
     public static final RegistryObject<Block> CHARCOAL_BLOCK = registerFuelBlock("charcoal_block", MWColors.CHARCOAL.toMaterialColor(), 800);
 
+    public static final RegistryObject<Block> MARBLE = registerBlock("marble", () -> new Block(basicBlockProperties(Material.STONE, MWColors.MARBLE.toMaterialColor(), 1.5F, 6.0F, true, SoundType.CALCITE)));
+    public static final RegistryObject<Block> WHITE_MARBLE = registerBlock("white_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> ORANGE_MARBLE = registerBlock("orange_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> MAGENTA_MARBLE = registerBlock("magenta_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE = registerBlock("light_blue_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> YELLOW_MARBLE = registerBlock("yellow_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> LIME_MARBLE = registerBlock("lime_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> PINK_MARBLE = registerBlock("pink_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> GRAY_MARBLE = registerBlock("gray_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE = registerBlock("light_gray_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> CYAN_MARBLE = registerBlock("cyan_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> PURPLE_MARBLE = registerBlock("purple_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> BLUE_MARBLE = registerBlock("blue_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> BROWN_MARBLE = registerBlock("brown_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> GREEN_MARBLE = registerBlock("green_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> RED_MARBLE = registerBlock("red_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> BLACK_MARBLE = registerBlock("black_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+
     //#endregion
 
     /**

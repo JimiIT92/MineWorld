@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "marble",
+  "ingredients": [
+    {
+      "item": "minecraft:cyan_dye"
+    },
+    {
+      "item": "mineworld:marble"
+    }
+  ],
+  "result": {
+    "item": "mineworld:cyan_marble"
+  }
+}

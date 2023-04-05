@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "marble",
+  "ingredients": [
+    {
+      "item": "minecraft:white_dye"
+    },
+    {
+      "item": "mineworld:marble"
+    }
+  ],
+  "result": {
+    "item": "mineworld:white_marble"
+  }
+}

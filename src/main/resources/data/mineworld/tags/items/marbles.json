@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:marble",
+    "mineworld:white_marble",
+    "mineworld:orange_marble",
+    "mineworld:magenta_marble",
+    "mineworld:light_blue_marble",
+    "mineworld:yellow_marble",
+    "mineworld:lime_marble",
+    "mineworld:pink_marble",
+    "mineworld:gray_marble",
+    "mineworld:light_gray_marble",
+    "mineworld:cyan_marble",
+    "mineworld:purple_marble",
+    "mineworld:blue_marble",
+    "mineworld:brown_marble",
+    "mineworld:green_marble",
+    "mineworld:red_marble",
+    "mineworld:black_marble"
+  ]
+}

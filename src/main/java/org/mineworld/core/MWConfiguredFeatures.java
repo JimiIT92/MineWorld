@@ -31,6 +31,7 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_RUBY = registerKey("ore_ruby");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = registerKey("ore_sapphire");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_PYRITE = registerKey("ore_pyrite");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MARBLE = registerKey("ore_marble");
 
     //#endregion
 
@@ -46,7 +47,9 @@ public final class MWConfiguredFeatures {
         registerOverworldOre(context, ORE_ALUMINUM_SMALL, MWBlocks.ALUMINUM_ORE, MWBlocks.DEEPSLATE_ALUMINUM_ORE, 4);
         registerOverworldOre(context, ORE_RUBY, MWBlocks.RUBY_ORE, MWBlocks.DEEPSLATE_RUBY_ORE, 3);
         registerOverworldOre(context, ORE_SAPPHIRE, MWBlocks.SAPPHIRE_ORE, MWBlocks.DEEPSLATE_SAPPHIRE_ORE, 3);
+        registerOverworldOre(context, ORE_MARBLE, MWBlocks.MARBLE, 32);
         registerNetherOre(context, ORE_PYRITE, MWBlocks.PYRITE_ORE, 17);
+
     }
 
     /**
@@ -60,6 +63,17 @@ public final class MWConfiguredFeatures {
         return Suppliers.memoize(() -> List.of(
                 OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), stoneOreSupplier.get().defaultBlockState()),
                 OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslateOreSupplier.get().defaultBlockState())));
+    }
+
+    /**
+     * Get the Overworld {@link OreConfiguration.TargetBlockState target block states}
+     * for an ore that doesn't have a variant
+     *
+     * @param oreSupplier {@link Supplier<Block> The stone ore block supplier}
+     * @return {@link OreConfiguration.TargetBlockState Overworld target block states}
+     */
+    private static Supplier<List<OreConfiguration.TargetBlockState>> createOverworldTargetStates(final Supplier<Block> oreSupplier) {
+        return Suppliers.memoize(() -> List.of(OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD), oreSupplier.get().defaultBlockState())));
     }
 
     /**
@@ -83,6 +97,19 @@ public final class MWConfiguredFeatures {
      */
     private static void registerOverworldOre(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<Block> stoneOre, final Supplier<Block> deepslateOre, final int size) {
         registerOre(context, key, createOverworldTargetStates(stoneOre, deepslateOre), size);
+    }
+
+    /**
+     * Register an Overworld {@link ConfiguredFeature ore configured feature}
+     * that doesn't have a variant
+     *
+     * @param context {@link BootstapContext<ConfiguredFeature> The bootstrap context}
+     * @param key {@link ResourceKey The configured feature resource key}
+     * @param oreSupplier {@link Supplier<Block> The stone ore block supplier}
+     * @param size {@link Integer The number of blocks per vein}
+     */
+    private static void registerOverworldOre(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<Block> oreSupplier, final int size) {
+        registerOre(context, key, createOverworldTargetStates(oreSupplier), size);
     }
 
     /**

@@ -30,6 +30,7 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_RUBY = registerKey("ore_ruby");
     public static final ResourceKey<PlacedFeature> ORE_SAPPHIRE = registerKey("ore_sapphire");
     public static final ResourceKey<PlacedFeature> ORE_PYRITE = registerKey("ore_pyrite");
+    public static final ResourceKey<PlacedFeature> ORE_MARBLE = registerKey("ore_marble");
 
     //#endregion
 
@@ -49,6 +50,7 @@ public final class MWPlacedFeatures {
         registerCommonOre(context, ORE_RUBY, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_RUBY), 100, -16, 480);
         registerCommonOre(context, ORE_SAPPHIRE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_SAPPHIRE), 100, -16, 480);
         register(context, ORE_PYRITE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_PYRITE), commonOrePlacement(10, PlacementUtils.RANGE_10_10));
+        register(context, ORE_MARBLE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_MARBLE), commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-16))));
     }
 
     /**
