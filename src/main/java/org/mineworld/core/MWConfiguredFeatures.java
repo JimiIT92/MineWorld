@@ -47,7 +47,7 @@ public final class MWConfiguredFeatures {
         registerOverworldOre(context, ORE_ALUMINUM_SMALL, MWBlocks.ALUMINUM_ORE, MWBlocks.DEEPSLATE_ALUMINUM_ORE, 4);
         registerOverworldOre(context, ORE_RUBY, MWBlocks.RUBY_ORE, MWBlocks.DEEPSLATE_RUBY_ORE, 3);
         registerOverworldOre(context, ORE_SAPPHIRE, MWBlocks.SAPPHIRE_ORE, MWBlocks.DEEPSLATE_SAPPHIRE_ORE, 3);
-        registerOverworldOre(context, ORE_MARBLE, MWBlocks.MARBLE, 32);
+        registerOverworldOre(context, ORE_MARBLE, MWBlocks.MARBLE, 16);
         registerNetherOre(context, ORE_PYRITE, MWBlocks.PYRITE_ORE, 17);
 
     }

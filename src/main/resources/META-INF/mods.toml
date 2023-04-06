@@ -1,15 +1,22 @@
 modLoader="javafml"
 loaderVersion="[45,)"
-license="MIT"
+license="https://github.com/JimiIT92/Mineworld/blob/master/LICENSE"
 issueTrackerURL="https://github.com/JimiIT92/MineWorld/issues"
 [[mods]]
 modId="mineworld"
 version="${file.jarVersion}"
 displayName="MineWorld"
 updateJSONURL="https://raw.githubusercontent.com/JimiIT92/MineWorld/master/version/update.json"
-displayURL="https://mineworldminecraft.altervista.org/blog/"
+displayURL="https://mineworldminecraft.altervista.org/"
 logoFile="MineWorld.png"
-credits="Thanks to everyone that contributed through the years and supported the project"
+credits='''
+
+Thanks to everyone that contributed through the years
+and supported the project.
+
+The full credits list can be found here:
+https://github.com/JimiIT92/Mineworld/blob/master/CREDITS.md
+'''
 authors="JimiIT92"
 displayTest="MATCH_VERSION"
 description="Just another Minecraft mod"
