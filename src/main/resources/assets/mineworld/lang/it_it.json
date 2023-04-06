@@ -22,6 +22,9 @@
   "item.mineworld.bronze_ingot": "Lingotto di bronzo",
   "item.mineworld.bronze_nugget": "Pepita di bronzo",
   "item.mineworld.copper_nugget": "Pepita di rame",
+  "item.mineworld.corn_seeds": "Semi di mais",
+  "item.mineworld.cob": "Pannocchia",
+  "item.mineworld.cooked_cob": "Pannocchia cotta",
   "block.mineworld.silver_ore": "Minerale di argento",
   "block.mineworld.deepslate_silver_ore": "Minerale di argento in ardesia profonda",
   "block.mineworld.aluminum_ore": "Minerale di alluminio",
@@ -56,7 +59,6 @@
   "block.mineworld.green_marble": "Marmo verde",
   "block.mineworld.red_marble": "Marmo rosso",
   "block.mineworld.black_marble": "Marmo nero",
-  "smithing.minecraft.raw_bronze": "Bronzo grezzo",
   "block.mineworld.charcoal_block": "Blocco di carbonella",
   "block.mineworld.pyrite_block": "Blocco di pirite",
   "block.mineworld.blue_rose": "Rosa blu",
@@ -133,6 +135,7 @@
   "block.mineworld.potted_fire_coral_fan": "Gorgonia di fuoco in vaso",
   "block.mineworld.potted_dead_horn_coral_fan": "Gorgonia a corna morto in vaso",
   "block.mineworld.potted_horn_coral_fan": "Gorgonia a corna in vaso",
+  "block.mineworld.corn": "Mais",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.base_slot_description": "Inserisci dell'alluminio grezzo",
@@ -143,5 +146,6 @@
   "trim_material.mineworld.sapphire": "Di zaffiro",
   "trim_material.mineworld.silver": "Di argento",
   "trim_material.mineworld.aluminum": "Di alluminio",
-  "trim_material.mineworld.bronze": "Di bronzo"
+  "trim_material.mineworld.bronze": "Di bronzo",
+  "smithing.minecraft.raw_bronze": "Bronzo grezzo"
 }

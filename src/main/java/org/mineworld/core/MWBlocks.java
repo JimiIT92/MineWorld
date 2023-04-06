@@ -16,6 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
+import org.mineworld.block.CornBlock;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -147,6 +148,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> POTTED_FIRE_CORAL_FAN = registerCoralFlowerPot("potted_fire_coral_fan", POTTED_DEAD_FIRE_CORAL_FAN, () -> Blocks.FIRE_CORAL_FAN);
     public static final RegistryObject<Block> POTTED_DEAD_HORN_CORAL_FAN = registerFlowerPot("potted_dead_horn_coral_fan", () -> Blocks.DEAD_HORN_CORAL_FAN);
     public static final RegistryObject<Block> POTTED_HORN_CORAL_FAN = registerCoralFlowerPot("potted_horn_coral_fan", POTTED_DEAD_HORN_CORAL_FAN, () -> Blocks.HORN_CORAL_FAN);
+    public static final RegistryObject<Block> CORN = registerBlockWithoutBlockItem("corn", CornBlock::new);
 
     //#endregion
 

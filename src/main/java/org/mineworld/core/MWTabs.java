@@ -54,7 +54,7 @@ public final class MWTabs {
         REDSTONE = registerTab(event, "redstone", FUNCTIONAL, MWTabs::getDisabledTabIcon);
         TOOLS = registerTab(event, "tools", REDSTONE, MWTabs::getDisabledTabIcon);
         COMBAT = registerTab(event, "combat", TOOLS, MWTabs::getDisabledTabIcon);
-        FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, MWTabs::getDisabledTabIcon);
+        FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(MWItems.COB));
         INGREDIENTS = registerTab(event, "ingredients", FOOD_AND_DRINK, () -> MWItems.getDefaultStack(MWItems.RUBY));
         SPAWN_EGGS = registerTab(event, "spawn_eggs", INGREDIENTS, MWTabs::getDisabledTabIcon);
     }
@@ -125,7 +125,7 @@ public final class MWTabs {
                     MWBlocks.PINK_MARBLE);
         }
         else if(tab.equals(NATURAL)) {
-            //grass/terrain - stone - ores - nether ores - raw blocks - logs - leaves - saplings - flowers - deco blocks
+            //grass/terrain - stone - ores - nether ores - raw blocks - logs - leaves - saplings - flowers - seeds - deco blocks
             addToTab(event,
                     MWBlocks.MARBLE,
                     MWBlocks.SILVER_ORE,
@@ -140,7 +140,8 @@ public final class MWTabs {
                     MWBlocks.BLUE_ROSE,
                     MWBlocks.WHITE_ROSE,
                     MWBlocks.BLUE_ROSE_BUSH,
-                    MWBlocks.WHITE_ROSE_BUSH);
+                    MWBlocks.WHITE_ROSE_BUSH,
+                    MWItems.CORN_SEEDS);
         }
         else if(tab.equals(FUNCTIONAL)) {
             //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests
@@ -185,7 +186,10 @@ public final class MWTabs {
             //milk bucket
             //honey/drinks
             //potions (base - increased - level 2) base - splash - lingering
-            event.accept(Blocks.STRUCTURE_VOID);
+            addToTab(event,
+                    MWItems.COB,
+                    MWItems.COOKED_COB
+            );
         }
         else if(tab.equals(INGREDIENTS)) {
             //raw

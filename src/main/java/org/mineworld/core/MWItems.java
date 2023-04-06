@@ -5,10 +5,8 @@ import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SmithingTemplateItem;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -49,6 +47,9 @@ public final class MWItems {
     public static final RegistryObject<Item> COPPER_NUGGET = registerSimpleItem("copper_nugget");
     public static final RegistryObject<Item> RAW_BRONZE_SMITHING_TEMPLATE = registerItem("raw_bronze_smithing_template",
             () -> createBasicSmithingTemplate("raw_bronze", "raw_copper", "raw_aluminum"));
+    public static final RegistryObject<Item> CORN_SEEDS = registerItem("corn_seeds", () -> new ItemNameBlockItem(MWBlocks.CORN.get(), basicProperties()));
+    public static final RegistryObject<Item> COB = registerFood("cob", MWFoods.COB);
+    public static final RegistryObject<Item> COOKED_COB = registerFood("cooked_cob", MWFoods.COOKED_COB);
 
     //#endregion
 
@@ -182,6 +183,18 @@ public final class MWItems {
                 return burnTime * 20;
             }
         });
+    }
+
+    /**
+     * Register a {@link FoodProperties food item}
+     *
+     * @param name {@link String The item name}
+     * @param foodProperties {@link FoodProperties The food properties}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
+     */
+    public static RegistryObject<Item> registerFood(final String name, final FoodProperties foodProperties, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new Item(basicProperties(featureFlags).food(foodProperties)));
     }
 
     /**
