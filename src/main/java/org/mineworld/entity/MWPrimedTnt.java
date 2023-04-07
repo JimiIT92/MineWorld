@@ -32,18 +32,10 @@ public class MWPrimedTnt extends PrimedTnt {
      */
     private float explosionPower;
     /**
-     * {@link Integer The tnt fuse time}. Will be set accordingly to the explosion power
-     */
-    private int fuseTime;
-    /**
      * {@link LivingEntity The tnt igniter}
      */
     @Nullable
     private LivingEntity owner;
-    /**
-     * {@link Type The primed tnt type}
-     */
-    private Type type;
 
     /**
      * Constructor. Set the {@link EntityType entity type}
@@ -69,12 +61,10 @@ public class MWPrimedTnt extends PrimedTnt {
     public MWPrimedTnt(Level level, double posX, double posY, double posZ, @Nullable LivingEntity igniter, final float explosionPower, final Type type) {
         super(MWEntityTypes.MW_PRIMED_TNT.get(), level);
         this.explosionPower = explosionPower;
-        this.fuseTime = type.fuseTime;
-        this.type = type;
         this.setPos(posX, posY, posZ);
         final double delta = level.random.nextDouble() * (double)((float)Math.PI * 2F);
         this.setDeltaMovement(-Math.sin(delta) * 0.02D, 0.2F, -Math.cos(delta) * 0.02D);
-        this.setFuse(fuseTime);
+        this.setFuse(type.fuseTime);
         this.setType(type);
         this.xo = posX;
         this.yo = posY;

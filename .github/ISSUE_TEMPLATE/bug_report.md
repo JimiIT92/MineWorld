@@ -16,7 +16,7 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Versions (please complete the following information):**
+**Versions (please complete the following information)**
  - Minecraft: [e.g. 1.20]
  - Forge: [e.g. 45.0.42]
  - Mineworld: [e.g. 1.0]
