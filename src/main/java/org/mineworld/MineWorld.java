@@ -6,10 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.mineworld.core.MWBlocks;
-import org.mineworld.core.MWEntityTypes;
-import org.mineworld.core.MWFlowerPots;
-import org.mineworld.core.MWItems;
+import org.mineworld.core.*;
 
 import java.util.logging.Logger;
 
@@ -37,6 +34,7 @@ public final class MineWorld {
         MWItems.register(eventBus);
         MWBlocks.register(eventBus);
         MWEntityTypes.register(eventBus);
+        MWBlockEntityTypes.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);

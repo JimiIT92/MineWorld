@@ -50,8 +50,8 @@ public final class MWTabs {
         BUILDING_BLOCKS = registerTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> MWItems.getDefaultStack(MWBlocks.SAPPHIRE_BLOCK));
         COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.PINK_MARBLE));
         NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.BLUE_ROSE));
-        FUNCTIONAL = registerTab(event, "functional", NATURAL, MWTabs::getDisabledTabIcon);
-        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(MWBlocks.SUPER_TNT));
+        FUNCTIONAL = registerTab(event, "functional", NATURAL, () -> MWItems.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
+        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
         TOOLS = registerTab(event, "tools", REDSTONE, MWTabs::getDisabledTabIcon);
         COMBAT = registerTab(event, "combat", TOOLS, () -> MWItems.getDefaultStack(MWBlocks.HYPER_TNT));
         FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(MWFoods.COB));
@@ -145,7 +145,9 @@ public final class MWTabs {
         }
         else if(tab.equals(FUNCTIONAL)) {
             //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests
-            event.accept(Blocks.STRUCTURE_VOID);
+            addToTab(event,
+                    MWBlocks.DAYLIGHT_LAMP
+            );
         }
         else if(tab.equals(REDSTONE)) {
             //components - buttons (if new kind) - pressure plates (if new kind) - pistons - dropper/hoppers - chests (if new kind) - furnaces (if new kind) - minecarts - boat with chest (if new kind) - doors (if new kind)
@@ -158,7 +160,8 @@ public final class MWTabs {
                     MWBlocks.DISGUISED_STONE_TNT,
                     MWBlocks.MEGA_TNT,
                     MWBlocks.SUPER_TNT,
-                    MWBlocks.HYPER_TNT);
+                    MWBlocks.HYPER_TNT,
+                    MWBlocks.DAYLIGHT_LAMP);
         }
         else if(tab.equals(TOOLS)) {
         //tools tiers low to high - fluid buckets - unique tools - compasses - clock - useful items - boats(normal + chest) - minecarts - goat horns - music discs

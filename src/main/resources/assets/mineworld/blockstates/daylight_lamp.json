@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,inverted=false": {
+      "model": "mineworld:block/daylight_lamp"
+    },
+    "lit=true,inverted=false": {
+      "model": "mineworld:block/daylight_lamp_on"
+    },
+    "lit=false,inverted=true": {
+      "model": "mineworld:block/daylight_lamp_inverted"
+    },
+    "lit=true,inverted=true": {
+      "model": "mineworld:block/daylight_lamp_inverted_on"
+    }
+  }
+}

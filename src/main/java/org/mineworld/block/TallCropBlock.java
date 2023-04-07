@@ -10,18 +10,16 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.core.MWBlocks;
 
 import java.util.function.Supplier;
 
@@ -57,7 +55,7 @@ public class TallCropBlock extends CropBlock {
      * @param seedSupplier {@link Supplier<Item> The seed item supplier}
      */
     public TallCropBlock(final Supplier<Item> seedSupplier) {
-        super(BlockBehaviour.Properties.of(Material.PLANT).instabreak().noCollission().sound(SoundType.CROP));
+        super(MWBlocks.copyFrom(Blocks.WHEAT));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
         SHAPE_BY_AGE = getShapes();
         SEED_SUPPLIER = seedSupplier;
@@ -268,7 +266,7 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Gro the crop naturally. If the lower part reaches the max age,
+     * Grow the crop naturally. If the lower part reaches the max age,
      * the initial stage of the upper part is placed
      *
      * @param blockState {@link BlockState The current block state}

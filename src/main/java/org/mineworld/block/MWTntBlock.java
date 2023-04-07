@@ -18,12 +18,12 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.entity.MWPrimedTnt;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class MWTntBlock extends TntBlock {
      * @param type {@link MWPrimedTnt.Type The tnt type}
      */
     public MWTntBlock(final float explosionPower, final MWPrimedTnt.Type type) {
-        super(BlockBehaviour.Properties.copy(Blocks.TNT));
+        super(MWBlocks.copyFrom(Blocks.TNT));
         this.explosionPower = explosionPower;
         this.type = type;
     }

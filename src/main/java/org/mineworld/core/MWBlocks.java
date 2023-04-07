@@ -14,6 +14,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
+import org.mineworld.block.DaylightLampBlock;
 import org.mineworld.block.MWFallableTntBlock;
 import org.mineworld.block.MWTntBlock;
 import org.mineworld.entity.MWPrimedTnt;
@@ -80,6 +81,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> MEGA_TNT = registerBlock("mega_tnt", () -> new MWTntBlock(8.0F, MWPrimedTnt.Type.MEGA));
     public static final RegistryObject<Block> SUPER_TNT = registerBlock("super_tnt", () -> new MWTntBlock(16.0F, MWPrimedTnt.Type.SUPER));
     public static final RegistryObject<Block> HYPER_TNT = registerBlock("hyper_tnt", () -> new MWTntBlock(32.0F, MWPrimedTnt.Type.HYPER));
+    public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", DaylightLampBlock::new);
 
     //#endregion
 
