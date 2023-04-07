@@ -34,10 +34,6 @@ import java.util.List;
 public class MWTntBlock extends TntBlock {
 
     /**
-     * {@link Float tnt explosion power}
-     */
-    private final float explosionPower;
-    /**
      * {@link MWPrimedTnt.Type The tnt type}
      */
     private final MWPrimedTnt.Type type;
@@ -45,12 +41,10 @@ public class MWTntBlock extends TntBlock {
     /**
      * Constructor. Set the {@link Float tnt explosion power}
      *
-     * @param explosionPower {@link Float The tnt explosion power}
      * @param type {@link MWPrimedTnt.Type The tnt type}
      */
-    public MWTntBlock(final float explosionPower, final MWPrimedTnt.Type type) {
+    public MWTntBlock(final MWPrimedTnt.Type type) {
         super(MWBlocks.copyFrom(Blocks.TNT));
-        this.explosionPower = explosionPower;
         this.type = type;
     }
 
@@ -99,7 +93,7 @@ public class MWTntBlock extends TntBlock {
      * @return {@link PrimedTnt The tnt entity}
      */
     private MWPrimedTnt getPrimedTnt(final Level level, final BlockPos blockPos, final LivingEntity igniter) {
-        return new MWPrimedTnt(level, (double)blockPos.getX() + 0.5D, blockPos.getY(), (double)blockPos.getZ() + 0.5D, igniter, this.explosionPower, this.type);
+        return new MWPrimedTnt(level, (double)blockPos.getX() + 0.5D, blockPos.getY(), (double)blockPos.getZ() + 0.5D, igniter, this.type);
     }
 
     /**

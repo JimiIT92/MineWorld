@@ -73,14 +73,14 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BLUE_ROSE_BUSH = registerTallFlower("blue_rose_bush");
     public static final RegistryObject<Block> WHITE_ROSE = registerFlower("white_rose", () -> MobEffects.HEAL);
     public static final RegistryObject<Block> WHITE_ROSE_BUSH = registerTallFlower("white_rose_bush");
-    public static final RegistryObject<Block> DISGUISED_GRASS_TNT = registerBlock("disguised_grass_tnt", () -> new MWTntBlock(2.0F, MWPrimedTnt.Type.DISGUISED_GRASS));
-    public static final RegistryObject<Block> DISGUISED_DIRT_TNT = registerBlock("disguised_dirt_tnt", () -> new MWTntBlock(2.0F, MWPrimedTnt.Type.DISGUISED_DIRT));
-    public static final RegistryObject<Block> DISGUISED_SAND_TNT = registerBlock("disguised_sand_tnt", () -> new MWFallableTntBlock(2.0F, MWPrimedTnt.Type.DISGUISED_SAND, 14406560));
-    public static final RegistryObject<Block> DISGUISED_RED_SAND_TNT = registerBlock("disguised_red_sand_tnt", () -> new MWFallableTntBlock(2.0F, MWPrimedTnt.Type.DISGUISED_RED_SAND, 11098145));
-    public static final RegistryObject<Block> DISGUISED_STONE_TNT = registerBlock("disguised_stone_tnt", () -> new MWTntBlock(2.0F, MWPrimedTnt.Type.DISGUISED_STONE));
-    public static final RegistryObject<Block> MEGA_TNT = registerBlock("mega_tnt", () -> new MWTntBlock(8.0F, MWPrimedTnt.Type.MEGA));
-    public static final RegistryObject<Block> SUPER_TNT = registerBlock("super_tnt", () -> new MWTntBlock(16.0F, MWPrimedTnt.Type.SUPER));
-    public static final RegistryObject<Block> HYPER_TNT = registerBlock("hyper_tnt", () -> new MWTntBlock(32.0F, MWPrimedTnt.Type.HYPER));
+    public static final RegistryObject<Block> DISGUISED_GRASS_TNT = registerBlock("disguised_grass_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_GRASS));
+    public static final RegistryObject<Block> DISGUISED_DIRT_TNT = registerBlock("disguised_dirt_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_DIRT));
+    public static final RegistryObject<Block> DISGUISED_SAND_TNT = registerBlock("disguised_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_SAND, 14406560));
+    public static final RegistryObject<Block> DISGUISED_RED_SAND_TNT = registerBlock("disguised_red_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_RED_SAND, 11098145));
+    public static final RegistryObject<Block> DISGUISED_STONE_TNT = registerBlock("disguised_stone_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_STONE));
+    public static final RegistryObject<Block> MEGA_TNT = registerBlock("mega_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.MEGA));
+    public static final RegistryObject<Block> SUPER_TNT = registerBlock("super_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.SUPER));
+    public static final RegistryObject<Block> HYPER_TNT = registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));
     public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", DaylightLampBlock::new);
 
     //#endregion

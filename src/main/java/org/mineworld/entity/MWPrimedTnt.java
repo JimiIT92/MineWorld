@@ -55,12 +55,11 @@ public class MWPrimedTnt extends PrimedTnt {
      * @param posY {@link Double The tnt Y coordinate}
      * @param posZ {@link Double The tnt Z coordinate}
      * @param igniter {@link LivingEntity The entity who ignited the tnt}
-     * @param explosionPower {@link Float The tnt explosion power}
      * @param type {@link Type The primed tnt type}
      */
-    public MWPrimedTnt(Level level, double posX, double posY, double posZ, @Nullable LivingEntity igniter, final float explosionPower, final Type type) {
+    public MWPrimedTnt(Level level, double posX, double posY, double posZ, @Nullable LivingEntity igniter, final Type type) {
         super(MWEntityTypes.MW_PRIMED_TNT.get(), level);
-        this.explosionPower = explosionPower;
+        this.explosionPower = type.getExplosionPower();
         this.setPos(posX, posY, posZ);
         final double delta = level.random.nextDouble() * (double)((float)Math.PI * 2F);
         this.setDeltaMovement(-Math.sin(delta) * 0.02D, 0.2F, -Math.cos(delta) * 0.02D);
@@ -140,14 +139,14 @@ public class MWPrimedTnt extends PrimedTnt {
      * {@link MineWorld MineWorld} primed tnt types
      */
     public enum Type {
-        MEGA(false, 120),
-        SUPER(false, 160),
-        HYPER(false, 200),
-        DISGUISED_GRASS(true, 40),
-        DISGUISED_DIRT(true, 40),
-        DISGUISED_SAND(true, 40),
-        DISGUISED_RED_SAND(true, 40),
-        DISGUISED_STONE(true, 40);
+        MEGA(false, 120, 8),
+        SUPER(false, 160, 16),
+        HYPER(false, 200, 32),
+        DISGUISED_GRASS(true, 40, 2),
+        DISGUISED_DIRT(true, 40, 2),
+        DISGUISED_SAND(true, 40, 2),
+        DISGUISED_RED_SAND(true, 40, 2),
+        DISGUISED_STONE(true, 40, 2);
 
         /**
          * {@link Boolean If the tnt type represents a disguised one}
@@ -157,16 +156,22 @@ public class MWPrimedTnt extends PrimedTnt {
          * {@link Integer The tnt fuse time}
          */
         private final int fuseTime;
+        /**
+         * {@link Integer The tnt explosion power}
+         */
+        private final int explosionPower;
 
         /**
          * Constructor. Set if the tnt type is disguised
          *
          * @param isDisguised {@link Boolean If the tnt type is disguised}
          * @param fuseTime {@link Integer The tnt fuse time}
+         * @param explosionPower {@link Integer The tnt explosion power}
          */
-        Type(final boolean isDisguised, final int fuseTime) {
+        Type(final boolean isDisguised, final int fuseTime, final int explosionPower) {
             this.isDisguised = isDisguised;
             this.fuseTime = fuseTime;
+            this.explosionPower = explosionPower;
         }
 
         /**
@@ -176,6 +181,15 @@ public class MWPrimedTnt extends PrimedTnt {
          */
         public boolean isDisguised() {
             return this.isDisguised;
+        }
+
+        /**
+         * Get the {@link Integer tnt explosion power}
+         *
+         * @return {@link Integer The tnt explosion power}
+         */
+        public int getExplosionPower() {
+            return this.explosionPower;
         }
     }
 }

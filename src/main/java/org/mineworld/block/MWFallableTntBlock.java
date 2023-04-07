@@ -27,12 +27,11 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
     /**
      * Constructor. Set the {@link Float tnt explosion power}
      *
-     * @param explosionPower {@link Float The tnt explosion power}
      * @param type           {@link MWPrimedTnt.Type The tnt type}
      * @param dustColor      {@link Integer The falling block dust color}
      */
-    public MWFallableTntBlock(float explosionPower, final MWPrimedTnt.Type type, final int dustColor) {
-        super(explosionPower, type);
+    public MWFallableTntBlock(final MWPrimedTnt.Type type, final int dustColor) {
+        super(type);
         this.dustColor = dustColor;
     }
 
