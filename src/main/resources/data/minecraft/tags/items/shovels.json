@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:emerald_shovel",
+    "mineworld:ruby_shovel",
+    "mineworld:sapphire_shovel"
+  ]
+}

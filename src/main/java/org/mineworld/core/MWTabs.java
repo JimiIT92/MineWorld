@@ -52,7 +52,7 @@ public final class MWTabs {
         NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.BLUE_ROSE));
         FUNCTIONAL = registerTab(event, "functional", NATURAL, () -> MWItems.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
         REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
-        TOOLS = registerTab(event, "tools", REDSTONE, MWTabs::getDisabledTabIcon);
+        TOOLS = registerTab(event, "tools", REDSTONE, () -> MWItems.getDefaultStack(MWTools.EMERALD_PICKAXE));
         COMBAT = registerTab(event, "combat", TOOLS, () -> MWItems.getDefaultStack(MWBlocks.HYPER_TNT));
         FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(MWFoods.COB));
         INGREDIENTS = registerTab(event, "ingredients", FOOD_AND_DRINK, () -> MWItems.getDefaultStack(MWItems.RUBY));
@@ -169,8 +169,20 @@ public final class MWTabs {
             //pickaxe
             //axe
             //hoe
-
-            event.accept(Blocks.STRUCTURE_VOID);
+            addToTab(event,
+                    MWTools.EMERALD_SHOVEL,
+                    MWTools.EMERALD_PICKAXE,
+                    MWTools.EMERALD_AXE,
+                    MWTools.EMERALD_HOE,
+                    MWTools.RUBY_SHOVEL,
+                    MWTools.RUBY_PICKAXE,
+                    MWTools.RUBY_AXE,
+                    MWTools.RUBY_HOE,
+                    MWTools.SAPPHIRE_SHOVEL,
+                    MWTools.SAPPHIRE_PICKAXE,
+                    MWTools.SAPPHIRE_AXE,
+                    MWTools.SAPPHIRE_HOE
+            );
         }
         else if(tab.equals(COMBAT)) {
             //swords (low tier to high tier)
@@ -185,6 +197,17 @@ public final class MWTabs {
             //bows
             //arrows
             addToTab(event,
+                    MWTools.EMERALD_SWORD,
+                    MWTools.RUBY_SWORD,
+                    MWTools.SAPPHIRE_SWORD,
+                    MWTools.EMERALD_AXE,
+                    MWTools.RUBY_AXE,
+                    MWTools.SAPPHIRE_AXE,
+                    MWArmors.EMERALD_HELMET,
+                    MWArmors.EMERALD_CHESTPLATE,
+                    MWArmors.EMERALD_LEGGINGS,
+                    MWArmors.EMERALD_BOOTS,
+                    MWArmors.EMERALD_HORSE_ARMOR,
                     MWBlocks.DISGUISED_GRASS_TNT,
                     MWBlocks.DISGUISED_DIRT_TNT,
                     MWBlocks.DISGUISED_SAND_TNT,

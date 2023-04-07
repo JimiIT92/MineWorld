@@ -230,6 +230,8 @@ public final class MWItems {
      */
     public static void register(final IEventBus eventBus) {
         MWFoods.register(eventBus);
+        MWTools.register(eventBus);
+        MWArmors.register(eventBus);
         ITEMS.register(eventBus);
     }
 }
