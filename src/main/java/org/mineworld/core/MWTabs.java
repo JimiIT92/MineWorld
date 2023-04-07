@@ -51,10 +51,10 @@ public final class MWTabs {
         COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.PINK_MARBLE));
         NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.BLUE_ROSE));
         FUNCTIONAL = registerTab(event, "functional", NATURAL, MWTabs::getDisabledTabIcon);
-        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, MWTabs::getDisabledTabIcon);
+        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(MWBlocks.SUPER_TNT));
         TOOLS = registerTab(event, "tools", REDSTONE, MWTabs::getDisabledTabIcon);
-        COMBAT = registerTab(event, "combat", TOOLS, MWTabs::getDisabledTabIcon);
-        FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(MWItems.COB));
+        COMBAT = registerTab(event, "combat", TOOLS, () -> MWItems.getDefaultStack(MWBlocks.HYPER_TNT));
+        FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(MWFoods.COB));
         INGREDIENTS = registerTab(event, "ingredients", FOOD_AND_DRINK, () -> MWItems.getDefaultStack(MWItems.RUBY));
         SPAWN_EGGS = registerTab(event, "spawn_eggs", INGREDIENTS, MWTabs::getDisabledTabIcon);
     }
@@ -141,7 +141,7 @@ public final class MWTabs {
                     MWBlocks.WHITE_ROSE,
                     MWBlocks.BLUE_ROSE_BUSH,
                     MWBlocks.WHITE_ROSE_BUSH,
-                    MWItems.CORN_SEEDS);
+                    MWFoods.CORN_SEEDS);
         }
         else if(tab.equals(FUNCTIONAL)) {
             //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests
@@ -150,7 +150,15 @@ public final class MWTabs {
         else if(tab.equals(REDSTONE)) {
             //components - buttons (if new kind) - pressure plates (if new kind) - pistons - dropper/hoppers - chests (if new kind) - furnaces (if new kind) - minecarts - boat with chest (if new kind) - doors (if new kind)
             //fence gates (if new kind) - trapdoors (if new kind) - tnt - lamps - other blocks - ore
-            event.accept(Blocks.STRUCTURE_VOID);
+            addToTab(event,
+                    MWBlocks.DISGUISED_GRASS_TNT,
+                    MWBlocks.DISGUISED_DIRT_TNT,
+                    MWBlocks.DISGUISED_SAND_TNT,
+                    MWBlocks.DISGUISED_RED_SAND_TNT,
+                    MWBlocks.DISGUISED_STONE_TNT,
+                    MWBlocks.MEGA_TNT,
+                    MWBlocks.SUPER_TNT,
+                    MWBlocks.HYPER_TNT);
         }
         else if(tab.equals(TOOLS)) {
         //tools tiers low to high - fluid buckets - unique tools - compasses - clock - useful items - boats(normal + chest) - minecarts - goat horns - music discs
@@ -173,7 +181,15 @@ public final class MWTabs {
             //projectiles
             //bows
             //arrows
-            event.accept(Blocks.STRUCTURE_VOID);
+            addToTab(event,
+                    MWBlocks.DISGUISED_GRASS_TNT,
+                    MWBlocks.DISGUISED_DIRT_TNT,
+                    MWBlocks.DISGUISED_SAND_TNT,
+                    MWBlocks.DISGUISED_RED_SAND_TNT,
+                    MWBlocks.DISGUISED_STONE_TNT,
+                    MWBlocks.MEGA_TNT,
+                    MWBlocks.SUPER_TNT,
+                    MWBlocks.HYPER_TNT);
         }
         else if(tab.equals(FOOD_AND_DRINK)) {
             //vegetables
@@ -187,8 +203,8 @@ public final class MWTabs {
             //honey/drinks
             //potions (base - increased - level 2) base - splash - lingering
             addToTab(event,
-                    MWItems.COB,
-                    MWItems.COOKED_COB
+                    MWFoods.COB,
+                    MWFoods.COOKED_COB
             );
         }
         else if(tab.equals(INGREDIENTS)) {

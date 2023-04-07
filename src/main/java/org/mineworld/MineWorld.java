@@ -3,9 +3,12 @@ package org.mineworld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.core.MWEntityTypes;
+import org.mineworld.core.MWFlowerPots;
 import org.mineworld.core.MWItems;
 
 import java.util.logging.Logger;
@@ -33,9 +36,20 @@ public final class MineWorld {
 
         MWItems.register(eventBus);
         MWBlocks.register(eventBus);
+        MWEntityTypes.register(eventBus);
 
+        eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    /**
+     * Set up the {@link MineWorld MineWorld} client stuffs, like entity renderings
+     *
+     * @param event {@link FMLClientSetupEvent FML client setup event}
+     */
+    private void clientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(MWEntityTypes::registerRenderers);
     }
 
     /**
@@ -45,6 +59,6 @@ public final class MineWorld {
      * @param event {@link FMLCommonSetupEvent FML common setup event}
      */
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(MWBlocks::registerFlowerPots);
+        event.enqueueWork(MWFlowerPots::registerFlowerPots);
     }
 }
