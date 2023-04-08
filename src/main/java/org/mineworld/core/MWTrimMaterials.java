@@ -31,6 +31,7 @@ public final class MWTrimMaterials {
     public static final ResourceKey<TrimMaterial> SILVER = registerKey("silver");
     public static final ResourceKey<TrimMaterial> ALUMINUM = registerKey("aluminum");
     public static final ResourceKey<TrimMaterial> BRONZE = registerKey("bronze");
+    public static final ResourceKey<TrimMaterial> EMERALD_DARKER = registerKey("emerald_darker");
 
     //#endregion
 

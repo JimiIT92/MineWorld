@@ -32,6 +32,7 @@ public final class MWFlowerPots {
     public static final RegistryObject<Block> POTTED_BLUE_ROSE_BUSH = registerFlowerPot("potted_blue_rose_bush", MWBlocks.BLUE_ROSE_BUSH);
     public static final RegistryObject<Block> POTTED_WHITE_ROSE = registerFlowerPot("potted_white_rose", MWBlocks.WHITE_ROSE);
     public static final RegistryObject<Block> POTTED_WHITE_ROSE_BUSH = registerFlowerPot("potted_white_rose_bush", MWBlocks.WHITE_ROSE_BUSH);
+    public static final RegistryObject<Block> POTTED_MOSS_BLOCK = registerFlowerPot("potted_moss_block", () -> Blocks.MOSS_BLOCK);
     public static final RegistryObject<Block> POTTED_OAK_LEAVES = registerFlowerPot("potted_oak_leaves", () -> Blocks.OAK_LEAVES);
     public static final RegistryObject<Block> POTTED_SPRUCE_LEAVES = registerFlowerPot("potted_spruce_leaves", () -> Blocks.SPRUCE_LEAVES);
     public static final RegistryObject<Block> POTTED_BIRCH_LEAVES = registerFlowerPot("potted_birch_leaves", () -> Blocks.BIRCH_LEAVES);

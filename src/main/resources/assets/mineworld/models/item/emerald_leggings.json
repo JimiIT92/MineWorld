@@ -2,43 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
-      "model": "mineworld:item/trimmed_armors/chainmail_boots_prismarine_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_prismarine_trim",
       "predicate": {
         "trim_type": 0.01
       }
     },
     {
-      "model": "mineworld:item/trimmed_armors/chainmail_boots_echo_shard_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_echo_shard_trim",
       "predicate": {
         "trim_type": 0.02
       }
     },
     {
-      "model": "mineworld:item/trimmed_armors/chainmail_boots_ruby_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_ruby_trim",
       "predicate": {
         "trim_type": 0.03
       }
     },
     {
-      "model": "mineworld:item/trimmed_armors/chainmail_boots_sapphire_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_sapphire_trim",
       "predicate": {
         "trim_type": 0.04
       }
     },
     {
-      "model": "mineworld:item/trimmed_armors/chainmail_boots_silver_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_silver_trim",
       "predicate": {
         "trim_type": 0.05
       }
     },
     {
-      "model": "mineworld:item/trimmed_armors/chainmail_boots_aluminum_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_aluminum_trim",
       "predicate": {
         "trim_type": 0.06
       }
     },
     {
-      "model": "mineworld:item/trimmed_armors/chainmail_boots_bronze_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_bronze_trim",
       "predicate": {
         "trim_type": 0.07
       }
@@ -86,7 +86,7 @@
       }
     },
     {
-      "model": "mineworld:item/trimmed_armors/emerald_leggings_diamond_darker_trim",
+      "model": "mineworld:item/trimmed_armors/emerald_leggings_diamond_trim",
       "predicate": {
         "trim_type": 0.8
       }

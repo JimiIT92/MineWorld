@@ -131,4 +131,46 @@ public class MWTntBlock extends TntBlock {
             tooltips.add(blockName.withStyle(Style.EMPTY.withColor(color)));
         }
     }
+
+    /**
+     * Makes the block able to catch fire
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link Level The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Boolean True}
+     */
+    @Override
+    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+        return true;
+    }
+
+    /**
+     * Get the block {@link Integer flammability value}
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link Level The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Integer 100}
+     */
+    @Override
+    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+        return 100;
+    }
+
+    /**
+     * Get the block {@link Integer fire spread speed value}
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link Level The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Integer 15}
+     */
+    @Override
+    public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+        return 15;
+    }
 }

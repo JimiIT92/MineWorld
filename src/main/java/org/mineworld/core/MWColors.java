@@ -21,7 +21,8 @@ public enum MWColors {
     BRONZE(0x755848, MaterialColor.COLOR_BROWN),
     PYRITE(0x847C50, MaterialColor.TERRACOTTA_YELLOW),
     CHARCOAL(0x755848, MaterialColor.COLOR_BLACK),
-    MARBLE(0x9E9A86, MaterialColor.TERRACOTTA_GRAY);
+    MARBLE(0x9E9A86, MaterialColor.TERRACOTTA_GRAY),
+    EMERALD(0x1155126, MaterialColor.EMERALD);
 
     /**
      * {@link Integer RGB color}

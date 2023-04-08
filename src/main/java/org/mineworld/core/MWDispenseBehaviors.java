@@ -10,14 +10,20 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.item.HorseArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.entity.MWPrimedTnt;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * {@link MineWorld MineWorld} {@link DispenseItemBehavior dispense item behaviors}
@@ -83,16 +89,43 @@ public final class MWDispenseBehaviors {
      * Register the {@link DispenseItemBehavior dispense item behaviors}
      */
     public static void registerDispenseBehaviors() {
-        DispenserBlock.registerBehavior(MWBlocks.DISGUISED_GRASS_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_GRASS));
-        DispenserBlock.registerBehavior(MWBlocks.DISGUISED_DIRT_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_DIRT));
-        DispenserBlock.registerBehavior(MWBlocks.DISGUISED_SAND_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_SAND));
-        DispenserBlock.registerBehavior(MWBlocks.DISGUISED_RED_SAND_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_RED_SAND));
-        DispenserBlock.registerBehavior(MWBlocks.DISGUISED_STONE_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_STONE));
-        DispenserBlock.registerBehavior(MWBlocks.MEGA_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.MEGA));
-        DispenserBlock.registerBehavior(MWBlocks.SUPER_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.SUPER));
-        DispenserBlock.registerBehavior(MWBlocks.HYPER_TNT.get(), getTntDispenseItemBehavior(MWPrimedTnt.Type.HYPER));
+        registerTntDispenseBehaviors(Map.of(
+                MWBlocks.DISGUISED_DIRT_TNT, MWPrimedTnt.Type.DISGUISED_DIRT,
+                MWBlocks.DISGUISED_GRASS_TNT, MWPrimedTnt.Type.DISGUISED_GRASS,
+                MWBlocks.DISGUISED_SAND_TNT, MWPrimedTnt.Type.DISGUISED_SAND,
+                MWBlocks.DISGUISED_RED_SAND_TNT, MWPrimedTnt.Type.DISGUISED_RED_SAND,
+                MWBlocks.DISGUISED_STONE_TNT, MWPrimedTnt.Type.DISGUISED_STONE,
+                MWBlocks.MEGA_TNT, MWPrimedTnt.Type.MEGA,
+                MWBlocks.SUPER_TNT, MWPrimedTnt.Type.SUPER,
+                MWBlocks.HYPER_TNT, MWPrimedTnt.Type.HYPER
+            )
+        );
+        registerHorseArmorDispenseBehaviors(
+                MWArmors.CHAINMAIL_HORSE_ARMOR,
+                MWArmors.EMERALD_HORSE_ARMOR,
+                MWArmors.RUBY_HORSE_ARMOR,
+                MWArmors.SAPPHIRE_HORSE_ARMOR,
+                MWArmors.NETHERITE_HORSE_ARMOR
+        );
+    }
 
-        DispenserBlock.registerBehavior(MWArmors.EMERALD_HORSE_ARMOR.get(), HORSE_ARMOR_DISPENSE_ITEM_BEHAVIOR);
+    /**
+     * Register the {@link DispenseItemBehavior tnt dispense behaviors}
+     *
+     * @param tnts {@link Map.Entry The tnt dispense behaviors to register}
+     */
+    private static void registerTntDispenseBehaviors(Map<Supplier<Block>, MWPrimedTnt.Type> tnts) {
+        tnts.forEach((tnt, type) -> DispenserBlock.registerBehavior(tnt.get(), getTntDispenseItemBehavior(type)));
+    }
+
+    /**
+     * Register the {@link HorseArmorItem horse armor dispense behaviors}
+     *
+     * @param horseArmorItems {@link Supplier<Item> The horse armor item suppliers to register}
+     */
+    @SafeVarargs
+    private static void registerHorseArmorDispenseBehaviors(Supplier<Item>... horseArmorItems) {
+        Arrays.stream(horseArmorItems).forEach(horseArmorItem -> DispenserBlock.registerBehavior(horseArmorItem.get(), HORSE_ARMOR_DISPENSE_ITEM_BEHAVIOR));
     }
 
 }
