@@ -51,7 +51,7 @@ public final class MWTabs {
         COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.PINK_MARBLE));
         NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.BLUE_ROSE));
         FUNCTIONAL = registerTab(event, "functional", NATURAL, () -> MWItems.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
-        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
+        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(MWBlocks.GOLDEN_DOOR));
         TOOLS = registerTab(event, "tools", REDSTONE, () -> MWItems.getDefaultStack(MWTools.EMERALD_PICKAXE));
         COMBAT = registerTab(event, "combat", TOOLS, () -> MWItems.getDefaultStack(MWBlocks.HYPER_TNT));
         FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(MWFoods.COB));
@@ -103,8 +103,17 @@ public final class MWTabs {
                     MWBlocks.RAW_SILVER_BLOCK,
                     MWBlocks.RAW_ALUMINUM_BLOCK,
                     MWBlocks.RAW_BRONZE_BLOCK,
+                    MWBlocks.GOLDEN_CAGE,
+                    MWBlocks.GOLD_BARS,
+                    MWBlocks.GOLDEN_CHAIN,
                     MWBlocks.CUT_GOLD,
-                    MWBlocks.GOLDEN_DOOR);
+                    MWBlocks.GOLDEN_STAIRS,
+                    MWBlocks.CUT_GOLDEN_STAIRS,
+                    MWBlocks.GOLDEN_SLAB,
+                    MWBlocks.CUT_GOLDEN_SLAB,
+                    MWBlocks.GOLDEN_DOOR,
+                    MWBlocks.GOLDEN_TRAPDOOR,
+                    MWBlocks.CUT_GOLDEN_PRESSURE_PLATE);
         }
         else if(tab.equals(COLORED_BLOCKS)) {
             addToTab(event,
@@ -148,14 +157,18 @@ public final class MWTabs {
         else if(tab.equals(FUNCTIONAL)) {
             //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests
             addToTab(event,
+                    MWBlocks.GOLDEN_LANTERN,
+                    MWBlocks.GOLDEN_CHAIN,
                     MWBlocks.DAYLIGHT_LAMP
             );
         }
         else if(tab.equals(REDSTONE)) {
-            //components - buttons (if new kind) - pressure plates (if new kind) - pistons - dropper/hoppers - chests (if new kind) - furnaces (if new kind) - minecarts - boat with chest (if new kind) - doors (if new kind)
-            //fence gates (if new kind) - trapdoors (if new kind) - tnt - lamps - other blocks - ore
+            //components - buttons - pressure plates - pistons - dropper/hoppers - chests - furnaces - minecarts - boat with chest  - doors
+            //fence gates - trapdoors - tnt - lamps - other blocks - ore
             addToTab(event,
                     MWBlocks.GOLDEN_DOOR,
+                    MWBlocks.GOLDEN_TRAPDOOR,
+                    MWBlocks.CUT_GOLDEN_PRESSURE_PLATE,
                     MWBlocks.DISGUISED_GRASS_TNT,
                     MWBlocks.DISGUISED_DIRT_TNT,
                     MWBlocks.DISGUISED_SAND_TNT,

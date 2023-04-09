@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/golden_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/golden_lantern_hanging"
+    }
+  }
+}

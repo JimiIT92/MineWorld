@@ -7,6 +7,7 @@ import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -84,7 +85,17 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HYPER_TNT = registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));
     public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", DaylightLampBlock::new);
     public static final RegistryObject<Block> CUT_GOLD = registerSimpleBlock("cut_gold", copyFrom(Blocks.GOLD_BLOCK));
-    public static final RegistryObject<Block> GOLDEN_DOOR = registerDoorBlock("golden_door", true, BlockSetType.GOLD);
+    public static final RegistryObject<Block> GOLDEN_STAIRS = registerStair("golden_stairs", Blocks.GOLD_BLOCK);
+    public static final RegistryObject<Block> CUT_GOLDEN_STAIRS = registerStair("cut_golden_stairs", () -> CUT_GOLD.get().defaultBlockState());
+    public static final RegistryObject<Block> GOLDEN_SLAB = registerSlab("golden_slab", Blocks.GOLD_BLOCK);
+    public static final RegistryObject<Block> CUT_GOLDEN_SLAB = registerSlab("cut_golden_slab", () -> CUT_GOLD.get().defaultBlockState());
+    public static final RegistryObject<Block> GOLDEN_DOOR = registerDoor("golden_door", true, BlockSetType.GOLD);
+    public static final RegistryObject<Block> GOLDEN_TRAPDOOR = registerTrapdoor("golden_trapdoor", true, BlockSetType.GOLD);
+    public static final RegistryObject<Block> CUT_GOLDEN_PRESSURE_PLATE = registerWeightedPressurePlate("cut_golden_pressure_plate", 15, MaterialColor.GOLD, BlockSetType.GOLD);
+    public static final RegistryObject<Block> GOLDEN_CHAIN = registerChain("golden_chain");
+    public static final RegistryObject<Block> GOLDEN_LANTERN = registerLantern("golden_lantern");
+    public static final RegistryObject<Block> GOLD_BARS = registerBars("gold_bars");
+    public static final RegistryObject<Block> GOLDEN_CAGE = registerSimpleTranslucentBlock("golden_cage", copyFrom(Blocks.GOLD_BLOCK));
 
     //#endregion
 
@@ -251,19 +262,6 @@ public final class MWBlocks {
     }
 
     /**
-     * Register a {@link DoorBlock door block}
-     *
-     * @param name {@link String The block name}
-     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
-     * @param blockSetType {@link BlockSetType The door block set type}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerDoorBlock(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new DoorBlock(copyFrom(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetType));
-    }
-
-    /**
      * Register a {@link FlowerBlock flower block}
      *
      * @param name {@link String The block name}
@@ -287,7 +285,180 @@ public final class MWBlocks {
     }
 
     /**
-     * Register a {@link Block block} using the provided {@link Material color} and {@link SoundType block sound}
+     * Register a {@link DoorBlock door block}
+     *
+     * @param name {@link String The block name}
+     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
+     * @param blockSetType {@link BlockSetType The door block set type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerDoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new DoorBlock(copyFrom(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetType));
+    }
+
+    /**
+     * Register a {@link TrapDoorBlock trap door block}
+     *
+     * @param name {@link String The block name}
+     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
+     * @param blockSetType {@link BlockSetType The door block set type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerTrapdoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new TrapDoorBlock(copyFrom(requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags), blockSetType));
+    }
+
+    /**
+     * Register a {@link WeightedPressurePlateBlock weighted pressure plate block}
+     *
+     * @param name {@link String The block name}
+     * @param maxWeight {@link Integer The max weight the pressure plate can detect}
+     * @param materialColor {@link MaterialColor The block color on maps}
+     * @param blockSetType {@link BlockSetType The door block set type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new WeightedPressurePlateBlock(maxWeight, copyFrom(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags).color(materialColor), blockSetType));
+    }
+
+    /**
+     * Register a {@link StairBlock stair block}
+     *
+     * @param name {@link String The block name}
+     * @param block {@link Block The block this stair is based on}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerStair(final String name, final Block block, final FeatureFlag... featureFlags) {
+        return registerStair(name, block::defaultBlockState, featureFlags);
+    }
+
+    /**
+     * Register a {@link StairBlock stair block}
+     *
+     * @param name {@link String The block name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The block state supplier this stair is based on}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new StairBlock(blockStateSupplier, copyFrom(blockStateSupplier.get().getBlock(), featureFlags)));
+    }
+
+    /**
+     * Register a {@link SlabBlock stair block}
+     *
+     * @param name {@link String The block name}
+     * @param block {@link Block The block state this slab is based on}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerSlab(final String name, final Block block, final FeatureFlag... featureFlags) {
+        return registerSlab(name, block::defaultBlockState, featureFlags);
+    }
+
+    /**
+     * Register a {@link SlabBlock stair block}
+     *
+     * @param name {@link String The block name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The block state supplier this slab is based on}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new SlabBlock(copyFrom(blockStateSupplier.get().getBlock(), featureFlags)));
+    }
+
+    /**
+     * Register a {@link ChainBlock chain block}
+     *
+     * @param name {@link String The block name}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerChain(final String name, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new ChainBlock(copyFrom(Blocks.CHAIN, featureFlags).sound(SoundType.CHAIN)));
+    }
+
+    /**
+     * Register a {@link ChainBlock chain block}
+     *
+     * @param name {@link String The block name}
+     * @param sound {@link SoundType The block sound}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerChain(final String name, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new ChainBlock(copyFrom(Blocks.CHAIN, featureFlags).sound(sound)));
+    }
+
+    /**
+     * Register a {@link LanternBlock lantern block}
+     *
+     * @param name {@link String The block name}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerLantern(final String name, final FeatureFlag... featureFlags) {
+        return registerLantern(name, 15, featureFlags);
+    }
+
+    /**
+     * Register a {@link LanternBlock lantern block}
+     *
+     * @param name {@link String The block name}
+     * @param lightLevel {@link Integer The lantern light level}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerLantern(final String name, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new LanternBlock(copyFrom(Blocks.LANTERN, featureFlags).lightLevel((state) -> lightLevel)));
+    }
+
+    /**
+     * Register a {@link IronBarsBlock bar block}
+     *
+     * @param name {@link String The block name}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerBars(final String name, final FeatureFlag... featureFlags) {
+        return registerBars(name, SoundType.METAL, featureFlags);
+    }
+
+    /**
+     * Register a {@link IronBarsBlock bar block}
+     *
+     * @param name {@link String The block name}
+     * @param sound {@link SoundType The block sound}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerBars(final String name, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new IronBarsBlock(copyFrom(Blocks.IRON_BARS, featureFlags).sound(sound)));
+    }
+
+    /**
+     * Register a {@link Block block} using the provided {@link BlockBehaviour.Properties properties}
+     * and adding the translucent properties as well
+     *
+     * @param name {@link String The block name}
+     * @param properties {@link BlockBehaviour.Properties The block properties}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerSimpleTranslucentBlock(final String name, final BlockBehaviour.Properties properties) {
+        return registerBlock(name, () -> new Block(properties.noOcclusion()
+                .isValidSpawn((state, level, blockPos, entityType) -> false)
+                .isRedstoneConductor((state, level, blockPos) -> false)
+                .isSuffocating((state, level, blockPos) -> false)
+                .isViewBlocking((state, level, blockPos) -> false)));
+    }
+
+    /**
+     * Register a {@link Block block} using the provided {@link BlockBehaviour.Properties properties}
      *
      * @param name {@link String The block name}
      * @param properties {@link BlockBehaviour.Properties The block properties}

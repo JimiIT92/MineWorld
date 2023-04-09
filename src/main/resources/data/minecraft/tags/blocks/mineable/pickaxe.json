@@ -18,6 +18,16 @@
     "mineworld:pyrite_block",
     "#mineworld:marbles",
     "mineworld:cut_gold",
-    "mineworld:golden_door"
+    "mineworld:golden_stairs",
+    "mineworld:cut_golden_stairs",
+    "mineworld:golden_slab",
+    "mineworld:cut_golden_slab",
+    "mineworld:golden_door",
+    "mineworld:golden_trapdoor",
+    "mineworld:cut_golden_pressure_plate",
+    "mineworld:golden_chain",
+    "mineworld:golden_lantern",
+    "mineworld:gold_bars",
+    "mineworld:golden_cage"
   ]
 }
