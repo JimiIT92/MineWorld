@@ -113,7 +113,19 @@ public final class MWTabs {
                     MWBlocks.CUT_GOLDEN_SLAB,
                     MWBlocks.GOLDEN_DOOR,
                     MWBlocks.GOLDEN_TRAPDOOR,
-                    MWBlocks.CUT_GOLDEN_PRESSURE_PLATE);
+                    MWBlocks.CUT_GOLDEN_PRESSURE_PLATE,
+                    MWBlocks.NETHERITE_CAGE,
+                    MWBlocks.NETHERITE_BARS,
+                    MWBlocks.NETHERITE_CHAIN,
+                    MWBlocks.CUT_NETHERITE,
+                    MWBlocks.NETHERITE_STAIRS,
+                    MWBlocks.CUT_NETHERITE_STAIRS,
+                    MWBlocks.NETHERITE_SLAB,
+                    MWBlocks.CUT_NETHERITE_SLAB,
+                    MWBlocks.NETHERITE_DOOR,
+                    MWBlocks.NETHERITE_TRAPDOOR,
+                    MWBlocks.NETHERITE_PRESSURE_PLATE,
+                    MWBlocks.CUT_NETHERITE_PRESSURE_PLATE);
         }
         else if(tab.equals(COLORED_BLOCKS)) {
             addToTab(event,
@@ -158,7 +170,11 @@ public final class MWTabs {
             //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests
             addToTab(event,
                     MWBlocks.GOLDEN_LANTERN,
+                    MWBlocks.GOLDEN_SOUL_LANTERN,
                     MWBlocks.GOLDEN_CHAIN,
+                    MWBlocks.NETHERITE_LANTERN,
+                    MWBlocks.NETHERITE_SOUL_LANTERN,
+                    MWBlocks.NETHERITE_CHAIN,
                     MWBlocks.DAYLIGHT_LAMP
             );
         }
@@ -169,6 +185,10 @@ public final class MWTabs {
                     MWBlocks.GOLDEN_DOOR,
                     MWBlocks.GOLDEN_TRAPDOOR,
                     MWBlocks.CUT_GOLDEN_PRESSURE_PLATE,
+                    MWBlocks.NETHERITE_DOOR,
+                    MWBlocks.NETHERITE_TRAPDOOR,
+                    MWBlocks.NETHERITE_PRESSURE_PLATE,
+                    MWBlocks.CUT_NETHERITE_PRESSURE_PLATE,
                     MWBlocks.DISGUISED_GRASS_TNT,
                     MWBlocks.DISGUISED_DIRT_TNT,
                     MWBlocks.DISGUISED_SAND_TNT,

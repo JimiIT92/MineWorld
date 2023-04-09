@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/netherite_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/netherite_lantern_hanging"
+    }
+  }
+}

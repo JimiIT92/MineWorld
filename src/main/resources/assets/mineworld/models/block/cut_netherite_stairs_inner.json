@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "mineworld:block/cut_netherite",
+    "side": "mineworld:block/cut_netherite",
+    "top": "mineworld:block/cut_netherite"
+  }
+}

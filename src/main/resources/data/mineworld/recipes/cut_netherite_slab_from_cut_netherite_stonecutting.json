@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 8,
+  "ingredient": {
+    "item": "mineworld:cut_netherite"
+  },
+  "result": "mineworld:cut_netherite_slab"
+}

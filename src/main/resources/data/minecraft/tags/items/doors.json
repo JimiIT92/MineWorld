@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mineworld:golden_door"
+    "mineworld:golden_door",
+    "mineworld:netherite_door"
   ]
 }

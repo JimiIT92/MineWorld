@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_trapdoor_open",
+  "render_type": "cutout",
+  "textures": {
+    "texture": "mineworld:block/netherite_trapdoor"
+  }
+}

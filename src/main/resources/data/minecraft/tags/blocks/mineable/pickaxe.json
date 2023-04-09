@@ -27,7 +27,22 @@
     "mineworld:cut_golden_pressure_plate",
     "mineworld:golden_chain",
     "mineworld:golden_lantern",
+    "mineworld:golden_soul_lantern",
     "mineworld:gold_bars",
-    "mineworld:golden_cage"
+    "mineworld:golden_cage",
+    "mineworld:cut_netherite",
+    "mineworld:netherite_stairs",
+    "mineworld:cut_netherite_stairs",
+    "mineworld:netherite_slab",
+    "mineworld:cut_netherite_slab",
+    "mineworld:netherite_door",
+    "mineworld:netherite_trapdoor",
+    "mineworld:netherite_pressure_plate",
+    "mineworld:cut_netherite_pressure_plate",
+    "mineworld:netherite_chain",
+    "mineworld:netherite_lantern",
+    "mineworld:netherite_soul_lantern",
+    "mineworld:netherite_bars",
+    "mineworld:netherite_cage"
   ]
 }

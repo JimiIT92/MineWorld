@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mineworld:golden_trapdoor"
+    "mineworld:golden_trapdoor",
+    "mineworld:netherite_trapdoor"
   ]
 }

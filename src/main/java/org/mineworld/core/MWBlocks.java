@@ -94,8 +94,23 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_GOLDEN_PRESSURE_PLATE = registerWeightedPressurePlate("cut_golden_pressure_plate", 15, MaterialColor.GOLD, BlockSetType.GOLD);
     public static final RegistryObject<Block> GOLDEN_CHAIN = registerChain("golden_chain");
     public static final RegistryObject<Block> GOLDEN_LANTERN = registerLantern("golden_lantern");
+    public static final RegistryObject<Block> GOLDEN_SOUL_LANTERN = registerLantern("golden_soul_lantern", 10);
     public static final RegistryObject<Block> GOLD_BARS = registerBars("gold_bars");
     public static final RegistryObject<Block> GOLDEN_CAGE = registerSimpleTranslucentBlock("golden_cage", copyFrom(Blocks.GOLD_BLOCK));
+    public static final RegistryObject<Block> CUT_NETHERITE = registerSimpleBlock("cut_netherite", copyFrom(Blocks.NETHERITE_BLOCK));
+    public static final RegistryObject<Block> NETHERITE_STAIRS = registerStair("netherite_stairs", Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> CUT_NETHERITE_STAIRS = registerStair("cut_netherite_stairs", () -> CUT_NETHERITE.get().defaultBlockState());
+    public static final RegistryObject<Block> NETHERITE_SLAB = registerSlab("netherite_slab", Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> CUT_NETHERITE_SLAB = registerSlab("cut_netherite_slab", () -> CUT_NETHERITE.get().defaultBlockState());
+    public static final RegistryObject<Block> NETHERITE_DOOR = registerDoor("netherite_door", true, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_TRAPDOOR = registerTrapdoor("netherite_trapdoor", true, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("netherite_pressure_plate", 100, MaterialColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> CUT_NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("cut_netherite_pressure_plate", 100, MaterialColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_CHAIN = registerChain("netherite_chain");
+    public static final RegistryObject<Block> NETHERITE_LANTERN = registerLantern("netherite_lantern");
+    public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = registerLantern("netherite_soul_lantern", 10);
+    public static final RegistryObject<Block> NETHERITE_BARS = registerBars("netherite_bars");
+    public static final RegistryObject<Block> NETHERITE_CAGE = registerSimpleTranslucentBlock("netherite_cage", copyFrom(Blocks.NETHERITE_BLOCK));
 
     //#endregion
 
