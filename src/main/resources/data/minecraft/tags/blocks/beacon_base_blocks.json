@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "mineworld:ruby_block",
-    "mineworld:sapphire_block"
+    "mineworld:sapphire_block",
+    "mineworld:cut_gold"
   ]
 }

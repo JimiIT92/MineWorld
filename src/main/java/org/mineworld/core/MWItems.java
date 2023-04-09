@@ -91,7 +91,7 @@ public final class MWItems {
      */
     public static Item.Properties basicProperties(final FeatureFlag... featureFlags) {
         Item.Properties properties = new Item.Properties();
-        if(featureFlags != null) {
+        if(featureFlags != null && featureFlags.length > 0) {
             properties = properties.requiredFeatures(featureFlags);
         }
         return properties;

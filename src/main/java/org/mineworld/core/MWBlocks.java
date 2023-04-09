@@ -7,6 +7,7 @@ import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -52,23 +53,23 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerMetalOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMaterialColor());
     public static final RegistryObject<Block> PYRITE_BLOCK = registerFuelBlock("pyrite_block", MWColors.PYRITE.toMaterialColor(), 1200);
     public static final RegistryObject<Block> CHARCOAL_BLOCK = registerFuelBlock("charcoal_block", MWColors.CHARCOAL.toMaterialColor(), 800);
-    public static final RegistryObject<Block> MARBLE = registerBlock("marble", () -> new Block(basicBlockProperties(Material.STONE, MWColors.MARBLE.toMaterialColor(), 1.5F, 6.0F, true, SoundType.CALCITE)));
-    public static final RegistryObject<Block> WHITE_MARBLE = registerBlock("white_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> ORANGE_MARBLE = registerBlock("orange_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> MAGENTA_MARBLE = registerBlock("magenta_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE = registerBlock("light_blue_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> YELLOW_MARBLE = registerBlock("yellow_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> LIME_MARBLE = registerBlock("lime_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> PINK_MARBLE = registerBlock("pink_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> GRAY_MARBLE = registerBlock("gray_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE = registerBlock("light_gray_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> CYAN_MARBLE = registerBlock("cyan_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> PURPLE_MARBLE = registerBlock("purple_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> BLUE_MARBLE = registerBlock("blue_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> BROWN_MARBLE = registerBlock("brown_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> GREEN_MARBLE = registerBlock("green_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> RED_MARBLE = registerBlock("red_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
-    public static final RegistryObject<Block> BLACK_MARBLE = registerBlock("black_marble", () -> new Block(BlockBehaviour.Properties.copy(MARBLE.get())));
+    public static final RegistryObject<Block> MARBLE = registerSimpleBlock("marble", copyFrom(Blocks.TUFF).color(MWColors.MARBLE.toMaterialColor()));
+    public static final RegistryObject<Block> WHITE_MARBLE = registerSimpleBlock("white_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_WHITE));
+    public static final RegistryObject<Block> ORANGE_MARBLE = registerSimpleBlock("orange_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_ORANGE));
+    public static final RegistryObject<Block> MAGENTA_MARBLE = registerSimpleBlock("magenta_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE = registerSimpleBlock("light_blue_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_MARBLE = registerSimpleBlock("yellow_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_YELLOW));
+    public static final RegistryObject<Block> LIME_MARBLE = registerSimpleBlock("lime_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_GREEN));
+    public static final RegistryObject<Block> PINK_MARBLE = registerSimpleBlock("pink_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_PINK));
+    public static final RegistryObject<Block> GRAY_MARBLE = registerSimpleBlock("gray_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_GRAY));
+    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE = registerSimpleBlock("light_gray_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_GRAY));
+    public static final RegistryObject<Block> CYAN_MARBLE = registerSimpleBlock("cyan_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_CYAN));
+    public static final RegistryObject<Block> PURPLE_MARBLE = registerSimpleBlock("purple_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_PURPLE));
+    public static final RegistryObject<Block> BLUE_MARBLE = registerSimpleBlock("blue_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BLUE));
+    public static final RegistryObject<Block> BROWN_MARBLE = registerSimpleBlock("brown_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BROWN));
+    public static final RegistryObject<Block> GREEN_MARBLE = registerSimpleBlock("green_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_GREEN));
+    public static final RegistryObject<Block> RED_MARBLE = registerSimpleBlock("red_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_RED));
+    public static final RegistryObject<Block> BLACK_MARBLE = registerSimpleBlock("black_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BLACK));
     public static final RegistryObject<Block> BLUE_ROSE = registerFlower("blue_rose", () -> MobEffects.SATURATION);
     public static final RegistryObject<Block> BLUE_ROSE_BUSH = registerTallFlower("blue_rose_bush");
     public static final RegistryObject<Block> WHITE_ROSE = registerFlower("white_rose", () -> MobEffects.HEAL);
@@ -82,6 +83,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SUPER_TNT = registerBlock("super_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.SUPER));
     public static final RegistryObject<Block> HYPER_TNT = registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));
     public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", DaylightLampBlock::new);
+    public static final RegistryObject<Block> CUT_GOLD = registerSimpleBlock("cut_gold", copyFrom(Blocks.GOLD_BLOCK));
+    public static final RegistryObject<Block> GOLDEN_DOOR = registerDoorBlock("golden_door", true, BlockSetType.GOLD);
 
     //#endregion
 
@@ -248,19 +251,16 @@ public final class MWBlocks {
     }
 
     /**
-     * Copy the {@link BlockBehaviour.Properties block properties} of an existing block
-     * and makes them required by the provided {@link FeatureFlag feature flags}
+     * Register a {@link DoorBlock door block}
      *
-     * @param block {@link Block The block to copy the properties from}
+     * @param name {@link String The block name}
+     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
+     * @param blockSetType {@link BlockSetType The door block set type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
+     * @return {@link RegistryObject<Block> The registered block}
      */
-    public static BlockBehaviour.Properties copyFrom(final Block block, final FeatureFlag... featureFlags) {
-        BlockBehaviour.Properties properties = BlockBehaviour.Properties.copy(block);
-        if(featureFlags != null) {
-            properties = properties.requiredFeatures(featureFlags);
-        }
-        return properties;
+    private static RegistryObject<Block> registerDoorBlock(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new DoorBlock(copyFrom(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetType));
     }
 
     /**
@@ -335,6 +335,23 @@ public final class MWBlocks {
     private static <T extends Block> void registerBlockItem(final String name, final RegistryObject<T> block, final FeatureFlag... featureFlags) {
         MWItems.registerItem(name, () -> new BlockItem(block.get(), MWItems.basicProperties(featureFlags)));
     }
+
+    /**
+     * Copy the {@link BlockBehaviour.Properties block properties} of an existing block
+     * and makes them required by the provided {@link FeatureFlag feature flags}
+     *
+     * @param block {@link Block The block to copy the properties from}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link BlockBehaviour.Properties The block properties}
+     */
+    public static BlockBehaviour.Properties copyFrom(final Block block, final FeatureFlag... featureFlags) {
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.copy(block);
+        if(featureFlags != null && featureFlags.length > 0) {
+            properties = properties.requiredFeatures(featureFlags);
+        }
+        return properties;
+    }
+
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

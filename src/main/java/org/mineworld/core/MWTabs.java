@@ -102,7 +102,9 @@ public final class MWTabs {
                     MWBlocks.PYRITE_BLOCK,
                     MWBlocks.RAW_SILVER_BLOCK,
                     MWBlocks.RAW_ALUMINUM_BLOCK,
-                    MWBlocks.RAW_BRONZE_BLOCK);
+                    MWBlocks.RAW_BRONZE_BLOCK,
+                    MWBlocks.CUT_GOLD,
+                    MWBlocks.GOLDEN_DOOR);
         }
         else if(tab.equals(COLORED_BLOCKS)) {
             addToTab(event,
@@ -153,6 +155,7 @@ public final class MWTabs {
             //components - buttons (if new kind) - pressure plates (if new kind) - pistons - dropper/hoppers - chests (if new kind) - furnaces (if new kind) - minecarts - boat with chest (if new kind) - doors (if new kind)
             //fence gates (if new kind) - trapdoors (if new kind) - tnt - lamps - other blocks - ore
             addToTab(event,
+                    MWBlocks.GOLDEN_DOOR,
                     MWBlocks.DISGUISED_GRASS_TNT,
                     MWBlocks.DISGUISED_DIRT_TNT,
                     MWBlocks.DISGUISED_SAND_TNT,

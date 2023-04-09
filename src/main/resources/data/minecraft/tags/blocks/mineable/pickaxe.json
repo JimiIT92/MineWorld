@@ -16,6 +16,8 @@
     "mineworld:sapphire_block",
     "mineworld:charcoal_block",
     "mineworld:pyrite_block",
-    "#mineworld:marbles"
+    "#mineworld:marbles",
+    "mineworld:cut_gold",
+    "mineworld:golden_door"
   ]
 }

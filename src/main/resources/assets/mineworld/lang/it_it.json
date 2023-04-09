@@ -178,6 +178,8 @@
   "block.mineworld.super_tnt": "Super tnt",
   "block.mineworld.hyper_tnt": "Iper tnt",
   "block.mineworld.daylight_lamp": "Lampada a luce diurna",
+  "block.mineworld.cut_gold": "Blocco d'oro inciso",
+  "block.mineworld.golden_door": "Porta dorata",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.base_slot_description": "Inserisci dell'alluminio grezzo",

@@ -25,7 +25,7 @@ public final class MWArmors {
 
     //#region Armors
 
-    public static final RegistryObject<Item> CHAINMAIL_HORSE_ARMOR = registerHorseArmorItem("chainmail", 4);
+    public static final RegistryObject<Item> CHAINMAIL_HORSE_ARMOR = registerHorseArmorItem("chainmail", 5);
     public static final RegistryObject<Item> EMERALD_HELMET = registerArmorItem("emerald_helmet", MWArmorMaterials.EMERALD, ArmorItem.Type.HELMET);
     public static final RegistryObject<Item> EMERALD_CHESTPLATE = registerArmorItem("emerald_chestplate", MWArmorMaterials.EMERALD, ArmorItem.Type.CHESTPLATE);
     public static final RegistryObject<Item> EMERALD_LEGGINGS = registerArmorItem("emerald_leggings", MWArmorMaterials.EMERALD, ArmorItem.Type.LEGGINGS);
