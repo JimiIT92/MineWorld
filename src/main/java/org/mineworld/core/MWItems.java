@@ -46,6 +46,7 @@ public final class MWItems {
     public static final RegistryObject<Item> COPPER_NUGGET = registerSimpleItem("copper_nugget");
     public static final RegistryObject<Item> RAW_BRONZE_SMITHING_TEMPLATE = registerItem("raw_bronze_smithing_template",
             () -> createBasicSmithingTemplate("raw_bronze", "raw_copper", "raw_aluminum"));
+    public static final RegistryObject<Item> NETHERITE_NUGGET = registerSimpleItem("netherite_nugget");
 
     //#endregion
 

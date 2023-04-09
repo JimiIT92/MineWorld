@@ -280,6 +280,7 @@ public final class MWTabs {
                     MWItems.RAW_BRONZE,
                     MWItems.RUBY,
                     MWItems.SAPPHIRE,
+                    MWItems.NETHERITE_NUGGET,
                     MWItems.COPPER_NUGGET,
                     MWItems.SILVER_NUGGET,
                     MWItems.ALUMINUM_NUGGET,
