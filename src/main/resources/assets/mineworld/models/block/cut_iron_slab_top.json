@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "mineworld:block/cut_iron",
+    "side": "mineworld:block/cut_iron",
+    "top": "mineworld:block/cut_iron"
+  }
+}

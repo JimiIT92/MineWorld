@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "mineworld:iron_stairs",
+    "mineworld:cut_iron_stairs",
     "mineworld:golden_stairs",
     "mineworld:cut_golden_stairs",
     "mineworld:netherite_stairs",

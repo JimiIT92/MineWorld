@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "mineworld:iron_slab",
+    "mineworld:cut_iron_slab",
     "mineworld:golden_slab",
     "mineworld:cut_golden_slab",
     "mineworld:netherite_slab",

@@ -111,6 +111,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = registerLantern("netherite_soul_lantern", 10);
     public static final RegistryObject<Block> NETHERITE_BARS = registerBars("netherite_bars");
     public static final RegistryObject<Block> NETHERITE_CAGE = registerSimpleTranslucentBlock("netherite_cage", copyFrom(Blocks.NETHERITE_BLOCK));
+    public static final RegistryObject<Block> CUT_IRON = registerSimpleBlock("cut_iron", copyFrom(Blocks.IRON_BLOCK));
+    public static final RegistryObject<Block> CUT_IRON_PRESSURE_PLATE = registerWeightedPressurePlate("cut_iron_pressure_plate", 15, MaterialColor.METAL, BlockSetType.IRON);
+    public static final RegistryObject<Block> IRON_STAIRS = registerStair("iron_stairs", Blocks.IRON_BLOCK);
+    public static final RegistryObject<Block> CUT_IRON_STAIRS = registerStair("cut_iron_stairs", () -> CUT_IRON.get().defaultBlockState());
+    public static final RegistryObject<Block> IRON_SLAB = registerSlab("iron_slab", Blocks.IRON_BLOCK);
+    public static final RegistryObject<Block> CUT_IRON_SLAB = registerSlab("cut_iron_slab", () -> CUT_IRON.get().defaultBlockState());
+    public static final RegistryObject<Block> IRON_CAGE = registerSimpleTranslucentBlock("iron_cage", copyFrom(Blocks.IRON_BLOCK));
 
     //#endregion
 
