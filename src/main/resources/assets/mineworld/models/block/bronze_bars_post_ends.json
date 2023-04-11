@@ -1,0 +1,8 @@
+{
+    "parent": "block/iron_bars_post_ends",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/bronze_bars",
+        "edge": "mineworld:block/bronze_bars"
+    }
+}

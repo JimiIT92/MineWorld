@@ -12,6 +12,14 @@
     "mineworld:cut_golden_stairs",
     "mineworld:golden_door",
     "mineworld:golden_trapdoor",
-    "mineworld:golden_cage"
+    "mineworld:golden_cage",
+    "mineworld:cut_silver",
+    "mineworld:silver_slab",
+    "mineworld:cut_silver_slab",
+    "mineworld:silver_stairs",
+    "mineworld:cut_silver_stairs",
+    "mineworld:silver_door",
+    "mineworld:silver_trapdoor",
+    "mineworld:silver_cage"
   ]
 }

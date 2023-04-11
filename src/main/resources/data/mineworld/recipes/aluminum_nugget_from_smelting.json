@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "mineworld:aluminum_pickaxe"
+    },
+    {
+      "item": "mineworld:aluminum_shovel"
+    },
+    {
+      "item": "mineworld:aluminum_axe"
+    },
+    {
+      "item": "mineworld:aluminum_hoe"
+    },
+    {
+      "item": "mineworld:aluminum_sword"
+    },
+    {
+      "item": "mineworld:aluminum_helmet"
+    },
+    {
+      "item": "mineworld:aluminum_chestplate"
+    },
+    {
+      "item": "mineworld:aluminum_leggings"
+    },
+    {
+      "item": "mineworld:aluminum_boots"
+    },
+    {
+      "item": "mineworld:aluminum_horse_armor"
+    }
+  ],
+  "result": "mineworld:aluminum_nugget"
+}

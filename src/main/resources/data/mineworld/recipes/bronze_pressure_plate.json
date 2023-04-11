@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "mineworld:bronze_ingot"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:bronze_pressure_plate"
+  },
+  "show_notification": true
+}

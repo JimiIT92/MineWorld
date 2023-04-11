@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/aluminum_soul_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/aluminum_soul_lantern_hanging"
+    }
+  }
+}

@@ -26,6 +26,26 @@ public final class MWArmors {
     //#region Armors
 
     public static final RegistryObject<Item> CHAINMAIL_HORSE_ARMOR = registerHorseArmorItem("chainmail", 5);
+    public static final RegistryObject<Item> ALUMINUM_HELMET = registerArmorItem("aluminum_helmet", MWArmorMaterials.ALUMINUM, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> ALUMINUM_CHESTPLATE = registerArmorItem("aluminum_chestplate", MWArmorMaterials.ALUMINUM, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> ALUMINUM_LEGGINGS = registerArmorItem("aluminum_leggings", MWArmorMaterials.ALUMINUM, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> ALUMINUM_BOOTS = registerArmorItem("aluminum_boots", MWArmorMaterials.ALUMINUM, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> ALUMINUM_HORSE_ARMOR = registerHorseArmorItem("aluminum", 4);
+    public static final RegistryObject<Item> BRONZE_HELMET = registerArmorItem("bronze_helmet", MWArmorMaterials.BRONZE, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> BRONZE_CHESTPLATE = registerArmorItem("bronze_chestplate", MWArmorMaterials.BRONZE, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> BRONZE_LEGGINGS = registerArmorItem("bronze_leggings", MWArmorMaterials.BRONZE, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> BRONZE_BOOTS = registerArmorItem("bronze_boots", MWArmorMaterials.BRONZE, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> BRONZE_HORSE_ARMOR = registerHorseArmorItem("bronze", 6);
+    public static final RegistryObject<Item> COPPER_HELMET = registerArmorItem("copper_helmet", MWArmorMaterials.COPPER, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> COPPER_CHESTPLATE = registerArmorItem("copper_chestplate", MWArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> COPPER_LEGGINGS = registerArmorItem("copper_leggings", MWArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> COPPER_BOOTS = registerArmorItem("copper_boots", MWArmorMaterials.COPPER, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> COPPER_HORSE_ARMOR = registerHorseArmorItem("copper", 8);
+    public static final RegistryObject<Item> SILVER_HELMET = registerArmorItem("silver_helmet", MWArmorMaterials.SILVER, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> SILVER_CHESTPLATE = registerArmorItem("silver_chestplate", MWArmorMaterials.SILVER, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> SILVER_LEGGINGS = registerArmorItem("silver_leggings", MWArmorMaterials.SILVER, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> SILVER_BOOTS = registerArmorItem("silver_boots", MWArmorMaterials.SILVER, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> SILVER_HORSE_ARMOR = registerHorseArmorItem("silver", 8);
     public static final RegistryObject<Item> EMERALD_HELMET = registerArmorItem("emerald_helmet", MWArmorMaterials.EMERALD, ArmorItem.Type.HELMET);
     public static final RegistryObject<Item> EMERALD_CHESTPLATE = registerArmorItem("emerald_chestplate", MWArmorMaterials.EMERALD, ArmorItem.Type.CHESTPLATE);
     public static final RegistryObject<Item> EMERALD_LEGGINGS = registerArmorItem("emerald_leggings", MWArmorMaterials.EMERALD, ArmorItem.Type.LEGGINGS);
@@ -85,6 +105,30 @@ public final class MWArmors {
 
         //#region Armor materials
 
+        COPPER("copper", 24, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+            enumMap.put(ArmorItem.Type.BOOTS, 2);
+            enumMap.put(ArmorItem.Type.LEGGINGS, 5);
+            enumMap.put(ArmorItem.Type.CHESTPLATE, 7);
+            enumMap.put(ArmorItem.Type.HELMET, 3);
+        }), 9, SoundEvents.COPPER_HIT,1.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT)),
+        SILVER("silver", 24, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+            enumMap.put(ArmorItem.Type.BOOTS, 2);
+            enumMap.put(ArmorItem.Type.LEGGINGS, 5);
+            enumMap.put(ArmorItem.Type.CHESTPLATE, 7);
+            enumMap.put(ArmorItem.Type.HELMET, 3);
+        }), 9, SoundEvents.ARMOR_EQUIP_GOLD,1.0F, 0.0F, () -> Ingredient.of(MWItems.SILVER_INGOT.get())),
+        BRONZE("bronze", 11, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+            enumMap.put(ArmorItem.Type.BOOTS, 1);
+            enumMap.put(ArmorItem.Type.LEGGINGS, 4);
+            enumMap.put(ArmorItem.Type.CHESTPLATE, 5);
+            enumMap.put(ArmorItem.Type.HELMET, 2);
+        }), 11, SoundEvents.ARMOR_EQUIP_IRON,0.0F, 0.0F, () -> Ingredient.of(MWItems.BRONZE_INGOT.get())),
+        ALUMINUM("aluminum", 6, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+            enumMap.put(ArmorItem.Type.BOOTS, 1);
+            enumMap.put(ArmorItem.Type.LEGGINGS, 3);
+            enumMap.put(ArmorItem.Type.CHESTPLATE, 5);
+            enumMap.put(ArmorItem.Type.HELMET, 2);
+        }), 11, SoundEvents.ARMOR_EQUIP_GENERIC,0.0F, 0.0F, () -> Ingredient.of(MWItems.ALUMINUM_INGOT.get())),
         EMERALD("emerald", 35, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
             enumMap.put(ArmorItem.Type.BOOTS, 3);
             enumMap.put(ArmorItem.Type.LEGGINGS, 6);

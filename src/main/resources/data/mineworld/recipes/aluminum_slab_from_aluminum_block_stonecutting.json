@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 8,
+  "ingredient": {
+    "item": "mineworld:aluminum_block"
+  },
+  "result": "mineworld:aluminum_slab"
+}

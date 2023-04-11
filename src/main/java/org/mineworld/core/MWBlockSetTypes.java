@@ -23,5 +23,16 @@ public final class MWBlockSetTypes {
                     SoundEvents.STONE_BUTTON_CLICK_OFF,
                     SoundEvents.STONE_BUTTON_CLICK_ON));
 
+    public static final BlockSetType METAL = BlockSetType.register(
+            new BlockSetType("metal", SoundType.METAL,
+                    SoundEvents.METAL_FALL,
+                    SoundEvents.METAL_STEP,
+                    SoundEvents.METAL_FALL,
+                    SoundEvents.METAL_STEP,
+                    SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF,
+                    SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON,
+                    SoundEvents.STONE_BUTTON_CLICK_OFF,
+                    SoundEvents.STONE_BUTTON_CLICK_ON));
+
     //#endregion
 }

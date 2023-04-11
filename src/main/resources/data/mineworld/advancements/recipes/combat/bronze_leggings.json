@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cut_netherite": {
+    "has_bronze_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:cut_netherite"
+              "mineworld:bronze_ingot"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:cut_netherite_pressure_plate_from_cut_netherite_stonecutting"
+        "recipe": "mineworld:bronze_leggings"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_cut_netherite",
+      "has_bronze_ingot",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "mineworld:cut_netherite_pressure_plate_from_cut_netherite_stonecutting"
+      "mineworld:bronze_leggings"
     ]
   }
 }

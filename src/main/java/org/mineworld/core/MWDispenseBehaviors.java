@@ -105,7 +105,11 @@ public final class MWDispenseBehaviors {
                 MWArmors.EMERALD_HORSE_ARMOR,
                 MWArmors.RUBY_HORSE_ARMOR,
                 MWArmors.SAPPHIRE_HORSE_ARMOR,
-                MWArmors.NETHERITE_HORSE_ARMOR
+                MWArmors.NETHERITE_HORSE_ARMOR,
+                MWArmors.ALUMINUM_HORSE_ARMOR,
+                MWArmors.BRONZE_HORSE_ARMOR,
+                MWArmors.COPPER_HORSE_ARMOR,
+                MWArmors.SILVER_HORSE_ARMOR
         );
     }
 

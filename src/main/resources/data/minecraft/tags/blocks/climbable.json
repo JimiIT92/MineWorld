@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:chain",
-    "mineworld:golden_chain",
-    "mineworld:netherite_chain"
+    "#mineworld:chains"
   ]
 }

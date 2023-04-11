@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "X": {
-      "item": "minecraft:chain"
+      "tag": "mineworld:chains"
     }
   },
   "pattern": [

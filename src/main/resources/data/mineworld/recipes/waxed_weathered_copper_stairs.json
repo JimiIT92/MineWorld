@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "waxed_weathered_copper_stairs",
+  "key": {
+    "#": {
+      "item": "minecraft:waxed_weathered_copper"
+    }
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "item": "mineworld:waxed_weathered_copper_stairs"
+  },
+  "show_notification": true
+}

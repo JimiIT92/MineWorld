@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "mineworld:block/silver_block",
+    "side": "mineworld:block/silver_block",
+    "top": "mineworld:block/silver_block"
+  }
+}

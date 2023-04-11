@@ -6,6 +6,12 @@
     "mineworld:golden_slab",
     "mineworld:cut_golden_slab",
     "mineworld:netherite_slab",
-    "mineworld:cut_netherite_slab"
+    "mineworld:cut_netherite_slab",
+    "mineworld:aluminum_slab",
+    "mineworld:cut_aluminum_slab",
+    "mineworld:bronze_slab",
+    "mineworld:cut_bronze_slab",
+    "mineworld:silver_slab",
+    "mineworld:cut_silver_slab"
   ]
 }

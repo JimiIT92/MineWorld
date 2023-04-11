@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/silver_slab"
+    },
+    "type=double": {
+      "model": "mineworld:block/silver_block"
+    },
+    "type=top": {
+      "model": "mineworld:block/silver_slab_top"
+    }
+  }
+}

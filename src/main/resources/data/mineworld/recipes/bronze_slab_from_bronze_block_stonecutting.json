@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 8,
+  "ingredient": {
+    "item": "mineworld:bronze_block"
+  },
+  "result": "mineworld:bronze_slab"
+}

@@ -4,6 +4,12 @@
     "mineworld:cut_iron_pressure_plate",
     "mineworld:cut_golden_pressure_plate",
     "mineworld:netherite_pressure_plate",
-    "mineworld:cut_netherite_pressure_plate"
+    "mineworld:cut_netherite_pressure_plate",
+    "mineworld:aluminum_pressure_plate",
+    "mineworld:cut_aluminum_pressure_plate",
+    "mineworld:bronze_pressure_plate",
+    "mineworld:cut_bronze_pressure_plate",
+    "mineworld:silver_pressure_plate",
+    "mineworld:cut_silver_pressure_plate"
   ]
 }

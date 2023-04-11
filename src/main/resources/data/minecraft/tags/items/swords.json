@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "mineworld:aluminum_sword",
+    "mineworld:copper_sword",
+    "mineworld:bronze_sword",
+    "mineworld:silver_sword",
     "mineworld:emerald_sword",
     "mineworld:ruby_sword",
     "mineworld:sapphire_sword"
