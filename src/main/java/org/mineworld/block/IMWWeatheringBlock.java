@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
@@ -37,6 +39,21 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
             .put(MWBlocks.COPPER_STAIRS.get(), MWBlocks.EXPOSED_COPPER_STAIRS.get())
             .put(MWBlocks.EXPOSED_COPPER_STAIRS.get(), MWBlocks.WEATHERED_COPPER_STAIRS.get())
             .put(MWBlocks.WEATHERED_COPPER_STAIRS.get(), MWBlocks.OXIDIZED_COPPER_STAIRS.get())
+            .put(MWBlocks.COPPER_SLAB.get(), MWBlocks.EXPOSED_COPPER_SLAB.get())
+            .put(MWBlocks.EXPOSED_COPPER_SLAB.get(), MWBlocks.WEATHERED_COPPER_SLAB.get())
+            .put(MWBlocks.WEATHERED_COPPER_SLAB.get(), MWBlocks.OXIDIZED_COPPER_SLAB.get())
+            .put(MWBlocks.COPPER_PRESSURE_PLATE.get(), MWBlocks.EXPOSED_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.EXPOSED_COPPER_PRESSURE_PLATE.get(), MWBlocks.WEATHERED_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WEATHERED_COPPER_PRESSURE_PLATE.get(), MWBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.CUT_COPPER_PRESSURE_PLATE.get(), MWBlocks.EXPOSED_CUT_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.EXPOSED_CUT_COPPER_PRESSURE_PLATE.get(), MWBlocks.WEATHERED_CUT_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WEATHERED_CUT_COPPER_PRESSURE_PLATE.get(), MWBlocks.OXIDIZED_CUT_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.COPPER_TRAPDOOR.get(), MWBlocks.EXPOSED_COPPER_TRAPDOOR.get())
+            .put(MWBlocks.EXPOSED_COPPER_TRAPDOOR.get(), MWBlocks.WEATHERED_COPPER_TRAPDOOR.get())
+            .put(MWBlocks.WEATHERED_COPPER_TRAPDOOR.get(), MWBlocks.OXIDIZED_COPPER_TRAPDOOR.get())
+            .put(MWBlocks.COPPER_CHAIN.get(), MWBlocks.EXPOSED_COPPER_CHAIN.get())
+            .put(MWBlocks.EXPOSED_COPPER_CHAIN.get(), MWBlocks.WEATHERED_COPPER_CHAIN.get())
+            .put(MWBlocks.WEATHERED_COPPER_CHAIN.get(), MWBlocks.OXIDIZED_COPPER_CHAIN.get())
     .build());
 
     Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());
@@ -46,9 +63,43 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
             .put(MWBlocks.WAXED_EXPOSED_COPPER_STAIRS.get(), MWBlocks.EXPOSED_COPPER_STAIRS.get())
             .put(MWBlocks.WAXED_WEATHERED_COPPER_STAIRS.get(), MWBlocks.WEATHERED_COPPER_STAIRS.get())
             .put(MWBlocks.WAXED_OXIDIZED_COPPER_STAIRS.get(), MWBlocks.OXIDIZED_COPPER_STAIRS.get())
+            .put(MWBlocks.WAXED_COPPER_SLAB.get(), MWBlocks.COPPER_SLAB.get())
+            .put(MWBlocks.WAXED_EXPOSED_COPPER_SLAB.get(), MWBlocks.EXPOSED_COPPER_SLAB.get())
+            .put(MWBlocks.WAXED_WEATHERED_COPPER_SLAB.get(), MWBlocks.WEATHERED_COPPER_SLAB.get())
+            .put(MWBlocks.WAXED_OXIDIZED_COPPER_SLAB.get(), MWBlocks.OXIDIZED_COPPER_SLAB.get())
+            .put(MWBlocks.WAXED_COPPER_PRESSURE_PLATE.get(), MWBlocks.COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.get(), MWBlocks.EXPOSED_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.get(), MWBlocks.WEATHERED_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.get(), MWBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_CUT_COPPER_PRESSURE_PLATE.get(), MWBlocks.CUT_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE.get(), MWBlocks.EXPOSED_CUT_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE.get(), MWBlocks.WEATHERED_CUT_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE.get(), MWBlocks.OXIDIZED_CUT_COPPER_PRESSURE_PLATE.get())
+            .put(MWBlocks.WAXED_COPPER_TRAPDOOR.get(), MWBlocks.COPPER_TRAPDOOR.get())
+            .put(MWBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(), MWBlocks.EXPOSED_COPPER_TRAPDOOR.get())
+            .put(MWBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(), MWBlocks.WEATHERED_COPPER_TRAPDOOR.get())
+            .put(MWBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(), MWBlocks.OXIDIZED_COPPER_TRAPDOOR.get())
+            .put(MWBlocks.WAXED_COPPER_CHAIN.get(), MWBlocks.COPPER_CHAIN.get())
+            .put(MWBlocks.WAXED_EXPOSED_COPPER_CHAIN.get(), MWBlocks.EXPOSED_COPPER_CHAIN.get())
+            .put(MWBlocks.WAXED_WEATHERED_COPPER_CHAIN.get(), MWBlocks.WEATHERED_COPPER_CHAIN.get())
+            .put(MWBlocks.WAXED_OXIDIZED_COPPER_CHAIN.get(), MWBlocks.OXIDIZED_COPPER_CHAIN.get())
     .build());
 
     Supplier<BiMap<Block, Block>> WAXED_BY_BLOCK = Suppliers.memoize(() -> UNWAXED_BY_BLOCK.get().inverse());
+
+    /**
+     * Get the {@link BlockState block state} for the next state with
+     * the adjusted properties
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @return {@link BlockState The adjusted block state}
+     */
+    static BlockState getAdjustedBlockState(BlockState blockState) {
+        if(blockState.hasProperty(BlockStateProperties.POWER)) {
+            blockState = blockState.setValue(BlockStateProperties.POWER, 0);
+        }
+        return blockState;
+    }
 
     /**
      * Get the previous {@link Block weathering state block}
@@ -69,7 +120,7 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
      * @return {@link Block The previous weathering state block state}
      */
     static Optional<BlockState> getPrevious(final BlockState blockState) {
-        return getPrevious(blockState.getBlock()).map(block -> block.withPropertiesOf(blockState));
+        return getPrevious(blockState.getBlock()).map(block -> block.withPropertiesOf(getAdjustedBlockState(blockState)));
     }
 
     /**
@@ -89,7 +140,8 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
      * @return {@link Block The unwaxed weathering state block}
      */
     static Optional<BlockState> getUnwaxed(final BlockState blockState) {
-        return getUnwaxed(blockState.getBlock()).map(block -> block.withPropertiesOf(blockState));
+        final boolean hasPowerProperty = blockState.hasProperty(BlockStateProperties.POWER);
+        return getUnwaxed(blockState.getBlock()).map(block -> block.withPropertiesOf(getAdjustedBlockState(blockState)));
     }
 
     /**
@@ -117,7 +169,8 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
      * @return {@link Block The first weathering state block}
      */
     static BlockState getFirst(final BlockState blockState) {
-        return getFirst(blockState.getBlock()).withPropertiesOf(blockState);
+        final boolean hasPowerProperty = blockState.hasProperty(BlockStateProperties.POWER);
+        return getFirst(blockState.getBlock()).withPropertiesOf(getAdjustedBlockState(blockState));
     }
 
     /**
@@ -139,7 +192,8 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
      * @return {@link Block The next weathering state block state}
      */
     default @NotNull Optional<BlockState> getNext(final BlockState blockState) {
-        return getNext(blockState.getBlock()).map(block -> block.withPropertiesOf(blockState));
+        final boolean hasPowerProperty = blockState.hasProperty(BlockStateProperties.POWER);
+        return getNext(blockState.getBlock()).map(block -> block.withPropertiesOf(getAdjustedBlockState(blockState)));
     }
 
     /**
@@ -159,7 +213,8 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
      * @return {@link Block The next weathering state block state}
      */
     static @NotNull Optional<BlockState> getWaxed(final BlockState blockState) {
-        return getWaxed(blockState.getBlock()).map(block -> block.withPropertiesOf(blockState));
+        final boolean hasPowerProperty = blockState.hasProperty(BlockStateProperties.POWER);
+        return getWaxed(blockState.getBlock()).map(block -> block.withPropertiesOf(getAdjustedBlockState(blockState)));
     }
 
     /**
@@ -206,15 +261,12 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
      */
     @Nullable
     static BlockState scrapeWax(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        ItemStack stack = context.getItemInHand();
-        if(stack.getItem() instanceof AxeItem && (toolAction.equals(ToolActions.AXE_STRIP) || toolAction.equals(ToolActions.AXE_WAX_OFF))) {
-            Optional<BlockState> previousBlockState = getUnwaxed(state);
-            if(previousBlockState.isPresent()) {
-                context.getLevel().levelEvent(context.getPlayer(), 3004, context.getClickedPos(), 0);
-                return previousBlockState.get();
-            }
+        Optional<BlockState> previousBlockState = getUnwaxed(state);
+        if(previousBlockState.isPresent()) {
+            context.getLevel().levelEvent(context.getPlayer(), 3004, context.getClickedPos(), 0);
+            return previousBlockState.get();
         }
-        return null;
+        return state;
     }
 
     /**
@@ -236,7 +288,9 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, blockPos, itemStack);
             }
-            itemStack.shrink(1);
+            if(!player.isCreative()) {
+                itemStack.shrink(1);
+            }
             level.setBlock(blockPos, waxedState, 11);
             level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, waxedState));
             level.levelEvent(player, 3003, blockPos, 0);
@@ -246,5 +300,62 @@ public interface IMWWeatheringBlock extends ChangeOverTimeBlock<WeatheringCopper
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
+    }
+
+    /**
+     * Check if a {@link Block block} is waxed
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @return {@link Boolean True if the block is waxed}
+     */
+    static boolean isWaxed(final BlockState blockState) {
+        return UNWAXED_BY_BLOCK.get().containsKey(blockState.getBlock());
+    }
+
+    /**
+     * Clear some oxidization on struck by {@link LightningBolt lightning}
+     *
+     * @param blockState {@link Block The current block state}
+     * @param level {@link Level The world reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     */
+    static void lightningStrike(final BlockState blockState, final Level level, final BlockPos blockPos) {
+        if(!isWaxed(blockState)) {
+            level.setBlockAndUpdate(blockPos, getFirst(blockState));
+            BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+            int blocks = level.random.nextInt(3) + 3;
+
+            for(int j = 0; j < blocks; ++j) {
+                mutableBlockPos.set(blockPos);
+                for(int i = 0; i < (level.random.nextInt(8) + 1); ++i) {
+                    Optional<BlockPos> optional = randomStepCleaningCopper(level, mutableBlockPos);
+                    if (optional.isEmpty()) {
+                        break;
+                    }
+                    mutableBlockPos.set(optional.get());
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Get a random block in a range and if is a {@link IMWWeatheringBlock oxidizable block}
+     * clear a {@link WeatheringCopper.WeatherState weather state}
+     *
+     * @param level {@link Level The world reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @return {@link Optional<BlockPos> The cleaned block pos}
+     */
+    private static Optional<BlockPos> randomStepCleaningCopper(Level level, BlockPos blockPos) {
+        for(BlockPos blockpos : BlockPos.randomInCube(level.random, 10, blockPos, 1)) {
+            BlockState blockstate = level.getBlockState(blockpos);
+            if (blockstate.getBlock() instanceof IMWWeatheringBlock) {
+                getPrevious(blockstate).ifPresent(blockState -> level.setBlockAndUpdate(blockpos, blockState));
+                level.levelEvent(3002, blockpos, -1);
+                return Optional.of(blockpos);
+            }
+        }
+        return Optional.empty();
     }
 }

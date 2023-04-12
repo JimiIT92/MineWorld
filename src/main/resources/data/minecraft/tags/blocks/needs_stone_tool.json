@@ -39,6 +39,22 @@
     "mineworld:waxed_oxidized_copper_stairs",
     "mineworld:waxed_weathered_copper_stairs",
     "mineworld:waxed_exposed_copper_stairs",
-    "mineworld:waxed_copper_stairs"
+    "mineworld:waxed_copper_stairs",
+    "mineworld:oxidized_copper_slab",
+    "mineworld:weathered_copper_slab",
+    "mineworld:exposed_copper_slab",
+    "mineworld:copper_slab",
+    "mineworld:waxed_oxidized_copper_slab",
+    "mineworld:waxed_weathered_copper_slab",
+    "mineworld:waxed_exposed_copper_slab",
+    "mineworld:waxed_copper_slab",
+    "mineworld:oxidized_copper_trapdoor",
+    "mineworld:weathered_copper_trapdoor",
+    "mineworld:exposed_copper_trapdoor",
+    "mineworld:copper_trapdoor",
+    "mineworld:waxed_oxidized_copper_trapdoor",
+    "mineworld:waxed_weathered_copper_trapdoor",
+    "mineworld:waxed_exposed_copper_trapdoor",
+    "mineworld:waxed_copper_trapdoor"
   ]
 }

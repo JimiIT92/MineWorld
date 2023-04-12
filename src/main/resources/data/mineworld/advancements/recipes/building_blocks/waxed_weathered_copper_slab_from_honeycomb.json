@@ -3,16 +3,16 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:waxed_copper_stairs_from_waxed_copper_stonecutting"
+        "recipe": "mineworld:waxed_weathered_copper_slab_from_honeycomb"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_waxed_copper": {
+    "has_weathered_copper_slab": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:waxed_copper_block"
+              "mineworld:weathered_copper_slab"
             ]
           }
         ]
@@ -22,13 +22,13 @@
   },
   "requirements": [
     [
-      "has_waxed_copper",
+      "has_weathered_copper_slab",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "mineworld:waxed_copper_stairs_from_waxed_copper_stonecutting"
+      "mineworld:waxed_weathered_copper_slab_from_honeycomb"
     ]
   }
 }

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_copper": {
+    "has_exposed_cut_copper_pressure_plate": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:copper_block"
+              "mineworld:exposed_cut_copper_pressure_plate"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:copper_stairs_from_copper_stonecutting"
+        "recipe": "mineworld:waxed_exposed_cut_copper_pressure_plate_from_honeycomb"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_copper",
+      "has_exposed_cut_copper_pressure_plate",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "mineworld:copper_stairs_from_copper_stonecutting"
+      "mineworld:waxed_exposed_cut_copper_pressure_plate_from_honeycomb"
     ]
   }
 }

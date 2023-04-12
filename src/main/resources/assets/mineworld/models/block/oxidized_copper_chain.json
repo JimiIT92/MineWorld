@@ -1,0 +1,8 @@
+{
+    "parent": "block/chain",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/oxidized_copper_chain",
+        "all": "mineworld:block/oxidized_copper_chain"
+    }
+}

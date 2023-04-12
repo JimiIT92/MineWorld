@@ -174,6 +174,86 @@ public final class MWBlocks {
             () -> new MWWaxedWeatheringCopperStairBlock(WeatheringCopper.WeatherState.EXPOSED, Blocks.WAXED_EXPOSED_COPPER.defaultBlockState()));
     public static final RegistryObject<Block> WAXED_COPPER_STAIRS = registerBlock("waxed_copper_stairs",
             () -> new MWWaxedWeatheringCopperStairBlock(WeatheringCopper.WeatherState.UNAFFECTED, Blocks.WAXED_COPPER_BLOCK.defaultBlockState()));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_SLAB = registerBlock("oxidized_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, copyFrom(Blocks.OXIDIZED_CUT_COPPER)));
+    public static final RegistryObject<Block> WEATHERED_COPPER_SLAB = registerBlock("weathered_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, copyFrom(Blocks.WEATHERED_CUT_COPPER)));
+    public static final RegistryObject<Block> EXPOSED_COPPER_SLAB = registerBlock("exposed_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, copyFrom(Blocks.EXPOSED_CUT_COPPER)));
+    public static final RegistryObject<Block> COPPER_SLAB = registerBlock("copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, copyFrom(Blocks.CUT_COPPER_SLAB)));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SLAB = registerBlock("waxed_oxidized_copper_slab",
+            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, copyFrom(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SLAB = registerBlock("waxed_weathered_copper_slab",
+            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, copyFrom(Blocks.WAXED_WEATHERED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SLAB = registerBlock("waxed_exposed_copper_slab",
+            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, copyFrom(Blocks.WAXED_EXPOSED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_COPPER_SLAB = registerBlock("waxed_copper_slab",
+            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, copyFrom(Blocks.WAXED_CUT_COPPER_SLAB)));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_PRESSURE_PLATE = registerBlock("oxidized_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_PRESSURE_PLATE = registerBlock("weathered_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_PRESSURE_PLATE = registerBlock("exposed_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_PRESSURE_PLATE = registerBlock("copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = registerBlock("waxed_oxidized_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = registerBlock("waxed_weathered_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = registerBlock("waxed_exposed_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_PRESSURE_PLATE = registerBlock("waxed_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_CUT_COPPER_PRESSURE_PLATE = registerBlock("oxidized_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_CUT_COPPER_PRESSURE_PLATE = registerBlock("weathered_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_CUT_COPPER_PRESSURE_PLATE = registerBlock("exposed_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> CUT_COPPER_PRESSURE_PLATE = registerBlock("cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_oxidized_cut_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_weathered_cut_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_exposed_cut_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_cut_copper_pressure_plate",
+            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = registerBlock("oxidized_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = registerBlock("weathered_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = registerBlock("exposed_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_TRAPDOOR = registerBlock("copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = registerBlock("waxed_oxidized_copper_trapdoor",
+            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = registerBlock("waxed_weathered_copper_trapdoor",
+            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = registerBlock("waxed_exposed_copper_trapdoor",
+            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_TRAPDOOR = registerBlock("waxed_copper_trapdoor",
+            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_CHAIN = registerBlock("oxidized_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_CHAIN = registerBlock("weathered_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_CHAIN = registerBlock("exposed_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_CHAIN = registerBlock("copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CHAIN = registerBlock("waxed_oxidized_copper_chain",
+            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CHAIN = registerBlock("waxed_weathered_copper_chain",
+            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_CHAIN = registerBlock("waxed_exposed_copper_chain",
+            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_CHAIN = registerBlock("waxed_copper_chain",
+            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
 
     //#endregion
 

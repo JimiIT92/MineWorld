@@ -12,6 +12,17 @@ public final class MWBlockSetTypes {
 
     //#region Block set types
 
+    public static final BlockSetType COPPER = BlockSetType.register(
+            new BlockSetType("copper", SoundType.COPPER,
+                    SoundEvents.COPPER_FALL,
+                    SoundEvents.COPPER_STEP,
+                    SoundEvents.COPPER_FALL,
+                    SoundEvents.COPPER_STEP,
+                    SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF,
+                    SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON,
+                    SoundEvents.STONE_BUTTON_CLICK_OFF,
+                    SoundEvents.STONE_BUTTON_CLICK_ON));
+
     public static final BlockSetType NETHERITE = BlockSetType.register(
             new BlockSetType("netherite", SoundType.NETHERITE_BLOCK,
                     SoundEvents.NETHERITE_BLOCK_FALL,

@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.WeatheringCopperStairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.core.MWBlocks;
@@ -54,7 +55,9 @@ public class MWWaxedWeatheringCopperStairBlock extends StairBlock implements IMW
      */
     @Override
     public @Nullable BlockState getToolModifiedState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        final BlockState scrapedState = IMWWeatheringBlock.scrapeWax(state, context, toolAction, isClient);
-        return scrapedState != null ? scrapedState : super.getToolModifiedState(state, context, toolAction, isClient);
+        if(context.getItemInHand().getItem() instanceof AxeItem && toolAction.equals(ToolActions.AXE_WAX_OFF)) {
+            return IMWWeatheringBlock.scrapeWax(state, context, toolAction, isClient);
+        }
+        return super.getToolModifiedState(state, context, toolAction, isClient);
     }
 }
