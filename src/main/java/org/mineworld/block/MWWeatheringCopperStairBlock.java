@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.WeatheringCopperStairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.core.MWBlocks;
@@ -23,16 +24,23 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      * {@link WeatheringCopper.WeatherState The stair weather state}
      */
     private final WeatheringCopper.WeatherState weatherState;
+    /**
+     * {@link Boolean If this block is waxed}. Used to determine the right click action
+     * and to make the block not ticking
+     */
+    private final boolean isWaxed;
 
     /**
      * Constructor. Set the block properties
      *
      * @param weatherState {@link WeatheringCopper.WeatherState The weather state}
      * @param blockState {@link BlockState The block state this stair is based on}
+     * @param isWaxed {@link Boolean If the block is waxed}
      */
-    public MWWeatheringCopperStairBlock(final WeatheringCopper.WeatherState weatherState, final BlockState blockState) {
+    public MWWeatheringCopperStairBlock(final WeatheringCopper.WeatherState weatherState, final BlockState blockState, final boolean isWaxed) {
         super(blockState, MWBlocks.copyFrom(blockState.getBlock()));
         this.weatherState = weatherState;
+        this.isWaxed = isWaxed;
     }
 
     /**
@@ -46,7 +54,9 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      */
     @Override
     public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
-        this.onRandomTick(blockState, level, blockPos, random);
+        if(!this.isWaxed) {
+            this.onRandomTick(blockState, level, blockPos, random);
+        }
     }
 
     /**
@@ -57,7 +67,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      */
     @Override
     public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
-        return IMWWeatheringBlock.getNext(blockState.getBlock()).isPresent();
+        return !this.isWaxed && IMWWeatheringBlock.getNext(blockState.getBlock()).isPresent();
     }
 
     /**
@@ -82,7 +92,13 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      */
     @Override
     public @Nullable BlockState getToolModifiedState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        final BlockState scrapedState = IMWWeatheringBlock.scrapeWeatherState(state, context, toolAction, isClient);
-        return scrapedState != null ? scrapedState : super.getToolModifiedState(state, context, toolAction, isClient);
+        if(!isWaxed) {
+            final BlockState scrapedState = IMWWeatheringBlock.scrapeWeatherState(state, context, toolAction, isClient);
+            return scrapedState != null ? scrapedState : super.getToolModifiedState(state, context, toolAction, isClient);
+        }
+        if(context.getItemInHand().getItem() instanceof AxeItem && toolAction.equals(ToolActions.AXE_WAX_OFF)) {
+            return IMWWeatheringBlock.scrapeWax(state, context, toolAction, isClient);
+        }
+        return super.getToolModifiedState(state, context, toolAction, isClient);
     }
 }

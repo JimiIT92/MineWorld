@@ -55,6 +55,15 @@
     "mineworld:waxed_oxidized_copper_trapdoor",
     "mineworld:waxed_weathered_copper_trapdoor",
     "mineworld:waxed_exposed_copper_trapdoor",
-    "mineworld:waxed_copper_trapdoor"
+    "mineworld:waxed_copper_trapdoor",
+    "mineworld:oxidized_copper_cage",
+    "mineworld:weathered_copper_cage",
+    "mineworld:exposed_copper_cage",
+    "mineworld:copper_cage",
+    "mineworld:waxed_oxidized_copper_cage",
+    "mineworld:waxed_weathered_copper_cage",
+    "mineworld:waxed_exposed_copper_cage",
+    "mineworld:waxed_copper_cage",
+    "mineworld:copper_door"
   ]
 }

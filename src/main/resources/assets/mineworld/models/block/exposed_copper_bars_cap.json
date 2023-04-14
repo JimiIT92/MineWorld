@@ -1,0 +1,9 @@
+{
+    "parent": "block/iron_bars_cap",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/exposed_copper_bars",
+        "bars": "mineworld:block/exposed_copper_bars",
+        "edge": "mineworld:block/exposed_copper_bars"
+    }
+}

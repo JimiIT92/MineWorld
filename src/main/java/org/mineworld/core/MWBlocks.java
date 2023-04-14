@@ -17,6 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.*;
+import org.mineworld.core.vanillaexpansion.MWVanillaExpansionBlocks;
 import org.mineworld.entity.MWPrimedTnt;
 
 import java.util.function.Supplier;
@@ -51,7 +52,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> RUBY_BLOCK = registerMetalOreStorageBlock("ruby_block", MWColors.RUBY.toMaterialColor());
     public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerMetalOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMaterialColor());
     public static final RegistryObject<Block> PYRITE_BLOCK = registerFuelBlock("pyrite_block", MWColors.PYRITE.toMaterialColor(), 1200);
-    public static final RegistryObject<Block> CHARCOAL_BLOCK = registerFuelBlock("charcoal_block", MWColors.CHARCOAL.toMaterialColor(), 800);
     public static final RegistryObject<Block> MARBLE = registerSimpleBlock("marble", copyFrom(Blocks.TUFF).color(MWColors.MARBLE.toMaterialColor()));
     public static final RegistryObject<Block> WHITE_MARBLE = registerSimpleBlock("white_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_WHITE));
     public static final RegistryObject<Block> ORANGE_MARBLE = registerSimpleBlock("orange_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_ORANGE));
@@ -82,40 +82,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SUPER_TNT = registerBlock("super_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.SUPER));
     public static final RegistryObject<Block> HYPER_TNT = registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));
     public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", DaylightLampBlock::new);
-    public static final RegistryObject<Block> CUT_GOLD = registerSimpleBlock("cut_gold", copyFrom(Blocks.GOLD_BLOCK));
-    public static final RegistryObject<Block> GOLDEN_STAIRS = registerStair("golden_stairs", Blocks.GOLD_BLOCK);
-    public static final RegistryObject<Block> CUT_GOLDEN_STAIRS = registerStair("cut_golden_stairs", () -> CUT_GOLD.get().defaultBlockState());
-    public static final RegistryObject<Block> GOLDEN_SLAB = registerSlab("golden_slab", Blocks.GOLD_BLOCK);
-    public static final RegistryObject<Block> CUT_GOLDEN_SLAB = registerSlab("cut_golden_slab", () -> CUT_GOLD.get().defaultBlockState());
-    public static final RegistryObject<Block> GOLDEN_DOOR = registerDoor("golden_door", true, BlockSetType.GOLD);
-    public static final RegistryObject<Block> GOLDEN_TRAPDOOR = registerTrapdoor("golden_trapdoor", true, BlockSetType.GOLD);
-    public static final RegistryObject<Block> CUT_GOLDEN_PRESSURE_PLATE = registerWeightedPressurePlate("cut_golden_pressure_plate", 15, MaterialColor.GOLD, BlockSetType.GOLD);
-    public static final RegistryObject<Block> GOLDEN_CHAIN = registerChain("golden_chain");
-    public static final RegistryObject<Block> GOLDEN_LANTERN = registerLantern("golden_lantern");
-    public static final RegistryObject<Block> GOLDEN_SOUL_LANTERN = registerLantern("golden_soul_lantern", 10);
-    public static final RegistryObject<Block> GOLD_BARS = registerBars("gold_bars");
-    public static final RegistryObject<Block> GOLDEN_CAGE = registerSimpleTranslucentBlock("golden_cage", copyFrom(Blocks.GOLD_BLOCK));
-    public static final RegistryObject<Block> CUT_NETHERITE = registerSimpleBlock("cut_netherite", copyFrom(Blocks.NETHERITE_BLOCK));
-    public static final RegistryObject<Block> NETHERITE_STAIRS = registerStair("netherite_stairs", Blocks.NETHERITE_BLOCK);
-    public static final RegistryObject<Block> CUT_NETHERITE_STAIRS = registerStair("cut_netherite_stairs", () -> CUT_NETHERITE.get().defaultBlockState());
-    public static final RegistryObject<Block> NETHERITE_SLAB = registerSlab("netherite_slab", Blocks.NETHERITE_BLOCK);
-    public static final RegistryObject<Block> CUT_NETHERITE_SLAB = registerSlab("cut_netherite_slab", () -> CUT_NETHERITE.get().defaultBlockState());
-    public static final RegistryObject<Block> NETHERITE_DOOR = registerDoor("netherite_door", true, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_TRAPDOOR = registerTrapdoor("netherite_trapdoor", true, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("netherite_pressure_plate", 100, MaterialColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> CUT_NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("cut_netherite_pressure_plate", 100, MaterialColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_CHAIN = registerChain("netherite_chain");
-    public static final RegistryObject<Block> NETHERITE_LANTERN = registerLantern("netherite_lantern");
-    public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = registerLantern("netherite_soul_lantern", 10);
-    public static final RegistryObject<Block> NETHERITE_BARS = registerBars("netherite_bars");
-    public static final RegistryObject<Block> NETHERITE_CAGE = registerSimpleTranslucentBlock("netherite_cage", copyFrom(Blocks.NETHERITE_BLOCK));
-    public static final RegistryObject<Block> CUT_IRON = registerSimpleBlock("cut_iron", copyFrom(Blocks.IRON_BLOCK));
-    public static final RegistryObject<Block> CUT_IRON_PRESSURE_PLATE = registerWeightedPressurePlate("cut_iron_pressure_plate", 15, MaterialColor.METAL, BlockSetType.IRON);
-    public static final RegistryObject<Block> IRON_STAIRS = registerStair("iron_stairs", Blocks.IRON_BLOCK);
-    public static final RegistryObject<Block> CUT_IRON_STAIRS = registerStair("cut_iron_stairs", () -> CUT_IRON.get().defaultBlockState());
-    public static final RegistryObject<Block> IRON_SLAB = registerSlab("iron_slab", Blocks.IRON_BLOCK);
-    public static final RegistryObject<Block> CUT_IRON_SLAB = registerSlab("cut_iron_slab", () -> CUT_IRON.get().defaultBlockState());
-    public static final RegistryObject<Block> IRON_CAGE = registerSimpleTranslucentBlock("iron_cage", copyFrom(Blocks.IRON_BLOCK));
     public static final RegistryObject<Block> CUT_ALUMINUM = registerSimpleBlock("cut_aluminum", () -> copyFrom(ALUMINUM_BLOCK.get()));
     public static final RegistryObject<Block> ALUMINUM_STAIRS = registerStair("aluminum_stairs", () -> ALUMINUM_BLOCK.get().defaultBlockState());
     public static final RegistryObject<Block> CUT_ALUMINUM_STAIRS = registerStair("cut_aluminum_stairs", () -> CUT_ALUMINUM.get().defaultBlockState());
@@ -158,102 +124,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SILVER_SOUL_LANTERN = registerLantern("silver_soul_lantern", 10);
     public static final RegistryObject<Block> SILVER_BARS = registerBars("silver_bars");
     public static final RegistryObject<Block> SILVER_CAGE = registerSimpleTranslucentBlock("silver_cage", () -> copyFrom(SILVER_BLOCK.get()));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_STAIRS = registerBlock("oxidized_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.OXIDIZED, Blocks.OXIDIZED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WEATHERED_COPPER_STAIRS = registerBlock("weathered_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.WEATHERED, Blocks.WEATHERED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> EXPOSED_COPPER_STAIRS = registerBlock("exposed_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.EXPOSED, Blocks.EXPOSED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> COPPER_STAIRS = registerBlock("copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.UNAFFECTED, Blocks.COPPER_BLOCK.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_STAIRS = registerBlock("waxed_oxidized_copper_stairs",
-            () -> new MWWaxedWeatheringCopperStairBlock(WeatheringCopper.WeatherState.OXIDIZED, Blocks.WAXED_OXIDIZED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_STAIRS = registerBlock("waxed_weathered_copper_stairs",
-            () -> new MWWaxedWeatheringCopperStairBlock(WeatheringCopper.WeatherState.WEATHERED, Blocks.WAXED_WEATHERED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_STAIRS = registerBlock("waxed_exposed_copper_stairs",
-            () -> new MWWaxedWeatheringCopperStairBlock(WeatheringCopper.WeatherState.EXPOSED, Blocks.WAXED_EXPOSED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_COPPER_STAIRS = registerBlock("waxed_copper_stairs",
-            () -> new MWWaxedWeatheringCopperStairBlock(WeatheringCopper.WeatherState.UNAFFECTED, Blocks.WAXED_COPPER_BLOCK.defaultBlockState()));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_SLAB = registerBlock("oxidized_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, copyFrom(Blocks.OXIDIZED_CUT_COPPER)));
-    public static final RegistryObject<Block> WEATHERED_COPPER_SLAB = registerBlock("weathered_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, copyFrom(Blocks.WEATHERED_CUT_COPPER)));
-    public static final RegistryObject<Block> EXPOSED_COPPER_SLAB = registerBlock("exposed_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, copyFrom(Blocks.EXPOSED_CUT_COPPER)));
-    public static final RegistryObject<Block> COPPER_SLAB = registerBlock("copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, copyFrom(Blocks.CUT_COPPER_SLAB)));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SLAB = registerBlock("waxed_oxidized_copper_slab",
-            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, copyFrom(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SLAB = registerBlock("waxed_weathered_copper_slab",
-            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, copyFrom(Blocks.WAXED_WEATHERED_CUT_COPPER)));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SLAB = registerBlock("waxed_exposed_copper_slab",
-            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, copyFrom(Blocks.WAXED_EXPOSED_CUT_COPPER)));
-    public static final RegistryObject<Block> WAXED_COPPER_SLAB = registerBlock("waxed_copper_slab",
-            () -> new MWWaxedWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, copyFrom(Blocks.WAXED_CUT_COPPER_SLAB)));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_PRESSURE_PLATE = registerBlock("oxidized_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_PRESSURE_PLATE = registerBlock("weathered_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_PRESSURE_PLATE = registerBlock("exposed_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_PRESSURE_PLATE = registerBlock("copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = registerBlock("waxed_oxidized_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = registerBlock("waxed_weathered_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = registerBlock("waxed_exposed_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_PRESSURE_PLATE = registerBlock("waxed_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_CUT_COPPER_PRESSURE_PLATE = registerBlock("oxidized_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_CUT_COPPER_PRESSURE_PLATE = registerBlock("weathered_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_CUT_COPPER_PRESSURE_PLATE = registerBlock("exposed_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> CUT_COPPER_PRESSURE_PLATE = registerBlock("cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_oxidized_cut_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_weathered_cut_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_exposed_cut_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_CUT_COPPER_PRESSURE_PLATE = registerBlock("waxed_cut_copper_pressure_plate",
-            () -> new WaxedWeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = registerBlock("oxidized_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = registerBlock("weathered_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = registerBlock("exposed_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_TRAPDOOR = registerBlock("copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = registerBlock("waxed_oxidized_copper_trapdoor",
-            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = registerBlock("waxed_weathered_copper_trapdoor",
-            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = registerBlock("waxed_exposed_copper_trapdoor",
-            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_TRAPDOOR = registerBlock("waxed_copper_trapdoor",
-            () -> new WaxedWeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_CHAIN = registerBlock("oxidized_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_CHAIN = registerBlock("weathered_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_CHAIN = registerBlock("exposed_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_CHAIN = registerBlock("copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CHAIN = registerBlock("waxed_oxidized_copper_chain",
-            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CHAIN = registerBlock("waxed_weathered_copper_chain",
-            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_CHAIN = registerBlock("waxed_exposed_copper_chain",
-            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_CHAIN = registerBlock("waxed_copper_chain",
-            () -> new WaxedWeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
 
     //#endregion
 
@@ -448,7 +318,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerFuelBlock(final String name, final MaterialColor color, final int burnTime, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerFuelBlock(final String name, final MaterialColor color, final int burnTime, final FeatureFlag... featureFlags) {
         RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new Block(basicBlockProperties(Material.STONE, color, 5.0F, 6.0F, true, featureFlags)));
         MWItems.registerFuelBlockItem(name, block, burnTime, featureFlags);
         return block;
@@ -486,7 +356,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerDoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerDoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new DoorBlock(copyFrom(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetType));
     }
 
@@ -499,7 +369,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerTrapdoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerTrapdoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new TrapDoorBlock(copyFrom(requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags), blockSetType));
     }
 
@@ -513,7 +383,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new WeightedPressurePlateBlock(maxWeight, copyFrom(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags).color(materialColor), blockSetType));
     }
 
@@ -525,7 +395,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerStair(final String name, final Block block, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerStair(final String name, final Block block, final FeatureFlag... featureFlags) {
         return registerStair(name, block::defaultBlockState, featureFlags);
     }
 
@@ -537,7 +407,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new StairBlock(blockStateSupplier, copyFrom(blockStateSupplier.get().getBlock(), featureFlags)));
     }
 
@@ -549,7 +419,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerSlab(final String name, final Block block, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerSlab(final String name, final Block block, final FeatureFlag... featureFlags) {
         return registerSlab(name, block::defaultBlockState, featureFlags);
     }
 
@@ -561,7 +431,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new SlabBlock(copyFrom(blockStateSupplier.get().getBlock(), featureFlags)));
     }
 
@@ -572,7 +442,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerChain(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerChain(final String name, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new ChainBlock(copyFrom(Blocks.CHAIN, featureFlags).sound(SoundType.CHAIN)));
     }
 
@@ -595,7 +465,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerLantern(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerLantern(final String name, final FeatureFlag... featureFlags) {
         return registerLantern(name, 15, featureFlags);
     }
 
@@ -607,7 +477,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerLantern(final String name, final int lightLevel, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerLantern(final String name, final int lightLevel, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new LanternBlock(copyFrom(Blocks.LANTERN, featureFlags).lightLevel((state) -> lightLevel)));
     }
 
@@ -618,7 +488,7 @@ public final class MWBlocks {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerBars(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerBars(final String name, final FeatureFlag... featureFlags) {
         return registerBars(name, SoundType.METAL, featureFlags);
     }
 
@@ -642,7 +512,7 @@ public final class MWBlocks {
      * @param properties {@link BlockBehaviour.Properties The block properties}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerSimpleTranslucentBlock(final String name, final BlockBehaviour.Properties properties) {
+    public static RegistryObject<Block> registerSimpleTranslucentBlock(final String name, final BlockBehaviour.Properties properties) {
         return registerSimpleTranslucentBlock(name, () -> properties);
     }
 
@@ -655,11 +525,21 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered block}
      */
     private static RegistryObject<Block> registerSimpleTranslucentBlock(final String name, final Supplier<BlockBehaviour.Properties> properties) {
-        return registerBlock(name, () -> new Block(properties.get().noOcclusion()
+        return registerBlock(name, () -> new Block(translucentProperties(properties.get())));
+    }
+
+    /**
+     * Set the translucent values to some {@link BlockBehaviour.Properties block properties}
+     *
+     * @param properties {@link BlockBehaviour.Properties The block properties}
+     * @return {@link BlockBehaviour.Properties The translucent block properties}
+     */
+    public static BlockBehaviour.Properties translucentProperties(BlockBehaviour.Properties properties) {
+        return properties.noOcclusion()
                 .isValidSpawn((state, level, blockPos, entityType) -> false)
                 .isRedstoneConductor((state, level, blockPos) -> false)
                 .isSuffocating((state, level, blockPos) -> false)
-                .isViewBlocking((state, level, blockPos) -> false)));
+                .isViewBlocking((state, level, blockPos) -> false);
     }
 
     /**
@@ -669,7 +549,7 @@ public final class MWBlocks {
      * @param properties {@link BlockBehaviour.Properties The block properties}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerSimpleBlock(final String name, final BlockBehaviour.Properties properties) {
+    public static RegistryObject<Block> registerSimpleBlock(final String name, final BlockBehaviour.Properties properties) {
         return registerSimpleBlock(name, () -> properties);
     }
 
@@ -693,7 +573,7 @@ public final class MWBlocks {
      * @param <T> The block type
      * @return {@link RegistryObject<T> The registered block}
      */
-    private static <T extends Block> RegistryObject<T> registerBlock(final String name, final Supplier<T> blockSupplier, final FeatureFlag... featureFlags) {
+    public static <T extends Block> RegistryObject<T> registerBlock(final String name, final Supplier<T> blockSupplier, final FeatureFlag... featureFlags) {
         RegistryObject<T> block = registerBlockWithoutBlockItem(name, blockSupplier);
         registerBlockItem(name, block, featureFlags);
         return block;
@@ -746,6 +626,7 @@ public final class MWBlocks {
      */
     public static void register(final IEventBus eventBus) {
         MWFlowerPots.register(eventBus);
+        MWVanillaExpansionBlocks.register(eventBus);
         BLOCKS.register(eventBus);
     }
 }
