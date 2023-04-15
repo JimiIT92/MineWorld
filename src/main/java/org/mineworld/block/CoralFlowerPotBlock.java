@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
-import org.mineworld.core.MWBlocks;
+import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.Supplier;
 
@@ -54,7 +54,7 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
     public CoralFlowerPotBlock(final Supplier<? extends Block> deadCoralFlowerPot, final Supplier<? extends Block> coral, final FeatureFlag... featureFlags) {
-        super(() -> (FlowerPotBlock) Blocks.FLOWER_POT, coral, MWBlocks.copyFrom(Blocks.FLOWER_POT, featureFlags));
+        super(() -> (FlowerPotBlock) Blocks.FLOWER_POT, coral, PropertyHelper.copyFromBlock(Blocks.FLOWER_POT, featureFlags));
         this.registerDefaultState(this.stateDefinition.any().setValue(DRIED, Boolean.FALSE));
         this.deadCoralFlowerPot = deadCoralFlowerPot;
     }
@@ -135,7 +135,9 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
      *
      * @param stateBuilder {@link StateDefinition.Builder Block state definition builder}
      */
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(DRIED);
     }
+
 }

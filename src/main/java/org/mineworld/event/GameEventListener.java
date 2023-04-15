@@ -6,7 +6,7 @@ import net.minecraftforge.event.VanillaGameEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
-import org.mineworld.block.IMWWeatheringBlock;
+import org.mineworld.block.weathering.IMWWeatheringBlock;
 
 /**
  * Listener for a {@link GameEvent game event}
@@ -29,4 +29,5 @@ public final class GameEventListener {
             }
         }
     }
+
 }

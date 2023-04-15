@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:cooked_cob_from_campfire_cooking"
+        "recipe": "mineworld:baked_cob_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "mineworld:cooked_cob_from_campfire_cooking"
+      "mineworld:baked_cob_from_campfire_cooking"
     ]
   }
 }

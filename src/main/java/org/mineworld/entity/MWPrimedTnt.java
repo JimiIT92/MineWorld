@@ -85,6 +85,7 @@ public class MWPrimedTnt extends PrimedTnt {
      *
      * @param fuseTime {@link Integer The fuse time}
      */
+    @Override
     public void setFuse(int fuseTime) {
         this.entityData.set(DATA_FUSE_ID, fuseTime);
     }
@@ -103,6 +104,7 @@ public class MWPrimedTnt extends PrimedTnt {
      *
      * @return {@link Integer The fuse time}
      */
+    @Override
     public int getFuse() {
         return this.entityData.get(DATA_FUSE_ID);
     }
@@ -192,4 +194,5 @@ public class MWPrimedTnt extends PrimedTnt {
             return this.explosionPower;
         }
     }
+
 }

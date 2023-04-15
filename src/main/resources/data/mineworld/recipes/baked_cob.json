@@ -1,10 +1,10 @@
 {
-  "type": "minecraft:smoking",
+  "type": "minecraft:smelting",
   "category": "food",
-  "cookingtime": 100,
+  "cookingtime": 200,
   "experience": 0.35,
   "ingredient": {
     "item": "mineworld:cob"
   },
-  "result": "mineworld:cooked_cob"
+  "result": "mineworld:baked_cob"
 }

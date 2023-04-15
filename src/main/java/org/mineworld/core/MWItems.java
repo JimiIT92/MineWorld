@@ -1,238 +1,118 @@
 package org.mineworld.core;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
-
-import java.util.List;
-import java.util.function.Supplier;
+import org.mineworld.helper.RegisterHelper;
+import org.mineworld.item.MWArmorMaterials;
+import org.mineworld.item.MWFoods;
+import org.mineworld.item.MWItemTiers;
 
 /**
  * {@link MineWorld MineWorld} {@link Item items}
  */
 public final class MWItems {
 
-    /**
-     * {@link DeferredRegister<Item> The item registry}
-     */
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MineWorld.MODID);
-
-    //#region Items
-
-    public static final RegistryObject<Item> RUBY = registerSimpleItem("ruby");
-    public static final RegistryObject<Item> SAPPHIRE = registerSimpleItem("sapphire");
-    public static final RegistryObject<Item> PYRITE = registerFuel("pyrite", 120);
-    public static final RegistryObject<Item> RAW_SILVER = registerSimpleItem("raw_silver");
-    public static final RegistryObject<Item> SILVER_INGOT = registerSimpleItem("silver_ingot");
-    public static final RegistryObject<Item> SILVER_NUGGET = registerSimpleItem("silver_nugget");
-    public static final RegistryObject<Item> RAW_ALUMINUM = registerSimpleItem("raw_aluminum");
-    public static final RegistryObject<Item> ALUMINUM_INGOT = registerSimpleItem("aluminum_ingot");
-    public static final RegistryObject<Item> ALUMINUM_NUGGET = registerSimpleItem("aluminum_nugget");
-    public static final RegistryObject<Item> RAW_BRONZE = registerSimpleItem("raw_bronze");
-    public static final RegistryObject<Item> BRONZE_INGOT = registerSimpleItem("bronze_ingot");
-    public static final RegistryObject<Item> BRONZE_NUGGET = registerSimpleItem("bronze_nugget");
-    public static final RegistryObject<Item> COPPER_NUGGET = registerSimpleItem("copper_nugget");
-    public static final RegistryObject<Item> RAW_BRONZE_SMITHING_TEMPLATE = registerItem("raw_bronze_smithing_template",
-            () -> createBasicSmithingTemplate("raw_bronze", "raw_copper", "raw_aluminum"));
-    public static final RegistryObject<Item> NETHERITE_NUGGET = registerSimpleItem("netherite_nugget");
-
-    //#endregion
-
-    /**
-     * Create a basic {@link SmithingTemplateItem smithing template}
-     *
-     * @param name {@link String The smithing template name}
-     * @param baseSlotIcon {@link ResourceLocation Icon to show inside the base slot}
-     * @param additionSlotIcon {@link ResourceLocation Icon to show inside the additions slot}
-     * @return {@link SmithingTemplateItem The smithing template}
-     */
-    private static SmithingTemplateItem createBasicSmithingTemplate(final String name, final String baseSlotIcon, final String additionSlotIcon) {
-        return createBasicSmithingTemplate(name,
-                List.of(new ResourceLocation(MineWorld.MODID, "item/empty_slot_" + baseSlotIcon)),
-                List.of(new ResourceLocation(MineWorld.MODID, "item/empty_slot_" + additionSlotIcon)));
-    }
-
-    /**
-     * Create a basic {@link SmithingTemplateItem smithing template}
-     *
-     * @param name {@link String The smithing template name}
-     * @param baseSlotIcons {@link List<ResourceLocation> List of icons to show inside the base slot}
-     * @param additionSlotIcons {@link List<ResourceLocation> List of icons to show inside the additions slot}
-     * @return {@link SmithingTemplateItem The smithing template}
-     */
-    private static SmithingTemplateItem createBasicSmithingTemplate(final String name, final List<ResourceLocation> baseSlotIcons, final List<ResourceLocation> additionSlotIcons) {
-        return new SmithingTemplateItem(
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + name + ".applies_to"))).withStyle(ChatFormatting.BLUE),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + name + ".ingredients"))).withStyle(ChatFormatting.BLUE),
-                Component.translatable(Util.makeDescriptionId("upgrade", new ResourceLocation(MineWorld.MODID, name))).withStyle(ChatFormatting.GRAY),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + name + ".base_slot_description"))),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + name + ".additions_slot_description"))),
-                baseSlotIcons,
-                additionSlotIcons
-        );
-    }
-
-    /**
-     * Get the basic {@link Item.Properties item properties}
-     *
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link Item.Properties item properties}
-     */
-    public static Item.Properties basicProperties(final FeatureFlag... featureFlags) {
-        Item.Properties properties = new Item.Properties();
-        if(featureFlags != null && featureFlags.length > 0) {
-            properties = properties.requiredFeatures(featureFlags);
-        }
-        return properties;
-    }
-
-    /**
-     * Register a basic {@link Item item}
-     *
-     * @param name {@link String The item name}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
-     */
-    private static RegistryObject<Item> registerSimpleItem(final String name, final FeatureFlag... featureFlags) {
-        return registerItem(name, () -> new Item(basicProperties(featureFlags)));
-    }
-
-    /**
-     * Register a {@link Item fuel item}
-     *
-     * @param name {@link String The item name}
-     * @param burnTime {@link Integer The fuel burn time} in seconds
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
-     */
-    private static RegistryObject<Item> registerFuel(final String name, final int burnTime, final FeatureFlag... featureFlags) {
-        return registerItem(name, () -> new Item(basicProperties(featureFlags)) {
-            /**
-             * Get the {@link ItemStack Item Stack} burn time in ticks
-             *
-             * @param itemStack {@link ItemStack The Item Stack} being used as fuel
-             * @param recipeType {@link RecipeType The recipe type}
-             * @return {@link Integer Burn time} in ticks
-             */
-            @Override
-            public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-                return burnTime * 20;
-            }
-        });
-    }
-
-    /**
-     * Register a {@link Block block fuel item}
-     *
-     * @param name          {@link String The item name}
-     * @param blockSupplier {@link Block The block referred from this item}
-     * @param burnTime      {@link Integer The fuel burn time} in seconds
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     */
-    public static void registerFuelBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final int burnTime, final FeatureFlag... featureFlags) {
-        registerItem(name, () -> new BlockItem(blockSupplier.get(), basicProperties(featureFlags)) {
-            /**
-             * Get the {@link ItemStack Item Stack} burn time in ticks
-             *
-             * @param itemStack {@link ItemStack The Item Stack} being used as fuel
-             * @param recipeType {@link RecipeType The recipe type}
-             * @return {@link Integer Burn time} in ticks
-             */
-            @Override
-            public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-                return burnTime * 20;
-            }
-        });
-    }
-
-    /**
-     * Register a {@link Item fuel block item}
-     *
-     * @param name {@link String The item name}
-     * @param block {@link Block The block referred from this item}
-     * @param burnTime {@link Integer The fuel burn time} in seconds
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
-     */
-    private static RegistryObject<Item> registerFuelBlockItem(final String name, final Block block, final int burnTime, final FeatureFlag... featureFlags) {
-        return registerItem(name, () -> new BlockItem(block, basicProperties(featureFlags)) {
-            /**
-             * Get the {@link ItemStack Item Stack} burn time in ticks
-             *
-             * @param itemStack {@link ItemStack The Item Stack} being used as fuel
-             * @param recipeType {@link RecipeType The recipe type}
-             * @return {@link Integer Burn time} in ticks
-             */
-            @Override
-            public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-                return burnTime * 20;
-            }
-        });
-    }
-
-    /**
-     * Register an {@link Item item}
-     *
-     * @param name {@link String The item name}
-     * @param itemSupplier {@link Supplier<Item> The item supplier}
-     * @return {@link RegistryObject<Item> The registered item}
-     */
-    public static RegistryObject<Item> registerItem(final String name, final Supplier<? extends Item> itemSupplier) {
-        return ITEMS.register(name, itemSupplier);
-    }
-
-    /**
-     * Get a default {@link ItemStack Item Stack} from a {@link RegistryObject<Block> block registry object}
-     *
-     * @param registryObject {@link RegistryObject<Block> The block registry object}
-     * @return {@link ItemStack The default Item Stack}
-     */
-    public static ItemStack getDefaultStack(final RegistryObject<? extends ItemLike> registryObject) {
-        return getDefaultStack(registryObject.get().asItem());
-    }
-
-    /**
-     * Get a default {@link ItemStack Item Stack} from an {@link ItemLike Item Like} object
-     * (namely blocks and items)
-     *
-     * @param object {@link ItemLike The object}
-     * @return {@link ItemStack The default Item Stack}
-     */
-    public static ItemStack getDefaultStack(final ItemLike object) {
-        return getDefaultStack(object.asItem());
-    }
-
-    /**
-     * Get a default {@link ItemStack Item Stack} from an {@link Item item}
-     *
-     * @param item {@link Item The item}
-     * @return {@link ItemStack The default Item Stack}
-     */
-    public static ItemStack getDefaultStack(final Item item) {
-        return item.getDefaultInstance();
-    }
+    public static final RegistryObject<Item> COPPER_NUGGET = RegisterHelper.registerItem("copper_nugget");
+    public static final RegistryObject<Item> NETHERITE_NUGGET = RegisterHelper.registerItem("netherite_nugget");
+    public static final RegistryObject<Item> RUBY = RegisterHelper.registerItem("ruby");
+    public static final RegistryObject<Item> SAPPHIRE = RegisterHelper.registerItem("sapphire");
+    public static final RegistryObject<Item> PYRITE = RegisterHelper.registerFuelItem("pyrite", 120);
+    public static final RegistryObject<Item> RAW_SILVER = RegisterHelper.registerItem("raw_silver");
+    public static final RegistryObject<Item> SILVER_INGOT = RegisterHelper.registerItem("silver_ingot");
+    public static final RegistryObject<Item> SILVER_NUGGET = RegisterHelper.registerItem("silver_nugget");
+    public static final RegistryObject<Item> RAW_ALUMINUM = RegisterHelper.registerItem("raw_aluminum");
+    public static final RegistryObject<Item> ALUMINUM_INGOT = RegisterHelper.registerItem("aluminum_ingot");
+    public static final RegistryObject<Item> ALUMINUM_NUGGET = RegisterHelper.registerItem("aluminum_nugget");
+    public static final RegistryObject<Item> RAW_BRONZE = RegisterHelper.registerItem("raw_bronze");
+    public static final RegistryObject<Item> BRONZE_INGOT = RegisterHelper.registerItem("bronze_ingot");
+    public static final RegistryObject<Item> BRONZE_NUGGET = RegisterHelper.registerItem("bronze_nugget");
+    public static final RegistryObject<Item> RAW_BRONZE_SMITHING_TEMPLATE = RegisterHelper.registerSmithingTemplate("raw_bronze_smithing_template", "raw_bronze", "raw_copper", "raw_aluminum");
+    public static final RegistryObject<Item> CORN_SEEDS = RegisterHelper.registerSeedItem("corn_seeds", () -> MWBlocks.CORN.get());
+    public static final RegistryObject<Item> COB = RegisterHelper.registerFoodItem("cob", MWFoods.COB);
+    public static final RegistryObject<Item> BAKED_COB = RegisterHelper.registerFoodItem("baked_cob", MWFoods.BAKED_COB);
+    public static final RegistryObject<Item> CHAINMAIL_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("chainmail", 5);
+    public static final RegistryObject<Item> EMERALD_SWORD = RegisterHelper.registerSword("emerald_sword", MWItemTiers.EMERALD_ITEM_TIER);
+    public static final RegistryObject<Item> EMERALD_SHOVEL = RegisterHelper.registerShovel("emerald_shovel", MWItemTiers.EMERALD_ITEM_TIER);
+    public static final RegistryObject<Item> EMERALD_PICKAXE = RegisterHelper.registerPickaxe("emerald_pickaxe", MWItemTiers.EMERALD_ITEM_TIER);
+    public static final RegistryObject<Item> EMERALD_AXE = RegisterHelper.registerAxe("emerald_axe", MWItemTiers.EMERALD_ITEM_TIER, 5.0F, -3.0F);
+    public static final RegistryObject<Item> EMERALD_HOE = RegisterHelper.registerHoe("emerald_hoe", MWItemTiers.EMERALD_ITEM_TIER, 0.0F);
+    public static final RegistryObject<Item> EMERALD_HELMET = RegisterHelper.registerArmorItem("emerald_helmet", MWArmorMaterials.EMERALD, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> EMERALD_CHESTPLATE = RegisterHelper.registerArmorItem("emerald_chestplate", MWArmorMaterials.EMERALD, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> EMERALD_LEGGINGS = RegisterHelper.registerArmorItem("emerald_leggings", MWArmorMaterials.EMERALD, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> EMERALD_BOOTS = RegisterHelper.registerArmorItem("emerald_boots", MWArmorMaterials.EMERALD, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> EMERALD_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("emerald", 13);
+    public static final RegistryObject<Item> NETHERITE_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("netherite", 15);
+    public static final RegistryObject<Item> ALUMINUM_SWORD = RegisterHelper.registerSword("aluminum_sword", MWItemTiers.ALUMINUM_ITEM_TIER);
+    public static final RegistryObject<Item> ALUMINUM_SHOVEL = RegisterHelper.registerShovel("aluminum_shovel", MWItemTiers.ALUMINUM_ITEM_TIER);
+    public static final RegistryObject<Item> ALUMINUM_PICKAXE = RegisterHelper.registerPickaxe("aluminum_pickaxe", MWItemTiers.ALUMINUM_ITEM_TIER);
+    public static final RegistryObject<Item> ALUMINUM_AXE = RegisterHelper.registerAxe("aluminum_axe", MWItemTiers.ALUMINUM_ITEM_TIER, 6.0F, -3.1F);
+    public static final RegistryObject<Item> ALUMINUM_HOE = RegisterHelper.registerHoe("aluminum_hoe", MWItemTiers.ALUMINUM_ITEM_TIER, -3.0F);
+    public static final RegistryObject<Item> ALUMINUM_HELMET = RegisterHelper.registerArmorItem("aluminum_helmet", MWArmorMaterials.ALUMINUM, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> ALUMINUM_CHESTPLATE = RegisterHelper.registerArmorItem("aluminum_chestplate", MWArmorMaterials.ALUMINUM, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> ALUMINUM_LEGGINGS = RegisterHelper.registerArmorItem("aluminum_leggings", MWArmorMaterials.ALUMINUM, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> ALUMINUM_BOOTS = RegisterHelper.registerArmorItem("aluminum_boots", MWArmorMaterials.ALUMINUM, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> ALUMINUM_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("aluminum", 4);
+    public static final RegistryObject<Item> BRONZE_SWORD = RegisterHelper.registerSword("bronze_sword", MWItemTiers.BRONZE_ITEM_TIER);
+    public static final RegistryObject<Item> BRONZE_SHOVEL = RegisterHelper.registerShovel("bronze_shovel", MWItemTiers.BRONZE_ITEM_TIER);
+    public static final RegistryObject<Item> BRONZE_PICKAXE = RegisterHelper.registerPickaxe("bronze_pickaxe", MWItemTiers.BRONZE_ITEM_TIER);
+    public static final RegistryObject<Item> BRONZE_AXE = RegisterHelper.registerAxe("bronze_axe", MWItemTiers.BRONZE_ITEM_TIER, 6.5F, -3.1F);
+    public static final RegistryObject<Item> BRONZE_HOE = RegisterHelper.registerHoe("bronze_hoe", MWItemTiers.BRONZE_ITEM_TIER, -2.5F);
+    public static final RegistryObject<Item> BRONZE_HELMET = RegisterHelper.registerArmorItem("bronze_helmet", MWArmorMaterials.BRONZE, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> BRONZE_CHESTPLATE = RegisterHelper.registerArmorItem("bronze_chestplate", MWArmorMaterials.BRONZE, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> BRONZE_LEGGINGS = RegisterHelper.registerArmorItem("bronze_leggings", MWArmorMaterials.BRONZE, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> BRONZE_BOOTS = RegisterHelper.registerArmorItem("bronze_boots", MWArmorMaterials.BRONZE, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> BRONZE_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("bronze", 6);
+    public static final RegistryObject<Item> COPPER_SWORD = RegisterHelper.registerSword("copper_sword", MWItemTiers.COPPER_ITEM_TIER);
+    public static final RegistryObject<Item> COPPER_SHOVEL = RegisterHelper.registerShovel("copper_shovel", MWItemTiers.COPPER_ITEM_TIER);
+    public static final RegistryObject<Item> COPPER_PICKAXE = RegisterHelper.registerPickaxe("copper_pickaxe", MWItemTiers.COPPER_ITEM_TIER);
+    public static final RegistryObject<Item> COPPER_AXE = RegisterHelper.registerAxe("copper_axe", MWItemTiers.COPPER_ITEM_TIER, 5.5F, -3.0F);
+    public static final RegistryObject<Item> COPPER_HOE = RegisterHelper.registerHoe("copper_hoe", MWItemTiers.COPPER_ITEM_TIER, -0.5F);
+    public static final RegistryObject<Item> COPPER_HELMET = RegisterHelper.registerArmorItem("copper_helmet", MWArmorMaterials.COPPER, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> COPPER_CHESTPLATE = RegisterHelper.registerArmorItem("copper_chestplate", MWArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> COPPER_LEGGINGS = RegisterHelper.registerArmorItem("copper_leggings", MWArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> COPPER_BOOTS = RegisterHelper.registerArmorItem("copper_boots", MWArmorMaterials.COPPER, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> COPPER_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("copper", 8);
+    public static final RegistryObject<Item> SILVER_SWORD = RegisterHelper.registerSword("silver_sword", MWItemTiers.SILVER_ITEM_TIER);
+    public static final RegistryObject<Item> SILVER_SHOVEL = RegisterHelper.registerShovel("silver_shovel", MWItemTiers.SILVER_ITEM_TIER);
+    public static final RegistryObject<Item> SILVER_PICKAXE = RegisterHelper.registerPickaxe("silver_pickaxe", MWItemTiers.SILVER_ITEM_TIER);
+    public static final RegistryObject<Item> SILVER_AXE = RegisterHelper.registerAxe("silver_axe", MWItemTiers.SILVER_ITEM_TIER, 5.5F, -3.0F);
+    public static final RegistryObject<Item> SILVER_HOE = RegisterHelper.registerHoe("silver_hoe", MWItemTiers.SILVER_ITEM_TIER, -0.5F);
+    public static final RegistryObject<Item> SILVER_HELMET = RegisterHelper.registerArmorItem("silver_helmet", MWArmorMaterials.SILVER, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> SILVER_CHESTPLATE = RegisterHelper.registerArmorItem("silver_chestplate", MWArmorMaterials.SILVER, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> SILVER_LEGGINGS = RegisterHelper.registerArmorItem("silver_leggings", MWArmorMaterials.SILVER, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> SILVER_BOOTS = RegisterHelper.registerArmorItem("silver_boots", MWArmorMaterials.SILVER, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> SILVER_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("silver", 8);
+    public static final RegistryObject<Item> RUBY_SWORD = RegisterHelper.registerSword("ruby_sword", MWItemTiers.RUBY_ITEM_TIER);
+    public static final RegistryObject<Item> RUBY_SHOVEL = RegisterHelper.registerShovel("ruby_shovel", MWItemTiers.RUBY_ITEM_TIER);
+    public static final RegistryObject<Item> RUBY_PICKAXE = RegisterHelper.registerPickaxe("ruby_pickaxe", MWItemTiers.RUBY_ITEM_TIER);
+    public static final RegistryObject<Item> RUBY_AXE = RegisterHelper.registerAxe("ruby_axe", MWItemTiers.RUBY_ITEM_TIER, 5.0F, -3.0F);
+    public static final RegistryObject<Item> RUBY_HOE = RegisterHelper.registerHoe("ruby_hoe", MWItemTiers.RUBY_ITEM_TIER, 0.0F);
+    public static final RegistryObject<Item> RUBY_HELMET = RegisterHelper.registerArmorItem("ruby_helmet", MWArmorMaterials.RUBY, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> RUBY_CHESTPLATE = RegisterHelper.registerArmorItem("ruby_chestplate", MWArmorMaterials.RUBY, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> RUBY_LEGGINGS = RegisterHelper.registerArmorItem("ruby_leggings", MWArmorMaterials.RUBY, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> RUBY_BOOTS = RegisterHelper.registerArmorItem("ruby_boots", MWArmorMaterials.RUBY, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> RUBY_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("ruby", 13);
+    public static final RegistryObject<Item> SAPPHIRE_SWORD = RegisterHelper.registerSword("sapphire_sword", MWItemTiers.SAPPHIRE_ITEM_TIER);
+    public static final RegistryObject<Item> SAPPHIRE_SHOVEL = RegisterHelper.registerShovel("sapphire_shovel", MWItemTiers.SAPPHIRE_ITEM_TIER);
+    public static final RegistryObject<Item> SAPPHIRE_PICKAXE = RegisterHelper.registerPickaxe("sapphire_pickaxe", MWItemTiers.SAPPHIRE_ITEM_TIER);
+    public static final RegistryObject<Item> SAPPHIRE_AXE = RegisterHelper.registerAxe("sapphire_axe", MWItemTiers.SAPPHIRE_ITEM_TIER, 5.0F, -3.0F);
+    public static final RegistryObject<Item> SAPPHIRE_HOE = RegisterHelper.registerHoe("sapphire_hoe", MWItemTiers.SAPPHIRE_ITEM_TIER, 0.0F);
+    public static final RegistryObject<Item> SAPPHIRE_HELMET = RegisterHelper.registerArmorItem("sapphire_helmet", MWArmorMaterials.SAPPHIRE, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> SAPPHIRE_CHESTPLATE = RegisterHelper.registerArmorItem("sapphire_chestplate", MWArmorMaterials.SAPPHIRE, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> SAPPHIRE_LEGGINGS = RegisterHelper.registerArmorItem("sapphire_leggings", MWArmorMaterials.SAPPHIRE, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> SAPPHIRE_BOOTS = RegisterHelper.registerArmorItem("sapphire_boots", MWArmorMaterials.SAPPHIRE, ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> SAPPHIRE_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("sapphire", 13);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}
      *
-     * @param eventBus {@link IEventBus Event Bus}
+     * @param eventBus {@link IEventBus The event bus}
      */
     public static void register(final IEventBus eventBus) {
-        MWFoods.register(eventBus);
-        MWTools.register(eventBus);
-        MWArmors.register(eventBus);
-        ITEMS.register(eventBus);
+        RegisterHelper.registerItems(eventBus);
     }
+
 }

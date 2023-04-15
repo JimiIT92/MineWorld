@@ -11,7 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
-import org.mineworld.block.IMWWeatheringBlock;
+import org.mineworld.block.weathering.IMWWaxableBlock;
 
 /**
  * Apply wax to a {@link MineWorld MineWorld} {@link ChangeOverTimeBlock oxidizable block}
@@ -31,9 +31,10 @@ public final class HoneycombWaxListener {
             final Level level = event.getLevel();
             final BlockPos blockPos = event.getPos();
             final BlockState blockState = level.getBlockState(blockPos);
-            if(blockState.getBlock() instanceof IMWWeatheringBlock) {
-                event.setCancellationResult(IMWWeatheringBlock.applyWax(blockState, itemStack, event.getEntity(), blockPos, event.getHand(), level));
+            if(blockState.getBlock() instanceof IMWWaxableBlock) {
+                event.setCancellationResult(IMWWaxableBlock.applyWax(blockState, itemStack, event.getEntity(), blockPos, event.getHand(), level));
             }
         }
     }
+
 }

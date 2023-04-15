@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "mineworld:item/cooked_cob"
+    "layer0": "mineworld:item/baked_cob"
   }
 }

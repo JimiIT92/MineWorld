@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import org.mineworld.core.MWBlocks;
+import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.Supplier;
 
@@ -53,9 +54,10 @@ public class TallCropBlock extends CropBlock {
      * Constructor. Set the {@link Integer crop max age}
      *
      * @param seedSupplier {@link Supplier<Item> The seed item supplier}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public TallCropBlock(final Supplier<Item> seedSupplier) {
-        super(MWBlocks.copyFrom(Blocks.WHEAT));
+    public TallCropBlock(final Supplier<Item> seedSupplier, final FeatureFlag... featureFlags) {
+        super(PropertyHelper.copyFromBlock(Blocks.WHEAT, featureFlags));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
         SHAPE_BY_AGE = getShapes();
         SEED_SUPPLIER = seedSupplier;
@@ -76,6 +78,7 @@ public class TallCropBlock extends CropBlock {
      *
      * @return {@link #AGE The age property}
      */
+    @Override
     public @NotNull IntegerProperty getAgeProperty() {
         return AGE;
     }
@@ -89,6 +92,7 @@ public class TallCropBlock extends CropBlock {
      * @param isClient {@link Boolean If the code is running client side}
      * @return {@link Boolean True if the crop can be bonemealed}
      */
+    @Override
     public boolean isValidBonemealTarget(final @NotNull LevelReader levelReader, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, boolean isClient) {
         if(isLower(blockState)) {
             final BlockState aboveBlockState = levelReader.getBlockState(blockPos.above());
@@ -330,6 +334,7 @@ public class TallCropBlock extends CropBlock {
      * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link VoxelShape The crop shape}
      */
+    @Override
     public @NotNull VoxelShape getShape(final BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
         return SHAPE_BY_AGE[Math.min(SHAPE_BY_AGE.length, blockState.getValue(this.getAgeProperty()))];
     }
@@ -339,7 +344,9 @@ public class TallCropBlock extends CropBlock {
      *
      * @return {@link ItemLike The crop seed item}
      */
+    @Override
     protected @NotNull ItemLike getBaseSeedId() {
         return SEED_SUPPLIER.get();
     }
+
 }

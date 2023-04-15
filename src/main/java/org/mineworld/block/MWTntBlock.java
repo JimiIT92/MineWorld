@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -23,8 +24,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
-import org.mineworld.core.MWBlocks;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.helper.PropertyHelper;
 
 import java.util.List;
 
@@ -42,9 +43,10 @@ public class MWTntBlock extends TntBlock {
      * Constructor. Set the {@link Float tnt explosion power}
      *
      * @param type {@link MWPrimedTnt.Type The tnt type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public MWTntBlock(final MWPrimedTnt.Type type) {
-        super(MWBlocks.copyFrom(Blocks.TNT));
+    public MWTntBlock(final MWPrimedTnt.Type type, final FeatureFlag... featureFlags) {
+        super(PropertyHelper.copyFromBlock(Blocks.TNT, featureFlags));
         this.type = type;
     }
 
@@ -173,4 +175,5 @@ public class MWTntBlock extends TntBlock {
     public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
         return 15;
     }
+
 }

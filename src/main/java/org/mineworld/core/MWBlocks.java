@@ -1,632 +1,391 @@
 package org.mineworld.core;
 
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.*;
-import org.mineworld.core.vanillaexpansion.MWVanillaExpansionBlocks;
+import org.mineworld.block.weathering.*;
 import org.mineworld.entity.MWPrimedTnt;
-
-import java.util.function.Supplier;
+import org.mineworld.helper.PropertyHelper;
+import org.mineworld.helper.RegisterHelper;
 
 /**
  * {@link MineWorld MineWorld} {@link Block blocks}
  */
 public final class MWBlocks {
 
-    /**
-     * {@link DeferredRegister<Block> The block registry}
-     */
-    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MineWorld.MODID);
-
-    //#region Blocks
-
-    public static final RegistryObject<Block> SILVER_ORE = registerOverworldOreBlock("silver_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = registerOverworldOreBlock("deepslate_silver_ore", true);
-    public static final RegistryObject<Block> ALUMINUM_ORE = registerOverworldOreBlock("aluminum_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_ALUMINUM_ORE = registerOverworldOreBlock("deepslate_aluminum_ore", true);
-    public static final RegistryObject<Block> RUBY_ORE = registerOverworldOreBlock("ruby_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_RUBY_ORE = registerOverworldOreBlock("deepslate_ruby_ore", true);
-    public static final RegistryObject<Block> SAPPHIRE_ORE = registerOverworldOreBlock("sapphire_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = registerOverworldOreBlock("deepslate_sapphire_ore", true);
-    public static final RegistryObject<Block> PYRITE_ORE = registerNetherOreBlock("pyrite_ore");
-    public static final RegistryObject<Block> RAW_SILVER_BLOCK = registerRawOreBlock("raw_silver_block", MWColors.RAW_SILVER.toMaterialColor());
-    public static final RegistryObject<Block> RAW_ALUMINUM_BLOCK = registerRawOreBlock("raw_aluminum_block", MWColors.RAW_ALUMINUM.toMaterialColor());
-    public static final RegistryObject<Block> RAW_BRONZE_BLOCK = registerRawOreBlock("raw_bronze_block", MWColors.RAW_BRONZE.toMaterialColor());
-    public static final RegistryObject<Block> SILVER_BLOCK = registerMetalOreStorageBlock("silver_block", MWColors.SILVER.toMaterialColor());
-    public static final RegistryObject<Block> ALUMINUM_BLOCK = registerMetalOreStorageBlock("aluminum_block", MWColors.ALUMINUM.toMaterialColor());
-    public static final RegistryObject<Block> BRONZE_BLOCK = registerSimpleBlock("bronze_block", basicBlockProperties(Material.METAL, MWColors.BRONZE.toMaterialColor(),3.0F, 6.0F, true, SoundType.COPPER));
-    public static final RegistryObject<Block> RUBY_BLOCK = registerMetalOreStorageBlock("ruby_block", MWColors.RUBY.toMaterialColor());
-    public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerMetalOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMaterialColor());
-    public static final RegistryObject<Block> PYRITE_BLOCK = registerFuelBlock("pyrite_block", MWColors.PYRITE.toMaterialColor(), 1200);
-    public static final RegistryObject<Block> MARBLE = registerSimpleBlock("marble", copyFrom(Blocks.TUFF).color(MWColors.MARBLE.toMaterialColor()));
-    public static final RegistryObject<Block> WHITE_MARBLE = registerSimpleBlock("white_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_WHITE));
-    public static final RegistryObject<Block> ORANGE_MARBLE = registerSimpleBlock("orange_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_ORANGE));
-    public static final RegistryObject<Block> MAGENTA_MARBLE = registerSimpleBlock("magenta_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE = registerSimpleBlock("light_blue_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_MARBLE = registerSimpleBlock("yellow_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_YELLOW));
-    public static final RegistryObject<Block> LIME_MARBLE = registerSimpleBlock("lime_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_GREEN));
-    public static final RegistryObject<Block> PINK_MARBLE = registerSimpleBlock("pink_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_PINK));
-    public static final RegistryObject<Block> GRAY_MARBLE = registerSimpleBlock("gray_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_GRAY));
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE = registerSimpleBlock("light_gray_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_GRAY));
-    public static final RegistryObject<Block> CYAN_MARBLE = registerSimpleBlock("cyan_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_CYAN));
-    public static final RegistryObject<Block> PURPLE_MARBLE = registerSimpleBlock("purple_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_PURPLE));
-    public static final RegistryObject<Block> BLUE_MARBLE = registerSimpleBlock("blue_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BLUE));
-    public static final RegistryObject<Block> BROWN_MARBLE = registerSimpleBlock("brown_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BROWN));
-    public static final RegistryObject<Block> GREEN_MARBLE = registerSimpleBlock("green_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_GREEN));
-    public static final RegistryObject<Block> RED_MARBLE = registerSimpleBlock("red_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_RED));
-    public static final RegistryObject<Block> BLACK_MARBLE = registerSimpleBlock("black_marble", copyFrom(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BLACK));
-    public static final RegistryObject<Block> BLUE_ROSE = registerFlower("blue_rose", () -> MobEffects.SATURATION);
-    public static final RegistryObject<Block> BLUE_ROSE_BUSH = registerTallFlower("blue_rose_bush");
-    public static final RegistryObject<Block> WHITE_ROSE = registerFlower("white_rose", () -> MobEffects.HEAL);
-    public static final RegistryObject<Block> WHITE_ROSE_BUSH = registerTallFlower("white_rose_bush");
-    public static final RegistryObject<Block> DISGUISED_GRASS_TNT = registerBlock("disguised_grass_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_GRASS));
-    public static final RegistryObject<Block> DISGUISED_DIRT_TNT = registerBlock("disguised_dirt_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_DIRT));
-    public static final RegistryObject<Block> DISGUISED_SAND_TNT = registerBlock("disguised_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_SAND, 14406560));
-    public static final RegistryObject<Block> DISGUISED_RED_SAND_TNT = registerBlock("disguised_red_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_RED_SAND, 11098145));
-    public static final RegistryObject<Block> DISGUISED_STONE_TNT = registerBlock("disguised_stone_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_STONE));
-    public static final RegistryObject<Block> MEGA_TNT = registerBlock("mega_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.MEGA));
-    public static final RegistryObject<Block> SUPER_TNT = registerBlock("super_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.SUPER));
-    public static final RegistryObject<Block> HYPER_TNT = registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));
-    public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", DaylightLampBlock::new);
-    public static final RegistryObject<Block> CUT_ALUMINUM = registerSimpleBlock("cut_aluminum", () -> copyFrom(ALUMINUM_BLOCK.get()));
-    public static final RegistryObject<Block> ALUMINUM_STAIRS = registerStair("aluminum_stairs", () -> ALUMINUM_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_ALUMINUM_STAIRS = registerStair("cut_aluminum_stairs", () -> CUT_ALUMINUM.get().defaultBlockState());
-    public static final RegistryObject<Block> ALUMINUM_SLAB = registerSlab("aluminum_slab", () -> ALUMINUM_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_ALUMINUM_SLAB = registerSlab("cut_aluminum_slab", () -> CUT_ALUMINUM.get().defaultBlockState());
-    public static final RegistryObject<Block> ALUMINUM_DOOR = registerDoor("aluminum_door", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> ALUMINUM_TRAPDOOR = registerTrapdoor("aluminum_trapdoor", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> ALUMINUM_PRESSURE_PLATE = registerWeightedPressurePlate("aluminum_pressure_plate", 15, MWColors.ALUMINUM.toMaterialColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> CUT_ALUMINUM_PRESSURE_PLATE = registerWeightedPressurePlate("cut_aluminum_pressure_plate", 15, MWColors.ALUMINUM.toMaterialColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> ALUMINUM_CHAIN = registerChain("aluminum_chain");
-    public static final RegistryObject<Block> ALUMINUM_LANTERN = registerLantern("aluminum_lantern");
-    public static final RegistryObject<Block> ALUMINUM_SOUL_LANTERN = registerLantern("aluminum_soul_lantern", 10);
-    public static final RegistryObject<Block> ALUMINUM_BARS = registerBars("aluminum_bars");
-    public static final RegistryObject<Block> ALUMINUM_CAGE = registerSimpleTranslucentBlock("aluminum_cage", () -> copyFrom(ALUMINUM_BLOCK.get()));
-    public static final RegistryObject<Block> CUT_BRONZE = registerSimpleBlock("cut_bronze", () -> copyFrom(BRONZE_BLOCK.get()));
-    public static final RegistryObject<Block> BRONZE_STAIRS = registerStair("bronze_stairs", () -> BRONZE_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_BRONZE_STAIRS = registerStair("cut_bronze_stairs", () -> CUT_BRONZE.get().defaultBlockState());
-    public static final RegistryObject<Block> BRONZE_SLAB = registerSlab("bronze_slab", () -> BRONZE_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_BRONZE_SLAB = registerSlab("cut_bronze_slab", () -> CUT_BRONZE.get().defaultBlockState());
-    public static final RegistryObject<Block> BRONZE_DOOR = registerDoor("bronze_door", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerTrapdoor("bronze_trapdoor", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> BRONZE_PRESSURE_PLATE = registerWeightedPressurePlate("bronze_pressure_plate", 15, MWColors.BRONZE.toMaterialColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> CUT_BRONZE_PRESSURE_PLATE = registerWeightedPressurePlate("cut_bronze_pressure_plate", 15, MWColors.BRONZE.toMaterialColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> BRONZE_CHAIN = registerChain("bronze_chain");
-    public static final RegistryObject<Block> BRONZE_LANTERN = registerLantern("bronze_lantern");
-    public static final RegistryObject<Block> BRONZE_SOUL_LANTERN = registerLantern("bronze_soul_lantern", 10);
-    public static final RegistryObject<Block> BRONZE_BARS = registerBars("bronze_bars");
-    public static final RegistryObject<Block> BRONZE_CAGE = registerSimpleTranslucentBlock("bronze_cage", () -> copyFrom(BRONZE_BLOCK.get()));
-    public static final RegistryObject<Block> CUT_SILVER = registerSimpleBlock("cut_silver", () -> copyFrom(SILVER_BLOCK.get()));
-    public static final RegistryObject<Block> SILVER_STAIRS = registerStair("silver_stairs", () -> SILVER_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_SILVER_STAIRS = registerStair("cut_silver_stairs", () -> CUT_SILVER.get().defaultBlockState());
-    public static final RegistryObject<Block> SILVER_SLAB = registerSlab("silver_slab", () -> SILVER_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_SILVER_SLAB = registerSlab("cut_silver_slab", () -> CUT_SILVER.get().defaultBlockState());
-    public static final RegistryObject<Block> SILVER_DOOR = registerDoor("silver_door", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> SILVER_TRAPDOOR = registerTrapdoor("silver_trapdoor", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> SILVER_PRESSURE_PLATE = registerWeightedPressurePlate("silver_pressure_plate", 50, MWColors.SILVER.toMaterialColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> CUT_SILVER_PRESSURE_PLATE = registerWeightedPressurePlate("cut_silver_pressure_plate", 50, MWColors.SILVER.toMaterialColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> SILVER_CHAIN = registerChain("silver_chain");
-    public static final RegistryObject<Block> SILVER_LANTERN = registerLantern("silver_lantern");
-    public static final RegistryObject<Block> SILVER_SOUL_LANTERN = registerLantern("silver_soul_lantern", 10);
-    public static final RegistryObject<Block> SILVER_BARS = registerBars("silver_bars");
-    public static final RegistryObject<Block> SILVER_CAGE = registerSimpleTranslucentBlock("silver_cage", () -> copyFrom(SILVER_BLOCK.get()));
-
-    //#endregion
-
-    /**
-     * Create some basic {@link BlockBehaviour.Properties block properties}
-     * using the {@link Material material color} and the base {@link SoundType block sound}
-     *
-     * @param material {@link Material The block material}
-     * @param hardness {@link Float The block hardness}
-     * @param blastResistance {@link Float The block blast restitance}
-     * @param requiresTool {@link Boolean If the block requires the correct tool to drop}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
-     */
-    private static BlockBehaviour.Properties basicBlockProperties(final Material material, final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(material, material.getColor(), hardness, blastResistance, requiresTool, featureFlags);
-    }
-
-    /**
-     * Create some basic {@link BlockBehaviour.Properties block properties}
-     * using the provided {@link MaterialColor color} and the base {@link SoundType block sound}
-     *
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
-     * @param hardness {@link Float The block hardness}
-     * @param blastResistance {@link Float The block blast restitance}
-     * @param requiresTool {@link Boolean If the block requires the correct tool to drop}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
-     */
-    private static BlockBehaviour.Properties basicBlockProperties(final Material material, final MaterialColor color, final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(material, color, hardness, blastResistance, requiresTool, null, featureFlags);
-    }
-
-    /**
-     * Create some basic {@link BlockBehaviour.Properties block properties}
-     *
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
-     * @param hardness {@link Float The block hardness}
-     * @param blastResistance {@link Float The block blast restitance}
-     * @param requiresTool {@link Boolean If the block requires the correct tool to drop}
-     * @param sound {@link SoundType The block sound}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
-     */
-    private static BlockBehaviour.Properties basicBlockProperties(final Material material, final MaterialColor color, final float hardness, final float blastResistance, final boolean requiresTool, final SoundType sound, final FeatureFlag... featureFlags) {
-        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of(material, color).strength(hardness, blastResistance);
-        if(requiresTool) {
-            properties = properties.requiresCorrectToolForDrops();
-        }
-        if(sound != null) {
-            properties = properties.sound(sound);
-        }
-        if(featureFlags != null) {
-            properties = properties.requiredFeatures(featureFlags);
-        }
-        return properties;
-    }
-
-    /**
-     * Create the {@link BlockBehaviour.Properties block properties} for an {@link Block ore block}
-     *
-     * @param isDeepslateOre {@link Boolean Whether the ore is a deepslate ore}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The ore block properties}
-     */
-    private static BlockBehaviour.Properties oreBlockProperties(final boolean isDeepslateOre, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(Material.STONE,
-                isDeepslateOre ? MaterialColor.DEEPSLATE : Material.STONE.getColor(),
-                isDeepslateOre ? 4.5F : 3.0F, 3.0F,
-                true,
-                isDeepslateOre ? SoundType.DEEPSLATE : null,
-                featureFlags);
-    }
-
-    /**
-     * Register an {@link Block ore block}
-     *
-     * @param name {@link String The block Name}
-     * @param isDeepslateOre {@link Boolean Whether the ore is a deepslate ore}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerOverworldOreBlock(final String name, final boolean isDeepslateOre, final FeatureFlag... featureFlags) {
-        return registerOreBlock(name, oreBlockProperties(isDeepslateOre, featureFlags), 3, 7);
-    }
-
-    /**
-     * Register a Nether {@link Block ore block}
-     *
-     * @param name {@link String The block Name}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerNetherOreBlock(final String name, final FeatureFlag... featureFlags) {
-        return registerOreBlock(name, oreBlockProperties(false, featureFlags).color(MaterialColor.NETHER).sound(SoundType.NETHER_ORE), 2, 5);
-    }
-
-    /**
-     * Register an {@link Block ore block}
-     *
-     * @param name {@link String The block Name}
-     * @param blockProperties {@link BlockBehaviour.Properties The block properties}
-     * @param minXp {@link Integer The minimum amount of XP the ore will drop}
-     * @param maxXp {@link Integer The maximum amount of XP the ore will drop}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerOreBlock(final String name, final BlockBehaviour.Properties blockProperties, final int minXp, final int maxXp) {
-        return registerBlock(name, () -> new DropExperienceBlock(blockProperties, UniformInt.of(minXp, maxXp)));
-    }
-
-    /**
-     * Register a {@link Block raw ore block}
-     *
-     * @param name {@link String The block name}
-     * @param color {@link MaterialColor The block color on maps}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerRawOreBlock(final String name, final MaterialColor color, final FeatureFlag... featureFlags) {
-        return registerOreStorageBlock(name, Material.STONE, color,null, featureFlags);
-    }
-
-    /**
-     * Register a {@link Block raw ore block}
-     *
-     * @param name {@link String The block name}
-     * @param color {@link MaterialColor The block color on maps}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerMetalOreStorageBlock(final String name, MaterialColor color, final FeatureFlag... featureFlags) {
-        return registerOreStorageBlock(name, Material.METAL, color, SoundType.METAL, featureFlags);
-    }
-
-    /**
-     * Register a {@link Block raw ore block}
-     *
-     * @param name {@link String The block name}
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
-     * @param sound {@link SoundType The block sound}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerOreStorageBlock(final String name, final Material material, final MaterialColor color, final SoundType sound, final FeatureFlag... featureFlags) {
-        return registerSimpleBlock(name, oreStorageProperties(material, color,sound, featureFlags));
-    }
-
-    /**
-     * Get the {@link BlockBehaviour.Properties block properties} for an ore storage block
-     *
-     * @param color {@link MaterialColor The block color on maps}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
-     */
-    private static BlockBehaviour.Properties oreStorageProperties(final MaterialColor color, final FeatureFlag... featureFlags) {
-        return oreStorageProperties(Material.STONE, color, SoundType.STONE, featureFlags);
-    }
-
-    /**
-     * Get the {@link BlockBehaviour.Properties block properties} for a metal ore storage block
-     *
-     * @param color {@link MaterialColor The block color on maps}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
-     */
-    private static BlockBehaviour.Properties metalOreStorageProperties(final MaterialColor color, final FeatureFlag... featureFlags) {
-        return oreStorageProperties(Material.METAL, color, SoundType.METAL, featureFlags);
-    }
-
-    /**
-     * Get the {@link BlockBehaviour.Properties block properties} for an ore storage block
-     *
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
-     * @param sound {@link SoundType The block sound}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
-     */
-    private static BlockBehaviour.Properties oreStorageProperties(final Material material, final MaterialColor color, final SoundType sound, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(material, color,5.0F, 6.0F, true, sound, featureFlags);
-    }
-
-    /**
-     * Register a {@link Block fuel block}
-     *
-     * @param name {@link String The block name}
-     * @param color {@link MaterialColor The block color on maps}
-     * @param burnTime {@link Integer The fuel burn time}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerFuelBlock(final String name, final MaterialColor color, final int burnTime, final FeatureFlag... featureFlags) {
-        RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new Block(basicBlockProperties(Material.STONE, color, 5.0F, 6.0F, true, featureFlags)));
-        MWItems.registerFuelBlockItem(name, block, burnTime, featureFlags);
-        return block;
-    }
-
-    /**
-     * Register a {@link FlowerBlock flower block}
-     *
-     * @param name {@link String The block name}
-     * @param effectSupplier {@link Supplier<MobEffect> The flower effect when used in suspicious stews}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerFlower(final String name, final Supplier<MobEffect> effectSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new FlowerBlock(effectSupplier, 5, copyFrom(Blocks.POPPY, featureFlags)));
-    }
-
-    /**
-     * Register a {@link TallFlowerBlock tall flower block}
-     *
-     * @param name {@link String The block name}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerTallFlower(final String name, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new TallFlowerBlock(copyFrom(Blocks.ROSE_BUSH, featureFlags)));
-    }
-
-    /**
-     * Register a {@link DoorBlock door block}
-     *
-     * @param name {@link String The block name}
-     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
-     * @param blockSetType {@link BlockSetType The door block set type}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerDoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new DoorBlock(copyFrom(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetType));
-    }
-
-    /**
-     * Register a {@link TrapDoorBlock trap door block}
-     *
-     * @param name {@link String The block name}
-     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
-     * @param blockSetType {@link BlockSetType The door block set type}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerTrapdoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new TrapDoorBlock(copyFrom(requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags), blockSetType));
-    }
-
-    /**
-     * Register a {@link WeightedPressurePlateBlock weighted pressure plate block}
-     *
-     * @param name {@link String The block name}
-     * @param maxWeight {@link Integer The max weight the pressure plate can detect}
-     * @param materialColor {@link MaterialColor The block color on maps}
-     * @param blockSetType {@link BlockSetType The door block set type}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new WeightedPressurePlateBlock(maxWeight, copyFrom(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags).color(materialColor), blockSetType));
-    }
-
-    /**
-     * Register a {@link StairBlock stair block}
-     *
-     * @param name {@link String The block name}
-     * @param block {@link Block The block this stair is based on}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerStair(final String name, final Block block, final FeatureFlag... featureFlags) {
-        return registerStair(name, block::defaultBlockState, featureFlags);
-    }
-
-    /**
-     * Register a {@link StairBlock stair block}
-     *
-     * @param name {@link String The block name}
-     * @param blockStateSupplier {@link Supplier<BlockState> The block state supplier this stair is based on}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new StairBlock(blockStateSupplier, copyFrom(blockStateSupplier.get().getBlock(), featureFlags)));
-    }
-
-    /**
-     * Register a {@link SlabBlock stair block}
-     *
-     * @param name {@link String The block name}
-     * @param block {@link Block The block state this slab is based on}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerSlab(final String name, final Block block, final FeatureFlag... featureFlags) {
-        return registerSlab(name, block::defaultBlockState, featureFlags);
-    }
-
-    /**
-     * Register a {@link SlabBlock stair block}
-     *
-     * @param name {@link String The block name}
-     * @param blockStateSupplier {@link Supplier<BlockState> The block state supplier this slab is based on}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new SlabBlock(copyFrom(blockStateSupplier.get().getBlock(), featureFlags)));
-    }
-
-    /**
-     * Register a {@link ChainBlock chain block}
-     *
-     * @param name {@link String The block name}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerChain(final String name, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new ChainBlock(copyFrom(Blocks.CHAIN, featureFlags).sound(SoundType.CHAIN)));
-    }
-
-    /**
-     * Register a {@link ChainBlock chain block}
-     *
-     * @param name {@link String The block name}
-     * @param sound {@link SoundType The block sound}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerChain(final String name, final SoundType sound, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new ChainBlock(copyFrom(Blocks.CHAIN, featureFlags).sound(sound)));
-    }
-
-    /**
-     * Register a {@link LanternBlock lantern block}
-     *
-     * @param name {@link String The block name}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerLantern(final String name, final FeatureFlag... featureFlags) {
-        return registerLantern(name, 15, featureFlags);
-    }
-
-    /**
-     * Register a {@link LanternBlock lantern block}
-     *
-     * @param name {@link String The block name}
-     * @param lightLevel {@link Integer The lantern light level}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerLantern(final String name, final int lightLevel, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new LanternBlock(copyFrom(Blocks.LANTERN, featureFlags).lightLevel((state) -> lightLevel)));
-    }
-
-    /**
-     * Register a {@link IronBarsBlock bar block}
-     *
-     * @param name {@link String The block name}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerBars(final String name, final FeatureFlag... featureFlags) {
-        return registerBars(name, SoundType.METAL, featureFlags);
-    }
-
-    /**
-     * Register a {@link IronBarsBlock bar block}
-     *
-     * @param name {@link String The block name}
-     * @param sound {@link SoundType The block sound}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerBars(final String name, final SoundType sound, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new IronBarsBlock(copyFrom(Blocks.IRON_BARS, featureFlags).sound(sound)));
-    }
-
-    /**
-     * Register a {@link Block block} using the provided {@link BlockBehaviour.Properties properties}
-     * and adding the translucent properties as well
-     *
-     * @param name {@link String The block name}
-     * @param properties {@link BlockBehaviour.Properties The block properties}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerSimpleTranslucentBlock(final String name, final BlockBehaviour.Properties properties) {
-        return registerSimpleTranslucentBlock(name, () -> properties);
-    }
-
-    /**
-     * Register a {@link Block block} using the provided {@link BlockBehaviour.Properties properties}
-     * and adding the translucent properties as well
-     *
-     * @param name {@link String The block name}
-     * @param properties {@link Supplier<BlockBehaviour.Properties> The block properties}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerSimpleTranslucentBlock(final String name, final Supplier<BlockBehaviour.Properties> properties) {
-        return registerBlock(name, () -> new Block(translucentProperties(properties.get())));
-    }
-
-    /**
-     * Set the translucent values to some {@link BlockBehaviour.Properties block properties}
-     *
-     * @param properties {@link BlockBehaviour.Properties The block properties}
-     * @return {@link BlockBehaviour.Properties The translucent block properties}
-     */
-    public static BlockBehaviour.Properties translucentProperties(BlockBehaviour.Properties properties) {
-        return properties.noOcclusion()
-                .isValidSpawn((state, level, blockPos, entityType) -> false)
-                .isRedstoneConductor((state, level, blockPos) -> false)
-                .isSuffocating((state, level, blockPos) -> false)
-                .isViewBlocking((state, level, blockPos) -> false);
-    }
-
-    /**
-     * Register a {@link Block block} using the provided {@link BlockBehaviour.Properties properties}
-     *
-     * @param name {@link String The block name}
-     * @param properties {@link BlockBehaviour.Properties The block properties}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    public static RegistryObject<Block> registerSimpleBlock(final String name, final BlockBehaviour.Properties properties) {
-        return registerSimpleBlock(name, () -> properties);
-    }
-
-    /**
-     * Register a {@link Block block} using the provided {@link BlockBehaviour.Properties properties}
-     *
-     * @param name {@link String The block name}
-     * @param properties {@link Supplier<BlockBehaviour.Properties> The block properties}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    private static RegistryObject<Block> registerSimpleBlock(final String name, final Supplier<BlockBehaviour.Properties> properties) {
-        return registerBlock(name, () -> new Block(properties.get()));
-    }
-
-    /**
-     * Register a {@link Block block}
-     *
-     * @param name {@link String The block name}
-     * @param blockSupplier {@link Supplier<Block> The block supplier}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
-     * @param <T> The block type
-     * @return {@link RegistryObject<T> The registered block}
-     */
-    public static <T extends Block> RegistryObject<T> registerBlock(final String name, final Supplier<T> blockSupplier, final FeatureFlag... featureFlags) {
-        RegistryObject<T> block = registerBlockWithoutBlockItem(name, blockSupplier);
-        registerBlockItem(name, block, featureFlags);
-        return block;
-    }
-
-    /**
-     * Register a {@link Block block} without also registering a {@link BlockItem block item}
-     *
-     * @param name {@link String The block name}
-     * @param blockSupplier {@link Supplier<Block> The block supplier}
-     * @param <T> The block type
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    static <T extends Block> RegistryObject<T> registerBlockWithoutBlockItem(final String name, final Supplier<T> blockSupplier) {
-        return BLOCKS.register(name, blockSupplier);
-    }
-
-    /**
-     * Register a {@link BlockItem block item}
-     *
-     * @param name  {@link String The block name}
-     * @param block {@link RegistryObject<T> The block}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
-     * @param <T> The block type
-     */
-    private static <T extends Block> void registerBlockItem(final String name, final RegistryObject<T> block, final FeatureFlag... featureFlags) {
-        MWItems.registerItem(name, () -> new BlockItem(block.get(), MWItems.basicProperties(featureFlags)));
-    }
-
-    /**
-     * Copy the {@link BlockBehaviour.Properties block properties} of an existing block
-     * and makes them required by the provided {@link FeatureFlag feature flags}
-     *
-     * @param block {@link Block The block to copy the properties from}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link BlockBehaviour.Properties The block properties}
-     */
-    public static BlockBehaviour.Properties copyFrom(final Block block, final FeatureFlag... featureFlags) {
-        BlockBehaviour.Properties properties = BlockBehaviour.Properties.copy(block);
-        if(featureFlags != null && featureFlags.length > 0) {
-            properties = properties.requiredFeatures(featureFlags);
-        }
-        return properties;
-    }
+    public static final RegistryObject<Block> SILVER_ORE = RegisterHelper.registerOverworldOreBlock("silver_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_silver_ore", true);
+    public static final RegistryObject<Block> ALUMINUM_ORE = RegisterHelper.registerOverworldOreBlock("aluminum_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_ALUMINUM_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_aluminum_ore", true);
+    public static final RegistryObject<Block> RUBY_ORE = RegisterHelper.registerOverworldOreBlock("ruby_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_RUBY_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_ruby_ore", true);
+    public static final RegistryObject<Block> SAPPHIRE_ORE = RegisterHelper.registerOverworldOreBlock("sapphire_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_sapphire_ore", true);
+    public static final RegistryObject<Block> PYRITE_ORE = RegisterHelper.registerNetherOreBlock("pyrite_ore");
+    public static final RegistryObject<Block> RAW_SILVER_BLOCK = RegisterHelper.registerRawOreBlock("raw_silver_block", MWColors.RAW_SILVER.toMaterialColor());
+    public static final RegistryObject<Block> RAW_ALUMINUM_BLOCK = RegisterHelper.registerRawOreBlock("raw_aluminum_block", MWColors.RAW_ALUMINUM.toMaterialColor());
+    public static final RegistryObject<Block> RAW_BRONZE_BLOCK = RegisterHelper.registerRawOreBlock("raw_bronze_block", MWColors.RAW_BRONZE.toMaterialColor());
+    public static final RegistryObject<Block> SILVER_BLOCK = RegisterHelper.registerMetalOreStorageBlock("silver_block", MWColors.SILVER.toMaterialColor());
+    public static final RegistryObject<Block> ALUMINUM_BLOCK = RegisterHelper.registerMetalOreStorageBlock("aluminum_block", MWColors.ALUMINUM.toMaterialColor());
+    public static final RegistryObject<Block> BRONZE_BLOCK = RegisterHelper.registerBlock("bronze_block", () -> PropertyHelper.basicBlockProperties(Material.METAL, MWColors.BRONZE.toMaterialColor(),3.0F, 6.0F, true, SoundType.COPPER));
+    public static final RegistryObject<Block> RUBY_BLOCK = RegisterHelper.registerMetalOreStorageBlock("ruby_block", MWColors.RUBY.toMaterialColor());
+    public static final RegistryObject<Block> SAPPHIRE_BLOCK = RegisterHelper.registerMetalOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMaterialColor());
+    public static final RegistryObject<Block> PYRITE_BLOCK = RegisterHelper.registerFuelBlock("pyrite_block", MWColors.PYRITE.toMaterialColor(), 1200);
+    public static final RegistryObject<Block> MARBLE = RegisterHelper.registerBlock("marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MWColors.MARBLE.toMaterialColor()));
+    public static final RegistryObject<Block> WHITE_MARBLE = RegisterHelper.registerBlock("white_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_WHITE));
+    public static final RegistryObject<Block> ORANGE_MARBLE = RegisterHelper.registerBlock("orange_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_ORANGE));
+    public static final RegistryObject<Block> MAGENTA_MARBLE = RegisterHelper.registerBlock("magenta_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE = RegisterHelper.registerBlock("light_blue_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_MARBLE = RegisterHelper.registerBlock("yellow_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_YELLOW));
+    public static final RegistryObject<Block> LIME_MARBLE = RegisterHelper.registerBlock("lime_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_GREEN));
+    public static final RegistryObject<Block> PINK_MARBLE = RegisterHelper.registerBlock("pink_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_PINK));
+    public static final RegistryObject<Block> GRAY_MARBLE = RegisterHelper.registerBlock("gray_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_GRAY));
+    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE = RegisterHelper.registerBlock("light_gray_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_LIGHT_GRAY));
+    public static final RegistryObject<Block> CYAN_MARBLE = RegisterHelper.registerBlock("cyan_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_CYAN));
+    public static final RegistryObject<Block> PURPLE_MARBLE = RegisterHelper.registerBlock("purple_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_PURPLE));
+    public static final RegistryObject<Block> BLUE_MARBLE = RegisterHelper.registerBlock("blue_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BLUE));
+    public static final RegistryObject<Block> BROWN_MARBLE = RegisterHelper.registerBlock("brown_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BROWN));
+    public static final RegistryObject<Block> GREEN_MARBLE = RegisterHelper.registerBlock("green_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_GREEN));
+    public static final RegistryObject<Block> RED_MARBLE = RegisterHelper.registerBlock("red_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_RED));
+    public static final RegistryObject<Block> BLACK_MARBLE = RegisterHelper.registerBlock("black_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).color(MaterialColor.TERRACOTTA_BLACK));
+    public static final RegistryObject<Block> BLUE_ROSE = RegisterHelper.registerFlower("blue_rose", () -> MobEffects.SATURATION);
+    public static final RegistryObject<Block> POTTED_BLUE_ROSE = RegisterHelper.registerFlowerPot("potted_blue_rose", BLUE_ROSE);
+    public static final RegistryObject<Block> BLUE_ROSE_BUSH = RegisterHelper.registerTallFlower("blue_rose_bush");
+    public static final RegistryObject<Block> POTTED_BLUE_ROSE_BUSH = RegisterHelper.registerFlowerPot("potted_blue_rose_bush", BLUE_ROSE_BUSH);
+    public static final RegistryObject<Block> WHITE_ROSE = RegisterHelper.registerFlower("white_rose", () -> MobEffects.HEAL);
+    public static final RegistryObject<Block> POTTED_WHITE_ROSE = RegisterHelper.registerFlowerPot("potted_white_rose", WHITE_ROSE);
+    public static final RegistryObject<Block> WHITE_ROSE_BUSH = RegisterHelper.registerTallFlower("white_rose_bush");
+    public static final RegistryObject<Block> POTTED_WHITE_ROSE_BUSH = RegisterHelper.registerFlowerPot("potted_white_rose_bush", WHITE_ROSE_BUSH);
+    public static final RegistryObject<Block> POTTED_MOSS_BLOCK = RegisterHelper.registerFlowerPot("potted_moss_block", () -> Blocks.MOSS_BLOCK);
+    public static final RegistryObject<Block> POTTED_OAK_LEAVES = RegisterHelper.registerFlowerPot("potted_oak_leaves", () -> Blocks.OAK_LEAVES);
+    public static final RegistryObject<Block> POTTED_SPRUCE_LEAVES = RegisterHelper.registerFlowerPot("potted_spruce_leaves", () -> Blocks.SPRUCE_LEAVES);
+    public static final RegistryObject<Block> POTTED_BIRCH_LEAVES = RegisterHelper.registerFlowerPot("potted_birch_leaves", () -> Blocks.BIRCH_LEAVES);
+    public static final RegistryObject<Block> POTTED_JUNGLE_LEAVES = RegisterHelper.registerFlowerPot("potted_jungle_leaves", () -> Blocks.JUNGLE_LEAVES);
+    public static final RegistryObject<Block> POTTED_ACACIA_LEAVES = RegisterHelper.registerFlowerPot("potted_acacia_leaves", () -> Blocks.ACACIA_LEAVES);
+    public static final RegistryObject<Block> POTTED_CHERRY_LEAVES = RegisterHelper.registerFlowerPot("potted_cherry_leaves", () -> Blocks.CHERRY_LEAVES, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Block> POTTED_DARK_OAK_LEAVES = RegisterHelper.registerFlowerPot("potted_dark_oak_leaves", () -> Blocks.DARK_OAK_LEAVES);
+    public static final RegistryObject<Block> POTTED_MANGROVE_LEAVES = RegisterHelper.registerFlowerPot("potted_mangrove_leaves", () -> Blocks.MANGROVE_LEAVES);
+    public static final RegistryObject<Block> POTTED_AZALEA_LEAVES = RegisterHelper.registerFlowerPot("potted_azalea_leaves", () -> Blocks.AZALEA_LEAVES);
+    public static final RegistryObject<Block> POTTED_FLOWERING_AZALEA_LEAVES = RegisterHelper.registerFlowerPot("potted_flowering_azalea_leaves", () -> Blocks.FLOWERING_AZALEA_LEAVES);
+    public static final RegistryObject<Block> POTTED_MANGROVE_ROOTS = RegisterHelper.registerFlowerPot("potted_mangrove_roots", () -> Blocks.MANGROVE_ROOTS);
+    public static final RegistryObject<Block> POTTED_MUDDY_MANGROVE_ROOTS = RegisterHelper.registerFlowerPot("potted_muddy_mangrove_roots", () -> Blocks.MUDDY_MANGROVE_ROOTS);
+    public static final RegistryObject<Block> POTTED_BROWN_MUSHROOM_BLOCK = RegisterHelper.registerFlowerPot("potted_brown_mushroom_block", () -> Blocks.BROWN_MUSHROOM_BLOCK);
+    public static final RegistryObject<Block> POTTED_RED_MUSHROOM_BLOCK = RegisterHelper.registerFlowerPot("potted_red_mushroom_block", () -> Blocks.RED_MUSHROOM_BLOCK);
+    public static final RegistryObject<Block> POTTED_NETHER_WART_BLOCK = RegisterHelper.registerFlowerPot("potted_nether_wart_block", () -> Blocks.NETHER_WART_BLOCK);
+    public static final RegistryObject<Block> POTTED_WARPED_WART_BLOCK = RegisterHelper.registerFlowerPot("potted_warped_wart_block", () -> Blocks.WARPED_WART_BLOCK);
+    public static final RegistryObject<Block> POTTED_SHROOMLIGHT = RegisterHelper.registerLitFlowerPot("potted_shroomlight", () -> Blocks.SHROOMLIGHT, 5);
+    public static final RegistryObject<Block> POTTED_GRASS = RegisterHelper.registerFlowerPot("potted_grass", () -> Blocks.GRASS);
+    public static final RegistryObject<Block> POTTED_SUGAR_CANE = RegisterHelper.registerFlowerPot("potted_sugar_cane", () -> Blocks.SUGAR_CANE);
+    public static final RegistryObject<Block> POTTED_SEAGRASS = RegisterHelper.registerFlowerPot("potted_seagrass", () -> Blocks.SEAGRASS);
+    public static final RegistryObject<Block> POTTED_TALL_GRASS = RegisterHelper.registerFlowerPot("potted_tall_grass", () -> Blocks.TALL_GRASS);
+    public static final RegistryObject<Block> POTTED_LARGE_FERN = RegisterHelper.registerFlowerPot("potted_large_fern", () -> Blocks.LARGE_FERN);
+    public static final RegistryObject<Block> POTTED_SUNFLOWER = RegisterHelper.registerFlowerPot("potted_sunflower", () -> Blocks.SUNFLOWER);
+    public static final RegistryObject<Block> POTTED_LILAC = RegisterHelper.registerFlowerPot("potted_lilac", () -> Blocks.LILAC);
+    public static final RegistryObject<Block> POTTED_ROSE_BUSH = RegisterHelper.registerFlowerPot("potted_rose_bush", () -> Blocks.ROSE_BUSH);
+    public static final RegistryObject<Block> POTTED_PEONY = RegisterHelper.registerFlowerPot("potted_peony", () -> Blocks.PEONY);
+    public static final RegistryObject<Block> POTTED_KELP = RegisterHelper.registerFlowerPot("potted_kelp", () -> Blocks.KELP);
+    public static final RegistryObject<Block> POTTED_BIG_DRIPLEAF = RegisterHelper.registerFlowerPot("potted_big_dripleaf", () -> Blocks.BIG_DRIPLEAF);
+    public static final RegistryObject<Block> POTTED_SMALL_DRIPLEAF = RegisterHelper.registerFlowerPot("potted_small_dripleaf", () -> Blocks.SMALL_DRIPLEAF);
+    public static final RegistryObject<Block> POTTED_CHORUS_PLANT = RegisterHelper.registerFlowerPot("potted_chorus_plant", () -> Blocks.CHORUS_PLANT);
+    public static final RegistryObject<Block> POTTED_CHORUS_FLOWER = RegisterHelper.registerFlowerPot("potted_chorus_flower", () -> Blocks.CHORUS_FLOWER);
+    public static final RegistryObject<Block> POTTED_SWEET_BERRY_BUSH = RegisterHelper.registerFlowerPot("potted_sweet_berry_bush", () -> Blocks.SWEET_BERRY_BUSH);
+    public static final RegistryObject<Block> POTTED_CAVE_VINES = RegisterHelper.registerLitFlowerPot("potted_cave_vines", () -> Blocks.CAVE_VINES, 4);
+    public static final RegistryObject<Block> POTTED_OCHRE_FROGLIGHT = RegisterHelper.registerLitFlowerPot("potted_ochre_froglight", () -> Blocks.OCHRE_FROGLIGHT, 5);
+    public static final RegistryObject<Block> POTTED_VERDANT_FROGLIGHT = RegisterHelper.registerLitFlowerPot("potted_verdant_froglight", () -> Blocks.VERDANT_FROGLIGHT, 5);
+    public static final RegistryObject<Block> POTTED_PEARLESCENT_FROGLIGHT = RegisterHelper.registerLitFlowerPot("potted_pearlescent_froglight", () -> Blocks.PEARLESCENT_FROGLIGHT, 5);
+    public static final RegistryObject<Block> POTTED_DEAD_TUBE_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_tube_coral_block", () -> Blocks.DEAD_TUBE_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_TUBE_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_tube_coral_block", POTTED_DEAD_TUBE_CORAL_BLOCK, () -> Blocks.TUBE_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_DEAD_BRAIN_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_brain_coral_block", () -> Blocks.DEAD_BRAIN_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_BRAIN_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_brain_coral_block", POTTED_DEAD_BRAIN_CORAL_BLOCK, () -> Blocks.BRAIN_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_DEAD_BUBBLE_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_bubble_coral_block", () -> Blocks.DEAD_BUBBLE_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_BUBBLE_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_bubble_coral_block", POTTED_DEAD_BUBBLE_CORAL_BLOCK, () -> Blocks.BUBBLE_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_DEAD_FIRE_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_fire_coral_block", () -> Blocks.DEAD_FIRE_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_FIRE_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_fire_coral_block", POTTED_DEAD_FIRE_CORAL_BLOCK, () -> Blocks.FIRE_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_DEAD_HORN_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_horn_coral_block", () -> Blocks.DEAD_HORN_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_HORN_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_horn_coral_block", POTTED_DEAD_HORN_CORAL_BLOCK, () -> Blocks.HORN_CORAL_BLOCK);
+    public static final RegistryObject<Block> POTTED_DEAD_TUBE_CORAL = RegisterHelper.registerFlowerPot("potted_dead_tube_coral", () -> Blocks.DEAD_TUBE_CORAL);
+    public static final RegistryObject<Block> POTTED_TUBE_CORAL = RegisterHelper.registerCoralFlowerPot("potted_tube_coral", POTTED_DEAD_TUBE_CORAL, () -> Blocks.TUBE_CORAL);
+    public static final RegistryObject<Block> POTTED_DEAD_BRAIN_CORAL = RegisterHelper.registerFlowerPot("potted_dead_brain_coral", () -> Blocks.DEAD_BRAIN_CORAL);
+    public static final RegistryObject<Block> POTTED_BRAIN_CORAL = RegisterHelper.registerCoralFlowerPot("potted_brain_coral", POTTED_DEAD_BRAIN_CORAL, () -> Blocks.BRAIN_CORAL);
+    public static final RegistryObject<Block> POTTED_DEAD_BUBBLE_CORAL = RegisterHelper.registerFlowerPot("potted_dead_bubble_coral", () -> Blocks.DEAD_BUBBLE_CORAL);
+    public static final RegistryObject<Block> POTTED_BUBBLE_CORAL = RegisterHelper.registerCoralFlowerPot("potted_bubble_coral", POTTED_DEAD_BUBBLE_CORAL, () -> Blocks.BUBBLE_CORAL);
+    public static final RegistryObject<Block> POTTED_DEAD_FIRE_CORAL = RegisterHelper.registerFlowerPot("potted_dead_fire_coral", () -> Blocks.DEAD_FIRE_CORAL);
+    public static final RegistryObject<Block> POTTED_FIRE_CORAL = RegisterHelper.registerCoralFlowerPot("potted_fire_coral", POTTED_DEAD_FIRE_CORAL, () -> Blocks.FIRE_CORAL);
+    public static final RegistryObject<Block> POTTED_DEAD_HORN_CORAL = RegisterHelper.registerFlowerPot("potted_dead_horn_coral", () -> Blocks.DEAD_HORN_CORAL);
+    public static final RegistryObject<Block> POTTED_HORN_CORAL = RegisterHelper.registerCoralFlowerPot("potted_horn_coral", POTTED_DEAD_HORN_CORAL, () -> Blocks.HORN_CORAL);
+    public static final RegistryObject<Block> POTTED_DEAD_TUBE_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_tube_coral_fan", () -> Blocks.DEAD_TUBE_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_TUBE_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_tube_coral_fan", POTTED_DEAD_TUBE_CORAL_FAN, () -> Blocks.TUBE_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_DEAD_BRAIN_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_brain_coral_fan", () -> Blocks.DEAD_BRAIN_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_BRAIN_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_brain_coral_fan", POTTED_DEAD_BRAIN_CORAL_FAN, () -> Blocks.BRAIN_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_DEAD_BUBBLE_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_bubble_coral_fan", () -> Blocks.DEAD_BUBBLE_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_BUBBLE_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_bubble_coral_fan", POTTED_DEAD_BUBBLE_CORAL_FAN, () -> Blocks.BUBBLE_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_DEAD_FIRE_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_fire_coral_fan", () -> Blocks.DEAD_FIRE_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_FIRE_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_fire_coral_fan", POTTED_DEAD_FIRE_CORAL_FAN, () -> Blocks.FIRE_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_DEAD_HORN_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_horn_coral_fan", () -> Blocks.DEAD_HORN_CORAL_FAN);
+    public static final RegistryObject<Block> POTTED_HORN_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_horn_coral_fan", POTTED_DEAD_HORN_CORAL_FAN, () -> Blocks.HORN_CORAL_FAN);
+    public static final RegistryObject<Block> CORN = RegisterHelper.registerBlockWithoutBlockItem("corn", CornBlock::new);
+    public static final RegistryObject<Block> DISGUISED_GRASS_TNT = RegisterHelper.registerBlock("disguised_grass_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_GRASS));
+    public static final RegistryObject<Block> DISGUISED_DIRT_TNT = RegisterHelper.registerBlock("disguised_dirt_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_DIRT));
+    public static final RegistryObject<Block> DISGUISED_SAND_TNT = RegisterHelper.registerBlock("disguised_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_SAND, 14406560));
+    public static final RegistryObject<Block> DISGUISED_RED_SAND_TNT = RegisterHelper.registerBlock("disguised_red_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_RED_SAND, 11098145));
+    public static final RegistryObject<Block> DISGUISED_STONE_TNT = RegisterHelper.registerBlock("disguised_stone_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_STONE));
+    public static final RegistryObject<Block> MEGA_TNT = RegisterHelper.registerBlock("mega_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.MEGA));
+    public static final RegistryObject<Block> SUPER_TNT = RegisterHelper.registerBlock("super_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.SUPER));
+    public static final RegistryObject<Block> HYPER_TNT = RegisterHelper.registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));
+    public static final RegistryObject<Block> DAYLIGHT_LAMP = RegisterHelper.registerBlock("daylight_lamp", () -> new DaylightLampBlock());
+    public static final RegistryObject<Block> CHARCOAL_BLOCK = RegisterHelper.registerFuelBlock("charcoal_block", MWColors.CHARCOAL.toMaterialColor(), 800);
+    public static final RegistryObject<Block> IRON_STAIRS = RegisterHelper.registerStair("iron_stairs", Blocks.IRON_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> IRON_SLAB = RegisterHelper.registerSlab("iron_slab", () -> Blocks.IRON_BLOCK);
+    public static final RegistryObject<Block> IRON_CAGE = RegisterHelper.registerCage("iron_cage", () -> Blocks.IRON_BLOCK);
+    public static final RegistryObject<Block> CUT_IRON = RegisterHelper.registerBlock("cut_iron", () -> PropertyHelper.copyFromBlock(Blocks.IRON_BLOCK));
+    public static final RegistryObject<Block> CUT_IRON_STAIRS = RegisterHelper.registerStair("cut_iron_stairs", () -> CUT_IRON.get().defaultBlockState());
+    public static final RegistryObject<Block> CUT_IRON_SLAB = RegisterHelper.registerSlab("cut_iron_slab", CUT_IRON);
+    public static final RegistryObject<Block> CUT_IRON_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_iron_pressure_plate", 15, MaterialColor.METAL, BlockSetType.IRON);
+    public static final RegistryObject<Block> GOLDEN_STAIRS = RegisterHelper.registerStair("golden_stairs", Blocks.GOLD_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> GOLDEN_SLAB = RegisterHelper.registerSlab("golden_slab", () -> Blocks.GOLD_BLOCK);
+    public static final RegistryObject<Block> GOLDEN_DOOR = RegisterHelper.registerDoor("golden_door", true, BlockSetType.GOLD);
+    public static final RegistryObject<Block> GOLDEN_TRAPDOOR = RegisterHelper.registerTrapdoor("golden_trapdoor", true, BlockSetType.GOLD);
+    public static final RegistryObject<Block> GOLDEN_CHAIN = RegisterHelper.registerChain("golden_chain");
+    public static final RegistryObject<Block> GOLDEN_LANTERN = RegisterHelper.registerLantern("golden_lantern", false);
+    public static final RegistryObject<Block> GOLDEN_SOUL_LANTERN = RegisterHelper.registerLantern("golden_soul_lantern", true);
+    public static final RegistryObject<Block> GOLD_BARS = RegisterHelper.registerBars("gold_bars");
+    public static final RegistryObject<Block> GOLDEN_CAGE = RegisterHelper.registerCage("golden_cage", () -> Blocks.GOLD_BLOCK);
+    public static final RegistryObject<Block> CUT_GOLD = RegisterHelper.registerBlock("cut_gold", () -> PropertyHelper.copyFromBlock(Blocks.GOLD_BLOCK));
+    public static final RegistryObject<Block> CUT_GOLDEN_STAIRS = RegisterHelper.registerStair("cut_golden_stairs", () -> CUT_GOLD.get().defaultBlockState());
+    public static final RegistryObject<Block> CUT_GOLDEN_SLAB = RegisterHelper.registerSlab("cut_golden_slab", CUT_GOLD);
+    public static final RegistryObject<Block> CUT_GOLDEN_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_golden_pressure_plate", 15, MaterialColor.GOLD, BlockSetType.GOLD);
+    public static final RegistryObject<Block> OXIDIZED_COPPER_STAIRS = RegisterHelper.registerBlock("oxidized_copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.OXIDIZED, Blocks.OXIDIZED_COPPER.defaultBlockState()));
+    public static final RegistryObject<Block> WEATHERED_COPPER_STAIRS = RegisterHelper.registerBlock("weathered_copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.WEATHERED, Blocks.WEATHERED_COPPER.defaultBlockState()));
+    public static final RegistryObject<Block> EXPOSED_COPPER_STAIRS = RegisterHelper.registerBlock("exposed_copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.EXPOSED, Blocks.EXPOSED_COPPER.defaultBlockState()));
+    public static final RegistryObject<Block> COPPER_STAIRS = RegisterHelper.registerBlock("copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.UNAFFECTED, Blocks.COPPER_BLOCK.defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_oxidized_copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.OXIDIZED, Blocks.WAXED_OXIDIZED_COPPER.defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_weathered_copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.WEATHERED, Blocks.WAXED_WEATHERED_COPPER.defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_exposed_copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.EXPOSED, Blocks.WAXED_EXPOSED_COPPER.defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_copper_stairs",
+            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.UNAFFECTED, Blocks.WAXED_COPPER_BLOCK.defaultBlockState()));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_SLAB = RegisterHelper.registerBlock("oxidized_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, PropertyHelper.copyFromBlock(Blocks.OXIDIZED_CUT_COPPER)));
+    public static final RegistryObject<Block> WEATHERED_COPPER_SLAB = RegisterHelper.registerBlock("weathered_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, PropertyHelper.copyFromBlock(Blocks.WEATHERED_CUT_COPPER)));
+    public static final RegistryObject<Block> EXPOSED_COPPER_SLAB = RegisterHelper.registerBlock("exposed_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, PropertyHelper.copyFromBlock(Blocks.EXPOSED_CUT_COPPER)));
+    public static final RegistryObject<Block> COPPER_SLAB = RegisterHelper.registerBlock("copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, PropertyHelper.copyFromBlock(Blocks.CUT_COPPER_SLAB)));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_oxidized_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, PropertyHelper.copyFromBlock(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_weathered_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, PropertyHelper.copyFromBlock(Blocks.WAXED_WEATHERED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_exposed_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, PropertyHelper.copyFromBlock(Blocks.WAXED_EXPOSED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_copper_slab",
+            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, PropertyHelper.copyFromBlock(Blocks.WAXED_CUT_COPPER_SLAB)));
+    public static final RegistryObject<Block> COPPER_DOOR = RegisterHelper.registerDoor("copper_door", true, MWBlockSetTypes.COPPER);
+    public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("oxidized_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("weathered_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("exposed_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_TRAPDOOR = RegisterHelper.registerBlock("copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_oxidized_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_weathered_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_exposed_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_copper_trapdoor",
+            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("oxidized_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("weathered_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("exposed_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_oxidized_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_weathered_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_exposed_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_CHAIN = RegisterHelper.registerBlock("oxidized_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_CHAIN = RegisterHelper.registerBlock("weathered_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_CHAIN = RegisterHelper.registerBlock("exposed_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_CHAIN = RegisterHelper.registerBlock("copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_oxidized_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_weathered_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_exposed_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_copper_chain",
+            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_LANTERN = RegisterHelper.registerBlock("oxidized_copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, false));
+    public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = RegisterHelper.registerBlock("weathered_copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, false));
+    public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = RegisterHelper.registerBlock("exposed_copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, false));
+    public static final RegistryObject<Block> COPPER_LANTERN = RegisterHelper.registerBlock("copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, false));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, false));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, false));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, false));
+    public static final RegistryObject<Block> WAXED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_copper_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, false));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("oxidized_copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, true));
+    public static final RegistryObject<Block> WEATHERED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("weathered_copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, true));
+    public static final RegistryObject<Block> EXPOSED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("exposed_copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, true));
+    public static final RegistryObject<Block> COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, true));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, true));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, true));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, true));
+    public static final RegistryObject<Block> WAXED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_copper_soul_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, true));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_BARS = RegisterHelper.registerBlock("oxidized_copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_BARS = RegisterHelper.registerBlock("weathered_copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_BARS = RegisterHelper.registerBlock("exposed_copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_BARS = RegisterHelper.registerBlock("copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BARS = RegisterHelper.registerBlock("waxed_oxidized_copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BARS = RegisterHelper.registerBlock("waxed_weathered_copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BARS = RegisterHelper.registerBlock("waxed_exposed_copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_BARS = RegisterHelper.registerBlock("waxed_copper_bars",
+            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_CAGE = RegisterHelper.registerBlock("oxidized_copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_COPPER_CAGE = RegisterHelper.registerBlock("weathered_copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_COPPER_CAGE = RegisterHelper.registerBlock("exposed_copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> COPPER_CAGE = RegisterHelper.registerBlock("copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_oxidized_copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_weathered_copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_exposed_copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_copper_cage",
+            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> OXIDIZED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("oxidized_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WEATHERED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("weathered_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> EXPOSED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("exposed_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_oxidized_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
+    public static final RegistryObject<Block> WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_weathered_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
+    public static final RegistryObject<Block> WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_exposed_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
+    public static final RegistryObject<Block> WAXED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_cut_copper_pressure_plate",
+            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
+    public static final RegistryObject<Block> NETHERITE_STAIRS = RegisterHelper.registerStair("netherite_stairs", Blocks.NETHERITE_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> NETHERITE_SLAB = RegisterHelper.registerSlab("netherite_slab", () -> Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> NETHERITE_DOOR = RegisterHelper.registerDoor("netherite_door", true, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_TRAPDOOR = RegisterHelper.registerTrapdoor("netherite_trapdoor", true, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("netherite_pressure_plate", 100, MaterialColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_CHAIN = RegisterHelper.registerChain("netherite_chain");
+    public static final RegistryObject<Block> NETHERITE_LANTERN = RegisterHelper.registerLantern("netherite_lantern", false);
+    public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = RegisterHelper.registerLantern("netherite_soul_lantern", true);
+    public static final RegistryObject<Block> NETHERITE_BARS = RegisterHelper.registerBars("netherite_bars");
+    public static final RegistryObject<Block> NETHERITE_CAGE = RegisterHelper.registerCage("netherite_cage", () -> Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> CUT_NETHERITE = RegisterHelper.registerBlock("cut_netherite", () -> PropertyHelper.copyFromBlock(Blocks.NETHERITE_BLOCK));
+    public static final RegistryObject<Block> CUT_NETHERITE_STAIRS = RegisterHelper.registerStair("cut_netherite_stairs", () -> CUT_NETHERITE.get().defaultBlockState());
+    public static final RegistryObject<Block> CUT_NETHERITE_SLAB = RegisterHelper.registerSlab("cut_netherite_slab", CUT_NETHERITE);
+    public static final RegistryObject<Block> CUT_NETHERITE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_netherite_pressure_plate", 100, MaterialColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> ALUMINUM_STAIRS = RegisterHelper.registerStair("aluminum_stairs", () -> ALUMINUM_BLOCK.get().defaultBlockState());
+    public static final RegistryObject<Block> ALUMINUM_SLAB = RegisterHelper.registerSlab("aluminum_slab", ALUMINUM_BLOCK);
+    public static final RegistryObject<Block> ALUMINUM_DOOR = RegisterHelper.registerDoor("aluminum_door", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> ALUMINUM_TRAPDOOR = RegisterHelper.registerTrapdoor("aluminum_trapdoor", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> ALUMINUM_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("aluminum_pressure_plate", 15, MWColors.ALUMINUM.toMaterialColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> ALUMINUM_CHAIN = RegisterHelper.registerChain("aluminum_chain");
+    public static final RegistryObject<Block> ALUMINUM_LANTERN = RegisterHelper.registerLantern("aluminum_lantern", false);
+    public static final RegistryObject<Block> ALUMINUM_SOUL_LANTERN = RegisterHelper.registerLantern("aluminum_soul_lantern", true);
+    public static final RegistryObject<Block> ALUMINUM_BARS = RegisterHelper.registerBars("aluminum_bars");
+    public static final RegistryObject<Block> ALUMINUM_CAGE = RegisterHelper.registerCage("aluminum_cage", ALUMINUM_BLOCK);
+    public static final RegistryObject<Block> CUT_ALUMINUM = RegisterHelper.registerBlock("cut_aluminum", () -> PropertyHelper.copyFromBlock(ALUMINUM_BLOCK.get()));
+    public static final RegistryObject<Block> CUT_ALUMINUM_STAIRS = RegisterHelper.registerStair("cut_aluminum_stairs", () -> CUT_ALUMINUM.get().defaultBlockState());
+    public static final RegistryObject<Block> CUT_ALUMINUM_SLAB = RegisterHelper.registerSlab("cut_aluminum_slab", CUT_ALUMINUM);
+    public static final RegistryObject<Block> CUT_ALUMINUM_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_aluminum_pressure_plate", 15, MWColors.ALUMINUM.toMaterialColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> BRONZE_STAIRS = RegisterHelper.registerStair("bronze_stairs", () -> BRONZE_BLOCK.get().defaultBlockState());
+    public static final RegistryObject<Block> BRONZE_SLAB = RegisterHelper.registerSlab("bronze_slab", BRONZE_BLOCK);
+    public static final RegistryObject<Block> BRONZE_DOOR = RegisterHelper.registerDoor("bronze_door", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> BRONZE_TRAPDOOR = RegisterHelper.registerTrapdoor("bronze_trapdoor", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> BRONZE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("bronze_pressure_plate", 15, MWColors.BRONZE.toMaterialColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> BRONZE_CHAIN = RegisterHelper.registerChain("bronze_chain");
+    public static final RegistryObject<Block> BRONZE_LANTERN = RegisterHelper.registerLantern("bronze_lantern", false);
+    public static final RegistryObject<Block> BRONZE_SOUL_LANTERN = RegisterHelper.registerLantern("bronze_soul_lantern", true);
+    public static final RegistryObject<Block> BRONZE_BARS = RegisterHelper.registerBars("bronze_bars");
+    public static final RegistryObject<Block> BRONZE_CAGE = RegisterHelper.registerCage("bronze_cage", BRONZE_BLOCK);
+    public static final RegistryObject<Block> CUT_BRONZE = RegisterHelper.registerBlock("cut_bronze", () -> PropertyHelper.copyFromBlock(BRONZE_BLOCK.get()));
+    public static final RegistryObject<Block> CUT_BRONZE_STAIRS = RegisterHelper.registerStair("cut_bronze_stairs", () -> CUT_BRONZE.get().defaultBlockState());
+    public static final RegistryObject<Block> CUT_BRONZE_SLAB = RegisterHelper.registerSlab("cut_bronze_slab", CUT_BRONZE);
+    public static final RegistryObject<Block> CUT_BRONZE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_bronze_pressure_plate", 15, MWColors.BRONZE.toMaterialColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> SILVER_STAIRS = RegisterHelper.registerStair("silver_stairs", () -> SILVER_BLOCK.get().defaultBlockState());
+    public static final RegistryObject<Block> SILVER_SLAB = RegisterHelper.registerSlab("silver_slab", SILVER_BLOCK);
+    public static final RegistryObject<Block> SILVER_DOOR = RegisterHelper.registerDoor("silver_door", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> SILVER_TRAPDOOR = RegisterHelper.registerTrapdoor("silver_trapdoor", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> SILVER_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("silver_pressure_plate", 50, MWColors.SILVER.toMaterialColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> SILVER_CHAIN = RegisterHelper.registerChain("silver_chain");
+    public static final RegistryObject<Block> SILVER_LANTERN = RegisterHelper.registerLantern("silver_lantern", false);
+    public static final RegistryObject<Block> SILVER_SOUL_LANTERN = RegisterHelper.registerLantern("silver_soul_lantern", true);
+    public static final RegistryObject<Block> SILVER_BARS = RegisterHelper.registerBars("silver_bars");
+    public static final RegistryObject<Block> SILVER_CAGE = RegisterHelper.registerCage("silver_cage", SILVER_BLOCK);
+    public static final RegistryObject<Block> CUT_SILVER = RegisterHelper.registerBlock("cut_silver", () -> PropertyHelper.copyFromBlock(SILVER_BLOCK.get()));
+    public static final RegistryObject<Block> CUT_SILVER_STAIRS = RegisterHelper.registerStair("cut_silver_stairs", () -> CUT_SILVER.get().defaultBlockState());
+    public static final RegistryObject<Block> CUT_SILVER_SLAB = RegisterHelper.registerSlab("cut_silver_slab", CUT_SILVER);
+    public static final RegistryObject<Block> CUT_SILVER_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_silver_pressure_plate", 50, MWColors.SILVER.toMaterialColor(), MWBlockSetTypes.METAL);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
      *
-     * @param eventBus {@link IEventBus Event Bus}
+     * @param eventBus {@link IEventBus The event bus}
      */
     public static void register(final IEventBus eventBus) {
-        MWFlowerPots.register(eventBus);
-        MWVanillaExpansionBlocks.register(eventBus);
-        BLOCKS.register(eventBus);
+        RegisterHelper.registerBlocks(eventBus);
     }
+
 }

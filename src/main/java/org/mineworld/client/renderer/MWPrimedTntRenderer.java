@@ -50,6 +50,7 @@ public class MWPrimedTntRenderer extends EntityRenderer<MWPrimedTnt> {
      * @param multiBufferSource {@link MultiBufferSource The rendering multi buffer source}
      * @param packedLight {@link Integer The world packed light}
      */
+    @Override
     public void render(final MWPrimedTnt tnt, final float yaw, final float partialTicks, final PoseStack poseStack, final @NotNull MultiBufferSource multiBufferSource, final int packedLight) {
         poseStack.pushPose();
         poseStack.translate(0.0F, 0.5F, 0.0F);
@@ -97,7 +98,9 @@ public class MWPrimedTntRenderer extends EntityRenderer<MWPrimedTnt> {
      * @param tnt {@link MWPrimedTnt The primed tnt}
      * @return {@link TextureAtlas#LOCATION_BLOCKS The blocks texture atlas location}
      */
+    @Override
     public @NotNull ResourceLocation getTextureLocation(final @NotNull MWPrimedTnt tnt) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
+
 }

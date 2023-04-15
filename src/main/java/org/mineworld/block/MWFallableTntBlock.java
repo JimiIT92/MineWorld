@@ -9,6 +9,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -29,9 +30,10 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      *
      * @param type           {@link MWPrimedTnt.Type The tnt type}
      * @param dustColor      {@link Integer The falling block dust color}
+     * @param featureFlags   {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public MWFallableTntBlock(final MWPrimedTnt.Type type, final int dustColor) {
-        super(type);
+    public MWFallableTntBlock(final MWPrimedTnt.Type type, final int dustColor, final FeatureFlag... featureFlags) {
+        super(type, featureFlags);
         this.dustColor = dustColor;
     }
 
@@ -86,6 +88,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @param blockPos {@link BlockPos The current block pos}
      * @param randomSource {@link RandomSource The random reference}
      */
+    @Override
     public void tick(final @NotNull BlockState blockState, final ServerLevel level, final BlockPos blockPos, final @NotNull RandomSource randomSource) {
         if (canFall(level.getBlockState(blockPos.below())) && blockPos.getY() >= level.getMinBuildHeight()) {
             final FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, blockPos, blockState);
@@ -118,6 +121,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @param blockPos {@link BlockPos The current block pos}
      * @param randomSource {@link RandomSource The random reference}
      */
+    @Override
     public void animateTick(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final RandomSource randomSource) {
         if (randomSource.nextInt(16) == 0) {
             if (canFall(level.getBlockState(blockPos.below()))) {
@@ -134,4 +138,5 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
     private int getDelayAfterPlace() {
         return 2;
     }
+
 }

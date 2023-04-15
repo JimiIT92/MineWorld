@@ -20,4 +20,5 @@ public class DaylightLampBlockEntity extends BlockEntity {
     public DaylightLampBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.DAYLIGHT_LAMP.get(), blockPos, blockState);
     }
+
 }

@@ -8,6 +8,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -26,8 +27,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.core.MWBlockEntityTypes;
-import org.mineworld.core.MWBlocks;
 import org.mineworld.entity.block.DaylightLampBlockEntity;
+import org.mineworld.helper.PropertyHelper;
 
 /**
  * Implementation class for a day/night light lamp
@@ -49,9 +50,11 @@ public class DaylightLampBlock extends BaseEntityBlock {
 
     /**
      * Constructor. Set the {@link Block block properties}
+     *
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public DaylightLampBlock() {
-        super(MWBlocks.copyFrom(Blocks.REDSTONE_LAMP));
+    public DaylightLampBlock(final FeatureFlag... featureFlags) {
+        super(PropertyHelper.copyFromBlock(Blocks.REDSTONE_LAMP, featureFlags));
         this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.FALSE).setValue(INVERTED, Boolean.FALSE).setValue(POWER, 0));
     }
 
@@ -103,6 +106,7 @@ public class DaylightLampBlock extends BaseEntityBlock {
      * @param blockPos {@link BlockPos The current block pos}
      * @param randomSource {@link RandomSource The random reference}
      */
+    @Override
     public void tick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
         updateStatus(blockState, level, blockPos, randomSource);
     }
@@ -226,6 +230,7 @@ public class DaylightLampBlock extends BaseEntityBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link BlockEntity The daylight lamp block entity}
      */
+    @Override
     public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         return new DaylightLampBlockEntity(blockPos, blockState);
     }
@@ -268,4 +273,5 @@ public class DaylightLampBlock extends BaseEntityBlock {
     public @NotNull RenderShape getRenderShape(final @NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }
+
 }

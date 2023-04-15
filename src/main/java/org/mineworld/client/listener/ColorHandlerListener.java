@@ -12,7 +12,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
-import org.mineworld.core.MWFlowerPots;
 
 /**
  * Handles the {@link Block block coloring} on the client side
@@ -54,33 +53,34 @@ public final class ColorHandlerListener {
     private static void registerFlowerPotsColorHandlers(final RegisterColorHandlersEvent.Block event) {
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         FoliageColor.getDefaultColor(),
-                MWFlowerPots.POTTED_OAK_LEAVES.get(),
-                MWFlowerPots.POTTED_JUNGLE_LEAVES.get(),
-                MWFlowerPots.POTTED_ACACIA_LEAVES.get(),
-                MWFlowerPots.POTTED_DARK_OAK_LEAVES.get(),
-                MWFlowerPots.POTTED_MANGROVE_LEAVES.get());
+                MWBlocks.POTTED_OAK_LEAVES.get(),
+                MWBlocks.POTTED_JUNGLE_LEAVES.get(),
+                MWBlocks.POTTED_ACACIA_LEAVES.get(),
+                MWBlocks.POTTED_DARK_OAK_LEAVES.get(),
+                MWBlocks.POTTED_MANGROVE_LEAVES.get());
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         FoliageColor.getEvergreenColor(),
-                MWFlowerPots.POTTED_SPRUCE_LEAVES.get());
+                MWBlocks.POTTED_SPRUCE_LEAVES.get());
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         FoliageColor.getBirchColor(),
-                MWFlowerPots.POTTED_BIRCH_LEAVES.get());
+                MWBlocks.POTTED_BIRCH_LEAVES.get());
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         GrassColor.getDefaultColor(),
-                MWFlowerPots.POTTED_GRASS.get(),
-                MWFlowerPots.POTTED_TALL_GRASS.get(),
-                MWFlowerPots.POTTED_LARGE_FERN.get());
+                MWBlocks.POTTED_GRASS.get(),
+                MWBlocks.POTTED_TALL_GRASS.get(),
+                MWBlocks.POTTED_LARGE_FERN.get());
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         tintGetter != null && blockPos != null ? BiomeColors.getAverageWaterColor(tintGetter, blockPos) : -1,
-                MWFlowerPots.POTTED_TUBE_CORAL.get(),
-                MWFlowerPots.POTTED_BRAIN_CORAL.get(),
-                MWFlowerPots.POTTED_BUBBLE_CORAL.get(),
-                MWFlowerPots.POTTED_FIRE_CORAL.get(),
-                MWFlowerPots.POTTED_HORN_CORAL.get(),
-                MWFlowerPots.POTTED_TUBE_CORAL_FAN.get(),
-                MWFlowerPots.POTTED_BRAIN_CORAL_FAN.get(),
-                MWFlowerPots.POTTED_BUBBLE_CORAL_FAN.get(),
-                MWFlowerPots.POTTED_FIRE_CORAL_FAN.get(),
-                MWFlowerPots.POTTED_HORN_CORAL_FAN.get());
+                MWBlocks.POTTED_TUBE_CORAL.get(),
+                MWBlocks.POTTED_BRAIN_CORAL.get(),
+                MWBlocks.POTTED_BUBBLE_CORAL.get(),
+                MWBlocks.POTTED_FIRE_CORAL.get(),
+                MWBlocks.POTTED_HORN_CORAL.get(),
+                MWBlocks.POTTED_TUBE_CORAL_FAN.get(),
+                MWBlocks.POTTED_BRAIN_CORAL_FAN.get(),
+                MWBlocks.POTTED_BUBBLE_CORAL_FAN.get(),
+                MWBlocks.POTTED_FIRE_CORAL_FAN.get(),
+                MWBlocks.POTTED_HORN_CORAL_FAN.get());
     }
+
 }

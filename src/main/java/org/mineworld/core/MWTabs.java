@@ -1,10 +1,7 @@
 package org.mineworld.core;
 
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -14,20 +11,17 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.core.vanillaexpansion.MWVanillaExpansionBlocks;
-import org.mineworld.core.vanillaexpansion.MWVanillaExpansionCopperBlocks;
+import org.mineworld.helper.ItemHelper;
+import org.mineworld.helper.RegisterHelper;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * {@link MineWorld MineWorld} {@link CreativeModeTab creative tabs}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class MWTabs {
-
-    //#region Tabs
 
     public static CreativeModeTab BUILDING_BLOCKS;
     public static CreativeModeTab COLORED_BLOCKS;
@@ -40,8 +34,6 @@ public final class MWTabs {
     public static CreativeModeTab INGREDIENTS;
     public static CreativeModeTab SPAWN_EGGS;
 
-    //#endregion
-
     /**
      * Register the {@link CreativeModeTab creative tabs}
      *
@@ -49,25 +41,16 @@ public final class MWTabs {
      */
     @SubscribeEvent
     public static void onRegisterCreativeTabs(final CreativeModeTabEvent.Register event) {
-        BUILDING_BLOCKS = registerTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> MWItems.getDefaultStack(MWBlocks.SAPPHIRE_BLOCK));
-        COLORED_BLOCKS = registerTab(event, "colored_blocks", BUILDING_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.PINK_MARBLE));
-        NATURAL = registerTab(event, "natural", COLORED_BLOCKS, () -> MWItems.getDefaultStack(MWBlocks.BLUE_ROSE));
-        FUNCTIONAL = registerTab(event, "functional", NATURAL, () -> MWItems.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
-        REDSTONE = registerTab(event, "redstone", FUNCTIONAL, () -> MWItems.getDefaultStack(MWVanillaExpansionBlocks.GOLDEN_DOOR));
-        TOOLS = registerTab(event, "tools", REDSTONE, () -> MWItems.getDefaultStack(MWTools.EMERALD_PICKAXE));
-        COMBAT = registerTab(event, "combat", TOOLS, () -> MWItems.getDefaultStack(MWBlocks.HYPER_TNT));
-        FOOD_AND_DRINK = registerTab(event, "food_and_drink", COMBAT, () -> MWItems.getDefaultStack(MWFoods.COB));
-        INGREDIENTS = registerTab(event, "ingredients", FOOD_AND_DRINK, () -> MWItems.getDefaultStack(MWItems.RUBY));
-        SPAWN_EGGS = registerTab(event, "spawn_eggs", INGREDIENTS, MWTabs::getDisabledTabIcon);
-    }
-
-    /**
-     * Get the disabled {@link ItemStack tab icon}
-     *
-     * @return {@link ItemStack The item stack to use as tab icon}
-     */
-    private static ItemStack getDisabledTabIcon() {
-        return MWItems.getDefaultStack(Blocks.BEDROCK);
+        BUILDING_BLOCKS = RegisterHelper.registerCreativeTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> ItemHelper.getDefaultStack(MWBlocks.SAPPHIRE_BLOCK));
+        COLORED_BLOCKS = RegisterHelper.registerCreativeTab(event, "colored_blocks", BUILDING_BLOCKS, () -> ItemHelper.getDefaultStack(MWBlocks.PINK_MARBLE));
+        NATURAL = RegisterHelper.registerCreativeTab(event, "natural", COLORED_BLOCKS, () -> ItemHelper.getDefaultStack(MWBlocks.BLUE_ROSE));
+        FUNCTIONAL = RegisterHelper.registerCreativeTab(event, "functional", NATURAL, () -> ItemHelper.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
+        REDSTONE = RegisterHelper.registerCreativeTab(event, "redstone", FUNCTIONAL, () -> ItemHelper.getDefaultStack(MWBlocks.GOLDEN_DOOR));
+        TOOLS = RegisterHelper.registerCreativeTab(event, "tools", REDSTONE, () -> ItemHelper.getDefaultStack(MWItems.EMERALD_PICKAXE));
+        COMBAT = RegisterHelper.registerCreativeTab(event, "combat", TOOLS, () -> ItemHelper.getDefaultStack(MWBlocks.HYPER_TNT));
+        FOOD_AND_DRINK = RegisterHelper.registerCreativeTab(event, "food_and_drink", COMBAT, () -> ItemHelper.getDefaultStack(MWItems.COB));
+        INGREDIENTS = RegisterHelper.registerCreativeTab(event, "ingredients", FOOD_AND_DRINK, () -> ItemHelper.getDefaultStack(MWItems.RUBY));
+        SPAWN_EGGS = RegisterHelper.registerCreativeTab(event, "spawn_eggs", INGREDIENTS, () -> ItemHelper.getDefaultStack(Blocks.BARRIER));
     }
 
     /**
@@ -79,488 +62,518 @@ public final class MWTabs {
     public static void onTabBuildContents(final CreativeModeTabEvent.BuildContents event) {
         final CreativeModeTab tab = event.getTab();
         if(tab.equals(BUILDING_BLOCKS)) {
-        //woods - stones - storage blocks + derived - metals
-            //log
-            //wood
-            //stripped log
-            //stripped wood
-            //planks
-            //stairs
-            //slabs
-            //walls
-            //fences
-            //fence gate
-            //door
-            //trapdoor
-            //pressure plate
-            //button
-            addToTab(event,
-                    MWVanillaExpansionBlocks.CHARCOAL_BLOCK,
-                    MWBlocks.PYRITE_BLOCK,
-                    MWVanillaExpansionBlocks.IRON_STAIRS,
-                    MWVanillaExpansionBlocks.IRON_SLAB,
-                    MWVanillaExpansionBlocks.CUT_IRON,
-                    MWVanillaExpansionBlocks.CUT_IRON_STAIRS,
-                    MWVanillaExpansionBlocks.CUT_IRON_SLAB,
-                    MWVanillaExpansionBlocks.CUT_IRON_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.IRON_CAGE,
-                    MWVanillaExpansionBlocks.GOLDEN_STAIRS,
-                    MWVanillaExpansionBlocks.GOLDEN_SLAB,
-                    MWVanillaExpansionBlocks.CUT_GOLD,
-                    MWVanillaExpansionBlocks.CUT_GOLDEN_STAIRS,
-                    MWVanillaExpansionBlocks.CUT_GOLDEN_SLAB,
-                    MWVanillaExpansionBlocks.GOLD_BARS,
-                    MWVanillaExpansionBlocks.GOLDEN_DOOR,
-                    MWVanillaExpansionBlocks.GOLDEN_TRAPDOOR,
-                    MWVanillaExpansionBlocks.CUT_GOLDEN_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.GOLDEN_CHAIN,
-                    MWVanillaExpansionBlocks.GOLDEN_CAGE,
-                    MWVanillaExpansionCopperBlocks.COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_STAIRS,
-                    MWVanillaExpansionCopperBlocks.COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_SLAB,
-                    MWVanillaExpansionCopperBlocks.COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_BARS,
-                    MWVanillaExpansionCopperBlocks.COPPER_DOOR,
-                    MWVanillaExpansionCopperBlocks.COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.COPPER_CAGE,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_CAGE,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_CAGE,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_CAGE,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_CAGE,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_CAGE,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_CAGE,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_CAGE,
-                    MWVanillaExpansionBlocks.NETHERITE_STAIRS,
-                    MWVanillaExpansionBlocks.NETHERITE_SLAB,
-                    MWBlocks.RUBY_BLOCK,
-                    MWBlocks.SAPPHIRE_BLOCK,
-                    MWBlocks.ALUMINUM_BLOCK,
-                    MWVanillaExpansionBlocks.CUT_NETHERITE,
-                    MWVanillaExpansionBlocks.CUT_NETHERITE_STAIRS,
-                    MWVanillaExpansionBlocks.CUT_NETHERITE_SLAB,
-                    MWVanillaExpansionBlocks.NETHERITE_BARS,
-                    MWVanillaExpansionBlocks.NETHERITE_DOOR,
-                    MWVanillaExpansionBlocks.NETHERITE_TRAPDOOR,
-                    MWVanillaExpansionBlocks.NETHERITE_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.CUT_NETHERITE_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.NETHERITE_CHAIN,
-                    MWVanillaExpansionBlocks.NETHERITE_CAGE,
-                    MWBlocks.ALUMINUM_STAIRS,
-                    MWBlocks.ALUMINUM_SLAB,
-                    MWBlocks.CUT_ALUMINUM,
-                    MWBlocks.CUT_ALUMINUM_STAIRS,
-                    MWBlocks.CUT_ALUMINUM_SLAB,
-                    MWBlocks.ALUMINUM_BARS,
-                    MWBlocks.ALUMINUM_DOOR,
-                    MWBlocks.ALUMINUM_TRAPDOOR,
-                    MWBlocks.ALUMINUM_PRESSURE_PLATE,
-                    MWBlocks.CUT_ALUMINUM_PRESSURE_PLATE,
-                    MWBlocks.ALUMINUM_CHAIN,
-                    MWBlocks.ALUMINUM_CAGE,
-                    MWBlocks.BRONZE_BLOCK,
-                    MWBlocks.BRONZE_STAIRS,
-                    MWBlocks.BRONZE_SLAB,
-                    MWBlocks.CUT_BRONZE,
-                    MWBlocks.CUT_BRONZE_STAIRS,
-                    MWBlocks.CUT_BRONZE_SLAB,
-                    MWBlocks.BRONZE_BARS,
-                    MWBlocks.BRONZE_DOOR,
-                    MWBlocks.BRONZE_TRAPDOOR,
-                    MWBlocks.BRONZE_PRESSURE_PLATE,
-                    MWBlocks.CUT_BRONZE_PRESSURE_PLATE,
-                    MWBlocks.BRONZE_CHAIN,
-                    MWBlocks.BRONZE_CAGE,
-                    MWBlocks.SILVER_BLOCK,
-                    MWBlocks.SILVER_STAIRS,
-                    MWBlocks.SILVER_SLAB,
-                    MWBlocks.CUT_SILVER,
-                    MWBlocks.CUT_SILVER_STAIRS,
-                    MWBlocks.CUT_SILVER_SLAB,
-                    MWBlocks.SILVER_BARS,
-                    MWBlocks.SILVER_DOOR,
-                    MWBlocks.SILVER_TRAPDOOR,
-                    MWBlocks.SILVER_PRESSURE_PLATE,
-                    MWBlocks.CUT_SILVER_PRESSURE_PLATE,
-                    MWBlocks.SILVER_CHAIN,
-                    MWBlocks.SILVER_CAGE,
-                    MWBlocks.RAW_ALUMINUM_BLOCK,
-                    MWBlocks.RAW_BRONZE_BLOCK,
-                    MWBlocks.RAW_SILVER_BLOCK
-            );
+            setBuildingBlocksTab(event);
         }
         else if(tab.equals(COLORED_BLOCKS)) {
-            addToTab(event,
-                    MWBlocks.MARBLE,
-                    MWBlocks.WHITE_MARBLE,
-                    MWBlocks.LIGHT_GRAY_MARBLE,
-                    MWBlocks.GRAY_MARBLE,
-                    MWBlocks.BLACK_MARBLE,
-                    MWBlocks.BROWN_MARBLE,
-                    MWBlocks.RED_MARBLE,
-                    MWBlocks.ORANGE_MARBLE,
-                    MWBlocks.YELLOW_MARBLE,
-                    MWBlocks.LIME_MARBLE,
-                    MWBlocks.GREEN_MARBLE,
-                    MWBlocks.CYAN_MARBLE,
-                    MWBlocks.LIGHT_BLUE_MARBLE,
-                    MWBlocks.BLACK_MARBLE,
-                    MWBlocks.PURPLE_MARBLE,
-                    MWBlocks.MAGENTA_MARBLE,
-                    MWBlocks.PINK_MARBLE);
+            setColoredBlocksTab(event);
         }
         else if(tab.equals(NATURAL)) {
-            //grass/terrain - stone - ores - nether ores - raw blocks - logs - leaves - saplings - flowers - seeds - deco blocks
-            addToTab(event,
-                    MWBlocks.MARBLE,
-                    MWBlocks.SILVER_ORE,
-                    MWBlocks.DEEPSLATE_SILVER_ORE,
-                    MWBlocks.ALUMINUM_ORE,
-                    MWBlocks.DEEPSLATE_ALUMINUM_ORE,
-                    MWBlocks.RUBY_ORE,
-                    MWBlocks.DEEPSLATE_RUBY_ORE,
-                    MWBlocks.SAPPHIRE_ORE,
-                    MWBlocks.DEEPSLATE_SAPPHIRE_ORE,
-                    MWBlocks.PYRITE_ORE,
-                    MWBlocks.BLUE_ROSE,
-                    MWBlocks.WHITE_ROSE,
-                    MWBlocks.BLUE_ROSE_BUSH,
-                    MWBlocks.WHITE_ROSE_BUSH,
-                    MWFoods.CORN_SEEDS);
+            setNaturalBlocksTab(event);
         }
         else if(tab.equals(FUNCTIONAL)) {
-            //torches - lanterns - chains - lights - workbenches - ladders - paintings - bookshelfs - signs - chests
-            addToTab(event,
-                    MWVanillaExpansionBlocks.GOLDEN_LANTERN,
-                    MWVanillaExpansionBlocks.GOLDEN_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_LANTERN,
-                    MWVanillaExpansionCopperBlocks.COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_SOUL_LANTERN,
-                    MWVanillaExpansionBlocks.NETHERITE_LANTERN,
-                    MWVanillaExpansionBlocks.NETHERITE_SOUL_LANTERN,
-                    MWBlocks.ALUMINUM_LANTERN,
-                    MWBlocks.ALUMINUM_SOUL_LANTERN,
-                    MWBlocks.BRONZE_LANTERN,
-                    MWBlocks.BRONZE_SOUL_LANTERN,
-                    MWBlocks.SILVER_LANTERN,
-                    MWBlocks.SILVER_SOUL_LANTERN,
-                    MWVanillaExpansionBlocks.GOLDEN_CHAIN,
-                    MWVanillaExpansionCopperBlocks.COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_CHAIN,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_CHAIN,
-                    MWVanillaExpansionBlocks.NETHERITE_CHAIN,
-                    MWBlocks.ALUMINUM_CHAIN,
-                    MWBlocks.BRONZE_CHAIN,
-                    MWBlocks.SILVER_CHAIN,
-                    MWBlocks.DAYLIGHT_LAMP
-            );
+            setFunctionalBlocksTab(event);
         }
         else if(tab.equals(REDSTONE)) {
-            //components - buttons - pressure plates - pistons - dropper/hoppers - chests - furnaces - minecarts - boat with chest  - doors
-            //fence gates - trapdoors - tnt - lamps - other blocks - ore
-            addToTab(event,
-                    MWVanillaExpansionBlocks.CUT_IRON_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.CUT_GOLDEN_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.NETHERITE_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.CUT_NETHERITE_PRESSURE_PLATE,
-                    MWBlocks.ALUMINUM_PRESSURE_PLATE,
-                    MWBlocks.CUT_ALUMINUM_PRESSURE_PLATE,
-                    MWBlocks.BRONZE_PRESSURE_PLATE,
-                    MWBlocks.CUT_BRONZE_PRESSURE_PLATE,
-                    MWBlocks.SILVER_PRESSURE_PLATE,
-                    MWBlocks.CUT_SILVER_PRESSURE_PLATE,
-                    MWVanillaExpansionBlocks.GOLDEN_DOOR,
-                    MWVanillaExpansionCopperBlocks.COPPER_DOOR,
-                    MWVanillaExpansionBlocks.NETHERITE_DOOR,
-                    MWBlocks.ALUMINUM_DOOR,
-                    MWBlocks.BRONZE_DOOR,
-                    MWBlocks.SILVER_DOOR,
-                    MWVanillaExpansionBlocks.GOLDEN_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.EXPOSED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WEATHERED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.OXIDIZED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionCopperBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR,
-                    MWVanillaExpansionBlocks.NETHERITE_TRAPDOOR,
-                    MWBlocks.ALUMINUM_TRAPDOOR,
-                    MWBlocks.BRONZE_TRAPDOOR,
-                    MWBlocks.SILVER_TRAPDOOR,
-                    MWBlocks.DISGUISED_GRASS_TNT,
-                    MWBlocks.DISGUISED_DIRT_TNT,
-                    MWBlocks.DISGUISED_SAND_TNT,
-                    MWBlocks.DISGUISED_RED_SAND_TNT,
-                    MWBlocks.DISGUISED_STONE_TNT,
-                    MWBlocks.MEGA_TNT,
-                    MWBlocks.SUPER_TNT,
-                    MWBlocks.HYPER_TNT,
-                    MWBlocks.DAYLIGHT_LAMP);
+            setRedstoneBlocksTab(event);
         }
         else if(tab.equals(TOOLS)) {
-        //tools tiers low to high - fluid buckets - unique tools - compasses - clock - useful items - boats(normal + chest) - minecarts - goat horns - music discs
-            //shovel
-            //pickaxe
-            //axe
-            //hoe
-            addToTab(event,
-                    MWTools.ALUMINUM_SHOVEL,
-                    MWTools.ALUMINUM_PICKAXE,
-                    MWTools.ALUMINUM_AXE,
-                    MWTools.ALUMINUM_HOE,
-                    MWTools.BRONZE_SHOVEL,
-                    MWTools.BRONZE_PICKAXE,
-                    MWTools.BRONZE_AXE,
-                    MWTools.BRONZE_HOE,
-                    MWTools.COPPER_SHOVEL,
-                    MWTools.COPPER_PICKAXE,
-                    MWTools.COPPER_AXE,
-                    MWTools.COPPER_HOE,
-                    MWTools.SILVER_SHOVEL,
-                    MWTools.SILVER_PICKAXE,
-                    MWTools.SILVER_AXE,
-                    MWTools.SILVER_HOE,
-                    MWTools.EMERALD_SHOVEL,
-                    MWTools.EMERALD_PICKAXE,
-                    MWTools.EMERALD_AXE,
-                    MWTools.EMERALD_HOE,
-                    MWTools.RUBY_SHOVEL,
-                    MWTools.RUBY_PICKAXE,
-                    MWTools.RUBY_AXE,
-                    MWTools.RUBY_HOE,
-                    MWTools.SAPPHIRE_SHOVEL,
-                    MWTools.SAPPHIRE_PICKAXE,
-                    MWTools.SAPPHIRE_AXE,
-                    MWTools.SAPPHIRE_HOE
-            );
+            setToolsTab(event);
         }
         else if(tab.equals(COMBAT)) {
-            //swords (low tier to high tier)
-            //axes (low tier to high tier)
-            //trident
-            //shield
-            //armor (low tier to high tier) -> helmet - chest - legs - boots
-            //horse amors (low tier to high tier)
-            //totem
-            //tnt
-            //projectiles
-            //bows
-            //arrows
-            addToTab(event,
-                    MWTools.ALUMINUM_SWORD,
-                    MWTools.BRONZE_SWORD,
-                    MWTools.COPPER_SWORD,
-                    MWTools.SILVER_SWORD,
-                    MWTools.EMERALD_SWORD,
-                    MWTools.RUBY_SWORD,
-                    MWTools.SAPPHIRE_SWORD,
-                    MWTools.ALUMINUM_AXE,
-                    MWTools.BRONZE_AXE,
-                    MWTools.COPPER_AXE,
-                    MWTools.SILVER_AXE,
-                    MWTools.EMERALD_AXE,
-                    MWTools.RUBY_AXE,
-                    MWTools.SAPPHIRE_AXE,
-                    MWArmors.ALUMINUM_HELMET,
-                    MWArmors.ALUMINUM_CHESTPLATE,
-                    MWArmors.ALUMINUM_LEGGINGS,
-                    MWArmors.ALUMINUM_BOOTS,
-                    MWArmors.BRONZE_HELMET,
-                    MWArmors.BRONZE_CHESTPLATE,
-                    MWArmors.BRONZE_LEGGINGS,
-                    MWArmors.BRONZE_BOOTS,
-                    MWArmors.COPPER_HELMET,
-                    MWArmors.COPPER_CHESTPLATE,
-                    MWArmors.COPPER_LEGGINGS,
-                    MWArmors.COPPER_BOOTS,
-                    MWArmors.SILVER_HELMET,
-                    MWArmors.SILVER_CHESTPLATE,
-                    MWArmors.SILVER_LEGGINGS,
-                    MWArmors.SILVER_BOOTS,
-                    MWArmors.EMERALD_HELMET,
-                    MWArmors.EMERALD_CHESTPLATE,
-                    MWArmors.EMERALD_LEGGINGS,
-                    MWArmors.EMERALD_BOOTS,
-                    MWArmors.RUBY_HELMET,
-                    MWArmors.RUBY_CHESTPLATE,
-                    MWArmors.RUBY_LEGGINGS,
-                    MWArmors.RUBY_BOOTS,
-                    MWArmors.SAPPHIRE_HELMET,
-                    MWArmors.SAPPHIRE_CHESTPLATE,
-                    MWArmors.SAPPHIRE_LEGGINGS,
-                    MWArmors.SAPPHIRE_BOOTS,
-                    MWArmors.ALUMINUM_HORSE_ARMOR,
-                    MWArmors.CHAINMAIL_HORSE_ARMOR,
-                    MWArmors.BRONZE_HORSE_ARMOR,
-                    MWArmors.COPPER_HORSE_ARMOR,
-                    MWArmors.SILVER_HORSE_ARMOR,
-                    MWArmors.EMERALD_HORSE_ARMOR,
-                    MWArmors.RUBY_HORSE_ARMOR,
-                    MWArmors.SAPPHIRE_HORSE_ARMOR,
-                    MWArmors.NETHERITE_HORSE_ARMOR,
-                    MWBlocks.DISGUISED_GRASS_TNT,
-                    MWBlocks.DISGUISED_DIRT_TNT,
-                    MWBlocks.DISGUISED_SAND_TNT,
-                    MWBlocks.DISGUISED_RED_SAND_TNT,
-                    MWBlocks.DISGUISED_STONE_TNT,
-                    MWBlocks.MEGA_TNT,
-                    MWBlocks.SUPER_TNT,
-                    MWBlocks.HYPER_TNT);
+            setCombatTab(event);
         }
         else if(tab.equals(FOOD_AND_DRINK)) {
-            //vegetables
-            //meat (raw - cooked)
-            //fish (raw - cooked)
-            //crafted foods (bread, cakes)
-            //rotten flesh
-            //spider eye
-            //stews
-            //milk bucket
-            //honey/drinks
-            //potions (base - increased - level 2) base - splash - lingering
-            addToTab(event,
-                    MWFoods.COB,
-                    MWFoods.COOKED_COB
-            );
+            setFoodAndDrinkTab(event);
         }
         else if(tab.equals(INGREDIENTS)) {
-            //raw
-            //gems
-            //nuggets
-            //ingots
-            //crafting materials
-            //bricks
-            //powders
-            //banner patterns
-            //pottery shard
-            //smithing templates
-            //enchants
-            addToTab(event,
-                    MWItems.PYRITE,
-                    MWItems.RAW_SILVER,
-                    MWItems.RAW_ALUMINUM,
-                    MWItems.RAW_BRONZE,
-                    MWItems.RUBY,
-                    MWItems.SAPPHIRE,
-                    MWItems.NETHERITE_NUGGET,
-                    MWItems.COPPER_NUGGET,
-                    MWItems.SILVER_NUGGET,
-                    MWItems.ALUMINUM_NUGGET,
-                    MWItems.BRONZE_NUGGET,
-                    MWItems.SILVER_INGOT,
-                    MWItems.ALUMINUM_INGOT,
-                    MWItems.BRONZE_INGOT,
-                    MWItems.RAW_BRONZE_SMITHING_TEMPLATE
-            );
+            setIngredientsTab(event);
         }
         else if(tab.equals(SPAWN_EGGS)) {
-            event.accept(Blocks.STRUCTURE_VOID);
+            setSpawnEggsTab(event);
         }
     }
 
-    //#region Utilities
+    /**
+     * Set the content of the {@link #BUILDING_BLOCKS building blocks tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setBuildingBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWBlocks.CHARCOAL_BLOCK,
+                MWBlocks.PYRITE_BLOCK,
+                MWBlocks.IRON_STAIRS,
+                MWBlocks.IRON_SLAB,
+                MWBlocks.CUT_IRON,
+                MWBlocks.CUT_IRON_STAIRS,
+                MWBlocks.CUT_IRON_SLAB,
+                MWBlocks.CUT_IRON_PRESSURE_PLATE,
+                MWBlocks.IRON_CAGE,
+                MWBlocks.GOLDEN_STAIRS,
+                MWBlocks.GOLDEN_SLAB,
+                MWBlocks.CUT_GOLD,
+                MWBlocks.CUT_GOLDEN_STAIRS,
+                MWBlocks.CUT_GOLDEN_SLAB,
+                MWBlocks.GOLD_BARS,
+                MWBlocks.GOLDEN_DOOR,
+                MWBlocks.GOLDEN_TRAPDOOR,
+                MWBlocks.CUT_GOLDEN_PRESSURE_PLATE,
+                MWBlocks.GOLDEN_CHAIN,
+                MWBlocks.GOLDEN_CAGE,
+                MWBlocks.COPPER_STAIRS,
+                MWBlocks.EXPOSED_COPPER_STAIRS,
+                MWBlocks.WEATHERED_COPPER_STAIRS,
+                MWBlocks.OXIDIZED_COPPER_STAIRS,
+                MWBlocks.WAXED_COPPER_STAIRS,
+                MWBlocks.WAXED_EXPOSED_COPPER_STAIRS,
+                MWBlocks.WAXED_WEATHERED_COPPER_STAIRS,
+                MWBlocks.WAXED_OXIDIZED_COPPER_STAIRS,
+                MWBlocks.COPPER_SLAB,
+                MWBlocks.EXPOSED_COPPER_SLAB,
+                MWBlocks.WEATHERED_COPPER_SLAB,
+                MWBlocks.OXIDIZED_COPPER_SLAB,
+                MWBlocks.WAXED_COPPER_SLAB,
+                MWBlocks.WAXED_EXPOSED_COPPER_SLAB,
+                MWBlocks.WAXED_WEATHERED_COPPER_SLAB,
+                MWBlocks.WAXED_OXIDIZED_COPPER_SLAB,
+                MWBlocks.COPPER_BARS,
+                MWBlocks.EXPOSED_COPPER_BARS,
+                MWBlocks.WEATHERED_COPPER_BARS,
+                MWBlocks.OXIDIZED_COPPER_BARS,
+                MWBlocks.WAXED_COPPER_BARS,
+                MWBlocks.WAXED_EXPOSED_COPPER_BARS,
+                MWBlocks.WAXED_WEATHERED_COPPER_BARS,
+                MWBlocks.WAXED_OXIDIZED_COPPER_BARS,
+                MWBlocks.COPPER_DOOR,
+                MWBlocks.COPPER_TRAPDOOR,
+                MWBlocks.EXPOSED_COPPER_TRAPDOOR,
+                MWBlocks.WEATHERED_COPPER_TRAPDOOR,
+                MWBlocks.OXIDIZED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR,
+                MWBlocks.COPPER_PRESSURE_PLATE,
+                MWBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WEATHERED_COPPER_PRESSURE_PLATE,
+                MWBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE,
+                MWBlocks.CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.EXPOSED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WEATHERED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.COPPER_CHAIN,
+                MWBlocks.EXPOSED_COPPER_CHAIN,
+                MWBlocks.WEATHERED_COPPER_CHAIN,
+                MWBlocks.OXIDIZED_COPPER_CHAIN,
+                MWBlocks.WAXED_COPPER_CHAIN,
+                MWBlocks.WAXED_EXPOSED_COPPER_CHAIN,
+                MWBlocks.WAXED_WEATHERED_COPPER_CHAIN,
+                MWBlocks.WAXED_OXIDIZED_COPPER_CHAIN,
+                MWBlocks.COPPER_CAGE,
+                MWBlocks.EXPOSED_COPPER_CAGE,
+                MWBlocks.WEATHERED_COPPER_CAGE,
+                MWBlocks.OXIDIZED_COPPER_CAGE,
+                MWBlocks.WAXED_COPPER_CAGE,
+                MWBlocks.WAXED_EXPOSED_COPPER_CAGE,
+                MWBlocks.WAXED_WEATHERED_COPPER_CAGE,
+                MWBlocks.WAXED_OXIDIZED_COPPER_CAGE,
+                MWBlocks.NETHERITE_STAIRS,
+                MWBlocks.NETHERITE_SLAB,
+                MWBlocks.RUBY_BLOCK,
+                MWBlocks.SAPPHIRE_BLOCK,
+                MWBlocks.ALUMINUM_BLOCK,
+                MWBlocks.CUT_NETHERITE,
+                MWBlocks.CUT_NETHERITE_STAIRS,
+                MWBlocks.CUT_NETHERITE_SLAB,
+                MWBlocks.NETHERITE_BARS,
+                MWBlocks.NETHERITE_DOOR,
+                MWBlocks.NETHERITE_TRAPDOOR,
+                MWBlocks.NETHERITE_PRESSURE_PLATE,
+                MWBlocks.CUT_NETHERITE_PRESSURE_PLATE,
+                MWBlocks.NETHERITE_CHAIN,
+                MWBlocks.NETHERITE_CAGE,
+                MWBlocks.ALUMINUM_STAIRS,
+                MWBlocks.ALUMINUM_SLAB,
+                MWBlocks.CUT_ALUMINUM,
+                MWBlocks.CUT_ALUMINUM_STAIRS,
+                MWBlocks.CUT_ALUMINUM_SLAB,
+                MWBlocks.ALUMINUM_BARS,
+                MWBlocks.ALUMINUM_DOOR,
+                MWBlocks.ALUMINUM_TRAPDOOR,
+                MWBlocks.ALUMINUM_PRESSURE_PLATE,
+                MWBlocks.CUT_ALUMINUM_PRESSURE_PLATE,
+                MWBlocks.ALUMINUM_CHAIN,
+                MWBlocks.ALUMINUM_CAGE,
+                MWBlocks.BRONZE_BLOCK,
+                MWBlocks.BRONZE_STAIRS,
+                MWBlocks.BRONZE_SLAB,
+                MWBlocks.CUT_BRONZE,
+                MWBlocks.CUT_BRONZE_STAIRS,
+                MWBlocks.CUT_BRONZE_SLAB,
+                MWBlocks.BRONZE_BARS,
+                MWBlocks.BRONZE_DOOR,
+                MWBlocks.BRONZE_TRAPDOOR,
+                MWBlocks.BRONZE_PRESSURE_PLATE,
+                MWBlocks.CUT_BRONZE_PRESSURE_PLATE,
+                MWBlocks.BRONZE_CHAIN,
+                MWBlocks.BRONZE_CAGE,
+                MWBlocks.SILVER_BLOCK,
+                MWBlocks.SILVER_STAIRS,
+                MWBlocks.SILVER_SLAB,
+                MWBlocks.CUT_SILVER,
+                MWBlocks.CUT_SILVER_STAIRS,
+                MWBlocks.CUT_SILVER_SLAB,
+                MWBlocks.SILVER_BARS,
+                MWBlocks.SILVER_DOOR,
+                MWBlocks.SILVER_TRAPDOOR,
+                MWBlocks.SILVER_PRESSURE_PLATE,
+                MWBlocks.CUT_SILVER_PRESSURE_PLATE,
+                MWBlocks.SILVER_CHAIN,
+                MWBlocks.SILVER_CAGE,
+                MWBlocks.RAW_ALUMINUM_BLOCK,
+                MWBlocks.RAW_BRONZE_BLOCK,
+                MWBlocks.RAW_SILVER_BLOCK
+        );
+    }
 
     /**
-     * Register a {@link CreativeModeTab creative tab}
+     * Set the content of the {@link #COLORED_BLOCKS colored blocks tab}
      *
-     * @param event {@link CreativeModeTabEvent.Register Creative mode tab register event}
-     * @param name {@link String The tab name}
-     * @param afterTab After which {@link CreativeModeTab creative tab} this tab should appear
-     * @param iconSupplier {@link Supplier<ItemStack> The icon supplier}. Determines which {@link Item item} to use as tab icon
-     * @return {@link CreativeModeTab The registered creative mode tab}
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static CreativeModeTab registerTab(final CreativeModeTabEvent.Register event, final String name, final CreativeModeTab afterTab, final Supplier<ItemStack> iconSupplier) {
-        return event.registerCreativeModeTab(new ResourceLocation(MineWorld.MODID, name),
-                List.of(),
-                afterTab != null ? List.of(afterTab) : List.of(),
-                builder -> builder
-                        .icon(iconSupplier)
-                        .title(Component.translatable("itemGroup." + MineWorld.MODID + "." + name))
-                        .build());
+    private static void setColoredBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWBlocks.MARBLE,
+                MWBlocks.WHITE_MARBLE,
+                MWBlocks.LIGHT_GRAY_MARBLE,
+                MWBlocks.GRAY_MARBLE,
+                MWBlocks.BLACK_MARBLE,
+                MWBlocks.BROWN_MARBLE,
+                MWBlocks.RED_MARBLE,
+                MWBlocks.ORANGE_MARBLE,
+                MWBlocks.YELLOW_MARBLE,
+                MWBlocks.LIME_MARBLE,
+                MWBlocks.GREEN_MARBLE,
+                MWBlocks.CYAN_MARBLE,
+                MWBlocks.LIGHT_BLUE_MARBLE,
+                MWBlocks.BLACK_MARBLE,
+                MWBlocks.PURPLE_MARBLE,
+                MWBlocks.MAGENTA_MARBLE,
+                MWBlocks.PINK_MARBLE
+        );
+    }
+
+    /**
+     * Set the content of the {@link #NATURAL natural blocks tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setNaturalBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWBlocks.MARBLE,
+                MWBlocks.SILVER_ORE,
+                MWBlocks.DEEPSLATE_SILVER_ORE,
+                MWBlocks.ALUMINUM_ORE,
+                MWBlocks.DEEPSLATE_ALUMINUM_ORE,
+                MWBlocks.RUBY_ORE,
+                MWBlocks.DEEPSLATE_RUBY_ORE,
+                MWBlocks.SAPPHIRE_ORE,
+                MWBlocks.DEEPSLATE_SAPPHIRE_ORE,
+                MWBlocks.PYRITE_ORE,
+                MWBlocks.BLUE_ROSE,
+                MWBlocks.WHITE_ROSE,
+                MWBlocks.BLUE_ROSE_BUSH,
+                MWBlocks.WHITE_ROSE_BUSH,
+                MWItems.CORN_SEEDS
+        );
+    }
+
+    /**
+     * Set the content of the {@link #FUNCTIONAL functional blocks tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setFunctionalBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWBlocks.GOLDEN_LANTERN,
+                MWBlocks.GOLDEN_SOUL_LANTERN,
+                MWBlocks.COPPER_LANTERN,
+                MWBlocks.EXPOSED_COPPER_LANTERN,
+                MWBlocks.WEATHERED_COPPER_LANTERN,
+                MWBlocks.OXIDIZED_COPPER_LANTERN,
+                MWBlocks.WAXED_COPPER_LANTERN,
+                MWBlocks.WAXED_EXPOSED_COPPER_LANTERN,
+                MWBlocks.WAXED_WEATHERED_COPPER_LANTERN,
+                MWBlocks.WAXED_OXIDIZED_COPPER_LANTERN,
+                MWBlocks.COPPER_SOUL_LANTERN,
+                MWBlocks.EXPOSED_COPPER_SOUL_LANTERN,
+                MWBlocks.WEATHERED_COPPER_SOUL_LANTERN,
+                MWBlocks.OXIDIZED_COPPER_SOUL_LANTERN,
+                MWBlocks.WAXED_COPPER_SOUL_LANTERN,
+                MWBlocks.WAXED_EXPOSED_COPPER_SOUL_LANTERN,
+                MWBlocks.WAXED_WEATHERED_COPPER_SOUL_LANTERN,
+                MWBlocks.WAXED_OXIDIZED_COPPER_SOUL_LANTERN,
+                MWBlocks.NETHERITE_LANTERN,
+                MWBlocks.NETHERITE_SOUL_LANTERN,
+                MWBlocks.ALUMINUM_LANTERN,
+                MWBlocks.ALUMINUM_SOUL_LANTERN,
+                MWBlocks.BRONZE_LANTERN,
+                MWBlocks.BRONZE_SOUL_LANTERN,
+                MWBlocks.SILVER_LANTERN,
+                MWBlocks.SILVER_SOUL_LANTERN,
+                MWBlocks.GOLDEN_CHAIN,
+                MWBlocks.COPPER_CHAIN,
+                MWBlocks.EXPOSED_COPPER_CHAIN,
+                MWBlocks.WEATHERED_COPPER_CHAIN,
+                MWBlocks.OXIDIZED_COPPER_CHAIN,
+                MWBlocks.WAXED_COPPER_CHAIN,
+                MWBlocks.WAXED_EXPOSED_COPPER_CHAIN,
+                MWBlocks.WAXED_WEATHERED_COPPER_CHAIN,
+                MWBlocks.WAXED_OXIDIZED_COPPER_CHAIN,
+                MWBlocks.NETHERITE_CHAIN,
+                MWBlocks.ALUMINUM_CHAIN,
+                MWBlocks.BRONZE_CHAIN,
+                MWBlocks.SILVER_CHAIN,
+                MWBlocks.DAYLIGHT_LAMP
+        );
+    }
+
+    /**
+     * Set the content of the {@link #REDSTONE redstone blocks tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setRedstoneBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWBlocks.CUT_IRON_PRESSURE_PLATE,
+                MWBlocks.CUT_GOLDEN_PRESSURE_PLATE,
+                MWBlocks.COPPER_PRESSURE_PLATE,
+                MWBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WEATHERED_COPPER_PRESSURE_PLATE,
+                MWBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE,
+                MWBlocks.CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.EXPOSED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WEATHERED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE,
+                MWBlocks.NETHERITE_PRESSURE_PLATE,
+                MWBlocks.CUT_NETHERITE_PRESSURE_PLATE,
+                MWBlocks.ALUMINUM_PRESSURE_PLATE,
+                MWBlocks.CUT_ALUMINUM_PRESSURE_PLATE,
+                MWBlocks.BRONZE_PRESSURE_PLATE,
+                MWBlocks.CUT_BRONZE_PRESSURE_PLATE,
+                MWBlocks.SILVER_PRESSURE_PLATE,
+                MWBlocks.CUT_SILVER_PRESSURE_PLATE,
+                MWBlocks.GOLDEN_DOOR,
+                MWBlocks.COPPER_DOOR,
+                MWBlocks.NETHERITE_DOOR,
+                MWBlocks.ALUMINUM_DOOR,
+                MWBlocks.BRONZE_DOOR,
+                MWBlocks.SILVER_DOOR,
+                MWBlocks.GOLDEN_TRAPDOOR,
+                MWBlocks.COPPER_TRAPDOOR,
+                MWBlocks.EXPOSED_COPPER_TRAPDOOR,
+                MWBlocks.WEATHERED_COPPER_TRAPDOOR,
+                MWBlocks.OXIDIZED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR,
+                MWBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR,
+                MWBlocks.NETHERITE_TRAPDOOR,
+                MWBlocks.ALUMINUM_TRAPDOOR,
+                MWBlocks.BRONZE_TRAPDOOR,
+                MWBlocks.SILVER_TRAPDOOR,
+                MWBlocks.DISGUISED_GRASS_TNT,
+                MWBlocks.DISGUISED_DIRT_TNT,
+                MWBlocks.DISGUISED_SAND_TNT,
+                MWBlocks.DISGUISED_RED_SAND_TNT,
+                MWBlocks.DISGUISED_STONE_TNT,
+                MWBlocks.MEGA_TNT,
+                MWBlocks.SUPER_TNT,
+                MWBlocks.HYPER_TNT,
+                MWBlocks.DAYLIGHT_LAMP
+        );
+    }
+
+    /**
+     * Set the content of the {@link #TOOLS tools tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setToolsTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWItems.ALUMINUM_SHOVEL,
+                MWItems.ALUMINUM_PICKAXE,
+                MWItems.ALUMINUM_AXE,
+                MWItems.ALUMINUM_HOE,
+                MWItems.BRONZE_SHOVEL,
+                MWItems.BRONZE_PICKAXE,
+                MWItems.BRONZE_AXE,
+                MWItems.BRONZE_HOE,
+                MWItems.COPPER_SHOVEL,
+                MWItems.COPPER_PICKAXE,
+                MWItems.COPPER_AXE,
+                MWItems.COPPER_HOE,
+                MWItems.SILVER_SHOVEL,
+                MWItems.SILVER_PICKAXE,
+                MWItems.SILVER_AXE,
+                MWItems.SILVER_HOE,
+                MWItems.EMERALD_SHOVEL,
+                MWItems.EMERALD_PICKAXE,
+                MWItems.EMERALD_AXE,
+                MWItems.EMERALD_HOE,
+                MWItems.RUBY_SHOVEL,
+                MWItems.RUBY_PICKAXE,
+                MWItems.RUBY_AXE,
+                MWItems.RUBY_HOE,
+                MWItems.SAPPHIRE_SHOVEL,
+                MWItems.SAPPHIRE_PICKAXE,
+                MWItems.SAPPHIRE_AXE,
+                MWItems.SAPPHIRE_HOE
+        );
+    }
+
+    /**
+     * Set the content of the {@link #COMBAT combat tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setCombatTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWItems.ALUMINUM_SWORD,
+                MWItems.BRONZE_SWORD,
+                MWItems.COPPER_SWORD,
+                MWItems.SILVER_SWORD,
+                MWItems.EMERALD_SWORD,
+                MWItems.RUBY_SWORD,
+                MWItems.SAPPHIRE_SWORD,
+                MWItems.ALUMINUM_AXE,
+                MWItems.BRONZE_AXE,
+                MWItems.COPPER_AXE,
+                MWItems.SILVER_AXE,
+                MWItems.EMERALD_AXE,
+                MWItems.RUBY_AXE,
+                MWItems.SAPPHIRE_AXE,
+                MWItems.ALUMINUM_HELMET,
+                MWItems.ALUMINUM_CHESTPLATE,
+                MWItems.ALUMINUM_LEGGINGS,
+                MWItems.ALUMINUM_BOOTS,
+                MWItems.BRONZE_HELMET,
+                MWItems.BRONZE_CHESTPLATE,
+                MWItems.BRONZE_LEGGINGS,
+                MWItems.BRONZE_BOOTS,
+                MWItems.COPPER_HELMET,
+                MWItems.COPPER_CHESTPLATE,
+                MWItems.COPPER_LEGGINGS,
+                MWItems.COPPER_BOOTS,
+                MWItems.SILVER_HELMET,
+                MWItems.SILVER_CHESTPLATE,
+                MWItems.SILVER_LEGGINGS,
+                MWItems.SILVER_BOOTS,
+                MWItems.EMERALD_HELMET,
+                MWItems.EMERALD_CHESTPLATE,
+                MWItems.EMERALD_LEGGINGS,
+                MWItems.EMERALD_BOOTS,
+                MWItems.RUBY_HELMET,
+                MWItems.RUBY_CHESTPLATE,
+                MWItems.RUBY_LEGGINGS,
+                MWItems.RUBY_BOOTS,
+                MWItems.SAPPHIRE_HELMET,
+                MWItems.SAPPHIRE_CHESTPLATE,
+                MWItems.SAPPHIRE_LEGGINGS,
+                MWItems.SAPPHIRE_BOOTS,
+                MWItems.ALUMINUM_HORSE_ARMOR,
+                MWItems.CHAINMAIL_HORSE_ARMOR,
+                MWItems.BRONZE_HORSE_ARMOR,
+                MWItems.COPPER_HORSE_ARMOR,
+                MWItems.SILVER_HORSE_ARMOR,
+                MWItems.EMERALD_HORSE_ARMOR,
+                MWItems.RUBY_HORSE_ARMOR,
+                MWItems.SAPPHIRE_HORSE_ARMOR,
+                MWItems.NETHERITE_HORSE_ARMOR,
+                MWBlocks.DISGUISED_GRASS_TNT,
+                MWBlocks.DISGUISED_DIRT_TNT,
+                MWBlocks.DISGUISED_SAND_TNT,
+                MWBlocks.DISGUISED_RED_SAND_TNT,
+                MWBlocks.DISGUISED_STONE_TNT,
+                MWBlocks.MEGA_TNT,
+                MWBlocks.SUPER_TNT,
+                MWBlocks.HYPER_TNT
+        );
+    }
+
+    /**
+     * Set the content of the {@link #FOOD_AND_DRINK food and drink tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setFoodAndDrinkTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWItems.COB,
+                MWItems.BAKED_COB
+        );
+    }
+
+    /**
+     * Set the content of the {@link #INGREDIENTS ingredients tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setIngredientsTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                MWItems.PYRITE,
+                MWItems.RAW_SILVER,
+                MWItems.RAW_ALUMINUM,
+                MWItems.RAW_BRONZE,
+                MWItems.RUBY,
+                MWItems.SAPPHIRE,
+                MWItems.NETHERITE_NUGGET,
+                MWItems.COPPER_NUGGET,
+                MWItems.SILVER_NUGGET,
+                MWItems.ALUMINUM_NUGGET,
+                MWItems.BRONZE_NUGGET,
+                MWItems.SILVER_INGOT,
+                MWItems.ALUMINUM_INGOT,
+                MWItems.BRONZE_INGOT,
+                MWItems.RAW_BRONZE_SMITHING_TEMPLATE
+        );
+    }
+
+    /**
+     * Set the content of the {@link #SPAWN_EGGS spawn eggs tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     */
+    private static void setSpawnEggsTab(final CreativeModeTabEvent.BuildContents event) {
+        addToTab(event,
+                Blocks.STRUCTURE_VOID
+        );
+    }
+
+    /**
+     * Add some {@link T items} to a {@link CreativeModeTab creative tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param items {@link T The items to add}
+     */
+    @SafeVarargs
+    private static <T extends ItemLike> void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final T... items) {
+        addToTab(event, Arrays.stream(items).map(ItemHelper::getDefaultStack).toList());
     }
 
     /**
@@ -571,8 +584,17 @@ public final class MWTabs {
      */
     @SafeVarargs
     private static void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final RegistryObject<? extends ItemLike>... items) {
-        event.acceptAll(Arrays.stream(items).map(MWItems::getDefaultStack).toList());
+        addToTab(event, Arrays.stream(items).map(ItemHelper::getDefaultStack).toList());
     }
 
-    //#endregion
+    /**
+     * Add some {@link ItemStack items} to a {@link CreativeModeTab creative tab}
+     *
+     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param items {@link List<ItemStack> The items to add}
+     */
+    private static void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final List<ItemStack> items) {
+        event.acceptAll(items);
+    }
+
 }

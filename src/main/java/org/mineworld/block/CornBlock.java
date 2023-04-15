@@ -2,10 +2,11 @@ package org.mineworld.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.mineworld.core.MWFoods;
+import org.mineworld.core.MWBlocks;
+import org.mineworld.core.MWItems;
 
 /**
- * Implementation class for the {@link MWFoods#CORN corn crop block}
+ * Implementation class for the {@link MWBlocks#CORN corn crop block}
  */
 public class CornBlock extends TallCropBlock {
 
@@ -13,7 +14,7 @@ public class CornBlock extends TallCropBlock {
      * Constructor. Set the corn seeds
      */
     public CornBlock() {
-        super(MWFoods.CORN_SEEDS);
+        super(MWItems.CORN_SEEDS);
     }
 
     /**

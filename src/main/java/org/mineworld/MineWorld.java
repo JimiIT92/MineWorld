@@ -7,6 +7,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.mineworld.core.*;
+import org.mineworld.helper.RegisterHelper;
 
 import java.util.logging.Logger;
 
@@ -57,7 +58,8 @@ public final class MineWorld {
      * @param event {@link FMLCommonSetupEvent FML common setup event}
      */
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(MWFlowerPots::registerFlowerPots);
+        event.enqueueWork(RegisterHelper::registerFlowerPots);
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
     }
+
 }

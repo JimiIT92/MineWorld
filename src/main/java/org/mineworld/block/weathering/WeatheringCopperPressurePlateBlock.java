@@ -1,46 +1,41 @@
-package org.mineworld.block;
+package org.mineworld.block.weathering;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
-import net.minecraft.world.level.block.WeatheringCopperStairBlock;
+import net.minecraft.world.level.block.WeightedPressurePlateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mineworld.core.MWBlocks;
+import org.mineworld.core.MWBlockSetTypes;
+import org.mineworld.helper.PropertyHelper;
 
 /**
- * Implementation class for a {@link WeatheringCopperStairBlock weathering copper stairs}
+ * Implementation class for a {@link ChangeOverTimeBlock weathering pressure plate}
  */
-public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeatheringBlock {
+public class WeatheringCopperPressurePlateBlock extends WeightedPressurePlateBlock implements IMWWeatheringBlock, IMWWaxableBlock {
 
     /**
      * {@link WeatheringCopper.WeatherState The stair weather state}
      */
     private final WeatheringCopper.WeatherState weatherState;
-    /**
-     * {@link Boolean If this block is waxed}. Used to determine the right click action
-     * and to make the block not ticking
-     */
-    private final boolean isWaxed;
 
     /**
      * Constructor. Set the block properties
      *
      * @param weatherState {@link WeatheringCopper.WeatherState The weather state}
-     * @param blockState {@link BlockState The block state this stair is based on}
-     * @param isWaxed {@link Boolean If the block is waxed}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public MWWeatheringCopperStairBlock(final WeatheringCopper.WeatherState weatherState, final BlockState blockState, final boolean isWaxed) {
-        super(blockState, MWBlocks.copyFrom(blockState.getBlock()));
+    public WeatheringCopperPressurePlateBlock(final WeatheringCopper.WeatherState weatherState, final FeatureFlag... featureFlags) {
+        super(75, PropertyHelper.copyFromBlock(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags), MWBlockSetTypes.COPPER);
         this.weatherState = weatherState;
-        this.isWaxed = isWaxed;
     }
 
     /**
@@ -54,9 +49,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      */
     @Override
     public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
-        if(!this.isWaxed) {
-            this.onRandomTick(blockState, level, blockPos, random);
-        }
+        IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, random);
     }
 
     /**
@@ -67,7 +60,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      */
     @Override
     public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
-        return !this.isWaxed && IMWWeatheringBlock.getNext(blockState.getBlock()).isPresent();
+        return IMWWeatheringBlock.isRandomlyTicking(blockState);
     }
 
     /**
@@ -92,13 +85,8 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      */
     @Override
     public @Nullable BlockState getToolModifiedState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        if(!isWaxed) {
-            final BlockState scrapedState = IMWWeatheringBlock.scrapeWeatherState(state, context, toolAction, isClient);
-            return scrapedState != null ? scrapedState : super.getToolModifiedState(state, context, toolAction, isClient);
-        }
-        if(context.getItemInHand().getItem() instanceof AxeItem && toolAction.equals(ToolActions.AXE_WAX_OFF)) {
-            return IMWWeatheringBlock.scrapeWax(state, context, toolAction, isClient);
-        }
-        return super.getToolModifiedState(state, context, toolAction, isClient);
+        final BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
+        return modifiedState != null ? modifiedState : super.getToolModifiedState(state, context, toolAction, isClient);
     }
+
 }
