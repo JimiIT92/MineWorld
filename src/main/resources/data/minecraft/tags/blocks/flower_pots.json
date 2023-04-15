@@ -70,6 +70,24 @@
     "mineworld:potted_dead_fire_coral_fan",
     "mineworld:potted_fire_coral_fan",
     "mineworld:potted_dead_horn_coral_fan",
-    "mineworld:potted_horn_coral_fan"
+    "mineworld:potted_horn_coral_fan",
+    "mineworld:potted_mushroom_stem",
+    "mineworld:potted_bamboo_block",
+    "mineworld:potted_stripped_bamboo_block",
+    "mineworld:potted_mud",
+    "mineworld:potted_clay",
+    "mineworld:potted_nether_wart",
+    "mineworld:potted_sea_pickle",
+    "mineworld:potted_dried_kelp_block",
+    "mineworld:potted_sponge",
+    "mineworld:potted_wet_sponge",
+    "mineworld:potted_melon",
+    "mineworld:potted_pumpkin",
+    "mineworld:potted_hay_block",
+    "mineworld:potted_honeycomb_block",
+    "mineworld:potted_honey_block",
+    "mineworld:potted_slime_block",
+    "mineworld:potted_sculk",
+    "mineworld:potted_snow_block"
   ]
 }

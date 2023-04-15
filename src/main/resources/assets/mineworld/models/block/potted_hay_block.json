@@ -1,0 +1,7 @@
+{
+    "parent": "mineworld:block/potted_block",
+    "textures": {
+        "top": "block/hay_block_top",
+        "side": "block/hay_block_side"
+    }
+}

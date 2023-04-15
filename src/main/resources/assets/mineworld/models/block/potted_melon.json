@@ -1,0 +1,7 @@
+{
+    "parent": "mineworld:block/potted_block",
+    "textures": {
+        "top": "block/melon_top",
+        "side": "block/melon_side"
+    }
+}

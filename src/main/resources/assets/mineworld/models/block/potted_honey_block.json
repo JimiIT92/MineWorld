@@ -1,0 +1,8 @@
+{
+    "parent": "mineworld:block/potted_leaves_all",
+    "render_type": "translucent",
+    "textures": {
+        "top": "block/honey_block_top",
+        "side": "block/honey_block_side"
+    }
+}
