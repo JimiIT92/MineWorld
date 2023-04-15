@@ -1,25 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:iron_slab",
-    "mineworld:cut_iron_slab",
-    "mineworld:golden_slab",
-    "mineworld:cut_golden_slab",
-    "mineworld:netherite_slab",
-    "mineworld:cut_netherite_slab",
-    "mineworld:aluminum_slab",
-    "mineworld:cut_aluminum_slab",
-    "mineworld:bronze_slab",
-    "mineworld:cut_bronze_slab",
-    "mineworld:silver_slab",
-    "mineworld:cut_silver_slab",
-    "mineworld:oxidized_copper_slab",
-    "mineworld:weathered_copper_slab",
-    "mineworld:exposed_copper_slab",
-    "mineworld:copper_slab",
-    "mineworld:waxed_oxidized_copper_slab",
-    "mineworld:waxed_weathered_copper_slab",
-    "mineworld:waxed_exposed_copper_slab",
-    "mineworld:waxed_copper_slab"
+    "#mineworld:slabs"
   ]
 }

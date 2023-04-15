@@ -1,6 +1,6 @@
 {
   "parent": "mineworld:block/dried_flower_pot",
   "textures": {
-    "plant": "block/horn_coral"
+    "plant": "minecraft:block/horn_coral"
   }
 }

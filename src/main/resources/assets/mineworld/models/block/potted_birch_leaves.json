@@ -1,6 +1,6 @@
 {
     "parent": "mineworld:block/potted_leaves_all",
     "textures": {
-        "all": "block/birch_leaves"
+        "all": "minecraft:block/birch_leaves"
     }
 }

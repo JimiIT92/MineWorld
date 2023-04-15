@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "block/dirt"
+      "model": "minecraft:block/dirt"
     }
   }
 }

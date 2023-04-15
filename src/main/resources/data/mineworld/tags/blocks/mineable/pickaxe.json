@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "#mineworld:ores",
+    "#mineworld:storage_blocks",
+    "#mineworld:marbles",
+    "#mineworld:metal_stairs",
+    "#mineworld:metal_slabs",
+    "#mineworld:metal_doors",
+    "#mineworld:metal_trapdoors",
+    "#mineworld:metal_pressure_plates",
+    "#mineworld:chains",
+    "#mineworld:lanterns",
+    "#mineworld:bars",
+    "#mineworld:cages",
+    "mineworld:cut_iron",
+    "mineworld:cut_gold",
+    "mineworld:cut_netherite",
+    "mineworld:cut_aluminum",
+    "mineworld:cut_bronze",
+    "mineworld:cut_silver"
+  ]
+}

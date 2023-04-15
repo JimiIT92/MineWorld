@@ -2,12 +2,12 @@
 	"ambientocclusion": false,
   "render_type": "cutout",
 	"textures": {
-		"particle": "block/flower_pot",
-		"flowerpot": "block/flower_pot",
-		"dirt": "block/dirt",
-		"cross": "block/sunflower_top",
-		"back": "block/sunflower_back",
-		"front": "block/sunflower_front"
+		"particle": "minecraft:block/flower_pot",
+		"flowerpot": "minecraft:block/flower_pot",
+		"dirt": "minecraft:block/dirt",
+		"cross": "minecraft:block/sunflower_top",
+		"back": "minecraft:block/sunflower_back",
+		"front": "minecraft:block/sunflower_front"
 	},
 	"elements": [
 		{

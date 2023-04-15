@@ -2,6 +2,6 @@
     "parent": "mineworld:block/potted_leaves_all",
     "render_type": "translucent",
     "textures": {
-        "all": "block/slime_block"
+        "all": "minecraft:block/slime_block"
     }
 }

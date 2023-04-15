@@ -1,6 +1,6 @@
 {
     "parent": "mineworld:block/potted_block_all",
     "textures": {
-        "all": "block/wet_sponge"
+        "all": "minecraft:block/wet_sponge"
     }
 }

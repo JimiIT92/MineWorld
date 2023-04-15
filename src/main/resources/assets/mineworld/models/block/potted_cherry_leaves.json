@@ -1,6 +1,6 @@
 {
     "parent": "mineworld:block/potted_leaves_all",
     "textures": {
-        "all": "block/cherry_leaves"
+        "all": "minecraft:block/cherry_leaves"
     }
 }

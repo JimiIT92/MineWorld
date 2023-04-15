@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:blue_rose",
-    "mineworld:white_rose"
+    "#mineworld:small_flowers"
   ]
 }

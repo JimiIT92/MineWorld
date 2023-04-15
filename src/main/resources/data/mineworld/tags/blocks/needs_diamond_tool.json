@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:cut_netherite",
+    "mineworld:netherite_slab",
+    "mineworld:cut_netherite_slab",
+    "mineworld:netherite_stairs",
+    "mineworld:cut_netherite_stairs",
+    "mineworld:netherite_door",
+    "mineworld:netherite_trapdoor",
+    "mineworld:netherite_cage"
+  ]
+}

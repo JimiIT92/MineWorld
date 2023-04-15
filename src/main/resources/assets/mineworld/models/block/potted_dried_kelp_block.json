@@ -2,11 +2,11 @@
     "ambientocclusion": false,
     "render_type": "cutout",
     "textures": {
-        "particle": "block/flower_pot",
-        "flowerpot": "block/flower_pot",
-        "dirt": "block/dirt",
-        "side": "block/dried_kelp_side",
-        "top": "block/dried_kelp_top"
+        "particle": "minecraft:block/flower_pot",
+        "flowerpot": "minecraft:block/flower_pot",
+        "dirt": "minecraft:block/dirt",
+        "side": "minecraft:block/dried_kelp_side",
+        "top": "minecraft:block/dried_kelp_top"
     },
     "elements": [
         {   "from": [ 5, 0, 5 ],

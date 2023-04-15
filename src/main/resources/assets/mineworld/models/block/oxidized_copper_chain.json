@@ -1,5 +1,5 @@
 {
-    "parent": "block/chain",
+    "parent": "minecraft:block/chain",
     "render_type": "cutout",
     "textures": {
         "particle": "mineworld:block/oxidized_copper_chain",

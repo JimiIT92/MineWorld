@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:aluminum_hoe",
+    "mineworld:copper_hoe",
+    "mineworld:bronze_hoe",
+    "mineworld:silver_hoe",
+    "mineworld:emerald_hoe",
+    "mineworld:ruby_hoe",
+    "mineworld:sapphire_hoe"
+  ]
+}

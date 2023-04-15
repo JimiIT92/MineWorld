@@ -1,18 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:golden_soul_lantern",
-    "mineworld:netherite_soul_lantern",
-    "mineworld:aluminum_soul_lantern",
-    "mineworld:bronze_soul_lantern",
-    "mineworld:silver_soul_lantern",
-    "mineworld:oxidized_copper_soul_lantern",
-    "mineworld:weathered_copper_soul_lantern",
-    "mineworld:exposed_copper_soul_lantern",
-    "mineworld:copper_soul_lantern",
-    "mineworld:waxed_oxidized_copper_soul_lantern",
-    "mineworld:waxed_weathered_copper_soul_lantern",
-    "mineworld:waxed_exposed_copper_soul_lantern",
-    "mineworld:waxed_copper_soul_lantern"
+    "#mineworld:piglin_repellents"
   ]
 }

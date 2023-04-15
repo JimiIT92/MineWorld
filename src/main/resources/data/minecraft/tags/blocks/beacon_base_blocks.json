@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:ruby_block",
-    "mineworld:sapphire_block",
-    "mineworld:cut_iron",
-    "mineworld:cut_gold",
-    "mineworld:cut_netherite"
+    "#mineworld:beacon_base_blocks"
   ]
 }

@@ -1,5 +1,5 @@
 {
-    "parent": "block/iron_bars_post",
+    "parent": "minecraft:block/iron_bars_post",
     "render_type": "cutout",
     "textures": {
         "particle": "mineworld:block/weathered_copper_bars",

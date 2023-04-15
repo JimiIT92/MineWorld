@@ -1,5 +1,5 @@
 {
-    "parent": "block/iron_bars_cap_alt",
+    "parent": "minecraft:block/iron_bars_cap_alt",
     "render_type": "cutout",
     "textures": {
         "particle": "mineworld:block/gold_bars",

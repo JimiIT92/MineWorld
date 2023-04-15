@@ -1,12 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:prismarine_shard",
-    "minecraft:echo_shard",
-    "mineworld:ruby",
-    "mineworld:sapphire",
-    "mineworld:silver_ingot",
-    "mineworld:aluminum_ingot",
-    "mineworld:bronze_ingot"
+    "#mineworld:trim_materials"
   ]
 }

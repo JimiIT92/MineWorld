@@ -2,6 +2,6 @@
   "parent": "minecraft:block/flower_pot_cross",
   "render_type": "cutout",
   "textures": {
-    "plant": "block/cave_vines_plant_lit"
+    "plant": "minecraft:block/cave_vines_plant_lit"
   }
 }

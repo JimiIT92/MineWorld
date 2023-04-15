@@ -1,7 +1,7 @@
 {
     "parent": "mineworld:block/potted_leaves",
     "textures": {
-        "top": "block/mangrove_roots_top",
-        "side": "block/mangrove_roots_side"
+        "top": "minecraft:block/mangrove_roots_top",
+        "side": "minecraft:block/mangrove_roots_side"
     }
 }

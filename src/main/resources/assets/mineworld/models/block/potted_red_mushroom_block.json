@@ -2,9 +2,9 @@
     "ambientocclusion": false,
     "render_type": "cutout",
     "textures": {
-        "particle": "block/flower_pot",
-        "flowerpot": "block/flower_pot",
-        "mushroom": "block/red_mushroom_block"
+        "particle": "minecraft:block/flower_pot",
+        "flowerpot": "minecraft:block/flower_pot",
+        "mushroom": "minecraft:block/red_mushroom_block"
     },
     "elements": [
         {   "from": [ 5, 0, 5 ],

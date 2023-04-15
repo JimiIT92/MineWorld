@@ -2,10 +2,10 @@
 	"ambientocclusion": false,
 	"render_type": "cutout",
 	"textures": {
-		"particle": "block/flower_pot",
-		"flowerpot": "block/flower_pot",
-		"dirt": "block/dirt",
-		"sugar_cane": "block/sugar_cane"
+		"particle": "minecraft:block/flower_pot",
+		"flowerpot": "minecraft:block/flower_pot",
+		"dirt": "minecraft:block/dirt",
+		"sugar_cane": "minecraft:block/sugar_cane"
 	},
 	"elements": [
 		{

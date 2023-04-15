@@ -2,10 +2,10 @@
     "ambientocclusion": false,
     "render_type": "cutout",
     "textures": {
-        "particle": "block/flower_pot",
-        "flowerpot": "block/flower_pot",
-        "dirt": "block/dirt",
-        "leaves": "block/flowering_azalea_leaves"
+        "particle": "minecraft:block/flower_pot",
+        "flowerpot": "minecraft:block/flower_pot",
+        "dirt": "minecraft:block/dirt",
+        "leaves": "minecraft:block/flowering_azalea_leaves"
     },
     "elements": [
         {   "from": [ 5, 0, 5 ],

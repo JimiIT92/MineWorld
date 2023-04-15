@@ -1,25 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:iron_stairs",
-    "mineworld:cut_iron_stairs",
-    "mineworld:golden_stairs",
-    "mineworld:cut_golden_stairs",
-    "mineworld:netherite_stairs",
-    "mineworld:cut_netherite_stairs",
-    "mineworld:aluminum_stairs",
-    "mineworld:cut_aluminum_stairs",
-    "mineworld:bronze_stairs",
-    "mineworld:cut_bronze_stairs",
-    "mineworld:silver_stairs",
-    "mineworld:cut_silver_stairs",
-    "mineworld:oxidized_copper_stairs",
-    "mineworld:weathered_copper_stairs",
-    "mineworld:exposed_copper_stairs",
-    "mineworld:copper_stairs",
-    "mineworld:waxed_oxidized_copper_stairs",
-    "mineworld:waxed_weathered_copper_stairs",
-    "mineworld:waxed_exposed_copper_stairs",
-    "mineworld:waxed_copper_stairs"
+    "#mineworld:stairs"
   ]
 }

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:ruby",
-    "mineworld:sapphire"
+    "#mineworld:beacon_payment_items"
   ]
 }

@@ -1,6 +1,6 @@
 {
     "parent": "mineworld:block/potted_block_all",
     "textures": {
-        "all": "block/mushroom_stem"
+        "all": "minecraft:block/mushroom_stem"
     }
 }

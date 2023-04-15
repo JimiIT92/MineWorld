@@ -1,6 +1,6 @@
 {
     "parent": "mineworld:block/potted_block_all",
     "textures": {
-        "all": "block/dead_horn_coral_block"
+        "all": "minecraft:block/dead_horn_coral_block"
     }
 }

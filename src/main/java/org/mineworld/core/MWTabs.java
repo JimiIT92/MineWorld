@@ -100,6 +100,7 @@ public final class MWTabs {
      */
     private static void setBuildingBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
+                MWBlocks.STONE_WALL,
                 MWBlocks.CHARCOAL_BLOCK,
                 MWBlocks.PYRITE_BLOCK,
                 MWBlocks.IRON_STAIRS,

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "block/sand"
+      "model": "minecraft:block/sand"
     }
   }
 }

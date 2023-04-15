@@ -2,6 +2,6 @@
   "parent": "mineworld:block/potted_tinted_flower",
   "render_type": "cutout",
   "textures": {
-    "plant": "block/tall_grass_top"
+    "plant": "minecraft:block/tall_grass_top"
   }
 }

@@ -1,7 +1,7 @@
 {
     "parent": "mineworld:block/potted_block",
     "textures": {
-        "top": "block/ochre_froglight_top",
-        "side": "block/ochre_froglight_side"
+        "top": "minecraft:block/ochre_froglight_top",
+        "side": "minecraft:block/ochre_froglight_side"
     }
 }

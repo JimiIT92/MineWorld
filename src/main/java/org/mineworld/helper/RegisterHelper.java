@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.flag.FeatureFlagRegistry;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.TrimMaterial;
@@ -885,6 +886,16 @@ public final class RegisterHelper {
                 pressurePlateClickOffSound, pressurePlateClickOnSound,
                 buttonClickOffSound, buttonClickOnSound)
         );
+    }
+
+    /**
+     * Register a {@link FeatureFlag feature flag}
+     *
+     * @param name {@link String The feature flag name}
+     * @return {@link FeatureFlag The registered feature flag}
+     */
+    public static FeatureFlag registerFeatureFlag(final String name) {
+        return new FeatureFlagRegistry.Builder("main").create(new ResourceLocation(MineWorld.MODID, name));
     }
 
     /**
