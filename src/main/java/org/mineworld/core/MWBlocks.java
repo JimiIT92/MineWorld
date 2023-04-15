@@ -397,6 +397,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_SILVER_SLAB = RegisterHelper.registerSlab("cut_silver_slab", CUT_SILVER);
     public static final RegistryObject<Block> CUT_SILVER_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_silver_pressure_plate", 50, MWColors.SILVER.toMaterialColor(), MWBlockSetTypes.METAL);
     public static final RegistryObject<Block> STONE_WALL = RegisterHelper.registerWall("stone_wall", () -> Blocks.STONE);
+    public static final RegistryObject<Block> COBBLESTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("cobblestone_pressure_plate", false, MaterialColor.STONE, BlockSetType.STONE);
+    public static final RegistryObject<Block> COBBLESTONE_BUTTON = RegisterHelper.registerButton("cobblestone_button", false, BlockSetType.STONE);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

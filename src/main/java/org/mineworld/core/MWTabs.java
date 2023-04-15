@@ -101,6 +101,8 @@ public final class MWTabs {
     private static void setBuildingBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWBlocks.STONE_WALL,
+                MWBlocks.COBBLESTONE_PRESSURE_PLATE,
+                MWBlocks.COBBLESTONE_BUTTON,
                 MWBlocks.CHARCOAL_BLOCK,
                 MWBlocks.PYRITE_BLOCK,
                 MWBlocks.IRON_STAIRS,
@@ -354,6 +356,8 @@ public final class MWTabs {
      */
     private static void setRedstoneBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
+                MWBlocks.COBBLESTONE_PRESSURE_PLATE,
+                MWBlocks.COBBLESTONE_BUTTON,
                 MWBlocks.CUT_IRON_PRESSURE_PLATE,
                 MWBlocks.CUT_GOLDEN_PRESSURE_PLATE,
                 MWBlocks.COPPER_PRESSURE_PLATE,

@@ -485,11 +485,11 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link TrapDoorBlock trap door block}
+     * Register a {@link TrapDoorBlock trapdoor block}
      *
      * @param name {@link String The block name}
-     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
-     * @param blockSetType {@link BlockSetType The door block set type}
+     * @param requiresPower {@link Boolean If the trapdoor needs redstone to be activated}
+     * @param blockSetType {@link BlockSetType The trapdoor block set type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
@@ -501,9 +501,9 @@ public final class RegisterHelper {
      * Register a {@link PressurePlateBlock pressure plate block}
      *
      * @param name {@link String The block name}
-     * @param isWooden {@link Boolean If the pressure platye is a wooden pressure plate}
+     * @param isWooden {@link Boolean If the pressure plate is a wooden pressure plate}
      * @param materialColor {@link MaterialColor The block color on maps}
-     * @param blockSetType {@link BlockSetType The door block set type}
+     * @param blockSetType {@link BlockSetType The pressure plate block set type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
@@ -518,12 +518,25 @@ public final class RegisterHelper {
      * @param name {@link String The block name}
      * @param maxWeight {@link Integer The max weight the pressure plate can detect}
      * @param materialColor {@link MaterialColor The block color on maps}
-     * @param blockSetType {@link BlockSetType The door block set type}
+     * @param blockSetType {@link BlockSetType The pressure plate block set type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new WeightedPressurePlateBlock(maxWeight, PropertyHelper.copyFromBlock(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE), blockSetType));
+    }
+
+    /**
+     * Register a {@link ButtonBlock button block}
+     *
+     * @param name {@link String The block name}
+     * @param isWooden {@link Boolean If the button is a wooden button}
+     * @param blockSetType {@link BlockSetType The button block set type}
+     * @param featureFlags @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerButton(final String name, final boolean isWooden, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new ButtonBlock(PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_BUTTON : Blocks.STONE_BUTTON), blockSetType, isWooden ? 30 : 20, isWooden));
     }
 
     /**
