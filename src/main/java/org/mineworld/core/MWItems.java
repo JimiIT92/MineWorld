@@ -9,6 +9,7 @@ import org.mineworld.helper.RegisterHelper;
 import org.mineworld.item.MWArmorMaterials;
 import org.mineworld.item.MWFoods;
 import org.mineworld.item.MWItemTiers;
+import org.mineworld.item.PebbleItem;
 
 /**
  * {@link MineWorld MineWorld} {@link Item items}
@@ -30,7 +31,7 @@ public final class MWItems {
     public static final RegistryObject<Item> BRONZE_INGOT = RegisterHelper.registerItem("bronze_ingot");
     public static final RegistryObject<Item> BRONZE_NUGGET = RegisterHelper.registerItem("bronze_nugget");
     public static final RegistryObject<Item> RAW_BRONZE_SMITHING_TEMPLATE = RegisterHelper.registerSmithingTemplate("raw_bronze_smithing_template", "raw_bronze", "raw_copper", "raw_aluminum");
-    public static final RegistryObject<Item> CORN_SEEDS = RegisterHelper.registerSeedItem("corn_seeds", MWBlocks.CORN);
+    public static final RegistryObject<Item> CORN_SEEDS = RegisterHelper.registerBlockItem("corn_seeds", MWBlocks.CORN);
     public static final RegistryObject<Item> COB = RegisterHelper.registerFoodItem("cob", MWFoods.COB);
     public static final RegistryObject<Item> BAKED_COB = RegisterHelper.registerFoodItem("baked_cob", MWFoods.BAKED_COB);
     public static final RegistryObject<Item> CHAINMAIL_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("chainmail", 5);
@@ -105,6 +106,27 @@ public final class MWItems {
     public static final RegistryObject<Item> SAPPHIRE_LEGGINGS = RegisterHelper.registerArmorItem("sapphire_leggings", MWArmorMaterials.SAPPHIRE, ArmorItem.Type.LEGGINGS);
     public static final RegistryObject<Item> SAPPHIRE_BOOTS = RegisterHelper.registerArmorItem("sapphire_boots", MWArmorMaterials.SAPPHIRE, ArmorItem.Type.BOOTS);
     public static final RegistryObject<Item> SAPPHIRE_HORSE_ARMOR = RegisterHelper.registerHorseArmorItem("sapphire", 13);
+    public static final RegistryObject<Item> STONE_PEBBLE = RegisterHelper.registerItem("stone_pebble", () -> new PebbleItem(MWBlocks.STONE_PEBBLE.get()));
+    public static final RegistryObject<Item> COBBLESTONE_PEBBLE = RegisterHelper.registerItem("cobblestone_pebble", () -> new PebbleItem(MWBlocks.COBBLESTONE_PEBBLE.get()));
+    public static final RegistryObject<Item> MOSSY_STONE_PEBBLE = RegisterHelper.registerItem("mossy_stone_pebble", () -> new PebbleItem(MWBlocks.MOSSY_STONE_PEBBLE.get()));
+    public static final RegistryObject<Item> MOSSY_COBBLESTONE_PEBBLE = RegisterHelper.registerItem("mossy_cobblestone_pebble", () -> new PebbleItem(MWBlocks.MOSSY_COBBLESTONE_PEBBLE.get()));
+    public static final RegistryObject<Item> SMOOTH_STONE_PEBBLE = RegisterHelper.registerItem("smooth_stone_pebble", () -> new PebbleItem(MWBlocks.SMOOTH_STONE_PEBBLE.get()));
+    public static final RegistryObject<Item> STONE_BRICKS_PEBBLE = RegisterHelper.registerItem("stone_bricks_pebble", () -> new PebbleItem(MWBlocks.STONE_BRICKS_PEBBLE.get()));
+    public static final RegistryObject<Item> CHISELED_STONE_BRICKS_PEBBLE = RegisterHelper.registerItem("chiseled_stone_bricks_pebble", () -> new PebbleItem(MWBlocks.CHISELED_STONE_BRICKS_PEBBLE.get()));
+    public static final RegistryObject<Item> MOSSY_STONE_BRICKS_PEBBLE = RegisterHelper.registerItem("mossy_stone_bricks_pebble", () -> new PebbleItem(MWBlocks.MOSSY_STONE_BRICKS_PEBBLE.get()));
+    public static final RegistryObject<Item> MOSSY_CHISELED_STONE_BRICKS_PEBBLE = RegisterHelper.registerItem("mossy_chiseled_stone_bricks_pebble", () -> new PebbleItem(MWBlocks.MOSSY_CHISELED_STONE_BRICKS_PEBBLE.get()));
+    public static final RegistryObject<Item> GRANITE_PEBBLE = RegisterHelper.registerItem("granite_pebble", () -> new PebbleItem(MWBlocks.GRANITE_PEBBLE.get()));
+    public static final RegistryObject<Item> POLISHED_GRANITE_PEBBLE = RegisterHelper.registerItem("polished_granite_pebble", () -> new PebbleItem(MWBlocks.POLISHED_GRANITE_PEBBLE.get()));
+    public static final RegistryObject<Item> DIORITE_PEBBLE = RegisterHelper.registerItem("diorite_pebble", () -> new PebbleItem(MWBlocks.DIORITE_PEBBLE.get()));
+    public static final RegistryObject<Item> POLISHED_DIORITE_PEBBLE = RegisterHelper.registerItem("polished_diorite_pebble", () -> new PebbleItem(MWBlocks.POLISHED_DIORITE_PEBBLE.get()));
+    public static final RegistryObject<Item> ANDESITE_PEBBLE = RegisterHelper.registerItem("andesite_pebble", () -> new PebbleItem(MWBlocks.ANDESITE_PEBBLE.get()));
+    public static final RegistryObject<Item> POLISHED_ANDESITE_PEBBLE = RegisterHelper.registerItem("polished_andesite_pebble", () -> new PebbleItem(MWBlocks.POLISHED_ANDESITE_PEBBLE.get()));
+    public static final RegistryObject<Item> DEEPSLATE_PEBBLE = RegisterHelper.registerItem("deepslate_pebble", () -> new PebbleItem(MWBlocks.DEEPSLATE_PEBBLE.get()));
+    public static final RegistryObject<Item> COBBLED_DEEPSLATE_PEBBLE = RegisterHelper.registerItem("cobbled_deepslate_pebble", () -> new PebbleItem(MWBlocks.COBBLED_DEEPSLATE_PEBBLE.get()));
+    public static final RegistryObject<Item> POLISHED_DEEPSLATE_PEBBLE = RegisterHelper.registerItem("polished_deepslate_pebble", () -> new PebbleItem(MWBlocks.POLISHED_DEEPSLATE_PEBBLE.get()));
+    public static final RegistryObject<Item> DEEPSLATE_BRICKS_PEBBLE = RegisterHelper.registerItem("deepslate_bricks_pebble", () -> new PebbleItem(MWBlocks.DEEPSLATE_BRICKS_PEBBLE.get()));
+    public static final RegistryObject<Item> DEEPSLATE_TILES_PEBBLE = RegisterHelper.registerItem("deepslate_tiles_pebble", () -> new PebbleItem(MWBlocks.DEEPSLATE_TILES_PEBBLE.get()));
+    public static final RegistryObject<Item> REINFORCED_DEEPSLATE_PEBBLE = RegisterHelper.registerItem("reinforced_deepslate_pebble", () -> new PebbleItem(MWBlocks.REINFORCED_DEEPSLATE_PEBBLE.get()));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

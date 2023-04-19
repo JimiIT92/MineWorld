@@ -1,6 +1,25 @@
 {
   "replace": false,
   "values": [
-    "mineworld:cobblestone_pressure_plate"
+    "mineworld:cobblestone_pressure_plate",
+    "mineworld:mossy_cobblestone_pressure_plate",
+    "mineworld:mossy_stone_pressure_plate",
+    "mineworld:smooth_stone_pressure_plate",
+    "mineworld:stone_bricks_pressure_plate",
+    "mineworld:chiseled_stone_bricks_pressure_plate",
+    "mineworld:mossy_stone_bricks_pressure_plate",
+    "mineworld:mossy_chiseled_stone_bricks_pressure_plate",
+    "mineworld:granite_pressure_plate",
+    "mineworld:polished_granite_pressure_plate",
+    "mineworld:diorite_pressure_plate",
+    "mineworld:polished_diorite_pressure_plate",
+    "mineworld:andesite_pressure_plate",
+    "mineworld:polished_andesite_pressure_plate",
+    "mineworld:deepslate_pressure_plate",
+    "mineworld:cobbled_deepslate_pressure_plate",
+    "mineworld:polished_deepslate_pressure_plate",
+    "mineworld:deepslate_bricks_pressure_plate",
+    "mineworld:deepslate_tiles_pressure_plate",
+    "mineworld:reinforced_deepslate_pressure_plate"
   ]
 }

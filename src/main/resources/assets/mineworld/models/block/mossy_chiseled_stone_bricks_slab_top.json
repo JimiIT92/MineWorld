@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "mineworld:block/mossy_chiseled_stone_bricks",
+    "side": "mineworld:block/mossy_chiseled_stone_bricks",
+    "top": "mineworld:block/mossy_chiseled_stone_bricks"
+  }
+}

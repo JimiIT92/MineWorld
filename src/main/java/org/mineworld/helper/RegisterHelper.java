@@ -46,6 +46,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
+import org.mineworld.block.PebbleBlock;
 import org.mineworld.core.MWColors;
 import org.mineworld.entity.MWPrimedTnt;
 
@@ -152,7 +153,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerSeedItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -560,7 +561,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new StairBlock(blockStateSupplier, PropertyHelper.copyFromBlock(blockStateSupplier.get().getBlock(), featureFlags)));
+        return registerBlock(name, () -> new StairBlock(blockStateSupplier, PropertyHelper.copyFromBlock(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops()));
     }
 
     /**
@@ -572,7 +573,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerSlab(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new SlabBlock(PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags)));
+        return registerBlock(name, () -> new SlabBlock(PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops()));
     }
 
     /**
@@ -618,7 +619,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWall(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new WallBlock(PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags)));
+        return registerBlock(name, () -> new WallBlock(PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops()));
     }
 
     /**
@@ -630,7 +631,19 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerCage(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new Block(PropertyHelper.makeTranslucentBlock(blockSupplier.get(), featureFlags)));
+        return registerBlock(name, () -> new Block(PropertyHelper.makeTranslucentBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops()));
+    }
+
+    /**
+     * Register a {@link PebbleBlock pebble block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this pebble is based on}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerPebble(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new PebbleBlock(blockSupplier.get(), featureFlags));
     }
 
     /**

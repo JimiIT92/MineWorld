@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#mineworld:stone_stairs",
     "#mineworld:metal_stairs"
   ]
 }

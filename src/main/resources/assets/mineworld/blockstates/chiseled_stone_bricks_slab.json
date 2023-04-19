@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/chiseled_stone_bricks_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/chiseled_stone_bricks"
+    },
+    "type=top": {
+      "model": "mineworld:block/chiseled_stone_bricks_slab_top"
+    }
+  }
+}

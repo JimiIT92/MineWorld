@@ -1,5 +1,14 @@
 {
   "values": [
-    "mineworld:stone_wall"
+    "mineworld:stone_wall",
+    "mineworld:mossy_stone_wall",
+    "mineworld:smooth_stone_wall",
+    "mineworld:chiseled_stone_bricks_wall",
+    "mineworld:mossy_chiseled_stone_bricks_wall",
+    "mineworld:polished_granite_wall",
+    "mineworld:polished_diorite_wall",
+    "mineworld:polished_andesite_wall",
+    "mineworld:deepslate_wall",
+    "mineworld:reinforced_deepslate_wall"
   ]
 }

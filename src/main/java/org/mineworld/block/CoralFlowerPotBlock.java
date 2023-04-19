@@ -133,7 +133,7 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
     /**
      * Create the {@link StateDefinition block state definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder Block state definition builder}
+     * @param stateBuilder {@link StateDefinition.Builder The block state builder}
      */
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {

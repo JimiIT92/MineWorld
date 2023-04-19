@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#mineworld:marbles"
+    "#mineworld:marbles",
+    "mineworld:mossy_stone",
+    "mineworld:mossy_chiseled_stone_bricks",
+    "mineworld:mossy_cracked_stone_bricks"
   ]
 }

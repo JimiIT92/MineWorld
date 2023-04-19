@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 16,
+  "ingredient": {
+    "item": "minecraft:reinforced_deepslate"
+  },
+  "result": "mineworld:reinforced_deepslate_pebble"
+}

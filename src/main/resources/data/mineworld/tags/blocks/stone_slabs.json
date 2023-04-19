@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:mossy_stone_slab",
+    "mineworld:chiseled_stone_bricks_slab",
+    "mineworld:mossy_chiseled_stone_bricks_slab",
+    "mineworld:deepslate_slab",
+    "mineworld:reinforced_deepslate_slab"
+  ]
+}

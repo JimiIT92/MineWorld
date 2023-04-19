@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:stone_pebble",
+    "mineworld:cobblestone_pebble",
+    "mineworld:mossy_stone_pebble",
+    "mineworld:mossy_cobblestone_pebble",
+    "mineworld:smooth_stone_pebble",
+    "mineworld:stone_bricks_pebble",
+    "mineworld:chiseled_stone_bricks_pebble",
+    "mineworld:mossy_stone_bricks_pebble",
+    "mineworld:mossy_chiseled_stone_bricks_pebble",
+    "mineworld:granite_pebble",
+    "mineworld:polished_granite_pebble",
+    "mineworld:diorite_pebble",
+    "mineworld:polished_diorite_pebble",
+    "mineworld:andesite_pebble",
+    "mineworld:polished_andesite_pebble",
+    "mineworld:deepslate_pebble",
+    "mineworld:cobbled_deepslate_pebble",
+    "mineworld:polished_deepslate_pebble",
+    "mineworld:deepslate_bricks_pebble",
+    "mineworld:deepslate_tiles_pebble",
+    "mineworld:reinforced_deepslate_pebble"
+  ]
+}

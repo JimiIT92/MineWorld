@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:mossy_stone_stairs",
+    "mineworld:smooth_stone_stairs",
+    "mineworld:chiseled_stone_bricks_stairs",
+    "mineworld:mossy_chiseled_stone_bricks_stairs",
+    "mineworld:deepslate_stairs",
+    "mineworld:reinforced_deepslate_stairs"
+  ]
+}

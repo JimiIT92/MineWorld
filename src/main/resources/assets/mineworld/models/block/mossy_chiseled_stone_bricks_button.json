@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "mineworld:block/mossy_chiseled_stone_bricks"
+  }
+}

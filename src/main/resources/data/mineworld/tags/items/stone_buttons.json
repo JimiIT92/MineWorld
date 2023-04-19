@@ -1,6 +1,25 @@
 {
   "replace": false,
   "values": [
-    "mineworld:cobblestone_button"
+    "mineworld:cobblestone_button",
+    "mineworld:mossy_cobblestone_button",
+    "mineworld:mossy_stone_button",
+    "mineworld:smooth_stone_button",
+    "mineworld:stone_bricks_button",
+    "mineworld:chiseled_stone_bricks_button",
+    "mineworld:mossy_stone_bricks_button",
+    "mineworld:mossy_chiseled_stone_bricks_button",
+    "mineworld:granite_button",
+    "mineworld:polished_granite_button",
+    "mineworld:diorite_button",
+    "mineworld:polished_diorite_button",
+    "mineworld:andesite_button",
+    "mineworld:polished_andesite_button",
+    "mineworld:deepslate_button",
+    "mineworld:cobbled_deepslate_button",
+    "mineworld:polished_deepslate_button",
+    "mineworld:deepslate_bricks_button",
+    "mineworld:deepslate_tiles_button",
+    "mineworld:reinforced_deepslate_button"
   ]
 }
