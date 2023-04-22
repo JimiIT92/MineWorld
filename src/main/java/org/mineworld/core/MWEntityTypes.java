@@ -10,8 +10,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.MWPrimedTntRenderer;
+import org.mineworld.client.renderer.MWTntMinecartRenderer;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.Pebble;
+import org.mineworld.entity.vehicle.MWMinecartTNT;
 import org.mineworld.helper.RegisterHelper;
 
 /**
@@ -35,6 +37,11 @@ public final class MWEntityTypes {
                     .sized(0.375F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
+    public static final RegistryObject<EntityType<MWMinecartTNT>> TNT_MINECART = RegisterHelper.registerEntityType("tnt_minecart",
+            EntityType.Builder.<MWMinecartTNT>of(MWMinecartTNT::new, MobCategory.MISC)
+                    .sized(0.98F, 0.7F)
+                    .clientTrackingRange(8)
+    );
 
     /**
      * Register the entity renderings
@@ -43,6 +50,7 @@ public final class MWEntityTypes {
         EntityRenderers.register(MW_PRIMED_TNT.get(), MWPrimedTntRenderer::new);
         EntityRenderers.register(PEBBLE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(LEASH_KNOT.get(), LeashKnotRenderer::new);
+        EntityRenderers.register(TNT_MINECART.get(), MWTntMinecartRenderer::new);
     }
 
     /**

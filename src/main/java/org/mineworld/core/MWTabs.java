@@ -1383,12 +1383,20 @@ public final class MWTabs {
                 MWItems.QUARTZ_BRICKS_PEBBLE,
                 MWItems.QUARTZ_PILLAR_PEBBLE,
                 MWItems.TERRACOTTA_PEBBLE,
-
                 MWItems.CALCITE_PEBBLE,
                 MWItems.TUFF_PEBBLE,
                 MWItems.DRIPSTONE_PEBBLE,
                 MWItems.OBSIDIAN_PEBBLE,
-                MWItems.CRYING_OBSIDIAN_PEBBLE
+                MWItems.CRYING_OBSIDIAN_PEBBLE,
+                MWItems.MEGA_TNT_MINECART,
+                MWItems.SUPER_TNT_MINECART,
+                MWItems.HYPER_TNT_MINECART,
+                MWItems.DISGUISED_GRASS_TNT_MINECART,
+                MWItems.DISGUISED_DIRT_TNT_MINECART,
+                MWItems.DISGUISED_SAND_TNT_MINECART,
+                MWItems.DISGUISED_RED_SAND_TNT_MINECART,
+                MWItems.DISGUISED_STONE_TNT_MINECART,
+                MWItems.DISGUISED_CAKE_TNT_MINECART
         );
     }
 

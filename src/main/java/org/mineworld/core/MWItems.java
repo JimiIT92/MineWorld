@@ -6,10 +6,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.RegisterHelper;
-import org.mineworld.item.MWArmorMaterials;
-import org.mineworld.item.MWFoods;
-import org.mineworld.item.MWItemTiers;
-import org.mineworld.item.PebbleItem;
+import org.mineworld.item.*;
 
 /**
  * {@link MineWorld MineWorld} {@link Item items}
@@ -223,6 +220,15 @@ public final class MWItems {
     public static final RegistryObject<Item> GREEN_MARBLE_PEBBLE = RegisterHelper.registerItem("green_marble_pebble", () -> new PebbleItem(MWBlocks.GREEN_MARBLE_PEBBLE.get()));
     public static final RegistryObject<Item> RED_MARBLE_PEBBLE = RegisterHelper.registerItem("red_marble_pebble", () -> new PebbleItem(MWBlocks.RED_MARBLE_PEBBLE.get()));
     public static final RegistryObject<Item> BLACK_MARBLE_PEBBLE = RegisterHelper.registerItem("black_marble_pebble", () -> new PebbleItem(MWBlocks.BLACK_MARBLE_PEBBLE.get()));
+    public static final RegistryObject<Item> MEGA_TNT_MINECART = RegisterHelper.registerItem("mega_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.MEGA_TNT));
+    public static final RegistryObject<Item> SUPER_TNT_MINECART = RegisterHelper.registerItem("super_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.SUPER_TNT));
+    public static final RegistryObject<Item> HYPER_TNT_MINECART = RegisterHelper.registerItem("hyper_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.HYPER_TNT));
+    public static final RegistryObject<Item> DISGUISED_GRASS_TNT_MINECART = RegisterHelper.registerItem("disguised_grass_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DISGUISED_GRASS));
+    public static final RegistryObject<Item> DISGUISED_DIRT_TNT_MINECART = RegisterHelper.registerItem("disguised_dirt_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DISGUISED_DIRT));
+    public static final RegistryObject<Item> DISGUISED_SAND_TNT_MINECART = RegisterHelper.registerItem("disguised_sand_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DISGUISED_SAND));
+    public static final RegistryObject<Item> DISGUISED_RED_SAND_TNT_MINECART = RegisterHelper.registerItem("disguised_red_sand_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DISGUISED_RED_SAND));
+    public static final RegistryObject<Item> DISGUISED_STONE_TNT_MINECART = RegisterHelper.registerItem("disguised_stone_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DISGUISED_STONE));
+    public static final RegistryObject<Item> DISGUISED_CAKE_TNT_MINECART = RegisterHelper.registerItem("disguised_cake_tnt_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DISGUISED_CAKE));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}
