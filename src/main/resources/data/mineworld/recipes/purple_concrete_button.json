@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "minecraft:purple_concrete"
+    }
+  ],
+  "result": {
+    "item": "mineworld:purple_concrete_button"
+  }
+}

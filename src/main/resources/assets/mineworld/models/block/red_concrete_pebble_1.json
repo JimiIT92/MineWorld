@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/pebbles_1",
+  "textures": {
+    "pebble": "minecraft:block/red_concrete"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 4,
+  "ingredient": {
+    "item": "minecraft:purple_glazed_terracotta"
+  },
+  "result": "mineworld:purple_glazed_terracotta_stairs"
+}

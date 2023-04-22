@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/red_marble_slab"
+    },
+    "type=double": {
+      "model": "mineworld:block/red_marble"
+    },
+    "type=top": {
+      "model": "mineworld:block/red_marble_slab_top"
+    }
+  }
+}

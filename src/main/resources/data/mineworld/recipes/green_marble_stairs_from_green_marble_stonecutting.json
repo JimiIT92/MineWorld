@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 4,
+  "ingredient": {
+    "item": "mineworld:green_marble"
+  },
+  "result": "mineworld:green_marble_stairs"
+}

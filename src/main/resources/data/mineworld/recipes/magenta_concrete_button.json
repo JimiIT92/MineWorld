@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "minecraft:magenta_concrete"
+    }
+  ],
+  "result": {
+    "item": "mineworld:magenta_concrete_button"
+  }
+}
