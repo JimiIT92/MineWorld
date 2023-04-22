@@ -3,6 +3,7 @@
   "values": [
     "#mineworld:stone_stairs",
     "#mineworld:glass_stairs",
+    "#mineworld:wool_stairs",
     "#mineworld:metal_stairs"
   ]
 }

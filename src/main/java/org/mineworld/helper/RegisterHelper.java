@@ -550,7 +550,19 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new StairBlock(blockStateSupplier, PropertyHelper.copyFromBlock(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops()));
+        return registerStair(name, blockStateSupplier, () -> PropertyHelper.copyFromBlock(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops());
+    }
+
+    /**
+     * Register a {@link StairBlock stair block}
+     *
+     * @param name {@link String The block name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The supplier for the block state this stair is based on}
+     * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for the block properties this stair is based on}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+        return registerBlock(name, () -> new StairBlock(blockStateSupplier, propertiesSupplier.get()));
     }
 
     /**
@@ -562,7 +574,18 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerSlab(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new SlabBlock(PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops()));
+        return registerSlab(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops());
+    }
+
+    /**
+     * Register a {@link StairBlock stair block}
+     *
+     * @param name {@link String The block name}
+     * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this stair is based on}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+        return registerBlock(name, () -> new SlabBlock(propertiesSupplier.get()));
     }
 
     /**
@@ -603,12 +626,23 @@ public final class RegisterHelper {
      * Register a {@link WallBlock wall block}
      *
      * @param name {@link String The block name}
-     * @param blockSupplier {@link Supplier<Block> The supplier for the block this wall is based on}
+     * @param blockSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for the block properties this wall is based on}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWall(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new WallBlock(PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops()));
+        return registerWall(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops());
+    }
+
+    /**
+     * Register a {@link WallBlock wall block}
+     *
+     * @param name {@link String The block name}
+     * @param propertiesSupplier {@link Supplier<Block> The supplier for the block properties this wall is based on}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+        return registerBlock(name, () -> new WallBlock(propertiesSupplier.get()));
     }
 
     /**

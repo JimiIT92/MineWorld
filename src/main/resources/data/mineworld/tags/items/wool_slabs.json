@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:white_wool_slab",
+    "mineworld:orange_wool_slab",
+    "mineworld:magenta_wool_slab",
+    "mineworld:light_blue_wool_slab",
+    "mineworld:yellow_wool_slab",
+    "mineworld:lime_wool_slab",
+    "mineworld:pink_wool_slab",
+    "mineworld:gray_wool_slab",
+    "mineworld:light_gray_wool_slab",
+    "mineworld:cyan_wool_slab",
+    "mineworld:purple_wool_slab",
+    "mineworld:blue_wool_slab",
+    "mineworld:brown_wool_slab",
+    "mineworld:green_wool_slab",
+    "mineworld:red_wool_slab",
+    "mineworld:black_wool_slab"
+  ]
+}

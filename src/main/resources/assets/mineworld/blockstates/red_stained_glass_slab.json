@@ -4,7 +4,7 @@
       "model": "mineworld:block/red_stained_glass_slab"
     },
     "type=double": {
-      "model": "minecraft:block/red_stained_glass"
+      "model": "mineworld:block/red_stained_glass_double_slab"
     },
     "type=top": {
       "model": "mineworld:block/red_stained_glass_slab_top"
