@@ -3,9 +3,6 @@
   "values": [
     "mineworld:reinforced_deepslate_stairs",
     "mineworld:reinforced_deepslate_slab",
-    "mineworld:reinforced_deepslate_wall",
-    "mineworld:reinforced_deepslate_button",
-    "mineworld:reinforced_deepslate_pressure_plate",
-    "mineworld:reinforced_deepslate_pebble"
+    "mineworld:reinforced_deepslate_wall"
   ]
 }

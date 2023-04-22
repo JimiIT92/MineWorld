@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 4,
+  "ingredient": {
+    "item": "minecraft:calcite"
+  },
+  "result": "mineworld:calcite_stairs"
+}

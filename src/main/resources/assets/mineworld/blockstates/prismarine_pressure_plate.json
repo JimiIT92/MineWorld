@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "mineworld:block/prismarine_pressure_plate"
+    },
+    "powered=true": {
+      "model": "mineworld:block/prismarine_pressure_plate_down"
+    }
+  }
+}

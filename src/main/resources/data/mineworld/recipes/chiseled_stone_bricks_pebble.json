@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:chiseled_stone_bricks"
-  },
-  "result": "mineworld:chiseled_stone_bricks_pebble"
-}

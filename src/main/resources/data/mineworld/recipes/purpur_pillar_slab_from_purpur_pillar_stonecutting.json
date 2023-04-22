@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 8,
+  "ingredient": {
+    "item": "minecraft:purpur_pillar"
+  },
+  "result": "mineworld:purpur_pillar_slab"
+}

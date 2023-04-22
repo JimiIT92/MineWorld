@@ -6,8 +6,13 @@
     "mineworld:cut_netherite_slab",
     "mineworld:netherite_stairs",
     "mineworld:cut_netherite_stairs",
-    "mineworld:netherite_door",
     "mineworld:netherite_trapdoor",
-    "mineworld:netherite_cage"
+    "mineworld:netherite_cage",
+    "mineworld:obsidian_stairs",
+    "mineworld:obsidian_slab",
+    "mineworld:obsidian_wall",
+    "mineworld:crying_obsidian_stairs",
+    "mineworld:crying_obsidian_slab",
+    "mineworld:crying_obsidian_wall"
   ]
 }
