@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_tnt": {
+    "has_stone": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:tnt"
+              "minecraft:stone"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_tnt",
+      "has_stone",
       "has_the_recipe"
     ]
   ],

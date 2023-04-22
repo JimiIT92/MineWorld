@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dirt": {
+    "has_cake": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:dirt"
+              "minecraft:cake"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:disguised_dirt_tnt"
+        "recipe": "mineworld:disguised_cake_tnt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_dirt",
+      "has_cake",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "mineworld:disguised_dirt_tnt"
+      "mineworld:disguised_cake_tnt"
     ]
   }
 }

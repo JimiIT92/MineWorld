@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_tnt": {
+    "has_grass_block": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:tnt"
+              "minecraft:grass_block"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_tnt",
+      "has_grass_block",
       "has_the_recipe"
     ]
   ],

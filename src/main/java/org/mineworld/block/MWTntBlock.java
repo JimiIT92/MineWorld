@@ -17,10 +17,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
@@ -46,7 +50,7 @@ public class MWTntBlock extends TntBlock {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
     public MWTntBlock(final MWPrimedTnt.Type type, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copyFromBlock(Blocks.TNT, featureFlags));
+        super(PropertyHelper.copyFromBlock(Blocks.TNT, featureFlags).noOcclusion());
         this.type = type;
     }
 
@@ -129,6 +133,10 @@ public class MWTntBlock extends TntBlock {
                     blockName = Blocks.STONE.getName();
                     color = TextColor.fromLegacyFormat(ChatFormatting.GRAY);
                 }
+                case DISGUISED_CAKE -> {
+                    blockName = Blocks.CAKE.getName();
+                    color = TextColor.fromRgb(0xF6E8CB);
+                }
             }
             tooltips.add(blockName.withStyle(Style.EMPTY.withColor(color)));
         }
@@ -174,6 +182,19 @@ public class MWTntBlock extends TntBlock {
     @Override
     public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
         return 15;
+    }
+
+    /**
+     * Get the {@link VoxelShape block shape}
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link Level The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param collisionContext {@link CollisionContext The collision context}
+     * @return {@link VoxelShape The block shape}
+     */
+    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+        return this.type.equals(MWPrimedTnt.Type.DISGUISED_CAKE) ? Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D): Shapes.block();
     }
 
 }

@@ -1225,6 +1225,7 @@ public final class MWTabs {
                 MWBlocks.DISGUISED_SAND_TNT,
                 MWBlocks.DISGUISED_RED_SAND_TNT,
                 MWBlocks.DISGUISED_STONE_TNT,
+                MWBlocks.DISGUISED_CAKE_TNT,
                 MWBlocks.MEGA_TNT,
                 MWBlocks.SUPER_TNT,
                 MWBlocks.HYPER_TNT,

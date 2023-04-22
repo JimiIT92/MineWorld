@@ -256,6 +256,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DISGUISED_SAND_TNT = RegisterHelper.registerBlock("disguised_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_SAND, 14406560));
     public static final RegistryObject<Block> DISGUISED_RED_SAND_TNT = RegisterHelper.registerBlock("disguised_red_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_RED_SAND, 11098145));
     public static final RegistryObject<Block> DISGUISED_STONE_TNT = RegisterHelper.registerBlock("disguised_stone_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_STONE));
+    public static final RegistryObject<Block> DISGUISED_CAKE_TNT = RegisterHelper.registerBlock("disguised_cake_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_CAKE));
     public static final RegistryObject<Block> MEGA_TNT = RegisterHelper.registerBlock("mega_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.MEGA));
     public static final RegistryObject<Block> SUPER_TNT = RegisterHelper.registerBlock("super_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.SUPER));
     public static final RegistryObject<Block> HYPER_TNT = RegisterHelper.registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));

@@ -148,7 +148,8 @@ public class MWPrimedTnt extends PrimedTnt {
         DISGUISED_DIRT(true, 40, 2),
         DISGUISED_SAND(true, 40, 2),
         DISGUISED_RED_SAND(true, 40, 2),
-        DISGUISED_STONE(true, 40, 2);
+        DISGUISED_STONE(true, 40, 2),
+        DISGUISED_CAKE(true, 40, 2);
 
         /**
          * {@link Boolean If the tnt type represents a disguised one}

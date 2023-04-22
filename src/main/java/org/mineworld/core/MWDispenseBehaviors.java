@@ -34,6 +34,7 @@ public final class MWDispenseBehaviors {
                 PropertyHelper.tntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_SAND), MWBlocks.DISGUISED_SAND_TNT,
                 PropertyHelper.tntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_RED_SAND), MWBlocks.DISGUISED_RED_SAND_TNT,
                 PropertyHelper.tntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_STONE), MWBlocks.DISGUISED_STONE_TNT,
+                PropertyHelper.tntDispenseItemBehavior(MWPrimedTnt.Type.DISGUISED_CAKE), MWBlocks.DISGUISED_CAKE_TNT,
                 PropertyHelper.tntDispenseItemBehavior(MWPrimedTnt.Type.MEGA), MWBlocks.MEGA_TNT,
                 PropertyHelper.tntDispenseItemBehavior(MWPrimedTnt.Type.SUPER), MWBlocks.SUPER_TNT,
                 PropertyHelper.tntDispenseItemBehavior(MWPrimedTnt.Type.HYPER), MWBlocks.HYPER_TNT
