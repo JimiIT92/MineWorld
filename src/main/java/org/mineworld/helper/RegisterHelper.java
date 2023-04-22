@@ -22,6 +22,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -46,10 +47,9 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
-import org.mineworld.block.PebbleBlock;
 import org.mineworld.block.GlassWall;
+import org.mineworld.block.PebbleBlock;
 import org.mineworld.core.MWColors;
-import org.mineworld.entity.MWPrimedTnt;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -960,23 +960,33 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register the {@link DispenseItemBehavior tnt dispense behaviors}
+     * Register some {@link DispenseItemBehavior dispense behaviors}
      *
-     * @param tnts {@link Map.Entry The tnt dispense behaviors to register}
+     * @param dispenseBehavior {@link DispenseItemBehavior The dispense behavior to register}
+     * @param items {@link Supplier<ItemLike> The items to apply the dispense behavior}
      */
-    public static void registerTntDispenseBehaviors(Map<Supplier<Block>, MWPrimedTnt.Type> tnts) {
-        tnts.forEach((tnt, type) -> DispenserBlock.registerBehavior(tnt.get(), PropertyHelper.tntDispenseItemBehavior(type)));
+    @SafeVarargs
+    public static void registerDispenseBehaviors(final DispenseItemBehavior dispenseBehavior, final Supplier<? extends ItemLike>... items) {
+        Arrays.stream(items).forEach(item -> registerDispenseBehavior(dispenseBehavior, item));
     }
 
     /**
-     * Register the {@link HorseArmorItem horse armor dispense behaviors}
+     * Register some {@link DispenseItemBehavior dispense behaviors}
      *
-     * @param horseArmorItems {@link Supplier<Item> The horse armor item suppliers to register}
+     * @param dispenseBehaviors {@link Supplier<Map.Entry> The dispense behavior suppliers to register}
      */
-    @SafeVarargs
-    public static void registerHorseArmorDispenseBehaviors(Supplier<Item>... horseArmorItems) {
-        final DispenseItemBehavior horseArmorItemDispenseBehavior = PropertyHelper.horseArmorItemDispenseBehavior();
-        Arrays.stream(horseArmorItems).forEach(horseArmorItem -> DispenserBlock.registerBehavior(horseArmorItem.get(), horseArmorItemDispenseBehavior));
+    public static void registerDispenseBehaviors(final Map<DispenseItemBehavior, Supplier<? extends ItemLike>> dispenseBehaviors) {
+        dispenseBehaviors.forEach(RegisterHelper::registerDispenseBehavior);
+    }
+
+    /**
+     * Register a {@link DispenseItemBehavior dispense behavior}
+     *
+     * @param dispenseItemBehavior {@link DispenseItemBehavior The dispense behavior to register}
+     * @param item {@link Supplier<ItemLike> The item to apply the dispense behavior}
+     */
+    static void registerDispenseBehavior(final DispenseItemBehavior dispenseItemBehavior, final Supplier<? extends ItemLike> item) {
+        DispenserBlock.registerBehavior(item.get(), dispenseItemBehavior);
     }
 
     /**

@@ -2,8 +2,11 @@ package org.mineworld.helper;
 
 import com.google.common.base.Suppliers;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
@@ -13,6 +16,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.HorseArmorItem;
@@ -30,6 +34,8 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.Pebble;
+import org.mineworld.item.PebbleItem;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -360,12 +366,12 @@ public final class PropertyHelper {
     }
 
     /**
-     * Get the {@link DispenseItemBehavior tnt dispense behavior} based on the {@link MWPrimedTnt.Type primed tnt type}
+     * Get the {@link DispenseItemBehavior dispense behavior} based on the {@link MWPrimedTnt.Type primed tnt type}
      *
      * @param type {@link MWPrimedTnt.Type The primed tnt type}
      * @return {@link DispenseItemBehavior The tnt dispense behavior}
      */
-    static DispenseItemBehavior tntDispenseItemBehavior(final MWPrimedTnt.Type type) {
+    public static DispenseItemBehavior tntDispenseItemBehavior(final MWPrimedTnt.Type type) {
         return new DefaultDispenseItemBehavior() {
             /**
              * Dispense the {@link PrimedTnt tnt} when activated from a dispenser
@@ -389,11 +395,11 @@ public final class PropertyHelper {
     }
 
     /**
-     * Get the {@link DispenseItemBehavior tnt dispense behavior} for a {@link HorseArmorItem horse armor item}
+     * Get the {@link DispenseItemBehavior dispense behavior} for a {@link HorseArmorItem horse armor item}
      *
      * @return {@link DispenseItemBehavior The horse armor item dispense behavior}
      */
-    static DispenseItemBehavior horseArmorItemDispenseBehavior() {
+    public static DispenseItemBehavior horseArmorItemDispenseBehavior() {
         return new OptionalDispenseItemBehavior() {
             /**
              * Equiq the {@link HorseArmorItem horse armor} if there's a horse in front of the dispenser
@@ -417,4 +423,16 @@ public final class PropertyHelper {
         };
     }
 
+    /**
+     * Get the {@link DispenseItemBehavior dispense behavior} for a {@link PebbleItem pebble}
+     *
+     * @return {@link DispenseItemBehavior The pebble dispense behavior}
+     */
+    public static DispenseItemBehavior pebbleDispenseBehavior() {
+        return new AbstractProjectileDispenseBehavior() {
+            protected @NotNull Projectile getProjectile(final @NotNull Level level, final @NotNull Position position, final @NotNull ItemStack itemStack) {
+                return Util.make(new Pebble(level, position.x(), position.y(), position.z()), pebble -> pebble.setItem(itemStack));
+            }
+        };
+    }
 }
