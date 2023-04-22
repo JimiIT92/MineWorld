@@ -1,0 +1,132 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "1"
+                  }
+                }
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "3"
+                  }
+                }
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "4"
+                  }
+                }
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "5"
+                  }
+                }
+              ],
+              "count": 5.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "6"
+                  }
+                }
+              ],
+              "count": 6.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "7"
+                  }
+                }
+              ],
+              "count": 7.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "mineworld:orange_terracotta_pebble",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pebbles": "8"
+                  }
+                }
+              ],
+              "count": 8.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "mineworld:orange_terracotta_pebble"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

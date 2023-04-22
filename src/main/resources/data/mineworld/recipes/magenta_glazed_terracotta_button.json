@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "minecraft:magenta_glazed_terracotta"
+    }
+  ],
+  "result": {
+    "item": "mineworld:magenta_glazed_terracotta_button"
+  }
+}

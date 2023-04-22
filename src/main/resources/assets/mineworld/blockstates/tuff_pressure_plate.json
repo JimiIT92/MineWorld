@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "mineworld:block/tuff_pressure_plate"
+    },
+    "powered=true": {
+      "model": "mineworld:block/tuff_pressure_plate_down"
+    }
+  }
+}
