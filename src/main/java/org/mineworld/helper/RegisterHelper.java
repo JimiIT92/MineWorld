@@ -47,6 +47,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
 import org.mineworld.block.PebbleBlock;
+import org.mineworld.block.GlassWall;
 import org.mineworld.core.MWColors;
 import org.mineworld.entity.MWPrimedTnt;
 
@@ -544,18 +545,6 @@ public final class RegisterHelper {
      * Register a {@link StairBlock stair block}
      *
      * @param name {@link String The block name}
-     * @param block {@link Block The block this stair is based on}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
-     * @return {@link RegistryObject<Block> The registered block}
-     */
-    static RegistryObject<Block> registerStair(final String name, final Block block, final FeatureFlag... featureFlags) {
-        return registerStair(name, block::defaultBlockState, featureFlags);
-    }
-
-    /**
-     * Register a {@link StairBlock stair block}
-     *
-     * @param name {@link String The block name}
      * @param blockStateSupplier {@link Supplier<BlockState> The supplier for the block state this stair is based on}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
@@ -620,6 +609,18 @@ public final class RegisterHelper {
      */
     public static RegistryObject<Block> registerWall(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new WallBlock(PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops()));
+    }
+
+    /**
+     * Register a {@link GlassWall stained glass wall block}
+     *
+     * @param name {@link String The block name}
+     * @param glassSupplier {@link Supplier<Block> The supplier for the stained glass this wall is based on}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerGlassWall(final String name, final Supplier<? extends Block> glassSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new GlassWall(glassSupplier, featureFlags));
     }
 
     /**

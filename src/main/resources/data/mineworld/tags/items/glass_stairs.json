@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:glass_stairs",
+    "mineworld:white_stained_glass_stairs",
+    "mineworld:orange_stained_glass_stairs",
+    "mineworld:magenta_stained_glass_stairs",
+    "mineworld:light_blue_stained_glass_stairs",
+    "mineworld:yellow_stained_glass_stairs",
+    "mineworld:lime_stained_glass_stairs",
+    "mineworld:pink_stained_glass_stairs",
+    "mineworld:gray_stained_glass_stairs",
+    "mineworld:light_gray_stained_glass_stairs",
+    "mineworld:cyan_stained_glass_stairs",
+    "mineworld:purple_stained_glass_stairs",
+    "mineworld:blue_stained_glass_stairs",
+    "mineworld:brown_stained_glass_stairs",
+    "mineworld:green_stained_glass_stairs",
+    "mineworld:red_stained_glass_stairs",
+    "mineworld:black_stained_glass_stairs"
+  ]
+}

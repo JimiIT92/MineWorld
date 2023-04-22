@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#mineworld:stone_slabs",
+    "#mineworld:glass_slabs",
     "#mineworld:metal_slabs"
   ]
 }
