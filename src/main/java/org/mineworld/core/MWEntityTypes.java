@@ -1,9 +1,11 @@
 package org.mineworld.core;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.LeashKnotRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
@@ -28,6 +30,11 @@ public final class MWEntityTypes {
                     .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
                     .updateInterval(10));
+    public static final RegistryObject<EntityType<LeashFenceKnotEntity>> LEASH_KNOT = RegisterHelper.registerEntityType("leash_knot",
+            EntityType.Builder.<LeashFenceKnotEntity>of(LeashFenceKnotEntity::new, MobCategory.MISC)
+                    .sized(0.375F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
 
     /**
      * Register the entity renderings
@@ -35,6 +42,7 @@ public final class MWEntityTypes {
     public static void registerRenderers() {
         EntityRenderers.register(MW_PRIMED_TNT.get(), MWPrimedTntRenderer::new);
         EntityRenderers.register(PEBBLE.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(LEASH_KNOT.get(), LeashKnotRenderer::new);
     }
 
     /**
