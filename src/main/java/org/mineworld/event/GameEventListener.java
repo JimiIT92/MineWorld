@@ -3,7 +3,6 @@ package org.mineworld.event;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,9 +11,7 @@ import net.minecraftforge.event.VanillaGameEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
-import org.mineworld.block.HorizontalPaneBlock;
 import org.mineworld.block.weathering.IMWWeatheringBlock;
-import org.mineworld.helper.LevelHelper;
 
 /**
  * Listener for a {@link GameEvent game event}
@@ -36,9 +33,6 @@ public final class GameEventListener {
             if(gameEvent.equals(GameEvent.LIGHTNING_STRIKE)) {
                 handleLightningStrike(cause.getBlockStateOn(), level, cause.getOnPos());
             }
-            else if(gameEvent.equals(GameEvent.BLOCK_PLACE) && cause instanceof Player player) {
-                handlePlacedBlock(event.getContext().affectedState(), level, player, LevelHelper.toBlockPos(event.getEventPosition()));
-            }
         }
     }
 
@@ -53,20 +47,6 @@ public final class GameEventListener {
     private static void handleLightningStrike(final BlockState blockState, final Level level, final BlockPos blockPos) {
         if(blockState.getBlock() instanceof IMWWeatheringBlock) {
             IMWWeatheringBlock.lightningStrike(blockState, level, blockPos);
-        }
-    }
-
-    /**
-     * Handle the placement of a {@link Block block} by a {@link Player player}
-     *
-     * @param blockState {@link BlockState The placed block state}
-     * @param level {@link Level The level reference}
-     * @param player {@link Player The player who placed the block}
-     * @param blockPos {@link BlockPos The block pos for the palced block}
-     */
-    private static void handlePlacedBlock(final BlockState blockState, final Level level, final Player player, final BlockPos blockPos) {
-        if(blockState != null && HorizontalPaneBlock.hasHorizontalPane(blockState) && player.isShiftKeyDown()) {
-            level.setBlockAndUpdate(blockPos, HorizontalPaneBlock.getStateFromGlassPane(blockState, level, blockPos));
         }
     }
 

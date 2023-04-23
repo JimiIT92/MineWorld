@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWBlocks;
@@ -36,7 +38,7 @@ import java.util.function.Supplier;
 /**
  * Implementation class for a horizontal pane block
  */
-public class HorizontalPaneBlock extends Block implements SimpleWaterloggedBlock {
+public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 
     /**
      * {@link Supplier<BiMap> Horizontal panes by block}
@@ -87,7 +89,7 @@ public class HorizontalPaneBlock extends Block implements SimpleWaterloggedBlock
     /**
      * {@link VoxelShape The block bottom voxel shape}
      */
-    protected static final VoxelShape HORIZONTAL_PANE_AABB = Block.box(0.0D, 6.0D, 0.0D, 16.0D, 10.0D, 16.0D);
+    protected static final VoxelShape HORIZONTAL_PANE_AABB = Block.box(0.0D, 7.0D, 0.0D, 16.0D, 9.0D, 16.0D);
 
     /**
      * Constructor. Set the block properties
@@ -97,7 +99,7 @@ public class HorizontalPaneBlock extends Block implements SimpleWaterloggedBlock
      */
     public HorizontalPaneBlock(final Properties properties, final FeatureFlag... featureFlags) {
         super(PropertyHelper.translucentBlockProperties(properties, featureFlags));
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     /**
@@ -133,8 +135,15 @@ public class HorizontalPaneBlock extends Block implements SimpleWaterloggedBlock
      * @return {@link BlockState The placed block state}
      */
     public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
+        BlockState blockState = this.defaultBlockState();
         final FluidState fluidstate = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
-        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.getType().isSame(Fluids.WATER));
+        Direction direction = blockPlaceContext.getClickedFace();
+        if (!blockPlaceContext.replacingClickedOnBlock() && direction.getAxis().isHorizontal()) {
+            blockState = blockState.setValue(FACING, direction);
+        } else {
+            blockState = blockState.setValue(FACING, blockPlaceContext.getHorizontalDirection().getOpposite());
+        }
+        return blockState.setValue(WATERLOGGED, fluidstate.getType().isSame(Fluids.WATER));
     }
 
     /**
@@ -143,7 +152,7 @@ public class HorizontalPaneBlock extends Block implements SimpleWaterloggedBlock
      * @param stateBuilder {@link StateDefinition.Builder The block state builder}
      */
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(WATERLOGGED);
+        stateBuilder.add(FACING, WATERLOGGED);
     }
 
     /**
@@ -211,6 +220,55 @@ public class HorizontalPaneBlock extends Block implements SimpleWaterloggedBlock
     @Override
     public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final BlockGetter blockGetter, final BlockPos blockPos, final Player player) {
         return Optional.ofNullable(BLOCK_BY_HORIZONTAL_PANE.get().get(blockState.getBlock())).map(ItemHelper::getDefaultStack).orElse(ItemStack.EMPTY);
+    }
+
+    /**
+     * Get the {@link VoxelShape block visual shape}
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link BlockGetter The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param collisionContext {@link CollisionContext The collision context}
+     * @return {@link Shapes#empty() Empty shape}
+     */
+    public @NotNull VoxelShape getVisualShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+        return Shapes.empty();
+    }
+
+    /**
+     * Get the {@link Float block shade brightness}
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link BlockGetter The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @return {@link Float 1.0}
+     */
+    public float getShadeBrightness(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+        return 1.0F;
+    }
+
+    /**
+     * Check if the block can propagate the skylight
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link BlockGetter The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @return {@link Boolean True}
+     */
+    public boolean propagatesSkylightDown(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+        return true;
+    }
+
+    /**
+     * Determine if the face should be rendered based on the neighbor state
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param neighborState {@link BlockState The neighbor block state}
+     * @param direction {@link Direction The direction of the face to be rendered}
+     * @return {@link Boolean True if the face should be rendered}
+     */
+    public boolean skipRendering(final @NotNull BlockState blockState, final BlockState neighborState, final @NotNull Direction direction) {
+        return neighborState.is(this) || super.skipRendering(blockState, neighborState, direction);
     }
 
 }

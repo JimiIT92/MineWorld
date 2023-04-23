@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "mineworld:block/bronze_grate",
+      "y": 90
+    },
+    "facing=north": {
       "model": "mineworld:block/bronze_grate"
+    },
+    "facing=south": {
+      "model": "mineworld:block/bronze_grate",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mineworld:block/bronze_grate",
+      "y": 270
     }
   }
 }
