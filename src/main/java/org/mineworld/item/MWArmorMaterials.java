@@ -125,7 +125,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param ingredient {@link LazyLoadedValue<Ingredient> The armor repair ingredient}
      */
     MWArmorMaterials(final String name, final int durabilityMultiplier, final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, final int enchantmentValue, final SoundEvent sound, final float thoughness, final float knockbackResistance, final Supplier<Ingredient> ingredient) {
-        this.name = new ResourceLocation(MineWorld.MODID, name).toString();
+        this.name = new ResourceLocation(MineWorld.MOD_ID, name).toString();
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionFunctionForType = protectionFunctionForType;
         this.enchantmentValue = enchantmentValue;

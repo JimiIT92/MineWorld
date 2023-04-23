@@ -53,7 +53,7 @@ public final class KeyHelper {
      * @param <T> The resource key type
      */
     public static <T> ResourceKey<T> register(ResourceKey<Registry<T>> registry, String name) {
-        return ResourceKey.create(registry, new ResourceLocation(MineWorld.MODID, name));
+        return ResourceKey.create(registry, new ResourceLocation(MineWorld.MOD_ID, name));
     }
 
 }

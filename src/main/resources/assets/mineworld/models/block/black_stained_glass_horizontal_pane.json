@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/horizontal_pane",
+  "textures": {
+    "texture": "minecraft:block/black_stained_glass"
+  }
+}

@@ -14,17 +14,17 @@ import java.util.logging.Logger;
 /**
  * MineWorld! Just another Minecraft mod
  */
-@Mod(MineWorld.MODID)
+@Mod(MineWorld.MOD_ID)
 public final class MineWorld {
 
     /**
      * {@link MineWorld MineWorld} {@link String mod ID}
      */
-    public static final String MODID = "mineworld";
+    public static final String MOD_ID = "mineworld";
     /**
      * {@link Logger Logger reference}
      */
-    public static final Logger LOGGER = Logger.getLogger(MODID);
+    public static final Logger LOGGER = Logger.getLogger(MOD_ID);
 
     /**
      * Constructor. Initialize the mod

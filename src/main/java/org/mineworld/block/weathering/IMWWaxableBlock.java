@@ -74,6 +74,10 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
             .put(MWBlocks.WAXED_EXPOSED_COPPER_CAGE.get(), MWBlocks.EXPOSED_COPPER_CAGE.get())
             .put(MWBlocks.WAXED_WEATHERED_COPPER_CAGE.get(), MWBlocks.WEATHERED_COPPER_CAGE.get())
             .put(MWBlocks.WAXED_OXIDIZED_COPPER_CAGE.get(), MWBlocks.OXIDIZED_COPPER_CAGE.get())
+            .put(MWBlocks.WAXED_COPPER_GRATE.get(), MWBlocks.COPPER_GRATE.get())
+            .put(MWBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), MWBlocks.EXPOSED_COPPER_GRATE.get())
+            .put(MWBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), MWBlocks.WEATHERED_COPPER_GRATE.get())
+            .put(MWBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), MWBlocks.OXIDIZED_COPPER_GRATE.get())
     .build());
 
     Supplier<BiMap<Block, Block>> WAXED_BY_BLOCK = Suppliers.memoize(() -> UNWAXED_BY_BLOCK.get().inverse());

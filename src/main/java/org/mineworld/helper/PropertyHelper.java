@@ -239,7 +239,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties translucentBlockProperties(final BlockBehaviour.Properties properties, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties translucentBlockProperties(final BlockBehaviour.Properties properties, final FeatureFlag... featureFlags) {
         return applyFeatureFlags(properties.noOcclusion()
                 .isValidSpawn((state, level, blockPos, entityType) -> false)
                 .isRedstoneConductor((state, level, blockPos) -> false)

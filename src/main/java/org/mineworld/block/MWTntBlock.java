@@ -113,10 +113,20 @@ public class MWTntBlock extends TntBlock {
     @Override
     public void appendHoverText(final @NotNull ItemStack itemStack, final @Nullable BlockGetter blockGetter, @NotNull List<Component> tooltips, final @NotNull TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, blockGetter, tooltips, tooltipFlag);
-        if(this.type.isDisguised()) {
+        appendTntHoverText(tooltips, this.type);
+    }
+
+    /**
+     * Add tooltips to the disguised tnts
+     *
+     * @param tooltips {@link List<Component> The current tooltips}
+     * @param type {@link MWPrimedTnt.Type The tnt type}
+     */
+    public static void appendTntHoverText(@NotNull List<Component> tooltips, final MWPrimedTnt.Type type) {
+        if(type.isDisguised()) {
             MutableComponent blockName = Blocks.GRASS_BLOCK.getName();
             TextColor color = TextColor.fromLegacyFormat(ChatFormatting.DARK_GREEN);
-            switch (this.type) {
+            switch (type) {
                 case DISGUISED_DIRT -> {
                     blockName = Blocks.DIRT.getName();
                     color = TextColor.fromRgb(0x7B553D);

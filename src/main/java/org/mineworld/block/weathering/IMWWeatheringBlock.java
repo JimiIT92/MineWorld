@@ -61,6 +61,9 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
             .put(MWBlocks.COPPER_CAGE.get(), MWBlocks.EXPOSED_COPPER_CAGE.get())
             .put(MWBlocks.EXPOSED_COPPER_CAGE.get(), MWBlocks.WEATHERED_COPPER_CAGE.get())
             .put(MWBlocks.WEATHERED_COPPER_CAGE.get(), MWBlocks.OXIDIZED_COPPER_CAGE.get())
+            .put(MWBlocks.COPPER_GRATE.get(), MWBlocks.EXPOSED_COPPER_GRATE.get())
+            .put(MWBlocks.EXPOSED_COPPER_GRATE.get(), MWBlocks.WEATHERED_COPPER_GRATE.get())
+            .put(MWBlocks.WEATHERED_COPPER_GRATE.get(), MWBlocks.OXIDIZED_COPPER_GRATE.get())
     .build());
 
     Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());

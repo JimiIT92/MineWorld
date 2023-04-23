@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * Handle the {@link Player player} right clickcing a {@link Block block}
  */
-@Mod.EventBusSubscriber(modid = MineWorld.MODID)
+@Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
 public final class LeashKnotEventListener {
 
     /**
@@ -38,16 +38,18 @@ public final class LeashKnotEventListener {
      */
     @SubscribeEvent
     public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
-        final Player player = event.getEntity();
-        final Level level = event.getLevel();
-        final BlockPos clickedPos = event.getPos();
-        final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
-        if(event.getItemStack().is(Items.LEAD) || hasLeashedEntities) {
-            event.setCanceled(true);
-            final InteractionResult result = bindPlayerMobs(player, level, clickedPos, hasLeashedEntities);
-            event.setCancellationResult(result);
-            if(!hasLeashedEntities && !level.isClientSide && result.equals(InteractionResult.SUCCESS) && !player.isCreative()) {
-                event.getItemStack().shrink(1);
+        if(!event.isCanceled()) {
+            final Player player = event.getEntity();
+            final Level level = event.getLevel();
+            final BlockPos clickedPos = event.getPos();
+            final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
+            if(event.getItemStack().is(Items.LEAD) || hasLeashedEntities) {
+                event.setCanceled(true);
+                final InteractionResult result = bindPlayerMobs(player, level, clickedPos, hasLeashedEntities);
+                event.setCancellationResult(result);
+                if(!hasLeashedEntities && !level.isClientSide && result.equals(InteractionResult.SUCCESS) && !player.isCreative()) {
+                    event.getItemStack().shrink(1);
+                }
             }
         }
     }

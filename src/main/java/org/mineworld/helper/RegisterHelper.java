@@ -65,19 +65,19 @@ public final class RegisterHelper {
     /**
      * {@link DeferredRegister <Block> The block registry}
      */
-    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MineWorld.MODID);
+    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<Item> The item registry}
      */
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MineWorld.MODID);
+    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<EntityType> The entity types registry}
      */
-    private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MineWorld.MODID);
+    private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<BlockEntityType> The block entity types registry}
      */
-    private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MineWorld.MODID);
+    private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -120,8 +120,8 @@ public final class RegisterHelper {
      */
     public static RegistryObject<Item> registerSmithingTemplate(final String name, final String templateName, final String baseSlotIcon, final String additionSlotIcon) {
         return registerSmithingTemplate(name, templateName,
-                List.of(new ResourceLocation(MineWorld.MODID, "item/empty_slot_" + baseSlotIcon)),
-                List.of(new ResourceLocation(MineWorld.MODID, "item/empty_slot_" + additionSlotIcon)));
+                List.of(new ResourceLocation(MineWorld.MOD_ID, "item/empty_slot_" + baseSlotIcon)),
+                List.of(new ResourceLocation(MineWorld.MOD_ID, "item/empty_slot_" + additionSlotIcon)));
     }
 
     /**
@@ -135,11 +135,11 @@ public final class RegisterHelper {
      */
     static RegistryObject<Item> registerSmithingTemplate(final String name,final String templateName, final List<ResourceLocation> baseSlotIcons, final List<ResourceLocation> additionSlotIcons) {
         return registerItem(name, () -> new SmithingTemplateItem(
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + templateName + ".applies_to"))).withStyle(ChatFormatting.BLUE),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + templateName + ".ingredients"))).withStyle(ChatFormatting.BLUE),
-                Component.translatable(Util.makeDescriptionId("upgrade", new ResourceLocation(MineWorld.MODID, templateName))).withStyle(ChatFormatting.GRAY),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + templateName + ".base_slot_description"))),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MODID, "smithing_template." + templateName + ".additions_slot_description"))),
+                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".applies_to"))).withStyle(ChatFormatting.BLUE),
+                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".ingredients"))).withStyle(ChatFormatting.BLUE),
+                Component.translatable(Util.makeDescriptionId("upgrade", new ResourceLocation(MineWorld.MOD_ID, templateName))).withStyle(ChatFormatting.GRAY),
+                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".base_slot_description"))),
+                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".additions_slot_description"))),
                 baseSlotIcons,
                 additionSlotIcons
         ));
@@ -192,7 +192,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerHorseArmorItem(final String materialName, final int protection, final FeatureFlag... featureFlags) {
-        final ResourceLocation textureLocation = new ResourceLocation(MineWorld.MODID, "textures/entity/horse/armor/horse_armor_" + materialName + ".png");
+        final ResourceLocation textureLocation = new ResourceLocation(MineWorld.MOD_ID, "textures/entity/horse/armor/horse_armor_" + materialName + ".png");
         return registerItem(materialName + "_horse_armor", () -> new HorseArmorItem(protection, textureLocation, PropertyHelper.basicItemProperties(featureFlags).stacksTo(1)));
     }
 
@@ -737,7 +737,7 @@ public final class RegisterHelper {
      * @param <T> {@link T The entity type}
      */
     public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(final String name, final EntityType.Builder<T> entityBuilder) {
-        return ENTITY_TYPES.register(name, () -> entityBuilder.build(new ResourceLocation(MineWorld.MODID, name).toString()));
+        return ENTITY_TYPES.register(name, () -> entityBuilder.build(new ResourceLocation(MineWorld.MOD_ID, name).toString()));
     }
 
     /**
@@ -894,12 +894,12 @@ public final class RegisterHelper {
      * @return {@link CreativeModeTab The registered creative mode tab}
      */
     public static CreativeModeTab registerCreativeTab(final CreativeModeTabEvent.Register event, final String name, final CreativeModeTab afterTab, final Supplier<ItemStack> iconSupplier) {
-        return event.registerCreativeModeTab(new ResourceLocation(MineWorld.MODID, name),
+        return event.registerCreativeModeTab(new ResourceLocation(MineWorld.MOD_ID, name),
                 List.of(),
                 afterTab != null ? List.of(afterTab) : List.of(),
                 builder -> builder
                         .icon(iconSupplier)
-                        .title(Component.translatable("itemGroup." + MineWorld.MODID + "." + name))
+                        .title(Component.translatable("itemGroup." + MineWorld.MOD_ID + "." + name))
                         .build());
     }
 
@@ -917,7 +917,7 @@ public final class RegisterHelper {
      * @return {@link BlockSetType The registered block set type}
      */
     public static BlockSetType registerBlockSetType(final String name, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
-        return BlockSetType.register(new BlockSetType(new ResourceLocation(MineWorld.MODID, name).toString(), defaultSound,
+        return BlockSetType.register(new BlockSetType(new ResourceLocation(MineWorld.MOD_ID, name).toString(), defaultSound,
                 doorCloseSound, doorOpenSound,
                 doorCloseSound, doorOpenSound,
                 pressurePlateClickOffSound, pressurePlateClickOnSound,
@@ -941,7 +941,7 @@ public final class RegisterHelper {
      * @return {@link BlockSetType The registered block set type}
      */
     public static BlockSetType registerBlockSetType(final String name, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
-        return BlockSetType.register(new BlockSetType(new ResourceLocation(MineWorld.MODID, name).toString(), defaultSound,
+        return BlockSetType.register(new BlockSetType(new ResourceLocation(MineWorld.MOD_ID, name).toString(), defaultSound,
                 doorCloseSound, doorOpenSound,
                 trapdoorCloseSound, trapdoorOpenSound,
                 pressurePlateClickOffSound, pressurePlateClickOnSound,
@@ -956,7 +956,7 @@ public final class RegisterHelper {
      * @return {@link FeatureFlag The registered feature flag}
      */
     public static FeatureFlag registerFeatureFlag(final String name) {
-        return new FeatureFlagRegistry.Builder("main").create(new ResourceLocation(MineWorld.MODID, name));
+        return new FeatureFlagRegistry.Builder("main").create(new ResourceLocation(MineWorld.MOD_ID, name));
     }
 
     /**

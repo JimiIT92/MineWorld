@@ -16,7 +16,7 @@ import org.mineworld.core.MWBlocks;
 /**
  * Handles the {@link Block block coloring} on the client side
  */
-@Mod.EventBusSubscriber(modid = MineWorld.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ColorHandlerListener {
 
     /**

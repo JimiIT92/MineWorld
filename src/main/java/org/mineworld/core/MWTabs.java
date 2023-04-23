@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * {@link MineWorld MineWorld} {@link CreativeModeTab creative tabs}
  */
-@Mod.EventBusSubscriber(modid = MineWorld.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class MWTabs {
 
     public static CreativeModeTab BUILDING_BLOCKS;
@@ -1388,15 +1388,15 @@ public final class MWTabs {
                 MWItems.DRIPSTONE_PEBBLE,
                 MWItems.OBSIDIAN_PEBBLE,
                 MWItems.CRYING_OBSIDIAN_PEBBLE,
-                MWItems.MEGA_TNT_MINECART,
-                MWItems.SUPER_TNT_MINECART,
-                MWItems.HYPER_TNT_MINECART,
                 MWItems.DISGUISED_GRASS_TNT_MINECART,
                 MWItems.DISGUISED_DIRT_TNT_MINECART,
                 MWItems.DISGUISED_SAND_TNT_MINECART,
                 MWItems.DISGUISED_RED_SAND_TNT_MINECART,
                 MWItems.DISGUISED_STONE_TNT_MINECART,
-                MWItems.DISGUISED_CAKE_TNT_MINECART
+                MWItems.DISGUISED_CAKE_TNT_MINECART,
+                MWItems.MEGA_TNT_MINECART,
+                MWItems.SUPER_TNT_MINECART,
+                MWItems.HYPER_TNT_MINECART
         );
     }
 
