@@ -42,12 +42,14 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
@@ -652,7 +654,17 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
-        return registerBlock(name, () -> new StairBlock(blockStateSupplier, propertiesSupplier.get()));
+        return registerBlock(name, () -> new StairBlock(blockStateSupplier, propertiesSupplier.get()) {
+            /**
+             * Get the {@link PushReaction push reaction} when this block is pushed by pistons
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link PushReaction#DESTROY Destroy push reaction}
+             */
+            public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+                return LevelHelper.getPushReaction(blockStateSupplier.get());
+            }
+        });
     }
 
     /**
@@ -664,7 +676,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerSlab(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerSlab(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops());
+        return registerSlab(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()));
     }
 
     /**
@@ -675,7 +687,29 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
-        return registerBlock(name, () -> new SlabBlock(propertiesSupplier.get()));
+        return registerSlab(name, propertiesSupplier, () -> PushReaction.NORMAL);
+    }
+
+    /**
+     * Register a {@link StairBlock stair block}
+     *
+     * @param name {@link String The block name}
+     * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this stair is based on}
+     * @param pistonPushReaction {@link Supplier<PushReaction> The piston push reaction supplier for this block}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction) {
+        return registerBlock(name, () -> new SlabBlock(propertiesSupplier.get()) {
+            /**
+             * Get the {@link PushReaction push reaction} when this block is pushed by pistons
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link PushReaction#DESTROY Destroy push reaction}
+             */
+            public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+                return pistonPushReaction.get();
+            }
+        });
     }
 
     /**
@@ -721,7 +755,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWall(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerWall(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops());
+        return registerWall(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()));
     }
 
     /**
@@ -732,7 +766,29 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
-        return registerBlock(name, () -> new WallBlock(propertiesSupplier.get()));
+        return registerWall(name, propertiesSupplier, () -> PushReaction.NORMAL);
+    }
+
+    /**
+     * Register a {@link WallBlock wall block}
+     *
+     * @param name {@link String The block name}
+     * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this stair is based on}
+     * @param pistonPushReaction {@link Supplier<PushReaction> The piston push reaction supplier for this block}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    private static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction) {
+        return registerBlock(name, () -> new WallBlock(propertiesSupplier.get()) {
+            /**
+             * Get the {@link PushReaction push reaction} when this block is pushed by pistons
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link PushReaction#DESTROY Destroy push reaction}
+             */
+            public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+                return pistonPushReaction.get();
+            }
+        });
     }
 
     /**

@@ -2,12 +2,26 @@ package org.mineworld.helper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 
 /**
  * Helper methods for {@link Level level}
  */
 public final class LevelHelper {
+
+    /**
+     * Get the {@link BlockState block state} reaction when pushed by pistons
+     *
+     * @param blockState {@link BlockState The block state to check}
+     * @return {@link PushReaction The piston push reaction}
+     */
+    public static PushReaction getPushReaction(final BlockState blockState) {
+        return blockState.is(Tags.Blocks.OBSIDIAN) || blockState.is(Blocks.REINFORCED_DEEPSLATE) ? PushReaction.BLOCK : blockState.getPistonPushReaction();
+    }
 
     /**
      * Convert a {@link Vec3 coordinate vector} to a {@link BlockPos block pos}

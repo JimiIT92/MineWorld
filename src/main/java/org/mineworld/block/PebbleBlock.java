@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -187,4 +188,15 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
     public @NotNull FluidState getFluidState(final BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
+
+    /**
+     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @return {@link PushReaction#DESTROY Destroy push reaction}
+     */
+    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+        return PushReaction.DESTROY;
+    }
+
 }

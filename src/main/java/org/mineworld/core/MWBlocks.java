@@ -1009,9 +1009,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> OBSIDIAN_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("obsidian_pressure_plate", false, MaterialColor.COLOR_BLACK, BlockSetType.STONE);
     public static final RegistryObject<Block> OBSIDIAN_BUTTON = RegisterHelper.registerButton("obsidian_button", false, BlockSetType.STONE);
     public static final RegistryObject<Block> OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("obsidian_pebble", () -> Blocks.OBSIDIAN);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_STAIRS = RegisterHelper.registerStair("crying_obsidian_stairs", Blocks.CRYING_OBSIDIAN::defaultBlockState);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_SLAB = RegisterHelper.registerSlab("crying_obsidian_slab", () -> Blocks.CRYING_OBSIDIAN);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_WALL = RegisterHelper.registerWall("crying_obsidian_wall", () -> Blocks.CRYING_OBSIDIAN);
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_STAIRS = RegisterHelper.registerBlock("crying_obsidian_stairs", CryingObsidianStairs::new);
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_SLAB = RegisterHelper.registerBlock("crying_obsidian_slab", CryingObsidianSlab::new);
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_WALL = RegisterHelper.registerBlock("crying_obsidian_wall", CryingObsidianWall::new);
     public static final RegistryObject<Block> CRYING_OBSIDIAN_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("crying_obsidian_pressure_plate", false, MaterialColor.COLOR_BLACK, BlockSetType.STONE);
     public static final RegistryObject<Block> CRYING_OBSIDIAN_BUTTON = RegisterHelper.registerButton("crying_obsidian_button", false, BlockSetType.STONE);
     public static final RegistryObject<Block> CRYING_OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("crying_obsidian_pebble", () -> Blocks.CRYING_OBSIDIAN);
