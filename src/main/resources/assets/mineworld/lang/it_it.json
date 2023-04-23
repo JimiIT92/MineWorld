@@ -1284,5 +1284,7 @@
   "entity.mineworld.pebble": "Ciottolo",
   "entity.mineworld.leash_knot": "Nodo del guinzaglio",
   "entity.mineworld.tnt": "TNT innescato",
-  "entity.mineworld.tnt_minecart": "Carrello da miniera con TNT"
+  "entity.mineworld.tnt_minecart": "Carrello da miniera con TNT",
+  "update.mineworld.outdated": "È disponibile una nuova versione di MineWorld (%s)!",
+  "update.mineworld.download": "Clicca qui per scaricarla"
 }

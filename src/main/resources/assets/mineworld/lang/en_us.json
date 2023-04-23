@@ -1284,5 +1284,7 @@
   "entity.mineworld.pebble": "Pebble",
   "entity.mineworld.leash_knot": "Leash Knot",
   "entity.mineworld.tnt": "Primed TNT",
-  "entity.mineworld.tnt_minecart": "Minecart with TNT"
+  "entity.mineworld.tnt_minecart": "Minecart with TNT",
+  "update.mineworld.outdated": "A new version of MineWorld (%s) is available!",
+  "update.mineworld.download": "Click here to download"
 }
