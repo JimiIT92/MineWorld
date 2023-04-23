@@ -28,7 +28,7 @@ public final class GameEventListener {
      * @param event {@link VanillaGameEvent The vanilla game event}
      */
     @SubscribeEvent
-    public static void onGameEvent(final net.minecraftforge.event.VanillaGameEvent event) {
+    public static void onGameEvent(final VanillaGameEvent event) {
         if(!event.isCanceled()) {
             final GameEvent gameEvent = event.getVanillaEvent();
             final Level level = event.getLevel();
@@ -65,7 +65,7 @@ public final class GameEventListener {
      * @param blockPos {@link BlockPos The block pos for the palced block}
      */
     private static void handlePlacedBlock(final BlockState blockState, final Level level, final Player player, final BlockPos blockPos) {
-        if(HorizontalPaneBlock.hasHorizontalPane(blockState) && player.isShiftKeyDown()) {
+        if(blockState != null && HorizontalPaneBlock.hasHorizontalPane(blockState) && player.isShiftKeyDown()) {
             level.setBlockAndUpdate(blockPos, HorizontalPaneBlock.getStateFromGlassPane(blockState, level, blockPos));
         }
     }

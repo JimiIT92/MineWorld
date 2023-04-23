@@ -2,6 +2,8 @@ package org.mineworld.helper;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -22,7 +24,9 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -404,7 +408,50 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFlower(final String name, final Supplier<MobEffect> effectSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new FlowerBlock(effectSupplier, 5, PropertyHelper.copyFromBlock(Blocks.POPPY, featureFlags)));
+        return registerBlock(name, () -> new FlowerBlock(effectSupplier, 5, PropertyHelper.copyFromBlock(Blocks.POPPY, featureFlags)) {
+
+            /**
+             * Makes the block able to catch fire
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Boolean True}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return true;
+            }
+
+            /**
+             * Get the block {@link Integer flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 100}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 100;
+            }
+
+            /**
+             * Get the block {@link Integer fire spread speed value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 15}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 60;
+            }
+        });
     }
 
     /**
@@ -415,7 +462,50 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerTallFlower(final String name, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new TallFlowerBlock(PropertyHelper.copyFromBlock(Blocks.ROSE_BUSH, featureFlags)));
+        return registerBlock(name, () -> new TallFlowerBlock(PropertyHelper.copyFromBlock(Blocks.ROSE_BUSH, featureFlags)) {
+
+            /**
+             * Makes the block able to catch fire
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Boolean True}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return true;
+            }
+
+            /**
+             * Get the block {@link Integer flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 100}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 100;
+            }
+
+            /**
+             * Get the block {@link Integer fire spread speed value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 15}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 60;
+            }
+        });
     }
 
     /**
