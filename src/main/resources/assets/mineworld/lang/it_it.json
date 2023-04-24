@@ -1277,6 +1277,8 @@
   "block.mineworld.silver_grate": "Grata di argento",
   "block.mineworld.aluminum_grate": "Grata di alluminio",
   "block.mineworld.bronze_grate": "Grata di bronzo",
+  "block.mineworld.rope": "Fune",
+  "block.mineworld.rope_tail": "Coda della fune",
   "smithing.mineworld.raw_bronze": "Bronzo grezzo",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",

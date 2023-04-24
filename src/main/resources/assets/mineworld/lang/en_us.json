@@ -1277,6 +1277,8 @@
   "block.mineworld.silver_grate": "Silver Grate",
   "block.mineworld.aluminum_grate": "Aluminum Grate",
   "block.mineworld.bronze_grate": "Bronze Grate",
+  "block.mineworld.rope": "Rope",
+  "block.mineworld.rope_tail": "Rope Tail",
   "smithing.mineworld.raw_bronze": "Raw Bronze",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Raw Copper",

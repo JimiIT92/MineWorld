@@ -1271,7 +1271,8 @@ public final class MWTabs {
                 MWItems.SAPPHIRE_SHOVEL,
                 MWItems.SAPPHIRE_PICKAXE,
                 MWItems.SAPPHIRE_AXE,
-                MWItems.SAPPHIRE_HOE
+                MWItems.SAPPHIRE_HOE,
+                MWBlocks.ROPE
         );
     }
 

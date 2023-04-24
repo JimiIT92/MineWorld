@@ -81,7 +81,6 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * {@link Supplier<BiMap> Block by horizontal panes}
      */
     private static final Supplier<BiMap<Block, Block>> BLOCK_BY_HORIZONTAL_PANE = Suppliers.memoize(() -> HORIZONTAL_PANE_BY_BLOCK.get().inverse());
-
     /**
      * {@link BooleanProperty The block waterlogged property}
      */

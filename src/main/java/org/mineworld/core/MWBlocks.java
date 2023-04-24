@@ -2,7 +2,10 @@ package org.mineworld.core;
 
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -1152,6 +1155,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("glowing_obsidian_pressure_plate", false, MaterialColor.COLOR_BLACK, BlockSetType.STONE);
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_BUTTON = RegisterHelper.registerButton("glowing_obsidian_button", false, BlockSetType.STONE);
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("glowing_obsidian_pebble", GLOWING_OBSIDIAN);
+    public static final RegistryObject<Block> ROPE = RegisterHelper.registerBlock("rope", RopeBlock::new);
+    public static final RegistryObject<Block> ROPE_TAIL = RegisterHelper.registerBlockWithoutBlockItem("rope_tail", RopeTailBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
