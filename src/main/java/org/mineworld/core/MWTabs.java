@@ -271,6 +271,12 @@ public final class MWTabs {
                 MWBlocks.CRYING_OBSIDIAN_WALL,
                 MWBlocks.CRYING_OBSIDIAN_PRESSURE_PLATE,
                 MWBlocks.CRYING_OBSIDIAN_BUTTON,
+                MWBlocks.GLOWING_OBSIDIAN,
+                MWBlocks.GLOWING_OBSIDIAN_STAIRS,
+                MWBlocks.GLOWING_OBSIDIAN_SLAB,
+                MWBlocks.GLOWING_OBSIDIAN_WALL,
+                MWBlocks.GLOWING_OBSIDIAN_PRESSURE_PLATE,
+                MWBlocks.GLOWING_OBSIDIAN_BUTTON,
                 MWBlocks.CHARCOAL_BLOCK,
                 MWBlocks.PYRITE_BLOCK,
                 MWBlocks.IRON_STAIRS,
@@ -1055,12 +1061,12 @@ public final class MWTabs {
                 MWItems.QUARTZ_BRICKS_PEBBLE,
                 MWItems.QUARTZ_PILLAR_PEBBLE,
                 MWItems.TERRACOTTA_PEBBLE,
-
                 MWItems.CALCITE_PEBBLE,
                 MWItems.TUFF_PEBBLE,
                 MWItems.DRIPSTONE_PEBBLE,
                 MWItems.OBSIDIAN_PEBBLE,
-                MWItems.CRYING_OBSIDIAN_PEBBLE
+                MWItems.CRYING_OBSIDIAN_PEBBLE,
+                MWItems.GLOWING_OBSIDIAN_PEBBLE
         );
     }
 
@@ -1116,13 +1122,12 @@ public final class MWTabs {
                 MWBlocks.QUARTZ_BRICKS_BUTTON,
                 MWBlocks.QUARTZ_PILLAR_BUTTON,
                 MWBlocks.TERRACOTTA_BUTTON,
-
                 MWBlocks.CALCITE_BUTTON,
                 MWBlocks.TUFF_BUTTON,
                 MWBlocks.DRIPSTONE_BUTTON,
                 MWBlocks.OBSIDIAN_BUTTON,
                 MWBlocks.CRYING_OBSIDIAN_BUTTON,
-
+                MWBlocks.GLOWING_OBSIDIAN_BUTTON,
                 MWBlocks.COBBLESTONE_PRESSURE_PLATE,
                 MWBlocks.MOSSY_COBBLESTONE_PRESSURE_PLATE,
                 MWBlocks.MOSSY_STONE_PRESSURE_PLATE,
@@ -1168,13 +1173,12 @@ public final class MWTabs {
                 MWBlocks.QUARTZ_BRICKS_PRESSURE_PLATE,
                 MWBlocks.QUARTZ_PILLAR_PRESSURE_PLATE,
                 MWBlocks.TERRACOTTA_PRESSURE_PLATE,
-
                 MWBlocks.CALCITE_PRESSURE_PLATE,
                 MWBlocks.TUFF_PRESSURE_PLATE,
                 MWBlocks.DRIPSTONE_PRESSURE_PLATE,
                 MWBlocks.OBSIDIAN_PRESSURE_PLATE,
                 MWBlocks.CRYING_OBSIDIAN_PRESSURE_PLATE,
-
+                MWBlocks.GLOWING_OBSIDIAN_PRESSURE_PLATE,
                 MWBlocks.CUT_IRON_PRESSURE_PLATE,
                 MWBlocks.CUT_GOLDEN_PRESSURE_PLATE,
                 MWBlocks.COPPER_PRESSURE_PLATE,
@@ -1388,6 +1392,7 @@ public final class MWTabs {
                 MWItems.DRIPSTONE_PEBBLE,
                 MWItems.OBSIDIAN_PEBBLE,
                 MWItems.CRYING_OBSIDIAN_PEBBLE,
+                MWItems.GLOWING_OBSIDIAN_PEBBLE,
                 MWItems.DISGUISED_GRASS_TNT_MINECART,
                 MWItems.DISGUISED_DIRT_TNT_MINECART,
                 MWItems.DISGUISED_SAND_TNT_MINECART,

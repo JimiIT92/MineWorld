@@ -204,6 +204,7 @@ public final class MWItems {
     public static final RegistryObject<Item> DRIPSTONE_PEBBLE = RegisterHelper.registerItem("dripstone_pebble", () -> new PebbleItem(MWBlocks.DRIPSTONE_PEBBLE.get()));
     public static final RegistryObject<Item> OBSIDIAN_PEBBLE = RegisterHelper.registerItem("obsidian_pebble", () -> new PebbleItem(MWBlocks.OBSIDIAN_PEBBLE.get()));
     public static final RegistryObject<Item> CRYING_OBSIDIAN_PEBBLE = RegisterHelper.registerItem("crying_obsidian_pebble", () -> new PebbleItem(MWBlocks.CRYING_OBSIDIAN_PEBBLE.get()));
+    public static final RegistryObject<Item> GLOWING_OBSIDIAN_PEBBLE = RegisterHelper.registerItem("glowing_obsidian_pebble", () -> new PebbleItem(MWBlocks.GLOWING_OBSIDIAN_PEBBLE.get()));
     public static final RegistryObject<Item> MARBLE_PEBBLE = RegisterHelper.registerItem("marble_pebble", () -> new PebbleItem(MWBlocks.MARBLE_PEBBLE.get()));
     public static final RegistryObject<Item> WHITE_MARBLE_PEBBLE = RegisterHelper.registerItem("white_marble_pebble", () -> new PebbleItem(MWBlocks.WHITE_MARBLE_PEBBLE.get()));
     public static final RegistryObject<Item> ORANGE_MARBLE_PEBBLE = RegisterHelper.registerItem("orange_marble_pebble", () -> new PebbleItem(MWBlocks.ORANGE_MARBLE_PEBBLE.get()));

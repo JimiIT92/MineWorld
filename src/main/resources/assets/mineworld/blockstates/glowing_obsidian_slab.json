@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/glowing_obsidian_slab"
+    },
+    "type=double": {
+      "model": "mineworld:block/glowing_obsidian"
+    },
+    "type=top": {
+      "model": "mineworld:block/glowing_obsidian_slab_top"
+    }
+  }
+}

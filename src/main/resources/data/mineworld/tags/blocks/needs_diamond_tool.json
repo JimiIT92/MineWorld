@@ -13,6 +13,10 @@
     "mineworld:obsidian_wall",
     "mineworld:crying_obsidian_stairs",
     "mineworld:crying_obsidian_slab",
-    "mineworld:crying_obsidian_wall"
+    "mineworld:crying_obsidian_wall",
+    "mineworld:glowing_obsidian",
+    "mineworld:glowing_obsidian_stairs",
+    "mineworld:glowing_obsidian_slab",
+    "mineworld:glowing_obsidian_wall"
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "mineworld:block/glowing_obsidian",
+    "side": "mineworld:block/glowing_obsidian",
+    "top": "mineworld:block/glowing_obsidian"
+  }
+}

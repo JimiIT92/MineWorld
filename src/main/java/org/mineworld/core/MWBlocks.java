@@ -1145,9 +1145,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SILVER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("silver_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(SILVER_BARS.get())));
     public static final RegistryObject<Block> ALUMINUM_GRATE = RegisterHelper.registerBlockWithoutBlockItem("aluminum_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(ALUMINUM_BARS.get())));
     public static final RegistryObject<Block> BRONZE_GRATE = RegisterHelper.registerBlockWithoutBlockItem("bronze_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(BRONZE_BARS.get())));
-    //ox
-    //we
-    //exp
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN = RegisterHelper.registerBlock("glowing_obsidian", GlowingObsidianBlock::new);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_STAIRS = RegisterHelper.registerStair("glowing_obsidian_stairs", () -> GLOWING_OBSIDIAN.get().defaultBlockState());
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_SLAB = RegisterHelper.registerSlab("glowing_obsidian_slab", GLOWING_OBSIDIAN);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = RegisterHelper.registerWall("glowing_obsidian_wall", GLOWING_OBSIDIAN);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("glowing_obsidian_pressure_plate", false, MaterialColor.COLOR_BLACK, BlockSetType.STONE);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_BUTTON = RegisterHelper.registerButton("glowing_obsidian_button", false, BlockSetType.STONE);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("glowing_obsidian_pebble", GLOWING_OBSIDIAN);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
