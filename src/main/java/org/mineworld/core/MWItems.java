@@ -231,6 +231,8 @@ public final class MWItems {
     public static final RegistryObject<Item> MEGA_TNT_MINECART = RegisterHelper.registerItem("mega_tnt_minecart", () -> new MWTNTMinecartItem(MWMinecartItem.Type.MEGA_TNT, MWPrimedTnt.Type.MEGA));
     public static final RegistryObject<Item> SUPER_TNT_MINECART = RegisterHelper.registerItem("super_tnt_minecart", () -> new MWTNTMinecartItem(MWMinecartItem.Type.SUPER_TNT, MWPrimedTnt.Type.SUPER));
     public static final RegistryObject<Item> HYPER_TNT_MINECART = RegisterHelper.registerItem("hyper_tnt_minecart", () -> new MWTNTMinecartItem(MWMinecartItem.Type.HYPER_TNT, MWPrimedTnt.Type.HYPER));
+    public static final RegistryObject<Item> WARPED_WART = RegisterHelper.registerBlockItem("warped_wart", MWBlocks.WARPED_WART);
+    public static final RegistryObject<Item> BLUE_NETHER_BRICKS_PEBBLE = RegisterHelper.registerItem("blue_nether_bricks_pebble", () -> new PebbleItem(MWBlocks.BLUE_NETHER_BRICKS_PEBBLE.get()));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

@@ -27,12 +27,14 @@ public final class BlockPlaceEventListener {
      */
     @SubscribeEvent
     public static void onBlockPlaced(final BlockEvent.EntityPlaceEvent event) {
-        final Entity placer = event.getEntity();
-        final Level level = placer.getLevel();
-        final BlockPos blockPos = event.getPos();
-        final BlockState placedBlock = event.getPlacedBlock();
-        if(placer instanceof Player player && shouldPlaceHorizontalPane(player, placedBlock, event.getPlacedAgainst(), level, blockPos)) {
-            level.setBlockAndUpdate(blockPos, HorizontalPaneBlock.getStateFromGlassPane(placedBlock, level, blockPos));
+        if(!event.isCanceled()) {
+            final Entity placer = event.getEntity();
+            final Level level = placer.getLevel();
+            final BlockPos blockPos = event.getPos();
+            final BlockState placedBlock = event.getPlacedBlock();
+            if(placer instanceof Player player && shouldPlaceHorizontalPane(player, placedBlock, event.getPlacedAgainst(), level, blockPos)) {
+                level.setBlockAndUpdate(blockPos, HorizontalPaneBlock.getStateFromGlassPane(placedBlock, level, blockPos));
+            }
         }
     }
 

@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/pebbles_8",
+  "textures": {
+    "pebble": "mineworld:block/blue_nether_bricks"
+  }
+}

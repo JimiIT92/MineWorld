@@ -191,6 +191,14 @@ public final class MWTabs {
                 MWBlocks.RED_NETHER_BRICKS_BUTTON,
                 MWBlocks.CRACKED_RED_NETHER_BRICKS,
                 MWBlocks.CHISELED_RED_NETHER_BRICKS,
+                MWBlocks.BLUE_NETHER_BRICKS,
+                MWBlocks.BLUE_NETHER_BRICKS_STAIRS,
+                MWBlocks.BLUE_NETHER_BRICKS_SLAB,
+                MWBlocks.BLUE_NETHER_BRICKS_WALL,
+                MWBlocks.BLUE_NETHER_BRICKS_PRESSURE_PLATE,
+                MWBlocks.BLUE_NETHER_BRICKS_BUTTON,
+                MWBlocks.CRACKED_BLUE_NETHER_BRICKS,
+                MWBlocks.CHISELED_BLUE_NETHER_BRICKS,
                 MWBlocks.BASALT_STAIRS,
                 MWBlocks.BASALT_SLAB,
                 MWBlocks.BASALT_WALL,
@@ -1045,6 +1053,7 @@ public final class MWTabs {
                 MWItems.NETHERRACK_PEBBLE,
                 MWItems.NETHER_BRICKS_PEBBLE,
                 MWItems.RED_NETHER_BRICKS_PEBBLE,
+                MWItems.BLUE_NETHER_BRICKS_PEBBLE,
                 MWItems.BASALT_PEBBLE,
                 MWItems.SMOOTH_BASALT_PEBBLE,
                 MWItems.POLISHED_BASALT_PEBBLE,
@@ -1107,6 +1116,7 @@ public final class MWTabs {
                 MWBlocks.NETHERRACK_BUTTON,
                 MWBlocks.NETHER_BRICKS_BUTTON,
                 MWBlocks.RED_NETHER_BRICKS_BUTTON,
+                MWBlocks.BLUE_NETHER_BRICKS_BUTTON,
                 MWBlocks.BASALT_BUTTON,
                 MWBlocks.SMOOTH_BASALT_BUTTON,
                 MWBlocks.POLISHED_BASALT_BUTTON,
@@ -1158,6 +1168,7 @@ public final class MWTabs {
                 MWBlocks.NETHERRACK_PRESSURE_PLATE,
                 MWBlocks.NETHER_BRICKS_PRESSURE_PLATE,
                 MWBlocks.RED_NETHER_BRICKS_PRESSURE_PLATE,
+                MWBlocks.BLUE_NETHER_BRICKS_PRESSURE_PLATE,
                 MWBlocks.BASALT_PRESSURE_PLATE,
                 MWBlocks.SMOOTH_BASALT_PRESSURE_PLATE,
                 MWBlocks.POLISHED_BASALT_PRESSURE_PLATE,
@@ -1372,6 +1383,7 @@ public final class MWTabs {
                 MWItems.NETHERRACK_PEBBLE,
                 MWItems.NETHER_BRICKS_PEBBLE,
                 MWItems.RED_NETHER_BRICKS_PEBBLE,
+                MWItems.BLUE_NETHER_BRICKS_PEBBLE,
                 MWItems.BASALT_PEBBLE,
                 MWItems.SMOOTH_BASALT_PEBBLE,
                 MWItems.POLISHED_BASALT_PEBBLE,
@@ -1439,7 +1451,8 @@ public final class MWTabs {
                 MWItems.SILVER_INGOT,
                 MWItems.ALUMINUM_INGOT,
                 MWItems.BRONZE_INGOT,
-                MWItems.RAW_BRONZE_SMITHING_TEMPLATE
+                MWItems.RAW_BRONZE_SMITHING_TEMPLATE,
+                MWItems.WARPED_WART
         );
     }
 

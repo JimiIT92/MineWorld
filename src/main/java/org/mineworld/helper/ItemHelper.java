@@ -1,5 +1,6 @@
 package org.mineworld.helper;
 
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -40,6 +41,31 @@ public final class ItemHelper {
      */
     public static ItemStack getDefaultStack(final Item item) {
         return item.getDefaultInstance();
+    }
+
+    /**
+     * Damage an {@link ItemStack item stack} by 1
+     *
+     * @param itemStack {@link ItemStack The item stack to damage}
+     * @param player {@link Player The player using the item stack}
+     */
+    public static void hurt(final ItemStack itemStack, final Player player) {
+        hurt(itemStack, player, 1);
+    }
+
+    /**
+     * Damage an {@link ItemStack item stack}
+     *
+     * @param itemStack {@link ItemStack The item stack to damage}
+     * @param player {@link Player The player using the item stack}
+     * @param amount {@link Integer The amount of damage to apply}
+     */
+    public static void hurt(final ItemStack itemStack, final Player player, final int amount) {
+        if(itemStack.isDamageableItem()) {
+            itemStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(p.getUsedItemHand()));
+        } else if(!player.isCreative()) {
+            itemStack.shrink(amount);
+        }
     }
 
 }

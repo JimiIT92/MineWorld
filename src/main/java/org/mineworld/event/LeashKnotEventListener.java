@@ -20,6 +20,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
+import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
 
 import java.util.Optional;
@@ -44,12 +45,7 @@ public final class LeashKnotEventListener {
             final BlockPos clickedPos = event.getPos();
             final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
             if(event.getItemStack().is(Items.LEAD) || hasLeashedEntities) {
-                event.setCanceled(true);
-                final InteractionResult result = bindPlayerMobs(player, level, clickedPos, hasLeashedEntities);
-                event.setCancellationResult(result);
-                if(!hasLeashedEntities && !level.isClientSide && result.equals(InteractionResult.SUCCESS) && !player.isCreative()) {
-                    event.getItemStack().shrink(1);
-                }
+                handleLeashKnot(event, level, clickedPos, player, hasLeashedEntities);
             }
         }
     }
@@ -63,6 +59,24 @@ public final class LeashKnotEventListener {
     public static void onLeashedEntityDieEvent(final LivingDeathEvent event) {
         if(event.getEntity() instanceof Mob mob && mob.getLeashHolder() != null && mob.getLeashHolder() instanceof LeashFenceKnotEntity leashKnot) {
             leashKnot.kill();
+        }
+    }
+
+    /**
+     * Handle interaction with the {@link LeashFenceKnotEntity leash knot}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param hasLeashedEntities {@link Boolean If the player has some leashed entities}
+     */
+    private static void handleLeashKnot(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final boolean hasLeashedEntities) {
+        event.setCanceled(true);
+        final InteractionResult result = bindPlayerMobs(player, level, clickedPos, hasLeashedEntities);
+        event.setCancellationResult(result);
+        if(!hasLeashedEntities && !level.isClientSide && result.equals(InteractionResult.SUCCESS) && !player.isCreative()) {
+            ItemHelper.hurt(event.getItemStack(), player);
         }
     }
 

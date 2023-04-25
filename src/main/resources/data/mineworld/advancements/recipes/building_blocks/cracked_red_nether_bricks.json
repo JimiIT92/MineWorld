@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:cracked_red_nether_bricks"
+        "recipe": "mineworld:cracked_red_nether_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:cracked_red_nether_bricks"
+      "mineworld:cracked_red_nether_bricks"
     ]
   }
 }

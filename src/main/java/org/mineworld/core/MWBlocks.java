@@ -1157,6 +1157,17 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("glowing_obsidian_pebble", GLOWING_OBSIDIAN);
     public static final RegistryObject<Block> ROPE = RegisterHelper.registerBlock("rope", RopeBlock::new);
     public static final RegistryObject<Block> ROPE_TAIL = RegisterHelper.registerBlockWithoutBlockItem("rope_tail", RopeTailBlock::new);
+    public static final RegistryObject<Block> WARPED_WART = RegisterHelper.registerBlockWithoutBlockItem("warped_wart", WarpedWartBlock::new);
+    public static final RegistryObject<Block> POTTED_WARPED_WART = RegisterHelper.registerFlowerPot("potted_warped_wart", WARPED_WART);
+    public static final RegistryObject<Block> BLUE_NETHER_BRICKS = RegisterHelper.registerBlock("blue_nether_bricks", () -> PropertyHelper.copyFromBlock(Blocks.NETHER_BRICKS));
+    public static final RegistryObject<Block> CRACKED_BLUE_NETHER_BRICKS = RegisterHelper.registerBlock("cracked_blue_nether_bricks", () -> PropertyHelper.copyFromBlock(BLUE_NETHER_BRICKS.get()));
+    public static final RegistryObject<Block> CHISELED_BLUE_NETHER_BRICKS = RegisterHelper.registerBlock("chiseled_blue_nether_bricks", () -> PropertyHelper.copyFromBlock(BLUE_NETHER_BRICKS.get()));
+    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_STAIRS = RegisterHelper.registerStair("blue_nether_bricks_stairs", () -> BLUE_NETHER_BRICKS.get().defaultBlockState());
+    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_SLAB = RegisterHelper.registerSlab("blue_nether_bricks_slab", BLUE_NETHER_BRICKS);
+    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_WALL = RegisterHelper.registerWall("blue_nether_bricks_wall", BLUE_NETHER_BRICKS);
+    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blue_nether_bricks_pressure_plate", false, MaterialColor.WARPED_WART_BLOCK, BlockSetType.STONE);
+    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_BUTTON = RegisterHelper.registerButton("blue_nether_bricks_button", false, BlockSetType.STONE);
+    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_PEBBLE = RegisterHelper.registerPebble("blue_nether_bricks_pebble", BLUE_NETHER_BRICKS);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
