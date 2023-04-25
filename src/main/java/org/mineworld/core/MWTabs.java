@@ -957,6 +957,16 @@ public final class MWTabs {
      */
     private static void setNaturalBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
+                MWBlocks.HOLLOW_OAK_LOG,
+                MWBlocks.HOLLOW_STRIPPED_OAK_LOG,
+                MWBlocks.OAK_LEAVES_CARPET,
+                MWBlocks.OAK_BUSH,
+                MWBlocks.OAK_BARREL,
+                MWBlocks.HOLLOW_SPRUCE_LOG,
+                MWBlocks.HOLLOW_STRIPPED_SPRUCE_LOG,
+                MWBlocks.SPRUCE_LEAVES_CARPET,
+
+                MWBlocks.SPRUCE_BUSH,
                 MWBlocks.MARBLE,
                 MWBlocks.SILVER_ORE,
                 MWBlocks.DEEPSLATE_SILVER_ORE,

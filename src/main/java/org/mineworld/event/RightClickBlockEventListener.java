@@ -1,11 +1,16 @@
 package org.mineworld.event;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.LeadItem;
 import net.minecraft.world.level.Level;
@@ -16,11 +21,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
+import org.mineworld.block.HollowBlock;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.helper.ItemHelper;
+import org.mineworld.helper.LevelHelper;
 import org.mineworld.helper.PlayerHelper;
 
 import java.util.Optional;
@@ -29,7 +37,7 @@ import java.util.Optional;
  * Handle the {@link Player player} right clickcing a {@link Block block}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class LeashKnotEventListener {
+public final class RightClickBlockEventListener {
 
     /**
      * Attach a {@link LeadItem lead} to a {@link FenceBlock fence} when the {@link Player player} right clicks on it
@@ -43,9 +51,14 @@ public final class LeashKnotEventListener {
             final Player player = event.getEntity();
             final Level level = event.getLevel();
             final BlockPos clickedPos = event.getPos();
+            final ItemStack itemStack = event.getItemStack();
             final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
-            if(event.getItemStack().is(Items.LEAD) || hasLeashedEntities) {
+            if(itemStack.is(Items.LEAD) || hasLeashedEntities) {
                 handleLeashKnot(event, level, clickedPos, player, hasLeashedEntities);
+                return;
+            }
+            if(player.isShiftKeyDown() && itemStack.getItem() instanceof AxeItem) {
+                handleHollowLog(event, level, clickedPos, player, itemStack);
             }
         }
     }
@@ -77,6 +90,32 @@ public final class LeashKnotEventListener {
         event.setCancellationResult(result);
         if(!hasLeashedEntities && !level.isClientSide && result.equals(InteractionResult.SUCCESS) && !player.isCreative()) {
             ItemHelper.hurt(event.getItemStack(), player);
+        }
+    }
+
+    /**
+     * Handle interaction with an {@link HollowBlock hollow block}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param itemStack {@link ItemStack The item stack used to interact with the block}
+     */
+    private static void handleHollowLog(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack) {
+        if(player.isShiftKeyDown()) {
+            HollowBlock.getHollow(level.getBlockState(clickedPos)).ifPresent(hollowState -> {
+                level.setBlockAndUpdate(clickedPos, hollowState.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, clickedPos)));
+                ItemHelper.hurt(itemStack, player);
+                if(player instanceof ServerPlayer) {
+                    CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, clickedPos, itemStack);
+                }
+                event.setUseItem(Event.Result.DENY);
+                if(level.isClientSide()) {
+                    player.swing(event.getHand());
+                    player.playSound(SoundEvents.AXE_STRIP, 1.0F, 1.0F);
+                }
+            });
         }
     }
 

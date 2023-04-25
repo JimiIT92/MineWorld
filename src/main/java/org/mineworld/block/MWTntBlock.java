@@ -173,11 +173,11 @@ public class MWTntBlock extends TntBlock {
      * @param blockGetter {@link Level The block getter reference}
      * @param blockPos {@link BlockPos The current block pos}
      * @param direction {@link Direction The direction the fire is coming from}
-     * @return {@link Integer 100}
+     * @return {@link Integer 20}
      */
     @Override
     public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 100;
+        return 20;
     }
 
     /**
@@ -187,11 +187,11 @@ public class MWTntBlock extends TntBlock {
      * @param blockGetter {@link Level The block getter reference}
      * @param blockPos {@link BlockPos The current block pos}
      * @param direction {@link Direction The direction the fire is coming from}
-     * @return {@link Integer 15}
+     * @return {@link Integer 5}
      */
     @Override
     public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 15;
+        return 5;
     }
 
     /**

@@ -2,10 +2,9 @@ package org.mineworld.core;
 
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.grower.OakTreeGrower;
+import net.minecraft.world.level.block.grower.SpruceTreeGrower;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -1168,6 +1167,20 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BLUE_NETHER_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blue_nether_bricks_pressure_plate", false, MaterialColor.WARPED_WART_BLOCK, BlockSetType.STONE);
     public static final RegistryObject<Block> BLUE_NETHER_BRICKS_BUTTON = RegisterHelper.registerButton("blue_nether_bricks_button", false, BlockSetType.STONE);
     public static final RegistryObject<Block> BLUE_NETHER_BRICKS_PEBBLE = RegisterHelper.registerPebble("blue_nether_bricks_pebble", BLUE_NETHER_BRICKS);
+    public static final RegistryObject<Block> HOLLOW_OAK_LOG = RegisterHelper.registerBlock("hollow_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.OAK_LOG)));
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_OAK_LOG = RegisterHelper.registerBlock("hollow_stripped_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_OAK_LOG)));
+    public static final RegistryObject<Block> OAK_LEAVES_CARPET = RegisterHelper.registerBlock("oak_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> OAK_BUSH = RegisterHelper.registerBlock("oak_bush", () -> new TreeBushBlock((OakTreeGrower::new)));
+    public static final RegistryObject<Block> OAK_BARREL = RegisterHelper.registerBlock("oak_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
+    public static final RegistryObject<Block> HOLLOW_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.SPRUCE_LOG)));
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_stripped_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_SPRUCE_LOG)));
+    public static final RegistryObject<Block> SPRUCE_LEAVES_CARPET = RegisterHelper.registerBlock("spruce_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.SPRUCE_LEAVES)));
+    //chest
+    //trapped chest
+    //bookshelf
+    //chiseled bookshelf
+    //lectern
+    public static final RegistryObject<Block> SPRUCE_BUSH = RegisterHelper.registerBlock("spruce_bush", () -> new TreeBushBlock((SpruceTreeGrower::new)));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

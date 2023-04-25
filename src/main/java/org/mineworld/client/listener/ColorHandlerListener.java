@@ -26,10 +26,10 @@ public final class ColorHandlerListener {
      */
     @SubscribeEvent
     public static void onRegisterBlockColorHandlers(final RegisterColorHandlersEvent.Block event) {
+        registerTNTColorHandlers(event);
         registerFlowerPotsColorHandlers(event);
-        event.register((blockState, tintGetter, blockPos, tintIndex) ->
-                        tintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(tintGetter, blockPos) : GrassColor.getDefaultColor(),
-                MWBlocks.DISGUISED_GRASS_TNT.get());
+        registerLeavesCarpetColorHandlers(event);
+        registerBushesColorHandlers(event);
     }
 
     /**
@@ -39,6 +39,30 @@ public final class ColorHandlerListener {
      */
     @SubscribeEvent
     public static void onRegisterItemColorHandlers(final RegisterColorHandlersEvent.Item event) {
+        registerTNTItemColorHandlers(event);
+        registerLeavesCarpetItemColorHandlers(event);
+        registerBushItemsColorHandlers(event);
+    }
+
+    /**
+     * Register the TNT coloring
+     *
+     * @param event {@link RegisterColorHandlersEvent.Block Block register color handlers event}
+     */
+    private static void registerTNTColorHandlers(final RegisterColorHandlersEvent.Block event) {
+        event.register((blockState, tintGetter, blockPos, tintIndex) ->
+                        tintGetter != null && blockPos != null ?
+                                BiomeColors.getAverageGrassColor(tintGetter, blockPos) :
+                                GrassColor.getDefaultColor(),
+                MWBlocks.DISGUISED_GRASS_TNT.get());
+    }
+
+    /**
+     * Register the TNT item coloring
+     *
+     * @param event {@link RegisterColorHandlersEvent.Item Item register color handlers event}
+     */
+    private static void registerTNTItemColorHandlers(final RegisterColorHandlersEvent.Item event) {
         event.register((itemStack, tintIndex) -> {
             BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, tintIndex);
@@ -83,4 +107,51 @@ public final class ColorHandlerListener {
                 MWBlocks.POTTED_HORN_CORAL_FAN.get());
     }
 
+    /**
+     * Register the leaves carpet coloring
+     *
+     * @param event {@link RegisterColorHandlersEvent.Block Block register color handlers event}
+     */
+    private static void registerLeavesCarpetColorHandlers(final RegisterColorHandlersEvent.Block event) {
+        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getDefaultColor(),
+                MWBlocks.OAK_LEAVES_CARPET.get());
+        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getEvergreenColor(),
+                MWBlocks.SPRUCE_LEAVES_CARPET.get());
+    }
+
+    /**
+     * Register the leaves carpet item coloring
+     *
+     * @param event {@link RegisterColorHandlersEvent.Item Item register color handlers event}
+     */
+    private static void registerLeavesCarpetItemColorHandlers(final RegisterColorHandlersEvent.Item event) {
+        event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(),
+                MWBlocks.OAK_LEAVES_CARPET.get());
+        event.register((itemStack, tintIndex) -> FoliageColor.getEvergreenColor(),
+                MWBlocks.SPRUCE_LEAVES_CARPET.get());
+    }
+
+    /**
+     * Register the bushes coloring
+     *
+     * @param event {@link RegisterColorHandlersEvent.Block Block register color handlers event}
+     */
+    private static void registerBushesColorHandlers(final RegisterColorHandlersEvent.Block event) {
+        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getDefaultColor(),
+                MWBlocks.OAK_BUSH.get());
+        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getEvergreenColor(),
+                MWBlocks.SPRUCE_BUSH.get());
+    }
+
+    /**
+     * Register the bushe items coloring
+     *
+     * @param event {@link RegisterColorHandlersEvent.Item Item register color handlers event}
+     */
+    private static void registerBushItemsColorHandlers(final RegisterColorHandlersEvent.Item event) {
+        event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(),
+                MWBlocks.OAK_BUSH.get());
+        event.register((itemStack, tintIndex) -> FoliageColor.getEvergreenColor(),
+                MWBlocks.SPRUCE_BUSH.get());
+    }
 }

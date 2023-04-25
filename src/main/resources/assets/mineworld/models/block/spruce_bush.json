@@ -1,0 +1,8 @@
+{
+  "parent": "mineworld:block/template_bush",
+  "textures": {
+    "leaves": "minecraft:block/spruce_leaves",
+    "trunk": "minecraft:block/spruce_log",
+    "top": "minecraft:block/spruce_log_top"
+  }
+}

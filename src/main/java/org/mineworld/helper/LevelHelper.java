@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
@@ -43,6 +44,20 @@ public final class LevelHelper {
      */
     private static int adjustCoordinate(double coordinate) {
         return (int)(coordinate >= 0 ? coordinate : (coordinate - 0.5D));
+    }
+
+    /**
+     * Check if a location is underwater
+     *
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The block pos to check}
+     * @return {@link Boolean True if the block pos is underwater}
+     */
+    public static boolean isUnderwater(final Level level, final BlockPos blockPos) {
+        return level.getFluidState(blockPos).is(Fluids.WATER) || level.getFluidState(blockPos.above()).is(Fluids.WATER)
+                || level.getFluidState(blockPos.below()).is(Fluids.WATER) || level.getFluidState(blockPos.north()).is(Fluids.WATER)
+                || level.getFluidState(blockPos.south()).is(Fluids.WATER) || level.getFluidState(blockPos.east()).is(Fluids.WATER)
+                || level.getFluidState(blockPos.west()).is(Fluids.WATER);
     }
 
 }

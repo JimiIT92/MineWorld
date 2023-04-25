@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -120,6 +121,48 @@ public abstract class AbstractRopeBlock extends Block {
      */
     public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
         return this.shape;
+    }
+
+    /**
+     * Makes the block able to catch fire
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link Level The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Boolean True}
+     */
+    @Override
+    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+        return true;
+    }
+
+    /**
+     * Get the block {@link Integer flammability value}
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link Level The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Integer 100}
+     */
+    @Override
+    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+        return 100;
+    }
+
+    /**
+     * Get the block {@link Integer fire spread speed value}
+     *
+     * @param blockState {@link BlockState The current block state}
+     * @param blockGetter {@link Level The block getter reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Integer 15}
+     */
+    @Override
+    public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+        return 15;
     }
 
     /**
