@@ -1,4 +1,4 @@
-package org.mineworld.client.renderer;
+package org.mineworld.client.renderer.vehicle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelLayers;

@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.OakTreeGrower;
 import net.minecraft.world.level.block.grower.SpruceTreeGrower;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -1147,7 +1148,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SILVER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("silver_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(SILVER_BARS.get())));
     public static final RegistryObject<Block> ALUMINUM_GRATE = RegisterHelper.registerBlockWithoutBlockItem("aluminum_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(ALUMINUM_BARS.get())));
     public static final RegistryObject<Block> BRONZE_GRATE = RegisterHelper.registerBlockWithoutBlockItem("bronze_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(BRONZE_BARS.get())));
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN = RegisterHelper.registerBlock("glowing_obsidian", GlowingObsidianBlock::new);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN = RegisterHelper.registerUnmovableBlock("glowing_obsidian", () -> PropertyHelper.copyFromBlock(Blocks.OBSIDIAN).lightLevel(state -> 15));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_STAIRS = RegisterHelper.registerStair("glowing_obsidian_stairs", () -> GLOWING_OBSIDIAN.get().defaultBlockState());
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_SLAB = RegisterHelper.registerSlab("glowing_obsidian_slab", GLOWING_OBSIDIAN);
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = RegisterHelper.registerWall("glowing_obsidian_wall", GLOWING_OBSIDIAN);
@@ -1176,11 +1177,11 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.SPRUCE_LOG)));
     public static final RegistryObject<Block> HOLLOW_STRIPPED_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_stripped_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_SPRUCE_LOG)));
     public static final RegistryObject<Block> SPRUCE_LEAVES_CARPET = RegisterHelper.registerBlock("spruce_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.SPRUCE_LEAVES)));
-    //chest
-    //trapped chest
-    //bookshelf
-    //chiseled bookshelf
-    public static final RegistryObject<Block> SPRUCE_LECTERN = RegisterHelper.registerBlock("spruce_lectern", () -> new LecternBlock(PropertyHelper.copyFromBlock(Blocks.LECTERN)));
+    public static final RegistryObject<Block> SPRUCE_CHEST = RegisterHelper.registerChest("spruce_chest", () -> MWBlockEntityTypes.SPRUCE_CHEST.get(), WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("spruce_trapped_chest", () -> MWBlockEntityTypes.SPRUCE_TRAPPED_CHEST.get(), WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_BOOKSHELF = RegisterHelper.registerBookshelf("spruce_bookshelf");
+    public static final RegistryObject<Block> SPRUCE_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("spruce_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
+    public static final RegistryObject<Block> SPRUCE_LECTERN = RegisterHelper.registerLectern("spruce_lectern", () -> MWBlockEntityTypes.SPRUCE_LECTERN.get());
     public static final RegistryObject<Block> SPRUCE_BUSH = RegisterHelper.registerBlock("spruce_bush", () -> new TreeBushBlock((SpruceTreeGrower::new)));
     public static final RegistryObject<Block> POTTED_SPRUCE_BUSH = RegisterHelper.registerFlowerPot("potted_spruce_bush", SPRUCE_BUSH);
 

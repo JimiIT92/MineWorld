@@ -24,7 +24,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.TrappedChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -35,6 +39,8 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.Pebble;
+import org.mineworld.entity.block.chest.SpruceChestBlockEntity;
+import org.mineworld.entity.block.chest.SpruceTrappedChestBlockEntity;
 import org.mineworld.item.PebbleItem;
 
 import java.util.List;
@@ -434,5 +440,22 @@ public final class PropertyHelper {
                 return Util.make(new Pebble(level, position.x(), position.y(), position.z()), pebble -> pebble.setItem(itemStack));
             }
         };
+    }
+
+    /**
+     * Get the {@link ChestBlockEntity chest block entity} based on the {@link WoodType wood type}
+     *
+     * @param woodType {@link WoodType The chest wood type}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current block state}
+     * @param isTrappedChest {@link Boolean If the chest is a trapped chest}
+     * @return {@link ChestBlockEntity The chest block entity}
+     */
+    public static ChestBlockEntity getChestBlockEntity(final WoodType woodType, final BlockPos blockPos, final BlockState blockState, final boolean isTrappedChest) {
+        ChestBlockEntity blockEntity = null;
+        if(woodType.equals(WoodType.SPRUCE)) {
+            blockEntity = isTrappedChest ? new SpruceTrappedChestBlockEntity(blockPos, blockState) : new SpruceChestBlockEntity(blockPos, blockState);
+        }
+        return blockEntity != null ? blockEntity : (isTrappedChest ? new TrappedChestBlockEntity(blockPos, blockState) : new ChestBlockEntity(blockPos, blockState));
     }
 }

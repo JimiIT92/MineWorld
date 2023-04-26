@@ -4,6 +4,8 @@
     "#mineworld:hollow_logs",
     "#mineworld:barrels",
     "#mineworld:lecterns",
-    "#mineworld:bookshelves"
+    "#mineworld:bookshelves",
+    "#mineworld:chiseled_bookshelves",
+    "#mineworld:chests"
   ]
 }

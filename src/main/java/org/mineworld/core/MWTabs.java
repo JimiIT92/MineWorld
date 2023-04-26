@@ -100,6 +100,10 @@ public final class MWTabs {
      */
     private static void setBuildingBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
+                MWBlocks.SPRUCE_BOOKSHELF,
+                MWBlocks.SPRUCE_CHISELED_BOOKSHELF,
+                MWItems.SPRUCE_CHEST,
+                MWItems.SPRUCE_TRAPPED_CHEST,
                 MWBlocks.STONE_WALL,
                 MWBlocks.COBBLESTONE_PRESSURE_PLATE,
                 MWBlocks.COBBLESTONE_BUTTON,
@@ -1096,6 +1100,8 @@ public final class MWTabs {
     private static void setRedstoneBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWBlocks.SPRUCE_LECTERN,
+                MWBlocks.SPRUCE_CHISELED_BOOKSHELF,
+                MWItems.SPRUCE_TRAPPED_CHEST,
                 MWBlocks.COBBLESTONE_BUTTON,
                 MWBlocks.MOSSY_COBBLESTONE_BUTTON,
                 MWBlocks.MOSSY_STONE_BUTTON,
@@ -1293,7 +1299,8 @@ public final class MWTabs {
                 MWItems.SAPPHIRE_PICKAXE,
                 MWItems.SAPPHIRE_AXE,
                 MWItems.SAPPHIRE_HOE,
-                MWBlocks.ROPE
+                MWBlocks.ROPE,
+                MWItems.SPRUCE_CHEST_MINECART
         );
     }
 

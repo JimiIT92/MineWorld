@@ -233,6 +233,9 @@ public final class MWItems {
     public static final RegistryObject<Item> HYPER_TNT_MINECART = RegisterHelper.registerItem("hyper_tnt_minecart", () -> new MWTNTMinecartItem(MWMinecartItem.Type.HYPER_TNT, MWPrimedTnt.Type.HYPER));
     public static final RegistryObject<Item> WARPED_WART = RegisterHelper.registerBlockItem("warped_wart", MWBlocks.WARPED_WART);
     public static final RegistryObject<Item> BLUE_NETHER_BRICKS_PEBBLE = RegisterHelper.registerItem("blue_nether_bricks_pebble", () -> new PebbleItem(MWBlocks.BLUE_NETHER_BRICKS_PEBBLE.get()));
+    public static final RegistryObject<Item> SPRUCE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("spruce_chest", MWBlocks.SPRUCE_CHEST);
+    public static final RegistryObject<Item> SPRUCE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("spruce_trapped_chest", MWBlocks.SPRUCE_TRAPPED_CHEST);
+    public static final RegistryObject<Item> SPRUCE_CHEST_MINECART = RegisterHelper.registerItem("spruce_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.SPRUCE_CHEST));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

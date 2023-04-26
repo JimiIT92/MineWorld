@@ -12,9 +12,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTNT;
 import org.mineworld.helper.PropertyHelper;
 
@@ -89,6 +91,7 @@ public class MWMinecartItem extends Item {
             case DISGUISED_RED_SAND_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_RED_SAND);
             case DISGUISED_STONE_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_STONE);
             case DISGUISED_CAKE_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_CAKE);
+            case SPRUCE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.SPRUCE);
         };
     }
 
@@ -96,20 +99,28 @@ public class MWMinecartItem extends Item {
      * The minecart types
      */
     public enum Type {
-        SUPER_TNT(false),
-        MEGA_TNT(false),
-        HYPER_TNT(false),
+        SUPER_TNT,
+        MEGA_TNT,
+        HYPER_TNT,
         DISGUISED_GRASS_TNT(true),
         DISGUISED_DIRT_TNT(true),
         DISGUISED_SAND_TNT(true),
         DISGUISED_RED_SAND_TNT(true),
         DISGUISED_STONE_TNT(true),
-        DISGUISED_CAKE_TNT(true);
+        DISGUISED_CAKE_TNT(true),
+        SPRUCE_CHEST;
 
         /**
          * {@link Boolean If the tnt type represents a disguised one}
          */
-        private final boolean isDisguised;
+        private final boolean isDisguisedTNT;
+
+        /**
+         * Constructor. Set if the tnt type is disguised
+         */
+        Type() {
+            this(false);
+        }
 
         /**
          * Constructor. Set if the tnt type is disguised
@@ -117,7 +128,7 @@ public class MWMinecartItem extends Item {
          * @param isDisguised {@link Boolean If the tnt type is disguised}
          */
         Type(final boolean isDisguised) {
-            this.isDisguised = isDisguised;
+            this.isDisguisedTNT = isDisguised;
         }
 
         /**
@@ -125,8 +136,8 @@ public class MWMinecartItem extends Item {
          *
          * @return {@link Boolean True if the tnt type is disguised}
          */
-        public boolean isDisguised() {
-            return this.isDisguised;
+        public boolean isDisguisedTNT() {
+            return this.isDisguisedTNT;
         }
     }
 

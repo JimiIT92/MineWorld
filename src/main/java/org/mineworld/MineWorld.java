@@ -1,11 +1,13 @@
 package org.mineworld;
 
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.mineworld.client.renderer.MWItemRenderer;
 import org.mineworld.core.*;
 import org.mineworld.helper.RegisterHelper;
 
@@ -25,6 +27,10 @@ public final class MineWorld {
      * {@link Logger Logger reference}
      */
     public static final Logger LOGGER = Logger.getLogger(MOD_ID);
+    /**
+     * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom item renderer}
+     */
+    private static BlockEntityWithoutLevelRenderer ITEMS_RENDERER;
 
     /**
      * Constructor. Initialize the mod
@@ -63,4 +69,15 @@ public final class MineWorld {
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
     }
 
+    /**
+     * Get the {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom items renderer}
+     *
+     * @return {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom items renderer}
+     */
+    public static BlockEntityWithoutLevelRenderer getItemsRenderer() {
+        if(ITEMS_RENDERER == null) {
+            ITEMS_RENDERER = new MWItemRenderer();
+        }
+        return ITEMS_RENDERER;
+    }
 }

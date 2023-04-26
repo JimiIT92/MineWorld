@@ -2,6 +2,7 @@ package org.mineworld.helper;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -14,12 +15,16 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.flag.FeatureFlagRegistry;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.TrimMaterial;
@@ -27,12 +32,13 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -43,6 +49,10 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -53,11 +63,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
-import org.mineworld.block.GlassWall;
 import org.mineworld.block.PebbleBlock;
 import org.mineworld.core.MWColors;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -162,6 +172,35 @@ public final class RegisterHelper {
      */
     public static RegistryObject<Item> registerBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)));
+    }
+
+    /**
+     * Register a {@link ItemNameBlockItem name block item}, which is an Item that can place a block
+     * (like a bucket or a seed item) that has a special item renderer (like the chest block item)
+     *
+     * @param name {@link String The item name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the item will place}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
+     */
+    public static RegistryObject<Item> registerSpecialRendererBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)) {
+
+            /**
+             * Initialize the item client rendering
+             *
+             * @param consumer {@link Consumer<IClientItemExtensions> The client item extensions renderer consumer}
+             */
+            @Override
+            public void initializeClient(final @NotNull Consumer<IClientItemExtensions> consumer) {
+                consumer.accept(new IClientItemExtensions() {
+                    @Override
+                    public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                        return MineWorld.getItemsRenderer();
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -792,7 +831,7 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link GlassWall stained glass wall block}
+     * Register a {@link WallBlock glass wall block}
      *
      * @param name {@link String The block name}
      * @param glassSupplier {@link Supplier<Block> The supplier for the stained glass this wall is based on}
@@ -800,7 +839,57 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerGlassWall(final String name, final Supplier<? extends Block> glassSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new GlassWall(glassSupplier, featureFlags));
+        return registerBlock(name, () -> new WallBlock(PropertyHelper.copyFromBlock(glassSupplier.get(), featureFlags).requiresCorrectToolForDrops()) {
+
+            /**
+             * Get the {@link VoxelShape block visual shape}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param collisionContext {@link CollisionContext The collision context}
+             * @return {@link Shapes#empty() Empty shape}
+             */
+            public @NotNull VoxelShape getVisualShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+                return Shapes.empty();
+            }
+
+            /**
+             * Get the {@link Float block shade brightness}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @return {@link Float 1.0}
+             */
+            public float getShadeBrightness(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+                return 1.0F;
+            }
+
+            /**
+             * Check if the block can propagate the skylight
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @return {@link Boolean True}
+             */
+            public boolean propagatesSkylightDown(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+                return true;
+            }
+
+            /**
+             * Determine if the face should be rendered based on the neighbor state
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param neighborState {@link BlockState The neighbor block state}
+             * @param direction {@link Direction The direction of the face to be rendered}
+             * @return {@link Boolean True if the face should be rendered}
+             */
+            public boolean skipRendering(final @NotNull BlockState blockState, final @NotNull BlockState neighborState, final @NotNull Direction direction) {
+                return neighborState.is(this) || super.skipRendering(blockState, neighborState, direction);
+            }
+        });
     }
 
     /**
@@ -828,6 +917,42 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link LecternBlock lectern block}
+     *
+     * @param name {@link String The block name}
+     * //@param lecternBlockEntityTypeSupplier {@link Supplier<BlockEntityType> The supplier for the lectern block entity type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerLectern(final String name, final Supplier<BlockEntityType<LecternBlockEntity>> lecternBlockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new LecternBlock(PropertyHelper.copyFromBlock(Blocks.LECTERN, featureFlags)) {
+
+            /**
+             * Get the {@link LecternBlockEntity lectern block entity}
+             *
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link BlockEntity The lectern block entity}
+             */
+            @Override
+            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+                return new LecternBlockEntity(blockPos, blockState) {
+
+                    /**
+                     * Get the {@link BlockEntityType<LecternBlockEntity> lectern block entity type}
+                     *
+                     * @return {@link BlockEntityType<LecternBlockEntity> The lectern block entity type}
+                     */
+                    @Override
+                    public @NotNull BlockEntityType<?> getType() {
+                        return lecternBlockEntityTypeSupplier.get();
+                    }
+                };
+            }
+        });
+    }
+
+    /**
      * Register a {@link Block block} using the provided {@link BlockBehaviour.Properties properties}
      *
      * @param name {@link String The block name}
@@ -836,6 +961,148 @@ public final class RegisterHelper {
      */
     public static RegistryObject<Block> registerBlock(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
         return registerBlock(name, () -> new Block(propertiesSupplier.get()));
+    }
+
+    /**
+     * Register an {@link Block unmovable block} using the provided {@link BlockBehaviour.Properties properties}
+     *
+     * @param name {@link String The block name}
+     * @param propertiesSupplier {@link BlockBehaviour.Properties The supplier for the block properties}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerUnmovableBlock(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+        return registerBlock(name, () -> new Block(propertiesSupplier.get()) {
+            /**
+             * Get the {@link PushReaction block push reaction} when moved by pistons
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link PushReaction#BLOCK Block push reaction}
+             */
+            @Override
+            public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
+                return PushReaction.BLOCK;
+            }
+        });
+    }
+
+    /**
+     * Register a {@link ChestBlock chest block}
+     *
+     * @param name {@link String The block name}
+     * @param chestBlockEntitySupplier {@link Supplier<ChestBlockEntity> The supplier for the chest block entity type}
+     * @param woodType {@link WoodType The chest wood type}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.CHEST, featureFlags), chestBlockEntitySupplier) {
+
+            /**
+             * Get the {@link BlockEntity chest block entity}
+             *
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link ChestBlockEntity The chest block entity}
+             */
+            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+                return PropertyHelper.getChestBlockEntity(woodType, blockPos, blockState, false);
+            }
+        });
+    }
+
+    /**
+     * Register a {@link TrappedChestBlock trapped chest block}
+     *
+     * @param name {@link String The block name}
+     * @param chestBlockEntitySupplier {@link Supplier<ChestBlockEntity> The supplier for the chest block entity type}
+     * @param woodType {@link WoodType The chest wood type}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerTrappedChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.TRAPPED_CHEST, featureFlags), chestBlockEntitySupplier) {
+
+            /**
+             * Get the {@link TrappedChestBlockEntity trapped chest block entity}
+             *
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link TrappedChestBlockEntity The trapped chest block entity}
+             */
+            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+                return PropertyHelper.getChestBlockEntity(woodType, blockPos, blockState, true);
+            }
+
+            /**
+             * Get the {@link Stat<ResourceLocation> open chest statistic}
+             *
+             * @return {@link Stat<ResourceLocation> The open chest statistic}
+             */
+            protected @NotNull Stat<ResourceLocation> getOpenChestStat() {
+                return Stats.CUSTOM.get(Stats.TRIGGER_TRAPPED_CHEST);
+            }
+
+            /**
+             * Check if the block can conduct redstone
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link Boolean True}
+             */
+            public boolean isSignalSource(final @NotNull BlockState blockState) {
+                return true;
+            }
+
+            /**
+             * Get the redstone signal based on chest content
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The signal direction}
+             * @return {@link Integer The redstone signal based on chest content}
+             */
+            public int getSignal(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull Direction direction) {
+                return Mth.clamp(ChestBlockEntity.getOpenCount(blockGetter, blockPos), 0, 15);
+            }
+
+            /**
+             * Get the redstone signal power
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The signal direction}
+             * @return {@link Integer The redstone signal power}
+             */
+            public int getDirectSignal(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull Direction direction) {
+                return direction.equals(Direction.UP) ? blockState.getSignal(blockGetter, blockPos, direction) : 0;
+            }
+        });
+    }
+
+    /**
+     * Register a {@link Block bookshelf block}
+     *
+     * @param name {@link String The block name}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerBookshelf(final String name, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.BOOKSHELF, featureFlags)) {
+
+            /**
+             * Get the {@link Float bookshelf enchantment power bonus}
+             *
+             * @param state {@link BlockState The current block state}
+             * @param level {@link LevelReader The level reader reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @return {@link Float 1.0}
+             */
+            @Override
+            public float getEnchantPowerBonus(final BlockState state, final LevelReader level, final BlockPos blockPos) {
+                return 1.0F;
+            }
+        });
     }
 
     /**
@@ -1096,13 +1363,12 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link FeatureFlag feature flag}
+     * Register a {@link TagKey<Block> block tag}
      *
-     * @param name {@link String The feature flag name}
-     * @return {@link FeatureFlag The registered feature flag}
+     * @param name {@link String The tag name}
      */
-    public static FeatureFlag registerFeatureFlag(final String name) {
-        return new FeatureFlagRegistry.Builder("main").create(new ResourceLocation(MineWorld.MOD_ID, name));
+    public static TagKey<Block> registerBlockTag(final String name) {
+        return BlockTags.create(new ResourceLocation(MineWorld.MOD_ID, name));
     }
 
     /**

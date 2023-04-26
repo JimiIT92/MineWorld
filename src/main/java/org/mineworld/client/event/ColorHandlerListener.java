@@ -1,4 +1,4 @@
-package org.mineworld.client.listener;
+package org.mineworld.client.event;
 
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.item.BlockItem;
@@ -28,8 +28,7 @@ public final class ColorHandlerListener {
     public static void onRegisterBlockColorHandlers(final RegisterColorHandlersEvent.Block event) {
         registerTNTColorHandlers(event);
         registerFlowerPotsColorHandlers(event);
-        registerLeavesCarpetColorHandlers(event);
-        registerBushesColorHandlers(event);
+        registerLeavesColorHandlers(event);
     }
 
     /**
@@ -40,8 +39,7 @@ public final class ColorHandlerListener {
     @SubscribeEvent
     public static void onRegisterItemColorHandlers(final RegisterColorHandlersEvent.Item event) {
         registerTNTItemColorHandlers(event);
-        registerLeavesCarpetItemColorHandlers(event);
-        registerBushItemsColorHandlers(event);
+        registerLeavesItemColorHandlers(event);
     }
 
     /**
@@ -76,19 +74,6 @@ public final class ColorHandlerListener {
      */
     private static void registerFlowerPotsColorHandlers(final RegisterColorHandlersEvent.Block event) {
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
-                        FoliageColor.getDefaultColor(),
-                MWBlocks.POTTED_OAK_LEAVES.get(),
-                MWBlocks.POTTED_JUNGLE_LEAVES.get(),
-                MWBlocks.POTTED_ACACIA_LEAVES.get(),
-                MWBlocks.POTTED_DARK_OAK_LEAVES.get(),
-                MWBlocks.POTTED_MANGROVE_LEAVES.get());
-        event.register((blockState, tintGetter, blockPos, tintIndex) ->
-                        FoliageColor.getEvergreenColor(),
-                MWBlocks.POTTED_SPRUCE_LEAVES.get());
-        event.register((blockState, tintGetter, blockPos, tintIndex) ->
-                        FoliageColor.getBirchColor(),
-                MWBlocks.POTTED_BIRCH_LEAVES.get());
-        event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         GrassColor.getDefaultColor(),
                 MWBlocks.POTTED_GRASS.get(),
                 MWBlocks.POTTED_TALL_GRASS.get(),
@@ -112,11 +97,26 @@ public final class ColorHandlerListener {
      *
      * @param event {@link RegisterColorHandlersEvent.Block Block register color handlers event}
      */
-    private static void registerLeavesCarpetColorHandlers(final RegisterColorHandlersEvent.Block event) {
-        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getDefaultColor(),
-                MWBlocks.OAK_LEAVES_CARPET.get());
-        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getEvergreenColor(),
-                MWBlocks.SPRUCE_LEAVES_CARPET.get());
+    private static void registerLeavesColorHandlers(final RegisterColorHandlersEvent.Block event) {
+        event.register((blockState, tintGetter, blockPos, tintIndex) ->
+                        BiomeColors.getAverageFoliageColor(tintGetter, blockPos),
+                MWBlocks.POTTED_OAK_LEAVES.get(),
+                MWBlocks.POTTED_JUNGLE_LEAVES.get(),
+                MWBlocks.POTTED_ACACIA_LEAVES.get(),
+                MWBlocks.POTTED_DARK_OAK_LEAVES.get(),
+                MWBlocks.POTTED_MANGROVE_LEAVES.get(),
+                MWBlocks.OAK_LEAVES_CARPET.get(),
+                MWBlocks.OAK_BUSH.get(),
+                MWBlocks.POTTED_OAK_BUSH.get());
+        event.register((blockState, tintGetter, blockPos, tintIndex) ->
+                        FoliageColor.getEvergreenColor(),
+                MWBlocks.POTTED_SPRUCE_LEAVES.get(),
+                MWBlocks.SPRUCE_LEAVES_CARPET.get(),
+                MWBlocks.SPRUCE_BUSH.get(),
+                MWBlocks.POTTED_SPRUCE_BUSH.get());
+        event.register((blockState, tintGetter, blockPos, tintIndex) ->
+                        FoliageColor.getBirchColor(),
+                MWBlocks.POTTED_BIRCH_LEAVES.get());
     }
 
     /**
@@ -124,36 +124,13 @@ public final class ColorHandlerListener {
      *
      * @param event {@link RegisterColorHandlersEvent.Item Item register color handlers event}
      */
-    private static void registerLeavesCarpetItemColorHandlers(final RegisterColorHandlersEvent.Item event) {
+    private static void registerLeavesItemColorHandlers(final RegisterColorHandlersEvent.Item event) {
         event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(),
-                MWBlocks.OAK_LEAVES_CARPET.get());
-        event.register((itemStack, tintIndex) -> FoliageColor.getEvergreenColor(),
-                MWBlocks.SPRUCE_LEAVES_CARPET.get());
-    }
-
-    /**
-     * Register the bushes coloring
-     *
-     * @param event {@link RegisterColorHandlersEvent.Block Block register color handlers event}
-     */
-    private static void registerBushesColorHandlers(final RegisterColorHandlersEvent.Block event) {
-        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getDefaultColor(),
-                MWBlocks.OAK_BUSH.get(),
-                MWBlocks.POTTED_OAK_BUSH.get());
-        event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getEvergreenColor(),
-                MWBlocks.SPRUCE_BUSH.get(),
-                MWBlocks.POTTED_SPRUCE_BUSH.get());
-    }
-
-    /**
-     * Register the bushe items coloring
-     *
-     * @param event {@link RegisterColorHandlersEvent.Item Item register color handlers event}
-     */
-    private static void registerBushItemsColorHandlers(final RegisterColorHandlersEvent.Item event) {
-        event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(),
+                MWBlocks.OAK_LEAVES_CARPET.get(),
                 MWBlocks.OAK_BUSH.get());
         event.register((itemStack, tintIndex) -> FoliageColor.getEvergreenColor(),
+                MWBlocks.SPRUCE_LEAVES_CARPET.get(),
                 MWBlocks.SPRUCE_BUSH.get());
     }
+
 }

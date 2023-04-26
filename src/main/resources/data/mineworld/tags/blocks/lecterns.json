@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:lectern",
     "mineworld:spruce_lectern"
   ]
 }
