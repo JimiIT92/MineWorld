@@ -116,7 +116,10 @@ public final class ColorHandlerListener {
                 MWBlocks.POTTED_SPRUCE_BUSH.get());
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         FoliageColor.getBirchColor(),
-                MWBlocks.POTTED_BIRCH_LEAVES.get());
+                MWBlocks.POTTED_BIRCH_LEAVES.get(),
+                MWBlocks.BIRCH_LEAVES_CARPET.get(),
+                MWBlocks.BIRCH_BUSH.get(),
+                MWBlocks.POTTED_BIRCH_BUSH.get());
     }
 
     /**
@@ -131,6 +134,9 @@ public final class ColorHandlerListener {
         event.register((itemStack, tintIndex) -> FoliageColor.getEvergreenColor(),
                 MWBlocks.SPRUCE_LEAVES_CARPET.get(),
                 MWBlocks.SPRUCE_BUSH.get());
+        event.register((itemStack, tintIndex) -> FoliageColor.getBirchColor(),
+                MWBlocks.BIRCH_LEAVES_CARPET.get(),
+                MWBlocks.BIRCH_BUSH.get());
     }
 
 }

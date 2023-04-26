@@ -100,10 +100,17 @@ public final class MWTabs {
      */
     private static void setBuildingBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
+                MWBlocks.OAK_BARREL,
                 MWBlocks.SPRUCE_BOOKSHELF,
                 MWBlocks.SPRUCE_CHISELED_BOOKSHELF,
                 MWItems.SPRUCE_CHEST,
                 MWItems.SPRUCE_TRAPPED_CHEST,
+
+                MWBlocks.BIRCH_BOOKSHELF,
+                MWBlocks.BIRCH_CHISELED_BOOKSHELF,
+                MWItems.BIRCH_CHEST,
+                MWItems.BIRCH_TRAPPED_CHEST,
+
                 MWBlocks.STONE_WALL,
                 MWBlocks.COBBLESTONE_PRESSURE_PLATE,
                 MWBlocks.COBBLESTONE_BUTTON,
@@ -965,11 +972,16 @@ public final class MWTabs {
                 MWBlocks.HOLLOW_STRIPPED_OAK_LOG,
                 MWBlocks.OAK_LEAVES_CARPET,
                 MWBlocks.OAK_BUSH,
-                MWBlocks.OAK_BARREL,
                 MWBlocks.HOLLOW_SPRUCE_LOG,
                 MWBlocks.HOLLOW_STRIPPED_SPRUCE_LOG,
                 MWBlocks.SPRUCE_LEAVES_CARPET,
                 MWBlocks.SPRUCE_BUSH,
+
+                MWBlocks.HOLLOW_BIRCH_LOG,
+                MWBlocks.HOLLOW_STRIPPED_BIRCH_LOG,
+                MWBlocks.BIRCH_LEAVES_CARPET,
+                MWBlocks.BIRCH_BUSH,
+
                 MWBlocks.MARBLE,
                 MWBlocks.SILVER_ORE,
                 MWBlocks.DEEPSLATE_SILVER_ORE,
@@ -1102,6 +1114,11 @@ public final class MWTabs {
                 MWBlocks.SPRUCE_LECTERN,
                 MWBlocks.SPRUCE_CHISELED_BOOKSHELF,
                 MWItems.SPRUCE_TRAPPED_CHEST,
+
+                MWBlocks.BIRCH_LECTERN,
+                MWBlocks.BIRCH_CHISELED_BOOKSHELF,
+                MWItems.BIRCH_TRAPPED_CHEST,
+
                 MWBlocks.COBBLESTONE_BUTTON,
                 MWBlocks.MOSSY_COBBLESTONE_BUTTON,
                 MWBlocks.MOSSY_STONE_BUTTON,
@@ -1300,7 +1317,8 @@ public final class MWTabs {
                 MWItems.SAPPHIRE_AXE,
                 MWItems.SAPPHIRE_HOE,
                 MWBlocks.ROPE,
-                MWItems.SPRUCE_CHEST_MINECART
+                MWItems.SPRUCE_CHEST_MINECART,
+                MWItems.BIRCH_CHEST_MINECART
         );
     }
 

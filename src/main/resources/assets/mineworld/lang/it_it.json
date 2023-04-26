@@ -226,10 +226,15 @@
   "item.mineworld.disguised_red_sand_tnt_minecart": "Carrello da miniera con TNT mimetizzata",
   "item.mineworld.disguised_stone_tnt_minecart": "Carrello da miniera con TNT mimetizzata",
   "item.mineworld.disguised_cake_tnt_minecart": "Carrello da miniera con TNT mimetizzata",
-  "item.mineworld.spruce_chest_minecart": "Carrello da miniera con baule di abete",
   "item.mineworld.warped_wart": "Verruca distorta",
+  "item.mineworld.spruce_chest_minecart": "Carrello da miniera con baule di abete",
   "item.mineworld.spruce_chest": "Baule di abete",
   "item.mineworld.spruce_trapped_chest": "Baule trappola di abete",
+
+  "item.mineworld.birch_chest_minecart": "Carrello da miniera con baule di betulla",
+  "item.mineworld.birch_chest": "Baule di betulla",
+  "item.mineworld.birch_trapped_chest": "Baule trappola di betulla",
+
   "block.mineworld.silver_ore": "Minerale di argento",
   "block.mineworld.deepslate_silver_ore": "Minerale di argento in ardesia profonda",
   "block.mineworld.aluminum_ore": "Minerale di alluminio",
@@ -360,6 +365,9 @@
   "block.mineworld.potted_snow_block": "Blocco di neve in vaso",
   "block.mineworld.potted_oak_bush": "Cespuglio di quercia in vaso",
   "block.mineworld.potted_spruce_bush": "Cespuglio di abete in vaso",
+
+  "block.mineworld.potted_birch_bush": "Cespuglio di betulla in vaso",
+
   "block.mineworld.corn": "Mais",
   "block.mineworld.disguised_grass_tnt": "Tnt mimetizzata",
   "block.mineworld.disguised_dirt_tnt": "Tnt mimetizzata",
@@ -1310,6 +1318,17 @@
   "block.mineworld.spruce_chiseled_bookshelf": "Libreria cesellata di abete",
   "block.mineworld.spruce_lectern": "Leggio di abete",
   "block.mineworld.spruce_bush": "Cespuglio di abete",
+
+  "block.mineworld.hollow_birch_log": "Tronco di betulla cavo",
+  "block.mineworld.hollow_stripped_birch_log": "Tronco di betulla scortecciato cavo",
+  "block.mineworld.birch_leaves_carpet": "Tappeto di foglie di betulla",
+  "block.mineworld.birch_bookshelf": "Libreria di betulla",
+  "block.mineworld.birch_chest": "Baule di betulla",
+  "block.mineworld.birch_trapped_chest": "Baule trappola di betulla",
+  "block.mineworld.birch_chiseled_bookshelf": "Libreria cesellata di betulla",
+  "block.mineworld.birch_lectern": "Leggio di betulla",
+  "block.mineworld.birch_bush": "Cespuglio di betulla",
+
   "smithing.mineworld.raw_bronze": "Bronzo grezzo",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",

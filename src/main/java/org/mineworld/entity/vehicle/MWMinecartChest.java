@@ -101,6 +101,9 @@ public class MWMinecartChest extends MinecartChest {
         if(type.equals(WoodType.SPRUCE)) {
             return MWItems.SPRUCE_CHEST_MINECART.get();
         }
+        if(type.equals(WoodType.BIRCH)) {
+            return MWItems.BIRCH_CHEST_MINECART.get();
+        }
         return Items.CHEST_MINECART;
     }
 
@@ -115,6 +118,9 @@ public class MWMinecartChest extends MinecartChest {
         final WoodType type = this.getWoodType();
         if(type.equals(WoodType.SPRUCE)) {
             return MWBlocks.SPRUCE_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.BIRCH)) {
+            return MWBlocks.BIRCH_CHEST.get().defaultBlockState();
         }
         return Blocks.CHEST.defaultBlockState();
     }

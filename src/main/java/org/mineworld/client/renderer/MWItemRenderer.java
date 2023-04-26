@@ -46,6 +46,14 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      * {@link ChestBlockEntity The spruce trapped chest block entity}
      */
     private final ChestBlockEntity trappedSpruceChest = PropertyHelper.getChestBlockEntity(WoodType.SPRUCE, BlockPos.ZERO, MWBlocks.SPRUCE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The birch chest block entity}
+     */
+    private final ChestBlockEntity birchChest = PropertyHelper.getChestBlockEntity(WoodType.BIRCH, BlockPos.ZERO, MWBlocks.BIRCH_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The birch trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedBirchChest = PropertyHelper.getChestBlockEntity(WoodType.BIRCH, BlockPos.ZERO, MWBlocks.BIRCH_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}
@@ -96,6 +104,12 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
             else if(blockState.is(MWBlocks.SPRUCE_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedSpruceChest;
+            }
+            if(blockState.is(MWBlocks.BIRCH_CHEST.get())) {
+                blockentity = this.birchChest;
+            }
+            else if(blockState.is(MWBlocks.BIRCH_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedBirchChest;
             }
             if(blockentity != null) {
                 this.blockEntityRenderDispatcher.renderItem(blockentity, pose, buffer, packedLight, packedOverlay);

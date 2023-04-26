@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mineworld:spruce_lectern"
+    "mineworld:spruce_lectern",
+    "mineworld:birch_lectern"
   ]
 }

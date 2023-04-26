@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mineworld:spruce_chiseled_bookshelf"
+    "mineworld:spruce_chiseled_bookshelf",
+    "mineworld:birch_chiseled_bookshelf"
   ]
 }

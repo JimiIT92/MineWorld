@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:bookshelf",
-    "mineworld:spruce_bookshelf"
+    "mineworld:spruce_bookshelf",
+    "mineworld:birch_bookshelf"
   ]
 }

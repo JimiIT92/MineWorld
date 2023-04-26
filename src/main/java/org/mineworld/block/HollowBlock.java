@@ -50,6 +50,9 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
             .put(Blocks.SPRUCE_LOG, MWBlocks.HOLLOW_SPRUCE_LOG.get())
             .put(Blocks.STRIPPED_SPRUCE_LOG, MWBlocks.HOLLOW_STRIPPED_SPRUCE_LOG.get())
             .put(MWBlocks.HOLLOW_SPRUCE_LOG.get(), MWBlocks.HOLLOW_STRIPPED_SPRUCE_LOG.get())
+            .put(Blocks.BIRCH_LOG, MWBlocks.HOLLOW_BIRCH_LOG.get())
+            .put(Blocks.STRIPPED_BIRCH_LOG, MWBlocks.HOLLOW_STRIPPED_BIRCH_LOG.get())
+            .put(MWBlocks.HOLLOW_BIRCH_LOG.get(), MWBlocks.HOLLOW_STRIPPED_BIRCH_LOG.get())
     .build());
 
     /**

@@ -226,10 +226,15 @@
   "item.mineworld.disguised_red_sand_tnt_minecart": "Minecart with Disguised TNT",
   "item.mineworld.disguised_stone_tnt_minecart": "Minecart with Disguised TNT",
   "item.mineworld.disguised_cake_tnt_minecart": "Minecart with Disguised TNT",
-  "item.mineworld.spruce_chest_minecart": "Minecart with Spruce Chest",
   "item.mineworld.warped_wart": "Warped Wart",
+  "item.mineworld.spruce_chest_minecart": "Minecart with Spruce Chest",
   "item.mineworld.spruce_chest": "Spruce Chest",
   "item.mineworld.spruce_trapped_chest": "Spruce Trapped Chest",
+
+  "item.mineworld.birch_chest_minecart": "Minecart with Birch Chest",
+  "item.mineworld.birch_chest": "Birch Chest",
+  "item.mineworld.birch_trapped_chest": "Birch Trapped Chest",
+
   "block.mineworld.silver_ore": "Silver Ore",
   "block.mineworld.deepslate_silver_ore": "Deepslate Silver Ore",
   "block.mineworld.aluminum_ore": "Aluminum Ore",
@@ -360,6 +365,9 @@
   "block.mineworld.potted_snow_block": "Potted Snow Block",
   "block.mineworld.potted_oak_bush": "Potted Oak Bush",
   "block.mineworld.potted_spruce_bush": "Potted Spruce Bush",
+
+  "block.mineworld.potted_birch_bush": "Potted Birch Bush",
+
   "block.mineworld.corn": "Corn",
   "block.mineworld.disguised_grass_tnt": "Disguised TNT",
   "block.mineworld.disguised_dirt_tnt": "Disguised TNT",
@@ -1310,6 +1318,17 @@
   "block.mineworld.spruce_chiseled_bookshelf": "Spruce Chiseled Bookshelf",
   "block.mineworld.spruce_lectern": "Spruce Lectern",
   "block.mineworld.spruce_bush": "Spruce Bush",
+
+  "block.mineworld.hollow_birch_log": "Hollow Birch Log",
+  "block.mineworld.hollow_stripped_birch_log": "Hollow Stripped Birch Log",
+  "block.mineworld.birch_leaves_carpet": "Birch Leaves Carpet",
+  "block.mineworld.birch_bookshelf": "Birch Bookshelf",
+  "block.mineworld.birch_chest": "Birch Chest",
+  "block.mineworld.birch_trapped_chest": "Birch Trapped Chest",
+  "block.mineworld.birch_chiseled_bookshelf": "Birch Chiseled Bookshelf",
+  "block.mineworld.birch_lectern": "Birch Lectern",
+  "block.mineworld.birch_bush": "Birch Bush",
+
   "smithing.mineworld.raw_bronze": "Raw Bronze",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Raw Copper",

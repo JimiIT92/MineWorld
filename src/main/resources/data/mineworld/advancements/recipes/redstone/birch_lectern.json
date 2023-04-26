@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:spruce_chiseled_bookshelf"
+        "recipe": "mineworld:birch_lectern"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "mineworld:spruce_chiseled_bookshelf"
+      "mineworld:birch_lectern"
     ]
   }
 }

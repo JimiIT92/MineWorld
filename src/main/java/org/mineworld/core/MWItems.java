@@ -237,6 +237,10 @@ public final class MWItems {
     public static final RegistryObject<Item> SPRUCE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("spruce_trapped_chest", MWBlocks.SPRUCE_TRAPPED_CHEST);
     public static final RegistryObject<Item> SPRUCE_CHEST_MINECART = RegisterHelper.registerItem("spruce_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.SPRUCE_CHEST));
 
+    public static final RegistryObject<Item> BIRCH_CHEST = RegisterHelper.registerSpecialRendererBlockItem("birch_chest", MWBlocks.BIRCH_CHEST);
+    public static final RegistryObject<Item> BIRCH_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("birch_trapped_chest", MWBlocks.BIRCH_TRAPPED_CHEST);
+    public static final RegistryObject<Item> BIRCH_CHEST_MINECART = RegisterHelper.registerItem("birch_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.BIRCH_CHEST));
+
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}
      *

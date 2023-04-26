@@ -1185,6 +1185,18 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SPRUCE_BUSH = RegisterHelper.registerBlock("spruce_bush", () -> new TreeBushBlock((SpruceTreeGrower::new)));
     public static final RegistryObject<Block> POTTED_SPRUCE_BUSH = RegisterHelper.registerFlowerPot("potted_spruce_bush", SPRUCE_BUSH);
 
+    public static final RegistryObject<Block> HOLLOW_BIRCH_LOG = RegisterHelper.registerBlock("hollow_birch_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.BIRCH_LOG)));
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_BIRCH_LOG = RegisterHelper.registerBlock("hollow_stripped_birch_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_BIRCH_LOG)));
+    public static final RegistryObject<Block> BIRCH_LEAVES_CARPET = RegisterHelper.registerBlock("birch_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.BIRCH_LEAVES)));
+    public static final RegistryObject<Block> BIRCH_BARREL = RegisterHelper.registerBlock("birch_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
+    public static final RegistryObject<Block> BIRCH_CHEST = RegisterHelper.registerChest("birch_chest", () -> MWBlockEntityTypes.BIRCH_CHEST.get(), WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("birch_trapped_chest", () -> MWBlockEntityTypes.BIRCH_TRAPPED_CHEST.get(), WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_BOOKSHELF = RegisterHelper.registerBookshelf("birch_bookshelf");
+    public static final RegistryObject<Block> BIRCH_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("birch_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
+    public static final RegistryObject<Block> BIRCH_LECTERN = RegisterHelper.registerLectern("birch_lectern", () -> MWBlockEntityTypes.BIRCH_LECTERN.get());
+    public static final RegistryObject<Block> BIRCH_BUSH = RegisterHelper.registerBlock("birch_bush", () -> new TreeBushBlock((SpruceTreeGrower::new)));
+    public static final RegistryObject<Block> POTTED_BIRCH_BUSH = RegisterHelper.registerFlowerPot("potted_birch_bush", BIRCH_BUSH);
+
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
      *

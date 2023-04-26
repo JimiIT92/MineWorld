@@ -92,6 +92,7 @@ public class MWMinecartItem extends Item {
             case DISGUISED_STONE_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_STONE);
             case DISGUISED_CAKE_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_CAKE);
             case SPRUCE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.SPRUCE);
+            case BIRCH_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.BIRCH);
         };
     }
 
@@ -108,7 +109,8 @@ public class MWMinecartItem extends Item {
         DISGUISED_RED_SAND_TNT(true),
         DISGUISED_STONE_TNT(true),
         DISGUISED_CAKE_TNT(true),
-        SPRUCE_CHEST;
+        SPRUCE_CHEST,
+        BIRCH_CHEST;
 
         /**
          * {@link Boolean If the tnt type represents a disguised one}

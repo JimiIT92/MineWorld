@@ -39,6 +39,8 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.Pebble;
+import org.mineworld.entity.block.chest.BirchChestBlockEntity;
+import org.mineworld.entity.block.chest.BirchTrappedChestBlockEntity;
 import org.mineworld.entity.block.chest.SpruceChestBlockEntity;
 import org.mineworld.entity.block.chest.SpruceTrappedChestBlockEntity;
 import org.mineworld.item.PebbleItem;
@@ -455,6 +457,9 @@ public final class PropertyHelper {
         ChestBlockEntity blockEntity = null;
         if(woodType.equals(WoodType.SPRUCE)) {
             blockEntity = isTrappedChest ? new SpruceTrappedChestBlockEntity(blockPos, blockState) : new SpruceChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.BIRCH)) {
+            blockEntity = isTrappedChest ? new BirchTrappedChestBlockEntity(blockPos, blockState) : new BirchChestBlockEntity(blockPos, blockState);
         }
         return blockEntity != null ? blockEntity : (isTrappedChest ? new TrappedChestBlockEntity(blockPos, blockState) : new ChestBlockEntity(blockPos, blockState));
     }
