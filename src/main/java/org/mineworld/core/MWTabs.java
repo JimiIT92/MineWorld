@@ -965,7 +965,6 @@ public final class MWTabs {
                 MWBlocks.HOLLOW_SPRUCE_LOG,
                 MWBlocks.HOLLOW_STRIPPED_SPRUCE_LOG,
                 MWBlocks.SPRUCE_LEAVES_CARPET,
-
                 MWBlocks.SPRUCE_BUSH,
                 MWBlocks.MARBLE,
                 MWBlocks.SILVER_ORE,
@@ -1096,6 +1095,7 @@ public final class MWTabs {
      */
     private static void setRedstoneBlocksTab(final CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
+                MWBlocks.SPRUCE_LECTERN,
                 MWBlocks.COBBLESTONE_BUTTON,
                 MWBlocks.MOSSY_COBBLESTONE_BUTTON,
                 MWBlocks.MOSSY_STONE_BUTTON,

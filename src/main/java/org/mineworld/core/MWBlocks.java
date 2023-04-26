@@ -1171,6 +1171,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_STRIPPED_OAK_LOG = RegisterHelper.registerBlock("hollow_stripped_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_OAK_LOG)));
     public static final RegistryObject<Block> OAK_LEAVES_CARPET = RegisterHelper.registerBlock("oak_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.OAK_LEAVES)));
     public static final RegistryObject<Block> OAK_BUSH = RegisterHelper.registerBlock("oak_bush", () -> new TreeBushBlock((OakTreeGrower::new)));
+    public static final RegistryObject<Block> POTTED_OAK_BUSH = RegisterHelper.registerFlowerPot("potted_oak_bush", OAK_BUSH);
     public static final RegistryObject<Block> OAK_BARREL = RegisterHelper.registerBlock("oak_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
     public static final RegistryObject<Block> HOLLOW_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.SPRUCE_LOG)));
     public static final RegistryObject<Block> HOLLOW_STRIPPED_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_stripped_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_SPRUCE_LOG)));
@@ -1179,8 +1180,9 @@ public final class MWBlocks {
     //trapped chest
     //bookshelf
     //chiseled bookshelf
-    //lectern
+    public static final RegistryObject<Block> SPRUCE_LECTERN = RegisterHelper.registerBlock("spruce_lectern", () -> new LecternBlock(PropertyHelper.copyFromBlock(Blocks.LECTERN)));
     public static final RegistryObject<Block> SPRUCE_BUSH = RegisterHelper.registerBlock("spruce_bush", () -> new TreeBushBlock((SpruceTreeGrower::new)));
+    public static final RegistryObject<Block> POTTED_SPRUCE_BUSH = RegisterHelper.registerFlowerPot("potted_spruce_bush", SPRUCE_BUSH);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

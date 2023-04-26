@@ -355,6 +355,8 @@
   "block.mineworld.potted_slime_block": "Potted Slime Block",
   "block.mineworld.potted_sculk": "Potted Sculk",
   "block.mineworld.potted_snow_block": "Potted Snow Block",
+  "block.mineworld.potted_oak_bush": "Potted Oak Bush",
+  "block.mineworld.potted_spruce_bush": "Potted Spruce Bush",
   "block.mineworld.corn": "Corn",
   "block.mineworld.disguised_grass_tnt": "Disguised TNT",
   "block.mineworld.disguised_dirt_tnt": "Disguised TNT",
@@ -1299,7 +1301,7 @@
   "block.mineworld.hollow_spruce_log": "Hollow Spruce Log",
   "block.mineworld.hollow_stripped_spruce_log": "Hollow Stripped Spruce Log",
   "block.mineworld.spruce_leaves_carpet": "Spruce Leaves Carpet",
-
+  "block.mineworld.spruce_lectern": "Spruce Lectern",
   "block.mineworld.spruce_bush": "Spruce Bush",
   "smithing.mineworld.raw_bronze": "Raw Bronze",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",

@@ -355,6 +355,8 @@
   "block.mineworld.potted_slime_block": "Blocco di slime in vaso",
   "block.mineworld.potted_sculk": "Sculk in vaso",
   "block.mineworld.potted_snow_block": "Blocco di neve in vaso",
+  "block.mineworld.potted_oak_bush": "Cespuglio di quercia in vaso",
+  "block.mineworld.potted_spruce_bush": "Cespuglio di abete in vaso",
   "block.mineworld.corn": "Mais",
   "block.mineworld.disguised_grass_tnt": "Tnt mimetizzata",
   "block.mineworld.disguised_dirt_tnt": "Tnt mimetizzata",
@@ -1299,7 +1301,7 @@
   "block.mineworld.hollow_spruce_log": "Tronco di abete cavo",
   "block.mineworld.hollow_stripped_spruce_log": "Tronco di abete scortecciato cavo",
   "block.mineworld.spruce_leaves_carpet": "Tappeto di foglie di abete",
-
+  "block.mineworld.spruce_lectern": "Leggio di abete",
   "block.mineworld.spruce_bush": "Cespuglio di abete",
   "smithing.mineworld.raw_bronze": "Bronzo grezzo",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",

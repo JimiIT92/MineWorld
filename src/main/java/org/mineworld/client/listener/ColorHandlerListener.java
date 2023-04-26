@@ -138,9 +138,11 @@ public final class ColorHandlerListener {
      */
     private static void registerBushesColorHandlers(final RegisterColorHandlersEvent.Block event) {
         event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getDefaultColor(),
-                MWBlocks.OAK_BUSH.get());
+                MWBlocks.OAK_BUSH.get(),
+                MWBlocks.POTTED_OAK_BUSH.get());
         event.register((blockState, tintGetter, blockPos, tintIndex) -> FoliageColor.getEvergreenColor(),
-                MWBlocks.SPRUCE_BUSH.get());
+                MWBlocks.SPRUCE_BUSH.get(),
+                MWBlocks.POTTED_SPRUCE_BUSH.get());
     }
 
     /**

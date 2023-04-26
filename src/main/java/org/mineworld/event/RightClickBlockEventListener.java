@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
@@ -16,6 +17,8 @@ import net.minecraft.world.item.LeadItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.LecternBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -26,6 +29,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.block.HollowBlock;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.LevelHelper;
@@ -51,6 +55,7 @@ public final class RightClickBlockEventListener {
             final Player player = event.getEntity();
             final Level level = event.getLevel();
             final BlockPos clickedPos = event.getPos();
+            final BlockState blockState = level.getBlockState(clickedPos);
             final ItemStack itemStack = event.getItemStack();
             final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
             if(itemStack.is(Items.LEAD) || hasLeashedEntities) {
@@ -59,6 +64,13 @@ public final class RightClickBlockEventListener {
             }
             if(player.isShiftKeyDown() && itemStack.getItem() instanceof AxeItem) {
                 handleHollowLog(event, level, clickedPos, player, itemStack);
+                return;
+            }
+            if(blockState.is(MWBlocks.SPRUCE_LECTERN.get()) && itemStack.is(ItemTags.LECTERN_BOOKS)) {
+                //event.setCanceled(true);
+                final InteractionResult result = LecternBlock.tryPlaceBook(player, level, clickedPos, blockState, itemStack) ?
+                        InteractionResult.sidedSuccess(level.isClientSide) : InteractionResult.PASS;
+                event.setCancellationResult(result);
             }
         }
     }

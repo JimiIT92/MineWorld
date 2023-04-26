@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "#mineworld:hollow_logs",
-    "#mineworld:barrels"
+    "#mineworld:barrels",
+    "#mineworld:lecterns",
+    "#mineworld:bookshelves"
   ]
 }

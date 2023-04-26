@@ -49,6 +49,7 @@ public final class MineWorld {
      */
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(MWEntityTypes::registerRenderers);
+        event.enqueueWork(MWBlockEntityTypes::registerRenderers);
     }
 
     /**

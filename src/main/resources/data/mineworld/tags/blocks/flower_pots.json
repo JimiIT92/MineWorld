@@ -89,6 +89,8 @@
     "mineworld:potted_honey_block",
     "mineworld:potted_slime_block",
     "mineworld:potted_sculk",
-    "mineworld:potted_snow_block"
+    "mineworld:potted_snow_block",
+    "mineworld:potted_oak_bush",
+    "mineworld:potted_spruce_bush"
   ]
 }
