@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MinecartItem;
@@ -34,9 +35,10 @@ public class MWMinecartItem extends Item {
      * Constructor. Set the {@link Type minecart type}
      *
      * @param type {@link Type The minecart type}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      */
-    public MWMinecartItem(final Type type) {
-        super(PropertyHelper.basicItemProperties().stacksTo(1));
+    public MWMinecartItem(final Type type, final FeatureFlag... featureFlags) {
+        super(PropertyHelper.basicItemProperties(featureFlags).stacksTo(1));
         this.type = type;
     }
 
@@ -93,6 +95,14 @@ public class MWMinecartItem extends Item {
             case DISGUISED_CAKE_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_CAKE);
             case SPRUCE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.SPRUCE);
             case BIRCH_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.BIRCH);
+            case JUNGLE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.JUNGLE);
+            case ACACIA_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.ACACIA);
+            case DARK_OAK_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.DARK_OAK);
+            case MANGROVE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.MANGROVE);
+            case CHERRY_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.CHERRY);
+            case BAMBOO_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.BAMBOO);
+            case CRIMSON_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.CRIMSON);
+            case WARPED_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.WARPED);
         };
     }
 
@@ -110,7 +120,15 @@ public class MWMinecartItem extends Item {
         DISGUISED_STONE_TNT(true),
         DISGUISED_CAKE_TNT(true),
         SPRUCE_CHEST,
-        BIRCH_CHEST;
+        BIRCH_CHEST,
+        JUNGLE_CHEST,
+        ACACIA_CHEST,
+        DARK_OAK_CHEST,
+        MANGROVE_CHEST,
+        CHERRY_CHEST,
+        BAMBOO_CHEST,
+        CRIMSON_CHEST,
+        WARPED_CHEST;
 
         /**
          * {@link Boolean If the tnt type represents a disguised one}

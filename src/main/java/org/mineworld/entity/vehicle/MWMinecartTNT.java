@@ -59,7 +59,6 @@ public class MWMinecartTNT extends MinecartTNT {
      */
     public MWMinecartTNT(final Level level, final double posX, final double posY, final double posZ, final MWPrimedTnt.Type type) {
         super(MWEntityTypes.TNT_MINECART.get(), level);
-        this.type = type;
         this.setType(type);
         setPos(posX, posY, posZ);
     }
@@ -71,6 +70,7 @@ public class MWMinecartTNT extends MinecartTNT {
      */
     public void setType(MWPrimedTnt.Type type) {
         this.entityData.set(DATA_TYPE, type.name());
+        this.type = type;
     }
 
     /**
@@ -165,7 +165,7 @@ public class MWMinecartTNT extends MinecartTNT {
     protected void readAdditionalSaveData(final @NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         if (nbt.contains(this.tntTypeNBTTagKey, 8)) {
-            this.type = getTntType(nbt.getString(this.tntTypeNBTTagKey));
+            this.setType(getTntType(nbt.getString(this.tntTypeNBTTagKey)));
         }
     }
 
@@ -176,7 +176,7 @@ public class MWMinecartTNT extends MinecartTNT {
      */
     protected void addAdditionalSaveData(final @NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putString(this.tntTypeNBTTagKey, this.type.name());
+        nbt.putString(this.tntTypeNBTTagKey, this.getTntType().name());
     }
 
 }

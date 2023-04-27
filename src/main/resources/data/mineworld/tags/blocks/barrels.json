@@ -1,6 +1,16 @@
 {
   "replace": false,
   "values": [
-    "mineworld:oak_barrel"
+    "minecraft:barrel",
+    "mineworld:oak_barrel",
+    "mineworld:birch_barrel",
+    "mineworld:jungle_barrel",
+    "mineworld:acacia_barrel",
+    "mineworld:dark_oak_barrel",
+    "mineworld:mangrove_barrel",
+    "mineworld:cherry_barrel",
+    "mineworld:bamboo_barrel",
+    "mineworld:crimson_barrel",
+    "mineworld:warped_barrel"
   ]
 }

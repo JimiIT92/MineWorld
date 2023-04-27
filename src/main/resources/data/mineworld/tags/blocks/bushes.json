@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:oak_bush",
+    "mineworld:spruce_bush",
+    "mineworld:birch_bush",
+    "mineworld:jungle_bush",
+    "mineworld:acacia_bush",
+    "mineworld:dark_oak_bush",
+    "mineworld:mangrove_bush",
+    "mineworld:cherry_bush"
+  ]
+}

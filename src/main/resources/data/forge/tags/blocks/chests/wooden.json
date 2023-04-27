@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:spruce_chest",
-    "mineworld:spruce_trapped_chest",
-    "mineworld:birch_chest",
-    "mineworld:birch_trapped_chest"
+    "#mineworld:chests/wooden"
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crimson_planks": {
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:crimson_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:crimson_barrel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_crimson_slab": {
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:crimson_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_crimson_planks",
+      "has_crimson_slab",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:crimson_barrel"
+    ]
+  }
+}

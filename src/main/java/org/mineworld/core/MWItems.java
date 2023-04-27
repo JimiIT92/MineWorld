@@ -1,11 +1,13 @@
 package org.mineworld.core;
 
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.helper.RegisterHelper;
 import org.mineworld.item.*;
 
@@ -236,10 +238,37 @@ public final class MWItems {
     public static final RegistryObject<Item> SPRUCE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("spruce_chest", MWBlocks.SPRUCE_CHEST);
     public static final RegistryObject<Item> SPRUCE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("spruce_trapped_chest", MWBlocks.SPRUCE_TRAPPED_CHEST);
     public static final RegistryObject<Item> SPRUCE_CHEST_MINECART = RegisterHelper.registerItem("spruce_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.SPRUCE_CHEST));
-
     public static final RegistryObject<Item> BIRCH_CHEST = RegisterHelper.registerSpecialRendererBlockItem("birch_chest", MWBlocks.BIRCH_CHEST);
     public static final RegistryObject<Item> BIRCH_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("birch_trapped_chest", MWBlocks.BIRCH_TRAPPED_CHEST);
     public static final RegistryObject<Item> BIRCH_CHEST_MINECART = RegisterHelper.registerItem("birch_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.BIRCH_CHEST));
+    public static final RegistryObject<Item> JUNGLE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("jungle_chest", MWBlocks.JUNGLE_CHEST);
+    public static final RegistryObject<Item> JUNGLE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("jungle_trapped_chest", MWBlocks.JUNGLE_TRAPPED_CHEST);
+    public static final RegistryObject<Item> JUNGLE_CHEST_MINECART = RegisterHelper.registerItem("jungle_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.JUNGLE_CHEST));
+    public static final RegistryObject<Item> ACACIA_CHEST = RegisterHelper.registerSpecialRendererBlockItem("acacia_chest", MWBlocks.ACACIA_CHEST);
+    public static final RegistryObject<Item> ACACIA_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("acacia_trapped_chest", MWBlocks.ACACIA_TRAPPED_CHEST);
+    public static final RegistryObject<Item> ACACIA_CHEST_MINECART = RegisterHelper.registerItem("acacia_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.ACACIA_CHEST));
+    public static final RegistryObject<Item> DARK_OAK_CHEST = RegisterHelper.registerSpecialRendererBlockItem("dark_oak_chest", MWBlocks.DARK_OAK_CHEST);
+    public static final RegistryObject<Item> DARK_OAK_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("dark_oak_trapped_chest", MWBlocks.DARK_OAK_TRAPPED_CHEST);
+    public static final RegistryObject<Item> DARK_OAK_CHEST_MINECART = RegisterHelper.registerItem("dark_oak_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DARK_OAK_CHEST));
+    public static final RegistryObject<Item> MANGROVE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("mangrove_chest", MWBlocks.MANGROVE_CHEST);
+    public static final RegistryObject<Item> MANGROVE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("mangrove_trapped_chest", MWBlocks.MANGROVE_TRAPPED_CHEST);
+    public static final RegistryObject<Item> MANGROVE_CHEST_MINECART = RegisterHelper.registerItem("mangrove_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.MANGROVE_CHEST));
+    public static final RegistryObject<Item> CHERRY_CHEST = RegisterHelper.registerSpecialRendererBlockItem("cherry_chest", MWBlocks.CHERRY_CHEST, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Item> CHERRY_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("cherry_trapped_chest", MWBlocks.CHERRY_TRAPPED_CHEST, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Item> CHERRY_CHEST_MINECART = RegisterHelper.registerItem("cherry_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.CHERRY_CHEST, FeatureFlags.UPDATE_1_20));
+    public static final RegistryObject<Item> BAMBOO_CHEST = RegisterHelper.registerSpecialRendererBlockItem("bamboo_chest", MWBlocks.BAMBOO_CHEST, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Item> BAMBOO_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("bamboo_trapped_chest", MWBlocks.BAMBOO_TRAPPED_CHEST, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Item> BAMBOO_CHEST_MINECART = RegisterHelper.registerItem("bamboo_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.BAMBOO_CHEST, FeatureFlags.UPDATE_1_20));
+    public static final RegistryObject<Item> CRIMSON_CHEST = RegisterHelper.registerSpecialRendererBlockItem("crimson_chest", MWBlocks.CRIMSON_CHEST);
+    public static final RegistryObject<Item> CRIMSON_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("crimson_trapped_chest", MWBlocks.CRIMSON_TRAPPED_CHEST);
+    public static final RegistryObject<Item> CRIMSON_CHEST_MINECART = RegisterHelper.registerItem("crimson_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.CRIMSON_CHEST));
+    public static final RegistryObject<Item> WARPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("warped_chest", MWBlocks.WARPED_CHEST);
+    public static final RegistryObject<Item> WARPED_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("warped_trapped_chest", MWBlocks.WARPED_TRAPPED_CHEST);
+    public static final RegistryObject<Item> WARPED_CHEST_MINECART = RegisterHelper.registerItem("warped_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.WARPED_CHEST));
+    public static final RegistryObject<Item> CRIMSON_BOAT = RegisterHelper.registerItem("crimson_boat", () -> new MWBoatItem(false, MWBoat.Type.CRIMSON));
+    public static final RegistryObject<Item> CRIMSON_CHEST_BOAT = RegisterHelper.registerItem("crimson_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.CRIMSON));
+    public static final RegistryObject<Item> WARPED_BOAT = RegisterHelper.registerItem("warped_boat", () -> new MWBoatItem(false, MWBoat.Type.WARPED));
+    public static final RegistryObject<Item> WARPED_CHEST_BOAT = RegisterHelper.registerItem("warped_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.WARPED));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

@@ -91,6 +91,12 @@
     "mineworld:potted_sculk",
     "mineworld:potted_snow_block",
     "mineworld:potted_oak_bush",
-    "mineworld:potted_spruce_bush"
+    "mineworld:potted_spruce_bush",
+    "mineworld:potted_birch_bush",
+    "mineworld:potted_jungle_bush",
+    "mineworld:potted_acacia_bush",
+    "mineworld:potted_dark_oak_bush",
+    "mineworld:potted_mangrove_bush",
+    "mineworld:potted_cherry_bush"
   ]
 }

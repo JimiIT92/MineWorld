@@ -29,7 +29,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * Constructor. Set the {@link Float tnt explosion power}
      *
      * @param type           {@link MWPrimedTnt.Type The tnt type}
-     * @param dustColor      {@link Integer The falling block dust color}
+     *
      * @param featureFlags   {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
     public MWFallableTntBlock(final MWPrimedTnt.Type type, final int dustColor, final FeatureFlag... featureFlags) {

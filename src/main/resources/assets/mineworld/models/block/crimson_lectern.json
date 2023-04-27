@@ -1,0 +1,12 @@
+{
+    "parent": "minecraft:block/lectern",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/crimson_lectern_sides",
+        "bottom": "minecraft:block/crimson_planks",
+        "base": "mineworld:block/crimson_lectern_base",
+        "front": "mineworld:block/crimson_lectern_front",
+        "sides": "mineworld:block/crimson_lectern_sides",
+        "top": "mineworld:block/crimson_lectern_top"
+    }
+}

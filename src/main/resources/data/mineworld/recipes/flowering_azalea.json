@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:stick"
+      "tag": "minecraft:saplings"
     },
     "X": {
       "item": "minecraft:flowering_azalea_leaves"

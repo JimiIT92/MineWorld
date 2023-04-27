@@ -1,0 +1,8 @@
+{
+    "parent": "mineworld:block/template_potted_bush",
+    "textures": {
+        "plant": "minecraft:block/bamboo_propagule",
+        "side": "minecraft:block/bamboo_leaves",
+        "top": "minecraft:block/bamboo_leaves"
+    }
+}

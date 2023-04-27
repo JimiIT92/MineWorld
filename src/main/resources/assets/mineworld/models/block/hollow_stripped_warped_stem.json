@@ -1,0 +1,9 @@
+{
+  "parent": "mineworld:block/hollow_cube",
+  "textures": {
+    "end": "minecraft:block/stripped_warped_stem_top",
+    "side": "minecraft:block/stripped_warped_stem",
+    "inner": "minecraft:block/stripped_warped_stem",
+    "particle": "minecraft:block/stripped_warped_stem"
+  }
+}

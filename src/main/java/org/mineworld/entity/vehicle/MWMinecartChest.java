@@ -24,10 +24,6 @@ import org.mineworld.core.MWItems;
 public class MWMinecartChest extends MinecartChest {
 
     /**
-     * {@link WoodType The chest wood type}
-     */
-    private WoodType woodType;
-    /**
      * {@link String The chest wood type NBT tag key}
      */
     private final String woodTypeNBTTagKey = "WoodType";
@@ -57,7 +53,6 @@ public class MWMinecartChest extends MinecartChest {
      */
     public MWMinecartChest(final Level level, final double posX, final double posY, final double posZ, final WoodType woodType) {
         super(MWEntityTypes.CHEST_MINECART.get(), level);
-        this.woodType = woodType;
         this.setType(woodType);
         setPos(posX, posY, posZ);
     }
@@ -104,6 +99,30 @@ public class MWMinecartChest extends MinecartChest {
         if(type.equals(WoodType.BIRCH)) {
             return MWItems.BIRCH_CHEST_MINECART.get();
         }
+        if(type.equals(WoodType.JUNGLE)) {
+            return MWItems.JUNGLE_CHEST_MINECART.get();
+        }
+        if(type.equals(WoodType.ACACIA)) {
+            return MWItems.ACACIA_CHEST_MINECART.get();
+        }
+        if(type.equals(WoodType.DARK_OAK)) {
+            return MWItems.DARK_OAK_CHEST_MINECART.get();
+        }
+        if(type.equals(WoodType.MANGROVE)) {
+            return MWItems.MANGROVE_CHEST_MINECART.get();
+        }
+        if(type.equals(WoodType.CHERRY)) {
+            return MWItems.CHERRY_CHEST_MINECART.get();
+        }
+        if(type.equals(WoodType.BAMBOO)) {
+            return MWItems.BAMBOO_CHEST_MINECART.get();
+        }
+        if(type.equals(WoodType.CRIMSON)) {
+            return MWItems.CRIMSON_CHEST_MINECART.get();
+        }
+        if(type.equals(WoodType.WARPED)) {
+            return MWItems.WARPED_CHEST_MINECART.get();
+        }
         return Items.CHEST_MINECART;
     }
 
@@ -121,6 +140,30 @@ public class MWMinecartChest extends MinecartChest {
         }
         if(type.equals(WoodType.BIRCH)) {
             return MWBlocks.BIRCH_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.JUNGLE)) {
+            return MWBlocks.JUNGLE_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.ACACIA)) {
+            return MWBlocks.ACACIA_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.DARK_OAK)) {
+            return MWBlocks.DARK_OAK_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.MANGROVE)) {
+            return MWBlocks.MANGROVE_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.CHERRY)) {
+            return MWBlocks.CHERRY_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.BAMBOO)) {
+            return MWBlocks.BAMBOO_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.CRIMSON)) {
+            return MWBlocks.CRIMSON_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(WoodType.WARPED)) {
+            return MWBlocks.WARPED_CHEST.get().defaultBlockState();
         }
         return Blocks.CHEST.defaultBlockState();
     }
@@ -142,7 +185,7 @@ public class MWMinecartChest extends MinecartChest {
     protected void readAdditionalSaveData(final @NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         if (nbt.contains(this.woodTypeNBTTagKey, 8)) {
-            this.woodType = this.getWoodType(nbt.getString(this.woodTypeNBTTagKey));
+            this.setType(this.getWoodType(nbt.getString(this.woodTypeNBTTagKey)));
         }
     }
 
@@ -153,7 +196,7 @@ public class MWMinecartChest extends MinecartChest {
      */
     protected void addAdditionalSaveData(final @NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putString(this.woodTypeNBTTagKey, this.woodType.name());
+        nbt.putString(this.woodTypeNBTTagKey, this.getWoodType().name());
     }
 
 }

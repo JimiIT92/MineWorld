@@ -1,6 +1,7 @@
 package org.mineworld.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -8,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 
@@ -28,9 +30,9 @@ public class MWPrimedTnt extends PrimedTnt {
      */
     private static final EntityDataAccessor<String> DATA_TYPE = SynchedEntityData.defineId(MWPrimedTnt.class, EntityDataSerializers.STRING);
     /**
-     * {@link Float Tnt explosion power}
+     * {@link String The tnt type NBT tag key}
      */
-    private float explosionPower;
+    private final String tntTypeNBTTagKey = "TNTType";
     /**
      * {@link LivingEntity The tnt igniter}
      */
@@ -59,7 +61,6 @@ public class MWPrimedTnt extends PrimedTnt {
      */
     public MWPrimedTnt(Level level, double posX, double posY, double posZ, @Nullable LivingEntity igniter, final Type type) {
         super(MWEntityTypes.MW_PRIMED_TNT.get(), level);
-        this.explosionPower = type.getExplosionPower();
         this.setPos(posX, posY, posZ);
         final double delta = level.random.nextDouble() * (double)((float)Math.PI * 2F);
         this.setDeltaMovement(-Math.sin(delta) * 0.02D, 0.2F, -Math.cos(delta) * 0.02D);
@@ -114,7 +115,7 @@ public class MWPrimedTnt extends PrimedTnt {
      */
     @Override
     protected void explode() {
-        this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), this.explosionPower, Level.ExplosionInteraction.TNT);
+        this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), this.getTntType().explosionPower, Level.ExplosionInteraction.TNT);
     }
 
     /**
@@ -134,7 +135,39 @@ public class MWPrimedTnt extends PrimedTnt {
      * @return {@link Type The primed tnt type}
      */
     public Type getTntType() {
-        return Type.valueOf(this.entityData.get(DATA_TYPE).toUpperCase(Locale.ROOT));
+        return getTntType(this.entityData.get(DATA_TYPE));
+    }
+
+    /**
+     * Get the {@link Type primed tnt type}
+     *
+     * @param type {@link String The primed tnt type name}
+     * @return {@link Type The primed tnt type}
+     */
+    public Type getTntType(final String type) {
+        return Type.valueOf(type.toUpperCase(Locale.ROOT));
+    }
+
+    /**
+     * Read the {@link MWPrimedTnt.Type tnt type} from the {@link CompoundTag entity nbt data}
+     *
+     * @param nbt {@link CompoundTag The entity nbt data}
+     */
+    protected void readAdditionalSaveData(final @NotNull CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        if (nbt.contains(this.tntTypeNBTTagKey, 8)) {
+            this.setType(this.getTntType(nbt.getString(this.tntTypeNBTTagKey)));
+        }
+    }
+
+    /**
+     * Save the {@link MWPrimedTnt.Type tnt type} to the {@link CompoundTag entity nbt data}
+     *
+     * @param nbt {@link CompoundTag The entity nbt data}
+     */
+    protected void addAdditionalSaveData(final @NotNull CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putString(this.tntTypeNBTTagKey, this.getTntType().name());
     }
 
     /**

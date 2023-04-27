@@ -54,6 +54,70 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      * {@link ChestBlockEntity The birch trapped chest block entity}
      */
     private final ChestBlockEntity trappedBirchChest = PropertyHelper.getChestBlockEntity(WoodType.BIRCH, BlockPos.ZERO, MWBlocks.BIRCH_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The jungle chest block entity}
+     */
+    private final ChestBlockEntity jungleChest = PropertyHelper.getChestBlockEntity(WoodType.JUNGLE, BlockPos.ZERO, MWBlocks.JUNGLE_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The jungle trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedJungleChest = PropertyHelper.getChestBlockEntity(WoodType.JUNGLE, BlockPos.ZERO, MWBlocks.JUNGLE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The acacia chest block entity}
+     */
+    private final ChestBlockEntity acaciaChest = PropertyHelper.getChestBlockEntity(WoodType.ACACIA, BlockPos.ZERO, MWBlocks.ACACIA_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The acacia trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedAcaciaChest = PropertyHelper.getChestBlockEntity(WoodType.ACACIA, BlockPos.ZERO, MWBlocks.ACACIA_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The dark oak chest block entity}
+     */
+    private final ChestBlockEntity darkOakChest = PropertyHelper.getChestBlockEntity(WoodType.DARK_OAK, BlockPos.ZERO, MWBlocks.DARK_OAK_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The dark oak trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedDarkOakChest = PropertyHelper.getChestBlockEntity(WoodType.DARK_OAK, BlockPos.ZERO, MWBlocks.DARK_OAK_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The mangrove chest block entity}
+     */
+    private final ChestBlockEntity mangroveChest = PropertyHelper.getChestBlockEntity(WoodType.MANGROVE, BlockPos.ZERO, MWBlocks.MANGROVE_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The mangrove trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedMangroveChest = PropertyHelper.getChestBlockEntity(WoodType.MANGROVE, BlockPos.ZERO, MWBlocks.MANGROVE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The cherry chest block entity}
+     */
+    private final ChestBlockEntity cherryChest = PropertyHelper.getChestBlockEntity(WoodType.CHERRY, BlockPos.ZERO, MWBlocks.CHERRY_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The cherry trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedCherryChest = PropertyHelper.getChestBlockEntity(WoodType.CHERRY, BlockPos.ZERO, MWBlocks.CHERRY_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The bamboo chest block entity}
+     */
+    private final ChestBlockEntity bambooChest = PropertyHelper.getChestBlockEntity(WoodType.BAMBOO, BlockPos.ZERO, MWBlocks.BAMBOO_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The bamboo trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedBambooChest = PropertyHelper.getChestBlockEntity(WoodType.BAMBOO, BlockPos.ZERO, MWBlocks.BAMBOO_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The crimson chest block entity}
+     */
+    private final ChestBlockEntity crimsonChest = PropertyHelper.getChestBlockEntity(WoodType.CRIMSON, BlockPos.ZERO, MWBlocks.CRIMSON_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The crimson trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedCrimsonChest = PropertyHelper.getChestBlockEntity(WoodType.CRIMSON, BlockPos.ZERO, MWBlocks.CRIMSON_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The warped chest block entity}
+     */
+    private final ChestBlockEntity warpedChest = PropertyHelper.getChestBlockEntity(WoodType.WARPED, BlockPos.ZERO, MWBlocks.WARPED_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The warped trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedWarpedChest = PropertyHelper.getChestBlockEntity(WoodType.WARPED, BlockPos.ZERO, MWBlocks.WARPED_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}
@@ -110,6 +174,54 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
             else if(blockState.is(MWBlocks.BIRCH_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedBirchChest;
+            }
+            if(blockState.is(MWBlocks.JUNGLE_CHEST.get())) {
+                blockentity = this.jungleChest;
+            }
+            else if(blockState.is(MWBlocks.JUNGLE_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedJungleChest;
+            }
+            if(blockState.is(MWBlocks.ACACIA_CHEST.get())) {
+                blockentity = this.acaciaChest;
+            }
+            else if(blockState.is(MWBlocks.ACACIA_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedAcaciaChest;
+            }
+            if(blockState.is(MWBlocks.DARK_OAK_CHEST.get())) {
+                blockentity = this.darkOakChest;
+            }
+            else if(blockState.is(MWBlocks.DARK_OAK_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedDarkOakChest;
+            }
+            if(blockState.is(MWBlocks.MANGROVE_CHEST.get())) {
+                blockentity = this.mangroveChest;
+            }
+            else if(blockState.is(MWBlocks.MANGROVE_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedMangroveChest;
+            }
+            if(blockState.is(MWBlocks.CHERRY_CHEST.get())) {
+                blockentity = this.cherryChest;
+            }
+            else if(blockState.is(MWBlocks.CHERRY_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedCherryChest;
+            }
+            if(blockState.is(MWBlocks.BAMBOO_CHEST.get())) {
+                blockentity = this.bambooChest;
+            }
+            else if(blockState.is(MWBlocks.BAMBOO_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedBambooChest;
+            }
+            if(blockState.is(MWBlocks.CRIMSON_CHEST.get())) {
+                blockentity = this.crimsonChest;
+            }
+            else if(blockState.is(MWBlocks.CRIMSON_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedCrimsonChest;
+            }
+            if(blockState.is(MWBlocks.WARPED_CHEST.get())) {
+                blockentity = this.warpedChest;
+            }
+            else if(blockState.is(MWBlocks.WARPED_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedWarpedChest;
             }
             if(blockentity != null) {
                 this.blockEntityRenderDispatcher.renderItem(blockentity, pose, buffer, packedLight, packedOverlay);

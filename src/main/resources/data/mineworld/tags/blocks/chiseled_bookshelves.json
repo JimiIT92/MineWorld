@@ -1,7 +1,16 @@
 {
   "replace": false,
   "values": [
+    "minecraft:chiseled_bookshelf",
     "mineworld:spruce_chiseled_bookshelf",
-    "mineworld:birch_chiseled_bookshelf"
+    "mineworld:birch_chiseled_bookshelf",
+    "mineworld:jungle_chiseled_bookshelf",
+    "mineworld:acacia_chiseled_bookshelf",
+    "mineworld:dark_oak_chiseled_bookshelf",
+    "mineworld:mangrove_chiseled_bookshelf",
+    "mineworld:cherry_chiseled_bookshelf",
+    "mineworld:bamboo_chiseled_bookshelf",
+    "mineworld:crimson_chiseled_bookshelf",
+    "mineworld:warped_chiseled_bookshelf"
   ]
 }

@@ -2,6 +2,14 @@
   "replace": false,
   "values": [
     "mineworld:spruce_lectern",
-    "mineworld:birch_lectern"
+    "mineworld:birch_lectern",
+    "mineworld:jungle_lectern",
+    "mineworld:acacia_lectern",
+    "mineworld:dark_oak_lectern",
+    "mineworld:mangrove_lectern",
+    "mineworld:cherry_lectern",
+    "mineworld:bamboo_lectern",
+    "mineworld:crimson_lectern",
+    "mineworld:warped_lectern"
   ]
 }

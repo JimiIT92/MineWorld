@@ -39,10 +39,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.Pebble;
-import org.mineworld.entity.block.chest.BirchChestBlockEntity;
-import org.mineworld.entity.block.chest.BirchTrappedChestBlockEntity;
-import org.mineworld.entity.block.chest.SpruceChestBlockEntity;
-import org.mineworld.entity.block.chest.SpruceTrappedChestBlockEntity;
+import org.mineworld.entity.block.chest.*;
 import org.mineworld.item.PebbleItem;
 
 import java.util.List;
@@ -460,6 +457,30 @@ public final class PropertyHelper {
         }
         else if(woodType.equals(WoodType.BIRCH)) {
             blockEntity = isTrappedChest ? new BirchTrappedChestBlockEntity(blockPos, blockState) : new BirchChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.JUNGLE)) {
+            blockEntity = isTrappedChest ? new JungleTrappedChestBlockEntity(blockPos, blockState) : new JungleChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.ACACIA)) {
+            blockEntity = isTrappedChest ? new AcaciaTrappedChestBlockEntity(blockPos, blockState) : new AcaciaChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.DARK_OAK)) {
+            blockEntity = isTrappedChest ? new DarkOakTrappedChestBlockEntity(blockPos, blockState) : new DarkOakChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.MANGROVE)) {
+            blockEntity = isTrappedChest ? new MangroveTrappedChestBlockEntity(blockPos, blockState) : new MangroveChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.CHERRY)) {
+            blockEntity = isTrappedChest ? new CherryTrappedChestBlockEntity(blockPos, blockState) : new CherryChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.BAMBOO)) {
+            blockEntity = isTrappedChest ? new BambooTrappedChestBlockEntity(blockPos, blockState) : new BambooChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.CRIMSON)) {
+            blockEntity = isTrappedChest ? new CrimsonTrappedChestBlockEntity(blockPos, blockState) : new CrimsonChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(WoodType.WARPED)) {
+            blockEntity = isTrappedChest ? new WarpedTrappedChestBlockEntity(blockPos, blockState) : new WarpedChestBlockEntity(blockPos, blockState);
         }
         return blockEntity != null ? blockEntity : (isTrappedChest ? new TrappedChestBlockEntity(blockPos, blockState) : new ChestBlockEntity(blockPos, blockState));
     }

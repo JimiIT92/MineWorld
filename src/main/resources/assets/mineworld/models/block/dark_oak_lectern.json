@@ -1,0 +1,12 @@
+{
+    "parent": "minecraft:block/lectern",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/dark_oak_lectern_sides",
+        "bottom": "minecraft:block/dark_oak_planks",
+        "base": "mineworld:block/dark_oak_lectern_base",
+        "front": "mineworld:block/dark_oak_lectern_front",
+        "sides": "mineworld:block/dark_oak_lectern_sides",
+        "top": "mineworld:block/dark_oak_lectern_top"
+    }
+}

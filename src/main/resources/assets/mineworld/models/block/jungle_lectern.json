@@ -1,0 +1,12 @@
+{
+    "parent": "minecraft:block/lectern",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/jungle_lectern_sides",
+        "bottom": "minecraft:block/jungle_planks",
+        "base": "mineworld:block/jungle_lectern_base",
+        "front": "mineworld:block/jungle_lectern_front",
+        "sides": "mineworld:block/jungle_lectern_sides",
+        "top": "mineworld:block/jungle_lectern_top"
+    }
+}
