@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#mineworld:wall_hanging_lanterns",
     "#mineworld:soul_lanterns",
     "mineworld:golden_lantern",
     "mineworld:netherite_lantern",

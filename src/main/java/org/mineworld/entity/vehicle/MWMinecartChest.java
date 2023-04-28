@@ -6,8 +6,10 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.MinecartChest;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -17,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
+import org.mineworld.helper.ItemHelper;
 
 /**
  * Implementation class for a {@link MinecartChest MineWorld chest minecart}
@@ -83,6 +86,17 @@ public class MWMinecartChest extends MinecartChest {
      */
     private WoodType getWoodType(final String value) {
         return WoodType.values().filter(wood -> wood.name().equalsIgnoreCase(value)).findFirst().orElse(WoodType.OAK);
+    }
+
+    /**
+     * Get the {@link ItemStack cart item stack} for when the {@link Player player}
+     * middle mouse click the placed entity
+     *
+     * @return {@link ItemStack The cart item stack}
+     */
+    @Override
+    public ItemStack getPickResult() {
+        return ItemHelper.getDefaultStack(getDropItem());
     }
 
     /**

@@ -64,6 +64,12 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
             .put(MWBlocks.COPPER_GRATE.get(), MWBlocks.EXPOSED_COPPER_GRATE.get())
             .put(MWBlocks.EXPOSED_COPPER_GRATE.get(), MWBlocks.WEATHERED_COPPER_GRATE.get())
             .put(MWBlocks.WEATHERED_COPPER_GRATE.get(), MWBlocks.OXIDIZED_COPPER_GRATE.get())
+            .put(MWBlocks.WALL_HANGING_COPPER_LANTERN.get(), MWBlocks.WALL_HANGING_EXPOSED_COPPER_LANTERN.get())
+            .put(MWBlocks.WALL_HANGING_EXPOSED_COPPER_LANTERN.get(), MWBlocks.WALL_HANGING_WEATHERED_COPPER_LANTERN.get())
+            .put(MWBlocks.WALL_HANGING_WEATHERED_COPPER_LANTERN.get(), MWBlocks.WALL_HANGING_OXIDIZED_COPPER_LANTERN.get())
+            .put(MWBlocks.WALL_HANGING_COPPER_SOUL_LANTERN.get(), MWBlocks.WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN.get())
+            .put(MWBlocks.WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN.get(), MWBlocks.WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN.get())
+            .put(MWBlocks.WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN.get(), MWBlocks.WALL_HANGING_OXIDIZED_COPPER_SOUL_LANTERN.get())
     .build());
 
     Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());

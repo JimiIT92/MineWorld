@@ -1,5 +1,6 @@
 package org.mineworld.helper;
 
+import net.minecraft.util.RandomSource;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Collection;
@@ -12,12 +13,12 @@ import java.util.Random;
 public final class RandomHelper {
 
     /**
-     * Get a {@link Random random instance}
+     * Get a {@link RandomSource random instance}
      *
-     * @return {@link Random The random instance}
+     * @return {@link RandomSource The random instance}
      */
-    public static Random getRandom() {
-        return new Random();
+    public static RandomSource getRandom() {
+        return RandomSource.create();
     }
 
     /**

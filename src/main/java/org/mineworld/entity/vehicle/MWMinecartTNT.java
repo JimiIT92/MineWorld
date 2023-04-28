@@ -7,8 +7,10 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.MinecartTNT;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +19,7 @@ import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.helper.ItemHelper;
 
 import java.util.Locale;
 
@@ -111,6 +114,17 @@ public class MWMinecartTNT extends MinecartTNT {
             case DISGUISED_STONE -> MWBlocks.DISGUISED_STONE_TNT.get().defaultBlockState();
             case DISGUISED_CAKE -> MWBlocks.DISGUISED_CAKE_TNT.get().defaultBlockState();
         };
+    }
+
+    /**
+     * Get the {@link ItemStack cart item stack} for when the {@link Player player}
+     * middle mouse click the placed entity
+     *
+     * @return {@link ItemStack The cart item stack}
+     */
+    @Override
+    public ItemStack getPickResult() {
+        return ItemHelper.getDefaultStack(getDropItem());
     }
 
     /**

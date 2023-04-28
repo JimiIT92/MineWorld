@@ -2,6 +2,7 @@ package org.mineworld.event;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -29,6 +30,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.block.HollowBlock;
+import org.mineworld.block.WallHangingLanternBlock;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWTags;
 import org.mineworld.helper.ItemHelper;
@@ -64,6 +66,10 @@ public final class RightClickBlockEventListener {
             }
             if(player.isShiftKeyDown() && itemStack.getItem() instanceof AxeItem) {
                 handleHollowLog(event, level, clickedPos, player, itemStack);
+                return;
+            }
+            if(itemStack.is(Items.LANTERN) || itemStack.is(Items.SOUL_LANTERN) || itemStack.is(MWTags.Items.LANTERNS)) {
+                handleWallHangingLantern(event, level, clickedPos, player, itemStack);
             }
         }
     }
@@ -145,6 +151,35 @@ public final class RightClickBlockEventListener {
     }
 
     /**
+     * Handle interaction with a {@link WallHangingLanternBlock wall hanging lantern block}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param itemStack {@link ItemStack The item stack used to interact with the block}
+     */
+    private static void handleWallHangingLantern(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack) {
+        final Direction direction = event.getFace();
+        if(direction.getAxis().isHorizontal() && LevelHelper.isFaceSolid(level, clickedPos, direction)) {
+            WallHangingLanternBlock.getWallHangingLantern(itemStack, direction).ifPresent(hangingLantern -> {
+                final BlockPos offsetPos = LevelHelper.offset(clickedPos, direction);
+                final BlockState blockState = hangingLantern.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, offsetPos));
+                level.setBlockAndUpdate(offsetPos, blockState);
+                ItemHelper.hurt(itemStack, player);
+                if(player instanceof ServerPlayer) {
+                    CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, offsetPos, itemStack);
+                }
+                event.setUseItem(Event.Result.DENY);
+                if(level.isClientSide()) {
+                    player.swing(event.getHand());
+                    player.playSound(SoundEvents.LANTERN_PLACE, 1.0F, 1.0F);
+                }
+            });
+        }
+    }
+
+    /**
      * Attach a {@link LeashFenceKnotEntity leash knot} to a fence,
      * even if there are no entities attached
      *
@@ -204,5 +239,4 @@ public final class RightClickBlockEventListener {
         level.addFreshEntity(leashKnotEntity);
         return leashKnotEntity;
     }
-
 }

@@ -18,6 +18,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -1371,6 +1372,15 @@ public final class RegisterHelper {
      */
     public static TagKey<Block> registerBlockTag(final String name) {
         return BlockTags.create(new ResourceLocation(MineWorld.MOD_ID, name));
+    }
+
+    /**
+     * Register a {@link TagKey<Item> item tag}
+     *
+     * @param name {@link String The tag name}
+     */
+    public static TagKey<Item> registerItemTag(final String name) {
+        return ItemTags.create(new ResourceLocation(MineWorld.MOD_ID, name));
     }
 
     /**

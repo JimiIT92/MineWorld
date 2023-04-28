@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:wall_hanging_lantern",
+    "mineworld:wall_hanging_soul_lantern",
+    "mineworld:wall_hanging_golden_lantern",
+    "mineworld:wall_hanging_golden_soul_lantern",
+    "mineworld:wall_hanging_netherite_lantern",
+    "mineworld:wall_hanging_netherite_soul_lantern",
+    "mineworld:wall_hanging_aluminum_lantern",
+    "mineworld:wall_hanging_aluminum_soul_lantern",
+    "mineworld:wall_hanging_silver_lantern",
+    "mineworld:wall_hanging_silver_soul_lantern",
+    "mineworld:wall_hanging_bronze_lantern",
+    "mineworld:wall_hanging_bronze_soul_lantern",
+    "mineworld:wall_hanging_copper_lantern",
+    "mineworld:wall_hanging_copper_soul_lantern",
+    "mineworld:wall_hanging_exposed_copper_lantern",
+    "mineworld:wall_hanging_exposed_copper_soul_lantern",
+    "mineworld:wall_hanging_weathered_copper_lantern",
+    "mineworld:wall_hanging_weathered_copper_soul_lantern",
+    "mineworld:wall_hanging_oxidized_copper_lantern",
+    "mineworld:wall_hanging_oxidized_copper_soul_lantern",
+    "mineworld:wall_hanging_waxed_copper_lantern",
+    "mineworld:wall_hanging_waxed_copper_soul_lantern",
+    "mineworld:wall_hanging_waxed_exposed_copper_lantern",
+    "mineworld:wall_hanging_waxed_exposed_copper_soul_lantern",
+    "mineworld:wall_hanging_waxed_weathered_copper_lantern",
+    "mineworld:wall_hanging_waxed_weathered_copper_soul_lantern",
+    "mineworld:wall_hanging_waxed_oxidized_copper_lantern",
+    "mineworld:wall_hanging_waxed_oxidized_copper_soul_lantern"
+  ]
+}

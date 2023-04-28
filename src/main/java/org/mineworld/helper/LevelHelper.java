@@ -1,7 +1,9 @@
 package org.mineworld.helper;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -58,6 +60,41 @@ public final class LevelHelper {
                 || level.getFluidState(blockPos.below()).is(Fluids.WATER) || level.getFluidState(blockPos.north()).is(Fluids.WATER)
                 || level.getFluidState(blockPos.south()).is(Fluids.WATER) || level.getFluidState(blockPos.east()).is(Fluids.WATER)
                 || level.getFluidState(blockPos.west()).is(Fluids.WATER);
+    }
+
+    /**
+     * Get th{@link BlockPos block pos} offset by the specified {@link Direction direction}
+     *
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The offset direction}
+     * @return {@link BlockPos The offset block pos}
+     */
+    public static BlockPos offset(final BlockPos blockPos, final Direction direction) {
+        return blockPos.offset(direction.getStepX(), direction.getStepY(), direction.getStepZ());
+    }
+
+    /**
+     * Check if a block face is solid
+     *
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @param direction {@link Direction The direction to check}
+     * @return {@link Boolean True if the block face is solid}
+     */
+    public static boolean isFaceSolid(final Level level, final BlockPos blockPos, final Direction direction) {
+        return level.getBlockState(blockPos).isFaceSturdy(level, blockPos, direction.getOpposite());
+    }
+
+    /**
+     * Check if a {@link Block block} can be placed at the given {@link BlockPos location}
+     *
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current block pos}
+     * @return {@link Boolean True if there isn't a block or is replaceable}
+     */
+    public static boolean canPlace(final Level level, final BlockPos blockPos) {
+        final BlockState blockState = level.getBlockState(blockPos);
+        return blockState.isAir() || blockState.canBeReplaced();
     }
 
 }
