@@ -1478,6 +1478,7 @@
   "block.mineworld.wall_hanging_waxed_weathered_copper_soul_lantern": "Wall Hanging Waxed Weathered Copper Soul Lantern",
   "block.mineworld.wall_hanging_waxed_oxidized_copper_lantern": "Wall Hanging Waxed Oxidized Copper Lantern",
   "block.mineworld.wall_hanging_waxed_oxidized_copper_soul_lantern": "Wall Hanging Waxed Oxidized Copper Soul Lantern",
+  "block.mineworld.woodcutter": "Woodcutter",
   "smithing.mineworld.raw_bronze": "Raw Bronze",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Raw Copper",
@@ -1508,5 +1509,7 @@
   "splash.mineworld.herobrine": "Herobrine is coming...",
   "splash.mineworld.chooped_trees": "Who chopped the trees?",
   "splash.mineworld.made_in_italy": "Made in Italy!",
-  "splash.mineworld.birthday": "MineWorld turns %d years old today!"
+  "splash.mineworld.birthday": "MineWorld turns %d years old today!",
+  "container.mineworld.woodcutter": "Woodcutter",
+  "stat.mineworld.interacted_with_woodcutter": "Interactions with Woodcutter"
 }

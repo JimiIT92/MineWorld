@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -97,6 +98,10 @@ public final class RegisterHelper {
      * {@link DeferredRegister<BlockEntityType> The block entity types registry}
      */
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<ResourceLocation> The statistics registry}
+     */
+    private static final DeferredRegister<ResourceLocation> STATISTICS = DeferredRegister.create(BuiltInRegistries.CUSTOM_STAT.key(), MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -1414,6 +1419,16 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link ResourceLocation statistic}
+     *
+     * @param name {@link String The statistic name}
+     * @return {@link RegistryObject<ResourceLocation> The registered statistic}
+     */
+    public static RegistryObject<ResourceLocation> registerStatistic(final String name) {
+        return STATISTICS.register(name, () -> new ResourceLocation(MineWorld.MOD_ID, name));
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -1499,6 +1514,15 @@ public final class RegisterHelper {
      */
     public static void registerBlockEntityTypes(final IEventBus eventBus) {
         BLOCK_ENTITY_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link ResourceLocation statistics}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerStatistics(final IEventBus eventBus) {
+        STATISTICS.register(eventBus);
     }
 
 }

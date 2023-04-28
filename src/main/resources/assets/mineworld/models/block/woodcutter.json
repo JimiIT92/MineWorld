@@ -1,0 +1,10 @@
+{   "parent": "minecraft:block/stonecutter",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "#bottom",
+        "bottom": "mineworld:block/woodcutter_bottom",
+        "top": "mineworld:block/woodcutter_top",
+        "side": "mineworld:block/woodcutter_side",
+        "saw": "mineworld:block/woodcutter_saw"
+    }
+}

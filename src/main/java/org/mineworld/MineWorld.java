@@ -42,6 +42,7 @@ public final class MineWorld {
         MWBlocks.register(eventBus);
         MWEntityTypes.register(eventBus);
         MWBlockEntityTypes.register(eventBus);
+        MWStats.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);

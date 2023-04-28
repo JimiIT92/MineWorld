@@ -6,6 +6,7 @@
     "#mineworld:lecterns",
     "#mineworld:bookshelves",
     "#mineworld:chiseled_bookshelves",
-    "#mineworld:chests/wooden"
+    "#mineworld:chests/wooden",
+    "mineworld:woodcutter"
   ]
 }

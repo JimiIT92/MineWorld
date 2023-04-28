@@ -1209,6 +1209,7 @@ public final class MWTabs {
                 MWItems.OBSIDIAN_PEBBLE,
                 MWItems.CRYING_OBSIDIAN_PEBBLE,
                 MWItems.GLOWING_OBSIDIAN_PEBBLE,
+                MWBlocks.WOODCUTTER,
                 MWBlocks.SPRUCE_BOOKSHELF,
                 MWBlocks.BIRCH_BOOKSHELF,
                 MWBlocks.JUNGLE_BOOKSHELF,

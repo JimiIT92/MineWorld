@@ -1440,9 +1440,6 @@
   "block.mineworld.grass_carpet": "Tappeto d'erba",
   "block.mineworld.podzol_carpet": "Tappeto di podzol",
   "block.mineworld.mycelium_carpet": "Tappeto di micelio",
-  "block.mineworld.dirt_carpet": "Tappeto di terra",
-  "block.mineworld.coarse_dirt_carpet": "Tappeto di terra brulla",
-  "block.mineworld.rooted_dirt_carpet": "Tappeto di terra con radici",
   "block.mineworld.gravel_carpet": "Tappeto di ghiaia",
   "block.mineworld.sand_carpet": "Tappeto di sabbia",
   "block.mineworld.red_sand_carpet": "Tappeto di sabbia rossa",
@@ -1450,6 +1447,9 @@
   "block.mineworld.clay_carpet": "Tappeto di argilla",
   "block.mineworld.crimson_nylium_carpet": "Tappeto di necelio cremisi",
   "block.mineworld.warped_nylium_carpet": "Tappeto di necelio distorto",
+  "block.mineworld.dirt_carpet": "Tappeto di terra",
+  "block.mineworld.coarse_dirt_carpet": "Tappeto di terra brulla",
+  "block.mineworld.rooted_dirt_carpet": "Tappeto di terra con radici",
   "block.mineworld.wall_hanging_lantern": "Lanterna appesa al muro",
   "block.mineworld.wall_hanging_soul_lantern": "Lanterna delle anime appesa al muro",
   "block.mineworld.wall_hanging_golden_lantern": "Lanterna d'oro appesa al muro",
@@ -1478,6 +1478,7 @@
   "block.mineworld.wall_hanging_waxed_weathered_copper_soul_lantern": "Lanterna delle anime di rame corroso cerato appesa al muro",
   "block.mineworld.wall_hanging_waxed_oxidized_copper_lantern": "Lanterna di rame ossidato cerato appesa al muro",
   "block.mineworld.wall_hanging_waxed_oxidized_copper_soul_lantern": "Lanterna delle anime di rame ossidato cerato appesa al muro",
+  "block.mineworld.woodcutter": "Taglialegne",
   "smithing.mineworld.raw_bronze": "Bronzo grezzo",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",
@@ -1508,5 +1509,7 @@
   "splash.mineworld.herobrine": "Herobrine sta arrivando...",
   "splash.mineworld.chooped_trees": "Chi ha tagliato gli alberi?",
   "splash.mineworld.made_in_italy": "Creato in Italia!",
-  "splash.mineworld.birthday": "MineWorld festeggia %d anni oggi!"
+  "splash.mineworld.birthday": "MineWorld festeggia %d anni oggi!",
+  "container.mineworld.woodcutter": "Taglialegne",
+  "stat.mineworld.interacted_with_woodcutter": "Interazioni con i taglialegne"
 }
