@@ -67,6 +67,7 @@ public final class MineWorld {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(RegisterHelper::registerFlowerPots);
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
+        event.enqueueWork(RegisterHelper::registerCompostables);
     }
 
     /**

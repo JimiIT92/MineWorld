@@ -13,31 +13,41 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ItemHelper {
 
     /**
-     * Get a default {@link ItemStack Item Stack} from a {@link RegistryObject < Block > block registry object}
+     * Get a default {@link ItemStack item stack} from a {@link RegistryObject < Block > block registry object}
      *
      * @param registryObject {@link RegistryObject<Block> The block registry object}
-     * @return {@link ItemStack The default Item Stack}
+     * @return {@link ItemStack The default item stack}
      */
     public static ItemStack getDefaultStack(final RegistryObject<? extends ItemLike> registryObject) {
         return getDefaultStack(registryObject.get().asItem());
     }
 
     /**
-     * Get a default {@link ItemStack Item Stack} from an {@link ItemLike Item Like} object
+     * Get a default {@link ItemStack item stack} from an {@link ItemLike Item Like} object
      * (namely blocks and items)
      *
      * @param object {@link ItemLike The object}
-     * @return {@link ItemStack The default Item Stack}
+     * @return {@link ItemStack The default item stack}
      */
     public static ItemStack getDefaultStack(final ItemLike object) {
         return getDefaultStack(object.asItem());
     }
 
     /**
-     * Get a default {@link ItemStack Item Stack} from an {@link Item item}
+     * Get the {@link Item item} for the provided {@link ItemLike object}
+     *
+     * @param object {@link ItemLike The object}
+     * @return {@link Item The object item}
+     */
+    public static Item getItem(final ItemLike object) {
+        return getDefaultStack(object).getItem();
+    }
+
+    /**
+     * Get a default {@link ItemStack item stack} from an {@link Item item}
      *
      * @param item {@link Item The item}
-     * @return {@link ItemStack The default Item Stack}
+     * @return {@link ItemStack The default item stack}
      */
     public static ItemStack getDefaultStack(final Item item) {
         return item.getDefaultInstance();

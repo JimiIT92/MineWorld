@@ -64,7 +64,9 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
 import org.mineworld.block.PebbleBlock;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWColors;
+import org.mineworld.core.MWItems;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -1399,6 +1401,50 @@ public final class RegisterHelper {
      */
     static void registerDispenseBehavior(final DispenseItemBehavior dispenseItemBehavior, final Supplier<? extends ItemLike> item) {
         DispenserBlock.registerBehavior(item.get(), dispenseItemBehavior);
+    }
+
+    /**
+     * Register the {@link MineWorld MineWorld} compostables
+     */
+    public static void registerCompostables() {
+        registerCompostable(MWBlocks.GRASS_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.OAK_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.SPRUCE_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.BIRCH_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.JUNGLE_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.ACACIA_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.DARK_OAK_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.MANGROVE_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.MANGROVE_ROOTS_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.CHERRY_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.AZALEA_LEAVES_CARPET.get(), 0.25F);
+        registerCompostable(MWBlocks.FLOWERING_AZALEA_LEAVES_CARPET.get(), 0.3F);
+        registerCompostable(MWBlocks.NETHER_WART_CARPET.get(), 0.3F);
+        registerCompostable(MWBlocks.WARPED_WART_CARPET.get(), 0.3F);
+        registerCompostable(MWBlocks.WARPED_WART.get(), 0.85F);
+        registerCompostable(MWBlocks.OAK_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.SPRUCE_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.BIRCH_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.JUNGLE_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.ACACIA_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.DARK_OAK_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.MANGROVE_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.CHERRY_BUSH.get(), 0.85F);
+        registerCompostable(MWBlocks.BLUE_ROSE.get(), 0.65F);
+        registerCompostable(MWBlocks.BLUE_ROSE_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.WHITE_ROSE.get(), 0.65F);
+        registerCompostable(MWBlocks.WHITE_ROSE_BUSH.get(), 0.65F);
+        registerCompostable(MWItems.CORN_SEEDS.get(), 0.3F);
+    }
+
+    /**
+     * Register a {@link ItemLike compostable item}
+     *
+     * @param item {@link ItemLike The item to register}
+     * @param chance {@link Float The compostable chance}
+     */
+    static void registerCompostable(final ItemLike item, final float chance) {
+        ComposterBlock.COMPOSTABLES.put(ItemHelper.getItem(item), chance);
     }
 
     /**
