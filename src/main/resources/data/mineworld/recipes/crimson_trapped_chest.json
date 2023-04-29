@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "mineworld:crimson_chest"
+  },
+  "result": "mineworld:crimson_trapped_chest"
+}

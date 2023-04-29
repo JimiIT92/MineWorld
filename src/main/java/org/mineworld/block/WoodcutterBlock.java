@@ -8,7 +8,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.StonecutterMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StonecutterBlock;
@@ -21,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWStats;
 import org.mineworld.helper.PropertyHelper;
+import org.mineworld.inventory.WoodcutterMenu;
 
 /**
  * Implementation class for a woodcutter
@@ -71,7 +71,7 @@ public class WoodcutterBlock extends StonecutterBlock {
     @Nullable
     @Override
     public MenuProvider getMenuProvider(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos) {
-        return new SimpleMenuProvider((id, inventory, player) -> new StonecutterMenu(id, inventory, ContainerLevelAccess.create(level, blockPos)), CONTAINER_TITLE);
+        return new SimpleMenuProvider((id, inventory, player) -> new WoodcutterMenu(id, inventory, ContainerLevelAccess.create(level, blockPos)), CONTAINER_TITLE);
     }
 
 }

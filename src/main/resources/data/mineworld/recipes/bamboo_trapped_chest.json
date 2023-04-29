@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "mineworld:bamboo_chest"
+  },
+  "result": "mineworld:bamboo_trapped_chest"
+}

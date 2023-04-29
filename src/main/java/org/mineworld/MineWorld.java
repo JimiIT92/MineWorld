@@ -43,6 +43,9 @@ public final class MineWorld {
         MWEntityTypes.register(eventBus);
         MWBlockEntityTypes.register(eventBus);
         MWStats.register(eventBus);
+        MWMenuTypes.register(eventBus);
+        MWRecipeSerializers.register(eventBus);
+        MWRecipeTypes.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);
@@ -57,6 +60,7 @@ public final class MineWorld {
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(MWEntityTypes::registerRenderers);
         event.enqueueWork(MWBlockEntityTypes::registerRenderers);
+        event.enqueueWork(MWMenuTypes::registerScreens);
     }
 
     /**

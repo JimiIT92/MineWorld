@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "mineworld:cherry_chest"
+  },
+  "result": "mineworld:cherry_trapped_chest"
+}

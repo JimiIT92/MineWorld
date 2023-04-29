@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "minecraft:chest"
+  },
+  "result": "minecraft:trapped_chest"
+}

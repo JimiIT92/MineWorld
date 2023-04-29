@@ -28,8 +28,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
@@ -56,8 +60,10 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeTier;
+import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -102,6 +108,18 @@ public final class RegisterHelper {
      * {@link DeferredRegister<ResourceLocation> The statistics registry}
      */
     private static final DeferredRegister<ResourceLocation> STATISTICS = DeferredRegister.create(BuiltInRegistries.CUSTOM_STAT.key(), MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<MenuType> The menu type registry}
+     */
+    private static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<RecipeType> The recipe type registry}
+     */
+    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<RecipeSerializer> The recipe serializer registry}
+     */
+    private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -1429,6 +1447,40 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link MenuType menu type}
+     *
+     * @param name {@link String The menu name}
+     * @param factory {@link IContainerFactory The menu container factory}
+     * @return {@link RegistryObject<MenuType> The registered menu type}
+     * @param <T> {@link T The menu type}
+     */
+    public static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(final String name, final IContainerFactory<T> factory) {
+        return MENU_TYPES.register(name, () -> IForgeMenuType.create(factory));
+    }
+
+    /**
+     * Register a {@link RecipeType recipe type}
+     *
+     * @param name {@link String The recipe type name}
+     * @return {@link RegistryObject<RecipeType> The registered recipe type}
+     * @param <T> {@link T The recipe type}
+     */
+    public static <T extends Recipe<?>> RegistryObject<RecipeType<T>> registerRecipeType(final String name) {
+        return RECIPE_TYPES.register(name, () -> RecipeType.simple(new ResourceLocation(MineWorld.MOD_ID, name)));
+    }
+
+    /**
+     * Register a {@link RecipeSerializer recipe serializer}
+     *
+     * @param name {@link String The recipe serializer name}
+     * @return {@link RegistryObject<RecipeType> The registered recipe serializer}
+     * @param <T> {@link T The menu type}
+     */
+    public static <T extends Recipe<?>> RegistryObject<RecipeSerializer<T>> registerRecipeSerializer(final String name, final Supplier<RecipeSerializer<T>> recipeSerializerSupplier) {
+        return RECIPE_SERIALIZERS.register(name, recipeSerializerSupplier);
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -1523,6 +1575,33 @@ public final class RegisterHelper {
      */
     public static void registerStatistics(final IEventBus eventBus) {
         STATISTICS.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link MenuType menu types}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerMenuTypes(final IEventBus eventBus) {
+        MENU_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link RecipeType recipe types}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerRecipeTypes(final IEventBus eventBus) {
+        RECIPE_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link RecipeSerializer recipe serializers}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerRecipeSerializers(final IEventBus eventBus) {
+        RECIPE_SERIALIZERS.register(eventBus);
     }
 
 }

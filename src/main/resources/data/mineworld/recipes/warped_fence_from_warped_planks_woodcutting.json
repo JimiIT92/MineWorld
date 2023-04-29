@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "minecraft:warped_planks"
+  },
+  "result": "minecraft:warped_fence"
+}
