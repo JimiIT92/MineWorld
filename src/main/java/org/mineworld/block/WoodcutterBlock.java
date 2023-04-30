@@ -30,7 +30,7 @@ public class WoodcutterBlock extends StonecutterBlock {
     /**
      * {@link Component The woodcutter screen title}
      */
-    private static final Component CONTAINER_TITLE = Component.translatable("container." + MineWorld.MOD_ID + ".woodcutter");
+    public static final Component CONTAINER_TITLE = Component.translatable("container." + MineWorld.MOD_ID + ".woodcutter");
 
     /**
      * Constructor. Set the block properties

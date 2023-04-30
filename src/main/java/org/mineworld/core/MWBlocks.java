@@ -1321,6 +1321,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_LANTERN.get())));
     public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get())));
     public static final RegistryObject<Block> WOODCUTTER = RegisterHelper.registerBlock("woodcutter", WoodcutterBlock::new);
+    public static final RegistryObject<Block> LAVA_ROCK = RegisterHelper.registerBlock("lava_rock", () -> new MagmaBlock(PropertyHelper.copyFromBlock(Blocks.MAGMA_BLOCK).lightLevel(state -> 10).color(MaterialColor.COLOR_BLACK)));
+    public static final RegistryObject<Block> PERENNIAL_ICE = RegisterHelper.registerBlock("perennial_ice", () -> PropertyHelper.copyFromBlock(Blocks.BLUE_ICE).strength(3.5F).friction(0.99F));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

@@ -1479,6 +1479,8 @@
   "block.mineworld.wall_hanging_waxed_oxidized_copper_lantern": "Wall Hanging Waxed Oxidized Copper Lantern",
   "block.mineworld.wall_hanging_waxed_oxidized_copper_soul_lantern": "Wall Hanging Waxed Oxidized Copper Soul Lantern",
   "block.mineworld.woodcutter": "Woodcutter",
+  "block.mineworld.lava_rock": "Lava Rock",
+  "block.mineworld.perennial_ice": "Perennial Ice",
   "smithing.mineworld.raw_bronze": "Raw Bronze",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Raw Copper",

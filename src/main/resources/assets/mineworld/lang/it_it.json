@@ -1479,6 +1479,8 @@
   "block.mineworld.wall_hanging_waxed_oxidized_copper_lantern": "Lanterna di rame ossidato cerato appesa al muro",
   "block.mineworld.wall_hanging_waxed_oxidized_copper_soul_lantern": "Lanterna delle anime di rame ossidato cerato appesa al muro",
   "block.mineworld.woodcutter": "Taglialegne",
+  "block.mineworld.lava_rock": "Roccia lavica",
+  "block.mineworld.perennial_ice": "Ghiaccio perenne",
   "smithing.mineworld.raw_bronze": "Bronzo grezzo",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",
