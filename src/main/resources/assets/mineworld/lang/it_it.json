@@ -1513,5 +1513,6 @@
   "splash.mineworld.made_in_italy": "Creato in Italia!",
   "splash.mineworld.birthday": "MineWorld festeggia %d anni oggi!",
   "container.mineworld.woodcutter": "Taglialegne",
-  "stat.mineworld.interacted_with_woodcutter": "Interazioni con i taglialegne"
+  "stat.mineworld.interacted_with_woodcutter": "Interazioni con i taglialegne",
+  "entity.minecraft.villager.mineworld.carpenter": "Carpentiere"
 }

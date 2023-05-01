@@ -46,6 +46,8 @@ public final class MineWorld {
         MWMenuTypes.register(eventBus);
         MWRecipeSerializers.register(eventBus);
         MWRecipeTypes.register(eventBus);
+        MWPoiTypes.register(eventBus);
+        MWVillagerProfessions.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);
@@ -73,6 +75,7 @@ public final class MineWorld {
         event.enqueueWork(RegisterHelper::registerFlowerPots);
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
         event.enqueueWork(RegisterHelper::registerCompostables);
+        event.enqueueWork(MWPoiTypes::registerPOIs);
     }
 
     /**

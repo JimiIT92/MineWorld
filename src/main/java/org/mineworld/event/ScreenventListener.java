@@ -25,13 +25,15 @@ public final class ScreenventListener {
      */
     @SubscribeEvent
     public static void onScreenOpen(final ScreenEvent.Opening event) {
-        final Screen screen = event.getScreen();
-        if(screen instanceof TitleScreen titleScreen) {
-            SplashScreenHelper.getSplashText().ifPresent(text -> titleScreen.splash = text);
-            return;
-        }
-        if(screen instanceof BeaconScreen beaconScreen) {
-            event.setNewScreen(new MWBeaconScreen(beaconScreen));
+        if(!event.isCanceled()) {
+            final Screen screen = event.getScreen();
+            if(screen instanceof TitleScreen titleScreen) {
+                SplashScreenHelper.getSplashText().ifPresent(text -> titleScreen.splash = text);
+                return;
+            }
+            if(screen instanceof BeaconScreen beaconScreen) {
+                event.setNewScreen(new MWBeaconScreen(beaconScreen));
+            }
         }
     }
 }

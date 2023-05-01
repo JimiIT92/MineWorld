@@ -1513,5 +1513,6 @@
   "splash.mineworld.made_in_italy": "Made in Italy!",
   "splash.mineworld.birthday": "MineWorld turns %d years old today!",
   "container.mineworld.woodcutter": "Woodcutter",
-  "stat.mineworld.interacted_with_woodcutter": "Interactions with Woodcutter"
+  "stat.mineworld.interacted_with_woodcutter": "Interactions with Woodcutter",
+  "entity.minecraft.villager.mineworld.carpenter": "Carpenter"
 }

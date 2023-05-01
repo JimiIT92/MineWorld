@@ -1,5 +1,6 @@
 package org.mineworld.helper;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -26,6 +27,8 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -63,6 +66,7 @@ import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -76,6 +80,8 @@ import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWColors;
 import org.mineworld.core.MWItems;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -120,6 +126,14 @@ public final class RegisterHelper {
      * {@link DeferredRegister<RecipeSerializer> The recipe serializer registry}
      */
     private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<PoiType> The villager poi type registry}
+     */
+    private static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<VillagerProfession> The villager poi type registry}
+     */
+    private static final DeferredRegister<VillagerProfession> VILLGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -1481,6 +1495,54 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link PoiType villager poi type}
+     *
+     * @param name {@link String The poi type name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this poi type is referring to}
+     * @return {@link RegistryObject<PoiType> The registered poi type}
+     */
+    public static RegistryObject<PoiType> registerPOIType(final String name, final Supplier<? extends Block> blockSupplier) {
+        return POI_TYPES.register(name, () -> new PoiType(ImmutableSet.copyOf(blockSupplier.get().getStateDefinition().getPossibleStates()), 1, 1));
+    }
+
+    /**
+     * Register {@link MineWorld MineWorld} {@link PoiType villager poi types}
+     *
+     * @param poiTypeSuppliers {@link PoiType The villager poi types to register}
+     */
+    @SafeVarargs
+    public static void registerPOIs(final Supplier<? extends PoiType>... poiTypeSuppliers) {
+        final Method registerMethod = ObfuscationReflectionHelper.findMethod(PoiType.class, "registerBlockStates", PoiType.class);
+        Arrays.stream(poiTypeSuppliers).forEach(poiType -> {
+            try {
+                registerMethod.invoke(null, poiType.get());
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    /**
+     * Register a {@link MineWorld MineWorld} {@link VillagerProfession villager profession}
+     *
+     * @param name {@link String The villager profession name}
+     * @param poiTypeSupplier {@link Supplier<PoiType> The supplier for the villager poi}
+     * @param workSound {@link SoundEvent The sounde vent to play when the villager acquire some work}
+     * @return {@link RegistryObject<VillagerProfession> The registered villager profession}
+     */
+    public static RegistryObject<VillagerProfession> registerVillagerProfession(final String name, final Supplier<? extends PoiType> poiTypeSupplier, final SoundEvent workSound) {
+        return VILLGER_PROFESSIONS.register(name, () -> new VillagerProfession(
+                name,
+                x -> x.get().equals(poiTypeSupplier.get()),
+                x -> x.get().equals(poiTypeSupplier.get()),
+                ImmutableSet.of(),
+                ImmutableSet.of(),
+                workSound
+                )
+        );
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -1602,6 +1664,24 @@ public final class RegisterHelper {
      */
     public static void registerRecipeSerializers(final IEventBus eventBus) {
         RECIPE_SERIALIZERS.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link PoiType villager poi types}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerPOITypes(final IEventBus eventBus) {
+        POI_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link VillagerProfession villager professions}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerVillagerProfessions(final IEventBus eventBus) {
+        VILLGER_PROFESSIONS.register(eventBus);
     }
 
 }
