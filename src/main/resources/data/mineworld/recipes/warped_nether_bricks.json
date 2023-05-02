@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "mineworld:warped_wart"
+    },
+    "X": {
+      "item": "minecraft:nether_brick"
+    }
+  },
+  "pattern": [
+    "#X",
+    "X#"
+  ],
+  "result": {
+    "item": "mineworld:warped_nether_bricks"
+  },
+  "show_notification": true
+}

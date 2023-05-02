@@ -60,7 +60,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      */
     private long lootTableSeed;
     /**
-     * {@link LazyOptional<InvWrapper> The chest item handler}
+     * {@link LazyOptional<InvWrapper> The chest id handler}
      */
     private LazyOptional<?> itemHandler = LazyOptional.of(() -> new InvWrapper(this));
 
@@ -183,9 +183,9 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Get the {@link Item dropped item} when the boat is broken
+     * Get the {@link Item dropped id} when the boat is broken
      *
-     * @return {@link Item The boat dropped item}
+     * @return {@link Item The boat dropped id}
      */
     public @NotNull Item getDropItem() {
         return switch (this.getBoatType()) {
@@ -211,41 +211,41 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Get an item from the chest
+     * Get an id from the chest
      *
      * @param slotId {@link Integer The chest slot id}
-     * @return {@link ItemStack The item stack}
+     * @return {@link ItemStack The id stack}
      */
     public @NotNull ItemStack getItem(final int slotId) {
         return this.getChestVehicleItem(slotId);
     }
 
     /**
-     * Remove an item from the chest
+     * Remove an id from the chest
      *
      * @param slotId {@link Integer The chest slot id}
      * @param amount {@link Integer The amount of items to take}
-     * @return {@link ItemStack The removed item stack}
+     * @return {@link ItemStack The removed id stack}
      */
     public @NotNull ItemStack removeItem(final int slotId, final int amount) {
         return this.removeChestVehicleItem(slotId, amount);
     }
 
     /**
-     * Remove an item from the chest without updating
+     * Remove an id from the chest without updating
      *
      * @param slotId {@link Integer The chest slot id}
-     * @return {@link ItemStack The removed item stack}
+     * @return {@link ItemStack The removed id stack}
      */
     public @NotNull ItemStack removeItemNoUpdate(final int slotId) {
         return this.removeChestVehicleItemNoUpdate(slotId);
     }
 
     /**
-     * Set an item inside the chest
+     * Set an id inside the chest
      *
      * @param slotId {@link Integer The chest slot id}
-     * @param itemStack {@link ItemStack The item stack to set}
+     * @param itemStack {@link ItemStack The id stack to set}
      */
     public void setItem(final int slotId, final @NotNull ItemStack itemStack) {
         this.setChestVehicleItem(slotId, itemStack);

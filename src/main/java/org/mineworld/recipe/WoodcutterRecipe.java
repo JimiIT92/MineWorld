@@ -34,16 +34,16 @@ public class WoodcutterRecipe extends SingleItemRecipe {
      *
      * @param container {@link Container The recipe container}
      * @param level {@link Level The level reference}
-     * @return {@link Boolean True if the input item inside the container matches a recipe}
+     * @return {@link Boolean True if the input id inside the container matches a recipe}
      */
     public boolean matches(final Container container, final @NotNull Level level) {
         return this.ingredient.test(container.getItem(0));
     }
 
     /**
-     * Get the {@link ItemStack item stack to show on recipe unlocks}
+     * Get the {@link ItemStack id stack to show on recipe unlocks}
      *
-     * @return {@link MWBlocks#WOODCUTTER The woodcutter item stack}
+     * @return {@link MWBlocks#WOODCUTTER The woodcutter id stack}
      */
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(MWBlocks.WOODCUTTER.get());

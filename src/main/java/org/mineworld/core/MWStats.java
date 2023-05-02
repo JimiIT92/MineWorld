@@ -12,6 +12,7 @@ import org.mineworld.helper.RegisterHelper;
 public final class MWStats {
 
     public static final RegistryObject<ResourceLocation> INTERACT_WITH_WOODCUTTER = RegisterHelper.registerStatistic("interacted_with_woodcutter");
+    public static final RegistryObject<ResourceLocation> INTERACT_WITH_FORGING_TABLE = RegisterHelper.registerStatistic("interacted_with_forging_table");
 
     /**
      * Register the {@link MineWorld MineWorld} {@link ResourceLocation statistics}

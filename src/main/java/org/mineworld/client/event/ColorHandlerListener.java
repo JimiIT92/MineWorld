@@ -90,7 +90,7 @@ public final class ColorHandlerListener {
     }
 
     /**
-     * Register item coloring for the client side
+     * Register id coloring for the client side
      *
      * @param event {@link RegisterColorHandlersEvent.Item Item register color handlers event}
      */

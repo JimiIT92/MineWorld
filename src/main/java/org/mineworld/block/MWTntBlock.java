@@ -105,7 +105,7 @@ public class MWTntBlock extends TntBlock {
     /**
      * Add tooltips to the disguised tnts
      *
-     * @param itemStack {@link ItemStack The current item stack}
+     * @param itemStack {@link ItemStack The current id stack}
      * @param blockGetter {@link BlockGetter The block getter reference}
      * @param tooltips {@link List<Component> The current tooltips}
      * @param tooltipFlag {@link TooltipFlag The tooltip flag}

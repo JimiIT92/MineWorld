@@ -26,6 +26,7 @@ public final class MWTags {
     public static class Items {
 
         public static final TagKey<Item> LANTERNS = RegisterHelper.registerItemTag("lanterns");
+        public static final TagKey<Item> BOOKSHELVES = RegisterHelper.registerItemTag("bookshelves");
 
     }
 

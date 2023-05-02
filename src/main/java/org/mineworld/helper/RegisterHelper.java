@@ -1,6 +1,7 @@
 package org.mineworld.helper;
 
 import com.google.common.collect.ImmutableSet;
+import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -52,9 +53,9 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -64,6 +65,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
@@ -99,7 +101,7 @@ public final class RegisterHelper {
      */
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MineWorld.MOD_ID);
     /**
-     * {@link DeferredRegister<Item> The item registry}
+     * {@link DeferredRegister<Item> The id registry}
      */
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MineWorld.MOD_ID);
     /**
@@ -135,6 +137,10 @@ public final class RegisterHelper {
      */
     private static final DeferredRegister<VillagerProfession> VILLGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, MineWorld.MOD_ID);
     /**
+     * {@link DeferredRegister<IGlobalLootModifier> The global loot modifier serializers registry}
+     */
+    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERSS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MineWorld.MOD_ID);
+    /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
     private static final HashMap<Supplier<? extends Block>, RegistryObject<Block>> flowerPots = new HashMap<>();
@@ -142,12 +148,12 @@ public final class RegisterHelper {
     //#endregion
 
     /**
-     * Register a {@link Item fuel item}
+     * Register a {@link Item fuel id}
      *
-     * @param name {@link String The item name}
+     * @param name {@link String The id name}
      * @param burnTime {@link Integer The fuel burn time} in seconds
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerFuelItem(final String name, final int burnTime, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags)) {
@@ -168,68 +174,82 @@ public final class RegisterHelper {
     /**
      * Create a basic {@link SmithingTemplateItem smithing template}
      *
-     * @param name {@link String The item name}
+     * @param name {@link String The id name}
      * @param templateName {@link String The smithing template name}
      * @param baseSlotIcon {@link ResourceLocation Icon to show inside the base slot}
      * @param additionSlotIcon {@link ResourceLocation Icon to show inside the additions slot}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerSmithingTemplate(final String name, final String templateName, final String baseSlotIcon, final String additionSlotIcon) {
         return registerSmithingTemplate(name, templateName,
-                List.of(new ResourceLocation(MineWorld.MOD_ID, "item/empty_slot_" + baseSlotIcon)),
-                List.of(new ResourceLocation(MineWorld.MOD_ID, "item/empty_slot_" + additionSlotIcon)));
+                List.of(new ResourceLocation(MineWorld.MOD_ID, "id/empty_slot_" + baseSlotIcon)),
+                List.of(new ResourceLocation(MineWorld.MOD_ID, "id/empty_slot_" + additionSlotIcon)));
     }
 
     /**
      * Create a basic {@link SmithingTemplateItem smithing template}
      *
-     * @param name {@link String The item name}
+     * @param name {@link String The id name}
      * @param templateName {@link String The smithing template name}
      * @param baseSlotIcons {@link List<ResourceLocation> List of icons to show inside the base slot}
      * @param additionSlotIcons {@link List<ResourceLocation> List of icons to show inside the additions slot}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     static RegistryObject<Item> registerSmithingTemplate(final String name,final String templateName, final List<ResourceLocation> baseSlotIcons, final List<ResourceLocation> additionSlotIcons) {
         return registerItem(name, () -> new SmithingTemplateItem(
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".applies_to"))).withStyle(ChatFormatting.BLUE),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".ingredients"))).withStyle(ChatFormatting.BLUE),
+                Component.translatable(Util.makeDescriptionId("id", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".applies_to"))).withStyle(ChatFormatting.BLUE),
+                Component.translatable(Util.makeDescriptionId("id", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".ingredients"))).withStyle(ChatFormatting.BLUE),
                 Component.translatable(Util.makeDescriptionId("upgrade", new ResourceLocation(MineWorld.MOD_ID, templateName))).withStyle(ChatFormatting.GRAY),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".base_slot_description"))),
-                Component.translatable(Util.makeDescriptionId("item", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".additions_slot_description"))),
+                Component.translatable(Util.makeDescriptionId("id", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".base_slot_description"))),
+                Component.translatable(Util.makeDescriptionId("id", new ResourceLocation(MineWorld.MOD_ID, "smithing_template." + templateName + ".additions_slot_description"))),
                 baseSlotIcons,
                 additionSlotIcons
         ));
     }
 
     /**
-     * Register a {@link ItemNameBlockItem name block item}, which is an Item that can place a block
-     * (like a bucket or a seed item)
+     * Register a {@link ItemNameBlockItem name block id}, which is an Item that can place a block
+     * (like a bucket or a seed id)
      *
-     * @param name {@link String The item name}
-     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the item will place}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param name {@link String The id name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the id will place}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)));
     }
 
     /**
-     * Register a {@link ItemNameBlockItem name block item}, which is an Item that can place a block
-     * (like a bucket or a seed item) that has a special item renderer (like the chest block item)
+     * Register a {@link ItemNameBlockItem name block id}, which is an Item that can place a block
+     * (like a bucket or a seed id) and that can also be eaten
      *
-     * @param name {@link String The item name}
-     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the item will place}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param name {@link String The id name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the id will place}
+     * @param food {@link FoodProperties The food properties}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
+     */
+    public static RegistryObject<Item> registerFoodBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FoodProperties food, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags).food(food)));
+    }
+
+    /**
+     * Register a {@link ItemNameBlockItem name block id}, which is an Item that can place a block
+     * (like a bucket or a seed id) that has a special id renderer (like the chest block id)
+     *
+     * @param name {@link String The id name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the id will place}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerSpecialRendererBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)) {
 
             /**
-             * Initialize the item client rendering
+             * Initialize the id client rendering
              *
-             * @param consumer {@link Consumer<IClientItemExtensions> The client item extensions renderer consumer}
+             * @param consumer {@link Consumer<IClientItemExtensions> The client id extensions renderer consumer}
              */
             @Override
             public void initializeClient(final @NotNull Consumer<IClientItemExtensions> consumer) {
@@ -244,37 +264,37 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link FoodProperties food item}
+     * Register a {@link FoodProperties food id}
      *
-     * @param name {@link String The item name}
+     * @param name {@link String The id name}
      * @param foodProperties {@link FoodProperties The food properties}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerFoodItem(final String name, final FoodProperties foodProperties, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags).food(foodProperties)));
     }
 
     /**
-     * Register an {@link ArmorItem armor item}
+     * Register an {@link ArmorItem armor id}
      *
-     * @param name {@link String The item name}
+     * @param name {@link String The id name}
      * @param armorMaterial {@link ArmorMaterial The armor material}
-     * @param slot {@link ArmorItem.Type The armor item type}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param slot {@link ArmorItem.Type The armor id type}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerArmorItem(final String name, final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ArmorItem(armorMaterial, slot, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
     /**
-     * Register a {@link HorseArmorItem horse armor item}
+     * Register a {@link HorseArmorItem horse armor id}
      *
      * @param materialName {@link String The armor material name}
      * @param protection {@link Integer The armor protection amount}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerHorseArmorItem(final String materialName, final int protection, final FeatureFlag... featureFlags) {
         final ResourceLocation textureLocation = new ResourceLocation(MineWorld.MOD_ID, "textures/entity/horse/armor/horse_armor_" + materialName + ".png");
@@ -284,10 +304,10 @@ public final class RegisterHelper {
     /**
      * Register a {@link SwordItem sword}
      *
-     * @param name {@link String The item name}
-     * @param tier {@link Tier The item tier}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param name {@link String The id name}
+     * @param tier {@link Tier The id tier}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerSword(final String name, final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new SwordItem(tier, 3, -2.4F, PropertyHelper.basicItemProperties(featureFlags)));
@@ -296,10 +316,10 @@ public final class RegisterHelper {
     /**
      * Register a {@link ShovelItem shovel}
      *
-     * @param name {@link String The item name}
-     * @param tier {@link Tier The item tier}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param name {@link String The id name}
+     * @param tier {@link Tier The id tier}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerShovel(final String name, final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ShovelItem(tier, 1.5F, -3.0F, PropertyHelper.basicItemProperties(featureFlags)));
@@ -308,10 +328,10 @@ public final class RegisterHelper {
     /**
      * Register a {@link PickaxeItem pickaxe}
      *
-     * @param name {@link String The item name}
-     * @param tier {@link Tier The item tier}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param name {@link String The id name}
+     * @param tier {@link Tier The id tier}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerPickaxe(final String name, final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new PickaxeItem(tier, 1, -2.8F, PropertyHelper.basicItemProperties(featureFlags)));
@@ -320,12 +340,12 @@ public final class RegisterHelper {
     /**
      * Register a {@link AxeItem axe}
      *
-     * @param name {@link String The item name}
-     * @param tier {@link Tier The item tier}
+     * @param name {@link String The id name}
+     * @param tier {@link Tier The id tier}
      * @param attackDamageBonus {@link Float The axe attack damage bonus}
      * @param attackSpeed {@link Float The axe attack speed}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerAxe(final String name, final Tier tier, final float attackDamageBonus, final float attackSpeed, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new AxeItem(tier, attackDamageBonus, attackSpeed, PropertyHelper.basicItemProperties(featureFlags)));
@@ -334,11 +354,11 @@ public final class RegisterHelper {
     /**
      * Register a {@link HoeItem hoe}
      *
-     * @param name {@link String The item name}
-     * @param tier {@link Tier The item tier}
+     * @param name {@link String The id name}
+     * @param tier {@link Tier The id tier}
      * @param attackSpeed {@link Float The hoe attack speed}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerHoe(final String name, final Tier tier, final float attackSpeed, final FeatureFlag... featureFlags) {
         final ForgeTier hoeTier = new ForgeTier(tier.getLevel(), tier.getUses(), tier.getSpeed(), 0, tier.getEnchantmentValue(), tier.getTag(), tier::getRepairIngredient);
@@ -346,22 +366,22 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a basic {@link Item item}
+     * Register a basic {@link Item id}
      *
-     * @param name {@link String The item name}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param name {@link String The id name}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerItem(final String name, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags)));
     }
 
     /**
-     * Register an {@link Item item}
+     * Register an {@link Item id}
      *
-     * @param name {@link String The item name}
-     * @param itemSupplier {@link Supplier<Item> The item supplier}
-     * @return {@link RegistryObject<Item> The registered item}
+     * @param name {@link String The id name}
+     * @param itemSupplier {@link Supplier<Item> The id supplier}
+     * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerItem(final String name, final Supplier<? extends Item> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
@@ -457,12 +477,12 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link Block block fuel item}
+     * Register a {@link Block block fuel id}
      *
-     * @param name          {@link String The item name}
-     * @param blockSupplier {@link Block The supplier for the block referred from this item}
+     * @param name          {@link String The id name}
+     * @param blockSupplier {@link Block The supplier for the block referred from this id}
      * @param burnTime      {@link Integer The fuel burn time} in seconds
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
      */
     static void registerFuelBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final int burnTime, final FeatureFlag... featureFlags) {
         registerItem(name, () -> new BlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)) {
@@ -1160,10 +1180,10 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link BlockItem block item}
+     * Register a {@link BlockItem block id}
      *
      * @param name  {@link String The block name}
-     * @param block {@link RegistryObject<Block> The supplier for the block the item is referring to}
+     * @param block {@link RegistryObject<Block> The supplier for the block the id is referring to}
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      */
     static void registerBlockItem(final String name, final RegistryObject<? extends Block> block, final FeatureFlag... featureFlags) {
@@ -1171,7 +1191,7 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link Block block} without also registering a {@link BlockItem block item}
+     * Register a {@link Block block} without also registering a {@link BlockItem block id}
      *
      * @param name {@link String The block name}
      * @param blockSupplier {@link Supplier<Block> The supplier for the block to register}
@@ -1257,6 +1277,17 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link Feature#RANDOM_PATCH random patch feature}
+     *
+     * @param context {@link BootstapContext<ConfiguredFeature> The bootstrap context}
+     * @param key {@link ResourceKey The configured feature resource key}
+     * @param blockStateSupplier {@link Supplier<BlockState> The supplier for the block state to place}
+     */
+    public static void registerRandomPatchConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<BlockState> blockStateSupplier) {
+        FeatureUtils.register(context, key, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(blockStateSupplier.get())), List.of(Blocks.GRASS_BLOCK)));
+    }
+
+    /**
      * Register a common ore using the {@link HeightRangePlacement#triangle triangle height range placement}
      * with the {@link VerticalAnchor#absolute absolute values set}
      *
@@ -1306,6 +1337,17 @@ public final class RegisterHelper {
      * @param context {@link BootstapContext<PlacedFeature> The bootstrap context}
      * @param key {@link ResourceKey<PlacedFeature> The placed feature resource key}
      * @param configuredFeatureHolder {@link Holder<ConfiguredFeature> The configured feature that this placed feature will place}
+     */
+    public static void registerPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder) {
+        PlacementUtils.register(context, key, configuredFeatureHolder);
+    }
+
+    /**
+     * Register a {@link PlacedFeature placed feature}
+     *
+     * @param context {@link BootstapContext<PlacedFeature> The bootstrap context}
+     * @param key {@link ResourceKey<PlacedFeature> The placed feature resource key}
+     * @param configuredFeatureHolder {@link Holder<ConfiguredFeature> The configured feature that this placed feature will place}
      * @param placementModifiers {@link List<PlacementModifier> The placement modifiers}
      */
     public static void registerPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder, final List<PlacementModifier> placementModifiers) {
@@ -1313,13 +1355,25 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link PlacedFeature patch placed feature}
+     *
+     * @param context {@link BootstapContext<PlacedFeature> The boostrap context}
+     * @param key {@link ResourceKey<PlacedFeature> The placed feature resource key}
+     * @param configuredFeatureHolder {@link Holder<ConfiguredFeature> The configured feature that this placed feature will place}
+     * @param averageCount {@link Integer The average chunk count for the placement}
+     */
+    public static void registerPatchPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder, final int averageCount) {
+        registerPlacedFeature(context, key, configuredFeatureHolder, List.of(RarityFilter.onAverageOnceEvery(averageCount), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+    }
+
+    /**
      * Register a {@link TrimMaterial trim material} with darker variants
      *
      * @param context {@link BootstapContext<TrimMaterial> The bootstrap context}
      * @param resourceKey {@link ResourceKey<TrimMaterial> The trim material resource key}
-     * @param material {@link Item The item used to apply the trim material}
-     * @param color {@link MWColors The text color for the item tooltip}
-     * @param itemModelIndex {@link Float The index value for the item model override}
+     * @param material {@link Item The id used to apply the trim material}
+     * @param color {@link MWColors The text color for the id tooltip}
+     * @param itemModelIndex {@link Float The index value for the id model override}
      * @param darkerVariants {@link Map The map of trim materials to be applied when the armor matches a specific armor material}
      */
     public static void registerTrimMaterial(final BootstapContext<TrimMaterial> context, final ResourceKey<TrimMaterial> resourceKey, final Item material, final MWColors color, final float itemModelIndex, final ArmorMaterials... darkerVariants) {
@@ -1343,7 +1397,7 @@ public final class RegisterHelper {
      * @param event {@link CreativeModeTabEvent.Register Creative mode tab register event}
      * @param name {@link String The tab name}
      * @param afterTab After which {@link CreativeModeTab creative tab} this tab should appear
-     * @param iconSupplier {@link Supplier<ItemStack> The icon supplier}. Determines which {@link Item item} to use as tab icon
+     * @param iconSupplier {@link Supplier<ItemStack> The icon supplier}. Determines which {@link Item id} to use as tab icon
      * @return {@link CreativeModeTab The registered creative mode tab}
      */
     public static CreativeModeTab registerCreativeTab(final CreativeModeTabEvent.Register event, final String name, final CreativeModeTab afterTab, final Supplier<ItemStack> iconSupplier) {
@@ -1412,7 +1466,7 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link TagKey<Item> item tag}
+     * Register a {@link TagKey<Item> id tag}
      *
      * @param name {@link String The tag name}
      */
@@ -1444,7 +1498,7 @@ public final class RegisterHelper {
      * Register a {@link DispenseItemBehavior dispense behavior}
      *
      * @param dispenseItemBehavior {@link DispenseItemBehavior The dispense behavior to register}
-     * @param item {@link Supplier<ItemLike> The item to apply the dispense behavior}
+     * @param item {@link Supplier<ItemLike> The id to apply the dispense behavior}
      */
     static void registerDispenseBehavior(final DispenseItemBehavior dispenseItemBehavior, final Supplier<? extends ItemLike> item) {
         DispenserBlock.registerBehavior(item.get(), dispenseItemBehavior);
@@ -1543,6 +1597,17 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link IGlobalLootModifier loot modifier}
+     *
+     * @param name {@link String The loot modifier name}
+     * @param codecSupplier {@link Supplier<IGlobalLootModifier> The loot modifier codec supplier}
+     * @return {@link RegistryObject<IGlobalLootModifier> The registered loot modifier}
+     */
+    public static <T extends IGlobalLootModifier> RegistryObject<Codec<T>> registerLootModifier(final String name, Supplier<Codec<T>> codecSupplier) {
+        return LOOT_MODIFIER_SERIALIZERSS.register(name, codecSupplier);
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -1574,12 +1639,13 @@ public final class RegisterHelper {
         registerCompostable(MWBlocks.WHITE_ROSE.get(), 0.65F);
         registerCompostable(MWBlocks.WHITE_ROSE_BUSH.get(), 0.65F);
         registerCompostable(MWItems.CORN_SEEDS.get(), 0.3F);
+        registerCompostable(MWItems.BLUEBERRIES.get(), 0.3F);
     }
 
     /**
-     * Register a {@link ItemLike compostable item}
+     * Register a {@link ItemLike compostable id}
      *
-     * @param item {@link ItemLike The item to register}
+     * @param item {@link ItemLike The id to register}
      * @param chance {@link Float The compostable chance}
      */
     static void registerCompostable(final ItemLike item, final float chance) {
@@ -1682,6 +1748,15 @@ public final class RegisterHelper {
      */
     public static void registerVillagerProfessions(final IEventBus eventBus) {
         VILLGER_PROFESSIONS.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link IGlobalLootModifier global loot modifiers}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerLootModifiers(final IEventBus eventBus) {
+        LOOT_MODIFIER_SERIALIZERSS.register(eventBus);
     }
 
 }

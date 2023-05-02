@@ -37,12 +37,12 @@ public final class EntityInteractEventListener {
     }
 
     /**
-     * Cancel the {@link PlayerInteractEvent.EntityInteractSpecific event} and damage the {@link ItemStack used item stack}
+     * Cancel the {@link PlayerInteractEvent.EntityInteractSpecific event} and damage the {@link ItemStack used id stack}
      *
      * @param event {@link PlayerInteractEvent.EntityInteractSpecific The entity interact specific event}
      * @param result {@link InteractionResult The interaction result}
      * @param player {@link Player The player interacting with the entity}
-     * @param itemStack {@link ItemStack The item stack used to interact}
+     * @param itemStack {@link ItemStack The id stack used to interact}
      */
     private static void cancelEvent(final PlayerInteractEvent.EntityInteractSpecific event, final InteractionResult result, final Player player, final ItemStack itemStack) {
         ItemHelper.hurt(itemStack, player);
@@ -51,12 +51,12 @@ public final class EntityInteractEventListener {
     }
 
     /**
-     * Toggle invisibility on an {@link ItemFrame item frame} when shift-right clicked with some shears
+     * Toggle invisibility on an {@link ItemFrame id frame} when shift-right clicked with some shears
      *
      * @param event {@link PlayerInteractEvent.EntityInteractSpecific The entity interact specific event}
-     * @param player {@link Player The player interacting with the item frame}
-     * @param itemFrame {@link ItemFrame The item frame being interacted}
-     * @param itemStack {@link ItemStack The item stack used to interact}
+     * @param player {@link Player The player interacting with the id frame}
+     * @param itemFrame {@link ItemFrame The id frame being interacted}
+     * @param itemStack {@link ItemStack The id stack used to interact}
      */
     private static void handleItemFrameInteraction(final PlayerInteractEvent.EntityInteractSpecific event, final Player player, final ItemFrame itemFrame, final ItemStack itemStack) {
         if(!player.isShiftKeyDown()) {

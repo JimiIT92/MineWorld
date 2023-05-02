@@ -4,6 +4,7 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.mineworld.MineWorld;
+import org.mineworld.block.BlueberryBushBlock;
 import org.mineworld.helper.KeyHelper;
 import org.mineworld.helper.RegisterHelper;
 
@@ -20,6 +21,7 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = KeyHelper.registerConfiguredFeatureKey("ore_sapphire");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_PYRITE = KeyHelper.registerConfiguredFeatureKey("ore_pyrite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MARBLE = KeyHelper.registerConfiguredFeatureKey("ore_marble");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_BUSH = KeyHelper.registerConfiguredFeatureKey("patch_blueberry_bush.json");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -35,6 +37,7 @@ public final class MWConfiguredFeatures {
         RegisterHelper.registerOverworldOreConfiguredFeature(context, ORE_SAPPHIRE, MWBlocks.SAPPHIRE_ORE, MWBlocks.DEEPSLATE_SAPPHIRE_ORE, 3);
         RegisterHelper.registerOverworldOreConfiguredFeature(context, ORE_MARBLE, MWBlocks.MARBLE, 16);
         RegisterHelper.registerNetherOreConfiguredFeature(context, ORE_PYRITE, MWBlocks.PYRITE_ORE, 17);
+        RegisterHelper.registerRandomPatchConfiguredFeature(context, PATCH_BLUEBERRY_BUSH, () -> MWBlocks.BLUEBERRY_BUSH.get().defaultBlockState().setValue(BlueberryBushBlock.AGE, 3));
     }
 
 }

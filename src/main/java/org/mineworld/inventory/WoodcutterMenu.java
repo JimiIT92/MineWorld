@@ -43,7 +43,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      */
     private List<WoodcutterRecipe> recipes = Lists.newArrayList();
     /**
-     * {@link ItemStack The input slot item stack}
+     * {@link ItemStack The input slot id stack}
      */
     private ItemStack input = ItemStack.EMPTY;
     /**
@@ -120,9 +120,9 @@ public class WoodcutterMenu extends AbstractContainerMenu {
         this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
 
             /**
-             * Check if an {@link ItemStack item stack} can be placed into the slot
+             * Check if an {@link ItemStack id stack} can be placed into the slot
              *
-             * @param itemStack {@link ItemStack The item stack to place inside the slot}
+             * @param itemStack {@link ItemStack The id stack to place inside the slot}
              * @return {@link Boolean False}
              */
             public boolean mayPlace(final @NotNull ItemStack itemStack) {
@@ -205,9 +205,9 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     }
 
     /**
-     * Check if the screen has an input item
+     * Check if the screen has an input id
      *
-     * @return {@link Boolean True if the input slot has an item and a recipe associated}
+     * @return {@link Boolean True if the input slot has an id and a recipe associated}
      */
     public boolean hasInputItem() {
         return this.inputSlot.hasItem() && this.hasRecipes();
@@ -271,10 +271,10 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     }
 
     /**
-     * Setup the recipes associated with the provided {@link ItemStack item stack}
+     * Setup the recipes associated with the provided {@link ItemStack id stack}
      *
      * @param container {@link Container The screen container}
-     * @param itemStack {@link ItemStack The input item stack}
+     * @param itemStack {@link ItemStack The input id stack}
      */
     private void setupRecipeList(final Container container, final ItemStack itemStack) {
         this.recipes.clear();
@@ -323,22 +323,22 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     }
 
     /**
-     * Check if an {@link ItemStack item stack} can be quickly taken from a {@link Slot slot}
+     * Check if an {@link ItemStack id stack} can be quickly taken from a {@link Slot slot}
      *
-     * @param itemStack {@link ItemStack The item stack to take}
-     * @param slot {@link Slot The slot to take the item stack from}
-     * @return {@link Boolean True if the item stack can be quickly taken}
+     * @param itemStack {@link ItemStack The id stack to take}
+     * @param slot {@link Slot The slot to take the id stack from}
+     * @return {@link Boolean True if the id stack can be quickly taken}
      */
     public boolean canTakeItemForPickAll(final @NotNull ItemStack itemStack, final Slot slot) {
         return slot.container != this.resultContainer && super.canTakeItemForPickAll(itemStack, slot);
     }
 
     /**
-     * Quickly move an {@link ItemStack item stack} into or from a slot
+     * Quickly move an {@link ItemStack id stack} into or from a slot
      *
-     * @param player {@link Player The player moving the item stack}
+     * @param player {@link Player The player moving the id stack}
      * @param slotId {@link Integer The id of the slot to move into or from}
-     * @return {@link ItemStack The moved item stack}
+     * @return {@link ItemStack The moved id stack}
      */
     public @NotNull ItemStack quickMoveStack(final @NotNull Player player, final int slotId) {
         ItemStack itemStack = ItemStack.EMPTY;

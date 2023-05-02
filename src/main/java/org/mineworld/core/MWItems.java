@@ -234,7 +234,7 @@ public final class MWItems {
     public static final RegistryObject<Item> SUPER_TNT_MINECART = RegisterHelper.registerItem("super_tnt_minecart", () -> new MWTNTMinecartItem(MWMinecartItem.Type.SUPER_TNT, MWPrimedTnt.Type.SUPER));
     public static final RegistryObject<Item> HYPER_TNT_MINECART = RegisterHelper.registerItem("hyper_tnt_minecart", () -> new MWTNTMinecartItem(MWMinecartItem.Type.HYPER_TNT, MWPrimedTnt.Type.HYPER));
     public static final RegistryObject<Item> WARPED_WART = RegisterHelper.registerBlockItem("warped_wart", MWBlocks.WARPED_WART);
-    public static final RegistryObject<Item> BLUE_NETHER_BRICKS_PEBBLE = RegisterHelper.registerItem("blue_nether_bricks_pebble", () -> new PebbleItem(MWBlocks.BLUE_NETHER_BRICKS_PEBBLE.get()));
+    public static final RegistryObject<Item> WARPED_NETHER_BRICKS_PEBBLE = RegisterHelper.registerItem("warped_nether_bricks_pebble", () -> new PebbleItem(MWBlocks.WARPED_NETHER_BRICKS_PEBBLE.get()));
     public static final RegistryObject<Item> SPRUCE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("spruce_chest", MWBlocks.SPRUCE_CHEST);
     public static final RegistryObject<Item> SPRUCE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("spruce_trapped_chest", MWBlocks.SPRUCE_TRAPPED_CHEST);
     public static final RegistryObject<Item> SPRUCE_CHEST_MINECART = RegisterHelper.registerItem("spruce_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.SPRUCE_CHEST));
@@ -269,6 +269,7 @@ public final class MWItems {
     public static final RegistryObject<Item> CRIMSON_CHEST_BOAT = RegisterHelper.registerItem("crimson_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.CRIMSON));
     public static final RegistryObject<Item> WARPED_BOAT = RegisterHelper.registerItem("warped_boat", () -> new MWBoatItem(false, MWBoat.Type.WARPED));
     public static final RegistryObject<Item> WARPED_CHEST_BOAT = RegisterHelper.registerItem("warped_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.WARPED));
+    public static final RegistryObject<Item> BLUEBERRIES = RegisterHelper.registerFoodBlockItem("blueberries", MWBlocks.BLUEBERRY_BUSH, MWFoods.BLUEBERRIES);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

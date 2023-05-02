@@ -207,14 +207,14 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
     }
 
     /**
-     * Get the {@link ItemStack item stack} for the inventory when the {@link Player player} middle mouse click the block
+     * Get the {@link ItemStack id stack} for the inventory when the {@link Player player} middle mouse click the block
      *
      * @param blockState {@link BlockState The current block state}
      * @param hitResult {@link HitResult The hit result}
      * @param blockGetter {@link BlockGetter The block getter reference}
      * @param blockPos {@link BlockPos The current block pos}
      * @param player {@link Player The player who is middle mouse clicking}
-     * @return {@link ItemStack The block item stack}
+     * @return {@link ItemStack The block id stack}
      */
     @Override
     public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final BlockGetter blockGetter, final BlockPos blockPos, final Player player) {

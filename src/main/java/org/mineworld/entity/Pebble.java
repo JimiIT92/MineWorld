@@ -55,9 +55,9 @@ public class Pebble extends ThrowableItemProjectile {
     }
 
     /**
-     * Get the {@link Item default item} if is not set
+     * Get the {@link Item default id} if is not set
      *
-     * @return {@link MWItems#STONE_PEBBLE The stone pebble item}
+     * @return {@link MWItems#STONE_PEBBLE The stone pebble id}
      */
     @Override
     protected @NotNull Item getDefaultItem() {

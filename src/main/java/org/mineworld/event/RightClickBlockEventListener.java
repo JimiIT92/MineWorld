@@ -75,7 +75,7 @@ public final class RightClickBlockEventListener {
     }
 
     /**
-     * Handle the interaction on a block with an item
+     * Handle the interaction on a block with an id
      *
      * @param event {@link PlayerInteractEvent.EntityInteractSpecific.RightClickBlock The entity interact right click block event }
      */
@@ -131,7 +131,7 @@ public final class RightClickBlockEventListener {
      * @param level {@link Level The level reference}
      * @param clickedPos {@link BlockPos The clicked block pos}
      * @param player {@link Player The player interacting with the block}
-     * @param itemStack {@link ItemStack The item stack used to interact with the block}
+     * @param itemStack {@link ItemStack The id stack used to interact with the block}
      */
     private static void handleHollowLog(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack) {
         if(player.isShiftKeyDown()) {
@@ -157,7 +157,7 @@ public final class RightClickBlockEventListener {
      * @param level {@link Level The level reference}
      * @param clickedPos {@link BlockPos The clicked block pos}
      * @param player {@link Player The player interacting with the block}
-     * @param itemStack {@link ItemStack The item stack used to interact with the block}
+     * @param itemStack {@link ItemStack The id stack used to interact with the block}
      */
     private static void handleWallHangingLantern(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack) {
         final Direction direction = event.getFace();

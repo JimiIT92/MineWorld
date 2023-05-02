@@ -59,12 +59,12 @@ public abstract class RopeBodyBlock extends AbstractRopeBlock {
     }
 
     /**
-     * Get the {@link ItemStack block item stack}
+     * Get the {@link ItemStack block id stack}
      *
      * @param blockGetter {@link BlockGetter The block getter reference}
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
-     * @return {@link ItemStack The block item stack}
+     * @return {@link ItemStack The block id stack}
      */
     public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         return new ItemStack(this.getHeadBlock());

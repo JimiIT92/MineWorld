@@ -20,12 +20,12 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * {@link MineWorld MineWorld} {@link DispenseItemBehavior dispense item behaviors}
+ * {@link MineWorld MineWorld} {@link DispenseItemBehavior dispense id behaviors}
  */
 public final class MWDispenseBehaviors {
 
     /**
-     * Register the {@link DispenseItemBehavior dispense item behaviors}
+     * Register the {@link DispenseItemBehavior dispense id behaviors}
      */
     public static void registerDispenseBehaviors() {
         RegisterHelper.registerDispenseBehaviors(Map.of(

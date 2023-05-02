@@ -1158,15 +1158,15 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ROPE_TAIL = RegisterHelper.registerBlockWithoutBlockItem("rope_tail", RopeTailBlock::new);
     public static final RegistryObject<Block> WARPED_WART = RegisterHelper.registerBlockWithoutBlockItem("warped_wart", WarpedWartBlock::new);
     public static final RegistryObject<Block> POTTED_WARPED_WART = RegisterHelper.registerFlowerPot("potted_warped_wart", WARPED_WART);
-    public static final RegistryObject<Block> BLUE_NETHER_BRICKS = RegisterHelper.registerBlock("blue_nether_bricks", () -> PropertyHelper.copyFromBlock(Blocks.NETHER_BRICKS));
-    public static final RegistryObject<Block> CRACKED_BLUE_NETHER_BRICKS = RegisterHelper.registerBlock("cracked_blue_nether_bricks", () -> PropertyHelper.copyFromBlock(BLUE_NETHER_BRICKS.get()));
-    public static final RegistryObject<Block> CHISELED_BLUE_NETHER_BRICKS = RegisterHelper.registerBlock("chiseled_blue_nether_bricks", () -> PropertyHelper.copyFromBlock(BLUE_NETHER_BRICKS.get()));
-    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_STAIRS = RegisterHelper.registerStair("blue_nether_bricks_stairs", () -> BLUE_NETHER_BRICKS.get().defaultBlockState());
-    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_SLAB = RegisterHelper.registerSlab("blue_nether_bricks_slab", BLUE_NETHER_BRICKS);
-    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_WALL = RegisterHelper.registerWall("blue_nether_bricks_wall", BLUE_NETHER_BRICKS);
-    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blue_nether_bricks_pressure_plate", false, MaterialColor.WARPED_WART_BLOCK, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_BUTTON = RegisterHelper.registerButton("blue_nether_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_NETHER_BRICKS_PEBBLE = RegisterHelper.registerPebble("blue_nether_bricks_pebble", BLUE_NETHER_BRICKS);
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS = RegisterHelper.registerBlock("warped_nether_bricks", () -> PropertyHelper.copyFromBlock(Blocks.NETHER_BRICKS));
+    public static final RegistryObject<Block> CRACKED_WARPED_NETHER_BRICKS = RegisterHelper.registerBlock("cracked_warped_nether_bricks", () -> PropertyHelper.copyFromBlock(WARPED_NETHER_BRICKS.get()));
+    public static final RegistryObject<Block> CHISELED_WARPED_NETHER_BRICKS = RegisterHelper.registerBlock("chiseled_warped_nether_bricks", () -> PropertyHelper.copyFromBlock(WARPED_NETHER_BRICKS.get()));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_STAIRS = RegisterHelper.registerStair("warped_nether_bricks_stairs", () -> WARPED_NETHER_BRICKS.get().defaultBlockState());
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_SLAB = RegisterHelper.registerSlab("warped_nether_bricks_slab", WARPED_NETHER_BRICKS);
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_WALL = RegisterHelper.registerWall("warped_nether_bricks_wall", WARPED_NETHER_BRICKS);
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("warped_nether_bricks_pressure_plate", false, MaterialColor.WARPED_WART_BLOCK, BlockSetType.STONE);
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_BUTTON = RegisterHelper.registerButton("warped_nether_bricks_button", false, BlockSetType.STONE);
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PEBBLE = RegisterHelper.registerPebble("warped_nether_bricks_pebble", WARPED_NETHER_BRICKS);
     public static final RegistryObject<Block> HOLLOW_OAK_LOG = RegisterHelper.registerBlock("hollow_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> HOLLOW_STRIPPED_OAK_LOG = RegisterHelper.registerBlock("hollow_stripped_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_OAK_LOG)));
     public static final RegistryObject<Block> OAK_LEAVES_CARPET = RegisterHelper.registerBlock("oak_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.OAK_LEAVES)));
@@ -1323,6 +1323,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WOODCUTTER = RegisterHelper.registerBlock("woodcutter", WoodcutterBlock::new);
     public static final RegistryObject<Block> LAVA_ROCK = RegisterHelper.registerBlock("lava_rock", () -> new MagmaBlock(PropertyHelper.copyFromBlock(Blocks.MAGMA_BLOCK).lightLevel(state -> 10).color(MaterialColor.COLOR_BLACK)));
     public static final RegistryObject<Block> PERENNIAL_ICE = RegisterHelper.registerBlock("perennial_ice", () -> PropertyHelper.copyFromBlock(Blocks.BLUE_ICE).strength(3.5F).friction(0.99F));
+    public static final RegistryObject<Block> BLUEBERRY_BUSH = RegisterHelper.registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

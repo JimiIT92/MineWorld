@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_pressed",
-  "textures": {
-    "texture": "mineworld:block/blue_nether_bricks"
-  }
-}

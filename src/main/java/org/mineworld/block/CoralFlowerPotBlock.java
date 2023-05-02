@@ -69,7 +69,7 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
      * @param player {@link Player The player who interacted with the flower pot}
      * @param hand {@link InteractionHand The hand the player has interacted with}
      * @param hitResult {@link BlockHitResult The hit result for the block interaction}
-     * @return {@link InteractionResult The interaction result based on the item in the player's hand}
+     * @return {@link InteractionResult The interaction result based on the id in the player's hand}
      */
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {

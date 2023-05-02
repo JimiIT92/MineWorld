@@ -17,12 +17,12 @@ import org.mineworld.entity.Pebble;
 import org.mineworld.helper.PropertyHelper;
 
 /**
- * Implementation class for a throwable {@link PebbleBlock pebble item}
+ * Implementation class for a throwable {@link PebbleBlock pebble id}
  */
 public class PebbleItem extends ItemNameBlockItem {
 
     /**
-     * Constructor. Set the item properties
+     * Constructor. Set the id properties
      *
      * @param pebbleBlock {@link Block The pebble block to be placed when right clicking on a block}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
@@ -32,7 +32,7 @@ public class PebbleItem extends ItemNameBlockItem {
     }
 
     /**
-     * Shoot the pebble on item right click
+     * Shoot the pebble on id right click
      *
      * @param level {@link Level The world reference}
      * @param player {@link Player The player that is shooting the pebble}

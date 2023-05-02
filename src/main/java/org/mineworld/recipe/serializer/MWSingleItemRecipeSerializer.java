@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 
 /**
- * {@link MineWorld MineWorld} {@link SingleItemRecipe single item recipe} serializer
+ * {@link MineWorld MineWorld} {@link SingleItemRecipe single id recipe} serializer
  * @param <T> {@link T The recipe type}
  */
 public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements RecipeSerializer<T> {
@@ -85,7 +85,7 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
     }
 
     /**
-     * Interface for a {@link SingleItemRecipe single item recipe maker}
+     * Interface for a {@link SingleItemRecipe single id recipe maker}
      *
      * @param <T> {@link T The recipe type}
      */

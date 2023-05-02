@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:taiga",
+  "features": "mineworld:patch_blueberry_bush_placed",
+  "step": "vegetal_decoration"
+}

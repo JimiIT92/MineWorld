@@ -25,6 +25,11 @@ minecraft {
             }
         }
 
+        clientAlt {
+            parent runs.client
+            args '--username', 'Dev####'
+        }
+
         server {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'

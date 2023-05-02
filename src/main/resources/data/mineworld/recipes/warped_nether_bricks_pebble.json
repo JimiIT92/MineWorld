@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 16,
+  "ingredient": {
+    "item": "mineworld:warped_nether_bricks"
+  },
+  "result": "mineworld:warped_nether_bricks_pebble"
+}

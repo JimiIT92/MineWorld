@@ -1,0 +1,72 @@
+{
+  "type": "mineworld:add_items",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/village/village_weaponsmith"
+    }
+  ],
+  "entries": [
+    {
+      "item": "mineworld:ruby",
+      "chance": 0.162,
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 3.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire",
+      "chance": 0.162,
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 3.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "item": "mineworld:silver_ingot",
+      "chance": 0.451,
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 5.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "item": "mineworld:chainmail_horse_armor",
+      "chance": 0.057
+    },
+    {
+      "item": "mineworld:emerald_horse_armor",
+      "chance": 0.057
+    },
+    {
+      "item": "mineworld:ruby_horse_armor",
+      "chance": 0.057
+    },
+    {
+      "item": "mineworld:sapphire_horse_armor",
+      "chance": 0.057
+    }
+  ]
+}

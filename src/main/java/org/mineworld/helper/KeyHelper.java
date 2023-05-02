@@ -4,6 +4,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -55,6 +56,15 @@ public final class KeyHelper {
         return register(Registries.POINT_OF_INTEREST_TYPE, name);
     }
 
+    /**
+     * Register a {@link ResourceKey resource key} for a {@link DamageType damage type}
+     *
+     * @param name {@link String The damage type name}
+     * @return {@link ResourceKey<DamageType> The damage type resource key}
+     */
+    public static ResourceKey<DamageType> registerDamageType(final String name) {
+        return register(Registries.DAMAGE_TYPE, name);
+    }
 
     /**
      * Register a {@link ResourceKey resource key}

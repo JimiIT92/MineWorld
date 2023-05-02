@@ -135,7 +135,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * Remove the wax from the {@link BlockState current block state}
      *
      * @param state {@link BlockState The current block state}
-     * @param context {@link UseOnContext The item use context}
+     * @param context {@link UseOnContext The id use context}
      * @param toolAction {@link ToolAction The tool action}
      * @param isClient {@link Boolean If the code is executed client side}
      * @return {@link BlockState The modified block state}
@@ -154,7 +154,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * Apply wax to the {@link BlockState current block state}
      *
      * @param state {@link BlockState The current block state}
-     * @param itemStack {@link ItemStack The honeycomb item stack}
+     * @param itemStack {@link ItemStack The honeycomb id stack}
      * @param player {@link Player The player who right clicked the block}
      * @param blockPos {@link BlockPos The current block pos}
      * @param hand {@link InteractionHand The hand the player has interacted with}
@@ -198,7 +198,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * on right click with an {@link AxeItem axe}
      *
      * @param blockState {@link BlockState The current block state}
-     * @param context {@link UseOnContext The item use context}
+     * @param context {@link UseOnContext The id use context}
      * @param toolAction {@link ToolAction The tool action}
      * @param isClient {@link Boolean If the code is executed client side}
      * @return {@link BlockState The modified block state}

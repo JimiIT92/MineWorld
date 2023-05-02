@@ -53,7 +53,7 @@ public class TallCropBlock extends CropBlock {
     /**
      * Constructor. Set the {@link Integer crop max age}
      *
-     * @param seedSupplier {@link Supplier<Item> The seed item supplier}
+     * @param seedSupplier {@link Supplier<Item> The seed id supplier}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
     public TallCropBlock(final Supplier<Item> seedSupplier, final FeatureFlag... featureFlags) {
@@ -340,9 +340,9 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Get the crop seed item
+     * Get the crop seed id
      *
-     * @return {@link ItemLike The crop seed item}
+     * @return {@link ItemLike The crop seed id}
      */
     @Override
     protected @NotNull ItemLike getBaseSeedId() {

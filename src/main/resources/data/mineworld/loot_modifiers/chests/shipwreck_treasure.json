@@ -1,0 +1,19 @@
+{
+  "type": "mineworld:add_items",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    }
+  ],
+  "entries": [
+    {
+      "item": "mineworld:ruby",
+      "chance": 0.141
+    },
+    {
+      "item": "mineworld:sapphire",
+      "chance": 0.141
+    }
+  ]
+}

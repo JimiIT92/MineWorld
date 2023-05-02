@@ -117,10 +117,10 @@ public class MWMinecartTNT extends MinecartTNT {
     }
 
     /**
-     * Get the {@link ItemStack cart item stack} for when the {@link Player player}
+     * Get the {@link ItemStack cart id stack} for when the {@link Player player}
      * middle mouse click the placed entity
      *
-     * @return {@link ItemStack The cart item stack}
+     * @return {@link ItemStack The cart id stack}
      */
     @Override
     public ItemStack getPickResult() {
@@ -128,9 +128,9 @@ public class MWMinecartTNT extends MinecartTNT {
     }
 
     /**
-     * Get the {@link Item dropped item}
+     * Get the {@link Item dropped id}
      *
-     * @return {@link Item The dropped item}
+     * @return {@link Item The dropped id}
      */
     @Override
     protected @NotNull Item getDropItem() {

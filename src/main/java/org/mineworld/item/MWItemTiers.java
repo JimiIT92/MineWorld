@@ -8,7 +8,7 @@ import org.mineworld.MineWorld;
 import org.mineworld.core.MWItems;
 
 /**
- * {@link MineWorld MineWorld} {@link ForgeTier item tiers}
+ * {@link MineWorld MineWorld} {@link ForgeTier id tiers}
  */
 public final class MWItemTiers {
 

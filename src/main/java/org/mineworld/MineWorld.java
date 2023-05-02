@@ -28,7 +28,7 @@ public final class MineWorld {
      */
     public static final Logger LOGGER = Logger.getLogger(MOD_ID);
     /**
-     * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom item renderer}
+     * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom id renderer}
      */
     private static BlockEntityWithoutLevelRenderer ITEMS_RENDERER;
 
@@ -48,6 +48,7 @@ public final class MineWorld {
         MWRecipeTypes.register(eventBus);
         MWPoiTypes.register(eventBus);
         MWVillagerProfessions.register(eventBus);
+        MWLootModifiers.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);

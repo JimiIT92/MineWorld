@@ -75,7 +75,7 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
      * on right click with an {@link AxeItem axe}
      *
      * @param state {@link BlockState The current block state}
-     * @param context {@link UseOnContext The item use context}
+     * @param context {@link UseOnContext The id use context}
      * @param toolAction {@link ToolAction The tool action}
      * @param isClient {@link Boolean If the code is executed client side}
      * @return {@link BlockState The modified block state}

@@ -25,7 +25,7 @@ import org.mineworld.core.MWBlocks;
 import org.mineworld.helper.PropertyHelper;
 
 /**
- * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom item renderer}
+ * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom id renderer}
  */
 @OnlyIn(Dist.CLIENT)
 public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
@@ -147,10 +147,10 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
     }
 
     /**
-     * Render custom models for some {@link ItemStack item stacks}
+     * Render custom models for some {@link ItemStack id stacks}
      *
-     * @param stack {@link ItemStack The item stack to render}
-     * @param displayContext {@link ItemDisplayContext The item display context}
+     * @param stack {@link ItemStack The id stack to render}
+     * @param displayContext {@link ItemDisplayContext The id display context}
      * @param pose {@link PoseStack The pose stack}
      * @param buffer {@link MultiBufferSource The multi buffer renderer source}
      * @param packedLight {@link Integer The client packed light}

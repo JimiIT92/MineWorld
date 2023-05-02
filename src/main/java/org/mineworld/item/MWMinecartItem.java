@@ -22,7 +22,7 @@ import org.mineworld.entity.vehicle.MWMinecartTNT;
 import org.mineworld.helper.PropertyHelper;
 
 /**
- * Implementation class for a {@link MinecartItem minecart item}
+ * Implementation class for a {@link MinecartItem minecart id}
  */
 public class MWMinecartItem extends Item {
 
@@ -35,7 +35,7 @@ public class MWMinecartItem extends Item {
      * Constructor. Set the {@link Type minecart type}
      *
      * @param type {@link Type The minecart type}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
      */
     public MWMinecartItem(final Type type, final FeatureFlag... featureFlags) {
         super(PropertyHelper.basicItemProperties(featureFlags).stacksTo(1));
@@ -45,7 +45,7 @@ public class MWMinecartItem extends Item {
     /**
      * Place the minecart
      *
-     * @param context {@link UseOnContext The item use on context}
+     * @param context {@link UseOnContext The id use on context}
      * @return {@link InteractionResult Interaction result}
      */
     public @NotNull InteractionResult useOn(final UseOnContext context) {

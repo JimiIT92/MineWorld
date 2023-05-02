@@ -27,6 +27,9 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_SAPPHIRE = KeyHelper.registerPlacedFeatureKey("ore_sapphire");
     public static final ResourceKey<PlacedFeature> ORE_PYRITE = KeyHelper.registerPlacedFeatureKey("ore_pyrite");
     public static final ResourceKey<PlacedFeature> ORE_MARBLE = KeyHelper.registerPlacedFeatureKey("ore_marble");
+    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_BUSH_VILLAGE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_bush.json");
+    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_COMMON = KeyHelper.registerPlacedFeatureKey("patch_blueberry_common");
+    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_RARE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_rare");
 
     /**
      * Register the {@link PlacedFeature placed features}
@@ -45,6 +48,9 @@ public final class MWPlacedFeatures {
         RegisterHelper.registerCommonOrePlacedFeature(context, ORE_SAPPHIRE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_SAPPHIRE), 100, -16, 480);
         RegisterHelper.registerCommonOrePlacedFeature(context, ORE_MARBLE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_MARBLE), 2, -16);
         RegisterHelper.registerPlacedFeature(context, ORE_PYRITE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_PYRITE), PropertyHelper.commonOrePlacement(10, PlacementUtils.RANGE_10_10));
+        RegisterHelper.registerPatchPlacedFeature(context, PATCH_BLUEBERRY_COMMON, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH), 32);
+        RegisterHelper.registerPatchPlacedFeature(context, PATCH_BLUEBERRY_RARE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH), 384);
+        RegisterHelper.registerPlacedFeature(context, PATCH_BLUEBERRY_BUSH_VILLAGE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH));
     }
 
 }

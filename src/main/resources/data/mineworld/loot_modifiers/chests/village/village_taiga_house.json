@@ -1,0 +1,26 @@
+{
+  "type": "mineworld:add_items",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/village/village_taiga_house"
+    }
+  ],
+  "entries": [
+    {
+      "item": "mineworld:blueberries",
+      "chance": 0.406,
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 7.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ]
+    }
+  ]
+}

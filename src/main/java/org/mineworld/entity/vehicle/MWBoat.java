@@ -84,9 +84,9 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Get the {@link Item dropped item} when the boat is destroyed
+     * Get the {@link Item dropped id} when the boat is destroyed
      *
-     * @return {@link Item The boat dropped item}
+     * @return {@link Item The boat dropped id}
      */
     @Override
     @NotNull

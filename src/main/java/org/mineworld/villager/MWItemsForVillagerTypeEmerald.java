@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
- * Implementation class for an item for emerald trades based on the {@link VillagerType villager type}
+ * Implementation class for an id for emerald trades based on the {@link VillagerType villager type}
  */
 public class MWItemsForVillagerTypeEmerald implements VillagerTrades.ItemListing {
 

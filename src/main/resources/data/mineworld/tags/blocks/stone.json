@@ -7,6 +7,9 @@
     "mineworld:mossy_cracked_stone_bricks",
     "mineworld:cracked_red_nether_bricks",
     "mineworld:chiseled_red_nether_bricks",
+    "mineworld:warped_nether_bricks",
+    "mineworld:cracked_warped_nether_bricks",
+    "mineworld:chiseled_warped_nether_bricks",
     "mineworld:lava_rock"
   ]
 }

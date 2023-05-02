@@ -46,15 +46,15 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Helper methods for creating {@link BlockBehaviour.Properties block} and {@link Item.Properties item} properties
+ * Helper methods for creating {@link BlockBehaviour.Properties block} and {@link Item.Properties id} properties
  */
 public final class PropertyHelper {
 
     /**
-     * Get the basic {@link Item.Properties item properties}
+     * Get the basic {@link Item.Properties id properties}
      *
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
-     * @return {@link Item.Properties item properties}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @return {@link Item.Properties id properties}
      */
     public static Item.Properties basicItemProperties(final FeatureFlag... featureFlags) {
         return applyFeatureFlags(new Item.Properties(), featureFlags);
@@ -276,11 +276,11 @@ public final class PropertyHelper {
     }
 
     /**
-     * Apply some {@link FeatureFlag feature flags} to some {@link Item.Properties item properties}
+     * Apply some {@link FeatureFlag feature flags} to some {@link Item.Properties id properties}
      *
-     * @param properties {@link Item.Properties The item properties}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the item to be functional}
-     * @return {@link Item.Properties The item properties}
+     * @param properties {@link Item.Properties The id properties}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the id to be functional}
+     * @return {@link Item.Properties The id properties}
      */
     static Item.Properties applyFeatureFlags(Item.Properties properties, final FeatureFlag... featureFlags) {
         if(featureFlags != null && featureFlags.length > 0) {
@@ -382,8 +382,8 @@ public final class PropertyHelper {
              * Dispense the {@link PrimedTnt tnt} when activated from a dispenser
              *
              * @param blockSource {@link BlockSource The block source reference}
-             * @param itemStack   {@link ItemStack The item stack inside the dispenser}
-             * @return {@link ItemStack The shrinked item stack if the tnt has been primed}
+             * @param itemStack   {@link ItemStack The id stack inside the dispenser}
+             * @return {@link ItemStack The shrinked id stack if the tnt has been primed}
              */
             @Override
             protected @NotNull ItemStack execute(final @NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
@@ -400,9 +400,9 @@ public final class PropertyHelper {
     }
 
     /**
-     * Get the {@link DispenseItemBehavior dispense behavior} for a {@link HorseArmorItem horse armor item}
+     * Get the {@link DispenseItemBehavior dispense behavior} for a {@link HorseArmorItem horse armor id}
      *
-     * @return {@link DispenseItemBehavior The horse armor item dispense behavior}
+     * @return {@link DispenseItemBehavior The horse armor id dispense behavior}
      */
     public static DispenseItemBehavior horseArmorItemDispenseBehavior() {
         return new OptionalDispenseItemBehavior() {
@@ -410,8 +410,8 @@ public final class PropertyHelper {
              * Equiq the {@link HorseArmorItem horse armor} if there's a horse in front of the dispenser
              *
              * @param blockSource  {@link BlockSource The block source reference}
-             * @param itemStack The {@link ItemStack The item stack inside the dispenser}
-             * @return {@link ItemStack The shrinked item stack if the armor has been equipped}
+             * @param itemStack The {@link ItemStack The id stack inside the dispenser}
+             * @return {@link ItemStack The shrinked id stack if the armor has been equipped}
              */
             @Override
             protected @NotNull ItemStack execute(final @NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {

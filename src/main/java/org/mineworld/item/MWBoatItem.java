@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link BoatItem boat item}
+ * Implementation class for a {@link MineWorld MineWorld} {@link BoatItem boat id}
  */
 public class MWBoatItem extends Item {
 
@@ -47,7 +47,7 @@ public class MWBoatItem extends Item {
      *
      * @param hasChest {@link Boolean If the boat has a chest}
      * @param type {@link MWBoat.Type The boat type}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
      */
     public MWBoatItem(final boolean hasChest, final MWBoat.Type type, final FeatureFlag... featureFlags) {
         super(PropertyHelper.basicItemProperties(featureFlags).stacksTo(1));

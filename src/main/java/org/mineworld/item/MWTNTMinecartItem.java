@@ -13,7 +13,7 @@ import org.mineworld.entity.MWPrimedTnt;
 import java.util.List;
 
 /**
- * Implementation class for a {@link MinecartItem minecart item}
+ * Implementation class for a {@link MinecartItem minecart id}
  */
 public class MWTNTMinecartItem extends MWMinecartItem {
 
@@ -36,7 +36,7 @@ public class MWTNTMinecartItem extends MWMinecartItem {
     /**
      * Add tooltips to the disguised tnts
      *
-     * @param itemStack {@link ItemStack The current item stack}
+     * @param itemStack {@link ItemStack The current id stack}
      * @param level {@link Level The world reference}
      * @param tooltips {@link List<Component> The current tooltips}
      * @param tooltipFlag {@link TooltipFlag The tooltip flag}
