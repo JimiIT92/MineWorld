@@ -3,6 +3,7 @@ package org.mineworld.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
@@ -10,7 +11,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWRecipeTypes;
+import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.KeyHelper;
 import org.mineworld.recipe.ForgingRecipe;
 import org.mineworld.recipe.WoodcutterRecipe;
@@ -62,6 +65,17 @@ public class JEIMineWorldPlugin implements IModPlugin {
         final RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
         recipeRegistration.addRecipes(WOODCUTTING, recipeManager.getAllRecipesFor(MWRecipeTypes.WOODCUTTING.get()));
         recipeRegistration.addRecipes(FORGING, recipeManager.getAllRecipesFor(MWRecipeTypes.FORGING.get()));
+    }
+
+    /**
+     * Register the MineWorld recipe catalysts
+     *
+     * @param registration {@link IRecipeCatalystRegistration The recipe catalyst registration reference}
+     */
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(ItemHelper.getDefaultStack(MWBlocks.WOODCUTTER), WOODCUTTING);
+        registration.addRecipeCatalyst(ItemHelper.getDefaultStack(MWBlocks.FORGING_TABLE), FORGING);
     }
 
 }
