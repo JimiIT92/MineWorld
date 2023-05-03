@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "mineworld:block/forging_table_front",
+    "side": "mineworld:block/forging_table_side",
+    "top": "minecraft:block/deepslate_bricks"
+  }
+}

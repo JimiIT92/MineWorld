@@ -1,7 +1,6 @@
 package org.mineworld.helper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import org.mineworld.MineWorld;
 
 import java.time.LocalDate;
@@ -96,7 +95,7 @@ public final class SplashScreenHelper {
      * @return {@link String The translated splash text}
      */
     private static String getSplashText(final String key, final Object... args) {
-        return Component.translatable("splash.mineworld." + key, args).getString();
+        return ComponentHelper.splashText(key, args).getString();
     }
 
     static {

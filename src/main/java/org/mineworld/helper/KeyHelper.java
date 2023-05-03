@@ -1,9 +1,11 @@
 package org.mineworld.helper;
 
+import com.google.gson.JsonObject;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.armortrim.TrimMaterial;
@@ -74,8 +76,98 @@ public final class KeyHelper {
      * @return {@link ResourceKey<T> The resource key}
      * @param <T> The resource key type
      */
-    public static <T> ResourceKey<T> register(ResourceKey<Registry<T>> registry, String name) {
-        return ResourceKey.create(registry, new ResourceLocation(MineWorld.MOD_ID, name));
+    public static <T> ResourceKey<T> register(final ResourceKey<Registry<T>> registry, final String name) {
+        return ResourceKey.create(registry, location(name));
     }
 
+    /**
+     * Get a {@link ResourceLocation resource location} for a container screen
+     *
+     * @param name {@link String The container name}
+     * @return {@link ResourceLocation The container screen resource location}
+     */
+    public static ResourceLocation container(final String name) {
+        return texture("gui/container/" + name);
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location} for an entity
+     *
+     * @param path {@link String The entity texture path inside entity folder}
+     * @return {@link ResourceLocation The entity resource location}
+     */
+    public static ResourceLocation entity(final String path) {
+        return location("entity/" + path);
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location} for an entity texture
+     *
+     * @param path {@link String The texture path inside the textures folder}
+     * @return {@link ResourceLocation The entity texture resource location}
+     */
+    public static ResourceLocation entityTexture(final String path) {
+        return texture("entity/" + path);
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location} for an empty slot
+     *
+     * @param name {@link String The empty slot name}
+     * @return {@link ResourceLocation The empty slot resource location}
+     */
+    public static ResourceLocation emptySlot(final String name) {
+        return location("id/empty_slot_" + name);
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location} for a texture
+     *
+     * @param path {@link String The texture path inside the textures folder}
+     * @return {@link ResourceLocation The texture resource location}
+     */
+    public static ResourceLocation texture(final String path) {
+        return texture(MineWorld.MOD_ID, path);
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location} for a texture
+     *
+     * @param path {@link String The texture path inside the textures folder}
+     * @return {@link ResourceLocation The texture resource location}
+     */
+    public static ResourceLocation texture(final String modId, final String path) {
+        return parseLocation(modId + ":" + "textures/" + path + ".png");
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location}
+     *
+     * @param name {@link String The resource name}
+     * @return {@link ResourceLocation The resource location}
+     */
+    public static ResourceLocation location(final String name) {
+        return parseLocation(MineWorld.MOD_ID + ":" + name);
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location}
+     *
+     * @param name {@link String The resource name}
+     * @return {@link ResourceLocation The resource location}
+     */
+    public static ResourceLocation parseLocation(final String name) {
+        return new ResourceLocation(name);
+    }
+
+    /**
+     * Get a {@link ResourceLocation resource location} from a {@link JsonObject json object}
+     *
+     * @param json {@link JsonObject The json object}
+     * @param key {@link String The json key}
+     * @return {@link ResourceLocation The resource location}
+     */
+    public static ResourceLocation fromJson(final JsonObject json, final String key) {
+        return new ResourceLocation(GsonHelper.getAsString(json, key));
+    }
 }

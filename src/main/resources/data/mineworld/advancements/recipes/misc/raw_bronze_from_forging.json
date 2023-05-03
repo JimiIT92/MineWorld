@@ -27,7 +27,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:raw_bronze_from_smithing"
+        "recipe": "mineworld:raw_bronze_from_forging"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -41,7 +41,7 @@
   ],
   "rewards": {
     "recipes": [
-      "mineworld:raw_bronze_from_smithing"
+      "mineworld:raw_bronze_from_forging"
     ]
   }
 }

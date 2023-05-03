@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.helper.KeyHelper;
 
 /**
  * {@link MineWorld MineWorld} {@link SingleItemRecipe single id recipe} serializer
@@ -43,8 +44,7 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
         return this.factory.create(recipeId,
                 GsonHelper.getAsString(json, "group", ""),
                 getIngredient("ingredient", json),
-                new ItemStack(BuiltInRegistries.ITEM.get(
-                        new ResourceLocation(GsonHelper.getAsString(json, "result"))),
+                new ItemStack(BuiltInRegistries.ITEM.get(KeyHelper.fromJson(json, "result")),
                         GsonHelper.getAsInt(json, "count", 1)
                 )
         );

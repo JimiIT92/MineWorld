@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWItems;
 import org.mineworld.helper.ItemHelper;
+import org.mineworld.helper.KeyHelper;
 
 /**
  * Implementation class for a {@link MineWorld MineWorld} {@link BeaconScreen beacon screen}
@@ -25,7 +26,7 @@ public class MWBeaconScreen extends BeaconScreen {
     /**
      * {@link ResourceLocation The becon screen texture location}
      */
-    private static final ResourceLocation BEACON_LOCATION = new ResourceLocation(MineWorld.MOD_ID, "textures/gui/container/beacon.png");
+    private static final ResourceLocation BEACON_LOCATION = KeyHelper.container("beacon");
 
     /**
      * Constructor. Set the beacon screen properties

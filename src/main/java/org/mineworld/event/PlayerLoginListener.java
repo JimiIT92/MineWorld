@@ -3,7 +3,6 @@ package org.mineworld.event;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,6 +13,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
+import org.mineworld.helper.ComponentHelper;
 
 /**
  * Show a message to the {@link Player player} if a new mod version is available
@@ -34,8 +34,8 @@ public final class PlayerLoginListener {
                 if(versionCheckResult != null && versionCheckResult.status().equals(VersionChecker.Status.OUTDATED) && versionCheckResult.target() != null) {
                     final Player player = event.getEntity();
                     player.playNotifySound(SoundEvents.NOTE_BLOCK_HAT.get(), SoundSource.MASTER, 1.0F, 1.0F);
-                    final MutableComponent notifyMessage = Component.translatable("update.mineworld.outdated", versionCheckResult.target());
-                    final Component downloadMessage = Component.translatable("update.mineworld.download").setStyle(
+                    final Component notifyMessage = ComponentHelper.updateMessage("outdated", versionCheckResult.target());
+                    final Component downloadMessage = ComponentHelper.updateMessage("download").setStyle(
                             Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, versionCheckResult.url()))
                                     .withUnderlined(true)
                                     .withColor(ChatFormatting.GOLD)

@@ -1,6 +1,5 @@
 package org.mineworld.jei;
 
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -11,10 +10,10 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-import org.mineworld.MineWorld;
 import org.mineworld.block.WoodcutterBlock;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.helper.ItemHelper;
+import org.mineworld.helper.KeyHelper;
 import org.mineworld.recipe.WoodcutterRecipe;
 
 /**
@@ -25,7 +24,7 @@ public class WoodcuttingRecipeCategory implements IRecipeCategory<WoodcutterReci
     /**
      * {@link ResourceLocation The woodcutting recipe category id}
      */
-    public static final ResourceLocation ID = new ResourceLocation(MineWorld.MOD_ID, "woodcutting");
+    public static final ResourceLocation ID = KeyHelper.location("woodcutting");
     /**
      * {@link IDrawable The woodcutting recipe category background}
      */
@@ -42,7 +41,7 @@ public class WoodcuttingRecipeCategory implements IRecipeCategory<WoodcutterReci
      */
     public WoodcuttingRecipeCategory(final IGuiHelper guiHelper) {
         this.background = guiHelper.createDrawable(JEIHelper.getVanillaTextureLocation(), 0, 220, 82, 34);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemHelper.getDefaultStack(MWBlocks.WOODCUTTER));
+        this.icon = guiHelper.createDrawableItemStack(ItemHelper.getDefaultStack(MWBlocks.WOODCUTTER));
     }
 
     /**

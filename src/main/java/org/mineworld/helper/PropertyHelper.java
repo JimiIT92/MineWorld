@@ -393,7 +393,7 @@ public final class PropertyHelper {
                 level.addFreshEntity(primedtnt);
                 level.playSound(null, primedtnt.getX(), primedtnt.getY(), primedtnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.gameEvent(null, GameEvent.ENTITY_PLACE, blockpos);
-                itemStack.shrink(1);
+                ItemHelper.hurt(itemStack);
                 return itemStack;
             }
         };

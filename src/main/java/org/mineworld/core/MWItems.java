@@ -30,7 +30,6 @@ public final class MWItems {
     public static final RegistryObject<Item> RAW_BRONZE = RegisterHelper.registerItem("raw_bronze");
     public static final RegistryObject<Item> BRONZE_INGOT = RegisterHelper.registerItem("bronze_ingot");
     public static final RegistryObject<Item> BRONZE_NUGGET = RegisterHelper.registerItem("bronze_nugget");
-    public static final RegistryObject<Item> RAW_BRONZE_SMITHING_TEMPLATE = RegisterHelper.registerSmithingTemplate("raw_bronze_smithing_template", "raw_bronze", "raw_copper", "raw_aluminum");
     public static final RegistryObject<Item> CORN_SEEDS = RegisterHelper.registerBlockItem("corn_seeds", MWBlocks.CORN);
     public static final RegistryObject<Item> COB = RegisterHelper.registerFoodItem("cob", MWFoods.COB);
     public static final RegistryObject<Item> BAKED_COB = RegisterHelper.registerFoodItem("baked_cob", MWFoods.BAKED_COB);

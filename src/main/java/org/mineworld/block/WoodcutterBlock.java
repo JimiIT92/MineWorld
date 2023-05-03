@@ -17,8 +17,8 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mineworld.MineWorld;
 import org.mineworld.core.MWStats;
+import org.mineworld.helper.ComponentHelper;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.inventory.WoodcutterMenu;
 
@@ -30,7 +30,7 @@ public class WoodcutterBlock extends StonecutterBlock {
     /**
      * {@link Component The woodcutter screen title}
      */
-    public static final Component CONTAINER_TITLE = Component.translatable("container." + MineWorld.MOD_ID + ".woodcutter");
+    public static final Component CONTAINER_TITLE = ComponentHelper.container("woodcutter");
 
     /**
      * Constructor. Set the block properties
@@ -48,7 +48,7 @@ public class WoodcutterBlock extends StonecutterBlock {
      * @param player {@link Player The player reference}
      * @param hand {@link InteractionHand The hand the player is interacting with}
      * @param blockHitResult {@link BlockHitResult The block hit result}
-     * @return {@link InteractionResult The itneraction result}
+     * @return {@link InteractionResult The interaction result}
      */
     @Override
     public @NotNull InteractionResult use(final @NotNull BlockState blockState, final Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult blockHitResult) {

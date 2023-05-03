@@ -1214,6 +1214,7 @@ public final class MWTabs {
                 MWItems.GLOWING_OBSIDIAN_PEBBLE,
                 MWBlocks.LAVA_ROCK,
                 MWBlocks.WOODCUTTER,
+                MWBlocks.FORGING_TABLE,
                 MWBlocks.SPRUCE_BOOKSHELF,
                 MWBlocks.BIRCH_BOOKSHELF,
                 MWBlocks.JUNGLE_BOOKSHELF,
@@ -1852,8 +1853,7 @@ public final class MWTabs {
                 MWItems.ALUMINUM_INGOT,
                 MWItems.SILVER_INGOT,
                 MWItems.BRONZE_INGOT,
-                MWItems.WARPED_WART,
-                MWItems.RAW_BRONZE_SMITHING_TEMPLATE
+                MWItems.WARPED_WART
         );
     }
 

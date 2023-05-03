@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -12,6 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.helper.KeyHelper;
 
 /**
  * {@link ChestRenderer Renderer} class for a {@link MineWorld MineWorld} chest
@@ -87,7 +87,7 @@ abstract class AbstractChestRenderer extends ChestRenderer<ChestBlockEntity> {
      * @return {@link Material The chest material}
      */
     private Material getMaterial(final String type) {
-        return new Material(Sheets.CHEST_SHEET, new ResourceLocation(MineWorld.MOD_ID, "entity/chest/" + getWoodType().name() + "/" + type));
+        return new Material(Sheets.CHEST_SHEET, KeyHelper.entity("chest/" + getWoodType().name() + "/" + type));
     }
 
     /**

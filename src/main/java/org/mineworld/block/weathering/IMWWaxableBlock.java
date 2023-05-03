@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.helper.ItemHelper;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -169,9 +170,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, blockPos, itemStack);
             }
-            if(!player.isCreative()) {
-                itemStack.shrink(1);
-            }
+            ItemHelper.hurt(itemStack, player);
             level.setBlock(blockPos, waxedState, 11);
             level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, waxedState));
             level.levelEvent(player, 3003, blockPos, 0);

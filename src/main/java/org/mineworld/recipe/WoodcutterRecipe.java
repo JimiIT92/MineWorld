@@ -41,9 +41,9 @@ public class WoodcutterRecipe extends SingleItemRecipe {
     }
 
     /**
-     * Get the {@link ItemStack id stack to show on recipe unlocks}
+     * Get the {@link ItemStack item stack to show on recipe unlocks}
      *
-     * @return {@link MWBlocks#WOODCUTTER The woodcutter id stack}
+     * @return {@link MWBlocks#WOODCUTTER The woodcutter item stack}
      */
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(MWBlocks.WOODCUTTER.get());

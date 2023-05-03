@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTNT;
+import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
 /**
@@ -67,7 +68,7 @@ public class MWMinecartItem extends Item {
                 level.gameEvent(GameEvent.ENTITY_PLACE, blockpos, GameEvent.Context.of(context.getPlayer(), level.getBlockState(blockpos.below())));
             }
 
-            itemstack.shrink(1);
+            ItemHelper.hurt(itemstack);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
     }

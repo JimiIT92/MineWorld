@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWChestBoat;
+import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.List;
@@ -89,9 +90,7 @@ public class MWBoatItem extends Item {
                 if (!level.isClientSide) {
                     level.addFreshEntity(boat);
                     level.gameEvent(player, GameEvent.ENTITY_PLACE, hitresult.getLocation());
-                    if (!player.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
+                    ItemHelper.hurt(itemstack, player);
                 }
                 player.awardStat(Stats.ITEM_USED.get(this));
                 return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());

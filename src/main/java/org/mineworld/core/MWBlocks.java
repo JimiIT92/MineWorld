@@ -1324,6 +1324,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> LAVA_ROCK = RegisterHelper.registerBlock("lava_rock", () -> new MagmaBlock(PropertyHelper.copyFromBlock(Blocks.MAGMA_BLOCK).lightLevel(state -> 10).color(MaterialColor.COLOR_BLACK)));
     public static final RegistryObject<Block> PERENNIAL_ICE = RegisterHelper.registerBlock("perennial_ice", () -> PropertyHelper.copyFromBlock(Blocks.BLUE_ICE).strength(3.5F).friction(0.99F));
     public static final RegistryObject<Block> BLUEBERRY_BUSH = RegisterHelper.registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
+    public static final RegistryObject<Block> FORGING_TABLE = RegisterHelper.registerBlock("forging_table", ForgingTableBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

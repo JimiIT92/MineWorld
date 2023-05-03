@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.block.PebbleBlock;
 import org.mineworld.entity.Pebble;
+import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
 /**
@@ -50,9 +51,7 @@ public class PebbleItem extends ItemNameBlockItem {
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
-        if (!player.getAbilities().instabuild) {
-            itemstack.shrink(1);
-        }
+        ItemHelper.hurt(itemstack, player);
 
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }

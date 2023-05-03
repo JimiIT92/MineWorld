@@ -64,6 +64,15 @@ public final class ItemHelper {
     }
 
     /**
+     * Damage an {@link ItemStack id stack} by 1
+     *
+     * @param itemStack {@link ItemStack The id stack to damage}
+     */
+    public static void hurt(final ItemStack itemStack) {
+        hurt(itemStack, null, 1);
+    }
+
+    /**
      * Damage an {@link ItemStack id stack}
      *
      * @param itemStack {@link ItemStack The id stack to damage}
@@ -71,9 +80,12 @@ public final class ItemHelper {
      * @param amount {@link Integer The amount of damage to apply}
      */
     public static void hurt(final ItemStack itemStack, final Player player, final int amount) {
-        if(itemStack.isDamageableItem()) {
+        if(player != null && player.getAbilities().instabuild) {
+            return;
+        }
+        if(itemStack.isDamageableItem() && player != null) {
             itemStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(p.getUsedItemHand()));
-        } else if(!player.isCreative()) {
+        } else if(player == null || !player.isCreative()) {
             itemStack.shrink(amount);
         }
     }

@@ -22,8 +22,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
-import org.mineworld.MineWorld;
 import org.mineworld.entity.vehicle.MWBoat;
+import org.mineworld.helper.KeyHelper;
 
 import java.util.Map;
 import java.util.stream.Stream;
@@ -60,7 +60,7 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
         this.shadowRadius = 0.8F;
         this.boatResources = Stream.of(MWBoat.Type.values()).collect(ImmutableMap.toImmutableMap(
                 type -> type,
-                type -> Pair.of(new ResourceLocation(MineWorld.MOD_ID, getTextureLocation(type, hasChest)), this.createBoatModel(context, type, hasChest)))
+                type -> Pair.of(KeyHelper.entityTexture((hasChest ? "chest_" : "") + "boat/" + type.getName()), this.createBoatModel(context, type, hasChest)))
         );
     }
 
@@ -75,17 +75,6 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
     private ListModel<Boat> createBoatModel(final EntityRendererProvider.Context context, final MWBoat.Type type, final boolean hasChest) {
         final ModelPart modelpart = context.bakeLayer(hasChest ? ModelLayers.createChestBoatModelName(Boat.Type.OAK) : ModelLayers.createBoatModelName(Boat.Type.OAK));
         return hasChest ? new ChestBoatModel(modelpart) : new BoatModel(modelpart);
-    }
-
-    /**
-     * Get the {@link String boat texture location}
-     *
-     * @param type {@link MWBoat.Type The boat type}
-     * @param hasChest {@link Boolean If the boat has a chest}
-     * @return {@link String The boat texture location}
-     */
-    private static String getTextureLocation(final MWBoat.Type type, final boolean hasChest) {
-        return "textures/entity/" + (hasChest ? "chest_" : "") + "boat/" + type.getName() + ".png";
     }
 
     /**

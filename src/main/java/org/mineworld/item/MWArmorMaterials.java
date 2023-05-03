@@ -1,7 +1,6 @@
 package org.mineworld.item;
 
 import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
@@ -13,6 +12,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWItems;
+import org.mineworld.helper.KeyHelper;
 
 import java.util.EnumMap;
 import java.util.function.Supplier;
@@ -125,7 +125,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param ingredient {@link LazyLoadedValue<Ingredient> The armor repair ingredient}
      */
     MWArmorMaterials(final String name, final int durabilityMultiplier, final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, final int enchantmentValue, final SoundEvent sound, final float thoughness, final float knockbackResistance, final Supplier<Ingredient> ingredient) {
-        this.name = new ResourceLocation(MineWorld.MOD_ID, name).toString();
+        this.name = KeyHelper.location(name).toString();
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionFunctionForType = protectionFunctionForType;
         this.enchantmentValue = enchantmentValue;

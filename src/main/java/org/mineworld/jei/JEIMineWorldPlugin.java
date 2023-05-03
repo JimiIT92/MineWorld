@@ -11,6 +11,8 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWRecipeTypes;
+import org.mineworld.helper.KeyHelper;
+import org.mineworld.recipe.ForgingRecipe;
 import org.mineworld.recipe.WoodcutterRecipe;
 
 /**
@@ -23,6 +25,10 @@ public class JEIMineWorldPlugin implements IModPlugin {
      * {@link RecipeType The woodcutting JEI recipe type}
      */
     public static RecipeType<WoodcutterRecipe> WOODCUTTING = new RecipeType<>(WoodcuttingRecipeCategory.ID, WoodcutterRecipe.class);
+    /**
+     * {@link RecipeType The forging table JEI recipe type}
+     */
+    public static RecipeType<ForgingRecipe> FORGING = new RecipeType<>(ForgingRecipeCategory.ID, ForgingRecipe.class);
 
     /**
      * Get the {@link ResourceLocation JEI plugin resource location id}
@@ -31,7 +37,7 @@ public class JEIMineWorldPlugin implements IModPlugin {
      */
     @Override
     public @NotNull ResourceLocation getPluginUid() {
-        return new ResourceLocation(MineWorld.MOD_ID, "jei_plugin");
+        return KeyHelper.location("jei_plugin");
     }
 
     /**
@@ -41,7 +47,9 @@ public class JEIMineWorldPlugin implements IModPlugin {
      */
     @Override
     public void registerCategories(final @NotNull IRecipeCategoryRegistration recipeCategoryRegistration) {
-        recipeCategoryRegistration.addRecipeCategories(new WoodcuttingRecipeCategory(recipeCategoryRegistration.getJeiHelpers().getGuiHelper()));
+        recipeCategoryRegistration.addRecipeCategories(
+                new WoodcuttingRecipeCategory(recipeCategoryRegistration.getJeiHelpers().getGuiHelper()),
+                new ForgingRecipeCategory(recipeCategoryRegistration.getJeiHelpers().getGuiHelper()));
     }
 
     /**
@@ -53,6 +61,7 @@ public class JEIMineWorldPlugin implements IModPlugin {
     public void registerRecipes(final @NotNull IRecipeRegistration recipeRegistration) {
         final RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
         recipeRegistration.addRecipes(WOODCUTTING, recipeManager.getAllRecipesFor(MWRecipeTypes.WOODCUTTING.get()));
+        recipeRegistration.addRecipes(FORGING, recipeManager.getAllRecipesFor(MWRecipeTypes.FORGING.get()));
     }
 
 }

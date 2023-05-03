@@ -9,6 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.blockentity.chest.*;
 import org.mineworld.entity.block.DaylightLampBlockEntity;
+import org.mineworld.entity.block.ForgingTableBlockEntity;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegisterHelper;
 
@@ -48,6 +49,7 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<LecternBlockEntity>> WARPED_LECTERN = RegisterHelper.registerBlockEntity("warped_lectern", LecternBlockEntity::new, MWBlocks.WARPED_LECTERN);
     public static final RegistryObject<BlockEntityType<WarpedChestBlockEntity>> WARPED_CHEST = RegisterHelper.registerBlockEntity("warped_chest", WarpedChestBlockEntity::new, MWBlocks.WARPED_CHEST);
     public static final RegistryObject<BlockEntityType<WarpedTrappedChestBlockEntity>> WARPED_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("warped_trapped_chest", WarpedTrappedChestBlockEntity::new, MWBlocks.WARPED_TRAPPED_CHEST);
+    public static final RegistryObject<BlockEntityType<ForgingTableBlockEntity>> FORGING_TABLE = RegisterHelper.registerBlockEntity("forging_table", ForgingTableBlockEntity::new, MWBlocks.FORGING_TABLE);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link BlockEntityType block entity types}

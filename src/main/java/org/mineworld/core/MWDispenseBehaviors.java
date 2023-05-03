@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.block.weathering.IMWWaxableBlock;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RegisterHelper;
 
@@ -180,7 +181,7 @@ public final class MWDispenseBehaviors {
                 if (optionalBlockState.isPresent()) {
                     level.setBlockAndUpdate(blockpos, optionalBlockState.get());
                     level.levelEvent(3003, blockpos, 0);
-                    itemStack.shrink(1);
+                    ItemHelper.hurt(itemStack);
                     this.setSuccess(true);
                     return itemStack;
                 }

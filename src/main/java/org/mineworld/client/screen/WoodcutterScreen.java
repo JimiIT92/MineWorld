@@ -15,6 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.block.WoodcutterBlock;
+import org.mineworld.helper.KeyHelper;
 import org.mineworld.inventory.WoodcutterMenu;
 import org.mineworld.recipe.WoodcutterRecipe;
 
@@ -29,7 +30,7 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     /**
      * {@link ResourceLocation The woodcutter screen texture location}
      */
-    private static final ResourceLocation BG_LOCATION = new ResourceLocation(MineWorld.MOD_ID, "textures/gui/container/woodcutter.png");
+    private static final ResourceLocation BG_LOCATION = KeyHelper.container("woodcutter");
     /**
      * {@link Float The scroll offset}
      */

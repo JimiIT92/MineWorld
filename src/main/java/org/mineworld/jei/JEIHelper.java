@@ -3,6 +3,7 @@ package org.mineworld.jei;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.ModIds;
 import net.minecraft.resources.ResourceLocation;
+import org.mineworld.helper.KeyHelper;
 
 /**
  * Helper methods for the {@link JeiPlugin JEI plugin integration}
@@ -15,7 +16,7 @@ public final class JEIHelper {
      * @return {@link ResourceLocation The JEI vanilla textures location}
      */
     public static ResourceLocation getVanillaTextureLocation() {
-        return new ResourceLocation(ModIds.JEI_ID, "textures/jei/gui/gui_vanilla.png");
+        return KeyHelper.texture(ModIds.JEI_ID, "jei/gui/gui_vanilla");
     }
 
 }
