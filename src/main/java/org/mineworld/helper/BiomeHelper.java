@@ -46,7 +46,7 @@ public final class BiomeHelper {
                         .skyColor(13092807)
                         .foliageColorOverride(16777215)
                         .grassColorOverride(16777215)
-                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.0118093334F))
+                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.00118093334F))
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build()
                 )
                 .mobSpawnSettings(mobSpawnSettings.build())
