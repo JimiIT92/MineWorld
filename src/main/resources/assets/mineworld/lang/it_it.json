@@ -1521,5 +1521,6 @@
   "stat.mineworld.interacted_with_woodcutter": "Interazioni con i taglialegne",
   "entity.minecraft.villager.mineworld.carpenter": "Carpentiere",
   "death.attack.blueberryBush": "%1$s è stato/a punzecchiato/a a morte da un cespuglio di mirtilli",
-  "death.attack.blueberryBush.player": "%1$s è stato/a punzecchiato/a a morte da un cespuglio di mirtilli fuggendo da %2$s"
+  "death.attack.blueberryBush.player": "%1$s è stato/a punzecchiato/a a morte da un cespuglio di mirtilli fuggendo da %2$s",
+  "biome.mineworld.frozen_plains": "Pianura ghiacciata"
 }

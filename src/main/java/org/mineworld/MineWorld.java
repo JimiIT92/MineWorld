@@ -49,6 +49,7 @@ public final class MineWorld {
         MWPoiTypes.register(eventBus);
         MWVillagerProfessions.register(eventBus);
         MWLootModifiers.register(eventBus);
+        MWBiomes.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);
@@ -77,6 +78,7 @@ public final class MineWorld {
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
         event.enqueueWork(RegisterHelper::registerCompostables);
         event.enqueueWork(MWPoiTypes::registerPOIs);
+        event.enqueueWork(MWBiomes::registerOverworldBiomes);
     }
 
     /**

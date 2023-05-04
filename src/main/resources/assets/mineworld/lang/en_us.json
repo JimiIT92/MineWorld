@@ -1521,5 +1521,6 @@
   "stat.mineworld.interacted_with_woodcutter": "Interactions with Woodcutter",
   "entity.minecraft.villager.mineworld.carpenter": "Carpenter",
   "death.attack.blueberryBush": "%1$s was poked to death by a blueberry bush",
-  "death.attack.blueberryBush.player": "%1$s was poked to death by a blueberry bush whilst trying to escape %2$s"
+  "death.attack.blueberryBush.player": "%1$s was poked to death by a blueberry bush whilst trying to escape %2$s",
+  "biome.mineworld.frozen_plains": "Frozen Plains"
 }

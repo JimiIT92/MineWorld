@@ -9,6 +9,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.mineworld.MineWorld;
@@ -66,6 +67,16 @@ public final class KeyHelper {
      */
     public static ResourceKey<DamageType> registerDamageType(final String name) {
         return register(Registries.DAMAGE_TYPE, name);
+    }
+
+    /**
+     * Register a {@link ResourceKey resource key} for a {@link Biome biome}
+     *
+     * @param name {@link String The biome name}
+     * @return {@link ResourceKey<Biome> The biome resource key}
+     */
+    public static ResourceKey<Biome> registerBiome(final String name) {
+        return register(Registries.BIOME, name);
     }
 
     /**

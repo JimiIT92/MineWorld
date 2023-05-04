@@ -41,6 +41,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -137,7 +138,11 @@ public final class RegisterHelper {
     /**
      * {@link DeferredRegister<IGlobalLootModifier> The global loot modifier serializers registry}
      */
-    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERSS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MineWorld.MOD_ID);
+    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<Biome> The biome registry}
+     */
+    private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -1600,7 +1605,18 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<IGlobalLootModifier> The registered loot modifier}
      */
     public static <T extends IGlobalLootModifier> RegistryObject<Codec<T>> registerLootModifier(final String name, Supplier<Codec<T>> codecSupplier) {
-        return LOOT_MODIFIER_SERIALIZERSS.register(name, codecSupplier);
+        return LOOT_MODIFIER_SERIALIZERS.register(name, codecSupplier);
+    }
+
+    /**
+     * Register a {@link Biome biome}
+     *
+     * @param name {@link String The biome name}
+     * @param biomeSupplier {@link Supplier<Biome> The biome supplier}
+     * @return {@link RegistryObject<Biome> The registered biome}
+     */
+    public static RegistryObject<Biome> registerBiome(final String name, final Supplier<Biome> biomeSupplier) {
+        return BIOMES.register(KeyHelper.registerBiome(name).location().getPath(), biomeSupplier);
     }
 
     /**
@@ -1752,7 +1768,16 @@ public final class RegisterHelper {
      * @param eventBus {@link IEventBus The event bus}
      */
     public static void registerLootModifiers(final IEventBus eventBus) {
-        LOOT_MODIFIER_SERIALIZERSS.register(eventBus);
+        LOOT_MODIFIER_SERIALIZERS.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link Biome biomes}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerBiomes(final IEventBus eventBus) {
+        BIOMES.register(eventBus);
     }
 
 }
