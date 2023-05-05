@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -142,7 +143,7 @@ public final class RegisterHelper {
     /**
      * {@link DeferredRegister<Biome> The biome registry}
      */
-    private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, MineWorld.MOD_ID);
+    private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registries.BIOME, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -1611,12 +1612,12 @@ public final class RegisterHelper {
     /**
      * Register a {@link Biome biome}
      *
-     * @param name {@link String The biome name}
+     * @param key {@link ResourceKey<Biome> The biome resource key}
      * @param biomeSupplier {@link Supplier<Biome> The biome supplier}
      * @return {@link RegistryObject<Biome> The registered biome}
      */
-    public static RegistryObject<Biome> registerBiome(final String name, final Supplier<Biome> biomeSupplier) {
-        return BIOMES.register(KeyHelper.registerBiome(name).location().getPath(), biomeSupplier);
+    public static RegistryObject<Biome> registerBiome(final ResourceKey<Biome> key, final Supplier<Biome> biomeSupplier) {
+        return BIOMES.register(key.location().getPath(), biomeSupplier);
     }
 
     /**

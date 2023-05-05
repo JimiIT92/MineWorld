@@ -427,7 +427,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      * @return {@link Integer 400}
      */
     private static int getTotalForgingTime(final Level level, final ForgingTableBlockEntity blockEntity) {
-        return 400;
+        return blockEntity.quickCheck.getRecipeFor(blockEntity, level).map(ForgingRecipe::forgingTime).orElse(400);
     }
 
     /**
@@ -638,7 +638,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
         for(Object2IntMap.Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
             player.getRecipeManager().byKey(entry.getKey()).ifPresent(recipe -> {
                 recipes.add(recipe);
-                createExperience(player, position, entry.getIntValue(), 0.2F);
+                createExperience(player, position, entry.getIntValue(), ((ForgingRecipe)recipe).experience());
             });
         }
         return recipes;

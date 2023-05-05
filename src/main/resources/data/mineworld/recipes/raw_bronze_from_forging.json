@@ -8,5 +8,7 @@
   },
   "result": {
     "item": "mineworld:raw_bronze"
-  }
+  },
+  "forging_time": 400,
+  "experience": 0.2
 }

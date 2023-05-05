@@ -137,10 +137,10 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      */
     @Override
     public void setRecipe(final @NotNull IRecipeLayoutBuilder recipeLayoutBuilder, final @NotNull ForgingRecipe recipe, final @NotNull IFocusGroup focusGroup) {
-        recipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 3, 18).addIngredients(recipe.getBase());
-        recipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 42, 18).addIngredients(recipe.getAddition());
+        recipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 3, 18).addIngredients(recipe.base());
+        recipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 42, 18).addIngredients(recipe.addition());
         recipeLayoutBuilder.addSlot(RecipeIngredientRole.CATALYST, 42, 48).addIngredients(Ingredient.of(Items.LAVA_BUCKET));
-        recipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 18).addItemStack(recipe.getResult());
+        recipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 18).addItemStack(recipe.result());
     }
 
     /**
@@ -167,8 +167,36 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
     public void draw(final @NotNull ForgingRecipe recipe, final @NotNull IRecipeSlotsView recipeSlotsView, final @NotNull PoseStack poseStack, final double mouseX, final double mouseY) {
         animatedLava.draw(poseStack, 36, 66);
         this.cachedArrows.getUnchecked(forgingTime).draw(poseStack, 63, 18);
-        drawText(ComponentHelper.get("gui.jei.category.smelting.experience", 0.2F), poseStack, 0);
-        drawText(ComponentHelper.get("gui.jei.category.smelting.time.seconds", forgingTime / 20), poseStack, 66);
+        drawExperience(recipe, poseStack ,0);
+        drawForgeTime(recipe, poseStack ,66);
+    }
+
+    /**
+     * Draw the recipe experience
+     *
+     * @param recipe {@link ForgingRecipe The recipe}
+     * @param poseStack {@link PoseStack The recipe pose stack}
+     * @param y {@link Integer The Y coordinate where to draw the experience}
+     */
+    private void drawExperience(final ForgingRecipe recipe, final PoseStack poseStack, final int y) {
+        final float experience = recipe.experience();
+        if (experience > 0) {
+            drawText(Component.translatable("gui.jei.category.smelting.experience", experience), poseStack, y);
+        }
+    }
+
+    /**
+     * Draw the recipe forging time
+     *
+     * @param recipe {@link ForgingRecipe The recipe}
+     * @param poseStack {@link PoseStack The recipe pose stack}
+     * @param y {@link Integer The Y coordinate where to draw the forging time}
+     */
+    private void drawForgeTime(final ForgingRecipe recipe, final PoseStack poseStack, final int y) {
+        final int cookTime = recipe.forgingTime();
+        if (cookTime > 0) {
+            drawText(Component.translatable("gui.jei.category.smelting.time.seconds", cookTime / 20), poseStack, y);
+        }
     }
 
     /**

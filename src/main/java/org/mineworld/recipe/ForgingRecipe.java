@@ -1,14 +1,14 @@
 package org.mineworld.recipe;
 
-import com.google.gson.JsonObject;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
@@ -20,41 +20,9 @@ import org.mineworld.core.MWRecipeTypes;
 import java.util.stream.Stream;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} forging recipe
+ * Record class for a {@link MineWorld MineWorld} forging recipe
  */
-public class ForgingRecipe implements SmithingRecipe {
-
-    /**
-     * {@link Ingredient The recipe base ingredient}
-     */
-    private final Ingredient base;
-    /**
-     * {@link Ingredient The recipe addition ingredient}
-     */
-    private final Ingredient addition;
-    /**
-     * {@link ItemStack The recipe result}
-     */
-    private final ItemStack result;
-    /**
-     * {@link ResourceLocation The recipe id}
-     */
-    private final ResourceLocation id;
-
-    /**
-     * Constructor. Set the recipe properties
-     *
-     * @param id {@link ResourceLocation The recipe id}
-     * @param base {@link Ingredient The recipe base ingredient}
-     * @param addition {@link Ingredient The recipe addition ingredient}
-     * @param result {@link ItemStack The recipe result}
-     */
-    public ForgingRecipe(final ResourceLocation id, final Ingredient base, final Ingredient addition, final ItemStack result) {
-        this.id = id;
-        this.base = base;
-        this.addition = addition;
-        this.result = result;
-    }
+public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient addition, ItemStack result, int forgingTime, float experience) implements SmithingRecipe {
 
     /**
      * Check if some ingredients matches a recipe
@@ -105,34 +73,7 @@ public class ForgingRecipe implements SmithingRecipe {
      */
     @Override
     public @NotNull ItemStack getResultItem(final @NotNull RegistryAccess registryAccess) {
-        return this.getResult();
-    }
-
-    /**
-     * Get the {@link Ingredient recipe base ingredient}
-     *
-     * @return {@link Ingredient The recipe base ingredient}
-     */
-    public Ingredient getBase() {
-        return this.base;
-    }
-
-    /**
-     * Get the {@link Ingredient recipe addition ingredient}
-     *
-     * @return {@link Ingredient The recipe addition ingredient}
-     */
-    public Ingredient getAddition() {
-        return this.addition;
-    }
-
-    /**
-     * Get the {@link ItemStack recipe result}
-     *
-     * @return {@link ItemStack The recipe result}
-     */
-    public ItemStack getResult() {
-        return this.result;
+        return this.result();
     }
 
     /**
@@ -226,56 +167,6 @@ public class ForgingRecipe implements SmithingRecipe {
     @Override
     public @NotNull RecipeType<?> getType() {
         return MWRecipeTypes.FORGING.get();
-    }
-
-    /**
-     * {@link RecipeSerializer<ForgingRecipe> The forging recipe serializer}
-     */
-    public static class ForgingRecipeSerialzier implements RecipeSerializer<ForgingRecipe> {
-
-        /**
-         * Deserialize a recipe from a JSON file
-         *
-         * @param recipeId {@link ResourceLocation The recipe resource location}
-         * @param json {@link JsonObject The recipe json object}
-         */
-        public @NotNull ForgingRecipe fromJson(final @NotNull ResourceLocation recipeId, final @NotNull JsonObject json) {
-            return new ForgingRecipe(recipeId, getIngredient("base", json), getIngredient("addition", json), ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
-        }
-
-        /**
-         * Get an {@link Ingredient ingredient} from the {@link JsonObject serialized recipe json}
-         *
-         * @param key {@link String The ingredient key}
-         * @param json {@link JsonObject The serialized recipe json}
-         * @return {@link Ingredient The ingredient}
-         */
-        private Ingredient getIngredient(final String key, final JsonObject json) {
-            return Ingredient.fromJson(GsonHelper.isArrayNode(json, key) ? GsonHelper.getAsJsonArray(json, key) : GsonHelper.getAsJsonObject(json, key));
-        }
-
-        /**
-         * Deserialize a recipe from the network
-         *
-         * @param recipeId {@link ResourceLocation The recipe resource location}
-         * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
-         */
-        public ForgingRecipe fromNetwork(final @NotNull ResourceLocation recipeId, final @NotNull FriendlyByteBuf byteBuffer) {
-            return new ForgingRecipe(recipeId, Ingredient.fromNetwork(byteBuffer), Ingredient.fromNetwork(byteBuffer), byteBuffer.readItem());
-        }
-
-        /**
-         * Serialize a recipe to the network
-         *
-         * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
-         * @param recipe {@link ForgingRecipe The recipe to serialize}
-         */
-        public void toNetwork(final @NotNull FriendlyByteBuf byteBuffer, final ForgingRecipe recipe) {
-            recipe.base.toNetwork(byteBuffer);
-            recipe.addition.toNetwork(byteBuffer);
-            byteBuffer.writeItem(recipe.result);
-        }
-
     }
 
 }
