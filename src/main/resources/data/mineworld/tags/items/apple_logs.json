@@ -4,6 +4,7 @@
     "mineworld:apple_log",
     "mineworld:apple_wood",
     "mineworld:stripped_apple_log",
-    "mineworld:stripped_apple_wood"
+    "mineworld:stripped_apple_wood",
+    "#mineworld:hollow_apple_logs"
   ]
 }

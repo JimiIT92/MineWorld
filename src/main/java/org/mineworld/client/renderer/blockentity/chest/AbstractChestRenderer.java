@@ -12,6 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.KeyHelper;
+import org.mineworld.helper.PropertyHelper;
 
 /**
  * {@link ChestRenderer Renderer} class for a {@link MineWorld MineWorld} chest
@@ -87,7 +88,7 @@ abstract class AbstractChestRenderer extends ChestRenderer<ChestBlockEntity> {
      * @return {@link Material The chest material}
      */
     private Material getMaterial(final String type) {
-        return new Material(Sheets.CHEST_SHEET, KeyHelper.entity("chest/" + getWoodType().name() + "/" + type));
+        return new Material(Sheets.CHEST_SHEET, KeyHelper.entity("chest/" + PropertyHelper.getWoodTypeName(getWoodType()) + "/" + type));
     }
 
     /**

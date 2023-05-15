@@ -20,6 +20,8 @@
     "mineworld:crimson_chest",
     "mineworld:crimson_trapped_chest",
     "mineworld:warped_chest",
-    "mineworld:warped_trapped_chest"
+    "mineworld:warped_trapped_chest",
+    "mineworld:apple_chest",
+    "mineworld:apple_trapped_chest"
   ]
 }

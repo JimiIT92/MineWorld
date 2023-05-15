@@ -1,9 +1,13 @@
 package org.mineworld.core;
 
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.LecternRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.HangingSignBlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
@@ -50,6 +54,11 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<WarpedChestBlockEntity>> WARPED_CHEST = RegisterHelper.registerBlockEntity("warped_chest", WarpedChestBlockEntity::new, MWBlocks.WARPED_CHEST);
     public static final RegistryObject<BlockEntityType<WarpedTrappedChestBlockEntity>> WARPED_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("warped_trapped_chest", WarpedTrappedChestBlockEntity::new, MWBlocks.WARPED_TRAPPED_CHEST);
     public static final RegistryObject<BlockEntityType<ForgingTableBlockEntity>> FORGING_TABLE = RegisterHelper.registerBlockEntity("forging_table", ForgingTableBlockEntity::new, MWBlocks.FORGING_TABLE);
+    public static final RegistryObject<BlockEntityType<LecternBlockEntity>> APPLE_LECTERN = RegisterHelper.registerBlockEntity("apple_lectern", LecternBlockEntity::new, MWBlocks.APPLE_LECTERN);
+    public static final RegistryObject<BlockEntityType<AppleChestBlockEntity>> APPLE_CHEST = RegisterHelper.registerBlockEntity("apple_chest", AppleChestBlockEntity::new, MWBlocks.APPLE_CHEST);
+    public static final RegistryObject<BlockEntityType<AppleTrappedChestBlockEntity>> APPLE_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("apple_trapped_chest", AppleTrappedChestBlockEntity::new, MWBlocks.APPLE_TRAPPED_CHEST);
+    public static final RegistryObject<BlockEntityType<SignBlockEntity>> SIGN = RegisterHelper.registerBlockEntity("sign", SignBlockEntity::new, MWBlocks.APPLE_SIGN, MWBlocks.APPLE_WALL_SIGN);
+    public static final RegistryObject<BlockEntityType<HangingSignBlockEntity>> HANGING_SIGN = RegisterHelper.registerBlockEntity("hanging_sign", HangingSignBlockEntity::new, MWBlocks.APPLE_HANGING_SIGN, MWBlocks.APPLE_WALL_HANGING_SIGN);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link BlockEntityType block entity types}
@@ -94,5 +103,10 @@ public final class MWBlockEntityTypes {
         BlockEntityRenderers.register(WARPED_LECTERN.get(), LecternRenderer::new);
         BlockEntityRenderers.register(WARPED_CHEST.get(), WarpedChestRenderer::new);
         BlockEntityRenderers.register(WARPED_TRAPPED_CHEST.get(), WarpedTrappedChestRenderer::new);
+        BlockEntityRenderers.register(APPLE_LECTERN.get(), LecternRenderer::new);
+        BlockEntityRenderers.register(APPLE_CHEST.get(), AppleChestRenderer::new);
+        BlockEntityRenderers.register(APPLE_TRAPPED_CHEST.get(), AppleTrappedChestRenderer::new);
+        BlockEntityRenderers.register(SIGN.get(), SignRenderer::new);
+        BlockEntityRenderers.register(HANGING_SIGN.get(), HangingSignRenderer::new);
     }
 }

@@ -13,10 +13,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
+import org.mineworld.core.MWWoodTypes;
+import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.IntFunction;
 
@@ -94,6 +98,7 @@ public class MWBoat extends Boat {
         return switch (this.getBoatType()) {
             case CRIMSON -> MWItems.CRIMSON_BOAT.get();
             case WARPED -> MWItems.WARPED_BOAT.get();
+            case APPLE -> MWItems.APPLE_BOAT.get();
         };
     }
 
@@ -121,8 +126,9 @@ public class MWBoat extends Boat {
      * Boat types
      */
     public enum Type implements StringRepresentable {
-        CRIMSON(Blocks.CRIMSON_PLANKS, "crimson"),
-        WARPED(Blocks.WARPED_PLANKS, "warped");
+        CRIMSON(Blocks.CRIMSON_PLANKS, WoodType.CRIMSON),
+        WARPED(Blocks.WARPED_PLANKS, WoodType.WARPED),
+        APPLE(MWBlocks.APPLE_PLANKS.get(), MWWoodTypes.APPLE);
 
         /**
          * {@link String The boat type name}
@@ -145,10 +151,10 @@ public class MWBoat extends Boat {
          * Constructor. Set the boat type properties
          *
          * @param planks {@link Block The planks representing this boat type}
-         * @param name {@link String The boat type name}
+         * @param woodType {@link WoodType The boat wood type}
          */
-        Type(final Block planks, final String name) {
-            this.name = name;
+        Type(final Block planks, final WoodType woodType) {
+            this.name = PropertyHelper.getWoodTypeName(woodType);
             this.planks = planks;
         }
 

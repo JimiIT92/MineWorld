@@ -37,6 +37,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
+import org.mineworld.core.MWWoodTypes;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.Pebble;
 import org.mineworld.entity.block.chest.*;
@@ -482,6 +484,20 @@ public final class PropertyHelper {
         else if(woodType.equals(WoodType.WARPED)) {
             blockEntity = isTrappedChest ? new WarpedTrappedChestBlockEntity(blockPos, blockState) : new WarpedChestBlockEntity(blockPos, blockState);
         }
+        else if(woodType.equals(MWWoodTypes.APPLE)) {
+            blockEntity = isTrappedChest ? new AppleTrappedChestBlockEntity(blockPos, blockState) : new AppleChestBlockEntity(blockPos, blockState);
+        }
         return blockEntity != null ? blockEntity : (isTrappedChest ? new TrappedChestBlockEntity(blockPos, blockState) : new ChestBlockEntity(blockPos, blockState));
     }
+
+    /**
+     * Get the {@link WoodType wood type name}
+     *
+     * @param woodType {@link WoodType The wood type}
+     * @return {@link String The wood type name}
+     */
+    public static String getWoodTypeName(final WoodType woodType) {
+        return woodType.name().replace(MineWorld.MOD_ID, "").replace(":", "");
+    }
+
 }

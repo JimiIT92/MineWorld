@@ -1338,6 +1338,27 @@ public final class MWBlocks {
     public static final RegistryObject<Block> APPLE_SAPLING = RegisterHelper.registerBlock("apple_sapling", () -> new SaplingBlock(new AppleTreeGrower(), PropertyHelper.copyFromBlock(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> POTTED_APPLE_SAPLING = RegisterHelper.registerFlowerPot("potted_apple_sapling", APPLE_SAPLING);
     public static final RegistryObject<Block> POTTED_APPLE_LEAVES = RegisterHelper.registerFlowerPot("potted_apple_leaves", APPLE_LEAVES);
+    public static final RegistryObject<Block> APPLE_STAIRS = RegisterHelper.registerStair("apple_stairs", () -> APPLE_PLANKS.get().defaultBlockState());
+    public static final RegistryObject<Block> APPLE_SLAB = RegisterHelper.registerSlab("apple_slab", APPLE_PLANKS);
+    public static final RegistryObject<Block> APPLE_DOOR = RegisterHelper.registerDoor("apple_door", false, BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_TRAPDOOR = RegisterHelper.registerTrapdoor("apple_trapdoor", false, BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("apple_pressure_plate", true, MaterialColor.TERRACOTTA_RED, BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_BUTTON = RegisterHelper.registerButton("apple_button", true, BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_LEAVES_CARPET = RegisterHelper.registerBlock("apple_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(APPLE_LEAVES.get())));
+    public static final RegistryObject<Block> APPLE_BARREL = RegisterHelper.registerBlock("apple_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
+    public static final RegistryObject<Block> APPLE_CHEST = RegisterHelper.registerChest("apple_chest", () -> MWBlockEntityTypes.APPLE_CHEST.get(), MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("apple_trapped_chest", () -> MWBlockEntityTypes.APPLE_TRAPPED_CHEST.get(), MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_BOOKSHELF = RegisterHelper.registerBookshelf("apple_bookshelf");
+    public static final RegistryObject<Block> APPLE_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("apple_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
+    public static final RegistryObject<Block> APPLE_LECTERN = RegisterHelper.registerLectern("apple_lectern", () -> MWBlockEntityTypes.APPLE_LECTERN.get());
+    public static final RegistryObject<Block> APPLE_BUSH = RegisterHelper.registerBlock("apple_bush", () -> new TreeBushBlock(JungleTreeGrower::new));
+    public static final RegistryObject<Block> POTTED_APPLE_BUSH = RegisterHelper.registerFlowerPot("potted_apple_bush", APPLE_BUSH);
+    public static final RegistryObject<Block> APPLE_FENCE = RegisterHelper.registerFence("apple_fence", APPLE_PLANKS);
+    public static final RegistryObject<Block> APPLE_FENCE_GATE = RegisterHelper.registerFenceGate("apple_fence_gate", APPLE_PLANKS, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_SIGN = RegisterHelper.registerStandingSign("apple_sign", MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_WALL_SIGN = RegisterHelper.registerWallSign("apple_wall_sign", MWWoodTypes.APPLE, APPLE_SIGN);
+    public static final RegistryObject<Block> APPLE_HANGING_SIGN = RegisterHelper.registerHangingSign("apple_hanging_sign", APPLE_LOG, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_WALL_HANGING_SIGN = RegisterHelper.registerWallHangingSign("apple_wall_hanging_sign", APPLE_LOG, APPLE_HANGING_SIGN, MWWoodTypes.APPLE);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

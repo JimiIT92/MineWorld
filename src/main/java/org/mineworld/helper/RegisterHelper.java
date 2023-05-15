@@ -30,6 +30,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -78,6 +79,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
 import org.mineworld.block.PebbleBlock;
+import org.mineworld.core.MWBlockEntityTypes;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWColors;
 import org.mineworld.core.MWItems;
@@ -670,6 +672,260 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link FenceBlock fence block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this fence is referring to}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)) {
+
+            /**
+             * Determine if the {@link RotatedPillarBlock block} is flammable
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Boolean True if the block is flammable}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return this.material.isFlammable();
+            }
+
+            /**
+             * Get the {@link Integer block flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block flammability value}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 5;
+            }
+
+            /**
+             * Get the {@link Integer block fire spread chance value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block fire spread chance value}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 20;
+            }
+
+        });
+    }
+
+    /**
+     * Register a {@link FenceBlock fence gate block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this fence gate is referring to}
+     * @param woodType {@link WoodType The fence gate wood type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).strength(2.0F, 3.0F), woodType) {
+
+            /**
+             * Determine if the {@link RotatedPillarBlock block} is flammable
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Boolean True if the block is flammable}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return this.material.isFlammable();
+            }
+
+            /**
+             * Get the {@link Integer block flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block flammability value}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 5;
+            }
+
+            /**
+             * Get the {@link Integer block fire spread chance value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block fire spread chance value}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 20;
+            }
+
+        });
+    }
+
+    /**
+     * Register a {@link SignBlock sign block}
+     *
+     * @param name {@link String The block name}
+     * @param woodType {@link WoodType The sign wood type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerStandingSign(final String name, final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new StandingSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_SIGN), woodType) {
+
+            /**
+             * Get the {@link BlockEntity sign block entity}
+             *
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link BlockEntity The sign block entity}
+             */
+            @Override
+            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+                return new SignBlockEntity(blockPos, blockState) {
+
+                    /**
+                     * Get the {@link BlockEntityType sign block entity type}
+                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
+                     */
+                    @Override
+                    public @NotNull BlockEntityType<?> getType() {
+                        return MWBlockEntityTypes.SIGN.get();
+                    }
+                };
+            }
+        });
+    }
+
+    /**
+     * Register a {@link SignBlock wall sign block}
+     *
+     * @param name {@link String The block name}
+     * @param woodType {@link WoodType The sign wood type}
+     * @param standingSignSupplier {@link Supplier<Block> The supplier for the standing sign block}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerWallSign(final String name, final WoodType woodType, final Supplier<Block> standingSignSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new WallSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_WALL_SIGN).dropsLike(standingSignSupplier.get()), woodType) {
+
+            /**
+             * Get the {@link BlockEntity sign block entity}
+             *
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link BlockEntity The sign block entity}
+             */
+            @Override
+            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+                return new SignBlockEntity(blockPos, blockState) {
+
+                    /**
+                     * Get the {@link BlockEntityType sign block entity type}
+                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
+                     */
+                    @Override
+                    public @NotNull BlockEntityType<?> getType() {
+                        return MWBlockEntityTypes.SIGN.get();
+                    }
+                };
+            }
+        });
+    }
+
+    /**
+     * Register an {@link SignBlock hanging sign block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this sign is referring to}
+     * @param woodType {@link WoodType The sign wood type}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerHangingSign(final String name, final Supplier<Block> blockSupplier, final WoodType woodType) {
+        return registerBlockWithoutBlockItem(name, () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).noCollission().strength(1.0F).requiredFeatures(FeatureFlags.UPDATE_1_20), woodType) {
+
+            /**
+             * Get the {@link BlockEntity sign block entity}
+             *
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link BlockEntity The sign block entity}
+             */
+            @Override
+            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+                return new HangingSignBlockEntity(blockPos, blockState) {
+
+                    /**
+                     * Get the {@link BlockEntityType sign block entity type}
+                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
+                     */
+                    @Override
+                    public @NotNull BlockEntityType<?> getType() {
+                        return MWBlockEntityTypes.HANGING_SIGN.get();
+                    }
+                };
+            }
+        });
+    }
+
+    /**
+     * Register an {@link SignBlock wall hanging sign block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this sign is referring to}
+     * @param woodType {@link WoodType The sign wood type}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerWallHangingSign(final String name, final Supplier<Block> blockSupplier, final Supplier<Block> standingSignSupplier, final WoodType woodType) {
+        return registerBlockWithoutBlockItem(name, () -> new WallHangingSignBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).noCollission().strength(1.0F).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(standingSignSupplier.get()), woodType) {
+
+            /**
+             * Get the {@link BlockEntity sign block entity}
+             *
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param blockState {@link BlockState The current block state}
+             * @return {@link BlockEntity The sign block entity}
+             */
+            @Override
+            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+                return new HangingSignBlockEntity(blockPos, blockState) {
+
+                    /**
+                     * Get the {@link BlockEntityType sign block entity type}
+                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
+                     */
+                    @Override
+                    public @NotNull BlockEntityType<?> getType() {
+                        return MWBlockEntityTypes.HANGING_SIGN.get();
+                    }
+                };
+            }
+        });
+    }
+
+    /**
      * Register a {@link DoorBlock door block}
      *
      * @param name {@link String The block name}
@@ -759,6 +1015,7 @@ public final class RegisterHelper {
      */
     public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
         return registerBlock(name, () -> new StairBlock(blockStateSupplier, propertiesSupplier.get()) {
+
             /**
              * Get the {@link PushReaction push reaction} when this block is pushed by pistons
              *
@@ -768,6 +1025,49 @@ public final class RegisterHelper {
             public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
                 return LevelHelper.getPushReaction(blockStateSupplier.get());
             }
+
+            /**
+             * Determine if the {@link RotatedPillarBlock block} is flammable
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Boolean True if the block is flammable}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return this.material.isFlammable();
+            }
+
+            /**
+             * Get the {@link Integer block flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block flammability value}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 5;
+            }
+
+            /**
+             * Get the {@link Integer block fire spread chance value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block fire spread chance value}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 20;
+            }
+
         });
     }
 
@@ -804,6 +1104,7 @@ public final class RegisterHelper {
      */
     private static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction) {
         return registerBlock(name, () -> new SlabBlock(propertiesSupplier.get()) {
+
             /**
              * Get the {@link PushReaction push reaction} when this block is pushed by pistons
              *
@@ -813,6 +1114,49 @@ public final class RegisterHelper {
             public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
                 return pistonPushReaction.get();
             }
+
+            /**
+             * Determine if the {@link RotatedPillarBlock block} is flammable
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Boolean True if the block is flammable}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return this.material.isFlammable();
+            }
+
+            /**
+             * Get the {@link Integer block flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block flammability value}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 5;
+            }
+
+            /**
+             * Get the {@link Integer block fire spread chance value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block fire spread chance value}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 20;
+            }
+
         });
     }
 
@@ -1334,12 +1678,13 @@ public final class RegisterHelper {
      *
      * @param name {@link String The block entity name}
      * @param blockEntitySupplier {@link BlockEntityType.BlockEntitySupplier<T> The supplier for the block entity}
-     * @param blockSupplier {@link Supplier<Block> The supplier for the block related to the block entity}
+     * @param blockSuppliers {@link Supplier<Block> The supplier for the blocks related to the block entity}
      * @return {@link RegistryObject<BlockEntityType> The registered block entity}
      * @param <T> {@link T The block entity type}
      */
-    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntity(final String name, final BlockEntityType.BlockEntitySupplier<T> blockEntitySupplier, final Supplier<Block> blockSupplier) {
-        return BLOCK_ENTITY_TYPES.register(name, () -> BlockEntityType.Builder.of(blockEntitySupplier, blockSupplier.get()).build(null));
+    @SafeVarargs
+    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntity(final String name, final BlockEntityType.BlockEntitySupplier<T> blockEntitySupplier, final Supplier<Block>... blockSuppliers) {
+        return BLOCK_ENTITY_TYPES.register(name, () -> BlockEntityType.Builder.of(blockEntitySupplier, Arrays.stream(blockSuppliers).map(blockSupplier -> blockSupplier.get()).toList().toArray(new Block[0])).build(null));
     }
 
     /**
@@ -1703,6 +2048,16 @@ public final class RegisterHelper {
      */
     public static <T extends IGlobalLootModifier> RegistryObject<Codec<T>> registerLootModifier(final String name, Supplier<Codec<T>> codecSupplier) {
         return LOOT_MODIFIER_SERIALIZERS.register(name, codecSupplier);
+    }
+
+    /**
+     * Register a {@link WoodType wood type}
+     *
+     * @param name {@link String The wood type name}
+     * @return {@link WoodType The registered wood type}
+     */
+    public static WoodType registerWoodType(final String name) {
+        return WoodType.register(new WoodType(MineWorld.MOD_ID + ":" + name, BlockSetType.OAK));
     }
 
     /**

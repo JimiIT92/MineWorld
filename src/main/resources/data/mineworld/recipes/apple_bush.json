@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:apple_sapling"
+    },
+    "X": {
+      "item": "mineworld:apple_leaves"
+    }
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "item": "mineworld:apple_bush"
+  },
+  "show_notification": true
+}

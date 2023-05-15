@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
+import org.mineworld.core.MWWoodTypes;
 import org.mineworld.helper.ItemHelper;
 
 /**
@@ -137,6 +138,9 @@ public class MWMinecartChest extends MinecartChest {
         if(type.equals(WoodType.WARPED)) {
             return MWItems.WARPED_CHEST_MINECART.get();
         }
+        if(type.equals(MWWoodTypes.APPLE)) {
+            return MWItems.APPLE_CHEST_MINECART.get();
+        }
         return Items.CHEST_MINECART;
     }
 
@@ -178,6 +182,9 @@ public class MWMinecartChest extends MinecartChest {
         }
         if(type.equals(WoodType.WARPED)) {
             return MWBlocks.WARPED_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(MWWoodTypes.APPLE)) {
+            return MWBlocks.APPLE_CHEST.get().defaultBlockState();
         }
         return Blocks.CHEST.defaultBlockState();
     }

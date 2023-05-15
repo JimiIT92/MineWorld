@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#mineworld:stone_buttons"
+    "#mineworld:stone_buttons",
+    "#mineworld:wooden_buttons"
   ]
 }

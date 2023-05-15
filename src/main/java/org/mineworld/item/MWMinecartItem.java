@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.core.MWWoodTypes;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTNT;
@@ -104,6 +105,7 @@ public class MWMinecartItem extends Item {
             case BAMBOO_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.BAMBOO);
             case CRIMSON_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.CRIMSON);
             case WARPED_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.WARPED);
+            case APPLE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.APPLE);
         };
     }
 
@@ -129,7 +131,8 @@ public class MWMinecartItem extends Item {
         CHERRY_CHEST,
         BAMBOO_CHEST,
         CRIMSON_CHEST,
-        WARPED_CHEST;
+        WARPED_CHEST,
+        APPLE_CHEST;
 
         /**
          * {@link Boolean If the tnt type represents a disguised one}

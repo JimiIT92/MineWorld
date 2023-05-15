@@ -22,6 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.core.MWWoodTypes;
 import org.mineworld.helper.PropertyHelper;
 
 /**
@@ -118,6 +119,14 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      * {@link ChestBlockEntity The warped trapped chest block entity}
      */
     private final ChestBlockEntity trappedWarpedChest = PropertyHelper.getChestBlockEntity(WoodType.WARPED, BlockPos.ZERO, MWBlocks.WARPED_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The apple chest block entity}
+     */
+    private final ChestBlockEntity appleChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.APPLE, BlockPos.ZERO, MWBlocks.APPLE_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The apple trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedAppleChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.APPLE, BlockPos.ZERO, MWBlocks.APPLE_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}
@@ -222,6 +231,12 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
             else if(blockState.is(MWBlocks.WARPED_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedWarpedChest;
+            }
+            if(blockState.is(MWBlocks.APPLE_CHEST.get())) {
+                blockentity = this.appleChest;
+            }
+            else if(blockState.is(MWBlocks.APPLE_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedAppleChest;
             }
             if(blockentity != null) {
                 this.blockEntityRenderDispatcher.renderItem(blockentity, pose, buffer, packedLight, packedOverlay);

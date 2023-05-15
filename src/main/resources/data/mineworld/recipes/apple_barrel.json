@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "mineworld:apple_planks"
+    },
+    "S": {
+      "item": "mineworld:apple_slab"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "result": {
+    "item": "mineworld:apple_barrel"
+  },
+  "show_notification": true
+}

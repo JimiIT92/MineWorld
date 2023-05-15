@@ -2,12 +2,15 @@ package org.mineworld.core;
 
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SignItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.vehicle.MWBoat;
+import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RegisterHelper;
 import org.mineworld.item.*;
 
@@ -269,6 +272,14 @@ public final class MWItems {
     public static final RegistryObject<Item> WARPED_BOAT = RegisterHelper.registerItem("warped_boat", () -> new MWBoatItem(false, MWBoat.Type.WARPED));
     public static final RegistryObject<Item> WARPED_CHEST_BOAT = RegisterHelper.registerItem("warped_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.WARPED));
     public static final RegistryObject<Item> BLUEBERRIES = RegisterHelper.registerFoodBlockItem("blueberries", MWBlocks.BLUEBERRY_BUSH, MWFoods.BLUEBERRIES);
+
+    public static final RegistryObject<Item> APPLE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("apple_chest", MWBlocks.APPLE_CHEST);
+    public static final RegistryObject<Item> APPLE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("apple_trapped_chest", MWBlocks.APPLE_TRAPPED_CHEST);
+    public static final RegistryObject<Item> APPLE_CHEST_MINECART = RegisterHelper.registerItem("apple_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.APPLE_CHEST));
+    public static final RegistryObject<Item> APPLE_BOAT = RegisterHelper.registerItem("apple_boat", () -> new MWBoatItem(false, MWBoat.Type.APPLE));
+    public static final RegistryObject<Item> APPLE_CHEST_BOAT = RegisterHelper.registerItem("apple_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.APPLE));
+    public static final RegistryObject<Item> APPLE_SIGN = RegisterHelper.registerItem("apple_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.APPLE_SIGN.get(), MWBlocks.APPLE_WALL_SIGN.get()));
+    public static final RegistryObject<Item> APPLE_HANGING_SIGN = RegisterHelper.registerItem("apple_hanging_sign", () -> new HangingSignItem(MWBlocks.APPLE_HANGING_SIGN.get(), MWBlocks.APPLE_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}
