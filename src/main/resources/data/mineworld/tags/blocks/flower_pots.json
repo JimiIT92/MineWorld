@@ -97,6 +97,8 @@
     "mineworld:potted_acacia_bush",
     "mineworld:potted_dark_oak_bush",
     "mineworld:potted_mangrove_bush",
-    "mineworld:potted_cherry_bush"
+    "mineworld:potted_cherry_bush",
+    "mineworld:potted_apple_sapling",
+    "mineworld:potted_apple_leaves"
   ]
 }

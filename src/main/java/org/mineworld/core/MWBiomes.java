@@ -23,6 +23,8 @@ import terrablender.api.SurfaceRuleManager;
 public final class MWBiomes {
 
     public static final ResourceKey<Biome> FROZEN_PLAINS = KeyHelper.registerBiome("frozen_plains");
+    public static final ResourceKey<Biome> WASTELAND = KeyHelper.registerBiome("wasteland");
+    public static final ResourceKey<Biome> VOLCANIC_PEAK = KeyHelper.registerBiome("volcanic_peak");
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Biome biomes}
@@ -42,6 +44,8 @@ public final class MWBiomes {
         final HolderGetter<PlacedFeature> placedFeatureHolder = context.lookup(Registries.PLACED_FEATURE);
         final HolderGetter<ConfiguredWorldCarver<?>> carver = context.lookup(Registries.CONFIGURED_CARVER);
         context.register(FROZEN_PLAINS, BiomeHelper.frozenPlains(placedFeatureHolder, carver));
+        context.register(WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
+        context.register(VOLCANIC_PEAK, BiomeHelper.volcanicPeak(placedFeatureHolder, carver));
     }
 
     /**

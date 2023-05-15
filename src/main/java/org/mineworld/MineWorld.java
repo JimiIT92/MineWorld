@@ -77,7 +77,6 @@ public final class MineWorld {
         event.enqueueWork(RegisterHelper::registerFlowerPots);
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
         event.enqueueWork(RegisterHelper::registerCompostables);
-        event.enqueueWork(MWPoiTypes::registerPOIs);
         event.enqueueWork(MWBiomes::registerOverworldBiomes);
     }
 

@@ -4,10 +4,8 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import org.mineworld.MineWorld;
-import org.mineworld.core.MWBiomes;
 import org.mineworld.helper.KeyHelper;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
@@ -23,7 +21,7 @@ public class MWOverworldRegion extends Region {
      * Construtor. Set the {@link Region terrablender region} properties
      */
     public MWOverworldRegion() {
-        super(KeyHelper.location("overworld"), RegionType.OVERWORLD, 1);
+        super(KeyHelper.location("overworld"), RegionType.OVERWORLD, 10);
     }
 
     /**
@@ -34,7 +32,7 @@ public class MWOverworldRegion extends Region {
      */
     @Override
     public void addBiomes(final Registry<Biome> biomeRegistry, final Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
-        this.addModifiedVanillaOverworldBiomes(mapper, builder -> builder.replaceBiome(Biomes.ICE_SPIKES, MWBiomes.FROZEN_PLAINS));
+        new MWOverworldBiomeBuilder().addBiomes(mapper);
     }
 
 }

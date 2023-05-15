@@ -285,7 +285,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @return {@link Optional<BlockState> The hollow log block state, if any}
      */
     public static Optional<BlockState> getHollow(final BlockState blockState) {
-        return Optional.ofNullable(HollowBlock.HOLLOWABLES.get().get(blockState.getBlock())).map(block -> block.withPropertiesOf(blockState));
+        return Optional.ofNullable(HOLLOWABLES.get().get(blockState.getBlock())).map(block -> block.withPropertiesOf(blockState));
     }
 
 }

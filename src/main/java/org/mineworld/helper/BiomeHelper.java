@@ -1,44 +1,26 @@
 package org.mineworld.helper;
 
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.mineworld.core.MWBiomes;
+import org.mineworld.core.MWPlacedFeatures;
 
 /**
  * Helper methods for {@link Biome biomes}
  */
 public final class BiomeHelper {
-
-    /**
-     * Get a {@link Biome} from the registry only if exists or is a vanilla biome
-     *
-     * @param biomeRegistry {@link Registry<Biome> The biome registry}
-     * @param biomes {@link ResourceKey<Biome> The biomes}
-     * @return {@link ResourceKey<Biome> The biome}
-     */
-    @SafeVarargs
-    public static ResourceKey<Biome> getBiome(final Registry<Biome> biomeRegistry, final ResourceKey<Biome>... biomes)
-    {
-        for (ResourceKey<Biome> key : biomes) {
-            if (key == null) {
-                continue;
-            }
-            if (key.location().getNamespace().equals("minecraft")) {
-                return key;
-            }
-        }
-
-        throw new RuntimeException("Failed to find fallback for biome!");
-    }
 
     /**
      * Generate the {@link MWBiomes#FROZEN_PLAINS frozen plains biome}
@@ -77,5 +59,91 @@ public final class BiomeHelper {
                 .mobSpawnSettings(mobSpawnSettings.build())
                 .generationSettings(biomeGenerationSettings.build())
         .build();
+    }
+
+    /**
+     * Generate the {@link MWBiomes#WASTELAND wasteland biome}
+     *
+     * @param placedFeatureHolder {@link HolderGetter<PlacedFeature> The placed feature holder}
+     * @param carver {@link HolderGetter<ConfiguredWorldCarver> The wolrd carver holder}
+     * @return {@link Biome The wasteland biome}
+     */
+    public static Biome wasteland(final HolderGetter<PlacedFeature> placedFeatureHolder, final HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+        mobSpawnSettings.creatureGenerationProbability(0);
+
+        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+        BiomeDefaultFeatures.addDefaultCarversAndLakes(biomeGenerationSettings);
+        BiomeDefaultFeatures.addDefaultCrystalFormations(biomeGenerationSettings);
+        BiomeDefaultFeatures.addDefaultMonsterRoom(biomeGenerationSettings);
+        BiomeDefaultFeatures.addDefaultUndergroundVariety(biomeGenerationSettings);
+        BiomeDefaultFeatures.addDefaultOres(biomeGenerationSettings);
+
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
+
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(true)
+                .temperature(2.0F)
+                .downfall(0.5F)
+                .specialEffects(new BiomeSpecialEffects.Builder()
+                        .waterColor(9868950)
+                        .waterFogColor(11908533)
+                        .fogColor(9868950)
+                        .skyColor(9868950)
+                        .foliageColorOverride(9868950)
+                        .grassColorOverride(9868950)
+                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.00118093334F))
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build()
+                )
+                .generationSettings(biomeGenerationSettings.build())
+                .build();
+    }
+
+    /**
+     * Generate the {@link MWBiomes#VOLCANIC_PEAK volcanic island biome}
+     *
+     * @param placedFeatureHolder {@link HolderGetter<PlacedFeature> The placed feature holder}
+     * @param carver {@link HolderGetter<ConfiguredWorldCarver> The wolrd carver holder}
+     * @return {@link Biome The volcanic island biome}
+     */
+    public static Biome volcanicPeak(final HolderGetter<PlacedFeature> placedFeatureHolder, final HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+        mobSpawnSettings.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 5, 1, 3));
+        BiomeDefaultFeatures.commonSpawns(mobSpawnSettings);
+        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+        BiomeDefaultFeatures.addDefaultCarversAndLakes(biomeGenerationSettings);
+        BiomeDefaultFeatures.addDefaultCrystalFormations(biomeGenerationSettings);
+        BiomeDefaultFeatures.addDefaultMonsterRoom(biomeGenerationSettings);
+        BiomeDefaultFeatures.addDefaultUndergroundVariety(biomeGenerationSettings);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_VOLCANIC_PEAK);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_MAGMA);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_COAL);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_BLACKSTONE);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.MAGMA_STONE_BLOBS);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.MAGMA_BLACKSTONE_BLOBS);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.COAL_STONE_BLOBS);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.COAL_BLACKSTONE_BLOBS);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.LAVA_ROCK_STONE_BLOBS);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.LAVA_ROCK_BLACKSTONE_BLOBS);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, MWPlacedFeatures.SPRING_LAVA_VOLCANIC_PEAK);
+
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(true)
+                .temperature(2.0F)
+                .downfall(0.5F)
+                .specialEffects(new BiomeSpecialEffects.Builder()
+                        .waterColor(2171169)
+                        .waterFogColor(852224)
+                        .fogColor(852224)
+                        .skyColor(852224)
+                        .foliageColorOverride(2171169)
+                        .grassColorOverride(2171169)
+                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.ASH, 0.00236186668F))
+                        .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_BASALT_DELTAS))
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build()
+                )
+                .generationSettings(biomeGenerationSettings.build())
+                .build();
     }
 }

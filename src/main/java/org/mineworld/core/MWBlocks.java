@@ -16,6 +16,7 @@ import org.mineworld.block.weathering.*;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RegisterHelper;
+import org.mineworld.world.worldgen.tree.AppleTreeGrower;
 
 /**
  * {@link MineWorld MineWorld} {@link Block blocks}
@@ -1325,6 +1326,18 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PERENNIAL_ICE = RegisterHelper.registerBlock("perennial_ice", () -> PropertyHelper.copyFromBlock(Blocks.BLUE_ICE).strength(3.5F).friction(0.99F));
     public static final RegistryObject<Block> BLUEBERRY_BUSH = RegisterHelper.registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
     public static final RegistryObject<Block> FORGING_TABLE = RegisterHelper.registerBlock("forging_table", ForgingTableBlock::new);
+
+    public static final RegistryObject<Block> APPLE_LOG = RegisterHelper.registerBlock("apple_log", () -> new MWLogBlock(MaterialColor.TERRACOTTA_RED));
+    public static final RegistryObject<Block> HOLLOW_APPLE_LOG = RegisterHelper.registerBlock("hollow_apple_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(APPLE_LOG.get())));
+    public static final RegistryObject<Block> APPLE_WOOD = RegisterHelper.registerBlock("apple_wood", () -> new MWLogBlock(MaterialColor.TERRACOTTA_RED));
+    public static final RegistryObject<Block> STRIPPED_APPLE_LOG = RegisterHelper.registerBlock("stripped_apple_log", () -> new MWLogBlock(MaterialColor.TERRACOTTA_RED));
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_APPLE_LOG = RegisterHelper.registerBlock("hollow_stripped_apple_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(STRIPPED_APPLE_LOG.get())));
+    public static final RegistryObject<Block> STRIPPED_APPLE_WOOD = RegisterHelper.registerBlock("stripped_apple_wood", () -> new MWLogBlock(MaterialColor.TERRACOTTA_RED));
+    public static final RegistryObject<Block> APPLE_PLANKS = RegisterHelper.registerPlanks("apple_planks", MaterialColor.TERRACOTTA_RED);
+    public static final RegistryObject<Block> APPLE_LEAVES = RegisterHelper.registerLeaves("apple_leaves");
+    public static final RegistryObject<Block> APPLE_SAPLING = RegisterHelper.registerBlock("apple_sapling", () -> new SaplingBlock(new AppleTreeGrower(), PropertyHelper.copyFromBlock(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> POTTED_APPLE_SAPLING = RegisterHelper.registerFlowerPot("potted_apple_sapling", APPLE_SAPLING);
+    public static final RegistryObject<Block> POTTED_APPLE_LEAVES = RegisterHelper.registerFlowerPot("potted_apple_leaves", APPLE_LEAVES);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

@@ -52,6 +52,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -68,7 +69,6 @@ import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -82,8 +82,6 @@ import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWColors;
 import org.mineworld.core.MWItems;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -144,6 +142,10 @@ public final class RegisterHelper {
      * {@link DeferredRegister<Biome> The biome registry}
      */
     private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registries.BIOME, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<Feature> The feature registry}
+     */
+    private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -1169,6 +1171,117 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register some {@link Block wood planks}
+     *
+     * @param name {@link String The block name}
+     * @param materialColor {@link MaterialColor The block color on maps}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerPlanks(final String name, final MaterialColor materialColor, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.OAK_PLANKS, featureFlags).color(materialColor)) {
+
+            /**
+             * Makes the block able to catch fire
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Boolean True}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return true;
+            }
+
+            /**
+             * Get the block {@link Integer flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 20}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 5;
+            }
+
+            /**
+             * Get the block {@link Integer fire spread speed value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 5}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 20;
+            }
+
+        });
+    }
+
+    /**
+     * Register some {@link Block leaves}
+     *
+     * @param name {@link String The block name}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerLeaves(final String name, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new LeavesBlock(PropertyHelper.copyFromBlock(Blocks.OAK_LEAVES, featureFlags)) {
+
+            /**
+             * Makes the block able to catch fire
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Boolean True}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return true;
+            }
+
+            /**
+             * Get the block {@link Integer flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 20}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 30;
+            }
+
+            /**
+             * Get the block {@link Integer fire spread speed value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 5}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 60;
+            }
+
+        });
+    }
+
+    /**
      * Register a {@link Block block}
      *
      * @param name {@link String The block name}
@@ -1562,23 +1675,6 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register {@link MineWorld MineWorld} {@link PoiType villager poi types}
-     *
-     * @param poiTypeSuppliers {@link PoiType The villager poi types to register}
-     */
-    @SafeVarargs
-    public static void registerPOIs(final Supplier<? extends PoiType>... poiTypeSuppliers) {
-        final Method registerMethod = ObfuscationReflectionHelper.findMethod(PoiType.class, "registerBlockStates", PoiType.class);
-        Arrays.stream(poiTypeSuppliers).forEach(poiType -> {
-            try {
-                registerMethod.invoke(null, poiType.get());
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    /**
      * Register a {@link MineWorld MineWorld} {@link VillagerProfession villager profession}
      *
      * @param name {@link String The villager profession name}
@@ -1618,6 +1714,17 @@ public final class RegisterHelper {
      */
     public static RegistryObject<Biome> registerBiome(final ResourceKey<Biome> key, final Supplier<Biome> biomeSupplier) {
         return BIOMES.register(key.location().getPath(), biomeSupplier);
+    }
+
+    /**
+     * Register a {@link Feature feature}
+     *
+     * @param name {@link String The feature name}
+     * @param featureSupplier {@link Supplier<Feature> The feature supplier}
+     * @return {@link RegistryObject<Feature> The registered feature}
+     */
+    public static <FC extends FeatureConfiguration> RegistryObject<Feature<FC>> registerFeature(final String name, final Supplier<? extends Feature<FC>> featureSupplier) {
+        return FEATURES.register(name, featureSupplier);
     }
 
     /**
@@ -1779,6 +1886,15 @@ public final class RegisterHelper {
      */
     public static void registerBiomes(final IEventBus eventBus) {
         BIOMES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link Feature features}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerFeatures(final IEventBus eventBus) {
+        FEATURES.register(eventBus);
     }
 
 }

@@ -398,6 +398,8 @@
   "block.mineworld.potted_dark_oak_bush": "Cespuglio di quercia scura in vaso",
   "block.mineworld.potted_mangrove_bush": "Cespuglio di mangrovia in vaso",
   "block.mineworld.potted_cherry_bush": "Cespuglio di ciliegio in vaso",
+  "block.mineworld.potted_apple_sapling": "Arboscello di melo in vaso",
+  "block.mineworld.potted_apple_leaves": "Foglie di melo in vaso",
   "block.mineworld.corn": "Mais",
   "block.mineworld.disguised_grass_tnt": "Tnt mimetizzata",
   "block.mineworld.disguised_dirt_tnt": "Tnt mimetizzata",
@@ -1484,6 +1486,13 @@
   "block.mineworld.perennial_ice": "Ghiaccio perenne",
   "block.mineworld.blueberry_bush": "Cespuglio di mirtilli",
   "block.mineworld.forging_table": "Tavolo da forgiatura",
+  "block.mineworld.apple_log": "Tronco di melo",
+  "block.mineworld.apple_wood": "Legno di melo",
+  "block.mineworld.stripped_apple_log": "Tronco di melo scortecciato",
+  "block.mineworld.stripped_apple_wood": "Legno di melo scortecciato",
+  "block.mineworld.apple_planks": "Assi di melo",
+  "block.mineworld.apple_leaves": "Foglie di melo",
+  "block.mineworld.apple_sapling": "Arboscello di melo",
   "smithing.mineworld.raw_bronze": "Bronzo grezzo",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Inserisci del rame grezzo",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Rame grezzo",
@@ -1522,5 +1531,7 @@
   "entity.minecraft.villager.mineworld.carpenter": "Carpentiere",
   "death.attack.blueberryBush": "%1$s è stato/a punzecchiato/a a morte da un cespuglio di mirtilli",
   "death.attack.blueberryBush.player": "%1$s è stato/a punzecchiato/a a morte da un cespuglio di mirtilli fuggendo da %2$s",
-  "biome.mineworld.frozen_plains": "Pianura ghiacciata"
+  "biome.mineworld.frozen_plains": "Pianura ghiacciata",
+  "biome.mineworld.wasteland": "Terra desolata",
+  "biome.mineworld.volcanic_island": "Isola vulcanica"
 }

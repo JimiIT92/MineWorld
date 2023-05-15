@@ -71,7 +71,9 @@ public final class ColorHandlerListener {
                 MWBlocks.POTTED_DARK_OAK_BUSH.get(),
                 MWBlocks.MANGROVE_LEAVES_CARPET.get(),
                 MWBlocks.MANGROVE_BUSH.get(),
-                MWBlocks.POTTED_MANGROVE_BUSH.get()
+                MWBlocks.POTTED_MANGROVE_BUSH.get(),
+                MWBlocks.APPLE_LEAVES.get(),
+                MWBlocks.POTTED_APPLE_LEAVES.get()
         );
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         FoliageColor.getEvergreenColor(),
@@ -110,7 +112,8 @@ public final class ColorHandlerListener {
                 MWBlocks.DARK_OAK_LEAVES_CARPET.get(),
                 MWBlocks.DARK_OAK_BUSH.get(),
                 MWBlocks.MANGROVE_LEAVES_CARPET.get(),
-                MWBlocks.MANGROVE_BUSH.get());
+                MWBlocks.MANGROVE_BUSH.get(),
+                MWBlocks.APPLE_LEAVES.get());
         event.register((itemStack, tintIndex) -> FoliageColor.getEvergreenColor(),
                 MWBlocks.SPRUCE_LEAVES_CARPET.get(),
                 MWBlocks.SPRUCE_BUSH.get());

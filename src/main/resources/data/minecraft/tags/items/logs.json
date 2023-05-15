@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#mineworld:hollow_logs"
+    "#mineworld:hollow_logs",
+    "#mineworld:apple_logs"
   ]
 }

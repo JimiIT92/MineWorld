@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "mineworld:volcanic_peak",
+  "features": "mineworld:lava_rock_stone_blobs_placed",
+  "step": "underground_decoration"
+}

@@ -22,11 +22,4 @@ public final class MWPoiTypes {
         RegisterHelper.registerPOITypes(eventBus);
     }
 
-    /**
-     * Register {@link MineWorld MineWorld} {@link PoiType villager poi types}
-     */
-    public static void registerPOIs() {
-        RegisterHelper.registerPOIs(CARPENTER);
-    }
-
 }

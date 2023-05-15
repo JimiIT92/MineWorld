@@ -398,6 +398,8 @@
   "block.mineworld.potted_dark_oak_bush": "Potted Dark Oak Bush",
   "block.mineworld.potted_mangrove_bush": "Potted Mangrove Bush",
   "block.mineworld.potted_cherry_bush": "Potted Cherry Bush",
+  "block.mineworld.potted_apple_sapling": "Potted Apple Sapling",
+  "block.mineworld.potted_apple_leaves": "Potted Apple Leaves",
   "block.mineworld.corn": "Corn",
   "block.mineworld.disguised_grass_tnt": "Disguised TNT",
   "block.mineworld.disguised_dirt_tnt": "Disguised TNT",
@@ -1484,6 +1486,13 @@
   "block.mineworld.perennial_ice": "Perennial Ice",
   "block.mineworld.blueberry_bush": "Blueberry Bush",
   "block.mineworld.forging_table": "Forging Table",
+  "block.mineworld.apple_log": "Apple Log",
+  "block.mineworld.apple_wood": "Apple Wood",
+  "block.mineworld.stripped_apple_log": "Stripped Apple Log",
+  "block.mineworld.stripped_apple_wood": "Stripped Apple Wood",
+  "block.mineworld.apple_planks": "Apple Planks",
+  "block.mineworld.apple_leaves": "Apple Leaves",
+  "block.mineworld.apple_sapling": "Apple Sapling",
   "smithing.mineworld.raw_bronze": "Raw Bronze",
   "item.mineworld.smithing_template.raw_bronze.additions_slot_description": "Add Raw Copper",
   "item.mineworld.smithing_template.raw_bronze.applies_to": "Raw Copper",
@@ -1522,5 +1531,7 @@
   "entity.minecraft.villager.mineworld.carpenter": "Carpenter",
   "death.attack.blueberryBush": "%1$s was poked to death by a blueberry bush",
   "death.attack.blueberryBush.player": "%1$s was poked to death by a blueberry bush whilst trying to escape %2$s",
-  "biome.mineworld.frozen_plains": "Frozen Plains"
+  "biome.mineworld.frozen_plains": "Frozen Plains",
+  "biome.mineworld.wasteland": "Wasteland",
+  "biome.mineworld.volcanic_island": "Volcanic Island"
 }
