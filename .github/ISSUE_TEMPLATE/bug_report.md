@@ -18,7 +18,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Versions (please complete the following information)**
  - Minecraft: [e.g. 1.20]
- - Forge: [e.g. 45.0.50]
+ - Forge: [e.g. 45.0.64]
  - Mineworld: [e.g. 1.0]
 
 **Additional context**

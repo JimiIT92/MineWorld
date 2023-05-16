@@ -56,7 +56,11 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -148,6 +152,14 @@ public final class RegisterHelper {
      * {@link DeferredRegister<Feature> The feature registry}
      */
     private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<TrunkPlacerType> The trunk placer type registry}
+     */
+    private static final DeferredRegister<TrunkPlacerType<?>> TRUNK_PLACER_TYPES = DeferredRegister.create(Registries.TRUNK_PLACER_TYPE, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<FoliagePlacerType> The foliage placer type registry}
+     */
+    private static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -2083,6 +2095,30 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link TrunkPlacerType trunk placer type}
+     *
+     * @param name {@link String The trunk palcer type name}
+     * @param trunkPlacerSupplier {@link Supplier<TrunkPlacerType> The trunk placer type supplier}
+     * @return {@link RegistryObject<TrunkPlacerType> The registered trunk placer type}
+     * @param <TP> {@link TP The trunk placer type}
+     */
+    public static <TP extends TrunkPlacer> RegistryObject<TrunkPlacerType<TP>> registerTrunkPlacerType(final String name, final Supplier<? extends TrunkPlacerType<TP>> trunkPlacerSupplier) {
+        return TRUNK_PLACER_TYPES.register(name + "_trunk_placer", trunkPlacerSupplier);
+    }
+
+    /**
+     * Register a {@link FoliagePlacerType foliage placer type}
+     *
+     * @param name {@link String The foliage palcer type name}
+     * @param foliagePlacerSupplier {@link Supplier<FoliagePlacerType> The foliage placer type supplier}
+     * @return {@link RegistryObject<FoliagePlacerType> The registered foliage placer type}
+     * @param <FP> {@link FP The foliage placer type}
+     */
+    public static <FP extends FoliagePlacer> RegistryObject<FoliagePlacerType<FP>> registerFoliagePlacerType(final String name, final Supplier<? extends FoliagePlacerType<FP>> foliagePlacerSupplier) {
+        return FOLIAGE_PLACER_TYPES.register(name + "_foliage_placer", foliagePlacerSupplier);
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -2098,6 +2134,8 @@ public final class RegisterHelper {
         registerCompostable(MWBlocks.CHERRY_LEAVES_CARPET.get(), 0.1F);
         registerCompostable(MWBlocks.AZALEA_LEAVES_CARPET.get(), 0.25F);
         registerCompostable(MWBlocks.FLOWERING_AZALEA_LEAVES_CARPET.get(), 0.3F);
+        registerCompostable(MWBlocks.APPLE_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.PALM_LEAVES_CARPET.get(), 0.1F);
         registerCompostable(MWBlocks.NETHER_WART_CARPET.get(), 0.3F);
         registerCompostable(MWBlocks.WARPED_WART_CARPET.get(), 0.3F);
         registerCompostable(MWBlocks.WARPED_WART.get(), 0.85F);
@@ -2109,12 +2147,18 @@ public final class RegisterHelper {
         registerCompostable(MWBlocks.DARK_OAK_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.MANGROVE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.CHERRY_BUSH.get(), 0.85F);
+        registerCompostable(MWBlocks.APPLE_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.PALM_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.BLUE_ROSE.get(), 0.65F);
         registerCompostable(MWBlocks.BLUE_ROSE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.WHITE_ROSE.get(), 0.65F);
         registerCompostable(MWBlocks.WHITE_ROSE_BUSH.get(), 0.65F);
         registerCompostable(MWItems.CORN_SEEDS.get(), 0.3F);
         registerCompostable(MWItems.BLUEBERRIES.get(), 0.3F);
+        registerCompostable(MWBlocks.APPLE_LEAVES.get(), 0.3F);
+        registerCompostable(MWBlocks.PALM_LEAVES.get(), 0.3F);
+        registerCompostable(MWBlocks.APPLE_SAPLING.get(), 0.3F);
+        registerCompostable(MWBlocks.PALM_SAPLING.get(), 0.3F);
     }
 
     /**
@@ -2250,6 +2294,24 @@ public final class RegisterHelper {
      */
     public static void registerFeatures(final IEventBus eventBus) {
         FEATURES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link TrunkPlacerType trunk placer types}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerTrunkPlacerTypes(final IEventBus eventBus) {
+        TRUNK_PLACER_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link FoliagePlacerType foliage placer types}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerFoliagePlacerTypes(final IEventBus eventBus) {
+        FOLIAGE_PLACER_TYPES.register(eventBus);
     }
 
 }

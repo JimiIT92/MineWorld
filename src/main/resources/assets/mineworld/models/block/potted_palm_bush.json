@@ -1,0 +1,8 @@
+{
+    "parent": "mineworld:block/template_potted_bush",
+    "textures": {
+        "plant": "mineworld:block/palm_sapling",
+        "side": "mineworld:block/palm_leaves",
+        "top": "mineworld:block/palm_leaves"
+    }
+}

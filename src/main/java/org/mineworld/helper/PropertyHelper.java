@@ -487,6 +487,12 @@ public final class PropertyHelper {
         else if(woodType.equals(MWWoodTypes.APPLE)) {
             blockEntity = isTrappedChest ? new AppleTrappedChestBlockEntity(blockPos, blockState) : new AppleChestBlockEntity(blockPos, blockState);
         }
+        else if(woodType.equals(MWWoodTypes.PALM)) {
+            blockEntity = isTrappedChest ? new PalmTrappedChestBlockEntity(blockPos, blockState) : new PalmChestBlockEntity(blockPos, blockState);
+        }
+        else if(woodType.equals(MWWoodTypes.DEAD)) {
+            blockEntity = isTrappedChest ? new DeadTrappedChestBlockEntity(blockPos, blockState) : new DeadChestBlockEntity(blockPos, blockState);
+        }
         return blockEntity != null ? blockEntity : (isTrappedChest ? new TrappedChestBlockEntity(blockPos, blockState) : new ChestBlockEntity(blockPos, blockState));
     }
 

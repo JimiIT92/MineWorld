@@ -1,0 +1,8 @@
+{
+  "type": "mineworld:woodcutting",
+  "count": 8,
+  "ingredient": {
+    "tag": "mineworld:palm_logs"
+  },
+  "result": "mineworld:palm_slab"
+}

@@ -127,6 +127,22 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      * {@link ChestBlockEntity The apple trapped chest block entity}
      */
     private final ChestBlockEntity trappedAppleChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.APPLE, BlockPos.ZERO, MWBlocks.APPLE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The palm chest block entity}
+     */
+    private final ChestBlockEntity palmChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.PALM, BlockPos.ZERO, MWBlocks.PALM_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The palm trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedPalmChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.PALM, BlockPos.ZERO, MWBlocks.PALM_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The dead chest block entity}
+     */
+    private final ChestBlockEntity deadChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.DEAD, BlockPos.ZERO, MWBlocks.DEAD_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The dead trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedDeadChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.DEAD, BlockPos.ZERO, MWBlocks.DEAD_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}
@@ -237,6 +253,18 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
             else if(blockState.is(MWBlocks.APPLE_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedAppleChest;
+            }
+            if(blockState.is(MWBlocks.PALM_CHEST.get())) {
+                blockentity = this.palmChest;
+            }
+            else if(blockState.is(MWBlocks.PALM_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedPalmChest;
+            }
+            if(blockState.is(MWBlocks.DEAD_CHEST.get())) {
+                blockentity = this.deadChest;
+            }
+            else if(blockState.is(MWBlocks.DEAD_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedDeadChest;
             }
             if(blockentity != null) {
                 this.blockEntityRenderDispatcher.renderItem(blockentity, pose, buffer, packedLight, packedOverlay);

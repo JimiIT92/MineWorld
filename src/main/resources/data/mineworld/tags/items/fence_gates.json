@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "mineworld:apple_fence_gate"
+    "mineworld:apple_fence_gate",
+    "mineworld:palm_fence_gate",
+    "mineworld:dead_fence_gate"
   ]
 }

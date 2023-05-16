@@ -100,6 +100,9 @@
     "mineworld:potted_cherry_bush",
     "mineworld:potted_apple_sapling",
     "mineworld:potted_apple_leaves",
-    "mineworld:potted_apple_bush"
+    "mineworld:potted_apple_bush",
+    "mineworld:potted_palm_sapling",
+    "mineworld:potted_palm_leaves",
+    "mineworld:potted_palm_bush"
   ]
 }

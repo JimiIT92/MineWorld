@@ -22,7 +22,10 @@ public enum MWColors {
     PYRITE(0x847C50, MaterialColor.TERRACOTTA_YELLOW),
     CHARCOAL(0x755848, MaterialColor.COLOR_BLACK),
     MARBLE(0x9E9A86, MaterialColor.TERRACOTTA_GRAY),
-    WHITE_MARBLE(0xF0F0EB, MaterialColor.TERRACOTTA_WHITE);
+    WHITE_MARBLE(0xF0F0EB, MaterialColor.TERRACOTTA_WHITE),
+    APPLE(0x0000, MaterialColor.TERRACOTTA_RED),
+    PALM(0x000, MaterialColor.TERRACOTTA_YELLOW),
+    DEAD(0x000, MaterialColor.COLOR_GRAY);
 
     /**
      * {@link Integer RGB color}

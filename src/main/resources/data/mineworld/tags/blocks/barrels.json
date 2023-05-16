@@ -12,6 +12,8 @@
     "mineworld:bamboo_barrel",
     "mineworld:crimson_barrel",
     "mineworld:warped_barrel",
-    "mineworld:apple_barrel"
+    "mineworld:apple_barrel",
+    "mineworld:palm_barrel",
+    "mineworld:dead_barrel"
   ]
 }

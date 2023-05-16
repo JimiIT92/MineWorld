@@ -93,4 +93,5 @@ public class TreeBushBlock extends AzaleaBlock {
     public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
         return 30;
     }
+
 }

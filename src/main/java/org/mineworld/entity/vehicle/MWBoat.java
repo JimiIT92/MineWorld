@@ -99,6 +99,8 @@ public class MWBoat extends Boat {
             case CRIMSON -> MWItems.CRIMSON_BOAT.get();
             case WARPED -> MWItems.WARPED_BOAT.get();
             case APPLE -> MWItems.APPLE_BOAT.get();
+            case PALM -> MWItems.PALM_RAFT.get();
+            case DEAD -> MWItems.DEAD_BOAT.get();
         };
     }
 
@@ -123,12 +125,33 @@ public class MWBoat extends Boat {
     }
 
     /**
+     * Check if the boat is a raft
+     *
+     * @return {@link Boolean True if is a raft}
+     */
+    private boolean isRaft() {
+        return Type.PALM.equals(this.getBoatType());
+    }
+
+    /**
+     * Get the {@link Double boat passegner offset}
+     *
+     * @return {@link Double The boat passegner offset}
+     */
+    @Override
+    public double getPassengersRidingOffset() {
+        return isRaft() ? 0.3D : super.getPassengersRidingOffset();
+    }
+
+    /**
      * Boat types
      */
     public enum Type implements StringRepresentable {
         CRIMSON(Blocks.CRIMSON_PLANKS, WoodType.CRIMSON),
         WARPED(Blocks.WARPED_PLANKS, WoodType.WARPED),
-        APPLE(MWBlocks.APPLE_PLANKS.get(), MWWoodTypes.APPLE);
+        APPLE(MWBlocks.APPLE_PLANKS.get(), MWWoodTypes.APPLE),
+        PALM(MWBlocks.PALM_PLANKS.get(), MWWoodTypes.PALM),
+        DEAD(MWBlocks.DEAD_PLANKS.get(), MWWoodTypes.DEAD);
 
         /**
          * {@link String The boat type name}

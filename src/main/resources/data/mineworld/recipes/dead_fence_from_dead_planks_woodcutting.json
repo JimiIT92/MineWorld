@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "mineworld:dead_planks"
+  },
+  "result": "mineworld:dead_fence"
+}

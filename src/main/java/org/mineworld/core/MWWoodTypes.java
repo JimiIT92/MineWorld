@@ -10,5 +10,7 @@ import org.mineworld.helper.RegisterHelper;
 public final class MWWoodTypes {
 
     public static final WoodType APPLE = RegisterHelper.registerWoodType("apple");
+    public static final WoodType PALM = RegisterHelper.registerWoodType("palm");
+    public static final WoodType DEAD = RegisterHelper.registerWoodType("dead");
 
 }

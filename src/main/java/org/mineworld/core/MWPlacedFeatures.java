@@ -6,11 +6,9 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.*;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.KeyHelper;
 import org.mineworld.helper.PropertyHelper;
@@ -51,6 +49,9 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> APPLE_BEES_TREE = KeyHelper.registerPlacedFeatureKey("apple_bees_tree");
     public static final ResourceKey<PlacedFeature> FANCY_APPLE_TREE = KeyHelper.registerPlacedFeatureKey("fancy_apple_tree");
     public static final ResourceKey<PlacedFeature> FANCY_APPLE_BEES_TREE = KeyHelper.registerPlacedFeatureKey("fancy_apple_bees_tree");
+    public static final ResourceKey<PlacedFeature> DEAD_TREE = KeyHelper.registerPlacedFeatureKey("dead_tree");
+    public static final ResourceKey<PlacedFeature> FANCY_DEAD_TREE = KeyHelper.registerPlacedFeatureKey("fancy_dead_tree");
+    public static final ResourceKey<PlacedFeature> PALM_TREE = KeyHelper.registerPlacedFeatureKey("palm_tree");
 
     /**
      * Register the {@link PlacedFeature placed features}
@@ -102,6 +103,12 @@ public final class MWPlacedFeatures {
                 VegetationPlacements.treePlacement(CountPlacement.of(1), MWBlocks.APPLE_SAPLING.get()));
         RegisterHelper.registerPlacedFeature(context, FANCY_APPLE_BEES_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.FANCY_APPLE_BEES_TREE),
                 VegetationPlacements.treePlacement(CountPlacement.of(1), MWBlocks.APPLE_SAPLING.get()));
+        RegisterHelper.registerPlacedFeature(context, DEAD_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.DEAD_TREE),
+                VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(1), Blocks.OAK_SAPLING));
+        RegisterHelper.registerPlacedFeature(context, FANCY_DEAD_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.FANCY_DEAD_TREE),
+                VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(1), Blocks.OAK_SAPLING));
+        RegisterHelper.registerPlacedFeature(context, PALM_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PALM_TREE),
+                VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(5), MWBlocks.PALM_SAPLING.get()));
     }
 
 }

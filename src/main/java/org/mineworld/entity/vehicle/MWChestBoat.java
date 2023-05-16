@@ -192,6 +192,8 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
             case CRIMSON -> MWItems.CRIMSON_CHEST_BOAT.get();
             case WARPED -> MWItems.WARPED_CHEST_BOAT.get();
             case APPLE -> MWItems.APPLE_CHEST_BOAT.get();
+            case PALM -> MWItems.PALM_CHEST_RAFT.get();
+            case DEAD -> MWItems.DEAD_CHEST_BOAT.get();
         };
     }
 

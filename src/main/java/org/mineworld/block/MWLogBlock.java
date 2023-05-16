@@ -37,6 +37,10 @@ public class MWLogBlock extends RotatedPillarBlock {
     public static final Supplier<Map<Block, Block>> STRIPPABLES = Suppliers.memoize(() -> ImmutableMap.<Block, Block>builder()
             .put(MWBlocks.APPLE_LOG.get(), MWBlocks.STRIPPED_APPLE_LOG.get())
             .put(MWBlocks.APPLE_WOOD.get(), MWBlocks.STRIPPED_APPLE_WOOD.get())
+            .put(MWBlocks.PALM_LOG.get(), MWBlocks.STRIPPED_PALM_LOG.get())
+            .put(MWBlocks.PALM_WOOD.get(), MWBlocks.STRIPPED_PALM_WOOD.get())
+            .put(MWBlocks.DEAD_LOG.get(), MWBlocks.STRIPPED_DEAD_LOG.get())
+            .put(MWBlocks.DEAD_WOOD.get(), MWBlocks.STRIPPED_DEAD_WOOD.get())
             .build());
 
     /**

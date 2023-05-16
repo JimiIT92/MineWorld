@@ -1,0 +1,9 @@
+{
+  "parent": "mineworld:block/hollow_cube",
+  "textures": {
+    "end": "mineworld:block/dead_log_top",
+    "side": "mineworld:block/dead_log",
+    "inner": "mineworld:block/stripped_dead_log",
+    "particle": "mineworld:block/dead_log"
+  }
+}

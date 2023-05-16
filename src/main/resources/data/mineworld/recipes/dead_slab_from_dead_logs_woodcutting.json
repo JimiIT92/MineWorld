@@ -1,0 +1,8 @@
+{
+  "type": "mineworld:woodcutting",
+  "count": 8,
+  "ingredient": {
+    "tag": "mineworld:dead_logs"
+  },
+  "result": "mineworld:dead_slab"
+}

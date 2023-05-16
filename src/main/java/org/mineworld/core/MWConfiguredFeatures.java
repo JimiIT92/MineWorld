@@ -1,6 +1,8 @@
 package org.mineworld.core;
 
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
@@ -26,6 +28,8 @@ import org.mineworld.MineWorld;
 import org.mineworld.block.BlueberryBushBlock;
 import org.mineworld.helper.KeyHelper;
 import org.mineworld.helper.RegisterHelper;
+import org.mineworld.world.worldgen.tree.foliageplacers.PalmFoliagePlacer;
+import org.mineworld.world.worldgen.tree.trunkplacers.PalmTrunkPlacer;
 
 import java.util.List;
 import java.util.OptionalInt;
@@ -55,11 +59,13 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_MAGMA = KeyHelper.registerConfiguredFeatureKey("lake_lava_magma");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_BLACKSTONE = KeyHelper.registerConfiguredFeatureKey("lake_lava_blackstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_COAL = KeyHelper.registerConfiguredFeatureKey("lake_lava_coal");
-
     public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("apple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_BEES_TREE = KeyHelper.registerConfiguredFeatureKey("apple_bees_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_apple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_APPLE_BEES_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_apple_bees_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PALM_TREE = KeyHelper.registerConfiguredFeatureKey("palm_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("dead_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_dead_tree");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -92,6 +98,9 @@ public final class MWConfiguredFeatures {
         FeatureUtils.register(context, APPLE_BEES_TREE, Feature.TREE, appleTree(false, true));
         FeatureUtils.register(context, FANCY_APPLE_TREE, Feature.TREE, appleTree(true, false));
         FeatureUtils.register(context, FANCY_APPLE_BEES_TREE, Feature.TREE, appleTree(true, true));
+        FeatureUtils.register(context, PALM_TREE, Feature.TREE, palmTree(context));
+        FeatureUtils.register(context, DEAD_TREE, Feature.TREE, deadTree(false));
+        FeatureUtils.register(context, FANCY_DEAD_TREE, Feature.TREE, deadTree(true));
     }
 
     /**
@@ -113,6 +122,38 @@ public final class MWConfiguredFeatures {
             builder = builder.decorators(List.of(new BeehiveDecorator(0.05F)));
         }
         return builder.build();
+    }
+
+    /**
+     * Get the {@link TreeConfiguration palm tree configuration}
+     *
+     * @return {@link TreeConfiguration The apple tree configuration}
+     */
+    private static TreeConfiguration palmTree(final BootstapContext<ConfiguredFeature<?, ?>> context) {
+        final HolderGetter<Block> holderGetter = context.lookup(Registries.BLOCK);
+        return new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(MWBlocks.PALM_LOG.get()),
+                new PalmTrunkPlacer(7, 4, 2),
+                BlockStateProvider.simple(MWBlocks.PALM_LEAVES.get()),
+                new PalmFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2),
+                new TwoLayersFeatureSize(1, 0, 1)
+        ).ignoreVines().build();
+    }
+
+    /**
+     * Get the {@link TreeConfiguration palm tree configuration}
+     *
+     * @param fancy {@link Boolean If the tree should be a large tree}
+     * @return {@link TreeConfiguration The apple tree configuration}
+     */
+    private static TreeConfiguration deadTree(final boolean fancy) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(MWBlocks.DEAD_LOG.get()),
+                fancy ? new FancyTrunkPlacer(3, 11, 0) : new StraightTrunkPlacer(4, 2, 0),
+                BlockStateProvider.simple(Blocks.AIR),
+                fancy ? new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4) : new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                fancy ? new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)) : new TwoLayersFeatureSize(1, 0, 1)
+        ).ignoreVines().build();
     }
 
 }

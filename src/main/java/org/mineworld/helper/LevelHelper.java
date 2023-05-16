@@ -2,6 +2,7 @@ package org.mineworld.helper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -95,6 +96,20 @@ public final class LevelHelper {
     public static boolean canPlace(final Level level, final BlockPos blockPos) {
         final BlockState blockState = level.getBlockState(blockPos);
         return blockState.isAir() || blockState.canBeReplaced();
+    }
+
+    /**
+     * Get a {@link Direction random horizontal direction}
+     *
+     * @param random {@link RandomSource The random reference}
+     * @return {@link Direction The random horizontal direction}
+     */
+    public static Direction getRandomHorizontalDirection(final RandomSource random) {
+        Direction direction;
+        do {
+            direction = Direction.getRandom(random);
+        } while (!direction.getAxis().isHorizontal());
+        return direction;
     }
 
 }

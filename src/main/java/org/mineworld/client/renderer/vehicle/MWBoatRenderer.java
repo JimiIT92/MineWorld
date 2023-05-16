@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.ListModel;
-import net.minecraft.client.model.WaterPatchModel;
+import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -73,8 +70,11 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
      * @return {@link ListModel<Boat> The boat models}
      */
     private ListModel<Boat> createBoatModel(final EntityRendererProvider.Context context, final MWBoat.Type type, final boolean hasChest) {
-        final ModelPart modelpart = context.bakeLayer(hasChest ? ModelLayers.createChestBoatModelName(Boat.Type.OAK) : ModelLayers.createBoatModelName(Boat.Type.OAK));
-        return hasChest ? new ChestBoatModel(modelpart) : new BoatModel(modelpart);
+        final boolean isRaft = type.equals(MWBoat.Type.PALM);
+        final Boat.Type modelBoatType = isRaft ? Boat.Type.BAMBOO : Boat.Type.OAK;
+        final ModelPart modelpart = context.bakeLayer(hasChest ? ModelLayers.createChestBoatModelName(modelBoatType) : ModelLayers.createBoatModelName(modelBoatType));
+        return isRaft ? (hasChest ? new ChestRaftModel(modelpart) : new RaftModel(modelpart)) :
+                hasChest ? new ChestBoatModel(modelpart) : new BoatModel(modelpart);
     }
 
     /**

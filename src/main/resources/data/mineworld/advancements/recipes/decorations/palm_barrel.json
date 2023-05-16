@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_palm_planks": {
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:palm_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:palm_barrel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_palm_slab": {
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:palm_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_palm_planks",
+      "has_palm_slab",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:palm_barrel"
+    ]
+  }
+}

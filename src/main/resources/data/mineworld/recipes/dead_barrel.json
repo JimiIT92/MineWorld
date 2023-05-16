@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "mineworld:dead_planks"
+    },
+    "S": {
+      "item": "mineworld:dead_slab"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "result": {
+    "item": "mineworld:dead_barrel"
+  },
+  "show_notification": true
+}

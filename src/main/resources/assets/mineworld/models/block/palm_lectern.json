@@ -1,0 +1,12 @@
+{
+    "parent": "minecraft:block/lectern",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/palm_lectern_sides",
+        "bottom": "mineworld:block/palm_planks",
+        "base": "mineworld:block/palm_lectern_base",
+        "front": "mineworld:block/palm_lectern_front",
+        "sides": "mineworld:block/palm_lectern_sides",
+        "top": "mineworld:block/palm_lectern_top"
+    }
+}

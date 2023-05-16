@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:palm_sapling"
+    },
+    "X": {
+      "item": "mineworld:palm_leaves"
+    }
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "item": "mineworld:palm_bush"
+  },
+  "show_notification": true
+}

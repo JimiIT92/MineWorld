@@ -272,7 +272,6 @@ public final class MWItems {
     public static final RegistryObject<Item> WARPED_BOAT = RegisterHelper.registerItem("warped_boat", () -> new MWBoatItem(false, MWBoat.Type.WARPED));
     public static final RegistryObject<Item> WARPED_CHEST_BOAT = RegisterHelper.registerItem("warped_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.WARPED));
     public static final RegistryObject<Item> BLUEBERRIES = RegisterHelper.registerFoodBlockItem("blueberries", MWBlocks.BLUEBERRY_BUSH, MWFoods.BLUEBERRIES);
-
     public static final RegistryObject<Item> APPLE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("apple_chest", MWBlocks.APPLE_CHEST);
     public static final RegistryObject<Item> APPLE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("apple_trapped_chest", MWBlocks.APPLE_TRAPPED_CHEST);
     public static final RegistryObject<Item> APPLE_CHEST_MINECART = RegisterHelper.registerItem("apple_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.APPLE_CHEST));
@@ -280,6 +279,20 @@ public final class MWItems {
     public static final RegistryObject<Item> APPLE_CHEST_BOAT = RegisterHelper.registerItem("apple_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.APPLE));
     public static final RegistryObject<Item> APPLE_SIGN = RegisterHelper.registerItem("apple_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.APPLE_SIGN.get(), MWBlocks.APPLE_WALL_SIGN.get()));
     public static final RegistryObject<Item> APPLE_HANGING_SIGN = RegisterHelper.registerItem("apple_hanging_sign", () -> new HangingSignItem(MWBlocks.APPLE_HANGING_SIGN.get(), MWBlocks.APPLE_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
+    public static final RegistryObject<Item> PALM_CHEST = RegisterHelper.registerSpecialRendererBlockItem("palm_chest", MWBlocks.PALM_CHEST);
+    public static final RegistryObject<Item> PALM_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("palm_trapped_chest", MWBlocks.PALM_TRAPPED_CHEST);
+    public static final RegistryObject<Item> PALM_CHEST_MINECART = RegisterHelper.registerItem("palm_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.PALM_CHEST));
+    public static final RegistryObject<Item> PALM_RAFT = RegisterHelper.registerItem("palm_raft", () -> new MWBoatItem(false, MWBoat.Type.PALM));
+    public static final RegistryObject<Item> PALM_CHEST_RAFT = RegisterHelper.registerItem("palm_chest_raft", () -> new MWBoatItem(true, MWBoat.Type.PALM));
+    public static final RegistryObject<Item> PALM_SIGN = RegisterHelper.registerItem("palm_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.PALM_SIGN.get(), MWBlocks.PALM_WALL_SIGN.get()));
+    public static final RegistryObject<Item> PALM_HANGING_SIGN = RegisterHelper.registerItem("palm_hanging_sign", () -> new HangingSignItem(MWBlocks.PALM_HANGING_SIGN.get(), MWBlocks.PALM_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
+    public static final RegistryObject<Item> DEAD_CHEST = RegisterHelper.registerSpecialRendererBlockItem("dead_chest", MWBlocks.DEAD_CHEST);
+    public static final RegistryObject<Item> DEAD_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("dead_trapped_chest", MWBlocks.DEAD_TRAPPED_CHEST);
+    public static final RegistryObject<Item> DEAD_CHEST_MINECART = RegisterHelper.registerItem("dead_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.DEAD_CHEST));
+    public static final RegistryObject<Item> DEAD_BOAT = RegisterHelper.registerItem("dead_boat", () -> new MWBoatItem(false, MWBoat.Type.DEAD));
+    public static final RegistryObject<Item> DEAD_CHEST_BOAT = RegisterHelper.registerItem("dead_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.DEAD));
+    public static final RegistryObject<Item> DEAD_SIGN = RegisterHelper.registerItem("dead_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.DEAD_SIGN.get(), MWBlocks.DEAD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> DEAD_HANGING_SIGN = RegisterHelper.registerItem("dead_hanging_sign", () -> new HangingSignItem(MWBlocks.DEAD_HANGING_SIGN.get(), MWBlocks.DEAD_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

@@ -141,6 +141,12 @@ public class MWMinecartChest extends MinecartChest {
         if(type.equals(MWWoodTypes.APPLE)) {
             return MWItems.APPLE_CHEST_MINECART.get();
         }
+        if(type.equals(MWWoodTypes.PALM)) {
+            return MWItems.PALM_CHEST_MINECART.get();
+        }
+        if(type.equals(MWWoodTypes.DEAD)) {
+            return MWItems.DEAD_CHEST_MINECART.get();
+        }
         return Items.CHEST_MINECART;
     }
 
@@ -185,6 +191,12 @@ public class MWMinecartChest extends MinecartChest {
         }
         if(type.equals(MWWoodTypes.APPLE)) {
             return MWBlocks.APPLE_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(MWWoodTypes.PALM)) {
+            return MWBlocks.PALM_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(MWWoodTypes.DEAD)) {
+            return MWBlocks.DEAD_CHEST.get().defaultBlockState();
         }
         return Blocks.CHEST.defaultBlockState();
     }
