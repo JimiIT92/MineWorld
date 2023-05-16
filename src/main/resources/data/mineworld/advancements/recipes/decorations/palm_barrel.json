@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:palm_planks"
+            "items": [
+              "mineworld:palm_planks"
+            ]
           }
         ]
       },
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:palm_slab"
+            "items": [
+              "mineworld:palm_slab"
+            ]
           }
         ]
       },

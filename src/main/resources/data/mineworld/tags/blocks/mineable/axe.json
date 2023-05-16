@@ -7,15 +7,16 @@
     "#mineworld:bookshelves",
     "#mineworld:chiseled_bookshelves",
     "#mineworld:chests/wooden",
+    "#mineworld:chests/trapped",
     "#mineworld:apple_logs",
     "#mineworld:palm_logs",
     "#mineworld:dead_logs",
-    "mineworld:woodcutter",
     "#mineworld:wooden_slabs",
     "#mineworld:wooden_stairs",
     "#mineworld:wooden_doors",
     "#mineworld:wooden_trapdoors",
     "#mineworld:wooden_buttons",
-    "#mineworld:wooden_pressure_plates"
+    "#mineworld:wooden_pressure_plates",
+    "mineworld:woodcutter"
   ]
 }

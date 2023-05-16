@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:chiseled_bookshelf",
     "mineworld:spruce_chiseled_bookshelf",
     "mineworld:birch_chiseled_bookshelf",
     "mineworld:jungle_chiseled_bookshelf",

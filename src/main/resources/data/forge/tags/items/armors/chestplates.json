@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:copper_chestplate",
+    "mineworld:silver_chestplate",
+    "mineworld:bronze_chestplate",
+    "mineworld:aluminum_chestplate",
+    "mineworld:emerald_chestplate",
+    "mineworld:ruby_chestplate",
+    "mineworld:sapphire_chestplate"
+  ]
+}

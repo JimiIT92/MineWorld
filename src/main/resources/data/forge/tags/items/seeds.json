@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mineworld:corn_seeds"
+    "#mineworld:seeds"
   ]
 }

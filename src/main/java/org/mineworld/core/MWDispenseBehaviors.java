@@ -1,24 +1,14 @@
 package org.mineworld.core;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.block.weathering.IMWWaxableBlock;
 import org.mineworld.entity.MWPrimedTnt;
-import org.mineworld.helper.ItemHelper;
+import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RegisterHelper;
 
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * {@link MineWorld MineWorld} {@link DispenseItemBehavior dispense id behaviors}
@@ -173,21 +163,20 @@ public final class MWDispenseBehaviors {
                 MWItems.RED_MARBLE_PEBBLE,
                 MWItems.BLACK_MARBLE_PEBBLE
         );
-        DispenserBlock.registerBehavior(Items.HONEYCOMB, new OptionalDispenseItemBehavior() {
-            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
-                final BlockPos blockpos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
-                final Level level = blockSource.getLevel();
-                final Optional<BlockState> optionalBlockState = IMWWaxableBlock.getWaxed(level.getBlockState(blockpos));
-                if (optionalBlockState.isPresent()) {
-                    level.setBlockAndUpdate(blockpos, optionalBlockState.get());
-                    level.levelEvent(3003, blockpos, 0);
-                    ItemHelper.hurt(itemStack);
-                    this.setSuccess(true);
-                    return itemStack;
-                }
-                return super.execute(blockSource, itemStack);
-            }
-        });
+        RegisterHelper.registerDispenseBehaviors(PropertyHelper.honeycombDispenseBehavior(), () -> Items.HONEYCOMB);
+        RegisterHelper.registerDispenseBehaviors(Map.of(
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.CRIMSON, false), MWItems.CRIMSON_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.CRIMSON, true), MWItems.CRIMSON_CHEST_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.WARPED, false), MWItems.WARPED_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.WARPED, true), MWItems.WARPED_CHEST_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.APPLE, false), MWItems.APPLE_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.APPLE, true), MWItems.APPLE_CHEST_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.PALM, false), MWItems.PALM_RAFT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.PALM, true), MWItems.PALM_CHEST_RAFT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.DEAD, false), MWItems.DEAD_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.DEAD, true), MWItems.DEAD_CHEST_BOAT
+            )
+        );
     }
 
 }

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:chain",
     "#mineworld:chains",
     "mineworld:rope",
     "mineworld:rope_tail"

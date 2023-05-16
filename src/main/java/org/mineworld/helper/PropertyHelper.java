@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -14,11 +15,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -38,13 +41,18 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.block.weathering.IMWWaxableBlock;
 import org.mineworld.core.MWWoodTypes;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.Pebble;
 import org.mineworld.entity.block.chest.*;
+import org.mineworld.entity.vehicle.MWBoat;
+import org.mineworld.entity.vehicle.MWChestBoat;
+import org.mineworld.item.MWBoatItem;
 import org.mineworld.item.PebbleItem;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -439,6 +447,94 @@ public final class PropertyHelper {
         return new AbstractProjectileDispenseBehavior() {
             protected @NotNull Projectile getProjectile(final @NotNull Level level, final @NotNull Position position, final @NotNull ItemStack itemStack) {
                 return Util.make(new Pebble(level, position.x(), position.y(), position.z()), pebble -> pebble.setItem(itemStack));
+            }
+        };
+    }
+
+    /**
+     * Get the {@link DispenseItemBehavior dispense behavior} for a {@link HoneycombItem honeycomb}
+     *
+     * @return {@link DispenseItemBehavior The honeycomb dispense behavior}
+     */
+    public static DispenseItemBehavior honeycombDispenseBehavior() {
+        return new OptionalDispenseItemBehavior() {
+            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
+                final BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+                final Level level = blockSource.getLevel();
+                final Optional<BlockState> optionalBlockState = IMWWaxableBlock.getWaxed(level.getBlockState(blockPos));
+                if (optionalBlockState.isPresent()) {
+                    level.setBlockAndUpdate(blockPos, optionalBlockState.get());
+                    level.levelEvent(3003, blockPos, 0);
+                    ItemHelper.hurt(itemStack);
+                    this.setSuccess(true);
+                    return itemStack;
+                }
+                return super.execute(blockSource, itemStack);
+            }
+        };
+    }
+
+    /**
+     * Get the {@link DispenseItemBehavior dispense behavior} for a {@link ChestBlock chest}
+     *
+     * @return {@link DispenseItemBehavior The chest dispense behavior}
+     */
+    public static DispenseItemBehavior chestDispenseBehavior() {
+        return new OptionalDispenseItemBehavior() {
+            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
+                final BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+
+                for(AbstractChestedHorse abstractchestedhorse : blockSource.getLevel().getEntitiesOfClass(AbstractChestedHorse.class, new AABB(blockPos), horse -> horse.isAlive() && !horse.hasChest())) {
+                    if (abstractchestedhorse.isTamed() && abstractchestedhorse.getSlot(499).set(itemStack)) {
+                        itemStack.shrink(1);
+                        this.setSuccess(true);
+                        return itemStack;
+                    }
+                }
+
+                return super.execute(blockSource, itemStack);
+            }
+        };
+    }
+
+    /**
+     * Get the {@link DispenseItemBehavior dispense behavior} for a {@link MWBoatItem MineWorld boat}
+     *
+     * @param type {@link MWBoat.Type The boat type}
+     * @param isChestBoat {@link Boolean If the dispense behavior is for a chest boat}
+     * @return {@link DispenseItemBehavior The boat dispense behavior}
+     */
+    public static DispenseItemBehavior boatDispenseBehavior(final MWBoat.Type type, final boolean isChestBoat) {
+        return new DefaultDispenseItemBehavior() {
+            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
+                final Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
+                final Level level = blockSource.getLevel();
+                final double x = blockSource.x() + (double)((float)direction.getStepX() * 1.125F);
+                final double y = blockSource.y() + (double)((float)direction.getStepY() * 1.125F);
+                final double z = blockSource.z() + (double)((float)direction.getStepZ() * 1.125F);
+                final BlockPos blockPos = blockSource.getPos().relative(direction);
+                final MWBoat boat = isChestBoat ? new MWChestBoat(level, x, y, z) : new MWBoat(level, x, y, z);
+                boat.setBoatType(type);
+                boat.setYRot(direction.toYRot());
+                double offset;
+                if (boat.canBoatInFluid(level.getFluidState(blockPos))) {
+                    offset = 1.0D;
+                } else {
+                    if (!level.getBlockState(blockPos).isAir() || !boat.canBoatInFluid(level.getFluidState(blockPos.below()))) {
+                        return new DefaultDispenseItemBehavior().dispense(blockSource, itemStack);
+                    }
+
+                    offset = 0.0D;
+                }
+
+                boat.setPos(x, y + offset, z);
+                level.addFreshEntity(boat);
+                itemStack.shrink(1);
+                return itemStack;
+            }
+
+            protected void playSound(final @NotNull BlockSource blockSource) {
+                blockSource.getLevel().levelEvent(1000, blockSource.getPos(), 0);
             }
         };
     }
