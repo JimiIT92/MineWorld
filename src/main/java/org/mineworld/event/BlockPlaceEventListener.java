@@ -32,7 +32,7 @@ public final class BlockPlaceEventListener {
             final Level level = placer.getLevel();
             final BlockPos blockPos = event.getPos();
             final BlockState placedBlock = event.getPlacedBlock();
-            if(placer instanceof Player player && shouldPlaceHorizontalPane(player, placedBlock, event.getPlacedAgainst(), level, blockPos)) {
+            if(placer instanceof Player player && !event.getPlacedAgainst().isAir() && shouldPlaceHorizontalPane(player, placedBlock, event.getPlacedAgainst(), level, blockPos)) {
                 level.setBlockAndUpdate(blockPos, HorizontalPaneBlock.getStateFromGlassPane(placedBlock, level, blockPos));
             }
         }
