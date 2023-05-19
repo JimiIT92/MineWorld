@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:story/iron_tools",
+  "criteria": {
+    "emerald": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:emerald"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.story.mine_emerald.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:emerald"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.mine_emerald.title"
+    }
+  },
+  "requirements": [
+    [
+      "emerald"
+    ]
+  ]
+}

@@ -1627,5 +1627,13 @@
   "death.attack.blueberryBush.player": "%1$s è stato/a punzecchiato/a a morte da un cespuglio di mirtilli fuggendo da %2$s",
   "biome.mineworld.frozen_plains": "Pianura ghiacciata",
   "biome.mineworld.wasteland": "Terra desolata",
-  "biome.mineworld.volcanic_island": "Isola vulcanica"
+  "biome.mineworld.volcanic_island": "Isola vulcanica",
+  "advancements.story.mine_ruby.title": "Rubino, rubino, rubino!",
+  "advancements.story.mine_ruby.description": "Ottieni dei rubini",
+  "advancements.story.mine_sapphire.title": "Più luminoso di un diamante!",
+  "advancements.story.mine_sapphire.description": "Ottieni degli zaffiri",
+  "advancements.story.mine_emerald.title": "Posso tenerlo?",
+  "advancements.story.mine_emerald.description": "Ottieni degli smeraldi",
+  "advancements.story.ruby_sapphire_and_emerald.title": "Nuzlocke!",
+  "advancements.story.ruby_sapphire_and_emerald.description": "Ottieni dei rubini, degli zaffiri e degli smeraldi"
 }

@@ -12,8 +12,8 @@ import org.mineworld.MineWorld;
 import org.mineworld.helper.BiomeHelper;
 import org.mineworld.helper.KeyHelper;
 import org.mineworld.helper.RegisterHelper;
-import org.mineworld.world.overworld.MWOverworldRegion;
 import org.mineworld.world.MWSurfaceRuleData;
+import org.mineworld.world.overworld.MWOverworldRegion;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 

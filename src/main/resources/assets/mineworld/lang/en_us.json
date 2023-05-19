@@ -1627,5 +1627,13 @@
   "death.attack.blueberryBush.player": "%1$s was poked to death by a blueberry bush whilst trying to escape %2$s",
   "biome.mineworld.frozen_plains": "Frozen Plains",
   "biome.mineworld.wasteland": "Wasteland",
-  "biome.mineworld.volcanic_island": "Volcanic Island"
+  "biome.mineworld.volcanic_island": "Volcanic Island",
+  "advancements.story.mine_ruby.title": "Ruby Ruby Ruby!",
+  "advancements.story.mine_ruby.description": "Acquire rubies",
+  "advancements.story.mine_sapphire.title": "Shine brighter than a diamond!",
+  "advancements.story.mine_sapphire.description": "Acquire sapphires",
+  "advancements.story.mine_emerald.title": "Can I keep it?",
+  "advancements.story.mine_emerald.description": "Acquire emeralds",
+  "advancements.story.ruby_sapphire_and_emerald.title": "Nuzlocke!",
+  "advancements.story.ruby_sapphire_and_emerald.description": "Acquire rubies, sapphires and emeralds"
 }
