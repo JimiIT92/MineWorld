@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/pointed_dripstone",
+  "textures": {
+    "cross": "mineworld:block/perennial_ice_pointed_dripstone_down_frustum"
+  }
+}

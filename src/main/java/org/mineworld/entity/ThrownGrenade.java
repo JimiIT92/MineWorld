@@ -12,23 +12,24 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
 import org.mineworld.helper.ItemHelper;
 
 /**
- * Implementation class for a {@link ThrowableItemProjectile throwable pebble}
+ * Implementation class for a {@link ThrowableItemProjectile throwable grenade}
  */
-public class Pebble extends ThrowableItemProjectile {
+public class ThrownGrenade extends ThrowableItemProjectile {
 
     /**
      * Constructor. Set the {@link EntityType entity type}
      *
-     * @param entityType {@link EntityType The entity type for this primed tnt}
+     * @param entityType {@link EntityType The entity type for this grenade}
      * @param level {@link Level The world reference}
      */
-    public Pebble(final EntityType<? extends ThrowableItemProjectile> entityType, final Level level) {
+    public ThrownGrenade(final EntityType<? extends ThrowableItemProjectile> entityType, final Level level) {
         super(entityType, level);
     }
 
@@ -36,32 +37,32 @@ public class Pebble extends ThrowableItemProjectile {
      * Constructor. Set the {@link LivingEntity shooter}
      *
      * @param level {@link Level The world reference}
-     * @param shooter {@link LivingEntity The entity that shoot the pebble}
+     * @param shooter {@link LivingEntity The entity that shoot the grenade}
      */
-    public Pebble(final Level level, final LivingEntity shooter) {
-        super(MWEntityTypes.PEBBLE.get(), shooter, level);
+    public ThrownGrenade(final Level level, final LivingEntity shooter) {
+        super(MWEntityTypes.GRENADE.get(), shooter, level);
     }
 
     /**
      * Constructor. Set the {@link BlockPos entity position}
      *
      * @param level {@link Level The world reference}
-     * @param posX {@link Double The pebble X coordinate}
-     * @param posY {@link Double The pebble Y coordinate}
-     * @param posZ {@link Double The pebble Z coordinate}
+     * @param posX {@link Double The grenade X coordinate}
+     * @param posY {@link Double The grenade Y coordinate}
+     * @param posZ {@link Double The grenade Z coordinate}
      */
-    public Pebble(final Level level, final double posX, final double posY, final double posZ) {
-        super(MWEntityTypes.PEBBLE.get(), posX, posY, posZ, level);
+    public ThrownGrenade(final Level level, final double posX, final double posY, final double posZ) {
+        super(MWEntityTypes.GRENADE.get(), posX, posY, posZ, level);
     }
 
     /**
      * Get the {@link Item default id} if is not set
      *
-     * @return {@link MWItems#STONE_PEBBLE The stone pebble id}
+     * @return {@link MWItems#GRENADE The grenade id}
      */
     @Override
     protected @NotNull Item getDefaultItem() {
-        return MWItems.STONE_PEBBLE.get();
+        return MWItems.GRENADE.get();
     }
 
     /**
@@ -95,7 +96,7 @@ public class Pebble extends ThrowableItemProjectile {
      */
     protected void onHitEntity(final @NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
-        entityHitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 1.0F);
+        entityHitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 1.25F);
     }
 
     /**
@@ -106,7 +107,9 @@ public class Pebble extends ThrowableItemProjectile {
     protected void onHit(final @NotNull HitResult hitResult) {
         super.onHit(hitResult);
         if (!this.level.isClientSide) {
+            final Vec3 pos = this.position();
             this.level.broadcastEntityEvent(this, (byte)3);
+            this.level.explode(this, pos.x, pos.y, pos.z, 2.5F, Level.ExplosionInteraction.TNT);
             this.discard();
         }
     }

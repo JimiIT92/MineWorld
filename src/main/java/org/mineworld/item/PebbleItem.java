@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.block.PebbleBlock;
-import org.mineworld.entity.Pebble;
+import org.mineworld.entity.ThrownGrenade;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
@@ -44,7 +44,7 @@ public class PebbleItem extends ItemNameBlockItem {
         ItemStack itemstack = player.getItemInHand(hand);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!level.isClientSide) {
-            Pebble pebble = new Pebble(level, player);
+            ThrownGrenade pebble = new ThrownGrenade(level, player);
             pebble.setItem(itemstack);
             pebble.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
             level.addFreshEntity(pebble);

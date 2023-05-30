@@ -90,4 +90,15 @@ public final class ItemHelper {
         }
     }
 
+    /**
+     * Set a cooldown for an {@link Item item}
+     *
+     * @param player {@link Player The player using the item}
+     * @param item {@link Item The item to set the cooldown to}
+     * @param ticks {@link Integer How many ticks the item should be set in cooldown}
+     */
+    public static void setCooldown(final Player player, final Item item, final int ticks) {
+        player.getCooldowns().addCooldown(item, ticks);
+    }
+
 }

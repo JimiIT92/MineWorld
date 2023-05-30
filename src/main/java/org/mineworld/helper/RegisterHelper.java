@@ -82,6 +82,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
+import org.mineworld.block.IcePointedDripstoneBlock;
+import org.mineworld.block.MWPointedDripstoneBlock;
 import org.mineworld.block.PebbleBlock;
 import org.mineworld.core.MWBlockEntityTypes;
 import org.mineworld.core.MWBlocks;
@@ -380,7 +382,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Item> The registered id}
      */
     public static RegistryObject<Item> registerHoe(final String name, final Tier tier, final float attackSpeed, final FeatureFlag... featureFlags) {
-        final ForgeTier hoeTier = new ForgeTier(tier.getLevel(), tier.getUses(), tier.getSpeed(), 0, tier.getEnchantmentValue(), tier.getTag(), tier::getRepairIngredient);
+        final ForgeTier hoeTier = new ForgeTier(tier.getLevel(), tier.getUses(), tier.getSpeed(), 0, tier.getEnchantmentValue(), Objects.requireNonNull(tier.getTag()), tier::getRepairIngredient);
         return registerItem(name, () -> new HoeItem(hoeTier, 0, attackSpeed, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -1638,6 +1640,28 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register some {@link MWPointedDripstoneBlock pointed dripstone}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the dripstone source block}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerDripstone(final String name, final Supplier<Block> blockSupplier) {
+        return registerBlock(name, () -> new MWPointedDripstoneBlock(blockSupplier));
+    }
+
+    /**
+     * Register some {@link IcePointedDripstoneBlock ice pointed dripstone}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the dripstone source block}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerIceDripstone(final String name, final Supplier<Block> blockSupplier) {
+        return registerBlock(name, () -> new IcePointedDripstoneBlock(blockSupplier));
+    }
+
+    /**
      * Register a {@link Block block}
      *
      * @param name {@link String The block name}
@@ -1696,7 +1720,7 @@ public final class RegisterHelper {
      */
     @SafeVarargs
     public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntity(final String name, final BlockEntityType.BlockEntitySupplier<T> blockEntitySupplier, final Supplier<Block>... blockSuppliers) {
-        return BLOCK_ENTITY_TYPES.register(name, () -> BlockEntityType.Builder.of(blockEntitySupplier, Arrays.stream(blockSuppliers).map(blockSupplier -> blockSupplier.get()).toList().toArray(new Block[0])).build(null));
+        return BLOCK_ENTITY_TYPES.register(name, () -> BlockEntityType.Builder.of(blockEntitySupplier, Arrays.stream(blockSuppliers).map(Supplier::get).toList().toArray(new Block[0])).build(null));
     }
 
     /**

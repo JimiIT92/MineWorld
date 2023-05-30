@@ -15,7 +15,8 @@ import org.mineworld.client.renderer.vehicle.MWChestBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestMinecartRenderer;
 import org.mineworld.client.renderer.vehicle.MWTntMinecartRenderer;
 import org.mineworld.entity.MWPrimedTnt;
-import org.mineworld.entity.Pebble;
+import org.mineworld.entity.ThrownGrenade;
+import org.mineworld.entity.ThrownPebble;
 import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWChestBoat;
 import org.mineworld.entity.vehicle.MWMinecartChest;
@@ -33,8 +34,8 @@ public final class MWEntityTypes {
                     .sized(0.98F, 0.98F)
                     .clientTrackingRange(10)
                     .updateInterval(10));
-    public static final RegistryObject<EntityType<Pebble>> PEBBLE = RegisterHelper.registerEntityType("pebble",
-            EntityType.Builder.<Pebble>of(Pebble::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<ThrownPebble>> PEBBLE = RegisterHelper.registerEntityType("pebble",
+            EntityType.Builder.<ThrownPebble>of(ThrownPebble::new, MobCategory.MISC)
                     .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
                     .updateInterval(10));
@@ -60,6 +61,12 @@ public final class MWEntityTypes {
                     .sized(1.375F, 0.5625F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<ThrownGrenade>> GRENADE = RegisterHelper.registerEntityType("grenade",
+            EntityType.Builder.<ThrownGrenade>of(ThrownGrenade::new, MobCategory.MISC)
+                    .sized(0.15F, 0.15F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10));
+
     /**
      * Register the entity renderings
      */
@@ -71,6 +78,7 @@ public final class MWEntityTypes {
         EntityRenderers.register(CHEST_MINECART.get(), MWChestMinecartRenderer::new);
         EntityRenderers.register(BOAT.get(), MWBoatRenderer::new);
         EntityRenderers.register(CHEST_BOAT.get(), MWChestBoatRenderer::new);
+        EntityRenderers.register(GRENADE.get(), ThrownItemRenderer::new);
     }
 
     /**

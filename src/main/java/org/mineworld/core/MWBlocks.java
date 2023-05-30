@@ -1416,6 +1416,28 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DEAD_WALL_SIGN = RegisterHelper.registerWallSign("dead_wall_sign", MWWoodTypes.DEAD, DEAD_SIGN);
     public static final RegistryObject<Block> DEAD_HANGING_SIGN = RegisterHelper.registerHangingSign("dead_hanging_sign", DEAD_LOG, MWWoodTypes.DEAD);
     public static final RegistryObject<Block> DEAD_WALL_HANGING_SIGN = RegisterHelper.registerWallHangingSign("dead_wall_hanging_sign", DEAD_LOG, DEAD_HANGING_SIGN, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> STONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("stone_pointed_dripstone", () -> Blocks.STONE);
+    public static final RegistryObject<Block> SANDSTONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("sandstone_pointed_dripstone", () -> Blocks.SANDSTONE);
+    public static final RegistryObject<Block> RED_SANDSTONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("red_sandstone_pointed_dripstone", () -> Blocks.RED_SANDSTONE);
+    public static final RegistryObject<Block> ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("ice_pointed_dripstone", () -> Blocks.ICE);
+    public static final RegistryObject<Block> PACKED_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("packed_ice_pointed_dripstone", () -> Blocks.PACKED_ICE);
+    public static final RegistryObject<Block> BLUE_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("blue_ice_pointed_dripstone", () -> Blocks.BLUE_ICE);
+    public static final RegistryObject<Block> DEEPSLATE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("deepslate_pointed_dripstone", () -> Blocks.DEEPSLATE);
+    public static final RegistryObject<Block> GRANITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("granite_pointed_dripstone", () -> Blocks.GRANITE);
+    public static final RegistryObject<Block> DIORITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("diorite_pointed_dripstone", () -> Blocks.DIORITE);
+    public static final RegistryObject<Block> ANDESITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("andesite_pointed_dripstone", () -> Blocks.ANDESITE);
+    public static final RegistryObject<Block> CALCITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("calcite_pointed_dripstone", () -> Blocks.CALCITE);
+    public static final RegistryObject<Block> TUFF_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("tuff_pointed_dripstone", () -> Blocks.TUFF);
+    public static final RegistryObject<Block> PRISMARINE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("prismarine_pointed_dripstone", () -> Blocks.PRISMARINE);
+    public static final RegistryObject<Block> NETHERRACK_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("netherrack_pointed_dripstone", () -> Blocks.NETHERRACK);
+    public static final RegistryObject<Block> CRIMSON_NYLIUM_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("crimson_nylium_pointed_dripstone", () -> Blocks.CRIMSON_NYLIUM);
+    public static final RegistryObject<Block> WARPED_NYLIUM_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("warped_nylium_pointed_dripstone", () -> Blocks.WARPED_NYLIUM);
+    public static final RegistryObject<Block> SOUL_SOIL_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("soul_soil_pointed_dripstone", () -> Blocks.SOUL_SOIL);
+    public static final RegistryObject<Block> BLACKSTONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("blackstone_pointed_dripstone", () -> Blocks.BLACKSTONE);
+    public static final RegistryObject<Block> BASALT_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("basalt_pointed_dripstone", () -> Blocks.BASALT);
+    public static final RegistryObject<Block> END_STONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("end_stone_pointed_dripstone", () -> Blocks.END_STONE);
+    public static final RegistryObject<Block> PERENNIAL_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("perennial_ice_pointed_dripstone", PERENNIAL_ICE);
+    public static final RegistryObject<Block> MARBLE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("marble_pointed_dripstone", MARBLE);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

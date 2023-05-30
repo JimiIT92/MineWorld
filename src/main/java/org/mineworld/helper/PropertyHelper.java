@@ -44,7 +44,7 @@ import org.mineworld.MineWorld;
 import org.mineworld.block.weathering.IMWWaxableBlock;
 import org.mineworld.core.MWWoodTypes;
 import org.mineworld.entity.MWPrimedTnt;
-import org.mineworld.entity.Pebble;
+import org.mineworld.entity.ThrownGrenade;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWChestBoat;
@@ -446,7 +446,7 @@ public final class PropertyHelper {
     public static DispenseItemBehavior pebbleDispenseBehavior() {
         return new AbstractProjectileDispenseBehavior() {
             protected @NotNull Projectile getProjectile(final @NotNull Level level, final @NotNull Position position, final @NotNull ItemStack itemStack) {
-                return Util.make(new Pebble(level, position.x(), position.y(), position.z()), pebble -> pebble.setItem(itemStack));
+                return Util.make(new ThrownGrenade(level, position.x(), position.y(), position.z()), pebble -> pebble.setItem(itemStack));
             }
         };
     }

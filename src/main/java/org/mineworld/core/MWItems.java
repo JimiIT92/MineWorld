@@ -293,6 +293,7 @@ public final class MWItems {
     public static final RegistryObject<Item> DEAD_CHEST_BOAT = RegisterHelper.registerItem("dead_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.DEAD));
     public static final RegistryObject<Item> DEAD_SIGN = RegisterHelper.registerItem("dead_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.DEAD_SIGN.get(), MWBlocks.DEAD_WALL_SIGN.get()));
     public static final RegistryObject<Item> DEAD_HANGING_SIGN = RegisterHelper.registerItem("dead_hanging_sign", () -> new HangingSignItem(MWBlocks.DEAD_HANGING_SIGN.get(), MWBlocks.DEAD_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
+    public static final RegistryObject<Item> GRENADE = RegisterHelper.registerItem("grenade", GrenadeItem::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

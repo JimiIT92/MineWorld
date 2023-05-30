@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/pointed_dripstone",
+  "textures": {
+    "cross": "mineworld:block/warped_nylium_pointed_dripstone_down_base"
+  }
+}
