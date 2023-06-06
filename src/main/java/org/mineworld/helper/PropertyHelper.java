@@ -127,7 +127,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties basicBlockProperties(final Material material, final float hardnessAndBlastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties basicBlockProperties(final Material material, final float hardnessAndBlastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
         return basicBlockProperties(material, hardnessAndBlastResistance, hardnessAndBlastResistance, requiresTool, featureFlags);
     }
 

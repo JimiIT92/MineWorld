@@ -1369,7 +1369,8 @@ public final class MWTabs {
                 MWBlocks.WARPED_BARREL,
                 MWBlocks.APPLE_BARREL,
                 MWBlocks.PALM_BARREL,
-                MWBlocks.DEAD_BARREL
+                MWBlocks.DEAD_BARREL,
+                MWBlocks.CHRISTMAS_LIGHTS
         );
     }
 

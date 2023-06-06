@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "S#S",
+    "# #"
+  ],
+  "result": {
+    "count": 3,
+    "item": "mineworld:christmas_lights"
+  },
+  "show_notification": true
+}

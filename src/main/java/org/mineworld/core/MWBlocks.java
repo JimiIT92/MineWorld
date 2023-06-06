@@ -1438,6 +1438,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> END_STONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("end_stone_pointed_dripstone", () -> Blocks.END_STONE);
     public static final RegistryObject<Block> PERENNIAL_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("perennial_ice_pointed_dripstone", PERENNIAL_ICE);
     public static final RegistryObject<Block> MARBLE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("marble_pointed_dripstone", MARBLE);
+    public static final RegistryObject<Block> CHRISTMAS_LIGHTS = RegisterHelper.registerBlock("christmas_lights", () -> new SidePanelBlock(PropertyHelper.basicBlockProperties(Material.PLANT,0.1F, false).instabreak().sound(SoundType.GLASS)));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

@@ -102,7 +102,7 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Break the crop if one of the two halfs is broken
+     * Break the crop if one of the two half is broken
      *
      * @param blockState {@link BlockState The current block state}
      * @param direction {@link Direction The update direction}
