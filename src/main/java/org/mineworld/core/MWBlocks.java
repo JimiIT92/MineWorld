@@ -1445,6 +1445,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HUSK_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("husk_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.HUSK, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false).lootFrom(HUSK_HEAD)));
     public static final RegistryObject<Block> DROWNED_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_head", () -> new MWSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false)));
     public static final RegistryObject<Block> DROWNED_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false).lootFrom(DROWNED_HEAD)));
+    public static final RegistryObject<Block> ICE_CHEST = RegisterHelper.registerChest("ice_chest", () -> MWBlockEntityTypes.ICE_CHEST.get(), MWWoodTypes.ICE);
+    public static final RegistryObject<Block> ICE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("ice_trapped_chest", () -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get(), MWWoodTypes.ICE);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

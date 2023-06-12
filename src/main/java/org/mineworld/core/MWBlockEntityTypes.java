@@ -65,6 +65,8 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<LecternBlockEntity>> DEAD_LECTERN = RegisterHelper.registerBlockEntity("dead_lectern", LecternBlockEntity::new, MWBlocks.DEAD_LECTERN);
     public static final RegistryObject<BlockEntityType<DeadChestBlockEntity>> DEAD_CHEST = RegisterHelper.registerBlockEntity("dead_chest", DeadChestBlockEntity::new, MWBlocks.DEAD_CHEST);
     public static final RegistryObject<BlockEntityType<DeadTrappedChestBlockEntity>> DEAD_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("dead_trapped_chest", DeadTrappedChestBlockEntity::new, MWBlocks.DEAD_TRAPPED_CHEST);
+    public static final RegistryObject<BlockEntityType<IceChestBlockEntity>> ICE_CHEST = RegisterHelper.registerBlockEntity("ice_chest", IceChestBlockEntity::new, MWBlocks.ICE_CHEST);
+    public static final RegistryObject<BlockEntityType<IceTrappedChestBlockEntity>> ICE_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("ice_trapped_chest", IceTrappedChestBlockEntity::new, MWBlocks.ICE_TRAPPED_CHEST);
 
     public static final RegistryObject<BlockEntityType<SkullBlockEntity>> SKULL = RegisterHelper.registerBlockEntity("skull", SkullBlockEntity::new,
             MWBlocks.STRAY_SKULL,
@@ -126,6 +128,8 @@ public final class MWBlockEntityTypes {
         BlockEntityRenderers.register(DEAD_LECTERN.get(), LecternRenderer::new);
         BlockEntityRenderers.register(DEAD_CHEST.get(), DeadChestRenderer::new);
         BlockEntityRenderers.register(DEAD_TRAPPED_CHEST.get(), DeadTrappedChestRenderer::new);
+        BlockEntityRenderers.register(ICE_CHEST.get(), IceChestRenderer::new);
+        BlockEntityRenderers.register(ICE_TRAPPED_CHEST.get(), IceTrappedChestRenderer::new);
         BlockEntityRenderers.register(SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(HANGING_SIGN.get(), HangingSignRenderer::new);
         BlockEntityRenderers.register(SKULL.get(), SkullBlockRenderer::new);

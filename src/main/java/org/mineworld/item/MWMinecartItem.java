@@ -108,6 +108,7 @@ public class MWMinecartItem extends Item {
             case APPLE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.APPLE);
             case PALM_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.PALM);
             case DEAD_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.DEAD);
+            case ICE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.ICE);
         };
     }
 
@@ -136,7 +137,8 @@ public class MWMinecartItem extends Item {
         WARPED_CHEST,
         APPLE_CHEST,
         PALM_CHEST,
-        DEAD_CHEST;
+        DEAD_CHEST,
+        ICE_CHEST;
 
         /**
          * {@link Boolean If the tnt type represents a disguised one}

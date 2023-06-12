@@ -85,10 +85,7 @@ import org.mineworld.block.CoralFlowerPotBlock;
 import org.mineworld.block.IcePointedDripstoneBlock;
 import org.mineworld.block.MWPointedDripstoneBlock;
 import org.mineworld.block.PebbleBlock;
-import org.mineworld.core.MWBlockEntityTypes;
-import org.mineworld.core.MWBlocks;
-import org.mineworld.core.MWColors;
-import org.mineworld.core.MWItems;
+import org.mineworld.core.*;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -1432,7 +1429,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.CHEST, featureFlags), chestBlockEntitySupplier) {
+        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.CHEST, featureFlags).sound(woodType.equals(MWWoodTypes.ICE) ? SoundType.GLASS : SoundType.WOOD), chestBlockEntitySupplier) {
 
             /**
              * Get the {@link BlockEntity chest block entity}
@@ -1457,7 +1454,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerTrappedChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.TRAPPED_CHEST, featureFlags), chestBlockEntitySupplier) {
+        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.TRAPPED_CHEST, featureFlags).sound(woodType.equals(MWWoodTypes.ICE) ? SoundType.GLASS : SoundType.WOOD), chestBlockEntitySupplier) {
 
             /**
              * Get the {@link TrappedChestBlockEntity trapped chest block entity}

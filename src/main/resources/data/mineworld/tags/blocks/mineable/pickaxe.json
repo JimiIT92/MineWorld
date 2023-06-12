@@ -83,6 +83,8 @@
     "mineworld:basalt_pointed_dripstone",
     "mineworld:end_stone_pointed_dripstone",
     "mineworld:perennial_ice_pointed_dripstone",
-    "mineworld:marble_pointed_dripstone"
+    "mineworld:marble_pointed_dripstone",
+    "mineworld:ice_chest",
+    "mineworld:ice_trapped_chest"
   ]
 }

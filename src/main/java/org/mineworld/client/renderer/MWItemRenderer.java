@@ -143,6 +143,14 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      * {@link ChestBlockEntity The dead trapped chest block entity}
      */
     private final ChestBlockEntity trappedDeadChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.DEAD, BlockPos.ZERO, MWBlocks.DEAD_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The ice chest block entity}
+     */
+    private final ChestBlockEntity iceChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.ICE, BlockPos.ZERO, MWBlocks.ICE_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The ice trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedIceChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.ICE, BlockPos.ZERO, MWBlocks.ICE_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}
@@ -265,6 +273,12 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
             else if(blockState.is(MWBlocks.DEAD_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedDeadChest;
+            }
+            if(blockState.is(MWBlocks.ICE_CHEST.get())) {
+                blockentity = this.iceChest;
+            }
+            else if(blockState.is(MWBlocks.ICE_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedIceChest;
             }
             if(blockentity != null) {
                 this.blockEntityRenderDispatcher.renderItem(blockentity, pose, buffer, packedLight, packedOverlay);

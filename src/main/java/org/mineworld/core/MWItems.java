@@ -319,6 +319,9 @@ public final class MWItems {
     public static final RegistryObject<Item> PIGLIN_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("piglin_chestplate", MWArmorMaterials.PIGLIN, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON, FeatureFlags.UPDATE_1_20);
     public static final RegistryObject<Item> PIGLIN_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("piglin_leggings", MWArmorMaterials.PIGLIN, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON, FeatureFlags.UPDATE_1_20);
     public static final RegistryObject<Item> PIGLIN_BOOTS = RegisterHelper.registerCosmeticArmorItem("piglin_boots", MWArmorMaterials.PIGLIN, ArmorItem.Type.BOOTS, Rarity.UNCOMMON, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Item> ICE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_chest", MWBlocks.ICE_CHEST);
+    public static final RegistryObject<Item> ICE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_trapped_chest", MWBlocks.ICE_TRAPPED_CHEST);
+    public static final RegistryObject<Item> ICE_CHEST_MINECART = RegisterHelper.registerItem("ice_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.ICE_CHEST));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}
