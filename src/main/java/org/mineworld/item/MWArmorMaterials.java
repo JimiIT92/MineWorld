@@ -63,7 +63,15 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
         enumMap.put(ArmorItem.Type.LEGGINGS, 6);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 8);
         enumMap.put(ArmorItem.Type.HELMET, 3);
-    }), 13, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.5F, 0.05F, () -> Ingredient.of(MWItems.SAPPHIRE.get()));
+    }), 13, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.5F, 0.05F, () -> Ingredient.of(MWItems.SAPPHIRE.get())),
+    CREEPER("creeper"),
+    ZOMBIE("zombie"),
+    HUSK("husk"),
+    DROWNED("drowned"),
+    SKELETON("skeleton"),
+    WITHER_SKELETON("wither_skeleton"),
+    STRAY("stray"),
+    PIGLIN("piglin");
 
     /**
      * {@link StringRepresentable.EnumCodec The enum codec for this enum}
@@ -111,6 +119,25 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * {@link LazyLoadedValue <Ingredient> The armor repair ingredient}
      */
     private final LazyLoadedValue<Ingredient> repairIngredient;
+    /**
+     * {@link Boolean If the armor material is a cosmetic one}
+     */
+    private final boolean isCosmetic;
+
+    /**
+     * Cosmetic constructor. Set the armor material properties
+     * to be just a cosmetic item and don't provide any protection
+     *
+     * @param name {@link String The armor material name}
+     */
+    MWArmorMaterials(final String name) {
+        this(name, 0, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+            enumMap.put(ArmorItem.Type.BOOTS, 0);
+            enumMap.put(ArmorItem.Type.LEGGINGS, 0);
+            enumMap.put(ArmorItem.Type.CHESTPLATE, 0);
+            enumMap.put(ArmorItem.Type.HELMET, 0);
+        }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
+    }
 
     /**
      * Constructor. Set the armor material properties
@@ -133,6 +160,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
         this.toughness = thoughness;
         this.knockbackResistance = knockbackResistance;
         this.repairIngredient = new LazyLoadedValue<>(ingredient);
+        this.isCosmetic = durabilityMultiplier <= 0;
     }
 
     /**
@@ -216,6 +244,16 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      */
     public @NotNull String getSerializedName() {
         return this.name;
+    }
+
+    /**
+     * Check if an {@link ArmorMaterial armor material} is a cosmetic material
+     *
+     * @param material {@link ArmorMaterial The armor material}
+     * @return {@link Boolean True if is a cosmetic material}
+     */
+    public static boolean isCosmetic(final ArmorMaterial material) {
+        return material instanceof MWArmorMaterials armorMaterial && armorMaterial.isCosmetic;
     }
 
 }

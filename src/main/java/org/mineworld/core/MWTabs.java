@@ -3,6 +3,7 @@ package org.mineworld.core;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -1370,6 +1371,9 @@ public final class MWTabs {
                 MWBlocks.APPLE_BARREL,
                 MWBlocks.PALM_BARREL,
                 MWBlocks.DEAD_BARREL,
+                MWItems.STRAY_SKULL,
+                MWItems.HUSK_HEAD,
+                MWItems.DROWNED_HEAD,
                 MWBlocks.CHRISTMAS_LIGHTS
         );
     }
@@ -1842,6 +1846,52 @@ public final class MWTabs {
                 MWItems.MEGA_TNT_MINECART,
                 MWItems.SUPER_TNT_MINECART,
                 MWItems.HYPER_TNT_MINECART
+        );
+        addToTab(event, Items.SKELETON_SKULL);
+        addToTab(event,
+                MWItems.SKELETON_CHESTPLATE,
+                MWItems.SKELETON_LEGGINGS,
+                MWItems.SKELETON_BOOTS
+        );
+        addToTab(event, Items.WITHER_SKELETON_SKULL);
+        addToTab(event,
+                MWItems.WITHER_SKELETON_CHESTPLATE,
+                MWItems.WITHER_SKELETON_LEGGINGS,
+                MWItems.WITHER_SKELETON_BOOTS
+        );
+        addToTab(event,
+                MWItems.STRAY_SKULL,
+                MWItems.STRAY_CHESTPLATE,
+                MWItems.STRAY_LEGGINGS,
+                MWItems.STRAY_BOOTS
+        );
+        addToTab(event, Items.ZOMBIE_HEAD);
+        addToTab(event,
+                MWItems.ZOMBIE_CHESTPLATE,
+                MWItems.ZOMBIE_LEGGINGS,
+                MWItems.ZOMBIE_BOOTS
+        );
+        addToTab(event,
+                MWItems.HUSK_HEAD,
+                MWItems.HUSK_CHESTPLATE,
+                MWItems.HUSK_LEGGINGS,
+                MWItems.HUSK_BOOTS,
+                MWItems.DROWNED_HEAD,
+                MWItems.DROWNED_CHESTPLATE,
+                MWItems.DROWNED_LEGGINGS,
+                MWItems.DROWNED_BOOTS
+        );
+        addToTab(event, Items.CREEPER_HEAD);
+        addToTab(event,
+                MWItems.CREEPER_CHESTPLATE,
+                MWItems.CREEPER_LEGGINGS,
+                MWItems.CREEPER_BOOTS
+        );
+        addToTab(event, Items.PIGLIN_HEAD);
+        addToTab(event,
+                MWItems.PIGLIN_CHESTPLATE,
+                MWItems.PIGLIN_LEGGINGS,
+                MWItems.PIGLIN_BOOTS
         );
     }
 

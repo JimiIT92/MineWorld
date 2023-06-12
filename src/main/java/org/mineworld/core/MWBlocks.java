@@ -1439,6 +1439,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PERENNIAL_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("perennial_ice_pointed_dripstone", PERENNIAL_ICE);
     public static final RegistryObject<Block> MARBLE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("marble_pointed_dripstone", MARBLE);
     public static final RegistryObject<Block> CHRISTMAS_LIGHTS = RegisterHelper.registerBlock("christmas_lights", () -> new SidePanelBlock(PropertyHelper.basicBlockProperties(Material.PLANT,0.1F, false).instabreak().sound(SoundType.GLASS)));
+    public static final RegistryObject<Block> STRAY_SKULL = RegisterHelper.registerBlockWithoutBlockItem("stray_skull", () -> new MWSkullBlock(MWSkullBlock.Types.STRAY, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false)));
+    public static final RegistryObject<Block> STRAY_WALL_SKULL = RegisterHelper.registerBlockWithoutBlockItem("stray_wall_skull", () -> new MWWallSkullBlock(MWSkullBlock.Types.STRAY, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false).lootFrom(STRAY_SKULL)));
+    public static final RegistryObject<Block> HUSK_HEAD = RegisterHelper.registerBlockWithoutBlockItem("husk_head", () -> new MWSkullBlock(MWSkullBlock.Types.HUSK, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false)));
+    public static final RegistryObject<Block> HUSK_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("husk_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.HUSK, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false).lootFrom(HUSK_HEAD)));
+    public static final RegistryObject<Block> DROWNED_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_head", () -> new MWSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false)));
+    public static final RegistryObject<Block> DROWNED_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(Material.DECORATION, 1.0F, false).lootFrom(DROWNED_HEAD)));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

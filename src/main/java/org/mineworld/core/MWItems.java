@@ -1,10 +1,8 @@
 package org.mineworld.core;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
@@ -294,6 +292,33 @@ public final class MWItems {
     public static final RegistryObject<Item> DEAD_SIGN = RegisterHelper.registerItem("dead_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.DEAD_SIGN.get(), MWBlocks.DEAD_WALL_SIGN.get()));
     public static final RegistryObject<Item> DEAD_HANGING_SIGN = RegisterHelper.registerItem("dead_hanging_sign", () -> new HangingSignItem(MWBlocks.DEAD_HANGING_SIGN.get(), MWBlocks.DEAD_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
     public static final RegistryObject<Item> GRENADE = RegisterHelper.registerItem("grenade", GrenadeItem::new);
+    public static final RegistryObject<Item> SKELETON_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("skeleton_chestplate", MWArmorMaterials.SKELETON, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> SKELETON_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("skeleton_leggings", MWArmorMaterials.SKELETON, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> SKELETON_BOOTS = RegisterHelper.registerCosmeticArmorItem("skeleton_boots", MWArmorMaterials.SKELETON, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITHER_SKELETON_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("wither_skeleton_chestplate", MWArmorMaterials.WITHER_SKELETON, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITHER_SKELETON_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("wither_skeleton_leggings", MWArmorMaterials.WITHER_SKELETON, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITHER_SKELETON_BOOTS = RegisterHelper.registerCosmeticArmorItem("wither_skeleton_boots", MWArmorMaterials.WITHER_SKELETON, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> STRAY_SKULL = RegisterHelper.registerItem("stray_skull", () -> new StandingAndWallBlockItem(MWBlocks.STRAY_SKULL.get(), MWBlocks.STRAY_WALL_SKULL.get(), PropertyHelper.basicItemProperties().rarity(Rarity.UNCOMMON), Direction.DOWN));
+    public static final RegistryObject<Item> STRAY_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("stray_chestplate", MWArmorMaterials.STRAY, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> STRAY_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("stray_leggings", MWArmorMaterials.STRAY, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> STRAY_BOOTS = RegisterHelper.registerCosmeticArmorItem("stray_boots", MWArmorMaterials.STRAY, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> ZOMBIE_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("zombie_chestplate", MWArmorMaterials.ZOMBIE, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> ZOMBIE_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("zombie_leggings", MWArmorMaterials.ZOMBIE, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> ZOMBIE_BOOTS = RegisterHelper.registerCosmeticArmorItem("zombie_boots", MWArmorMaterials.ZOMBIE, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> HUSK_HEAD = RegisterHelper.registerItem("husk_head", () -> new StandingAndWallBlockItem(MWBlocks.HUSK_HEAD.get(), MWBlocks.HUSK_WALL_HEAD.get(), PropertyHelper.basicItemProperties().rarity(Rarity.UNCOMMON), Direction.DOWN));
+    public static final RegistryObject<Item> HUSK_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("husk_chestplate", MWArmorMaterials.HUSK, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> HUSK_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("husk_leggings", MWArmorMaterials.HUSK, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> HUSK_BOOTS = RegisterHelper.registerCosmeticArmorItem("husk_boots", MWArmorMaterials.HUSK, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> DROWNED_HEAD = RegisterHelper.registerItem("drowned_head", () -> new StandingAndWallBlockItem(MWBlocks.DROWNED_HEAD.get(), MWBlocks.DROWNED_WALL_HEAD.get(), PropertyHelper.basicItemProperties().rarity(Rarity.UNCOMMON), Direction.DOWN));
+    public static final RegistryObject<Item> DROWNED_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("drowned_chestplate", MWArmorMaterials.DROWNED, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> DROWNED_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("drowned_leggings", MWArmorMaterials.DROWNED, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> DROWNED_BOOTS = RegisterHelper.registerCosmeticArmorItem("drowned_boots", MWArmorMaterials.DROWNED, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> CREEPER_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("creeper_chestplate", MWArmorMaterials.CREEPER, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> CREEPER_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("creeper_leggings", MWArmorMaterials.CREEPER, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> CREEPER_BOOTS = RegisterHelper.registerCosmeticArmorItem("creeper_boots", MWArmorMaterials.CREEPER, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> PIGLIN_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("piglin_chestplate", MWArmorMaterials.PIGLIN, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Item> PIGLIN_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("piglin_leggings", MWArmorMaterials.PIGLIN, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON, FeatureFlags.UPDATE_1_20);
+    public static final RegistryObject<Item> PIGLIN_BOOTS = RegisterHelper.registerCosmeticArmorItem("piglin_boots", MWArmorMaterials.PIGLIN, ArmorItem.Type.BOOTS, Rarity.UNCOMMON, FeatureFlags.UPDATE_1_20);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

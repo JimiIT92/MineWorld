@@ -170,12 +170,12 @@ public final class RegisterHelper {
     //#endregion
 
     /**
-     * Register a {@link Item fuel id}
+     * Register a {@link Item fuel item}
      *
-     * @param name {@link String The id name}
+     * @param name {@link String The item name}
      * @param burnTime {@link Integer The fuel burn time} in seconds
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerFuelItem(final String name, final int burnTime, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags)) {
@@ -211,7 +211,7 @@ public final class RegisterHelper {
     /**
      * Create a basic {@link SmithingTemplateItem smithing template}
      *
-     * @param name {@link String The id name}
+     * @param name {@link String The item name}
      * @param templateName {@link String The smithing template name}
      * @param baseSlotIcons {@link List<ResourceLocation> List of icons to show inside the base slot}
      * @param additionSlotIcons {@link List<ResourceLocation> List of icons to show inside the additions slot}
@@ -230,40 +230,40 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link ItemNameBlockItem name block id}, which is an Item that can place a block
-     * (like a bucket or a seed id)
+     * Register a {@link ItemNameBlockItem name block item}, which is an Item that can place a block
+     * (like a bucket or a seed item)
      *
-     * @param name {@link String The id name}
-     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the id will place}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param name {@link String The item name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the item will place}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)));
     }
 
     /**
-     * Register a {@link ItemNameBlockItem name block id}, which is an Item that can place a block
-     * (like a bucket or a seed id) and that can also be eaten
+     * Register a {@link ItemNameBlockItem name block item}, which is an Item that can place a block
+     * (like a bucket or a seed item) and that can also be eaten
      *
-     * @param name {@link String The id name}
-     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the id will place}
+     * @param name {@link String The item name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the item will place}
      * @param food {@link FoodProperties The food properties}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerFoodBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FoodProperties food, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags).food(food)));
     }
 
     /**
-     * Register a {@link ItemNameBlockItem name block id}, which is an Item that can place a block
-     * (like a bucket or a seed id) that has a special id renderer (like the chest block id)
+     * Register a {@link ItemNameBlockItem name block item}, which is an Item that can place a block
+     * (like a bucket or a seed item) that has a special item renderer (like the chest block item)
      *
-     * @param name {@link String The id name}
-     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the id will place}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param name {@link String The item name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block that the item will place}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerSpecialRendererBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)) {
@@ -271,7 +271,7 @@ public final class RegisterHelper {
             /**
              * Initialize the id client rendering
              *
-             * @param consumer {@link Consumer<IClientItemExtensions> The client id extensions renderer consumer}
+             * @param consumer {@link Consumer<IClientItemExtensions> The client item extensions renderer consumer}
              */
             @Override
             public void initializeClient(final @NotNull Consumer<IClientItemExtensions> consumer) {
@@ -286,37 +286,51 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link FoodProperties food id}
+     * Register a {@link FoodProperties food item}
      *
-     * @param name {@link String The id name}
+     * @param name {@link String The item name}
      * @param foodProperties {@link FoodProperties The food properties}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerFoodItem(final String name, final FoodProperties foodProperties, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags).food(foodProperties)));
     }
 
     /**
-     * Register an {@link ArmorItem armor id}
+     * Register an {@link ArmorItem armor item}
      *
-     * @param name {@link String The id name}
+     * @param name {@link String The item name}
      * @param armorMaterial {@link ArmorMaterial The armor material}
-     * @param slot {@link ArmorItem.Type The armor id type}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param slot {@link ArmorItem.Type The armor item type}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerArmorItem(final String name, final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ArmorItem(armorMaterial, slot, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
     /**
-     * Register a {@link HorseArmorItem horse armor id}
+     * Register a rare {@link ArmorItem armor item}
+     *
+     * @param name {@link String The item name}
+     * @param armorMaterial {@link ArmorMaterial The armor material}
+     * @param slot {@link ArmorItem.Type The armor item type}
+     * @param rarity {@link Rarity The armor rarity}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
+     */
+    public static RegistryObject<Item> registerCosmeticArmorItem(final String name, final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final Rarity rarity, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new ArmorItem(armorMaterial, slot, PropertyHelper.basicItemProperties(featureFlags).rarity(rarity)));
+    }
+
+    /**
+     * Register a {@link HorseArmorItem horse armor item}
      *
      * @param materialName {@link String The armor material name}
      * @param protection {@link Integer The armor protection amount}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerHorseArmorItem(final String materialName, final int protection, final FeatureFlag... featureFlags) {
         return registerItem(materialName + "_horse_armor", () -> new HorseArmorItem(protection, KeyHelper.entityTexture("horse/armor/horse_armor_" + materialName), PropertyHelper.basicItemProperties(featureFlags).stacksTo(1)));
@@ -325,10 +339,10 @@ public final class RegisterHelper {
     /**
      * Register a {@link SwordItem sword}
      *
-     * @param name {@link String The id name}
-     * @param tier {@link Tier The id tier}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param name {@link String The item name}
+     * @param tier {@link Tier The item tier}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerSword(final String name, final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new SwordItem(tier, 3, -2.4F, PropertyHelper.basicItemProperties(featureFlags)));
@@ -337,10 +351,10 @@ public final class RegisterHelper {
     /**
      * Register a {@link ShovelItem shovel}
      *
-     * @param name {@link String The id name}
-     * @param tier {@link Tier The id tier}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param name {@link String The item name}
+     * @param tier {@link Tier The item tier}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerShovel(final String name, final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ShovelItem(tier, 1.5F, -3.0F, PropertyHelper.basicItemProperties(featureFlags)));
@@ -349,10 +363,10 @@ public final class RegisterHelper {
     /**
      * Register a {@link PickaxeItem pickaxe}
      *
-     * @param name {@link String The id name}
-     * @param tier {@link Tier The id tier}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param name {@link String The item name}
+     * @param tier {@link Tier The item tier}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerPickaxe(final String name, final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new PickaxeItem(tier, 1, -2.8F, PropertyHelper.basicItemProperties(featureFlags)));
@@ -361,12 +375,12 @@ public final class RegisterHelper {
     /**
      * Register a {@link AxeItem axe}
      *
-     * @param name {@link String The id name}
-     * @param tier {@link Tier The id tier}
+     * @param name {@link String The item name}
+     * @param tier {@link Tier The item tier}
      * @param attackDamageBonus {@link Float The axe attack damage bonus}
      * @param attackSpeed {@link Float The axe attack speed}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerAxe(final String name, final Tier tier, final float attackDamageBonus, final float attackSpeed, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new AxeItem(tier, attackDamageBonus, attackSpeed, PropertyHelper.basicItemProperties(featureFlags)));
@@ -375,11 +389,11 @@ public final class RegisterHelper {
     /**
      * Register a {@link HoeItem hoe}
      *
-     * @param name {@link String The id name}
-     * @param tier {@link Tier The id tier}
+     * @param name {@link String The item name}
+     * @param tier {@link Tier The item tier}
      * @param attackSpeed {@link Float The hoe attack speed}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerHoe(final String name, final Tier tier, final float attackSpeed, final FeatureFlag... featureFlags) {
         final ForgeTier hoeTier = new ForgeTier(tier.getLevel(), tier.getUses(), tier.getSpeed(), 0, tier.getEnchantmentValue(), Objects.requireNonNull(tier.getTag()), tier::getRepairIngredient);
@@ -387,22 +401,22 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a basic {@link Item id}
+     * Register a basic {@link Item item}
      *
-     * @param name {@link String The id name}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param name {@link String The item name}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerItem(final String name, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags)));
     }
 
     /**
-     * Register an {@link Item id}
+     * Register an {@link Item item}
      *
-     * @param name {@link String The id name}
-     * @param itemSupplier {@link Supplier<Item> The id supplier}
-     * @return {@link RegistryObject<Item> The registered id}
+     * @param name {@link String The item name}
+     * @param itemSupplier {@link Supplier<Item> The item supplier}
+     * @return {@link RegistryObject<Item> The registered item}
      */
     public static RegistryObject<Item> registerItem(final String name, final Supplier<? extends Item> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
@@ -498,12 +512,12 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link Block block fuel id}
+     * Register a {@link Block block fuel item}
      *
-     * @param name          {@link String The id name}
-     * @param blockSupplier {@link Block The supplier for the block referred from this id}
+     * @param name          {@link String The item name}
+     * @param blockSupplier {@link Block The supplier for the block referred from this item}
      * @param burnTime      {@link Integer The fuel burn time} in seconds
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      */
     static void registerFuelBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final int burnTime, final FeatureFlag... featureFlags) {
         registerItem(name, () -> new BlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)) {
