@@ -52,6 +52,7 @@ public final class MineWorld {
         MWBiomes.register(eventBus);
         MWTrunkPlacerTypes.register(eventBus);
         MWFoliagePlacerTypes.register(eventBus);
+        MWStructures.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);

@@ -12,6 +12,7 @@ import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.mineworld.MineWorld;
 
 /**
@@ -67,6 +68,16 @@ public final class KeyHelper {
      */
     public static ResourceKey<DamageType> registerDamageType(final String name) {
         return register(Registries.DAMAGE_TYPE, name);
+    }
+
+    /**
+     * Register a {@link ResourceKey resource key} for a {@link StructureProcessorList structure processor}
+     *
+     * @param name {@link String The placed feature name}
+     * @return {@link ResourceKey<StructureProcessorList> The structure processor resource key}
+     */
+    public static ResourceKey<StructureProcessorList> registerStructureProcessorKey(final String name) {
+        return register(Registries.PROCESSOR_LIST, name);
     }
 
     /**

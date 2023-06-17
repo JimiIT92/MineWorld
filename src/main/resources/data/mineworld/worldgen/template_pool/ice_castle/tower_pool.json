@@ -1,0 +1,21 @@
+{
+  "name": "mineworld:ice_castle/tower_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 4,
+      "element": {
+        "location": "mineworld:ice_castle/tower",
+        "processors": "mineworld:ice_castle",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      }
+    }
+  ]
+}

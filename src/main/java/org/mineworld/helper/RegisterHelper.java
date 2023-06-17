@@ -1,5 +1,6 @@
 package org.mineworld.helper;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
@@ -62,6 +63,11 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -138,7 +144,7 @@ public final class RegisterHelper {
     /**
      * {@link DeferredRegister<VillagerProfession> The villager poi type registry}
      */
-    private static final DeferredRegister<VillagerProfession> VILLGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, MineWorld.MOD_ID);
+    private static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<IGlobalLootModifier> The global loot modifier serializers registry}
      */
@@ -159,6 +165,10 @@ public final class RegisterHelper {
      * {@link DeferredRegister<FoliagePlacerType> The foliage placer type registry}
      */
     private static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<StructureType> The structure type registry}
+     */
+    private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -2075,7 +2085,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<VillagerProfession> The registered villager profession}
      */
     public static RegistryObject<VillagerProfession> registerVillagerProfession(final String name, final Supplier<? extends PoiType> poiTypeSupplier, final SoundEvent workSound) {
-        return VILLGER_PROFESSIONS.register(name, () -> new VillagerProfession(
+        return VILLAGER_PROFESSIONS.register(name, () -> new VillagerProfession(
                 name,
                 x -> x.get().equals(poiTypeSupplier.get()),
                 x -> x.get().equals(poiTypeSupplier.get()),
@@ -2154,6 +2164,18 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a {@link StructureType structure type}
+     *
+     * @param name {@link String The structure name}
+     * @param codec {@link Codec The structure codec}
+     * @return {@link RegistryObject<StructureType> The registered structure type}
+     * @param <T> {@link T The structure type}
+     */
+    public static <T extends Structure> RegistryObject<StructureType<T>> registerStructureType(final String name, final Codec<T> codec) {
+        return STRUCTURE_TYPES.register(name, () -> () -> codec);
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -2212,6 +2234,29 @@ public final class RegisterHelper {
     public static void registerFlowerPots() {
         final FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
         flowerPots.forEach((flower, pot) -> flowerPot.addPlant(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(flower.get())), pot));
+    }
+
+    /**
+     * Register a {@link BlockRotProcessor block rot structure processor}
+     * given a {@link Float degradation chance}
+     *
+     * @param context {@link BootstapContext<StructureProcessorList> The structure processor bootstrap context}
+     * @param key {@link ResourceKey<StructureProcessorList> The structure processor resource key}
+     * @param chance {@link Float The degradation chance}
+     */
+    public static void registerBlockRotStructureProcessor(final BootstapContext<StructureProcessorList> context, final ResourceKey<StructureProcessorList> key, final float chance) {
+        registerStructureProcessor(context, key, ImmutableList.of(new BlockRotProcessor(chance)));
+    }
+
+    /**
+     * Register a {@link StructureProcessorList structure processor}
+     *
+     * @param context {@link BootstapContext<StructureProcessorList> The structure processor bootstrap context}
+     * @param key {@link ResourceKey<StructureProcessorList> The structure processor resource key}
+     * @param structureProcessors {@link List<StructureProcessor> The structure processors list}
+     */
+    public static void registerStructureProcessor(final BootstapContext<StructureProcessorList> context, final ResourceKey<StructureProcessorList> key, final List<StructureProcessor> structureProcessors) {
+        context.register(key, new StructureProcessorList(structureProcessors));
     }
 
     /**
@@ -2301,7 +2346,7 @@ public final class RegisterHelper {
      * @param eventBus {@link IEventBus The event bus}
      */
     public static void registerVillagerProfessions(final IEventBus eventBus) {
-        VILLGER_PROFESSIONS.register(eventBus);
+        VILLAGER_PROFESSIONS.register(eventBus);
     }
 
     /**
@@ -2347,6 +2392,15 @@ public final class RegisterHelper {
      */
     public static void registerFoliagePlacerTypes(final IEventBus eventBus) {
         FOLIAGE_PLACER_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link StructureType structure types}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerStructureTypes(final IEventBus eventBus) {
+        STRUCTURE_TYPES.register(eventBus);
     }
 
 }
