@@ -1,10 +1,11 @@
 {
   "1.19.4": {
-    "1.0-Pre-Release-1": "See https://www.curseforge.com/minecraft/mc-mods/mine-world-mod"
+    "1.0-Pre-Release-1": "See https://www.curseforge.com/minecraft/mc-mods/mine-world-mod/files/4543621",
+    "1.0-Pre-Release-2": "See https://www.curseforge.com/minecraft/mc-mods/mine-world-mod/files/4595178"
   },
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/mine-world-mod",
   "promos": {
-    "1.19.4-latest": "1.0-Pre-Release-1",
-    "1.19.4-recommended": "1.0-Pre-Release-1"
+    "1.19.4-latest": "1.0-Pre-Release-2",
+    "1.19.4-recommended": "1.0-Pre-Release-2"
   }
 }
