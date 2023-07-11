@@ -15,7 +15,7 @@ import java.util.List;
  * Event listener for the {@link ItemTooltipEvent item tooltip event}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, value = Dist.CLIENT)
-public final class ItemTooltipEventListener {
+public class ItemTooltipEventListener {
 
     /**
      * Hide the default tooltips for cosmetic armor items
@@ -23,12 +23,12 @@ public final class ItemTooltipEventListener {
      * @param event {@link ItemTooltipEvent The item tooltip event}
      */
     @SubscribeEvent
-    public static void onItemTooltip(final ItemTooltipEvent event) {
+    public static void onItemTooltip(ItemTooltipEvent event) {
         if(event.getItemStack().getItem() instanceof ArmorItem armorItem && MWArmorMaterials.isCosmetic(armorItem.getMaterial())) {
-            final List<Component> tooltips = event.getToolTip();
-            final boolean isAdvanced = event.getFlags().isAdvanced();
-            final Component itemName = tooltips.get(0);
-            final Component itemId = isAdvanced ? tooltips.get(tooltips.size() - 1) : null;
+            List<Component> tooltips = event.getToolTip();
+            boolean isAdvanced = event.getFlags().isAdvanced();
+            Component itemName = tooltips.get(0);
+            Component itemId = isAdvanced ? tooltips.get(tooltips.size() - 1) : null;
             tooltips.clear();
             tooltips.add(itemName);
             if(isAdvanced && itemId != null) {

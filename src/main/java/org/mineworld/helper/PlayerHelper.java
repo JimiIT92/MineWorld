@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Helper methods for {@link Player players}
  */
-public final class PlayerHelper {
+public class PlayerHelper {
 
     /**
      * Get the {@link Entity entities leashed} to a {@link Player player}
@@ -23,11 +23,11 @@ public final class PlayerHelper {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link List<Entity> List of leashed entities, if any}
      */
-    public static List<? extends Entity> getLeashedEntities(final Player player, final Level level, final BlockPos blockPos) {
-        final double distance = 7.0D;
-        final double x = blockPos.getX();
-        final double y = blockPos.getY();
-        final double z = blockPos.getZ();
+    public static List<? extends Entity> getLeashedEntities(Player player, Level level, BlockPos blockPos) {
+        double distance = 7.0D;
+        double x = blockPos.getX();
+        double y = blockPos.getY();
+        double z = blockPos.getZ();
 
         return level.getEntitiesOfClass(Mob.class, new AABB(x - distance, y - distance, z - distance, x + distance, y + distance, z + distance))
                 .stream().filter(entity -> entity.getLeashHolder() != null && entity.getLeashHolder().is(player)).collect(Collectors.toList());

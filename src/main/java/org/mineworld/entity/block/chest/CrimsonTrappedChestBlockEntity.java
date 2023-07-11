@@ -16,7 +16,7 @@ public class CrimsonTrappedChestBlockEntity extends AbstractTrappedChestBlockEnt
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public CrimsonTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public CrimsonTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.CRIMSON_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

@@ -22,7 +22,7 @@ public class PalmTreeGrower extends AbstractTreeGrower {
      */
     @Nullable
     @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(final @NotNull RandomSource random, final boolean withBeeNest) {
+    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean withBeeNest) {
         return MWConfiguredFeatures.PALM_TREE;
     }
 

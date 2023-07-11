@@ -10,16 +10,16 @@ import org.mineworld.world.structure.IceCastle;
 /**
  * {@link MineWorld MineWorld} {@link StructureType structure types}
  */
-public final class MWStructures {
+public class MWStructures {
 
-    public static final RegistryObject<StructureType<IceCastle>> ICE_CASTLE = RegisterHelper.registerStructureType("ice_castle", IceCastle.CODEC);
+    public static RegistryObject<StructureType<IceCastle>> ICE_CASTLE = RegisterHelper.registerStructureType("ice_castle", IceCastle.CODEC);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link StructureType structure types}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerStructureTypes(eventBus);
     }
 

@@ -25,7 +25,7 @@ public class WoodcutterRecipe extends SingleItemRecipe {
      * @param ingredient {@link Ingredient The recipe ingredient}
      * @param itemStack {@link ItemStack The recipe result}
      */
-    public WoodcutterRecipe(final ResourceLocation id, final String name, final Ingredient ingredient, final ItemStack itemStack) {
+    public WoodcutterRecipe(ResourceLocation id, String name, Ingredient ingredient, ItemStack itemStack) {
         super(MWRecipeTypes.WOODCUTTING.get(), MWRecipeSerializers.WOODCUTTER.get(), id, name, ingredient, itemStack);
     }
 
@@ -36,7 +36,7 @@ public class WoodcutterRecipe extends SingleItemRecipe {
      * @param level {@link Level The level reference}
      * @return {@link Boolean True if the input id inside the container matches a recipe}
      */
-    public boolean matches(final Container container, final @NotNull Level level) {
+    public boolean matches(Container container, @NotNull Level level) {
         return this.ingredient.test(container.getItem(0));
     }
 

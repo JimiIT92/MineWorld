@@ -10,16 +10,16 @@ import org.mineworld.world.worldgen.tree.trunkplacers.PalmTrunkPlacer;
 /**
  * {@link MineWorld MineWorld} {@link TrunkPlacerType trunk placer types}
  */
-public final class MWTrunkPlacerTypes {
+public class MWTrunkPlacerTypes {
 
-    public static final RegistryObject<TrunkPlacerType<PalmTrunkPlacer>> PALM_TRUNK_PLACER = RegisterHelper.registerTrunkPlacerType("palm", () -> new TrunkPlacerType<>(PalmTrunkPlacer.CODEC));
+    public static RegistryObject<TrunkPlacerType<PalmTrunkPlacer>> PALM_TRUNK_PLACER = RegisterHelper.registerTrunkPlacerType("palm", () -> new TrunkPlacerType<>(PalmTrunkPlacer.CODEC));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link TrunkPlacerType trunk placer types}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerTrunkPlacerTypes(eventBus);
     }
 

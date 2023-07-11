@@ -13,16 +13,16 @@ import org.mineworld.core.MWBlocks;
  */
 public class MWSurfaceRuleData {
 
-    private static final SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
-    private static final SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
-    private static final SurfaceRules.RuleSource STONE = makeStateRule(Blocks.STONE);
-    private static final SurfaceRules.RuleSource BLACKSTONE = makeStateRule(Blocks.BLACKSTONE);
-    private static final SurfaceRules.RuleSource PERENNIAL_ICE = makeStateRule(MWBlocks.PERENNIAL_ICE.get());
-    private static final SurfaceRules.RuleSource BLUE_ICE = makeStateRule(Blocks.BLUE_ICE);
-    private static final SurfaceRules.RuleSource COARSE_DIRT = makeStateRule(Blocks.COARSE_DIRT);
-    private static final SurfaceRules.RuleSource LAVA_ROCK = makeStateRule(MWBlocks.LAVA_ROCK.get());
-    private static final SurfaceRules.RuleSource MAGMA = makeStateRule(Blocks.MAGMA_BLOCK);
-    private static final SurfaceRules.RuleSource DEEPSLATE = makeStateRule(Blocks.DEEPSLATE);
+    private static SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
+    private static SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
+    private static SurfaceRules.RuleSource STONE = makeStateRule(Blocks.STONE);
+    private static SurfaceRules.RuleSource BLACKSTONE = makeStateRule(Blocks.BLACKSTONE);
+    private static SurfaceRules.RuleSource PERENNIAL_ICE = makeStateRule(MWBlocks.PERENNIAL_ICE.get());
+    private static SurfaceRules.RuleSource BLUE_ICE = makeStateRule(Blocks.BLUE_ICE);
+    private static SurfaceRules.RuleSource COARSE_DIRT = makeStateRule(Blocks.COARSE_DIRT);
+    private static SurfaceRules.RuleSource LAVA_ROCK = makeStateRule(MWBlocks.LAVA_ROCK.get());
+    private static SurfaceRules.RuleSource MAGMA = makeStateRule(Blocks.MAGMA_BLOCK);
+    private static SurfaceRules.RuleSource DEEPSLATE = makeStateRule(Blocks.DEEPSLATE);
 
     /**
      * Make the surface rules
@@ -30,13 +30,13 @@ public class MWSurfaceRuleData {
      * @return {@link SurfaceRules.RuleSource The surface rules}
      */
     public static SurfaceRules.RuleSource makeRules() {
-        final SurfaceRules.ConditionSource isAtOrAboveWaterLevel = SurfaceRules.waterBlockCheck(-1, 0);
-        final SurfaceRules.ConditionSource sixBelowWater = SurfaceRules.waterStartCheck(-6, -1);
-        final SurfaceRules.RuleSource blueIceSurface = SurfaceRules.sequence(
+        SurfaceRules.ConditionSource isAtOrAboveWaterLevel = SurfaceRules.waterBlockCheck(-1, 0);
+        SurfaceRules.ConditionSource sixBelowWater = SurfaceRules.waterStartCheck(-6, -1);
+        SurfaceRules.RuleSource blueIceSurface = SurfaceRules.sequence(
                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, BLUE_ICE),
                 SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, PERENNIAL_ICE)
         );
-        final SurfaceRules.RuleSource coarseDirtSurface = SurfaceRules.sequence(
+        SurfaceRules.RuleSource coarseDirtSurface = SurfaceRules.sequence(
                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, COARSE_DIRT),
                 SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, STONE)
         );
@@ -103,7 +103,7 @@ public class MWSurfaceRuleData {
      * @param block {@link Block The block to make the state rule from}
      * @return {@link SurfaceRules.RuleSource The surface state rule}
      */
-    private static SurfaceRules.RuleSource makeStateRule(final Block block) {
+    private static SurfaceRules.RuleSource makeStateRule(Block block) {
         return SurfaceRules.state(block.defaultBlockState());
     }
 
@@ -124,7 +124,7 @@ public class MWSurfaceRuleData {
      * @param threshold {@link Double The noise threshold}
      * @return {@link SurfaceRules.ConditionSource The condition surface rule}
      */
-    private static SurfaceRules.ConditionSource surfaceNoiseAbove(final double threshold) {
+    private static SurfaceRules.ConditionSource surfaceNoiseAbove(double threshold) {
         return SurfaceRules.noiseCondition(Noises.SURFACE, threshold / 8.25D, Double.MAX_VALUE);
     }
 }

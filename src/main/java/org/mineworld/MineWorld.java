@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * MineWorld! Just another Minecraft mod
  */
 @Mod(MineWorld.MOD_ID)
-public final class MineWorld {
+public class MineWorld {
 
     /**
      * {@link MineWorld MineWorld} {@link String mod ID}
@@ -26,7 +26,7 @@ public final class MineWorld {
     /**
      * {@link Logger Logger reference}
      */
-    public static final Logger LOGGER = Logger.getLogger(MOD_ID);
+    public static Logger LOGGER = Logger.getLogger(MOD_ID);
     /**
      * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom id renderer}
      */
@@ -64,7 +64,7 @@ public final class MineWorld {
      *
      * @param event {@link FMLClientSetupEvent FML client setup event}
      */
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(MWEntityTypes::registerRenderers);
         event.enqueueWork(MWBlockEntityTypes::registerRenderers);
         event.enqueueWork(MWMenuTypes::registerScreens);
@@ -76,7 +76,7 @@ public final class MineWorld {
      *
      * @param event {@link FMLCommonSetupEvent FML common setup event}
      */
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(RegisterHelper::registerFlowerPots);
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
         event.enqueueWork(RegisterHelper::registerCompostables);

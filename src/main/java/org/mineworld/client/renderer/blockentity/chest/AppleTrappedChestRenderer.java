@@ -16,7 +16,7 @@ public class AppleTrappedChestRenderer extends AppleChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public AppleTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public AppleTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

@@ -21,7 +21,7 @@ abstract class AbstractTrappedChestBlockEntity extends ChestBlockEntity {
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public AbstractTrappedChestBlockEntity(final BlockEntityType<?> blockEntityType, final BlockPos blockPos, final BlockState blockState) {
+    public AbstractTrappedChestBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
     }
 
@@ -35,7 +35,7 @@ abstract class AbstractTrappedChestBlockEntity extends ChestBlockEntity {
      * @param par5 {@link Integer An integer parameter}
      */
     @Override
-    protected void signalOpenCount(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final int par4, final int par5) {
+    protected void signalOpenCount(@NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState, int par4, int par5) {
         super.signalOpenCount(level, blockPos, blockState, par4, par5);
         if (par4 != par5) {
             Block block = blockState.getBlock();

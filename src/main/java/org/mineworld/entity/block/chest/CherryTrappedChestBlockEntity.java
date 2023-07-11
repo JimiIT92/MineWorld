@@ -16,7 +16,7 @@ public class CherryTrappedChestBlockEntity extends AbstractTrappedChestBlockEnti
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public CherryTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public CherryTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.CHERRY_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

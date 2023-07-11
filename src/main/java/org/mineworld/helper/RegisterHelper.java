@@ -101,78 +101,78 @@ import java.util.stream.Collectors;
 /**
  * Helper methods for {@link RegistryObject registering some objects}
  */
-public final class RegisterHelper {
+public class RegisterHelper {
 
     //#region Registries
 
     /**
      * {@link DeferredRegister <Block> The block registry}
      */
-    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MineWorld.MOD_ID);
+    private static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<Item> The id registry}
      */
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MineWorld.MOD_ID);
+    private static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<EntityType> The entity types registry}
      */
-    private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MineWorld.MOD_ID);
+    private static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<BlockEntityType> The block entity types registry}
      */
-    private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MineWorld.MOD_ID);
+    private static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<ResourceLocation> The statistics registry}
      */
-    private static final DeferredRegister<ResourceLocation> STATISTICS = DeferredRegister.create(BuiltInRegistries.CUSTOM_STAT.key(), MineWorld.MOD_ID);
+    private static DeferredRegister<ResourceLocation> STATISTICS = DeferredRegister.create(BuiltInRegistries.CUSTOM_STAT.key(), MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<MenuType> The menu type registry}
      */
-    private static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MineWorld.MOD_ID);
+    private static DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<RecipeType> The recipe type registry}
      */
-    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MineWorld.MOD_ID);
+    private static DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<RecipeSerializer> The recipe serializer registry}
      */
-    private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MineWorld.MOD_ID);
+    private static DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<PoiType> The villager poi type registry}
      */
-    private static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, MineWorld.MOD_ID);
+    private static DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<VillagerProfession> The villager poi type registry}
      */
-    private static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, MineWorld.MOD_ID);
+    private static DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<IGlobalLootModifier> The global loot modifier serializers registry}
      */
-    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MineWorld.MOD_ID);
+    private static DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<Biome> The biome registry}
      */
-    private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registries.BIOME, MineWorld.MOD_ID);
+    private static DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registries.BIOME, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<Feature> The feature registry}
      */
-    private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, MineWorld.MOD_ID);
+    private static DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<TrunkPlacerType> The trunk placer type registry}
      */
-    private static final DeferredRegister<TrunkPlacerType<?>> TRUNK_PLACER_TYPES = DeferredRegister.create(Registries.TRUNK_PLACER_TYPE, MineWorld.MOD_ID);
+    private static DeferredRegister<TrunkPlacerType<?>> TRUNK_PLACER_TYPES = DeferredRegister.create(Registries.TRUNK_PLACER_TYPE, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<FoliagePlacerType> The foliage placer type registry}
      */
-    private static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, MineWorld.MOD_ID);
+    private static DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, MineWorld.MOD_ID);
     /**
      * {@link DeferredRegister<StructureType> The structure type registry}
      */
-    private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, MineWorld.MOD_ID);
+    private static DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
-    private static final HashMap<Supplier<? extends Block>, RegistryObject<Block>> flowerPots = new HashMap<>();
+    private static HashMap<Supplier<? extends Block>, RegistryObject<Block>> flowerPots = new HashMap<>();
 
     //#endregion
 
@@ -184,7 +184,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerFuelItem(final String name, final int burnTime, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerFuelItem(String name, int burnTime, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags)) {
             /**
              * Get the {@link ItemStack Item Stack} burn time in ticks
@@ -209,7 +209,7 @@ public final class RegisterHelper {
      * @param additionSlotIcon {@link ResourceLocation Icon to show inside the additions slot}
      * @return {@link RegistryObject<Item> The registered id}
      */
-    public static RegistryObject<Item> registerSmithingTemplate(final String name, final String templateName, final String baseSlotIcon, final String additionSlotIcon) {
+    public static RegistryObject<Item> registerSmithingTemplate(String name, String templateName, String baseSlotIcon, String additionSlotIcon) {
         return registerSmithingTemplate(name, templateName,
                 List.of(KeyHelper.emptySlot(baseSlotIcon)),
                 List.of(KeyHelper.emptySlot(additionSlotIcon)));
@@ -224,7 +224,7 @@ public final class RegisterHelper {
      * @param additionSlotIcons {@link List<ResourceLocation> List of icons to show inside the additions slot}
      * @return {@link RegistryObject<Item> The registered id}
      */
-    static RegistryObject<Item> registerSmithingTemplate(final String name,final String templateName, final List<ResourceLocation> baseSlotIcons, final List<ResourceLocation> additionSlotIcons) {
+    static RegistryObject<Item> registerSmithingTemplate(String name,String templateName, List<ResourceLocation> baseSlotIcons, List<ResourceLocation> additionSlotIcons) {
         return registerItem(name, () -> new SmithingTemplateItem(
                 ComponentHelper.smithingTemplateDescription(templateName, "applies_to").withStyle(ChatFormatting.BLUE),
                 ComponentHelper.smithingTemplateDescription(templateName, "ingredients").withStyle(ChatFormatting.BLUE),
@@ -245,7 +245,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerBlockItem(String name, Supplier<? extends Block> blockSupplier, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -259,7 +259,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerFoodBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FoodProperties food, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerFoodBlockItem(String name, Supplier<? extends Block> blockSupplier, FoodProperties food, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags).food(food)));
     }
 
@@ -272,7 +272,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerSpecialRendererBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerSpecialRendererBlockItem(String name, Supplier<? extends Block> blockSupplier, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)) {
 
             /**
@@ -281,7 +281,7 @@ public final class RegisterHelper {
              * @param consumer {@link Consumer<IClientItemExtensions> The client item extensions renderer consumer}
              */
             @Override
-            public void initializeClient(final @NotNull Consumer<IClientItemExtensions> consumer) {
+            public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
                 consumer.accept(new IClientItemExtensions() {
                     @Override
                     public BlockEntityWithoutLevelRenderer getCustomRenderer() {
@@ -300,7 +300,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerFoodItem(final String name, final FoodProperties foodProperties, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerFoodItem(String name, FoodProperties foodProperties, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags).food(foodProperties)));
     }
 
@@ -313,7 +313,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerArmorItem(final String name, final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerArmorItem(String name, ArmorMaterial armorMaterial, ArmorItem.Type slot, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ArmorItem(armorMaterial, slot, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -327,7 +327,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerCosmeticArmorItem(final String name, final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final Rarity rarity, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerCosmeticArmorItem(String name, ArmorMaterial armorMaterial, ArmorItem.Type slot, Rarity rarity, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ArmorItem(armorMaterial, slot, PropertyHelper.basicItemProperties(featureFlags).rarity(rarity)));
     }
 
@@ -339,7 +339,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerHorseArmorItem(final String materialName, final int protection, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerHorseArmorItem(String materialName, int protection, FeatureFlag... featureFlags) {
         return registerItem(materialName + "_horse_armor", () -> new HorseArmorItem(protection, KeyHelper.entityTexture("horse/armor/horse_armor_" + materialName), PropertyHelper.basicItemProperties(featureFlags).stacksTo(1)));
     }
 
@@ -351,7 +351,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerSword(final String name, final Tier tier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerSword(String name, Tier tier, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new SwordItem(tier, 3, -2.4F, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -363,7 +363,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerShovel(final String name, final Tier tier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerShovel(String name, Tier tier, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new ShovelItem(tier, 1.5F, -3.0F, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -375,7 +375,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerPickaxe(final String name, final Tier tier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerPickaxe(String name, Tier tier, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new PickaxeItem(tier, 1, -2.8F, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -389,7 +389,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerAxe(final String name, final Tier tier, final float attackDamageBonus, final float attackSpeed, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerAxe(String name, Tier tier, float attackDamageBonus, float attackSpeed, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new AxeItem(tier, attackDamageBonus, attackSpeed, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -402,8 +402,8 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerHoe(final String name, final Tier tier, final float attackSpeed, final FeatureFlag... featureFlags) {
-        final ForgeTier hoeTier = new ForgeTier(tier.getLevel(), tier.getUses(), tier.getSpeed(), 0, tier.getEnchantmentValue(), Objects.requireNonNull(tier.getTag()), tier::getRepairIngredient);
+    public static RegistryObject<Item> registerHoe(String name, Tier tier, float attackSpeed, FeatureFlag... featureFlags) {
+        ForgeTier hoeTier = new ForgeTier(tier.getLevel(), tier.getUses(), tier.getSpeed(), 0, tier.getEnchantmentValue(), Objects.requireNonNull(tier.getTag()), tier::getRepairIngredient);
         return registerItem(name, () -> new HoeItem(hoeTier, 0, attackSpeed, PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -414,7 +414,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerItem(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Item> registerItem(String name, FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -425,7 +425,7 @@ public final class RegisterHelper {
      * @param itemSupplier {@link Supplier<Item> The item supplier}
      * @return {@link RegistryObject<Item> The registered item}
      */
-    public static RegistryObject<Item> registerItem(final String name, final Supplier<? extends Item> itemSupplier) {
+    public static RegistryObject<Item> registerItem(String name, Supplier<? extends Item> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
     }
 
@@ -437,7 +437,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerOverworldOreBlock(final String name, final boolean isDeepslateOre, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerOverworldOreBlock(String name, boolean isDeepslateOre, FeatureFlag... featureFlags) {
         return registerOreBlock(name, PropertyHelper.oreBlockProperties(isDeepslateOre, featureFlags), 3, 7);
     }
 
@@ -448,7 +448,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerNetherOreBlock(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerNetherOreBlock(String name, FeatureFlag... featureFlags) {
         return registerOreBlock(name, PropertyHelper.oreBlockProperties(false, featureFlags).color(MaterialColor.NETHER).sound(SoundType.NETHER_ORE), 2, 5);
     }
 
@@ -461,7 +461,7 @@ public final class RegisterHelper {
      * @param maxXp {@link Integer The maximum amount of XP the ore will drop}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    static RegistryObject<Block> registerOreBlock(final String name, final BlockBehaviour.Properties blockProperties, final int minXp, final int maxXp) {
+    static RegistryObject<Block> registerOreBlock(String name, BlockBehaviour.Properties blockProperties, int minXp, int maxXp) {
         return registerBlock(name, () -> new DropExperienceBlock(blockProperties, UniformInt.of(minXp, maxXp)));
     }
 
@@ -473,7 +473,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerRawOreBlock(final String name, final MaterialColor color, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerRawOreBlock(String name, MaterialColor color, FeatureFlag... featureFlags) {
         return registerOreStorageBlock(name, Material.STONE, color,null, featureFlags);
     }
 
@@ -485,7 +485,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerMetalOreStorageBlock(final String name, MaterialColor color, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerMetalOreStorageBlock(String name, MaterialColor color, FeatureFlag... featureFlags) {
         return registerOreStorageBlock(name, Material.METAL, color, SoundType.METAL, featureFlags);
     }
 
@@ -499,7 +499,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    static RegistryObject<Block> registerOreStorageBlock(final String name, final Material material, final MaterialColor color, final SoundType sound, final FeatureFlag... featureFlags) {
+    static RegistryObject<Block> registerOreStorageBlock(String name, Material material, MaterialColor color, SoundType sound, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> PropertyHelper.oreStorageBlockProperties(material, color,sound, featureFlags));
     }
 
@@ -512,7 +512,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFuelBlock(final String name, final MaterialColor color, final int burnTime, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerFuelBlock(String name, MaterialColor color, int burnTime, FeatureFlag... featureFlags) {
         RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new Block(PropertyHelper.basicBlockProperties(Material.STONE, color, 5.0F, 6.0F, true, featureFlags)));
         registerFuelBlockItem(name, block, burnTime, featureFlags);
         return block;
@@ -526,7 +526,7 @@ public final class RegisterHelper {
      * @param burnTime      {@link Integer The fuel burn time} in seconds
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
      */
-    static void registerFuelBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final int burnTime, final FeatureFlag... featureFlags) {
+    static void registerFuelBlockItem(String name, Supplier<? extends Block> blockSupplier, int burnTime, FeatureFlag... featureFlags) {
         registerItem(name, () -> new BlockItem(blockSupplier.get(), PropertyHelper.basicItemProperties(featureFlags)) {
             /**
              * Get the {@link ItemStack Item Stack} burn time in ticks
@@ -550,7 +550,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFlower(final String name, final Supplier<MobEffect> effectSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerFlower(String name, Supplier<MobEffect> effectSupplier, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new FlowerBlock(effectSupplier, 5, PropertyHelper.copyFromBlock(Blocks.POPPY, featureFlags)) {
 
             /**
@@ -563,7 +563,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return true;
             }
 
@@ -577,7 +577,7 @@ public final class RegisterHelper {
              * @return {@link Integer 100}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 100;
             }
 
@@ -591,7 +591,7 @@ public final class RegisterHelper {
              * @return {@link Integer 15}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 60;
             }
         });
@@ -604,7 +604,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerTallFlower(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerTallFlower(String name, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new TallFlowerBlock(PropertyHelper.copyFromBlock(Blocks.ROSE_BUSH, featureFlags)) {
 
             /**
@@ -617,7 +617,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return true;
             }
 
@@ -631,7 +631,7 @@ public final class RegisterHelper {
              * @return {@link Integer 100}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 100;
             }
 
@@ -645,7 +645,7 @@ public final class RegisterHelper {
              * @return {@link Integer 15}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 60;
             }
         });
@@ -661,7 +661,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerLitFlowerPot(final String name, final Supplier<? extends Block> flowerSupplier, final int light, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerLitFlowerPot(String name, Supplier<? extends Block> flowerSupplier, int light, FeatureFlag... featureFlags) {
         return registerFlowerPot(name, flowerSupplier, PropertyHelper.copyFromBlock(Blocks.FLOWER_POT, featureFlags).lightLevel(state -> light));
     }
 
@@ -674,8 +674,8 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerCoralFlowerPot(final String name, final Supplier<? extends Block> deadCoralFlowerPotSupplier, final Supplier<? extends Block> coralSupplier, final FeatureFlag... featureFlags) {
-        final RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new CoralFlowerPotBlock(deadCoralFlowerPotSupplier, coralSupplier, featureFlags));
+    public static RegistryObject<Block> registerCoralFlowerPot(String name, Supplier<? extends Block> deadCoralFlowerPotSupplier, Supplier<? extends Block> coralSupplier, FeatureFlag... featureFlags) {
+        RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new CoralFlowerPotBlock(deadCoralFlowerPotSupplier, coralSupplier, featureFlags));
         flowerPots.put(coralSupplier, block);
         return block;
     }
@@ -688,7 +688,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFlowerPot(final String name, final Supplier<? extends Block> flowerSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerFlowerPot(String name, Supplier<? extends Block> flowerSupplier, FeatureFlag... featureFlags) {
         return registerFlowerPot(name, flowerSupplier, PropertyHelper.copyFromBlock(Blocks.FLOWER_POT, featureFlags));
     }
 
@@ -700,8 +700,8 @@ public final class RegisterHelper {
      * @param properties {@link BlockBehaviour.Properties The block properties}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    static RegistryObject<Block> registerFlowerPot(final String name, final Supplier<? extends Block> flowerSupplier, final BlockBehaviour.Properties properties) {
-        final RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flowerSupplier, properties));
+    static RegistryObject<Block> registerFlowerPot(String name, Supplier<? extends Block> flowerSupplier, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flowerSupplier, properties));
         flowerPots.put(flowerSupplier, block);
         return block;
     }
@@ -714,7 +714,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerFence(String name, Supplier<Block> blockSupplier, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)) {
 
             /**
@@ -727,7 +727,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True if the block is flammable}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return this.material.isFlammable();
             }
 
@@ -741,7 +741,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block flammability value}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 5;
             }
 
@@ -755,7 +755,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block fire spread chance value}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState,BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 20;
             }
 
@@ -771,7 +771,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerFenceGate(String name, Supplier<Block> blockSupplier, WoodType woodType, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).strength(2.0F, 3.0F), woodType) {
 
             /**
@@ -784,7 +784,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True if the block is flammable}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return this.material.isFlammable();
             }
 
@@ -798,7 +798,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block flammability value}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 5;
             }
 
@@ -812,7 +812,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block fire spread chance value}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState,BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 20;
             }
 
@@ -827,7 +827,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerStandingSign(final String name, final WoodType woodType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerStandingSign(String name, WoodType woodType, FeatureFlag... featureFlags) {
         return registerBlockWithoutBlockItem(name, () -> new StandingSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_SIGN), woodType) {
 
             /**
@@ -838,7 +838,7 @@ public final class RegisterHelper {
              * @return {@link BlockEntity The sign block entity}
              */
             @Override
-            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+            public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
                 return new SignBlockEntity(blockPos, blockState) {
 
                     /**
@@ -863,7 +863,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerWallSign(final String name, final WoodType woodType, final Supplier<Block> standingSignSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerWallSign(String name, WoodType woodType, Supplier<Block> standingSignSupplier, FeatureFlag... featureFlags) {
         return registerBlockWithoutBlockItem(name, () -> new WallSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_WALL_SIGN).dropsLike(standingSignSupplier.get()), woodType) {
 
             /**
@@ -874,7 +874,7 @@ public final class RegisterHelper {
              * @return {@link BlockEntity The sign block entity}
              */
             @Override
-            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+            public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
                 return new SignBlockEntity(blockPos, blockState) {
 
                     /**
@@ -898,7 +898,7 @@ public final class RegisterHelper {
      * @param woodType {@link WoodType The sign wood type}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerHangingSign(final String name, final Supplier<Block> blockSupplier, final WoodType woodType) {
+    public static RegistryObject<Block> registerHangingSign(String name, Supplier<Block> blockSupplier, WoodType woodType) {
         return registerBlockWithoutBlockItem(name, () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).noCollission().strength(1.0F).requiredFeatures(FeatureFlags.UPDATE_1_20), woodType) {
 
             /**
@@ -909,7 +909,7 @@ public final class RegisterHelper {
              * @return {@link BlockEntity The sign block entity}
              */
             @Override
-            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+            public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
                 return new HangingSignBlockEntity(blockPos, blockState) {
 
                     /**
@@ -933,7 +933,7 @@ public final class RegisterHelper {
      * @param woodType {@link WoodType The sign wood type}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerWallHangingSign(final String name, final Supplier<Block> blockSupplier, final Supplier<Block> standingSignSupplier, final WoodType woodType) {
+    public static RegistryObject<Block> registerWallHangingSign(String name, Supplier<Block> blockSupplier, Supplier<Block> standingSignSupplier, WoodType woodType) {
         return registerBlockWithoutBlockItem(name, () -> new WallHangingSignBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).noCollission().strength(1.0F).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(standingSignSupplier.get()), woodType) {
 
             /**
@@ -944,7 +944,7 @@ public final class RegisterHelper {
              * @return {@link BlockEntity The sign block entity}
              */
             @Override
-            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+            public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
                 return new HangingSignBlockEntity(blockPos, blockState) {
 
                     /**
@@ -969,7 +969,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerDoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerDoor(String name, boolean requiresPower, BlockSetType blockSetType, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new DoorBlock(PropertyHelper.copyFromBlock(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetType));
     }
 
@@ -982,7 +982,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerTrapdoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerTrapdoor(String name, boolean requiresPower, BlockSetType blockSetType, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new TrapDoorBlock(PropertyHelper.copyFromBlock(requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags), blockSetType));
     }
 
@@ -996,8 +996,8 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerPressurePlate(final String name, final boolean isWooden, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        final BlockBehaviour.Properties properties = PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).color(materialColor);
+    public static RegistryObject<Block> registerPressurePlate(String name, boolean isWooden, MaterialColor materialColor, BlockSetType blockSetType, FeatureFlag... featureFlags) {
+        BlockBehaviour.Properties properties = PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).color(materialColor);
         return registerBlock(name, () -> new PressurePlateBlock(isWooden ? PressurePlateBlock.Sensitivity.EVERYTHING : PressurePlateBlock.Sensitivity.MOBS, properties, blockSetType));
     }
 
@@ -1011,7 +1011,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerWeightedPressurePlate(String name, int maxWeight, MaterialColor materialColor, BlockSetType blockSetType, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new WeightedPressurePlateBlock(maxWeight, PropertyHelper.copyFromBlock(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE), blockSetType));
     }
 
@@ -1024,7 +1024,7 @@ public final class RegisterHelper {
      * @param featureFlags @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerButton(final String name, final boolean isWooden, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerButton(String name, boolean isWooden, BlockSetType blockSetType, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new ButtonBlock(PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_BUTTON : Blocks.STONE_BUTTON), blockSetType, isWooden ? 30 : 20, isWooden));
     }
 
@@ -1036,7 +1036,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerStair(String name, Supplier<BlockState> blockStateSupplier, FeatureFlag... featureFlags) {
         return registerStair(name, blockStateSupplier, () -> PropertyHelper.copyFromBlock(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops());
     }
 
@@ -1048,7 +1048,7 @@ public final class RegisterHelper {
      * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for the block properties this stair is based on}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerStair(final String name, final Supplier<BlockState> blockStateSupplier, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+    public static RegistryObject<Block> registerStair(String name, Supplier<BlockState> blockStateSupplier, Supplier<BlockBehaviour.Properties> propertiesSupplier) {
         return registerBlock(name, () -> new StairBlock(blockStateSupplier, propertiesSupplier.get()) {
 
             /**
@@ -1057,7 +1057,7 @@ public final class RegisterHelper {
              * @param blockState {@link BlockState The current block state}
              * @return {@link PushReaction#DESTROY Destroy push reaction}
              */
-            public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+            public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
                 return LevelHelper.getPushReaction(blockStateSupplier.get());
             }
 
@@ -1071,7 +1071,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True if the block is flammable}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return this.material.isFlammable();
             }
 
@@ -1085,7 +1085,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block flammability value}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 5;
             }
 
@@ -1099,7 +1099,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block fire spread chance value}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState,BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 20;
             }
 
@@ -1114,7 +1114,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerSlab(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerSlab(String name, Supplier<? extends Block> blockSupplier, FeatureFlag... featureFlags) {
         return registerSlab(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()));
     }
 
@@ -1125,7 +1125,7 @@ public final class RegisterHelper {
      * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this stair is based on}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+    public static RegistryObject<Block> registerSlab(String name, Supplier<BlockBehaviour.Properties> propertiesSupplier) {
         return registerSlab(name, propertiesSupplier, () -> PushReaction.NORMAL);
     }
 
@@ -1137,7 +1137,7 @@ public final class RegisterHelper {
      * @param pistonPushReaction {@link Supplier<PushReaction> The piston push reaction supplier for this block}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction) {
+    private static RegistryObject<Block> registerSlab(String name, Supplier<BlockBehaviour.Properties> propertiesSupplier, Supplier<PushReaction> pistonPushReaction) {
         return registerBlock(name, () -> new SlabBlock(propertiesSupplier.get()) {
 
             /**
@@ -1146,7 +1146,7 @@ public final class RegisterHelper {
              * @param blockState {@link BlockState The current block state}
              * @return {@link PushReaction#DESTROY Destroy push reaction}
              */
-            public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+            public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
                 return pistonPushReaction.get();
             }
 
@@ -1160,7 +1160,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True if the block is flammable}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return this.material.isFlammable();
             }
 
@@ -1174,7 +1174,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block flammability value}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 5;
             }
 
@@ -1188,7 +1188,7 @@ public final class RegisterHelper {
              * @return {@link Integer The block fire spread chance value}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState,BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 20;
             }
 
@@ -1202,7 +1202,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerChain(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerChain(String name, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new ChainBlock(PropertyHelper.copyFromBlock(Blocks.CHAIN, featureFlags)));
     }
 
@@ -1214,7 +1214,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerLantern(final String name, final boolean isSoulLantern, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerLantern(String name, boolean isSoulLantern, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new LanternBlock(PropertyHelper.lanternProperties(isSoulLantern, featureFlags)));
     }
 
@@ -1225,7 +1225,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerBars(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerBars(String name, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new IronBarsBlock(PropertyHelper.copyFromBlock(Blocks.IRON_BARS, featureFlags)));
     }
 
@@ -1237,7 +1237,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerWall(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerWall(String name, Supplier<? extends Block> blockSupplier, FeatureFlag... featureFlags) {
         return registerWall(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()));
     }
 
@@ -1248,7 +1248,7 @@ public final class RegisterHelper {
      * @param propertiesSupplier {@link Supplier<Block> The supplier for the block properties this wall is based on}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+    public static RegistryObject<Block> registerWall(String name, Supplier<BlockBehaviour.Properties> propertiesSupplier) {
         return registerWall(name, propertiesSupplier, () -> PushReaction.NORMAL);
     }
 
@@ -1260,7 +1260,7 @@ public final class RegisterHelper {
      * @param pistonPushReaction {@link Supplier<PushReaction> The piston push reaction supplier for this block}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction) {
+    private static RegistryObject<Block> registerWall(String name, Supplier<BlockBehaviour.Properties> propertiesSupplier, Supplier<PushReaction> pistonPushReaction) {
         return registerBlock(name, () -> new WallBlock(propertiesSupplier.get()) {
             /**
              * Get the {@link PushReaction push reaction} when this block is pushed by pistons
@@ -1268,7 +1268,7 @@ public final class RegisterHelper {
              * @param blockState {@link BlockState The current block state}
              * @return {@link PushReaction#DESTROY Destroy push reaction}
              */
-            public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+            public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
                 return pistonPushReaction.get();
             }
         });
@@ -1282,7 +1282,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerGlassWall(final String name, final Supplier<? extends Block> glassSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerGlassWall(String name, Supplier<? extends Block> glassSupplier, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new WallBlock(PropertyHelper.copyFromBlock(glassSupplier.get(), featureFlags).requiresCorrectToolForDrops()) {
 
             /**
@@ -1294,7 +1294,7 @@ public final class RegisterHelper {
              * @param collisionContext {@link CollisionContext The collision context}
              * @return {@link Shapes#empty() Empty shape}
              */
-            public @NotNull VoxelShape getVisualShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+            public @NotNull VoxelShape getVisualShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
                 return Shapes.empty();
             }
 
@@ -1306,7 +1306,7 @@ public final class RegisterHelper {
              * @param blockPos {@link BlockPos The current block pos}
              * @return {@link Float 1.0}
              */
-            public float getShadeBrightness(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+            public float getShadeBrightness(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
                 return 1.0F;
             }
 
@@ -1318,7 +1318,7 @@ public final class RegisterHelper {
              * @param blockPos {@link BlockPos The current block pos}
              * @return {@link Boolean True}
              */
-            public boolean propagatesSkylightDown(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+            public boolean propagatesSkylightDown(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
                 return true;
             }
 
@@ -1330,7 +1330,7 @@ public final class RegisterHelper {
              * @param direction {@link Direction The direction of the face to be rendered}
              * @return {@link Boolean True if the face should be rendered}
              */
-            public boolean skipRendering(final @NotNull BlockState blockState, final @NotNull BlockState neighborState, final @NotNull Direction direction) {
+            public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState neighborState, @NotNull Direction direction) {
                 return neighborState.is(this) || super.skipRendering(blockState, neighborState, direction);
             }
         });
@@ -1344,7 +1344,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerCage(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerCage(String name, Supplier<? extends Block> blockSupplier, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new Block(PropertyHelper.makeTranslucentBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops()));
     }
 
@@ -1356,7 +1356,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerPebble(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerPebble(String name, Supplier<? extends Block> blockSupplier, FeatureFlag... featureFlags) {
         return registerBlockWithoutBlockItem(name, () -> new PebbleBlock(blockSupplier.get(), featureFlags));
     }
 
@@ -1368,7 +1368,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerLectern(final String name, final Supplier<BlockEntityType<LecternBlockEntity>> lecternBlockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerLectern(String name, Supplier<BlockEntityType<LecternBlockEntity>> lecternBlockEntityTypeSupplier, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new LecternBlock(PropertyHelper.copyFromBlock(Blocks.LECTERN, featureFlags)) {
 
             /**
@@ -1379,7 +1379,7 @@ public final class RegisterHelper {
              * @return {@link BlockEntity The lectern block entity}
              */
             @Override
-            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+            public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
                 return new LecternBlockEntity(blockPos, blockState) {
 
                     /**
@@ -1403,7 +1403,7 @@ public final class RegisterHelper {
      * @param propertiesSupplier {@link BlockBehaviour.Properties The supplier for the block properties}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerBlock(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+    public static RegistryObject<Block> registerBlock(String name, Supplier<BlockBehaviour.Properties> propertiesSupplier) {
         return registerBlock(name, () -> new Block(propertiesSupplier.get()));
     }
 
@@ -1414,7 +1414,7 @@ public final class RegisterHelper {
      * @param propertiesSupplier {@link BlockBehaviour.Properties The supplier for the block properties}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerUnmovableBlock(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+    public static RegistryObject<Block> registerUnmovableBlock(String name, Supplier<BlockBehaviour.Properties> propertiesSupplier) {
         return registerBlock(name, () -> new Block(propertiesSupplier.get()) {
             /**
              * Get the {@link PushReaction block push reaction} when moved by pistons
@@ -1438,7 +1438,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerChest(String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, WoodType woodType, FeatureFlag... featureFlags) {
         return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.CHEST, featureFlags).sound(woodType.equals(MWWoodTypes.ICE) ? SoundType.GLASS : SoundType.WOOD), chestBlockEntitySupplier) {
 
             /**
@@ -1448,7 +1448,7 @@ public final class RegisterHelper {
              * @param blockState {@link BlockState The current block state}
              * @return {@link ChestBlockEntity The chest block entity}
              */
-            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+            public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
                 return PropertyHelper.getChestBlockEntity(woodType, blockPos, blockState, false);
             }
         });
@@ -1463,7 +1463,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerTrappedChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerTrappedChest(String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, WoodType woodType, FeatureFlag... featureFlags) {
         return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.TRAPPED_CHEST, featureFlags).sound(woodType.equals(MWWoodTypes.ICE) ? SoundType.GLASS : SoundType.WOOD), chestBlockEntitySupplier) {
 
             /**
@@ -1473,7 +1473,7 @@ public final class RegisterHelper {
              * @param blockState {@link BlockState The current block state}
              * @return {@link TrappedChestBlockEntity The trapped chest block entity}
              */
-            public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+            public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
                 return PropertyHelper.getChestBlockEntity(woodType, blockPos, blockState, true);
             }
 
@@ -1492,7 +1492,7 @@ public final class RegisterHelper {
              * @param blockState {@link BlockState The current block state}
              * @return {@link Boolean True}
              */
-            public boolean isSignalSource(final @NotNull BlockState blockState) {
+            public boolean isSignalSource(@NotNull BlockState blockState) {
                 return true;
             }
 
@@ -1505,7 +1505,7 @@ public final class RegisterHelper {
              * @param direction {@link Direction The signal direction}
              * @return {@link Integer The redstone signal based on chest content}
              */
-            public int getSignal(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull Direction direction) {
+            public int getSignal(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull Direction direction) {
                 return Mth.clamp(ChestBlockEntity.getOpenCount(blockGetter, blockPos), 0, 15);
             }
 
@@ -1518,7 +1518,7 @@ public final class RegisterHelper {
              * @param direction {@link Direction The signal direction}
              * @return {@link Integer The redstone signal power}
              */
-            public int getDirectSignal(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull Direction direction) {
+            public int getDirectSignal(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull Direction direction) {
                 return direction.equals(Direction.UP) ? blockState.getSignal(blockGetter, blockPos, direction) : 0;
             }
         });
@@ -1531,7 +1531,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerBookshelf(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerBookshelf(String name, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.BOOKSHELF, featureFlags)) {
 
             /**
@@ -1543,7 +1543,7 @@ public final class RegisterHelper {
              * @return {@link Float 1.0}
              */
             @Override
-            public float getEnchantPowerBonus(final BlockState state, final LevelReader level, final BlockPos blockPos) {
+            public float getEnchantPowerBonus(BlockState state, LevelReader level, BlockPos blockPos) {
                 return 1.0F;
             }
         });
@@ -1557,7 +1557,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerPlanks(final String name, final MaterialColor materialColor, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerPlanks(String name, MaterialColor materialColor, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.OAK_PLANKS, featureFlags).color(materialColor)) {
 
             /**
@@ -1570,7 +1570,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return true;
             }
 
@@ -1584,7 +1584,7 @@ public final class RegisterHelper {
              * @return {@link Integer 20}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 5;
             }
 
@@ -1598,7 +1598,7 @@ public final class RegisterHelper {
              * @return {@link Integer 5}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 20;
             }
 
@@ -1612,7 +1612,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerLeaves(final String name, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerLeaves(String name, FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new LeavesBlock(PropertyHelper.copyFromBlock(Blocks.OAK_LEAVES, featureFlags)) {
 
             /**
@@ -1625,7 +1625,7 @@ public final class RegisterHelper {
              * @return {@link Boolean True}
              */
             @Override
-            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return true;
             }
 
@@ -1639,7 +1639,7 @@ public final class RegisterHelper {
              * @return {@link Integer 20}
              */
             @Override
-            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 30;
             }
 
@@ -1653,7 +1653,7 @@ public final class RegisterHelper {
              * @return {@link Integer 5}
              */
             @Override
-            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+            public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
                 return 60;
             }
 
@@ -1667,7 +1667,7 @@ public final class RegisterHelper {
      * @param blockSupplier {@link Supplier<Block> The supplier for the dripstone source block}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerDripstone(final String name, final Supplier<Block> blockSupplier) {
+    public static RegistryObject<Block> registerDripstone(String name, Supplier<Block> blockSupplier) {
         return registerBlock(name, () -> new MWPointedDripstoneBlock(blockSupplier));
     }
 
@@ -1678,7 +1678,7 @@ public final class RegisterHelper {
      * @param blockSupplier {@link Supplier<Block> The supplier for the dripstone source block}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerIceDripstone(final String name, final Supplier<Block> blockSupplier) {
+    public static RegistryObject<Block> registerIceDripstone(String name, Supplier<Block> blockSupplier) {
         return registerBlock(name, () -> new IcePointedDripstoneBlock(blockSupplier));
     }
 
@@ -1690,7 +1690,7 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerBlock(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> blockSupplier, FeatureFlag... featureFlags) {
         RegistryObject<Block> block = registerBlockWithoutBlockItem(name, blockSupplier);
         registerBlockItem(name, block, featureFlags);
         return block;
@@ -1703,7 +1703,7 @@ public final class RegisterHelper {
      * @param block {@link RegistryObject<Block> The supplier for the block the id is referring to}
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      */
-    static void registerBlockItem(final String name, final RegistryObject<? extends Block> block, final FeatureFlag... featureFlags) {
+    static void registerBlockItem(String name, RegistryObject<? extends Block> block, FeatureFlag... featureFlags) {
         registerItem(name, () -> new BlockItem(block.get(), PropertyHelper.basicItemProperties(featureFlags)));
     }
 
@@ -1714,7 +1714,7 @@ public final class RegisterHelper {
      * @param blockSupplier {@link Supplier<Block> The supplier for the block to register}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerBlockWithoutBlockItem(final String name, final Supplier<? extends Block> blockSupplier) {
+    public static RegistryObject<Block> registerBlockWithoutBlockItem(String name, Supplier<? extends Block> blockSupplier) {
         return BLOCKS.register(name, blockSupplier);
     }
 
@@ -1726,7 +1726,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<EntityType> The registered entity type}
      * @param <T> {@link T The entity type}
      */
-    public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(final String name, final EntityType.Builder<T> entityBuilder) {
+    public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(String name, EntityType.Builder<T> entityBuilder) {
         return ENTITY_TYPES.register(name, () -> entityBuilder.build(KeyHelper.location(name).toString()));
     }
 
@@ -1740,7 +1740,7 @@ public final class RegisterHelper {
      * @param <T> {@link T The block entity type}
      */
     @SafeVarargs
-    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntity(final String name, final BlockEntityType.BlockEntitySupplier<T> blockEntitySupplier, final Supplier<Block>... blockSuppliers) {
+    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntity(String name, BlockEntityType.BlockEntitySupplier<T> blockEntitySupplier, Supplier<Block>... blockSuppliers) {
         return BLOCK_ENTITY_TYPES.register(name, () -> BlockEntityType.Builder.of(blockEntitySupplier, Arrays.stream(blockSuppliers).map(Supplier::get).toList().toArray(new Block[0])).build(null));
     }
 
@@ -1753,7 +1753,7 @@ public final class RegisterHelper {
      * @param deepslateOre {@link Supplier<Block> The deepslate ore block supplier}
      * @param size {@link Integer The number of blocks per vein}
      */
-    public static void registerOverworldOreConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<Block> stoneOre, final Supplier<Block> deepslateOre, final int size) {
+    public static void registerOverworldOreConfiguredFeature(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Supplier<Block> stoneOre, Supplier<Block> deepslateOre, int size) {
         registerOreConfiguredFeature(context, key, PropertyHelper.createOverworldTargetStates(stoneOre, deepslateOre), size);
     }
 
@@ -1766,7 +1766,7 @@ public final class RegisterHelper {
      * @param oreSupplier {@link Supplier<Block> The stone ore block supplier}
      * @param size {@link Integer The number of blocks per vein}
      */
-    public static void registerOverworldOreConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<Block> oreSupplier, final int size) {
+    public static void registerOverworldOreConfiguredFeature(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Supplier<Block> oreSupplier, int size) {
         registerOreConfiguredFeature(context, key, PropertyHelper.createOverworldTargetStates(oreSupplier), size);
     }
 
@@ -1778,7 +1778,7 @@ public final class RegisterHelper {
      * @param oreSupplier {@link Supplier<Block> The ore block supplier}
      * @param size {@link Integer The number of blocks per vein}
      */
-    public static void registerNetherOreConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<Block> oreSupplier, final int size) {
+    public static void registerNetherOreConfiguredFeature(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Supplier<Block> oreSupplier, int size) {
         registerOreConfiguredFeature(context, key, PropertyHelper.createNetherTargetState(oreSupplier), size);
     }
 
@@ -1790,7 +1790,7 @@ public final class RegisterHelper {
      * @param oreTargetStates {@link List<OreConfiguration.TargetBlockState> The ore block target states}
      * @param size {@link Integer The number of blocks per vein}
      */
-    static void registerOreConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<List<OreConfiguration.TargetBlockState>> oreTargetStates, final int size) {
+    static void registerOreConfiguredFeature(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Supplier<List<OreConfiguration.TargetBlockState>> oreTargetStates, int size) {
         FeatureUtils.register(context, key, Feature.ORE, new OreConfiguration(oreTargetStates.get(), size));
     }
 
@@ -1801,7 +1801,7 @@ public final class RegisterHelper {
      * @param key {@link ResourceKey The configured feature resource key}
      * @param blockStateSupplier {@link Supplier<BlockState> The supplier for the block state to place}
      */
-    public static void registerRandomPatchConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<BlockState> blockStateSupplier) {
+    public static void registerRandomPatchConfiguredFeature(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Supplier<BlockState> blockStateSupplier) {
         FeatureUtils.register(context, key, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(blockStateSupplier.get())), List.of(Blocks.GRASS_BLOCK)));
     }
 
@@ -1816,7 +1816,7 @@ public final class RegisterHelper {
      * @param minHeight {@link Integer The minimum height that the ore can spawn}
      * @param maxHeight {@link Integer The maximum height that the ore can spawn}
      */
-    public static void registerCommonOrePlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, final int count, final int minHeight, final int maxHeight) {
+    public static void registerCommonOrePlacedFeature(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, int count, int minHeight, int maxHeight) {
         registerPlacedFeature(context, key, oreConfiguredFeature, PropertyHelper.commonOrePlacement(count, HeightRangePlacement.triangle(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight))));
     }
 
@@ -1830,7 +1830,7 @@ public final class RegisterHelper {
      * @param count {@link Integer How many ores per chunk should be generated}
      * @param maxHeight {@link Integer The maximum height that the ore can spawn}
      */
-    public static void registerCommonOrePlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, final int count, final int maxHeight) {
+    public static void registerCommonOrePlacedFeature(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, int count, int maxHeight) {
         registerPlacedFeature(context, key, oreConfiguredFeature, PropertyHelper.commonOrePlacement(count, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(maxHeight))));
     }
 
@@ -1845,7 +1845,7 @@ public final class RegisterHelper {
      * @param minHeight {@link Integer The minimum height that the ore can spawn}
      * @param maxHeight {@link Integer The maximum height that the ore can spawn}
      */
-    private static void registerRareOrePlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, final int chance, final int minHeight, final int maxHeight) {
+    private static void registerRareOrePlacedFeature(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, int chance, int minHeight, int maxHeight) {
         registerPlacedFeature(context, key, oreConfiguredFeature, PropertyHelper.rareOrePlacement(chance, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(minHeight), VerticalAnchor.belowTop(maxHeight))));
     }
 
@@ -1856,7 +1856,7 @@ public final class RegisterHelper {
      * @param key {@link ResourceKey<PlacedFeature> The placed feature resource key}
      * @param configuredFeatureHolder {@link Holder<ConfiguredFeature> The configured feature that this placed feature will place}
      */
-    public static void registerPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder) {
+    public static void registerPlacedFeature(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder) {
         PlacementUtils.register(context, key, configuredFeatureHolder);
     }
 
@@ -1868,7 +1868,7 @@ public final class RegisterHelper {
      * @param configuredFeatureHolder {@link Holder<ConfiguredFeature> The configured feature that this placed feature will place}
      * @param placementModifiers {@link List<PlacementModifier> The placement modifiers}
      */
-    public static void registerPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder, final List<PlacementModifier> placementModifiers) {
+    public static void registerPlacedFeature(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder, List<PlacementModifier> placementModifiers) {
         PlacementUtils.register(context, key, configuredFeatureHolder, placementModifiers);
     }
 
@@ -1880,7 +1880,7 @@ public final class RegisterHelper {
      * @param configuredFeatureHolder {@link Holder<ConfiguredFeature> The configured feature that this placed feature will place}
      * @param averageCount {@link Integer The average chunk count for the placement}
      */
-    public static void registerPatchPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder, final int averageCount) {
+    public static void registerPatchPlacedFeature(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder, int averageCount) {
         registerPlacedFeature(context, key, configuredFeatureHolder, List.of(RarityFilter.onAverageOnceEvery(averageCount), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
     }
 
@@ -1894,9 +1894,9 @@ public final class RegisterHelper {
      * @param itemModelIndex {@link Float The index value for the id model override}
      * @param darkerVariants {@link Map The map of trim materials to be applied when the armor matches a specific armor material}
      */
-    public static void registerTrimMaterial(final BootstapContext<TrimMaterial> context, final ResourceKey<TrimMaterial> resourceKey, final Item material, final MWColors color, final float itemModelIndex, final ArmorMaterials... darkerVariants) {
-        final String name = resourceKey.location().getPath();
-        final Map<ArmorMaterials, String> variants =
+    public static void registerTrimMaterial(BootstapContext<TrimMaterial> context, ResourceKey<TrimMaterial> resourceKey, Item material, MWColors color, float itemModelIndex, ArmorMaterials... darkerVariants) {
+        String name = resourceKey.location().getPath();
+        Map<ArmorMaterials, String> variants =
                 darkerVariants != null ?
                         Arrays.stream(darkerVariants).collect(Collectors.toMap((variant) -> variant, (variant) -> name + "_darker"))
                         : Map.of();
@@ -1918,7 +1918,7 @@ public final class RegisterHelper {
      * @param iconSupplier {@link Supplier<ItemStack> The icon supplier}. Determines which {@link Item id} to use as tab icon
      * @return {@link CreativeModeTab The registered creative mode tab}
      */
-    public static CreativeModeTab registerCreativeTab(final CreativeModeTabEvent.Register event, final String name, final CreativeModeTab afterTab, final Supplier<ItemStack> iconSupplier) {
+    public static CreativeModeTab registerCreativeTab(CreativeModeTabEvent.Register event, String name, CreativeModeTab afterTab, Supplier<ItemStack> iconSupplier) {
         return event.registerCreativeModeTab(KeyHelper.location(name),
                 List.of(),
                 afterTab != null ? List.of(afterTab) : List.of(),
@@ -1941,7 +1941,7 @@ public final class RegisterHelper {
      * @param buttonClickOnSound {@link SoundEvent The sound to play when a button is pressed}
      * @return {@link BlockSetType The registered block set type}
      */
-    public static BlockSetType registerBlockSetType(final String name, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
+    public static BlockSetType registerBlockSetType(String name, SoundType defaultSound, SoundEvent doorCloseSound, SoundEvent doorOpenSound, SoundEvent pressurePlateClickOffSound, SoundEvent pressurePlateClickOnSound, SoundEvent buttonClickOffSound, SoundEvent buttonClickOnSound) {
         return registerBlockSetType(name, defaultSound,
                 doorCloseSound, doorOpenSound,
                 doorCloseSound, doorOpenSound,
@@ -1964,7 +1964,7 @@ public final class RegisterHelper {
      * @param buttonClickOnSound {@link SoundEvent The sound to play when a button is pressed}
      * @return {@link BlockSetType The registered block set type}
      */
-    private static BlockSetType registerBlockSetType(final String name, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
+    private static BlockSetType registerBlockSetType(String name, SoundType defaultSound, SoundEvent doorCloseSound, SoundEvent doorOpenSound, SoundEvent trapdoorCloseSound, SoundEvent trapdoorOpenSound, SoundEvent pressurePlateClickOffSound, SoundEvent pressurePlateClickOnSound, SoundEvent buttonClickOffSound, SoundEvent buttonClickOnSound) {
         return BlockSetType.register(new BlockSetType(KeyHelper.location(name).toString(), defaultSound,
                 doorCloseSound, doorOpenSound,
                 trapdoorCloseSound, trapdoorOpenSound,
@@ -1978,7 +1978,7 @@ public final class RegisterHelper {
      *
      * @param name {@link String The tag name}
      */
-    public static TagKey<Block> registerBlockTag(final String name) {
+    public static TagKey<Block> registerBlockTag(String name) {
         return BlockTags.create(KeyHelper.location(name));
     }
 
@@ -1987,7 +1987,7 @@ public final class RegisterHelper {
      *
      * @param name {@link String The tag name}
      */
-    public static TagKey<Item> registerItemTag(final String name) {
+    public static TagKey<Item> registerItemTag(String name) {
         return ItemTags.create(KeyHelper.location(name));
     }
 
@@ -1998,7 +1998,7 @@ public final class RegisterHelper {
      * @param items {@link Supplier<ItemLike> The items to apply the dispense behavior}
      */
     @SafeVarargs
-    public static void registerDispenseBehaviors(final DispenseItemBehavior dispenseBehavior, final Supplier<? extends ItemLike>... items) {
+    public static void registerDispenseBehaviors(DispenseItemBehavior dispenseBehavior, Supplier<? extends ItemLike>... items) {
         Arrays.stream(items).forEach(item -> registerDispenseBehavior(dispenseBehavior, item));
     }
 
@@ -2007,7 +2007,7 @@ public final class RegisterHelper {
      *
      * @param dispenseBehaviors {@link Supplier<Map.Entry> The dispense behavior suppliers to register}
      */
-    public static void registerDispenseBehaviors(final Map<DispenseItemBehavior, Supplier<? extends ItemLike>> dispenseBehaviors) {
+    public static void registerDispenseBehaviors(Map<DispenseItemBehavior, Supplier<? extends ItemLike>> dispenseBehaviors) {
         dispenseBehaviors.forEach(RegisterHelper::registerDispenseBehavior);
     }
 
@@ -2017,7 +2017,7 @@ public final class RegisterHelper {
      * @param dispenseItemBehavior {@link DispenseItemBehavior The dispense behavior to register}
      * @param item {@link Supplier<ItemLike> The id to apply the dispense behavior}
      */
-    static void registerDispenseBehavior(final DispenseItemBehavior dispenseItemBehavior, final Supplier<? extends ItemLike> item) {
+    static void registerDispenseBehavior(DispenseItemBehavior dispenseItemBehavior, Supplier<? extends ItemLike> item) {
         DispenserBlock.registerBehavior(item.get(), dispenseItemBehavior);
     }
 
@@ -2027,7 +2027,7 @@ public final class RegisterHelper {
      * @param name {@link String The statistic name}
      * @return {@link RegistryObject<ResourceLocation> The registered statistic}
      */
-    public static RegistryObject<ResourceLocation> registerStatistic(final String name) {
+    public static RegistryObject<ResourceLocation> registerStatistic(String name) {
         return STATISTICS.register(name, () -> KeyHelper.location(name));
     }
 
@@ -2039,7 +2039,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<MenuType> The registered menu type}
      * @param <T> {@link T The menu type}
      */
-    public static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(final String name, final IContainerFactory<T> factory) {
+    public static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENU_TYPES.register(name, () -> IForgeMenuType.create(factory));
     }
 
@@ -2050,7 +2050,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<RecipeType> The registered recipe type}
      * @param <T> {@link T The recipe type}
      */
-    public static <T extends Recipe<?>> RegistryObject<RecipeType<T>> registerRecipeType(final String name) {
+    public static <T extends Recipe<?>> RegistryObject<RecipeType<T>> registerRecipeType(String name) {
         return RECIPE_TYPES.register(name, () -> RecipeType.simple(KeyHelper.location(name)));
     }
 
@@ -2061,7 +2061,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<RecipeType> The registered recipe serializer}
      * @param <T> {@link T The menu type}
      */
-    public static <T extends Recipe<?>> RegistryObject<RecipeSerializer<T>> registerRecipeSerializer(final String name, final Supplier<RecipeSerializer<T>> recipeSerializerSupplier) {
+    public static <T extends Recipe<?>> RegistryObject<RecipeSerializer<T>> registerRecipeSerializer(String name, Supplier<RecipeSerializer<T>> recipeSerializerSupplier) {
         return RECIPE_SERIALIZERS.register(name, recipeSerializerSupplier);
     }
 
@@ -2072,7 +2072,7 @@ public final class RegisterHelper {
      * @param blockSupplier {@link Supplier<Block> The supplier for the block this poi type is referring to}
      * @return {@link RegistryObject<PoiType> The registered poi type}
      */
-    public static RegistryObject<PoiType> registerPOIType(final String name, final Supplier<? extends Block> blockSupplier) {
+    public static RegistryObject<PoiType> registerPOIType(String name, Supplier<? extends Block> blockSupplier) {
         return POI_TYPES.register(name, () -> new PoiType(ImmutableSet.copyOf(blockSupplier.get().getStateDefinition().getPossibleStates()), 1, 1));
     }
 
@@ -2084,7 +2084,7 @@ public final class RegisterHelper {
      * @param workSound {@link SoundEvent The sounde vent to play when the villager acquire some work}
      * @return {@link RegistryObject<VillagerProfession> The registered villager profession}
      */
-    public static RegistryObject<VillagerProfession> registerVillagerProfession(final String name, final Supplier<? extends PoiType> poiTypeSupplier, final SoundEvent workSound) {
+    public static RegistryObject<VillagerProfession> registerVillagerProfession(String name, Supplier<? extends PoiType> poiTypeSupplier, SoundEvent workSound) {
         return VILLAGER_PROFESSIONS.register(name, () -> new VillagerProfession(
                 name,
                 x -> x.get().equals(poiTypeSupplier.get()),
@@ -2103,7 +2103,7 @@ public final class RegisterHelper {
      * @param codecSupplier {@link Supplier<IGlobalLootModifier> The loot modifier codec supplier}
      * @return {@link RegistryObject<IGlobalLootModifier> The registered loot modifier}
      */
-    public static <T extends IGlobalLootModifier> RegistryObject<Codec<T>> registerLootModifier(final String name, Supplier<Codec<T>> codecSupplier) {
+    public static <T extends IGlobalLootModifier> RegistryObject<Codec<T>> registerLootModifier(String name, Supplier<Codec<T>> codecSupplier) {
         return LOOT_MODIFIER_SERIALIZERS.register(name, codecSupplier);
     }
 
@@ -2113,7 +2113,7 @@ public final class RegisterHelper {
      * @param name {@link String The wood type name}
      * @return {@link WoodType The registered wood type}
      */
-    public static WoodType registerWoodType(final String name) {
+    public static WoodType registerWoodType(String name) {
         return WoodType.register(new WoodType(MineWorld.MOD_ID + ":" + name, BlockSetType.OAK));
     }
 
@@ -2124,7 +2124,7 @@ public final class RegisterHelper {
      * @param biomeSupplier {@link Supplier<Biome> The biome supplier}
      * @return {@link RegistryObject<Biome> The registered biome}
      */
-    public static RegistryObject<Biome> registerBiome(final ResourceKey<Biome> key, final Supplier<Biome> biomeSupplier) {
+    public static RegistryObject<Biome> registerBiome(ResourceKey<Biome> key, Supplier<Biome> biomeSupplier) {
         return BIOMES.register(key.location().getPath(), biomeSupplier);
     }
 
@@ -2135,7 +2135,7 @@ public final class RegisterHelper {
      * @param featureSupplier {@link Supplier<Feature> The feature supplier}
      * @return {@link RegistryObject<Feature> The registered feature}
      */
-    public static <FC extends FeatureConfiguration> RegistryObject<Feature<FC>> registerFeature(final String name, final Supplier<? extends Feature<FC>> featureSupplier) {
+    public static <FC extends FeatureConfiguration> RegistryObject<Feature<FC>> registerFeature(String name, Supplier<? extends Feature<FC>> featureSupplier) {
         return FEATURES.register(name, featureSupplier);
     }
 
@@ -2147,7 +2147,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<TrunkPlacerType> The registered trunk placer type}
      * @param <TP> {@link TP The trunk placer type}
      */
-    public static <TP extends TrunkPlacer> RegistryObject<TrunkPlacerType<TP>> registerTrunkPlacerType(final String name, final Supplier<? extends TrunkPlacerType<TP>> trunkPlacerSupplier) {
+    public static <TP extends TrunkPlacer> RegistryObject<TrunkPlacerType<TP>> registerTrunkPlacerType(String name, Supplier<? extends TrunkPlacerType<TP>> trunkPlacerSupplier) {
         return TRUNK_PLACER_TYPES.register(name + "_trunk_placer", trunkPlacerSupplier);
     }
 
@@ -2159,7 +2159,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<FoliagePlacerType> The registered foliage placer type}
      * @param <FP> {@link FP The foliage placer type}
      */
-    public static <FP extends FoliagePlacer> RegistryObject<FoliagePlacerType<FP>> registerFoliagePlacerType(final String name, final Supplier<? extends FoliagePlacerType<FP>> foliagePlacerSupplier) {
+    public static <FP extends FoliagePlacer> RegistryObject<FoliagePlacerType<FP>> registerFoliagePlacerType(String name, Supplier<? extends FoliagePlacerType<FP>> foliagePlacerSupplier) {
         return FOLIAGE_PLACER_TYPES.register(name + "_foliage_placer", foliagePlacerSupplier);
     }
 
@@ -2171,7 +2171,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<StructureType> The registered structure type}
      * @param <T> {@link T The structure type}
      */
-    public static <T extends Structure> RegistryObject<StructureType<T>> registerStructureType(final String name, final Codec<T> codec) {
+    public static <T extends Structure> RegistryObject<StructureType<T>> registerStructureType(String name, Codec<T> codec) {
         return STRUCTURE_TYPES.register(name, () -> () -> codec);
     }
 
@@ -2224,7 +2224,7 @@ public final class RegisterHelper {
      * @param item {@link ItemLike The id to register}
      * @param chance {@link Float The compostable chance}
      */
-    static void registerCompostable(final ItemLike item, final float chance) {
+    static void registerCompostable(ItemLike item, float chance) {
         ComposterBlock.COMPOSTABLES.put(ItemHelper.getItem(item), chance);
     }
 
@@ -2232,7 +2232,7 @@ public final class RegisterHelper {
      * Register all {@link MineWorld MineWorld} {@link FlowerPotBlock flower pots}
      */
     public static void registerFlowerPots() {
-        final FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
         flowerPots.forEach((flower, pot) -> flowerPot.addPlant(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(flower.get())), pot));
     }
 
@@ -2244,7 +2244,7 @@ public final class RegisterHelper {
      * @param key {@link ResourceKey<StructureProcessorList> The structure processor resource key}
      * @param chance {@link Float The degradation chance}
      */
-    public static void registerBlockRotStructureProcessor(final BootstapContext<StructureProcessorList> context, final ResourceKey<StructureProcessorList> key, final float chance) {
+    public static void registerBlockRotStructureProcessor(BootstapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, float chance) {
         registerStructureProcessor(context, key, ImmutableList.of(new BlockRotProcessor(chance)));
     }
 
@@ -2255,7 +2255,7 @@ public final class RegisterHelper {
      * @param key {@link ResourceKey<StructureProcessorList> The structure processor resource key}
      * @param structureProcessors {@link List<StructureProcessor> The structure processors list}
      */
-    public static void registerStructureProcessor(final BootstapContext<StructureProcessorList> context, final ResourceKey<StructureProcessorList> key, final List<StructureProcessor> structureProcessors) {
+    public static void registerStructureProcessor(BootstapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, List<StructureProcessor> structureProcessors) {
         context.register(key, new StructureProcessorList(structureProcessors));
     }
 
@@ -2264,7 +2264,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerBlocks(final IEventBus eventBus) {
+    public static void registerBlocks(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }
 
@@ -2273,7 +2273,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerItems(final IEventBus eventBus) {
+    public static void registerItems(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
 
@@ -2282,7 +2282,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerEntityTypes(final IEventBus eventBus) {
+    public static void registerEntityTypes(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }
 
@@ -2291,7 +2291,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerBlockEntityTypes(final IEventBus eventBus) {
+    public static void registerBlockEntityTypes(IEventBus eventBus) {
         BLOCK_ENTITY_TYPES.register(eventBus);
     }
 
@@ -2300,7 +2300,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerStatistics(final IEventBus eventBus) {
+    public static void registerStatistics(IEventBus eventBus) {
         STATISTICS.register(eventBus);
     }
 
@@ -2309,7 +2309,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerMenuTypes(final IEventBus eventBus) {
+    public static void registerMenuTypes(IEventBus eventBus) {
         MENU_TYPES.register(eventBus);
     }
 
@@ -2318,7 +2318,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerRecipeTypes(final IEventBus eventBus) {
+    public static void registerRecipeTypes(IEventBus eventBus) {
         RECIPE_TYPES.register(eventBus);
     }
 
@@ -2327,7 +2327,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerRecipeSerializers(final IEventBus eventBus) {
+    public static void registerRecipeSerializers(IEventBus eventBus) {
         RECIPE_SERIALIZERS.register(eventBus);
     }
 
@@ -2336,7 +2336,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerPOITypes(final IEventBus eventBus) {
+    public static void registerPOITypes(IEventBus eventBus) {
         POI_TYPES.register(eventBus);
     }
 
@@ -2345,7 +2345,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerVillagerProfessions(final IEventBus eventBus) {
+    public static void registerVillagerProfessions(IEventBus eventBus) {
         VILLAGER_PROFESSIONS.register(eventBus);
     }
 
@@ -2354,7 +2354,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerLootModifiers(final IEventBus eventBus) {
+    public static void registerLootModifiers(IEventBus eventBus) {
         LOOT_MODIFIER_SERIALIZERS.register(eventBus);
     }
 
@@ -2363,7 +2363,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerBiomes(final IEventBus eventBus) {
+    public static void registerBiomes(IEventBus eventBus) {
         BIOMES.register(eventBus);
     }
 
@@ -2372,7 +2372,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerFeatures(final IEventBus eventBus) {
+    public static void registerFeatures(IEventBus eventBus) {
         FEATURES.register(eventBus);
     }
 
@@ -2381,7 +2381,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerTrunkPlacerTypes(final IEventBus eventBus) {
+    public static void registerTrunkPlacerTypes(IEventBus eventBus) {
         TRUNK_PLACER_TYPES.register(eventBus);
     }
 
@@ -2390,7 +2390,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerFoliagePlacerTypes(final IEventBus eventBus) {
+    public static void registerFoliagePlacerTypes(IEventBus eventBus) {
         FOLIAGE_PLACER_TYPES.register(eventBus);
     }
 
@@ -2399,7 +2399,7 @@ public final class RegisterHelper {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void registerStructureTypes(final IEventBus eventBus) {
+    public static void registerStructureTypes(IEventBus eventBus) {
         STRUCTURE_TYPES.register(eventBus);
     }
 

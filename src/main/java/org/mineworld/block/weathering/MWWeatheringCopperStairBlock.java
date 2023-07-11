@@ -23,7 +23,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
     /**
      * {@link WeatheringCopper.WeatherState The stair weather state}
      */
-    private final WeatheringCopper.WeatherState weatherState;
+    private WeatheringCopper.WeatherState weatherState;
 
     /**
      * Constructor. Set the block properties
@@ -32,7 +32,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      * @param blockState {@link BlockState The block state this stair is based on}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public MWWeatheringCopperStairBlock(final WeatheringCopper.WeatherState weatherState, final BlockState blockState, final FeatureFlag... featureFlags) {
+    public MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState weatherState, BlockState blockState, FeatureFlag... featureFlags) {
         super(blockState, PropertyHelper.copyFromBlock(blockState.getBlock(), featureFlags));
         this.weatherState = weatherState;
     }
@@ -47,7 +47,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      * @param random {@link RandomSource The random reference}
      */
     @Override
-    public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
+    public void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
         IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, random);
     }
 
@@ -58,7 +58,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      * @return {@link Boolean True if there is another state}
      */
     @Override
-    public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
+    public boolean isRandomlyTicking(@NotNull BlockState blockState) {
         return IMWWeatheringBlock.isRandomlyTicking(blockState);
     }
 
@@ -83,8 +83,8 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      * @return {@link BlockState The modified block state}
      */
     @Override
-    public @Nullable BlockState getToolModifiedState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        final BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
+    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean isClient) {
+        BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
         return modifiedState != null ? modifiedState : super.getToolModifiedState(state, context, toolAction, isClient);
     }
 

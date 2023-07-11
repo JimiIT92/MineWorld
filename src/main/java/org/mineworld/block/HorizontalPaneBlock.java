@@ -43,7 +43,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
     /**
      * {@link Supplier<BiMap> Horizontal panes by block}
      */
-    private static final Supplier<BiMap<Block, Block>> HORIZONTAL_PANE_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder()
+    private static Supplier<BiMap<Block, Block>> HORIZONTAL_PANE_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder()
             .put(Blocks.GLASS_PANE, MWBlocks.HORIZONTAL_GLASS_PANE.get())
             .put(Blocks.WHITE_STAINED_GLASS_PANE, MWBlocks.WHITE_STAINED_GLASS_HORIZONTAL_PANE.get())
             .put(Blocks.ORANGE_STAINED_GLASS_PANE, MWBlocks.ORANGE_STAINED_GLASS_HORIZONTAL_PANE.get())
@@ -80,15 +80,15 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
     /**
      * {@link Supplier<BiMap> Block by horizontal panes}
      */
-    private static final Supplier<BiMap<Block, Block>> BLOCK_BY_HORIZONTAL_PANE = Suppliers.memoize(() -> HORIZONTAL_PANE_BY_BLOCK.get().inverse());
+    private static Supplier<BiMap<Block, Block>> BLOCK_BY_HORIZONTAL_PANE = Suppliers.memoize(() -> HORIZONTAL_PANE_BY_BLOCK.get().inverse());
     /**
      * {@link BooleanProperty The block waterlogged property}
      */
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /**
      * {@link VoxelShape The block bottom voxel shape}
      */
-    protected static final VoxelShape HORIZONTAL_PANE_AABB = Block.box(0.0D, 7.0D, 0.0D, 16.0D, 9.0D, 16.0D);
+    protected static VoxelShape HORIZONTAL_PANE_AABB = Block.box(0.0D, 7.0D, 0.0D, 16.0D, 9.0D, 16.0D);
 
     /**
      * Constructor. Set the block properties
@@ -96,7 +96,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param properties {@link Properties The block properties}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public HorizontalPaneBlock(final Properties properties, final FeatureFlag... featureFlags) {
+    public HorizontalPaneBlock(Properties properties, FeatureFlag... featureFlags) {
         super(PropertyHelper.translucentBlockProperties(properties, featureFlags));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
@@ -110,7 +110,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link VoxelShape The block shape}
      */
-    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return HORIZONTAL_PANE_AABB;
     }
 
@@ -123,7 +123,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param pathComputationType {@link PathComputationType The path computation type}
      * @return {@link Boolean True if is in water and the block is waterlogged}
      */
-    public boolean isPathfindable(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final PathComputationType pathComputationType) {
+    public boolean isPathfindable(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, PathComputationType pathComputationType) {
         return pathComputationType.equals(PathComputationType.WATER) && blockState.getValue(WATERLOGGED);
     }
 
@@ -133,9 +133,9 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param blockPlaceContext {@link BlockPlaceContext The block place context}
      * @return {@link BlockState The placed block state}
      */
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         BlockState blockState = this.defaultBlockState();
-        final FluidState fluidstate = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
+        FluidState fluidstate = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
         Direction direction = blockPlaceContext.getClickedFace();
         if (!blockPlaceContext.replacingClickedOnBlock() && direction.getAxis().isHorizontal()) {
             blockState = blockState.setValue(FACING, direction);
@@ -150,7 +150,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      *
      * @param stateBuilder {@link StateDefinition.Builder The block state builder}
      */
-    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, WATERLOGGED);
     }
 
@@ -160,7 +160,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param blockState {@link BlockState The current block state}
      * @return {@link FluidState The block fluid state}
      */
-    public @NotNull FluidState getFluidState(final BlockState blockState) {
+    public @NotNull FluidState getFluidState(BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
@@ -175,7 +175,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param neighborPos {@link BlockPos The neighbor block pos}
      * @return {@link BlockState The updated block state}
      */
-    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
@@ -188,7 +188,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param blockState {@link BlockState The current block state}
      * @return {@link Boolean True if the block state has an horizontal pane}
      */
-    public static boolean hasHorizontalPane(final BlockState blockState) {
+    public static boolean hasHorizontalPane(BlockState blockState) {
         return Optional.ofNullable(HORIZONTAL_PANE_BY_BLOCK.get().get(blockState.getBlock())).isPresent();
     }
 
@@ -200,7 +200,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link BlockState The horizontal pane state}
      */
-    public static BlockState getStateFromGlassPane(final BlockState blockState, final Level level, final BlockPos blockPos) {
+    public static BlockState getStateFromGlassPane(BlockState blockState, Level level, BlockPos blockPos) {
         return Optional.ofNullable(HORIZONTAL_PANE_BY_BLOCK.get().get(blockState.getBlock()))
                 .map(block -> block.defaultBlockState().setValue(WATERLOGGED, level.getFluidState(blockPos).getType().isSame(Fluids.WATER)))
                 .orElse(blockState);
@@ -217,7 +217,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @return {@link ItemStack The block id stack}
      */
     @Override
-    public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final BlockGetter blockGetter, final BlockPos blockPos, final Player player) {
+    public ItemStack getCloneItemStack(BlockState blockState, HitResult hitResult, BlockGetter blockGetter, BlockPos blockPos, Player player) {
         return Optional.ofNullable(BLOCK_BY_HORIZONTAL_PANE.get().get(blockState.getBlock())).map(ItemHelper::getDefaultStack).orElse(ItemStack.EMPTY);
     }
 
@@ -230,7 +230,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link Shapes#empty() Empty shape}
      */
-    public @NotNull VoxelShape getVisualShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getVisualShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return Shapes.empty();
     }
 
@@ -242,7 +242,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Float 1.0}
      */
-    public float getShadeBrightness(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+    public float getShadeBrightness(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return 1.0F;
     }
 
@@ -254,7 +254,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Boolean True}
      */
-    public boolean propagatesSkylightDown(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+    public boolean propagatesSkylightDown(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return true;
     }
 
@@ -266,7 +266,7 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
      * @param direction {@link Direction The direction of the face to be rendered}
      * @return {@link Boolean True if the face should be rendered}
      */
-    public boolean skipRendering(final @NotNull BlockState blockState, final BlockState neighborState, final @NotNull Direction direction) {
+    public boolean skipRendering(@NotNull BlockState blockState, BlockState neighborState, @NotNull Direction direction) {
         return neighborState.is(this) || super.skipRendering(blockState, neighborState, direction);
     }
 

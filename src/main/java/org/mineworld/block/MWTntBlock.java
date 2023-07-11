@@ -41,7 +41,7 @@ public class MWTntBlock extends TntBlock {
     /**
      * {@link MWPrimedTnt.Type The tnt type}
      */
-    private final MWPrimedTnt.Type type;
+    private MWPrimedTnt.Type type;
 
     /**
      * Constructor. Set the {@link Float tnt explosion power}
@@ -49,7 +49,7 @@ public class MWTntBlock extends TntBlock {
      * @param type {@link MWPrimedTnt.Type The tnt type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public MWTntBlock(final MWPrimedTnt.Type type, final FeatureFlag... featureFlags) {
+    public MWTntBlock(MWPrimedTnt.Type type, FeatureFlag... featureFlags) {
         super(PropertyHelper.copyFromBlock(Blocks.TNT, featureFlags).noOcclusion());
         this.type = type;
     }
@@ -62,10 +62,10 @@ public class MWTntBlock extends TntBlock {
      * @param explosion {@link Explosion The explosion data}
      */
     @Override
-    public void wasExploded(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Explosion explosion) {
+    public void wasExploded(@NotNull Level level, @NotNull BlockPos blockPos, @NotNull Explosion explosion) {
         if (!level.isClientSide) {
-            final MWPrimedTnt primedtnt = getPrimedTnt(level, blockPos, explosion.getIndirectSourceEntity());
-            final int fuse = primedtnt.getFuse();
+            MWPrimedTnt primedtnt = getPrimedTnt(level, blockPos, explosion.getIndirectSourceEntity());
+            int fuse = primedtnt.getFuse();
             primedtnt.setFuse((short)(level.random.nextInt(fuse / 4) + fuse / 8));
             level.addFreshEntity(primedtnt);
         }
@@ -81,9 +81,9 @@ public class MWTntBlock extends TntBlock {
      * @param igniter {@link LivingEntity The entity that ignited the tnt}
      */
     @Override
-    public void onCaughtFire(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @Nullable Direction direction, final @Nullable LivingEntity igniter) {
+    public void onCaughtFire(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @Nullable Direction direction, @Nullable LivingEntity igniter) {
         if (!level.isClientSide) {
-            final MWPrimedTnt primedtnt = getPrimedTnt(level, blockPos, igniter);
+            MWPrimedTnt primedtnt = getPrimedTnt(level, blockPos, igniter);
             level.addFreshEntity(primedtnt);
             level.playSound(null, primedtnt.getX(), primedtnt.getY(), primedtnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.gameEvent(igniter, GameEvent.PRIME_FUSE, blockPos);
@@ -98,7 +98,7 @@ public class MWTntBlock extends TntBlock {
      * @param igniter {@link LivingEntity The entity that ignited the tnt}
      * @return {@link PrimedTnt The tnt entity}
      */
-    private MWPrimedTnt getPrimedTnt(final Level level, final BlockPos blockPos, final LivingEntity igniter) {
+    private MWPrimedTnt getPrimedTnt(Level level, BlockPos blockPos, LivingEntity igniter) {
         return new MWPrimedTnt(level, (double)blockPos.getX() + 0.5D, blockPos.getY(), (double)blockPos.getZ() + 0.5D, igniter, this.type);
     }
 
@@ -111,7 +111,7 @@ public class MWTntBlock extends TntBlock {
      * @param tooltipFlag {@link TooltipFlag The tooltip flag}
      */
     @Override
-    public void appendHoverText(final @NotNull ItemStack itemStack, final @Nullable BlockGetter blockGetter, @NotNull List<Component> tooltips, final @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable BlockGetter blockGetter, @NotNull List<Component> tooltips, @NotNull TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, blockGetter, tooltips, tooltipFlag);
         appendTntHoverText(tooltips, this.type);
     }
@@ -122,7 +122,7 @@ public class MWTntBlock extends TntBlock {
      * @param tooltips {@link List<Component> The current tooltips}
      * @param type {@link MWPrimedTnt.Type The tnt type}
      */
-    public static void appendTntHoverText(@NotNull List<Component> tooltips, final MWPrimedTnt.Type type) {
+    public static void appendTntHoverText(@NotNull List<Component> tooltips, MWPrimedTnt.Type type) {
         if(type.isDisguised()) {
             MutableComponent blockName = Blocks.GRASS_BLOCK.getName();
             TextColor color = TextColor.fromLegacyFormat(ChatFormatting.DARK_GREEN);
@@ -162,7 +162,7 @@ public class MWTntBlock extends TntBlock {
      * @return {@link Boolean True}
      */
     @Override
-    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return true;
     }
 
@@ -176,7 +176,7 @@ public class MWTntBlock extends TntBlock {
      * @return {@link Integer 20}
      */
     @Override
-    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 20;
     }
 
@@ -190,7 +190,7 @@ public class MWTntBlock extends TntBlock {
      * @return {@link Integer 5}
      */
     @Override
-    public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 5;
     }
 
@@ -203,7 +203,7 @@ public class MWTntBlock extends TntBlock {
      * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link VoxelShape The block shape}
      */
-    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return this.type.equals(MWPrimedTnt.Type.DISGUISED_CAKE) ? Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D): Shapes.block();
     }
 

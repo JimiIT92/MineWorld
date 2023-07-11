@@ -21,7 +21,7 @@ public class ForgingRecipeSerializer implements RecipeSerializer<ForgingRecipe> 
      * @param recipeId {@link ResourceLocation The recipe resource location}
      * @param json {@link JsonObject The recipe json object}
      */
-    public @NotNull ForgingRecipe fromJson(final @NotNull ResourceLocation recipeId, final @NotNull JsonObject json) {
+    public @NotNull ForgingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
         return new ForgingRecipe(recipeId,
                 getIngredient("base", json),
                 getIngredient("addition", json),
@@ -37,7 +37,7 @@ public class ForgingRecipeSerializer implements RecipeSerializer<ForgingRecipe> 
      * @param json {@link JsonObject The serialized recipe json}
      * @return {@link Ingredient The ingredient}
      */
-    private Ingredient getIngredient(final String key, final JsonObject json) {
+    private Ingredient getIngredient(String key, JsonObject json) {
         return Ingredient.fromJson(GsonHelper.isArrayNode(json, key) ? GsonHelper.getAsJsonArray(json, key) : GsonHelper.getAsJsonObject(json, key));
     }
 
@@ -47,7 +47,7 @@ public class ForgingRecipeSerializer implements RecipeSerializer<ForgingRecipe> 
      * @param recipeId {@link ResourceLocation The recipe resource location}
      * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
      */
-    public ForgingRecipe fromNetwork(final @NotNull ResourceLocation recipeId, final @NotNull FriendlyByteBuf byteBuffer) {
+    public ForgingRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf byteBuffer) {
         return new ForgingRecipe(recipeId,
                 Ingredient.fromNetwork(byteBuffer),
                 Ingredient.fromNetwork(byteBuffer),
@@ -62,7 +62,7 @@ public class ForgingRecipeSerializer implements RecipeSerializer<ForgingRecipe> 
      * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
      * @param recipe {@link ForgingRecipe The recipe to serialize}
      */
-    public void toNetwork(final @NotNull FriendlyByteBuf byteBuffer, final ForgingRecipe recipe) {
+    public void toNetwork(@NotNull FriendlyByteBuf byteBuffer, ForgingRecipe recipe) {
         recipe.base().toNetwork(byteBuffer);
         recipe.addition().toNetwork(byteBuffer);
         byteBuffer.writeItem(recipe.result());

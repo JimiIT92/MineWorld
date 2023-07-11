@@ -16,7 +16,7 @@ public class DeadTrappedChestBlockEntity extends AbstractTrappedChestBlockEntity
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public DeadTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public DeadTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.DEAD_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

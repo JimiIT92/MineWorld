@@ -17,7 +17,7 @@ public class JungleChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public JungleChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public JungleChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

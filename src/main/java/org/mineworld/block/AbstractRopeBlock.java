@@ -30,11 +30,11 @@ public abstract class AbstractRopeBlock extends Block {
     /**
      * {@link Direction The rope direction}
      */
-    protected final Direction ropeDirection;
+    protected Direction ropeDirection;
     /**
      * {@link VoxelShape The rope shape}
      */
-    protected final VoxelShape shape;
+    protected VoxelShape shape;
 
     /**
      * Constructor. Set the block properties
@@ -42,7 +42,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @param direction {@link Direction The rope direction}
      * @param shape {@link VoxelShape The rope shape}
      */
-    protected AbstractRopeBlock(final Direction direction, final VoxelShape shape) {
+    protected AbstractRopeBlock(Direction direction, VoxelShape shape) {
         super(PropertyHelper.basicBlockProperties(Material.DECORATION, MaterialColor.DIRT, 1.0F, 1.0F, false, SoundType.CAVE_VINES).noCollission().instabreak());
         this.ropeDirection = direction;
         this.shape = shape;
@@ -56,8 +56,8 @@ public abstract class AbstractRopeBlock extends Block {
      */
     @Nullable
     @Override
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
-        final BlockState blockstate = blockPlaceContext.getLevel().getBlockState(blockPlaceContext.getClickedPos().relative(this.ropeDirection));
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        BlockState blockstate = blockPlaceContext.getLevel().getBlockState(blockPlaceContext.getClickedPos().relative(this.ropeDirection));
         return !blockstate.is(this.getHeadBlock()) && !blockstate.is(this.getBodyBlock()) ? this.getStateForPlacement(blockPlaceContext.getLevel()) : this.getBodyBlock().defaultBlockState();
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @param levelAccessor {@link LevelAccessor The level accessor reference}
      * @return {@link BlockState The default block state}
      */
-    public BlockState getStateForPlacement(final LevelAccessor levelAccessor) {
+    public BlockState getStateForPlacement(LevelAccessor levelAccessor) {
         return this.defaultBlockState();
     }
 
@@ -79,9 +79,9 @@ public abstract class AbstractRopeBlock extends Block {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Boolean True if the block can survive}
      */
-    public boolean canSurvive(final @NotNull BlockState blockState, final LevelReader levelReader, final BlockPos blockPos) {
-        final BlockPos relativeBlockPos = blockPos.relative(this.ropeDirection.getOpposite());
-        final BlockState blockstate = levelReader.getBlockState(relativeBlockPos);
+    public boolean canSurvive(@NotNull BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
+        BlockPos relativeBlockPos = blockPos.relative(this.ropeDirection.getOpposite());
+        BlockState blockstate = levelReader.getBlockState(relativeBlockPos);
         return this.canAttachTo(blockstate) && (blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) ||
                 blockstate.isFaceSturdy(levelReader, relativeBlockPos, this.ropeDirection) || blockstate.is(BlockTags.FENCES));
     }
@@ -94,7 +94,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @param blockPos {@link BlockPos The current block pos}
      * @param random {@link RandomSource The random reference}
      */
-    public void tick(final BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
+    public void tick(BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
         if (!blockState.canSurvive(level, blockPos)) {
             level.destroyBlock(blockPos, true);
         }
@@ -119,7 +119,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link VoxelShape The block shape}
      */
-    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return this.shape;
     }
 
@@ -133,7 +133,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @return {@link Boolean True}
      */
     @Override
-    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return true;
     }
 
@@ -147,7 +147,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @return {@link Integer 100}
      */
     @Override
-    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 100;
     }
 
@@ -161,7 +161,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @return {@link Integer 15}
      */
     @Override
-    public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 15;
     }
 

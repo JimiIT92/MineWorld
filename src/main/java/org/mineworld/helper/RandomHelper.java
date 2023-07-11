@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Helper methods for {@link Random random values}
  */
-public final class RandomHelper {
+public class RandomHelper {
 
     /**
      * Get a {@link RandomSource random instance}
@@ -28,7 +28,7 @@ public final class RandomHelper {
      *
      * @return {@link Integer A random integer}
      */
-    public static int range(final int max) {
+    public static int range(int max) {
         return range(0, max);
     }
 
@@ -39,7 +39,7 @@ public final class RandomHelper {
      * @param max {@link Integer The max value}
      * @return {@link Integer A random integer}
      */
-    public static int range(final int min, final int max) {
+    public static int range(int min, int max) {
         return getRandom().nextInt(min, max);
     }
 
@@ -50,7 +50,7 @@ public final class RandomHelper {
      * @param max {@link Integer The max value}
      * @return {@link Boolean True if the chosen value is the middle one}
      */
-    public static boolean choose(final int max) {
+    public static boolean choose(int max) {
         return choose(0, max);
     }
 
@@ -62,7 +62,7 @@ public final class RandomHelper {
      * @param max {@link Integer The max value}
      * @return {@link Boolean True if the chosen value is the middle one}
      */
-    public static boolean choose(final int min, final int max) {
+    public static boolean choose(int min, int max) {
         return choose(min, max, max / 2);
     }
 
@@ -74,7 +74,7 @@ public final class RandomHelper {
      * @param choice {@link Integer The value to check}
      * @return {@link Boolean True if the chosen value is specified one}
      */
-    public static boolean choose(final int min, final int max, final int choice) {
+    public static boolean choose(int min, int max, int choice) {
         return getRandom().nextInt(min, max) == choice;
     }
 
@@ -94,7 +94,7 @@ public final class RandomHelper {
      * @return {@link T A random value from the collection}
      * @param <T> {@link T The collection type}
      */
-    public static <T> Optional<T> randomValue(final @NonNull Collection<T> collection) {
+    public static <T> Optional<T> randomValue(@NonNull Collection<T> collection) {
         return collection.stream().skip((int) (collection.size() * Math.random())).findAny();
     }
 

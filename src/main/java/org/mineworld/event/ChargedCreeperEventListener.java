@@ -23,7 +23,7 @@ import java.util.Collection;
  * Handle events for when a charged creeper kills an entity
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class ChargedCreeperEventListener {
+public class ChargedCreeperEventListener {
 
     /**
      * Add a custom mob head when the mob is killed by a charged creeper
@@ -31,11 +31,11 @@ public final class ChargedCreeperEventListener {
      * @param event {@link LivingDropsEvent The living drops event}
      */
     @SubscribeEvent
-    public static void onLivingDrops(final LivingDropsEvent event) {
-        final Entity entity = event.getEntity();
+    public static void onLivingDrops(LivingDropsEvent event) {
+        Entity entity = event.getEntity();
         if(event.getSource().getEntity() instanceof Creeper creeper && creeper.isPowered() && !(entity instanceof Player)) {
-            final Collection<ItemEntity> drops = event.getDrops();
-            final Vec3 pos = entity.position();
+            Collection<ItemEntity> drops = event.getDrops();
+            Vec3 pos = entity.position();
             if(entity instanceof Husk) {
                 tryDropSkull(creeper, pos, MWItems.HUSK_HEAD, drops);
             }
@@ -56,8 +56,8 @@ public final class ChargedCreeperEventListener {
      * @param skullSupplier {@link RegistryObject The skull supplier}
      * @param drops {@link Collection<ItemEntity> The entity drops}
      */
-    private static void tryDropSkull(final Creeper creeper, final Vec3 pos, final RegistryObject<? extends ItemLike> skullSupplier, Collection<ItemEntity> drops) {
-        final ItemEntity skull = new ItemEntity(creeper.level, pos.x, pos.y, pos.z, ItemHelper.getDefaultStack(skullSupplier));
+    private static void tryDropSkull(Creeper creeper, Vec3 pos, RegistryObject<? extends ItemLike> skullSupplier, Collection<ItemEntity> drops) {
+        ItemEntity skull = new ItemEntity(creeper.level, pos.x, pos.y, pos.z, ItemHelper.getDefaultStack(skullSupplier));
         if(!drops.contains(skull) && creeper.canDropMobsSkull()) {
             drops.add(skull);
             creeper.increaseDroppedSkulls();

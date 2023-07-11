@@ -16,7 +16,7 @@ public class IceTrappedChestBlockEntity extends AbstractTrappedChestBlockEntity 
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public IceTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public IceTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.ICE_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

@@ -16,7 +16,7 @@ public class PalmTrappedChestRenderer extends PalmChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public PalmTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public PalmTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

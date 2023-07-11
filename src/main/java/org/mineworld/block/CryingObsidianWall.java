@@ -33,12 +33,12 @@ public class CryingObsidianWall extends WallBlock {
      * @param blockPos {@link BlockPos The current block pos}
      * @param randomSource {@link RandomSource The random reference}
      */
-    public void animateTick(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final RandomSource randomSource) {
+    public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, RandomSource randomSource) {
         if (randomSource.nextInt(5) == 0) {
-            final Direction direction = Direction.getRandom(randomSource);
+            Direction direction = Direction.getRandom(randomSource);
             if (!direction.equals(Direction.UP)) {
-                final BlockPos blockpos = blockPos.relative(direction);
-                final BlockState blockstate = level.getBlockState(blockpos);
+                BlockPos blockpos = blockPos.relative(direction);
+                BlockState blockstate = level.getBlockState(blockpos);
                 if (!blockState.canOcclude() || !blockstate.isFaceSturdy(level, blockpos, direction.getOpposite())) {
                     double offsetX = direction.getStepX() == 0 ? randomSource.nextDouble() : 0.5D + (double)direction.getStepX() * 0.6D;
                     double offsetY = direction.getStepY() == 0 ? randomSource.nextDouble() : 0.5D + (double)direction.getStepY() * 0.6D;
@@ -55,7 +55,7 @@ public class CryingObsidianWall extends WallBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link PushReaction#DESTROY Destroy push reaction}
      */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
         return PushReaction.BLOCK;
     }
 

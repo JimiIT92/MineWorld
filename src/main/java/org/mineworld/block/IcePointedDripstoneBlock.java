@@ -20,7 +20,7 @@ public class IcePointedDripstoneBlock extends MWPointedDripstoneBlock {
      *
      * @param blockSupplier {@link Supplier<Block> The supplier for the dripstone source block}
      */
-    public IcePointedDripstoneBlock(final Supplier<Block> blockSupplier) {
+    public IcePointedDripstoneBlock(Supplier<Block> blockSupplier) {
         super(blockSupplier.get());
     }
 
@@ -29,7 +29,7 @@ public class IcePointedDripstoneBlock extends MWPointedDripstoneBlock {
      *
      * @param block {@link Block The dripstone source block}
      */
-    public IcePointedDripstoneBlock(final Block block) {
+    public IcePointedDripstoneBlock(Block block) {
         super(block);
     }
 
@@ -41,7 +41,7 @@ public class IcePointedDripstoneBlock extends MWPointedDripstoneBlock {
      * @param fallingBlockEntity {@link FallingBlockEntity The falling dripstone entity}
      */
     @Override
-    public void onBrokenAfterFall(final @NotNull Level level, final @NotNull BlockPos pos, final FallingBlockEntity fallingBlockEntity) {
+    public void onBrokenAfterFall(@NotNull Level level, @NotNull BlockPos pos, FallingBlockEntity fallingBlockEntity) {
 
     }
 
@@ -54,8 +54,8 @@ public class IcePointedDripstoneBlock extends MWPointedDripstoneBlock {
      * @return {@link FallingBlockEntity The falling dripstone entity}
      */
     @Override
-    public FallingBlockEntity getFallingBlockEntity(final Level level, final BlockPos pos, final BlockState state) {
-        final FallingBlockEntity fallingDripstone = super.getFallingBlockEntity(level, pos, state);
+    public FallingBlockEntity getFallingBlockEntity(Level level, BlockPos pos, BlockState state) {
+        FallingBlockEntity fallingDripstone = super.getFallingBlockEntity(level, pos, state);
         fallingDripstone.dropItem = false;
         return fallingDripstone;
     }

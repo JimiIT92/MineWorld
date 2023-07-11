@@ -25,7 +25,7 @@ import java.util.Arrays;
  * Handle the trading with villagers
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class VillagerTradesListener {
+public class VillagerTradesListener {
 
     /**
      * Add custom recipes to villager trades
@@ -33,9 +33,9 @@ public final class VillagerTradesListener {
      * @param event {@link VillagerTradesEvent The villager trades event}
      */
     @SubscribeEvent
-    public static void onVillagerTrades(final VillagerTradesEvent event) {
+    public static void onVillagerTrades(VillagerTradesEvent event) {
         if(!event.isCanceled()) {
-            final VillagerProfession profession = event.getType();
+            VillagerProfession profession = event.getType();
             if(MWVillagerProfessions.CARPENTER.get().equals(profession)) {
                 addCarpenterTrades(event);
                 return;
@@ -64,7 +64,7 @@ public final class VillagerTradesListener {
      * @param event {@link WandererTradesEvent The wanderer trades event}
      */
     @SubscribeEvent
-    public static void onWanderingVillagerTrades(final WandererTradesEvent event) {
+    public static void onWanderingVillagerTrades(WandererTradesEvent event) {
         event.getRareTrades().add(new BasicItemListing(3, ItemHelper.getDefaultStack(MWBlocks.LAVA_ROCK), 6, 1));
         event.getRareTrades().add(new BasicItemListing(6, ItemHelper.getDefaultStack(MWBlocks.PERENNIAL_ICE), 6, 1));
     }
@@ -74,7 +74,7 @@ public final class VillagerTradesListener {
      *
      * @param event {@link VillagerTradesEvent The villager trades event}
      */
-    private static void addCarpenterTrades(final VillagerTradesEvent event) {
+    private static void addCarpenterTrades(VillagerTradesEvent event) {
         addVillagerTrades(event, 1,
                 new VillagerTrades.EmeraldsForVillagerTypeItem(10, 16,2, ImmutableMap.<VillagerType, Item>builder()
                         .put(VillagerType.PLAINS, Items.OAK_LOG)
@@ -156,7 +156,7 @@ public final class VillagerTradesListener {
      *
      * @param event {@link VillagerTradesEvent The villager trades event}
      */
-    private static void addFarmerTrades(final VillagerTradesEvent event) {
+    private static void addFarmerTrades(VillagerTradesEvent event) {
         addVillagerTrades(event, 1, new VillagerTrades.EmeraldForItems(MWItems.COB.get(), 15, 16, 2));
         addVillagerTrades(event, 2, new VillagerTrades.ItemsAndEmeraldsToItems(MWItems.COB.get(), 6, MWItems.BAKED_COB.get(), 6, 16, 1));
     }
@@ -166,7 +166,7 @@ public final class VillagerTradesListener {
      *
      * @param event {@link VillagerTradesEvent The villager trades event}
      */
-    private static void addArmorerTrades(final VillagerTradesEvent event) {
+    private static void addArmorerTrades(VillagerTradesEvent event) {
         addVillagerTrades(event, 1,
                 new VillagerTrades.ItemsForEmeralds(ItemHelper.getDefaultStack(MWItems.SILVER_LEGGINGS), 7, 1, 12, 1, 0.2F),
                 new VillagerTrades.ItemsForEmeralds(ItemHelper.getDefaultStack(MWItems.SILVER_BOOTS), 4, 1, 12, 1, 0.2F),
@@ -196,7 +196,7 @@ public final class VillagerTradesListener {
      *
      * @param event {@link VillagerTradesEvent The villager trades event}
      */
-    private static void addWeaponsmithTrades(final VillagerTradesEvent event) {
+    private static void addWeaponsmithTrades(VillagerTradesEvent event) {
         addVillagerTrades(event, 1,
                 new VillagerTrades.ItemsForEmeralds(ItemHelper.getDefaultStack(MWItems.SILVER_AXE), 3, 1, 12, 1, 0.2F),
                 new VillagerTrades.EnchantedItemForEmeralds(MWItems.SILVER_SWORD.get(), 2, 3, 1)
@@ -221,7 +221,7 @@ public final class VillagerTradesListener {
      *
      * @param event {@link VillagerTradesEvent The villager trades event}
      */
-    private static void addToolsmithTrades(final VillagerTradesEvent event) {
+    private static void addToolsmithTrades(VillagerTradesEvent event) {
         addVillagerTrades(event, 1,
                 new VillagerTrades.ItemsForEmeralds(ItemHelper.getDefaultStack(MWItems.ALUMINUM_AXE), 1, 1, 12, 1, 0.2F),
                 new VillagerTrades.ItemsForEmeralds(ItemHelper.getDefaultStack(MWItems.ALUMINUM_SHOVEL), 1, 1, 12, 1, 0.2F),
@@ -259,7 +259,7 @@ public final class VillagerTradesListener {
      * @param minVillagerLevel {@link Integer The minimum level the villager must have to show this recipe}
      * @param trades {@link VillagerTrades.ItemListing The trades to add}
      */
-    private static void addVillagerTrades(final VillagerTradesEvent event, final int minVillagerLevel, final VillagerTrades.ItemListing... trades) {
+    private static void addVillagerTrades(VillagerTradesEvent event, int minVillagerLevel, VillagerTrades.ItemListing... trades) {
         event.getTrades().get(minVillagerLevel).addAll(Arrays.asList(trades));
     }
 

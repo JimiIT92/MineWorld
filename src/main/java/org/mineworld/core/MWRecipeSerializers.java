@@ -14,17 +14,17 @@ import org.mineworld.recipe.serializer.MWSingleItemRecipeSerializer;
 /**
  * {@link MineWorld MineWorld} {@link RecipeSerializer recipe serializers}
  */
-public final class MWRecipeSerializers {
+public class MWRecipeSerializers {
 
-    public static final RegistryObject<RecipeSerializer<WoodcutterRecipe>> WOODCUTTER = RegisterHelper.registerRecipeSerializer("woodcutting", () -> new MWSingleItemRecipeSerializer<>(WoodcutterRecipe::new));
-    public static final RegistryObject<RecipeSerializer<ForgingRecipe>> FORGING = RegisterHelper.registerRecipeSerializer("forging", ForgingRecipeSerializer::new);
+    public static RegistryObject<RecipeSerializer<WoodcutterRecipe>> WOODCUTTER = RegisterHelper.registerRecipeSerializer("woodcutting", () -> new MWSingleItemRecipeSerializer<>(WoodcutterRecipe::new));
+    public static RegistryObject<RecipeSerializer<ForgingRecipe>> FORGING = RegisterHelper.registerRecipeSerializer("forging", ForgingRecipeSerializer::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link RecipeSerializer recipe serializers}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerRecipeSerializers(eventBus);
     }
 

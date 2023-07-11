@@ -15,7 +15,7 @@ import net.minecraftforge.common.Tags;
 /**
  * Helper methods for {@link Level level}
  */
-public final class LevelHelper {
+public class LevelHelper {
 
     /**
      * Get the {@link BlockState block state} reaction when pushed by pistons
@@ -23,7 +23,7 @@ public final class LevelHelper {
      * @param blockState {@link BlockState The block state to check}
      * @return {@link PushReaction The piston push reaction}
      */
-    public static PushReaction getPushReaction(final BlockState blockState) {
+    public static PushReaction getPushReaction(BlockState blockState) {
         return blockState.is(Tags.Blocks.OBSIDIAN) || blockState.is(Blocks.REINFORCED_DEEPSLATE) ? PushReaction.BLOCK : blockState.getPistonPushReaction();
     }
 
@@ -33,7 +33,7 @@ public final class LevelHelper {
      * @param vec3 {@link Vec3 The coordinate vector}
      * @return {@link BlockPos The block pos}
      */
-    public static BlockPos toBlockPos(final Vec3 vec3) {
+    public static BlockPos toBlockPos(Vec3 vec3) {
         return new BlockPos(adjustCoordinate(vec3.x), adjustCoordinate(vec3.y), adjustCoordinate(vec3.z));
     }
 
@@ -56,7 +56,7 @@ public final class LevelHelper {
      * @param blockPos {@link BlockPos The block pos to check}
      * @return {@link Boolean True if the block pos is underwater}
      */
-    public static boolean isUnderwater(final Level level, final BlockPos blockPos) {
+    public static boolean isUnderwater(Level level, BlockPos blockPos) {
         return level.getFluidState(blockPos).is(Fluids.WATER) || level.getFluidState(blockPos.above()).is(Fluids.WATER)
                 || level.getFluidState(blockPos.below()).is(Fluids.WATER) || level.getFluidState(blockPos.north()).is(Fluids.WATER)
                 || level.getFluidState(blockPos.south()).is(Fluids.WATER) || level.getFluidState(blockPos.east()).is(Fluids.WATER)
@@ -70,7 +70,7 @@ public final class LevelHelper {
      * @param direction {@link Direction The offset direction}
      * @return {@link BlockPos The offset block pos}
      */
-    public static BlockPos offset(final BlockPos blockPos, final Direction direction) {
+    public static BlockPos offset(BlockPos blockPos, Direction direction) {
         return blockPos.offset(direction.getStepX(), direction.getStepY(), direction.getStepZ());
     }
 
@@ -82,7 +82,7 @@ public final class LevelHelper {
      * @param direction {@link Direction The direction to check}
      * @return {@link Boolean True if the block face is solid}
      */
-    public static boolean isFaceSolid(final Level level, final BlockPos blockPos, final Direction direction) {
+    public static boolean isFaceSolid(Level level, BlockPos blockPos, Direction direction) {
         return level.getBlockState(blockPos).isFaceSturdy(level, blockPos, direction.getOpposite());
     }
 
@@ -93,8 +93,8 @@ public final class LevelHelper {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Boolean True if there isn't a block or is replaceable}
      */
-    public static boolean canPlace(final Level level, final BlockPos blockPos) {
-        final BlockState blockState = level.getBlockState(blockPos);
+    public static boolean canPlace(Level level, BlockPos blockPos) {
+        BlockState blockState = level.getBlockState(blockPos);
         return blockState.isAir() || blockState.canBeReplaced();
     }
 
@@ -104,7 +104,7 @@ public final class LevelHelper {
      * @param random {@link RandomSource The random reference}
      * @return {@link Direction The random horizontal direction}
      */
-    public static Direction getRandomHorizontalDirection(final RandomSource random) {
+    public static Direction getRandomHorizontalDirection(RandomSource random) {
         Direction direction;
         do {
             direction = Direction.getRandom(random);

@@ -30,11 +30,11 @@ public class MWMinecartChest extends MinecartChest {
     /**
      * {@link String The chest wood type NBT tag key}
      */
-    private final String woodTypeNBTTagKey = "WoodType";
+    private String woodTypeNBTTagKey = "WoodType";
     /**
      * {@link EntityDataAccessor <String> The chest wood type data value}
      */
-    private static final EntityDataAccessor<String> DATA_TYPE = SynchedEntityData.defineId(MWMinecartChest.class, EntityDataSerializers.STRING);
+    private static EntityDataAccessor<String> DATA_TYPE = SynchedEntityData.defineId(MWMinecartChest.class, EntityDataSerializers.STRING);
 
     /**
      * Constructor. Set the {@link EntityType entity type}
@@ -42,7 +42,7 @@ public class MWMinecartChest extends MinecartChest {
      * @param entityType {@link EntityType The entity type for this primed tnt}
      * @param level {@link Level The world reference}
      */
-    public MWMinecartChest(final EntityType<? extends MinecartChest> entityType, final Level level) {
+    public MWMinecartChest(EntityType<? extends MinecartChest> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -55,7 +55,7 @@ public class MWMinecartChest extends MinecartChest {
      * @param posZ {@link Double The minecart Z coordinate}
      * @param woodType {@link WoodType The chest wood type}
      */
-    public MWMinecartChest(final Level level, final double posX, final double posY, final double posZ, final WoodType woodType) {
+    public MWMinecartChest(Level level, double posX, double posY, double posZ, WoodType woodType) {
         super(MWEntityTypes.CHEST_MINECART.get(), level);
         this.setType(woodType);
         setPos(posX, posY, posZ);
@@ -85,7 +85,7 @@ public class MWMinecartChest extends MinecartChest {
      * @param value {@link String The chest wood type name}
      * @return {@link WoodType The chest wood type}
      */
-    private WoodType getWoodType(final String value) {
+    private WoodType getWoodType(String value) {
         return WoodType.values().filter(wood -> wood.name().equalsIgnoreCase(value)).findFirst().orElse(WoodType.OAK);
     }
 
@@ -107,7 +107,7 @@ public class MWMinecartChest extends MinecartChest {
      */
     @Override
     protected @NotNull Item getDropItem() {
-        final WoodType type = this.getWoodType();
+        WoodType type = this.getWoodType();
         if(type.equals(WoodType.SPRUCE)) {
             return MWItems.SPRUCE_CHEST_MINECART.get();
         }
@@ -161,7 +161,7 @@ public class MWMinecartChest extends MinecartChest {
      */
     @Override
     public @NotNull BlockState getDefaultDisplayBlockState() {
-        final WoodType type = this.getWoodType();
+        WoodType type = this.getWoodType();
         if(type.equals(WoodType.SPRUCE)) {
             return MWBlocks.SPRUCE_CHEST.get().defaultBlockState();
         }
@@ -221,7 +221,7 @@ public class MWMinecartChest extends MinecartChest {
      *
      * @param nbt {@link CompoundTag The entity nbt data}
      */
-    protected void readAdditionalSaveData(final @NotNull CompoundTag nbt) {
+    protected void readAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         if (nbt.contains(this.woodTypeNBTTagKey, 8)) {
             this.setType(this.getWoodType(nbt.getString(this.woodTypeNBTTagKey)));
@@ -233,7 +233,7 @@ public class MWMinecartChest extends MinecartChest {
      *
      * @param nbt {@link CompoundTag The entity nbt data}
      */
-    protected void addAdditionalSaveData(final @NotNull CompoundTag nbt) {
+    protected void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putString(this.woodTypeNBTTagKey, this.getWoodType().name());
     }

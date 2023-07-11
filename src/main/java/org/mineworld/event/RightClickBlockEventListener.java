@@ -43,7 +43,7 @@ import java.util.Optional;
  * Handle the {@link Player player} right clickcing a {@link Block block}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class RightClickBlockEventListener {
+public class RightClickBlockEventListener {
 
     /**
      * Attach a {@link LeadItem lead} to a {@link FenceBlock fence} when the {@link Player player} right clicks on it
@@ -52,14 +52,14 @@ public final class RightClickBlockEventListener {
      * @param event {@link PlayerInteractEvent.RightClickBlock Player right click block event}
      */
     @SubscribeEvent
-    public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if(!event.isCanceled()) {
-            final Player player = event.getEntity();
-            final Level level = event.getLevel();
-            final BlockPos clickedPos = event.getPos();
-            final BlockState blockState = level.getBlockState(clickedPos);
-            final ItemStack itemStack = event.getItemStack();
-            final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
+            Player player = event.getEntity();
+            Level level = event.getLevel();
+            BlockPos clickedPos = event.getPos();
+            BlockState blockState = level.getBlockState(clickedPos);
+            ItemStack itemStack = event.getItemStack();
+            boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
             if(itemStack.is(Items.LEAD) || hasLeashedEntities) {
                 handleLeashKnot(event, level, clickedPos, player, hasLeashedEntities);
                 return;
@@ -80,12 +80,12 @@ public final class RightClickBlockEventListener {
      * @param event {@link PlayerInteractEvent.EntityInteractSpecific.RightClickBlock The entity interact right click block event }
      */
     @SubscribeEvent
-    public static void onBlockInteract(final PlayerInteractEvent.EntityInteractSpecific.RightClickBlock event) {
-        final Player player = event.getEntity();
-        final Level level = event.getLevel();
-        final BlockPos clickedPos = event.getPos();
-        final BlockState blockState = level.getBlockState(clickedPos);
-        final ItemStack itemStack = event.getItemStack();
+    public static void onBlockInteract(PlayerInteractEvent.EntityInteractSpecific.RightClickBlock event) {
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        BlockPos clickedPos = event.getPos();
+        BlockState blockState = level.getBlockState(clickedPos);
+        ItemStack itemStack = event.getItemStack();
         if(blockState.is(MWTags.Blocks.LECTERNS) && itemStack.is(ItemTags.LECTERN_BOOKS)) {
             event.setCanceled(true);
             InteractionResult result = LecternBlock.tryPlaceBook(player, level, clickedPos, blockState, itemStack) ?
@@ -100,7 +100,7 @@ public final class RightClickBlockEventListener {
      * @param event {@link LivingHurtEvent Living hurt event}
      */
     @SubscribeEvent
-    public static void onLeashedEntityDieEvent(final LivingDeathEvent event) {
+    public static void onLeashedEntityDieEvent(LivingDeathEvent event) {
         if(event.getEntity() instanceof Mob mob && mob.getLeashHolder() != null && mob.getLeashHolder() instanceof LeashFenceKnotEntity leashKnot) {
             leashKnot.kill();
         }
@@ -115,9 +115,9 @@ public final class RightClickBlockEventListener {
      * @param player {@link Player The player interacting with the block}
      * @param hasLeashedEntities {@link Boolean If the player has some leashed entities}
      */
-    private static void handleLeashKnot(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final boolean hasLeashedEntities) {
+    private static void handleLeashKnot(PlayerInteractEvent.RightClickBlock event, Level level, BlockPos clickedPos, Player player, boolean hasLeashedEntities) {
         event.setCanceled(true);
-        final InteractionResult result = bindPlayerMobs(player, level, clickedPos, hasLeashedEntities);
+        InteractionResult result = bindPlayerMobs(player, level, clickedPos, hasLeashedEntities);
         event.setCancellationResult(result);
         if(!hasLeashedEntities && !level.isClientSide && result.equals(InteractionResult.SUCCESS) && !player.isCreative()) {
             ItemHelper.hurt(event.getItemStack(), player);
@@ -133,7 +133,7 @@ public final class RightClickBlockEventListener {
      * @param player {@link Player The player interacting with the block}
      * @param itemStack {@link ItemStack The id stack used to interact with the block}
      */
-    private static void handleHollowLog(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack) {
+    private static void handleHollowLog(PlayerInteractEvent.RightClickBlock event, Level level, BlockPos clickedPos, Player player, ItemStack itemStack) {
         if(player.isShiftKeyDown()) {
             HollowBlock.getHollow(level.getBlockState(clickedPos)).ifPresent(hollowState -> {
                 level.setBlockAndUpdate(clickedPos, hollowState.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, clickedPos)));
@@ -159,12 +159,12 @@ public final class RightClickBlockEventListener {
      * @param player {@link Player The player interacting with the block}
      * @param itemStack {@link ItemStack The id stack used to interact with the block}
      */
-    private static void handleWallHangingLantern(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack) {
-        final Direction direction = event.getFace();
+    private static void handleWallHangingLantern(PlayerInteractEvent.RightClickBlock event, Level level, BlockPos clickedPos, Player player, ItemStack itemStack) {
+        Direction direction = event.getFace();
         if(direction.getAxis().isHorizontal() && LevelHelper.isFaceSolid(level, clickedPos, direction)) {
             WallHangingLanternBlock.getWallHangingLantern(itemStack, direction).ifPresent(hangingLantern -> {
-                final BlockPos offsetPos = LevelHelper.offset(clickedPos, direction);
-                final BlockState blockState = hangingLantern.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, offsetPos));
+                BlockPos offsetPos = LevelHelper.offset(clickedPos, direction);
+                BlockState blockState = hangingLantern.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, offsetPos));
                 level.setBlockAndUpdate(offsetPos, blockState);
                 ItemHelper.hurt(itemStack, player);
                 if(player instanceof ServerPlayer) {
@@ -189,7 +189,7 @@ public final class RightClickBlockEventListener {
      * @param hasAttachedEntities {@link Boolean If the player has some attached entities}
      * @return {@link InteractionResult The interaction result}
      */
-    private static InteractionResult bindPlayerMobs(final Player player, final Level level, final BlockPos blockPos, final Boolean hasAttachedEntities) {
+    private static InteractionResult bindPlayerMobs(Player player, Level level, BlockPos blockPos, Boolean hasAttachedEntities) {
         if (level.getBlockState(blockPos).is(BlockTags.FENCES)) {
             if (!level.isClientSide && player != null) {
                 LeashFenceKnotEntity leashKnot = getOrCreateKnot(level, blockPos, hasAttachedEntities);
@@ -214,7 +214,7 @@ public final class RightClickBlockEventListener {
      * @param hasAttachedEntities {@link Boolean If the player has some attached entities}
      * @return {@link LeashFenceKnotEntity The leash knot entity}
      */
-    private static LeashFenceKnotEntity getOrCreateKnot(final Level level, final BlockPos blockPos, final boolean hasAttachedEntities) {
+    private static LeashFenceKnotEntity getOrCreateKnot(Level level, BlockPos blockPos, boolean hasAttachedEntities) {
         int x = blockPos.getX();
         int y = blockPos.getY();
         int z = blockPos.getZ();
@@ -233,7 +233,7 @@ public final class RightClickBlockEventListener {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link LeashFenceKnotEntity The leash knot entity}
      */
-    private static LeashFenceKnotEntity getLeashKnot(final Level level, final BlockPos blockPos) {
+    private static LeashFenceKnotEntity getLeashKnot(Level level, BlockPos blockPos) {
         LeashFenceKnotEntity leashKnotEntity = new LeashFenceKnotEntity(MWEntityTypes.LEASH_KNOT.get(), level);
         leashKnotEntity.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         level.addFreshEntity(leashKnotEntity);

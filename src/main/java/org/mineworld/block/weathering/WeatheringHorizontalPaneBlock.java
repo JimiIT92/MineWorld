@@ -22,7 +22,7 @@ public class WeatheringHorizontalPaneBlock extends HorizontalPaneBlock implement
     /**
      * {@link WeatheringCopper.WeatherState The stair weather state}
      */
-    private final WeatheringCopper.WeatherState weatherState;
+    private WeatheringCopper.WeatherState weatherState;
 
     /**
      * Constructor. Set the block properties
@@ -31,7 +31,7 @@ public class WeatheringHorizontalPaneBlock extends HorizontalPaneBlock implement
      * @param weatherState {@link WeatheringCopper.WeatherState The weather state}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public WeatheringHorizontalPaneBlock(final Properties properties, final WeatheringCopper.WeatherState weatherState, final FeatureFlag... featureFlags) {
+    public WeatheringHorizontalPaneBlock(Properties properties, WeatheringCopper.WeatherState weatherState, FeatureFlag... featureFlags) {
         super(PropertyHelper.translucentBlockProperties(properties, featureFlags));
         this.weatherState = weatherState;
     }
@@ -46,7 +46,7 @@ public class WeatheringHorizontalPaneBlock extends HorizontalPaneBlock implement
      * @param random {@link RandomSource The random reference}
      */
     @Override
-    public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
+    public void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
         IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, random);
     }
 
@@ -57,7 +57,7 @@ public class WeatheringHorizontalPaneBlock extends HorizontalPaneBlock implement
      * @return {@link Boolean True if there is another state}
      */
     @Override
-    public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
+    public boolean isRandomlyTicking(@NotNull BlockState blockState) {
         return IMWWeatheringBlock.isRandomlyTicking(blockState);
     }
 
@@ -82,8 +82,8 @@ public class WeatheringHorizontalPaneBlock extends HorizontalPaneBlock implement
      * @return {@link BlockState The modified block state}
      */
     @Override
-    public @Nullable BlockState getToolModifiedState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        final BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
+    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean isClient) {
+        BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
         return modifiedState != null ? modifiedState : super.getToolModifiedState(state, context, toolAction, isClient);
     }
 

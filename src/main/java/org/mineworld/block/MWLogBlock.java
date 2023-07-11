@@ -34,7 +34,7 @@ public class MWLogBlock extends RotatedPillarBlock {
     /**
      * {@link Supplier<Map> Strippable blocks}
      */
-    public static final Supplier<Map<Block, Block>> STRIPPABLES = Suppliers.memoize(() -> ImmutableMap.<Block, Block>builder()
+    public static Supplier<Map<Block, Block>> STRIPPABLES = Suppliers.memoize(() -> ImmutableMap.<Block, Block>builder()
             .put(MWBlocks.APPLE_LOG.get(), MWBlocks.STRIPPED_APPLE_LOG.get())
             .put(MWBlocks.APPLE_WOOD.get(), MWBlocks.STRIPPED_APPLE_WOOD.get())
             .put(MWBlocks.PALM_LOG.get(), MWBlocks.STRIPPED_PALM_LOG.get())
@@ -48,7 +48,7 @@ public class MWLogBlock extends RotatedPillarBlock {
      *
      * @param color {@link MaterialColor The log color on maps}
      */
-    public MWLogBlock(final MaterialColor color) {
+    public MWLogBlock(MaterialColor color) {
         this(color, color);
     }
 
@@ -58,7 +58,7 @@ public class MWLogBlock extends RotatedPillarBlock {
      * @param topColor {@link MaterialColor The log top color on maps}
      * @param sideColor {@link MaterialColor The log side color on maps}
      */
-    public MWLogBlock(final MaterialColor topColor, final MaterialColor sideColor) {
+    public MWLogBlock(MaterialColor topColor, MaterialColor sideColor) {
         super(BlockBehaviour.Properties.of(Material.WOOD,
                 state -> Direction.Axis.Y.equals(state.getValue(RotatedPillarBlock.AXIS)) ? topColor : sideColor)
                 .strength(2.0F).sound(SoundType.WOOD)
@@ -75,7 +75,7 @@ public class MWLogBlock extends RotatedPillarBlock {
      * @return {@link Boolean True}
      */
     @Override
-    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return true;
     }
 
@@ -89,7 +89,7 @@ public class MWLogBlock extends RotatedPillarBlock {
      * @return {@link Integer 20}
      */
     @Override
-    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 5;
     }
 
@@ -103,7 +103,7 @@ public class MWLogBlock extends RotatedPillarBlock {
      * @return {@link Integer 5}
      */
     @Override
-    public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 5;
     }
 
@@ -119,7 +119,7 @@ public class MWLogBlock extends RotatedPillarBlock {
      */
     @Nullable
     @Override
-    public BlockState getToolModifiedState(final BlockState blockState, final UseOnContext context, final ToolAction toolAction, final boolean isClientSide) {
+    public BlockState getToolModifiedState(BlockState blockState, UseOnContext context, ToolAction toolAction, boolean isClientSide) {
         ItemStack stack = context.getItemInHand();
         if(stack.getItem() instanceof AxeItem && toolAction.equals(ToolActions.AXE_STRIP)) {
             Optional<BlockState> optionalStrippedState = getStripped(blockState);
@@ -137,7 +137,7 @@ public class MWLogBlock extends RotatedPillarBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link Optional<BlockState> The hollow log block state, if any}
      */
-    public static Optional<BlockState> getStripped(final BlockState blockState) {
+    public static Optional<BlockState> getStripped(BlockState blockState) {
         return Optional.ofNullable(STRIPPABLES.get().get(blockState.getBlock())).map(block -> block.withPropertiesOf(blockState));
     }
 

@@ -14,17 +14,17 @@ import org.mineworld.inventory.WoodcutterMenu;
 /**
  * {@link MineWorld MineWorld} {@link MenuType menu types}
  */
-public final class MWMenuTypes {
+public class MWMenuTypes {
 
-    public static final RegistryObject<MenuType<WoodcutterMenu>> WOODCUTTER = RegisterHelper.registerMenuType("woodcutter", WoodcutterMenu::new);
-    public static final RegistryObject<MenuType<ForgingTableMenu>> FORGING_TABLE = RegisterHelper.registerMenuType("forging_table", ForgingTableMenu::new);
+    public static RegistryObject<MenuType<WoodcutterMenu>> WOODCUTTER = RegisterHelper.registerMenuType("woodcutter", WoodcutterMenu::new);
+    public static RegistryObject<MenuType<ForgingTableMenu>> FORGING_TABLE = RegisterHelper.registerMenuType("forging_table", ForgingTableMenu::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link MenuType menu types}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerMenuTypes(eventBus);
     }
 

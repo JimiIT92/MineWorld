@@ -21,7 +21,7 @@ public class MWSkullBlock extends SkullBlock {
      * @param type {@link Type The skull block type}
      * @param properties {@link Properties The block properties}
      */
-    public MWSkullBlock(final Type type, final Properties properties) {
+    public MWSkullBlock(Type type, Properties properties) {
         super(type, properties);
     }
 
@@ -33,7 +33,7 @@ public class MWSkullBlock extends SkullBlock {
      * @return {@link BlockEntity The skull block entity}
      */
     @Override
-    public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         return new SkullBlockEntity(blockPos, blockState) {
 
             /**

@@ -29,7 +29,7 @@ public class PalmBushBlock extends TreeBushBlock {
      * @return {@link Boolean True if the bush can be placed on top of the provided block}
      */
     @Override
-    protected boolean mayPlaceOn(final @NotNull BlockState state, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+    protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return state.is(Tags.Blocks.SAND) || super.mayPlaceOn(state, blockGetter, blockPos);
     }
 }

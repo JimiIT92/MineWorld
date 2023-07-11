@@ -20,7 +20,7 @@ public class MWTNTMinecartItem extends MWMinecartItem {
     /**
      * {@link MWPrimedTnt.Type The tnt type}
      */
-    private final MWPrimedTnt.Type tntType;
+    private MWPrimedTnt.Type tntType;
 
     /**
      * Constructor. Set the {@link Type minecart type}
@@ -28,7 +28,7 @@ public class MWTNTMinecartItem extends MWMinecartItem {
      * @param type {@link Type The minecart type}
      * @param tntType {@link MWPrimedTnt.Type The tnt type}
      */
-    public MWTNTMinecartItem(final Type type, final MWPrimedTnt.Type tntType) {
+    public MWTNTMinecartItem(Type type, MWPrimedTnt.Type tntType) {
         super(type);
         this.tntType = tntType;
     }
@@ -42,7 +42,7 @@ public class MWTNTMinecartItem extends MWMinecartItem {
      * @param tooltipFlag {@link TooltipFlag The tooltip flag}
      */
     @Override
-    public void appendHoverText(final @NotNull ItemStack itemStack, final @Nullable Level level, @NotNull List<Component> tooltips, final @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> tooltips, @NotNull TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, level, tooltips, tooltipFlag);
         MWTntBlock.appendTntHoverText(tooltips, this.tntType);
     }

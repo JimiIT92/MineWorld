@@ -23,19 +23,19 @@ public class MWItemsForVillagerTypeEmerald implements VillagerTrades.ItemListing
     /**
      * {@link Map The villager trades}
      */
-    private final Map<VillagerType, Item> trades;
+    private Map<VillagerType, Item> trades;
     /**
      * {@link Integer The amount of items to get}
      */
-    private final int amount;
+    private int amount;
     /**
      * {@link Integer The maximum amount of times the recipe can be traded}
      */
-    private final int maxUses;
+    private int maxUses;
     /**
      * {@link Integer The amount of xp the villager will get from this trade}
      */
-    private final int villagerXp;
+    private int villagerXp;
 
     /**
      * Constructor. Set the trade properties
@@ -45,7 +45,7 @@ public class MWItemsForVillagerTypeEmerald implements VillagerTrades.ItemListing
      * @param villagerXp {@link Integer The amount of xp the villager will get from this trade}
      * @param trades {@link Map The villager trades}
      */
-    public MWItemsForVillagerTypeEmerald(final int amount, final int maxUses, final int villagerXp, final Map<VillagerType, Item> trades) {
+    public MWItemsForVillagerTypeEmerald(int amount, int maxUses, int villagerXp, Map<VillagerType, Item> trades) {
         BuiltInRegistries.VILLAGER_TYPE.stream().filter((p_35680_) -> !trades.containsKey(p_35680_)).findAny().ifPresent((p_258962_) -> {
             throw new IllegalStateException("Missing trade for villager type: " + BuiltInRegistries.VILLAGER_TYPE.getKey(p_258962_));
         });
@@ -63,9 +63,9 @@ public class MWItemsForVillagerTypeEmerald implements VillagerTrades.ItemListing
      * @return {@link MerchantOffer The merchant trade}
      */
     @Nullable
-    public MerchantOffer getOffer(final @NotNull Entity trader, final @NotNull RandomSource random) {
+    public MerchantOffer getOffer(@NotNull Entity trader, @NotNull RandomSource random) {
         if (trader instanceof VillagerDataHolder) {
-            final ItemStack offer = new ItemStack(this.trades.get(((VillagerDataHolder)trader).getVillagerData().getType()), this.amount);
+            ItemStack offer = new ItemStack(this.trades.get(((VillagerDataHolder)trader).getVillagerData().getType()), this.amount);
             return new MerchantOffer(new ItemStack(Items.EMERALD), offer, this.maxUses, this.villagerXp, 0.05F);
         }
         return null;

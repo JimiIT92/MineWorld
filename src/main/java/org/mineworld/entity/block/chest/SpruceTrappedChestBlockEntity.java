@@ -16,7 +16,7 @@ public class SpruceTrappedChestBlockEntity extends AbstractTrappedChestBlockEnti
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public SpruceTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public SpruceTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.SPRUCE_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

@@ -40,11 +40,11 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
     /**
      * {@link BooleanProperty Whether this coral flower pot is dried}
      */
-    public static final BooleanProperty DRIED = BooleanProperty.create("dried");
+    public static BooleanProperty DRIED = BooleanProperty.create("dried");
     /**
      * {@link Supplier<Block> The dead coral flower pot variant}
      */
-    private final Supplier<? extends Block> deadCoralFlowerPot;
+    private Supplier<? extends Block> deadCoralFlowerPot;
 
     /**
      * Constructor. Set the {@link Supplier<Block> dead coral variant}
@@ -53,7 +53,7 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
      * @param coral {@link Supplier<Block> The coral for this flower pot}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public CoralFlowerPotBlock(final Supplier<? extends Block> deadCoralFlowerPot, final Supplier<? extends Block> coral, final FeatureFlag... featureFlags) {
+    public CoralFlowerPotBlock(Supplier<? extends Block> deadCoralFlowerPot, Supplier<? extends Block> coral, FeatureFlag... featureFlags) {
         super(() -> (FlowerPotBlock) Blocks.FLOWER_POT, coral, PropertyHelper.copyFromBlock(Blocks.FLOWER_POT, featureFlags));
         this.registerDefaultState(this.stateDefinition.any().setValue(DRIED, Boolean.FALSE));
         this.deadCoralFlowerPot = deadCoralFlowerPot;
@@ -75,7 +75,7 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(itemstack.is(Items.POTION) && PotionUtils.getPotion(itemstack).equals(Potions.WATER) && !blockState.getValue(DRIED)) {
-            final Item item = itemstack.getItem();
+            Item item = itemstack.getItem();
             player.setItemInHand(hand, ItemUtils.createFilledResult(itemstack, player, new ItemStack(Items.GLASS_BOTTLE)));
             player.awardStat(Stats.ITEM_USED.get(item));
             level.setBlockAndUpdate(blockPos, blockState.setValue(DRIED, Boolean.TRUE));

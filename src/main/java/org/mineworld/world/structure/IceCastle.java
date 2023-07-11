@@ -19,14 +19,14 @@ import java.util.Optional;
 
 public class IceCastle extends Structure {
 
-    private final Holder<StructureTemplatePool> startPool;
-    private final Optional<ResourceLocation> startJigsawName;
-    private final int size;
-    private final HeightProvider startHeight;
-    private final Optional<Heightmap.Types> projectStartToHeightmap;
-    private final int maxDistanceFromCenter;
+    private Holder<StructureTemplatePool> startPool;
+    private Optional<ResourceLocation> startJigsawName;
+    private int size;
+    private HeightProvider startHeight;
+    private Optional<Heightmap.Types> projectStartToHeightmap;
+    private int maxDistanceFromCenter;
 
-    public static final Codec<IceCastle> CODEC = RecordCodecBuilder.<IceCastle>mapCodec(instance ->
+    public static Codec<IceCastle> CODEC = RecordCodecBuilder.<IceCastle>mapCodec(instance ->
             instance.group(IceCastle.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),

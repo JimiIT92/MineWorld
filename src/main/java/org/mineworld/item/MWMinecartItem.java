@@ -31,7 +31,7 @@ public class MWMinecartItem extends Item {
     /**
      * {@link Type The minecart type}
      */
-    private final Type type;
+    private Type type;
 
     /**
      * Constructor. Set the {@link Type minecart type}
@@ -39,7 +39,7 @@ public class MWMinecartItem extends Item {
      * @param type {@link Type The minecart type}
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
      */
-    public MWMinecartItem(final Type type, final FeatureFlag... featureFlags) {
+    public MWMinecartItem(Type type, FeatureFlag... featureFlags) {
         super(PropertyHelper.basicItemProperties(featureFlags).stacksTo(1));
         this.type = type;
     }
@@ -50,16 +50,16 @@ public class MWMinecartItem extends Item {
      * @param context {@link UseOnContext The id use on context}
      * @return {@link InteractionResult Interaction result}
      */
-    public @NotNull InteractionResult useOn(final UseOnContext context) {
-        final Level level = context.getLevel();
-        final BlockPos blockpos = context.getClickedPos();
-        final BlockState blockstate = level.getBlockState(blockpos);
+    public @NotNull InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
+        BlockState blockstate = level.getBlockState(blockpos);
         if (!blockstate.is(BlockTags.RAILS)) {
             return InteractionResult.FAIL;
         } else {
-            final ItemStack itemstack = context.getItemInHand();
+            ItemStack itemstack = context.getItemInHand();
             if (!level.isClientSide) {
-                final RailShape railshape = blockstate.getBlock() instanceof BaseRailBlock ? ((BaseRailBlock)blockstate.getBlock()).getRailDirection(blockstate, level, blockpos, null) : RailShape.NORTH_SOUTH;
+                RailShape railshape = blockstate.getBlock() instanceof BaseRailBlock ? ((BaseRailBlock)blockstate.getBlock()).getRailDirection(blockstate, level, blockpos, null) : RailShape.NORTH_SOUTH;
                 AbstractMinecart abstractminecart = createMinecart(level, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.0625D + (railshape.isAscending() ? 0.5D : 0), (double)blockpos.getZ() + 0.5D, this.type);
                 if (itemstack.hasCustomHoverName()) {
                     abstractminecart.setCustomName(itemstack.getHoverName());
@@ -84,7 +84,7 @@ public class MWMinecartItem extends Item {
      * @param type {@link Type The minecart type}
      * @return {@link AbstractMinecart The minecart entity}
      */
-    private static AbstractMinecart createMinecart(final Level level, final double posX, final double posY, final double posZ, final Type type) {
+    private static AbstractMinecart createMinecart(Level level, double posX, double posY, double posZ, Type type) {
         return switch (type) {
             case MEGA_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.MEGA);
             case SUPER_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.SUPER);
@@ -143,7 +143,7 @@ public class MWMinecartItem extends Item {
         /**
          * {@link Boolean If the tnt type represents a disguised one}
          */
-        private final boolean isDisguisedTNT;
+        private boolean isDisguisedTNT;
 
         /**
          * Constructor. Set if the tnt type is disguised
@@ -157,7 +157,7 @@ public class MWMinecartItem extends Item {
          *
          * @param isDisguised {@link Boolean If the tnt type is disguised}
          */
-        Type(final boolean isDisguised) {
+        Type(boolean isDisguised) {
             this.isDisguisedTNT = isDisguised;
         }
 

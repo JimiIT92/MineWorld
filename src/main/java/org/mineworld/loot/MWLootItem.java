@@ -31,7 +31,7 @@ public record MWLootItem(Item item, float chance, Optional<JsonElement> function
     /**
      * {@link MWLootItem The loot id codec}
      */
-    public static final Codec<MWLootItem> CODEC = RecordCodecBuilder
+    public static Codec<MWLootItem> CODEC = RecordCodecBuilder
             .create(instance -> instance.group(
                             ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(modifier -> modifier.item),
                             Codec.FLOAT.fieldOf("chance").forGetter(modifier -> modifier.chance),
@@ -45,10 +45,10 @@ public record MWLootItem(Item item, float chance, Optional<JsonElement> function
      * @param context {@link LootContext The loot context}
      * @return {@link ObjectArrayList<ItemStack> The updated loot}
      */
-    public @NotNull ObjectArrayList<ItemStack> apply(final ObjectArrayList<ItemStack> loot, final LootContext context) {
-        final RandomSource random = context.getRandom();
+    public @NotNull ObjectArrayList<ItemStack> apply(ObjectArrayList<ItemStack> loot, LootContext context) {
+        RandomSource random = context.getRandom();
         if(random.nextFloat() <= chance) {
-            final ItemStack itemStack = ItemHelper.getDefaultStack(item);
+            ItemStack itemStack = ItemHelper.getDefaultStack(item);
             functions.ifPresent(func -> {
                 LootItemFunction[] itemFunctions = Deserializers.createFunctionSerializer().create().fromJson(func, LootItemFunction[].class);
                 if(itemFunctions != null) {

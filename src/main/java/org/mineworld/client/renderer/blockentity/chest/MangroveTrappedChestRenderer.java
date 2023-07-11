@@ -16,7 +16,7 @@ public class MangroveTrappedChestRenderer extends MangroveChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public MangroveTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public MangroveTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

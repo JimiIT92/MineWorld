@@ -8,7 +8,7 @@ import org.mineworld.helper.KeyHelper;
 /**
  * Helper methods for the {@link JeiPlugin JEI plugin integration}
  */
-public final class JEIHelper {
+public class JEIHelper {
 
     /**
      * Get the {@link ResourceLocation vanilla textures location}

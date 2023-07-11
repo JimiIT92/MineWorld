@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 /**
  * Helper methods for {@link ItemStack id stacks}
  */
-public final class ItemHelper {
+public class ItemHelper {
 
     /**
      * Get a default {@link ItemStack id stack} from a {@link RegistryObject < Block > block registry object}
@@ -18,7 +18,7 @@ public final class ItemHelper {
      * @param registryObject {@link RegistryObject<Block> The block registry object}
      * @return {@link ItemStack The default id stack}
      */
-    public static ItemStack getDefaultStack(final RegistryObject<? extends ItemLike> registryObject) {
+    public static ItemStack getDefaultStack(RegistryObject<? extends ItemLike> registryObject) {
         return getDefaultStack(registryObject.get().asItem());
     }
 
@@ -29,7 +29,7 @@ public final class ItemHelper {
      * @param object {@link ItemLike The object}
      * @return {@link ItemStack The default id stack}
      */
-    public static ItemStack getDefaultStack(final ItemLike object) {
+    public static ItemStack getDefaultStack(ItemLike object) {
         return getDefaultStack(object.asItem());
     }
 
@@ -39,7 +39,7 @@ public final class ItemHelper {
      * @param object {@link ItemLike The object}
      * @return {@link Item The object id}
      */
-    public static Item getItem(final ItemLike object) {
+    public static Item getItem(ItemLike object) {
         return getDefaultStack(object).getItem();
     }
 
@@ -49,7 +49,7 @@ public final class ItemHelper {
      * @param item {@link Item The id}
      * @return {@link ItemStack The default id stack}
      */
-    public static ItemStack getDefaultStack(final Item item) {
+    public static ItemStack getDefaultStack(Item item) {
         return item.getDefaultInstance();
     }
 
@@ -59,7 +59,7 @@ public final class ItemHelper {
      * @param itemStack {@link ItemStack The id stack to damage}
      * @param player {@link Player The player using the id stack}
      */
-    public static void hurt(final ItemStack itemStack, final Player player) {
+    public static void hurt(ItemStack itemStack, Player player) {
         hurt(itemStack, player, 1);
     }
 
@@ -68,7 +68,7 @@ public final class ItemHelper {
      *
      * @param itemStack {@link ItemStack The id stack to damage}
      */
-    public static void hurt(final ItemStack itemStack) {
+    public static void hurt(ItemStack itemStack) {
         hurt(itemStack, null, 1);
     }
 
@@ -79,7 +79,7 @@ public final class ItemHelper {
      * @param player {@link Player The player using the id stack}
      * @param amount {@link Integer The amount of damage to apply}
      */
-    public static void hurt(final ItemStack itemStack, final Player player, final int amount) {
+    public static void hurt(ItemStack itemStack, Player player, int amount) {
         if(player != null && player.getAbilities().instabuild) {
             return;
         }
@@ -97,7 +97,7 @@ public final class ItemHelper {
      * @param item {@link Item The item to set the cooldown to}
      * @param ticks {@link Integer How many ticks the item should be set in cooldown}
      */
-    public static void setCooldown(final Player player, final Item item, final int ticks) {
+    public static void setCooldown(Player player, Item item, int ticks) {
         player.getCooldowns().addCooldown(item, ticks);
     }
 

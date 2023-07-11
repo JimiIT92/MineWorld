@@ -81,7 +81,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param block {@link Block The current weathering state block}
      * @return {@link Block The previous weathering state block}
      */
-    static Optional<Block> getPrevious(final Block block) {
+    static Optional<Block> getPrevious(Block block) {
         return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(block));
     }
 
@@ -92,7 +92,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link BlockState The current weathering state block state}
      * @return {@link Block The previous weathering state block state}
      */
-    static Optional<BlockState> getPrevious(final BlockState blockState) {
+    static Optional<BlockState> getPrevious(BlockState blockState) {
         return getPrevious(blockState.getBlock()).map(block -> block.withPropertiesOf(IMWChangeOverTimeBlock.getAdjustedBlockState(blockState)));
     }
 
@@ -103,7 +103,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param currentBlock {@link Block The current weathering state block}
      * @return {@link Block The first weathering state block}
      */
-    static Block getFirst(final Block currentBlock) {
+    static Block getFirst(Block currentBlock) {
         Block previousBlock = currentBlock;
         for(Block block = PREVIOUS_BY_BLOCK.get().get(currentBlock); block != null; block = PREVIOUS_BY_BLOCK.get().get(block)) {
             previousBlock = block;
@@ -118,7 +118,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link Block The current weathering state block state}
      * @return {@link Block The first weathering state block}
      */
-    static BlockState getFirst(final BlockState blockState) {
+    static BlockState getFirst(BlockState blockState) {
         return getFirst(blockState.getBlock()).withPropertiesOf(IMWChangeOverTimeBlock.getAdjustedBlockState(blockState));
     }
 
@@ -129,7 +129,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param block {@link Block The current weathering state block}
      * @return {@link Block The next weathering state block}
      */
-    static Optional<Block> getNext(final Block block) {
+    static Optional<Block> getNext(Block block) {
         return Optional.ofNullable(NEXT_BY_BLOCK.get().get(block));
     }
 
@@ -140,7 +140,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link BlockState The current weathering state block state}
      * @return {@link Block The next weathering state block state}
      */
-    default @NotNull Optional<BlockState> getNext(final BlockState blockState) {
+    default @NotNull Optional<BlockState> getNext(BlockState blockState) {
         return getNext(blockState.getBlock()).map(block -> block.withPropertiesOf(IMWChangeOverTimeBlock.getAdjustedBlockState(blockState)));
     }
 
@@ -155,7 +155,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @return {@link BlockState The modified block state}
      */
     @Nullable
-    static BlockState scrapeWeatherState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
+    static BlockState scrapeWeatherState(BlockState state, UseOnContext context, ToolAction toolAction, boolean isClient) {
         ItemStack stack = context.getItemInHand();
         if(stack.getItem() instanceof AxeItem && toolAction.equals(ToolActions.AXE_SCRAPE)) {
             Optional<BlockState> previousBlockState = getPrevious(state);
@@ -177,7 +177,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param blockPos {@link BlockPos The current block pos}
      * @param randomSource {@link RandomSource The random reference}
      */
-    static void randomTick(final ChangeOverTimeBlock<WeatheringCopper.WeatherState> block, final BlockState blockState, final ServerLevel level, final BlockPos blockPos, final RandomSource randomSource) {
+    static void randomTick(ChangeOverTimeBlock<WeatheringCopper.WeatherState> block, BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
         if(!isWaxed(blockState)) {
             block.onRandomTick(blockState, level, blockPos, randomSource);
         }
@@ -189,7 +189,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link Boolean True if the block should randomly ticking}
      */
-    static boolean isRandomlyTicking(final BlockState blockState) {
+    static boolean isRandomlyTicking(BlockState blockState) {
         return !isWaxed(blockState) && getNext(blockState.getBlock()).isPresent();
     }
 
@@ -203,7 +203,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param isClient {@link Boolean If the code is executed client side}
      * @return {@link BlockState The modified block state}
      */
-    static BlockState getToolModifiedState(final BlockState blockState, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
+    static BlockState getToolModifiedState(BlockState blockState, UseOnContext context, ToolAction toolAction, boolean isClient) {
         if(!isWaxed(blockState)) {
             return scrapeWeatherState(blockState, context, toolAction, isClient);
         }
@@ -216,7 +216,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link BlockState The block state to check}
      * @return {@link Boolean True if the block state is waxed}
      */
-    private static boolean isWaxed(final BlockState blockState) {
+    private static boolean isWaxed(BlockState blockState) {
         return IMWWaxableBlock.isWaxed(blockState);
     }
 
@@ -227,7 +227,7 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param level {@link Level The world reference}
      * @param blockPos {@link BlockPos The current block pos}
      */
-    static void lightningStrike(final BlockState blockState, final Level level, final BlockPos blockPos) {
+    static void lightningStrike(BlockState blockState, Level level, BlockPos blockPos) {
         if(!IMWWaxableBlock.isWaxed(blockState)) {
             level.setBlockAndUpdate(blockPos, getFirst(blockState));
             BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();

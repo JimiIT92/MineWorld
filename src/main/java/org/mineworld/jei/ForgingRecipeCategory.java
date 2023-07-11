@@ -37,42 +37,42 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
     /**
      * {@link ResourceLocation The forging table background texture location}
      */
-    private final ResourceLocation FORGING_TABLE_BG = ForgingTableScreen.BACKGROUND_LOCATION;
+    private ResourceLocation FORGING_TABLE_BG = ForgingTableScreen.BACKGROUND_LOCATION;
     /**
      * {@link IDrawableStatic The static lava texture}
      */
-    private final IDrawableStatic staticLava;
+    private IDrawableStatic staticLava;
     /**
      * {@link IDrawableAnimated The animated lava texture}
      */
-    private final IDrawableAnimated animatedLava;
+    private IDrawableAnimated animatedLava;
     /**
      * {@link ResourceLocation The woodcutting recipe category id}
      */
-    public static final ResourceLocation ID = KeyHelper.location("forging");
+    public static ResourceLocation ID = KeyHelper.location("forging");
     /**
      * {@link IDrawable The woodcutting recipe category background}
      */
-    private final IDrawable background;
+    private IDrawable background;
     /**
      * {@link IDrawable The woodcutting recipe category icon}
      */
-    private final IDrawable icon;
+    private IDrawable icon;
     /**
      * {@link Integer The forging time}
      */
-    private final int forgingTime = 400;
+    private int forgingTime = 400;
     /**
      * {@link LoadingCache The cached loading arrows}
      */
-    private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
+    private LoadingCache<Integer, IDrawableAnimated> cachedArrows;
 
     /**
      * Constructor. Set the recipe category background and icon
      *
      * @param guiHelper {@link IGuiHelper The gui helper}
      */
-    public ForgingRecipeCategory(final IGuiHelper guiHelper) {
+    public ForgingRecipeCategory(IGuiHelper guiHelper) {
         staticLava = guiHelper.createDrawable(FORGING_TABLE_BG, 176, 0, 28, 5);
         animatedLava = guiHelper.createAnimatedDrawable(staticLava, 400, IDrawableAnimated.StartDirection.RIGHT, true);
         this.background = guiHelper.createDrawable(FORGING_TABLE_BG, 38, 3, 112, 79);
@@ -81,7 +81,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
-                    public @NotNull IDrawableAnimated load(final @NotNull Integer forgingTime) {
+                    public @NotNull IDrawableAnimated load(@NotNull Integer forgingTime) {
                         return guiHelper.drawableBuilder(JEIHelper.getVanillaTextureLocation(), 82, 128, 24, 17)
                                 .buildAnimated(forgingTime, IDrawableAnimated.StartDirection.LEFT, false);
                 }
@@ -136,7 +136,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * @param focusGroup {@link IFocusGroup The focus group}
      */
     @Override
-    public void setRecipe(final @NotNull IRecipeLayoutBuilder recipeLayoutBuilder, final @NotNull ForgingRecipe recipe, final @NotNull IFocusGroup focusGroup) {
+    public void setRecipe(@NotNull IRecipeLayoutBuilder recipeLayoutBuilder, @NotNull ForgingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         recipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 3, 18).addIngredients(recipe.base());
         recipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 42, 18).addIngredients(recipe.addition());
         recipeLayoutBuilder.addSlot(RecipeIngredientRole.CATALYST, 42, 48).addIngredients(Ingredient.of(Items.LAVA_BUCKET));
@@ -150,7 +150,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * @return {@link Boolean True if the recipe has been handled}
      */
     @Override
-    public boolean isHandled(final ForgingRecipe recipe) {
+    public boolean isHandled(ForgingRecipe recipe) {
         return !recipe.isSpecial();
     }
 
@@ -164,7 +164,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * @param mouseY {@link Double The mouse Y coordinate}
      */
     @Override
-    public void draw(final @NotNull ForgingRecipe recipe, final @NotNull IRecipeSlotsView recipeSlotsView, final @NotNull PoseStack poseStack, final double mouseX, final double mouseY) {
+    public void draw(@NotNull ForgingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack poseStack, double mouseX, double mouseY) {
         animatedLava.draw(poseStack, 36, 66);
         this.cachedArrows.getUnchecked(forgingTime).draw(poseStack, 63, 18);
         drawExperience(recipe, poseStack ,0);
@@ -178,8 +178,8 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * @param poseStack {@link PoseStack The recipe pose stack}
      * @param y {@link Integer The Y coordinate where to draw the experience}
      */
-    private void drawExperience(final ForgingRecipe recipe, final PoseStack poseStack, final int y) {
-        final float experience = recipe.experience();
+    private void drawExperience(ForgingRecipe recipe, PoseStack poseStack, int y) {
+        float experience = recipe.experience();
         if (experience > 0) {
             drawText(Component.translatable("gui.jei.category.smelting.experience", experience), poseStack, y);
         }
@@ -192,8 +192,8 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * @param poseStack {@link PoseStack The recipe pose stack}
      * @param y {@link Integer The Y coordinate where to draw the forging time}
      */
-    private void drawForgeTime(final ForgingRecipe recipe, final PoseStack poseStack, final int y) {
-        final int cookTime = recipe.forgingTime();
+    private void drawForgeTime(ForgingRecipe recipe, PoseStack poseStack, int y) {
+        int cookTime = recipe.forgingTime();
         if (cookTime > 0) {
             drawText(Component.translatable("gui.jei.category.smelting.time.seconds", cookTime / 20), poseStack, y);
         }
@@ -206,8 +206,8 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * @param poseStack {@link PoseStack The recipe pose stack}
      * @param y {@link Integer The Y coordinate where to draw the text}
      */
-    private void drawText(final Component text, final PoseStack poseStack, final int y) {
-        final Font fontRenderer = Minecraft.getInstance().font;
+    private void drawText(Component text, PoseStack poseStack, int y) {
+        Font fontRenderer = Minecraft.getInstance().font;
         fontRenderer.draw(poseStack, text, getWidth() - fontRenderer.width(text), y, 0xFF808080);
     }
 

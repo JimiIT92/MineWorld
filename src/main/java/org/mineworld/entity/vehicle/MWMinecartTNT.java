@@ -35,11 +35,11 @@ public class MWMinecartTNT extends MinecartTNT {
     /**
      * {@link String The tnt type NBT tag key}
      */
-    private final String tntTypeNBTTagKey = "TNTType";
+    private String tntTypeNBTTagKey = "TNTType";
     /**
      * {@link EntityDataAccessor <String> The tnt type data value}
      */
-    private static final EntityDataAccessor<String> DATA_TYPE = SynchedEntityData.defineId(MWMinecartTNT.class, EntityDataSerializers.STRING);
+    private static EntityDataAccessor<String> DATA_TYPE = SynchedEntityData.defineId(MWMinecartTNT.class, EntityDataSerializers.STRING);
 
     /**
      * Constructor. Set the {@link EntityType entity type}
@@ -47,7 +47,7 @@ public class MWMinecartTNT extends MinecartTNT {
      * @param entityType {@link EntityType The entity type for this primed tnt}
      * @param level {@link Level The world reference}
      */
-    public MWMinecartTNT(final EntityType<? extends MinecartTNT> entityType, final Level level) {
+    public MWMinecartTNT(EntityType<? extends MinecartTNT> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -60,7 +60,7 @@ public class MWMinecartTNT extends MinecartTNT {
      * @param posZ {@link Double The minecart Z coordinate}
      * @param type {@link MWPrimedTnt.Type The primed tnt type}
      */
-    public MWMinecartTNT(final Level level, final double posX, final double posY, final double posZ, final MWPrimedTnt.Type type) {
+    public MWMinecartTNT(Level level, double posX, double posY, double posZ, MWPrimedTnt.Type type) {
         super(MWEntityTypes.TNT_MINECART.get(), level);
         this.setType(type);
         setPos(posX, posY, posZ);
@@ -91,7 +91,7 @@ public class MWMinecartTNT extends MinecartTNT {
      * @param name {@link String The primed tnt type name}
      * @return {@link MWPrimedTnt.Type The primed tnt type}
      */
-    private MWPrimedTnt.Type getTntType(final String name) {
+    private MWPrimedTnt.Type getTntType(String name) {
         return MWPrimedTnt.Type.valueOf(name.toUpperCase(Locale.ROOT));
     }
 
@@ -154,7 +154,7 @@ public class MWMinecartTNT extends MinecartTNT {
      * @param fallDistance {@link Double The distance the minecart has fallen from}
      */
     @Override
-    protected void explode(final @Nullable DamageSource damageSource, final double fallDistance) {
+    protected void explode(@Nullable DamageSource damageSource, double fallDistance) {
         if (!this.level.isClientSide) {
             double multiplier = Math.min(Math.sqrt(fallDistance), 5.0D);
             this.level.explode(this, damageSource, null, this.getX(), this.getY(), this.getZ(), (float)(type.getExplosionPower() + this.random.nextDouble() * 1.5D * multiplier), false, Level.ExplosionInteraction.TNT);
@@ -176,7 +176,7 @@ public class MWMinecartTNT extends MinecartTNT {
      *
      * @param nbt {@link CompoundTag The entity nbt data}
      */
-    protected void readAdditionalSaveData(final @NotNull CompoundTag nbt) {
+    protected void readAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         if (nbt.contains(this.tntTypeNBTTagKey, 8)) {
             this.setType(getTntType(nbt.getString(this.tntTypeNBTTagKey)));
@@ -188,7 +188,7 @@ public class MWMinecartTNT extends MinecartTNT {
      *
      * @param nbt {@link CompoundTag The entity nbt data}
      */
-    protected void addAdditionalSaveData(final @NotNull CompoundTag nbt) {
+    protected void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putString(this.tntTypeNBTTagKey, this.getTntType().name());
     }

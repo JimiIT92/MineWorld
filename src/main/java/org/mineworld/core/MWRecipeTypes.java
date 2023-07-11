@@ -11,17 +11,17 @@ import org.mineworld.recipe.WoodcutterRecipe;
 /**
  * {@link MineWorld MineWorld} {@link RecipeType recipe types}
  */
-public final class MWRecipeTypes {
+public class MWRecipeTypes {
 
-    public static final RegistryObject<RecipeType<WoodcutterRecipe>> WOODCUTTING = RegisterHelper.registerRecipeType("woodcutting");
-    public static final RegistryObject<RecipeType<ForgingRecipe>> FORGING = RegisterHelper.registerRecipeType("forging");
+    public static RegistryObject<RecipeType<WoodcutterRecipe>> WOODCUTTING = RegisterHelper.registerRecipeType("woodcutting");
+    public static RegistryObject<RecipeType<ForgingRecipe>> FORGING = RegisterHelper.registerRecipeType("forging");
 
     /**
      * Register the {@link MineWorld MineWorld} {@link RecipeType recipe types}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerRecipeTypes(eventBus);
     }
 

@@ -16,7 +16,7 @@ public class DeadTrappedChestRenderer extends DeadChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public DeadTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public DeadTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

@@ -23,14 +23,14 @@ public class AddItemsModifier extends LootModifier {
     /**
      * {@link Supplier<Codec> The loot codec supplier}
      */
-    public static final Supplier<Codec<AddItemsModifier>> CODEC = Suppliers.memoize(()  ->
+    public static Supplier<Codec<AddItemsModifier>> CODEC = Suppliers.memoize(()  ->
             RecordCodecBuilder.create(inst -> codecStart(inst).and(
                     MWLootItem.CODEC.listOf().fieldOf("entries").forGetter(m -> m.entries)
             ).apply(inst, AddItemsModifier::new)));
     /**
      * {@link List<MWLootItem> The list of items to add to the loot}
      */
-    private final List<MWLootItem> entries;
+    private List<MWLootItem> entries;
 
     /**
      * Constructor. Set the {@link LootItemCondition loot id conditions}
@@ -38,7 +38,7 @@ public class AddItemsModifier extends LootModifier {
      * @param lootConditions {@index ILootCondition The conditions that need to be matched before the loot is modified}
      * @param entries {@link List<MWLootItem> The list of items to add to the loot}
      */
-    public AddItemsModifier(final LootItemCondition[] lootConditions, List<MWLootItem> entries) {
+    public AddItemsModifier(LootItemCondition[] lootConditions, List<MWLootItem> entries) {
         super(lootConditions);
         this.entries = entries;
     }
@@ -51,7 +51,7 @@ public class AddItemsModifier extends LootModifier {
      * @return {@link ObjectArrayList<ItemStack> The modified loot}
      */
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(final ObjectArrayList<ItemStack> loot, final LootContext context) {
+    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> loot, LootContext context) {
         this.entries.forEach(entry -> entry.apply(loot, context));
         return loot;
     }

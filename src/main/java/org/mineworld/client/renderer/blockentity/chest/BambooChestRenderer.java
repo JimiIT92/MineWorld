@@ -17,7 +17,7 @@ public class BambooChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public BambooChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public BambooChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

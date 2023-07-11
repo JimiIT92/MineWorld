@@ -19,47 +19,47 @@ import java.util.List;
 /**
  * {@link MineWorld MineWorld} {@link PlacedFeature placed features}
  */
-public final class MWPlacedFeatures {
+public class MWPlacedFeatures {
 
-    public static final ResourceKey<PlacedFeature> ORE_SILVER_UPPER = KeyHelper.registerPlacedFeatureKey("ore_silver_upper");
-    public static final ResourceKey<PlacedFeature> ORE_SILVER_MIDDLE = KeyHelper.registerPlacedFeatureKey("ore_silver_middle");
-    public static final ResourceKey<PlacedFeature> ORE_SILVER_SMALL = KeyHelper.registerPlacedFeatureKey("ore_silver_small");
-    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_UPPER = KeyHelper.registerPlacedFeatureKey("ore_aluminum_upper");
-    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_MIDDLE = KeyHelper.registerPlacedFeatureKey("ore_aluminum_middle");
-    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_SMALL = KeyHelper.registerPlacedFeatureKey("ore_aluminum_small");
-    public static final ResourceKey<PlacedFeature> ORE_RUBY = KeyHelper.registerPlacedFeatureKey("ore_ruby");
-    public static final ResourceKey<PlacedFeature> ORE_SAPPHIRE = KeyHelper.registerPlacedFeatureKey("ore_sapphire");
-    public static final ResourceKey<PlacedFeature> ORE_PYRITE = KeyHelper.registerPlacedFeatureKey("ore_pyrite");
-    public static final ResourceKey<PlacedFeature> ORE_MARBLE = KeyHelper.registerPlacedFeatureKey("ore_marble");
-    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_BUSH_VILLAGE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_bush.json");
-    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_COMMON = KeyHelper.registerPlacedFeatureKey("patch_blueberry_common");
-    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_RARE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_rare");
-    public static final ResourceKey<PlacedFeature> SPRING_LAVA_VOLCANIC_PEAK = KeyHelper.registerPlacedFeatureKey("spring_lava_volcanic_peak");
-    public static final ResourceKey<PlacedFeature> MAGMA_STONE_BLOBS = KeyHelper.registerPlacedFeatureKey("magma_stone_blobs");
-    public static final ResourceKey<PlacedFeature> MAGMA_BLACKSTONE_BLOBS = KeyHelper.registerPlacedFeatureKey("magma_blackstone_blobs");
-    public static final ResourceKey<PlacedFeature> COAL_STONE_BLOBS = KeyHelper.registerPlacedFeatureKey("coal_stone_blobs");
-    public static final ResourceKey<PlacedFeature> COAL_BLACKSTONE_BLOBS = KeyHelper.registerPlacedFeatureKey("coal_blackstone_blobs");
-    public static final ResourceKey<PlacedFeature> LAVA_ROCK_STONE_BLOBS = KeyHelper.registerPlacedFeatureKey("lava_rock_stone_blobs");
-    public static final ResourceKey<PlacedFeature> LAVA_ROCK_BLACKSTONE_BLOBS = KeyHelper.registerPlacedFeatureKey("lava_rock_blackstone_blobs");
-    public static final ResourceKey<PlacedFeature> LAKE_LAVA_VOLCANIC_PEAK = KeyHelper.registerPlacedFeatureKey("lake_lava_volcanic_peak");
-    public static final ResourceKey<PlacedFeature> LAKE_LAVA_MAGMA = KeyHelper.registerPlacedFeatureKey("lake_lava_magma");
-    public static final ResourceKey<PlacedFeature> LAKE_LAVA_BLACKSTONE = KeyHelper.registerPlacedFeatureKey("lake_lava_blackstone");
-    public static final ResourceKey<PlacedFeature> LAKE_LAVA_COAL = KeyHelper.registerPlacedFeatureKey("lake_lava_coal");
-    public static final ResourceKey<PlacedFeature> APPLE_TREE = KeyHelper.registerPlacedFeatureKey("apple_tree");
-    public static final ResourceKey<PlacedFeature> APPLE_BEES_TREE = KeyHelper.registerPlacedFeatureKey("apple_bees_tree");
-    public static final ResourceKey<PlacedFeature> FANCY_APPLE_TREE = KeyHelper.registerPlacedFeatureKey("fancy_apple_tree");
-    public static final ResourceKey<PlacedFeature> FANCY_APPLE_BEES_TREE = KeyHelper.registerPlacedFeatureKey("fancy_apple_bees_tree");
-    public static final ResourceKey<PlacedFeature> DEAD_TREE = KeyHelper.registerPlacedFeatureKey("dead_tree");
-    public static final ResourceKey<PlacedFeature> FANCY_DEAD_TREE = KeyHelper.registerPlacedFeatureKey("fancy_dead_tree");
-    public static final ResourceKey<PlacedFeature> PALM_TREE = KeyHelper.registerPlacedFeatureKey("palm_tree");
+    public static ResourceKey<PlacedFeature> ORE_SILVER_UPPER = KeyHelper.registerPlacedFeatureKey("ore_silver_upper");
+    public static ResourceKey<PlacedFeature> ORE_SILVER_MIDDLE = KeyHelper.registerPlacedFeatureKey("ore_silver_middle");
+    public static ResourceKey<PlacedFeature> ORE_SILVER_SMALL = KeyHelper.registerPlacedFeatureKey("ore_silver_small");
+    public static ResourceKey<PlacedFeature> ORE_ALUMINUM_UPPER = KeyHelper.registerPlacedFeatureKey("ore_aluminum_upper");
+    public static ResourceKey<PlacedFeature> ORE_ALUMINUM_MIDDLE = KeyHelper.registerPlacedFeatureKey("ore_aluminum_middle");
+    public static ResourceKey<PlacedFeature> ORE_ALUMINUM_SMALL = KeyHelper.registerPlacedFeatureKey("ore_aluminum_small");
+    public static ResourceKey<PlacedFeature> ORE_RUBY = KeyHelper.registerPlacedFeatureKey("ore_ruby");
+    public static ResourceKey<PlacedFeature> ORE_SAPPHIRE = KeyHelper.registerPlacedFeatureKey("ore_sapphire");
+    public static ResourceKey<PlacedFeature> ORE_PYRITE = KeyHelper.registerPlacedFeatureKey("ore_pyrite");
+    public static ResourceKey<PlacedFeature> ORE_MARBLE = KeyHelper.registerPlacedFeatureKey("ore_marble");
+    public static ResourceKey<PlacedFeature> PATCH_BLUEBERRY_BUSH_VILLAGE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_bush.json");
+    public static ResourceKey<PlacedFeature> PATCH_BLUEBERRY_COMMON = KeyHelper.registerPlacedFeatureKey("patch_blueberry_common");
+    public static ResourceKey<PlacedFeature> PATCH_BLUEBERRY_RARE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_rare");
+    public static ResourceKey<PlacedFeature> SPRING_LAVA_VOLCANIC_PEAK = KeyHelper.registerPlacedFeatureKey("spring_lava_volcanic_peak");
+    public static ResourceKey<PlacedFeature> MAGMA_STONE_BLOBS = KeyHelper.registerPlacedFeatureKey("magma_stone_blobs");
+    public static ResourceKey<PlacedFeature> MAGMA_BLACKSTONE_BLOBS = KeyHelper.registerPlacedFeatureKey("magma_blackstone_blobs");
+    public static ResourceKey<PlacedFeature> COAL_STONE_BLOBS = KeyHelper.registerPlacedFeatureKey("coal_stone_blobs");
+    public static ResourceKey<PlacedFeature> COAL_BLACKSTONE_BLOBS = KeyHelper.registerPlacedFeatureKey("coal_blackstone_blobs");
+    public static ResourceKey<PlacedFeature> LAVA_ROCK_STONE_BLOBS = KeyHelper.registerPlacedFeatureKey("lava_rock_stone_blobs");
+    public static ResourceKey<PlacedFeature> LAVA_ROCK_BLACKSTONE_BLOBS = KeyHelper.registerPlacedFeatureKey("lava_rock_blackstone_blobs");
+    public static ResourceKey<PlacedFeature> LAKE_LAVA_VOLCANIC_PEAK = KeyHelper.registerPlacedFeatureKey("lake_lava_volcanic_peak");
+    public static ResourceKey<PlacedFeature> LAKE_LAVA_MAGMA = KeyHelper.registerPlacedFeatureKey("lake_lava_magma");
+    public static ResourceKey<PlacedFeature> LAKE_LAVA_BLACKSTONE = KeyHelper.registerPlacedFeatureKey("lake_lava_blackstone");
+    public static ResourceKey<PlacedFeature> LAKE_LAVA_COAL = KeyHelper.registerPlacedFeatureKey("lake_lava_coal");
+    public static ResourceKey<PlacedFeature> APPLE_TREE = KeyHelper.registerPlacedFeatureKey("apple_tree");
+    public static ResourceKey<PlacedFeature> APPLE_BEES_TREE = KeyHelper.registerPlacedFeatureKey("apple_bees_tree");
+    public static ResourceKey<PlacedFeature> FANCY_APPLE_TREE = KeyHelper.registerPlacedFeatureKey("fancy_apple_tree");
+    public static ResourceKey<PlacedFeature> FANCY_APPLE_BEES_TREE = KeyHelper.registerPlacedFeatureKey("fancy_apple_bees_tree");
+    public static ResourceKey<PlacedFeature> DEAD_TREE = KeyHelper.registerPlacedFeatureKey("dead_tree");
+    public static ResourceKey<PlacedFeature> FANCY_DEAD_TREE = KeyHelper.registerPlacedFeatureKey("fancy_dead_tree");
+    public static ResourceKey<PlacedFeature> PALM_TREE = KeyHelper.registerPlacedFeatureKey("palm_tree");
 
     /**
      * Register the {@link PlacedFeature placed features}
      *
      * @param context {@link BootstapContext<PlacedFeature> The bootstrap context}
      */
-    public static void bootstrap(final BootstapContext<PlacedFeature> context) {
-        final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+    public static void bootstrap(BootstapContext<PlacedFeature> context) {
+        HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         RegisterHelper.registerCommonOrePlacedFeature(context, ORE_SILVER_UPPER, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_SILVER), 90, 80, 384);
         RegisterHelper.registerCommonOrePlacedFeature(context, ORE_SILVER_MIDDLE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_SILVER), 10, -24, 56);
         RegisterHelper.registerCommonOrePlacedFeature(context, ORE_SILVER_SMALL, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_SILVER_SMALL), 10, 72);

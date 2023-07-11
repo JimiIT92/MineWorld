@@ -26,42 +26,42 @@ import org.mineworld.helper.RegisterHelper;
 /**
  * {@link MineWorld MineWorld} {@link EntityType entity types}
  */
-public final class MWEntityTypes {
+public class MWEntityTypes {
 
-    public static final RegistryObject<EntityType<MWPrimedTnt>> MW_PRIMED_TNT = RegisterHelper.registerEntityType("tnt",
+    public static RegistryObject<EntityType<MWPrimedTnt>> MW_PRIMED_TNT = RegisterHelper.registerEntityType("tnt",
             EntityType.Builder.<MWPrimedTnt>of(MWPrimedTnt::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(0.98F, 0.98F)
                     .clientTrackingRange(10)
                     .updateInterval(10));
-    public static final RegistryObject<EntityType<ThrownPebble>> PEBBLE = RegisterHelper.registerEntityType("pebble",
+    public static RegistryObject<EntityType<ThrownPebble>> PEBBLE = RegisterHelper.registerEntityType("pebble",
             EntityType.Builder.<ThrownPebble>of(ThrownPebble::new, MobCategory.MISC)
                     .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
                     .updateInterval(10));
-    public static final RegistryObject<EntityType<LeashFenceKnotEntity>> LEASH_KNOT = RegisterHelper.registerEntityType("leash_knot",
+    public static RegistryObject<EntityType<LeashFenceKnotEntity>> LEASH_KNOT = RegisterHelper.registerEntityType("leash_knot",
             EntityType.Builder.<LeashFenceKnotEntity>of(LeashFenceKnotEntity::new, MobCategory.MISC)
                     .sized(0.375F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
-    public static final RegistryObject<EntityType<MWMinecartTNT>> TNT_MINECART = RegisterHelper.registerEntityType("tnt_minecart",
+    public static RegistryObject<EntityType<MWMinecartTNT>> TNT_MINECART = RegisterHelper.registerEntityType("tnt_minecart",
             EntityType.Builder.<MWMinecartTNT>of(MWMinecartTNT::new, MobCategory.MISC)
                     .sized(0.98F, 0.7F)
                     .clientTrackingRange(8));
-    public static final RegistryObject<EntityType<MWMinecartChest>> CHEST_MINECART = RegisterHelper.registerEntityType("chest_minecart",
+    public static RegistryObject<EntityType<MWMinecartChest>> CHEST_MINECART = RegisterHelper.registerEntityType("chest_minecart",
             EntityType.Builder.<MWMinecartChest>of(MWMinecartChest::new, MobCategory.MISC)
                     .sized(0.98F, 0.7F)
                     .clientTrackingRange(8));
-    public static final RegistryObject<EntityType<MWBoat>> BOAT = RegisterHelper.registerEntityType("boat",
+    public static RegistryObject<EntityType<MWBoat>> BOAT = RegisterHelper.registerEntityType("boat",
             EntityType.Builder.<MWBoat>of(MWBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F)
                     .clientTrackingRange(10));
-    public static final RegistryObject<EntityType<MWChestBoat>> CHEST_BOAT = RegisterHelper.registerEntityType("chest_boat",
+    public static RegistryObject<EntityType<MWChestBoat>> CHEST_BOAT = RegisterHelper.registerEntityType("chest_boat",
             EntityType.Builder.<MWChestBoat>of(MWChestBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F)
                     .clientTrackingRange(10));
 
-    public static final RegistryObject<EntityType<ThrownGrenade>> GRENADE = RegisterHelper.registerEntityType("grenade",
+    public static RegistryObject<EntityType<ThrownGrenade>> GRENADE = RegisterHelper.registerEntityType("grenade",
             EntityType.Builder.<ThrownGrenade>of(ThrownGrenade::new, MobCategory.MISC)
                     .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
@@ -86,7 +86,7 @@ public final class MWEntityTypes {
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerEntityTypes(eventBus);
     }
 

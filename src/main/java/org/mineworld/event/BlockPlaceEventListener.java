@@ -19,7 +19,7 @@ import org.mineworld.block.MWPointedDripstoneBlock;
  * and the {@link Player player} is sneaking or is placing the block against a non solid block
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class BlockPlaceEventListener {
+public class BlockPlaceEventListener {
 
     /**
      * Place an {@link HorizontalPaneBlock horizontal pane block} if the placed block has a variant
@@ -28,14 +28,14 @@ public final class BlockPlaceEventListener {
      * @param event {@link BlockEvent.EntityPlaceEvent Entity place block event}
      */
     @SubscribeEvent
-    public static void onBlockPlaced(final BlockEvent.EntityPlaceEvent event) {
+    public static void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
         if(!event.isCanceled()) {
-            final Entity placer = event.getEntity();
-            final Level level = placer.getLevel();
-            final BlockPos blockPos = event.getPos();
-            final BlockState placedBlock = event.getPlacedBlock();
+            Entity placer = event.getEntity();
+            Level level = placer.getLevel();
+            BlockPos blockPos = event.getPos();
+            BlockState placedBlock = event.getPlacedBlock();
             if(placer instanceof Player player && !event.getPlacedAgainst().isAir()) {
-                final BlockState hitBlockState = event.getPlacedAgainst();
+                BlockState hitBlockState = event.getPlacedAgainst();
                 if(shouldPlaceHorizontalPane(player, placedBlock, hitBlockState, level, blockPos)) {
                     level.setBlockAndUpdate(blockPos, HorizontalPaneBlock.getStateFromGlassPane(placedBlock, level, blockPos));
                 }
@@ -56,7 +56,7 @@ public final class BlockPlaceEventListener {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Boolean True if the placed block has an horizontal pane and the player is shifting or is placing the block against a non solid block}
      */
-    private static boolean shouldPlaceHorizontalPane(final Player player, final BlockState blockState, final BlockState neighborBlockState, final LevelAccessor level, final BlockPos blockPos) {
+    private static boolean shouldPlaceHorizontalPane(Player player, BlockState blockState, BlockState neighborBlockState, LevelAccessor level, BlockPos blockPos) {
         return HorizontalPaneBlock.hasHorizontalPane(blockState) &&
                 (player.isShiftKeyDown() || (!neighborBlockState.is(blockState.getBlock()) && !neighborBlockState.isFaceSturdy(level, blockPos, player.getDirection().getOpposite())));
     }

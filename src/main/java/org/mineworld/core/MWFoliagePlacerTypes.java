@@ -10,16 +10,16 @@ import org.mineworld.world.worldgen.tree.foliageplacers.PalmFoliagePlacer;
 /**
  * {@link MineWorld MineWorld} {@link FoliagePlacerType trunk placer types}
  */
-public final class MWFoliagePlacerTypes {
+public class MWFoliagePlacerTypes {
 
-    public static final RegistryObject<FoliagePlacerType<PalmFoliagePlacer>> PALM_FOLIAGE_PLACER = RegisterHelper.registerFoliagePlacerType("palm", () -> new FoliagePlacerType<>(PalmFoliagePlacer.CODEC));
+    public static RegistryObject<FoliagePlacerType<PalmFoliagePlacer>> PALM_FOLIAGE_PLACER = RegisterHelper.registerFoliagePlacerType("palm", () -> new FoliagePlacerType<>(PalmFoliagePlacer.CODEC));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link FoliagePlacerType trunk placer types}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerFoliagePlacerTypes(eventBus);
     }
 

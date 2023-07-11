@@ -17,7 +17,7 @@ public class CrimsonChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public CrimsonChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public CrimsonChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

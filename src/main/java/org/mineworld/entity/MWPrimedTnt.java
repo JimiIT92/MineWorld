@@ -24,15 +24,15 @@ public class MWPrimedTnt extends PrimedTnt {
     /**
      * {@link EntityDataAccessor<Integer> The tnt fuse time data value}
      */
-    private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(MWPrimedTnt.class, EntityDataSerializers.INT);
+    private static EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(MWPrimedTnt.class, EntityDataSerializers.INT);
     /**
      * {@link EntityDataAccessor<String> The tnt type data value}
      */
-    private static final EntityDataAccessor<String> DATA_TYPE = SynchedEntityData.defineId(MWPrimedTnt.class, EntityDataSerializers.STRING);
+    private static EntityDataAccessor<String> DATA_TYPE = SynchedEntityData.defineId(MWPrimedTnt.class, EntityDataSerializers.STRING);
     /**
      * {@link String The tnt type NBT tag key}
      */
-    private final String tntTypeNBTTagKey = "TNTType";
+    private String tntTypeNBTTagKey = "TNTType";
     /**
      * {@link LivingEntity The tnt igniter}
      */
@@ -45,7 +45,7 @@ public class MWPrimedTnt extends PrimedTnt {
      * @param entityType {@link EntityType The entity type for this primed tnt}
      * @param level {@link Level The world reference}
      */
-    public MWPrimedTnt(final EntityType<? extends PrimedTnt> entityType, final Level level) {
+    public MWPrimedTnt(EntityType<? extends PrimedTnt> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -59,10 +59,10 @@ public class MWPrimedTnt extends PrimedTnt {
      * @param igniter {@link LivingEntity The entity who ignited the tnt}
      * @param type {@link Type The primed tnt type}
      */
-    public MWPrimedTnt(Level level, double posX, double posY, double posZ, @Nullable LivingEntity igniter, final Type type) {
+    public MWPrimedTnt(Level level, double posX, double posY, double posZ, @Nullable LivingEntity igniter, Type type) {
         super(MWEntityTypes.MW_PRIMED_TNT.get(), level);
         this.setPos(posX, posY, posZ);
-        final double delta = level.random.nextDouble() * (double)((float)Math.PI * 2F);
+        double delta = level.random.nextDouble() * (double)((float)Math.PI * 2F);
         this.setDeltaMovement(-Math.sin(delta) * 0.02D, 0.2F, -Math.cos(delta) * 0.02D);
         this.setFuse(type.fuseTime);
         this.setType(type);
@@ -144,7 +144,7 @@ public class MWPrimedTnt extends PrimedTnt {
      * @param type {@link String The primed tnt type name}
      * @return {@link Type The primed tnt type}
      */
-    public Type getTntType(final String type) {
+    public Type getTntType(String type) {
         return Type.valueOf(type.toUpperCase(Locale.ROOT));
     }
 
@@ -153,7 +153,7 @@ public class MWPrimedTnt extends PrimedTnt {
      *
      * @param nbt {@link CompoundTag The entity nbt data}
      */
-    protected void readAdditionalSaveData(final @NotNull CompoundTag nbt) {
+    protected void readAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         if (nbt.contains(this.tntTypeNBTTagKey, 8)) {
             this.setType(this.getTntType(nbt.getString(this.tntTypeNBTTagKey)));
@@ -165,7 +165,7 @@ public class MWPrimedTnt extends PrimedTnt {
      *
      * @param nbt {@link CompoundTag The entity nbt data}
      */
-    protected void addAdditionalSaveData(final @NotNull CompoundTag nbt) {
+    protected void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putString(this.tntTypeNBTTagKey, this.getTntType().name());
     }
@@ -187,15 +187,15 @@ public class MWPrimedTnt extends PrimedTnt {
         /**
          * {@link Boolean If the tnt type represents a disguised one}
          */
-        private final boolean isDisguised;
+        private boolean isDisguised;
         /**
          * {@link Integer The tnt fuse time}
          */
-        private final int fuseTime;
+        private int fuseTime;
         /**
          * {@link Integer The tnt explosion power}
          */
-        private final int explosionPower;
+        private int explosionPower;
 
         /**
          * Constructor. Set if the tnt type is disguised
@@ -204,7 +204,7 @@ public class MWPrimedTnt extends PrimedTnt {
          * @param fuseTime {@link Integer The tnt fuse time}
          * @param explosionPower {@link Integer The tnt explosion power}
          */
-        Type(final boolean isDisguised, final int fuseTime, final int explosionPower) {
+        Type(boolean isDisguised, int fuseTime, int explosionPower) {
             this.isDisguised = isDisguised;
             this.fuseTime = fuseTime;
             this.explosionPower = explosionPower;

@@ -32,7 +32,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @return {@link Boolean True if the ingredients matches some recipe}
      */
     @Override
-    public boolean matches(final Container container, final @NotNull Level level) {
+    public boolean matches(Container container, @NotNull Level level) {
         return isIngredient(container.getItem(0)) || isIngredient(container.getItem(1));
     }
 
@@ -44,7 +44,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @return {@link ItemStack The recipe result}
      */
     @Override
-    public @NotNull ItemStack assemble(final Container container, final @NotNull RegistryAccess registryAccess) {
+    public @NotNull ItemStack assemble(Container container, @NotNull RegistryAccess registryAccess) {
         ItemStack itemstack = this.result.copy();
         CompoundTag compoundtag = container.getItem(0).getTag();
         if (compoundtag != null) {
@@ -61,7 +61,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @return {@link Boolean True if the crafting container is consistent of 2 slots}
      */
     @Override
-    public boolean canCraftInDimensions(final int width, final int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 2;
     }
 
@@ -72,7 +72,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @return {@link ItemStack The recipe result}
      */
     @Override
-    public @NotNull ItemStack getResultItem(final @NotNull RegistryAccess registryAccess) {
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
         return this.result();
     }
 
@@ -83,7 +83,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @return {@link Boolean False}
      */
     @Override
-    public boolean isTemplateIngredient(final @NotNull ItemStack itemStack) {
+    public boolean isTemplateIngredient(@NotNull ItemStack itemStack) {
         return false;
     }
 
@@ -94,7 +94,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @return {@link Boolean True if the item stack corresponds to a base or addition ingredient}
      */
     @Override
-    public boolean isBaseIngredient(final @NotNull ItemStack itemStack) {
+    public boolean isBaseIngredient(@NotNull ItemStack itemStack) {
         return isIngredient(itemStack);
     }
 
@@ -105,7 +105,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @return {@link Boolean True if the item stack corresponds to a base or addition ingredient}
      */
     @Override
-    public boolean isAdditionIngredient(final @NotNull ItemStack itemStack) {
+    public boolean isAdditionIngredient(@NotNull ItemStack itemStack) {
         return isIngredient(itemStack);
     }
 
@@ -115,7 +115,7 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      * @param itemStack {@link ItemStack The ingredient}
      * @return {@link Boolean True if the item stack corresponds to a base or addition ingredient}
      */
-    private boolean isIngredient(final ItemStack itemStack) {
+    private boolean isIngredient(ItemStack itemStack) {
         return this.base.test(itemStack) || this.addition.test(itemStack);
     }
 

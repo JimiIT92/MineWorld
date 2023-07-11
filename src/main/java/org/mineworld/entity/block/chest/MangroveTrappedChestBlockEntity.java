@@ -16,7 +16,7 @@ public class MangroveTrappedChestBlockEntity extends AbstractTrappedChestBlockEn
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public MangroveTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public MangroveTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.MANGROVE_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

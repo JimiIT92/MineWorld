@@ -13,7 +13,7 @@ import org.mineworld.block.IcePointedDripstoneBlock;
  * Play the break sound when the dripstone falls and break
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class FallingDripstoneEventListener {
+public class FallingDripstoneEventListener {
 
     /**
      * Play the break sound when the {@link FallingBlockEntity falling dripstone} lands
@@ -21,7 +21,7 @@ public final class FallingDripstoneEventListener {
      * @param event {@link EntityLeaveLevelEvent The entity leave level event}
      */
     @SubscribeEvent
-    public static void onFallingIcreDripstone(final EntityLeaveLevelEvent event) {
+    public static void onFallingIcreDripstone(EntityLeaveLevelEvent event) {
         if(event.getEntity() instanceof FallingBlockEntity entity && entity.getBlockState().getBlock() instanceof IcePointedDripstoneBlock) {
             event.getLevel().playSound(null, entity.blockPosition(), SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
         }

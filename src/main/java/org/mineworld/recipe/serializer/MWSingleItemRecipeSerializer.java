@@ -22,14 +22,14 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
     /**
      * {@link IMWSingleItemMaker<T> The recipe maker factory}
      */
-    private final IMWSingleItemMaker<T> factory;
+    private IMWSingleItemMaker<T> factory;
 
     /**
      * Constructor. Set the serializer properties
      *
      * @param factory {@link IMWSingleItemMaker<T> The recipe maker factory}
      */
-    public MWSingleItemRecipeSerializer(final IMWSingleItemMaker<T> factory) {
+    public MWSingleItemRecipeSerializer(IMWSingleItemMaker<T> factory) {
         this.factory = factory;
     }
 
@@ -40,7 +40,7 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
      * @param json {@link JsonObject The recipe json object}
      * @return {@link T The deserialized recipe}
      */
-    public @NotNull T fromJson(final @NotNull ResourceLocation recipeId, final @NotNull JsonObject json) {
+    public @NotNull T fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
         return this.factory.create(recipeId,
                 GsonHelper.getAsString(json, "group", ""),
                 getIngredient("ingredient", json),
@@ -57,7 +57,7 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
      * @param json {@link JsonObject The serialized recipe json}
      * @return {@link Ingredient The ingredient}
      */
-    private Ingredient getIngredient(final String key, final JsonObject json) {
+    private Ingredient getIngredient(String key, JsonObject json) {
         return Ingredient.fromJson(GsonHelper.isArrayNode(json, key) ? GsonHelper.getAsJsonArray(json, key) : GsonHelper.getAsJsonObject(json, key));
     }
 
@@ -68,7 +68,7 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
      * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
      * @return {@link T The deserialized recipe}
      */
-    public T fromNetwork(final @NotNull ResourceLocation recipeId, final FriendlyByteBuf byteBuffer) {
+    public T fromNetwork(@NotNull ResourceLocation recipeId, FriendlyByteBuf byteBuffer) {
         return this.factory.create(recipeId, byteBuffer.readUtf(), Ingredient.fromNetwork(byteBuffer), byteBuffer.readItem());
     }
 
@@ -78,7 +78,7 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
      * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
      * @param recipe {@link T The recipe to serialize}
      */
-    public void toNetwork(final FriendlyByteBuf byteBuffer, final T recipe) {
+    public void toNetwork(FriendlyByteBuf byteBuffer, T recipe) {
         byteBuffer.writeUtf(recipe.group);
         recipe.ingredient.toNetwork(byteBuffer);
         byteBuffer.writeItem(recipe.result);
@@ -100,7 +100,7 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
          * @param result {@link ItemStack The recipe result}
          * @return {@link T The created recipe}
          */
-        T create(final ResourceLocation recipeId, final String group, final Ingredient ingredient, final ItemStack result);
+        T create(ResourceLocation recipeId, String group, Ingredient ingredient, ItemStack result);
     }
 
 }

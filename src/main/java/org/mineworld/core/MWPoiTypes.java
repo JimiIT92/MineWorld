@@ -9,16 +9,16 @@ import org.mineworld.helper.RegisterHelper;
 /**
  * {@link MineWorld MineWorld} {@link PoiType villager poi type}
  */
-public final class MWPoiTypes {
+public class MWPoiTypes {
 
-    public static final RegistryObject<PoiType> CARPENTER = RegisterHelper.registerPOIType("carpenter", MWBlocks.WOODCUTTER);
+    public static RegistryObject<PoiType> CARPENTER = RegisterHelper.registerPOIType("carpenter", MWBlocks.WOODCUTTER);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link PoiType villager poi types}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerPOITypes(eventBus);
     }
 

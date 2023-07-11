@@ -17,7 +17,7 @@ public class BirchChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public BirchChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public BirchChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

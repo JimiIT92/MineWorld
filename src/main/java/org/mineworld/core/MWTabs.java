@@ -22,7 +22,7 @@ import java.util.List;
  * {@link MineWorld MineWorld} {@link CreativeModeTab creative tabs}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class MWTabs {
+public class MWTabs {
 
     public static CreativeModeTab BUILDING_BLOCKS;
     public static CreativeModeTab COLORED_BLOCKS;
@@ -41,7 +41,7 @@ public final class MWTabs {
      * @param event {@link CreativeModeTabEvent.Register Creative mode tab register event}
      */
     @SubscribeEvent
-    public static void onRegisterCreativeTabs(final CreativeModeTabEvent.Register event) {
+    public static void onRegisterCreativeTabs(CreativeModeTabEvent.Register event) {
         BUILDING_BLOCKS = RegisterHelper.registerCreativeTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> ItemHelper.getDefaultStack(MWBlocks.GLOWING_OBSIDIAN));
         COLORED_BLOCKS = RegisterHelper.registerCreativeTab(event, "colored_blocks", BUILDING_BLOCKS, () -> ItemHelper.getDefaultStack(MWBlocks.PINK_MARBLE));
         NATURAL = RegisterHelper.registerCreativeTab(event, "natural", COLORED_BLOCKS, () -> ItemHelper.getDefaultStack(MWBlocks.HOLLOW_BIRCH_LOG));
@@ -60,8 +60,8 @@ public final class MWTabs {
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
     @SubscribeEvent
-    public static void onTabBuildContents(final CreativeModeTabEvent.BuildContents event) {
-        final CreativeModeTab tab = event.getTab();
+    public static void onTabBuildContents(CreativeModeTabEvent.BuildContents event) {
+        CreativeModeTab tab = event.getTab();
         if(tab.equals(BUILDING_BLOCKS)) {
             setBuildingBlocksTab(event);
         }
@@ -99,7 +99,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setBuildingBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setBuildingBlocksTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWBlocks.HOLLOW_OAK_LOG,
                 MWBlocks.HOLLOW_STRIPPED_OAK_LOG,
@@ -552,7 +552,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setColoredBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setColoredBlocksTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWBlocks.WHITE_WOOL_STAIRS,
                 MWBlocks.WHITE_WOOL_SLAB,
@@ -1073,7 +1073,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setNaturalBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setNaturalBlocksTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWBlocks.GRASS_CARPET,
                 MWBlocks.PODZOL_CARPET,
@@ -1201,7 +1201,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setFunctionalBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setFunctionalBlocksTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWBlocks.GOLDEN_LANTERN,
                 MWBlocks.GOLDEN_SOUL_LANTERN,
@@ -1384,7 +1384,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setRedstoneBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setRedstoneBlocksTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWBlocks.APPLE_BUTTON,
                 MWBlocks.PALM_BUTTON,
@@ -1788,7 +1788,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setToolsTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setToolsTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWItems.ALUMINUM_SHOVEL,
                 MWItems.ALUMINUM_PICKAXE,
@@ -1905,7 +1905,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setCombatTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setCombatTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWItems.ALUMINUM_SWORD,
                 MWItems.BRONZE_SWORD,
@@ -2028,7 +2028,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setFoodAndDrinkTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setFoodAndDrinkTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWItems.BLUEBERRIES,
                 MWItems.COB,
@@ -2041,7 +2041,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setIngredientsTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setIngredientsTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 MWItems.PYRITE,
                 MWItems.RAW_ALUMINUM,
@@ -2066,7 +2066,7 @@ public final class MWTabs {
      *
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      */
-    private static void setSpawnEggsTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setSpawnEggsTab(CreativeModeTabEvent.BuildContents event) {
         addToTab(event,
                 Blocks.STRUCTURE_VOID
         );
@@ -2079,7 +2079,7 @@ public final class MWTabs {
      * @param items {@link T The items to add}
      */
     @SafeVarargs
-    private static <T extends ItemLike> void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final T... items) {
+    private static <T extends ItemLike> void addToTab(CreativeModeTabEvent.BuildContents event, @NotNull T... items) {
         addToTab(event, Arrays.stream(items).map(ItemHelper::getDefaultStack).toList());
     }
 
@@ -2090,7 +2090,7 @@ public final class MWTabs {
      * @param items {@link RegistryObject The items to add}
      */
     @SafeVarargs
-    private static void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final RegistryObject<? extends ItemLike>... items) {
+    private static void addToTab(CreativeModeTabEvent.BuildContents event, @NotNull RegistryObject<? extends ItemLike>... items) {
         addToTab(event, Arrays.stream(items).map(ItemHelper::getDefaultStack).toList());
     }
 
@@ -2100,7 +2100,7 @@ public final class MWTabs {
      * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
      * @param items {@link List<ItemStack> The items to add}
      */
-    private static void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final List<ItemStack> items) {
+    private static void addToTab(CreativeModeTabEvent.BuildContents event, @NotNull List<ItemStack> items) {
         event.acceptAll(items);
     }
 

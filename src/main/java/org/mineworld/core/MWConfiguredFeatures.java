@@ -37,42 +37,42 @@ import java.util.OptionalInt;
 /**
  * {@link MineWorld MineWorld} {@link ConfiguredFeature configured features}
  */
-public final class MWConfiguredFeatures {
+public class MWConfiguredFeatures {
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SILVER = KeyHelper.registerConfiguredFeatureKey("ore_silver");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SILVER_SMALL = KeyHelper.registerConfiguredFeatureKey("ore_silver_small");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM = KeyHelper.registerConfiguredFeatureKey("ore_aluminum");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_SMALL = KeyHelper.registerConfiguredFeatureKey("ore_aluminum_small");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_RUBY = KeyHelper.registerConfiguredFeatureKey("ore_ruby");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = KeyHelper.registerConfiguredFeatureKey("ore_sapphire");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_PYRITE = KeyHelper.registerConfiguredFeatureKey("ore_pyrite");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MARBLE = KeyHelper.registerConfiguredFeatureKey("ore_marble");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_BUSH = KeyHelper.registerConfiguredFeatureKey("patch_blueberry_bush.json");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA_VOLCANIC_PEAK = KeyHelper.registerConfiguredFeatureKey("spring_lava_volcanic_peak");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_STONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("magma_stone_blobs");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_BLACKSTONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("magma_blackstone_blobs");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> COAL_STONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("coal_stone_blobs");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> COAL_BLACKSTONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("coal_blackstone_blobs");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_ROCK_STONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("lava_rock_stone_blobs");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_ROCK_BLACKSTONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("lava_rock_blackstone_blobs");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_VOLCANIC_PEAK = KeyHelper.registerConfiguredFeatureKey("lake_lava_volcanic_peak");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_MAGMA = KeyHelper.registerConfiguredFeatureKey("lake_lava_magma");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_BLACKSTONE = KeyHelper.registerConfiguredFeatureKey("lake_lava_blackstone");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_COAL = KeyHelper.registerConfiguredFeatureKey("lake_lava_coal");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("apple_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_BEES_TREE = KeyHelper.registerConfiguredFeatureKey("apple_bees_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_apple_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_APPLE_BEES_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_apple_bees_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PALM_TREE = KeyHelper.registerConfiguredFeatureKey("palm_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("dead_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_dead_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_SILVER = KeyHelper.registerConfiguredFeatureKey("ore_silver");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_SILVER_SMALL = KeyHelper.registerConfiguredFeatureKey("ore_silver_small");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM = KeyHelper.registerConfiguredFeatureKey("ore_aluminum");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_SMALL = KeyHelper.registerConfiguredFeatureKey("ore_aluminum_small");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_RUBY = KeyHelper.registerConfiguredFeatureKey("ore_ruby");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = KeyHelper.registerConfiguredFeatureKey("ore_sapphire");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_PYRITE = KeyHelper.registerConfiguredFeatureKey("ore_pyrite");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ORE_MARBLE = KeyHelper.registerConfiguredFeatureKey("ore_marble");
+    public static ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_BUSH = KeyHelper.registerConfiguredFeatureKey("patch_blueberry_bush.json");
+    public static ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA_VOLCANIC_PEAK = KeyHelper.registerConfiguredFeatureKey("spring_lava_volcanic_peak");
+    public static ResourceKey<ConfiguredFeature<?, ?>> MAGMA_STONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("magma_stone_blobs");
+    public static ResourceKey<ConfiguredFeature<?, ?>> MAGMA_BLACKSTONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("magma_blackstone_blobs");
+    public static ResourceKey<ConfiguredFeature<?, ?>> COAL_STONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("coal_stone_blobs");
+    public static ResourceKey<ConfiguredFeature<?, ?>> COAL_BLACKSTONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("coal_blackstone_blobs");
+    public static ResourceKey<ConfiguredFeature<?, ?>> LAVA_ROCK_STONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("lava_rock_stone_blobs");
+    public static ResourceKey<ConfiguredFeature<?, ?>> LAVA_ROCK_BLACKSTONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("lava_rock_blackstone_blobs");
+    public static ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_VOLCANIC_PEAK = KeyHelper.registerConfiguredFeatureKey("lake_lava_volcanic_peak");
+    public static ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_MAGMA = KeyHelper.registerConfiguredFeatureKey("lake_lava_magma");
+    public static ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_BLACKSTONE = KeyHelper.registerConfiguredFeatureKey("lake_lava_blackstone");
+    public static ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_COAL = KeyHelper.registerConfiguredFeatureKey("lake_lava_coal");
+    public static ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("apple_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> APPLE_BEES_TREE = KeyHelper.registerConfiguredFeatureKey("apple_bees_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_apple_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_APPLE_BEES_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_apple_bees_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> PALM_TREE = KeyHelper.registerConfiguredFeatureKey("palm_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("dead_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_dead_tree");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
      *
      * @param context {@link BootstapContext<ConfiguredFeature> The bootstrap context}
      */
-    public static void bootstrap(final BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RegisterHelper.registerOverworldOreConfiguredFeature(context, ORE_SILVER, MWBlocks.SILVER_ORE, MWBlocks.DEEPSLATE_SILVER_ORE, 9);
         RegisterHelper.registerOverworldOreConfiguredFeature(context, ORE_SILVER_SMALL, MWBlocks.SILVER_ORE, MWBlocks.DEEPSLATE_SILVER_ORE, 4);
         RegisterHelper.registerOverworldOreConfiguredFeature(context, ORE_ALUMINUM, MWBlocks.ALUMINUM_ORE, MWBlocks.DEEPSLATE_ALUMINUM_ORE, 9);
@@ -110,7 +110,7 @@ public final class MWConfiguredFeatures {
      * @param withBeeHive {@link Boolean If the tree should have a bee hive}
      * @return {@link TreeConfiguration The apple tree configuration}
      */
-    private static TreeConfiguration appleTree(final boolean fancy, final boolean withBeeHive) {
+    private static TreeConfiguration appleTree(boolean fancy, boolean withBeeHive) {
         TreeConfiguration.TreeConfigurationBuilder builder = new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(MWBlocks.APPLE_LOG.get()),
                 fancy ? new FancyTrunkPlacer(3, 11, 0) : new StraightTrunkPlacer(4, 2, 0),
@@ -129,8 +129,8 @@ public final class MWConfiguredFeatures {
      *
      * @return {@link TreeConfiguration The apple tree configuration}
      */
-    private static TreeConfiguration palmTree(final BootstapContext<ConfiguredFeature<?, ?>> context) {
-        final HolderGetter<Block> holderGetter = context.lookup(Registries.BLOCK);
+    private static TreeConfiguration palmTree(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        HolderGetter<Block> holderGetter = context.lookup(Registries.BLOCK);
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(MWBlocks.PALM_LOG.get()),
                 new PalmTrunkPlacer(7, 4, 2),
@@ -146,7 +146,7 @@ public final class MWConfiguredFeatures {
      * @param fancy {@link Boolean If the tree should be a large tree}
      * @return {@link TreeConfiguration The apple tree configuration}
      */
-    private static TreeConfiguration deadTree(final boolean fancy) {
+    private static TreeConfiguration deadTree(boolean fancy) {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(MWBlocks.DEAD_LOG.get()),
                 fancy ? new FancyTrunkPlacer(3, 11, 0) : new StraightTrunkPlacer(4, 2, 0),

@@ -28,7 +28,7 @@ public class PebbleItem extends ItemNameBlockItem {
      * @param pebbleBlock {@link Block The pebble block to be placed when right clicking on a block}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public PebbleItem(final Block pebbleBlock, final FeatureFlag... featureFlags) {
+    public PebbleItem(Block pebbleBlock, FeatureFlag... featureFlags) {
         super(pebbleBlock, PropertyHelper.basicItemProperties(featureFlags));
     }
 
@@ -40,7 +40,7 @@ public class PebbleItem extends ItemNameBlockItem {
      * @param hand {@link InteractionHand The hand the player is shooting with}
      * @return {@link InteractionResultHolder<ItemStack> The interaction result}
      */
-    public @NotNull InteractionResultHolder<ItemStack> use(final Level level, final Player player, final @NotNull InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!level.isClientSide) {

@@ -16,7 +16,7 @@ public class AcaciaTrappedChestBlockEntity extends AbstractTrappedChestBlockEnti
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public AcaciaTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public AcaciaTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.ACACIA_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

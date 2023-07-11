@@ -28,7 +28,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      * @param entityType {@link EntityType The entity type for this pebble}
      * @param level {@link Level The world reference}
      */
-    public ThrownPebble(final EntityType<? extends ThrowableItemProjectile> entityType, final Level level) {
+    public ThrownPebble(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -38,7 +38,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      * @param level {@link Level The world reference}
      * @param shooter {@link LivingEntity The entity that shoot the pebble}
      */
-    public ThrownPebble(final Level level, final LivingEntity shooter) {
+    public ThrownPebble(Level level, LivingEntity shooter) {
         super(MWEntityTypes.PEBBLE.get(), shooter, level);
     }
 
@@ -50,7 +50,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      * @param posY {@link Double The pebble Y coordinate}
      * @param posZ {@link Double The pebble Z coordinate}
      */
-    public ThrownPebble(final Level level, final double posX, final double posY, final double posZ) {
+    public ThrownPebble(Level level, double posX, double posY, double posZ) {
         super(MWEntityTypes.PEBBLE.get(), posX, posY, posZ, level);
     }
 
@@ -70,7 +70,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      * @return {@link ParticleOptions Item particles}
      */
     private ParticleOptions getParticle() {
-        final ItemStack itemstack = this.getItemRaw();
+        ItemStack itemstack = this.getItemRaw();
         return new ItemParticleOption(ParticleTypes.ITEM, itemstack.isEmpty() ? ItemHelper.getDefaultStack(getDefaultItem()) : itemstack);
     }
 
@@ -79,7 +79,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      *
      * @param event {@link Byte The entity event byte}
      */
-    public void handleEntityEvent(final byte event) {
+    public void handleEntityEvent(byte event) {
         if (event == 3) {
             ParticleOptions particleoptions = this.getParticle();
             for(int i = 0; i < 8; ++i) {
@@ -93,7 +93,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      *
      * @param entityHitResult {@link EntityHitResult The entity hit result}
      */
-    protected void onHitEntity(final @NotNull EntityHitResult entityHitResult) {
+    protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
         entityHitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 1.0F);
     }
@@ -103,7 +103,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      *
      * @param hitResult {@link HitResult The hit result}
      */
-    protected void onHit(final @NotNull HitResult hitResult) {
+    protected void onHit(@NotNull HitResult hitResult) {
         super.onHit(hitResult);
         if (!this.level.isClientSide) {
             this.level.broadcastEntityEvent(this, (byte)3);

@@ -29,128 +29,128 @@ import org.mineworld.helper.PropertyHelper;
  * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom id renderer}
  */
 @OnlyIn(Dist.CLIENT)
-public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
+public class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
 
     /**
      * {@link BlockEntityRenderDispatcher The block entity renderer dispatcher}
      */
-    private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
+    private BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     /**
      * {@link EntityModelSet The entity model set}
      */
-    private final EntityModelSet entityModelSet;
+    private EntityModelSet entityModelSet;
     /**
      * {@link ChestBlockEntity The spruce chest block entity}
      */
-    private final ChestBlockEntity spruceChest = PropertyHelper.getChestBlockEntity(WoodType.SPRUCE, BlockPos.ZERO, MWBlocks.SPRUCE_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity spruceChest = PropertyHelper.getChestBlockEntity(WoodType.SPRUCE, BlockPos.ZERO, MWBlocks.SPRUCE_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The spruce trapped chest block entity}
      */
-    private final ChestBlockEntity trappedSpruceChest = PropertyHelper.getChestBlockEntity(WoodType.SPRUCE, BlockPos.ZERO, MWBlocks.SPRUCE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedSpruceChest = PropertyHelper.getChestBlockEntity(WoodType.SPRUCE, BlockPos.ZERO, MWBlocks.SPRUCE_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The birch chest block entity}
      */
-    private final ChestBlockEntity birchChest = PropertyHelper.getChestBlockEntity(WoodType.BIRCH, BlockPos.ZERO, MWBlocks.BIRCH_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity birchChest = PropertyHelper.getChestBlockEntity(WoodType.BIRCH, BlockPos.ZERO, MWBlocks.BIRCH_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The birch trapped chest block entity}
      */
-    private final ChestBlockEntity trappedBirchChest = PropertyHelper.getChestBlockEntity(WoodType.BIRCH, BlockPos.ZERO, MWBlocks.BIRCH_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedBirchChest = PropertyHelper.getChestBlockEntity(WoodType.BIRCH, BlockPos.ZERO, MWBlocks.BIRCH_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The jungle chest block entity}
      */
-    private final ChestBlockEntity jungleChest = PropertyHelper.getChestBlockEntity(WoodType.JUNGLE, BlockPos.ZERO, MWBlocks.JUNGLE_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity jungleChest = PropertyHelper.getChestBlockEntity(WoodType.JUNGLE, BlockPos.ZERO, MWBlocks.JUNGLE_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The jungle trapped chest block entity}
      */
-    private final ChestBlockEntity trappedJungleChest = PropertyHelper.getChestBlockEntity(WoodType.JUNGLE, BlockPos.ZERO, MWBlocks.JUNGLE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedJungleChest = PropertyHelper.getChestBlockEntity(WoodType.JUNGLE, BlockPos.ZERO, MWBlocks.JUNGLE_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The acacia chest block entity}
      */
-    private final ChestBlockEntity acaciaChest = PropertyHelper.getChestBlockEntity(WoodType.ACACIA, BlockPos.ZERO, MWBlocks.ACACIA_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity acaciaChest = PropertyHelper.getChestBlockEntity(WoodType.ACACIA, BlockPos.ZERO, MWBlocks.ACACIA_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The acacia trapped chest block entity}
      */
-    private final ChestBlockEntity trappedAcaciaChest = PropertyHelper.getChestBlockEntity(WoodType.ACACIA, BlockPos.ZERO, MWBlocks.ACACIA_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedAcaciaChest = PropertyHelper.getChestBlockEntity(WoodType.ACACIA, BlockPos.ZERO, MWBlocks.ACACIA_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The dark oak chest block entity}
      */
-    private final ChestBlockEntity darkOakChest = PropertyHelper.getChestBlockEntity(WoodType.DARK_OAK, BlockPos.ZERO, MWBlocks.DARK_OAK_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity darkOakChest = PropertyHelper.getChestBlockEntity(WoodType.DARK_OAK, BlockPos.ZERO, MWBlocks.DARK_OAK_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The dark oak trapped chest block entity}
      */
-    private final ChestBlockEntity trappedDarkOakChest = PropertyHelper.getChestBlockEntity(WoodType.DARK_OAK, BlockPos.ZERO, MWBlocks.DARK_OAK_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedDarkOakChest = PropertyHelper.getChestBlockEntity(WoodType.DARK_OAK, BlockPos.ZERO, MWBlocks.DARK_OAK_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The mangrove chest block entity}
      */
-    private final ChestBlockEntity mangroveChest = PropertyHelper.getChestBlockEntity(WoodType.MANGROVE, BlockPos.ZERO, MWBlocks.MANGROVE_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity mangroveChest = PropertyHelper.getChestBlockEntity(WoodType.MANGROVE, BlockPos.ZERO, MWBlocks.MANGROVE_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The mangrove trapped chest block entity}
      */
-    private final ChestBlockEntity trappedMangroveChest = PropertyHelper.getChestBlockEntity(WoodType.MANGROVE, BlockPos.ZERO, MWBlocks.MANGROVE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedMangroveChest = PropertyHelper.getChestBlockEntity(WoodType.MANGROVE, BlockPos.ZERO, MWBlocks.MANGROVE_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The cherry chest block entity}
      */
-    private final ChestBlockEntity cherryChest = PropertyHelper.getChestBlockEntity(WoodType.CHERRY, BlockPos.ZERO, MWBlocks.CHERRY_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity cherryChest = PropertyHelper.getChestBlockEntity(WoodType.CHERRY, BlockPos.ZERO, MWBlocks.CHERRY_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The cherry trapped chest block entity}
      */
-    private final ChestBlockEntity trappedCherryChest = PropertyHelper.getChestBlockEntity(WoodType.CHERRY, BlockPos.ZERO, MWBlocks.CHERRY_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedCherryChest = PropertyHelper.getChestBlockEntity(WoodType.CHERRY, BlockPos.ZERO, MWBlocks.CHERRY_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The bamboo chest block entity}
      */
-    private final ChestBlockEntity bambooChest = PropertyHelper.getChestBlockEntity(WoodType.BAMBOO, BlockPos.ZERO, MWBlocks.BAMBOO_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity bambooChest = PropertyHelper.getChestBlockEntity(WoodType.BAMBOO, BlockPos.ZERO, MWBlocks.BAMBOO_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The bamboo trapped chest block entity}
      */
-    private final ChestBlockEntity trappedBambooChest = PropertyHelper.getChestBlockEntity(WoodType.BAMBOO, BlockPos.ZERO, MWBlocks.BAMBOO_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedBambooChest = PropertyHelper.getChestBlockEntity(WoodType.BAMBOO, BlockPos.ZERO, MWBlocks.BAMBOO_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The crimson chest block entity}
      */
-    private final ChestBlockEntity crimsonChest = PropertyHelper.getChestBlockEntity(WoodType.CRIMSON, BlockPos.ZERO, MWBlocks.CRIMSON_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity crimsonChest = PropertyHelper.getChestBlockEntity(WoodType.CRIMSON, BlockPos.ZERO, MWBlocks.CRIMSON_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The crimson trapped chest block entity}
      */
-    private final ChestBlockEntity trappedCrimsonChest = PropertyHelper.getChestBlockEntity(WoodType.CRIMSON, BlockPos.ZERO, MWBlocks.CRIMSON_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedCrimsonChest = PropertyHelper.getChestBlockEntity(WoodType.CRIMSON, BlockPos.ZERO, MWBlocks.CRIMSON_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The warped chest block entity}
      */
-    private final ChestBlockEntity warpedChest = PropertyHelper.getChestBlockEntity(WoodType.WARPED, BlockPos.ZERO, MWBlocks.WARPED_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity warpedChest = PropertyHelper.getChestBlockEntity(WoodType.WARPED, BlockPos.ZERO, MWBlocks.WARPED_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The warped trapped chest block entity}
      */
-    private final ChestBlockEntity trappedWarpedChest = PropertyHelper.getChestBlockEntity(WoodType.WARPED, BlockPos.ZERO, MWBlocks.WARPED_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedWarpedChest = PropertyHelper.getChestBlockEntity(WoodType.WARPED, BlockPos.ZERO, MWBlocks.WARPED_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The apple chest block entity}
      */
-    private final ChestBlockEntity appleChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.APPLE, BlockPos.ZERO, MWBlocks.APPLE_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity appleChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.APPLE, BlockPos.ZERO, MWBlocks.APPLE_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The apple trapped chest block entity}
      */
-    private final ChestBlockEntity trappedAppleChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.APPLE, BlockPos.ZERO, MWBlocks.APPLE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedAppleChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.APPLE, BlockPos.ZERO, MWBlocks.APPLE_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The palm chest block entity}
      */
-    private final ChestBlockEntity palmChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.PALM, BlockPos.ZERO, MWBlocks.PALM_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity palmChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.PALM, BlockPos.ZERO, MWBlocks.PALM_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The palm trapped chest block entity}
      */
-    private final ChestBlockEntity trappedPalmChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.PALM, BlockPos.ZERO, MWBlocks.PALM_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedPalmChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.PALM, BlockPos.ZERO, MWBlocks.PALM_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The dead chest block entity}
      */
-    private final ChestBlockEntity deadChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.DEAD, BlockPos.ZERO, MWBlocks.DEAD_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity deadChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.DEAD, BlockPos.ZERO, MWBlocks.DEAD_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The dead trapped chest block entity}
      */
-    private final ChestBlockEntity trappedDeadChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.DEAD, BlockPos.ZERO, MWBlocks.DEAD_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedDeadChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.DEAD, BlockPos.ZERO, MWBlocks.DEAD_TRAPPED_CHEST.get().defaultBlockState(), true);
     /**
      * {@link ChestBlockEntity The ice chest block entity}
      */
-    private final ChestBlockEntity iceChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.ICE, BlockPos.ZERO, MWBlocks.ICE_CHEST.get().defaultBlockState(), false);
+    private ChestBlockEntity iceChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.ICE, BlockPos.ZERO, MWBlocks.ICE_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The ice trapped chest block entity}
      */
-    private final ChestBlockEntity trappedIceChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.ICE, BlockPos.ZERO, MWBlocks.ICE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private ChestBlockEntity trappedIceChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.ICE, BlockPos.ZERO, MWBlocks.ICE_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}
@@ -190,11 +190,11 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      * @param packedOverlay {@link Integer The client packed overlay}
      */
     @Override
-    public void renderByItem(final ItemStack stack, final @NotNull ItemDisplayContext displayContext, final @NotNull PoseStack pose, final @NotNull MultiBufferSource buffer, final int packedLight, final int packedOverlay) {
-        final Item item = stack.getItem();
+    public void renderByItem(ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack pose, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        Item item = stack.getItem();
         if(item instanceof BlockItem blockItem) {
-            final Block block = blockItem.getBlock();
-            final BlockState blockState = block.defaultBlockState();
+            Block block = blockItem.getBlock();
+            BlockState blockState = block.defaultBlockState();
             BlockEntity blockentity = null;
             if(blockState.is(MWBlocks.SPRUCE_CHEST.get())) {
                 blockentity = this.spruceChest;

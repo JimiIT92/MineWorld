@@ -34,15 +34,15 @@ public class SidePanelBlock extends Block {
     /**
      * {@link DirectionProperty The block facing property}
      */
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     /**
      * {@link BooleanProperty The block waterlogged property}
      */
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /**
      * {@link VoxelShape The block shape based on direction}
      */
-    private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(
+    private static Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(
             ImmutableMap.of(
                     Direction.NORTH, Block.box(0.0D, 8.0D, 15.0D, 16.0D, 16.0D, 16.0D),
                     Direction.SOUTH, Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 1.0D),
@@ -56,7 +56,7 @@ public class SidePanelBlock extends Block {
      *
      * @param properties {@link BlockBehaviour.Properties The block properties}
      */
-    public SidePanelBlock(final Properties properties) {
+    public SidePanelBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
@@ -71,7 +71,7 @@ public class SidePanelBlock extends Block {
      * @return {@link VoxelShape The block shape}
      */
     @Override
-    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return AABBS.get(blockState.getValue(FACING));
     }
 
@@ -84,7 +84,7 @@ public class SidePanelBlock extends Block {
      * @return {@link Boolean True if the block can survive}
      */
     @Override
-    public boolean canSurvive(final BlockState state, final LevelReader level, final BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return level.getBlockState(pos.relative(state.getValue(FACING).getOpposite())).getMaterial().isSolid();
     }
 
@@ -96,11 +96,11 @@ public class SidePanelBlock extends Block {
      */
     @Override
     @Nullable
-    public BlockState getStateForPlacement(final BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState blockState = this.defaultBlockState();
-        final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        final LevelReader level = context.getLevel();
-        final BlockPos pos = context.getClickedPos();
+        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        LevelReader level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
 
         for(Direction direction : Arrays.stream(context.getNearestLookingDirections()).filter(direction -> direction.getAxis().isHorizontal()).toList()) {
             blockState = blockState.setValue(FACING, direction.getOpposite());
@@ -124,7 +124,7 @@ public class SidePanelBlock extends Block {
      * @return {@link BlockState The updated block state}
      */
     @Override
-    public @NotNull BlockState updateShape(final BlockState state, final Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor level, final @NotNull BlockPos pos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         return direction.getOpposite().equals(state.getValue(FACING)) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
@@ -136,7 +136,7 @@ public class SidePanelBlock extends Block {
      * @return {@link BlockState The rotated block state}
      */
     @Override
-    public @NotNull BlockState rotate(final BlockState state, final Rotation rotation) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
@@ -148,7 +148,7 @@ public class SidePanelBlock extends Block {
      * @return {@link BlockState The mirrored block state}
      */
     @Override
-    public @NotNull BlockState mirror(final BlockState state, final Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
@@ -158,7 +158,7 @@ public class SidePanelBlock extends Block {
      * @param stateBuilder {@link StateDefinition.Builder The block state builder}
      */
     @Override
-    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, WATERLOGGED);
     }
 

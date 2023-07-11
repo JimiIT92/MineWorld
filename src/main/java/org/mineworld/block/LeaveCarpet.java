@@ -27,14 +27,14 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
     /**
      * {@link BooleanProperty The block waterlogged property}
      */
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties block properties}
      *
      * @param properties {@link BlockBehaviour.Properties The block properties}
      */
-    public LeaveCarpet(final BlockBehaviour.Properties properties) {
+    public LeaveCarpet(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE));
     }
@@ -49,7 +49,7 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
      * @return {@link Boolean True}
      */
     @Override
-    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return true;
     }
 
@@ -63,7 +63,7 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
      * @return {@link Integer 60}
      */
     @Override
-    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 60;
     }
 
@@ -77,7 +77,7 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
      * @return {@link Integer 30}
      */
     @Override
-    public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 30;
     }
 
@@ -87,7 +87,7 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
      * @param blockPlaceContext {@link BlockPlaceContext The block place context}
      * @return {@link BlockState The placed block state}
      */
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         return this.defaultBlockState().setValue(WATERLOGGED, Fluids.WATER.equals(blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos()).getType()));
     }
 
@@ -102,7 +102,7 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
      * @param neighborPos {@link BlockPos The neighbor block pos}
      * @return {@link BlockState The updated block state}
      */
-    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
@@ -114,7 +114,7 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
      *
      * @param stateBuilder {@link StateDefinition.Builder The block state builder}
      */
-    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(WATERLOGGED);
     }
 
@@ -124,7 +124,7 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link FluidState The block fluid state}
      */
-    public @NotNull FluidState getFluidState(final BlockState blockState) {
+    public @NotNull FluidState getFluidState(BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 

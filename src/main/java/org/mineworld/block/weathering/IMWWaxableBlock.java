@@ -97,7 +97,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @param block {@link Block The current weathering state block}
      * @return {@link Block The unwaxed weathering state block}
      */
-    static Optional<Block> getUnwaxed(final Block block) {
+    static Optional<Block> getUnwaxed(Block block) {
         return Optional.ofNullable(UNWAXED_BY_BLOCK.get().get(block));
     }
 
@@ -107,8 +107,8 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link Block The current weathering state block state}
      * @return {@link Block The unwaxed weathering state block}
      */
-    static Optional<BlockState> getUnwaxed(final BlockState blockState) {
-        final boolean hasPowerProperty = blockState.hasProperty(BlockStateProperties.POWER);
+    static Optional<BlockState> getUnwaxed(BlockState blockState) {
+        boolean hasPowerProperty = blockState.hasProperty(BlockStateProperties.POWER);
         return getUnwaxed(blockState.getBlock()).map(block -> block.withPropertiesOf(IMWChangeOverTimeBlock.getAdjustedBlockState(blockState)));
     }
 
@@ -118,7 +118,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @param block {@link Block The current weathering state block}
      * @return {@link Block The next weathering state block}
      */
-    static Optional<Block> getWaxed(final Block block) {
+    static Optional<Block> getWaxed(Block block) {
         return Optional.ofNullable(WAXED_BY_BLOCK.get().get(block));
     }
 
@@ -128,7 +128,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link BlockState The current weathering state block state}
      * @return {@link Block The next weathering state block state}
      */
-    static @NotNull Optional<BlockState> getWaxed(final BlockState blockState) {
+    static @NotNull Optional<BlockState> getWaxed(BlockState blockState) {
         return getWaxed(blockState.getBlock()).map(block -> block.withPropertiesOf(IMWChangeOverTimeBlock.getAdjustedBlockState(blockState)));
     }
 
@@ -142,7 +142,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @return {@link BlockState The modified block state}
      */
     @Nullable
-    static BlockState scrapeWax(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
+    static BlockState scrapeWax(BlockState state, UseOnContext context, ToolAction toolAction, boolean isClient) {
         Optional<BlockState> previousBlockState = getUnwaxed(state);
         if(previousBlockState.isPresent()) {
             context.getLevel().levelEvent(context.getPlayer(), 3004, context.getClickedPos(), 0);
@@ -163,10 +163,10 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @return {@link InteractionResult The interaction result}
      */
     @Nullable
-    static InteractionResult applyWax(final BlockState state, final ItemStack itemStack, final Player player, final  BlockPos blockPos, final InteractionHand hand, final Level level) {
+    static InteractionResult applyWax(BlockState state, ItemStack itemStack, Player player,  BlockPos blockPos, InteractionHand hand, Level level) {
         Optional<BlockState> waxedBlockState = getWaxed(state);
         if(waxedBlockState.isPresent()) {
-            final BlockState waxedState = waxedBlockState.get();
+            BlockState waxedState = waxedBlockState.get();
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, blockPos, itemStack);
             }
@@ -188,7 +188,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link Boolean True if the block is waxed}
      */
-    static boolean isWaxed(final BlockState blockState) {
+    static boolean isWaxed(BlockState blockState) {
         return UNWAXED_BY_BLOCK.get().containsKey(blockState.getBlock());
     }
 
@@ -202,7 +202,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @param isClient {@link Boolean If the code is executed client side}
      * @return {@link BlockState The modified block state}
      */
-    static BlockState getToolModifiedState(final BlockState blockState, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
+    static BlockState getToolModifiedState(BlockState blockState, UseOnContext context, ToolAction toolAction, boolean isClient) {
         if(isWaxed(blockState) && context.getItemInHand().getItem() instanceof AxeItem && toolAction.equals(ToolActions.AXE_WAX_OFF)) {
             return scrapeWax(blockState, context, toolAction, isClient);
         }

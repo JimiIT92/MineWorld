@@ -16,7 +16,7 @@ public class AppleTrappedChestBlockEntity extends AbstractTrappedChestBlockEntit
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public AppleTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public AppleTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.APPLE_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

@@ -17,20 +17,20 @@ import org.mineworld.core.MWBlocks;
  * Register the custom skull block types
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD,  value = Dist.CLIENT)
-public final class SkullModelEventListener {
+public class SkullModelEventListener {
 
     /**
      * {@link ModelLayerLocation The model layer location for the stray skull}
      */
-    private static final ModelLayerLocation STRAY_SKULL_LAYER = new ModelLayerLocation(MWBlocks.STRAY_SKULL.getId(), "main");
+    private static ModelLayerLocation STRAY_SKULL_LAYER = new ModelLayerLocation(MWBlocks.STRAY_SKULL.getId(), "main");
     /**
      * {@link ModelLayerLocation The model layer location for the husk head}
      */
-    private static final ModelLayerLocation HUSK_HEAD_LAYER = new ModelLayerLocation(MWBlocks.HUSK_HEAD.getId(), "main");
+    private static ModelLayerLocation HUSK_HEAD_LAYER = new ModelLayerLocation(MWBlocks.HUSK_HEAD.getId(), "main");
     /**
      * {@link ModelLayerLocation The model layer location for the drowned head}
      */
-    private static final ModelLayerLocation DROWNED_HEAD_LAYER = new ModelLayerLocation(MWBlocks.DROWNED_HEAD.getId(), "main");
+    private static ModelLayerLocation DROWNED_HEAD_LAYER = new ModelLayerLocation(MWBlocks.DROWNED_HEAD.getId(), "main");
 
     /**
      * Register the custom model layers
@@ -38,7 +38,7 @@ public final class SkullModelEventListener {
       * @param event {@link EntityRenderersEvent.RegisterLayerDefinitions The register layer definitions event}
      */
     @SubscribeEvent
-    public static void registerLayerDefinitions(final EntityRenderersEvent.RegisterLayerDefinitions event) {
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(STRAY_SKULL_LAYER, Lazy.of(SkullModel::createHumanoidHeadLayer));
         event.registerLayerDefinition(HUSK_HEAD_LAYER, Lazy.of(SkullModel::createHumanoidHeadLayer));
         event.registerLayerDefinition(DROWNED_HEAD_LAYER, Lazy.of(SkullModel::createHumanoidHeadLayer));
@@ -50,7 +50,7 @@ public final class SkullModelEventListener {
      * @param event {@link EntityRenderersEvent.CreateSkullModels The create skull models event}
      */
     @SubscribeEvent
-    public static void onSkullModelCreate(final EntityRenderersEvent.CreateSkullModels event) {
+    public static void onSkullModelCreate(EntityRenderersEvent.CreateSkullModels event) {
         event.registerSkullModel(MWSkullBlock.Types.STRAY, new SkullModel(event.getEntityModelSet().bakeLayer(STRAY_SKULL_LAYER)));
         event.registerSkullModel(MWSkullBlock.Types.HUSK, new SkullModel(event.getEntityModelSet().bakeLayer(HUSK_HEAD_LAYER)));
         event.registerSkullModel(MWSkullBlock.Types.DROWNED, new SkullModel(event.getEntityModelSet().bakeLayer(DROWNED_HEAD_LAYER)));

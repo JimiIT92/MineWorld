@@ -20,7 +20,7 @@ import org.mineworld.core.MWPlacedFeatures;
 /**
  * Helper methods for {@link Biome biomes}
  */
-public final class BiomeHelper {
+public class BiomeHelper {
 
     /**
      * Generate the {@link MWBiomes#FROZEN_PLAINS frozen plains biome}
@@ -29,9 +29,9 @@ public final class BiomeHelper {
      * @param carver {@link HolderGetter<ConfiguredWorldCarver> The wolrd carver holder}
      * @return {@link Biome The frozen plains biome}
      */
-    public static Biome frozenPlains(final HolderGetter<PlacedFeature> placedFeatureHolder, final HolderGetter<ConfiguredWorldCarver<?>> carver) {
-        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
-        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+    public static Biome frozenPlains(HolderGetter<PlacedFeature> placedFeatureHolder, HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+        BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
         OverworldBiomes.globalOverworldGeneration(biomeGenerationSettings);
         mobSpawnSettings.creatureGenerationProbability(0.07F);
         BiomeDefaultFeatures.snowySpawns(mobSpawnSettings);
@@ -68,11 +68,11 @@ public final class BiomeHelper {
      * @param carver {@link HolderGetter<ConfiguredWorldCarver> The wolrd carver holder}
      * @return {@link Biome The wasteland biome}
      */
-    public static Biome wasteland(final HolderGetter<PlacedFeature> placedFeatureHolder, final HolderGetter<ConfiguredWorldCarver<?>> carver) {
-        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+    public static Biome wasteland(HolderGetter<PlacedFeature> placedFeatureHolder, HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
         mobSpawnSettings.creatureGenerationProbability(0);
 
-        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+        BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(biomeGenerationSettings);
         BiomeDefaultFeatures.addDefaultCrystalFormations(biomeGenerationSettings);
         BiomeDefaultFeatures.addDefaultMonsterRoom(biomeGenerationSettings);
@@ -107,11 +107,11 @@ public final class BiomeHelper {
      * @param carver {@link HolderGetter<ConfiguredWorldCarver> The wolrd carver holder}
      * @return {@link Biome The volcanic island biome}
      */
-    public static Biome volcanicPeak(final HolderGetter<PlacedFeature> placedFeatureHolder, final HolderGetter<ConfiguredWorldCarver<?>> carver) {
-        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+    public static Biome volcanicPeak(HolderGetter<PlacedFeature> placedFeatureHolder, HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
         mobSpawnSettings.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 5, 1, 3));
         BiomeDefaultFeatures.commonSpawns(mobSpawnSettings);
-        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+        BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(biomeGenerationSettings);
         BiomeDefaultFeatures.addDefaultCrystalFormations(biomeGenerationSettings);
         BiomeDefaultFeatures.addDefaultMonsterRoom(biomeGenerationSettings);

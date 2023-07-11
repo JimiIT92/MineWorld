@@ -43,7 +43,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
     /**
      * {@link Supplier<Map> Hollowable blocks}
      */
-    public static final Supplier<Map<Block, Block>> HOLLOWABLES = Suppliers.memoize(() -> ImmutableMap.<Block, Block>builder()
+    public static Supplier<Map<Block, Block>> HOLLOWABLES = Suppliers.memoize(() -> ImmutableMap.<Block, Block>builder()
             .put(Blocks.OAK_LOG, MWBlocks.HOLLOW_OAK_LOG.get())
             .put(Blocks.STRIPPED_OAK_LOG, MWBlocks.HOLLOW_STRIPPED_OAK_LOG.get())
             .put(MWBlocks.HOLLOW_OAK_LOG.get(), MWBlocks.HOLLOW_STRIPPED_OAK_LOG.get())
@@ -91,14 +91,14 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
     /**
      * {@link BooleanProperty The block waterlogged property}
      */
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties block properties}
      *
      * @param properties {@link BlockBehaviour.Properties The block properties}
      */
-    public HollowBlock(final BlockBehaviour.Properties properties) {
+    public HollowBlock(BlockBehaviour.Properties properties) {
         super(properties.noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, Boolean.FALSE));
     }
@@ -113,7 +113,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @return {@link Boolean True if the block is flammable}
      */
     @Override
-    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return this.material.isFlammable();
     }
 
@@ -127,7 +127,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @return {@link Integer The block flammability value}
      */
     @Override
-    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 5;
     }
 
@@ -141,7 +141,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @return {@link Integer The block fire spread chance value}
      */
     @Override
-    public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFireSpreadSpeed(BlockState blockState,BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 5;
     }
 
@@ -157,7 +157,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      */
     @Nullable
     @Override
-    public BlockState getToolModifiedState(final BlockState blockState, final UseOnContext context, final ToolAction toolAction, final boolean isClientSide) {
+    public BlockState getToolModifiedState(BlockState blockState, UseOnContext context, ToolAction toolAction, boolean isClientSide) {
         ItemStack stack = context.getItemInHand();
         if(stack.getItem() instanceof AxeItem && toolAction.equals(ToolActions.AXE_STRIP)) {
             Optional<BlockState> optionalHollowState = getHollow(blockState);
@@ -174,7 +174,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @param blockPlaceContext {@link BlockPlaceContext The block place context}
      * @return {@link BlockState The placed block state}
      */
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         return this.defaultBlockState().setValue(AXIS, blockPlaceContext.getClickedFace().getAxis()).setValue(WATERLOGGED, Fluids.WATER.equals(blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos()).getType()));
     }
 
@@ -189,7 +189,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @param neighborPos {@link BlockPos The neighbor block pos}
      * @return {@link BlockState The updated block state}
      */
-    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
@@ -201,7 +201,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      *
      * @param stateBuilder {@link StateDefinition.Builder The block state builder}
      */
-    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(AXIS).add(WATERLOGGED);
     }
 
@@ -211,7 +211,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @param blockState {@link BlockState The current block state}
      * @return {@link FluidState The block fluid state}
      */
-    public @NotNull FluidState getFluidState(final BlockState blockState) {
+    public @NotNull FluidState getFluidState(BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
@@ -224,7 +224,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @return {@link Float The block shade brightness}
      */
     @Override
-    public float getShadeBrightness(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+    public float getShadeBrightness(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return 1.0F;
     }
 
@@ -237,7 +237,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @return {@link Boolean True}
      */
     @Override
-    public boolean propagatesSkylightDown(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+    public boolean propagatesSkylightDown(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return true;
     }
 
@@ -251,7 +251,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @return {@link VoxelShape The block shape}
      */
     @Override
-    public @NotNull VoxelShape getShape(final BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return switch (blockState.getValue(AXIS)) {
             case X -> Shapes.or(
                     Block.box(0, 12, 4, 16, 15, 12),
@@ -293,7 +293,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      * @param blockState {@link BlockState The current block state}
      * @return {@link Optional<BlockState> The hollow log block state, if any}
      */
-    public static Optional<BlockState> getHollow(final BlockState blockState) {
+    public static Optional<BlockState> getHollow(BlockState blockState) {
         return Optional.ofNullable(HOLLOWABLES.get().get(blockState.getBlock())).map(block -> block.withPropertiesOf(blockState));
     }
 
