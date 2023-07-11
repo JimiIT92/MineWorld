@@ -17,7 +17,7 @@ public class CherryChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public CherryChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public CherryChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

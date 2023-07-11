@@ -17,7 +17,7 @@ public class WarpedChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public WarpedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public WarpedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

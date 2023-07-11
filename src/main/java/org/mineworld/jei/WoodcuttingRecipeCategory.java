@@ -24,22 +24,22 @@ public class WoodcuttingRecipeCategory implements IRecipeCategory<WoodcutterReci
     /**
      * {@link ResourceLocation The woodcutting recipe category id}
      */
-    public static final ResourceLocation ID = KeyHelper.location("woodcutting");
+    public static ResourceLocation ID = KeyHelper.location("woodcutting");
     /**
      * {@link IDrawable The woodcutting recipe category background}
      */
-    private final IDrawable background;
+    private IDrawable background;
     /**
      * {@link IDrawable The woodcutting recipe category icon}
      */
-    private final IDrawable icon;
+    private IDrawable icon;
 
     /**
      * Constructor. Set the recipe category background and icon
      *
      * @param guiHelper {@link IGuiHelper The gui helper}
      */
-    public WoodcuttingRecipeCategory(final IGuiHelper guiHelper) {
+    public WoodcuttingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createDrawable(JEIHelper.getVanillaTextureLocation(), 0, 220, 82, 34);
         this.icon = guiHelper.createDrawableItemStack(ItemHelper.getDefaultStack(MWBlocks.WOODCUTTER));
     }
@@ -92,7 +92,7 @@ public class WoodcuttingRecipeCategory implements IRecipeCategory<WoodcutterReci
      * @param focusGroup {@link IFocusGroup The focus group}
      */
     @Override
-    public void setRecipe(final @NotNull IRecipeLayoutBuilder recipeLayoutBuilder, final @NotNull WoodcutterRecipe recipe, final @NotNull IFocusGroup focusGroup) {
+    public void setRecipe(@NotNull IRecipeLayoutBuilder recipeLayoutBuilder, @NotNull WoodcutterRecipe recipe, @NotNull IFocusGroup focusGroup) {
         recipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 9).addIngredients(recipe.ingredient);
         recipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 61, 9).addItemStack(recipe.result);
     }
@@ -104,7 +104,7 @@ public class WoodcuttingRecipeCategory implements IRecipeCategory<WoodcutterReci
      * @return {@link Boolean True if the recipe is not marked as special}
      */
     @Override
-    public boolean isHandled(final WoodcutterRecipe recipe) {
+    public boolean isHandled(WoodcutterRecipe recipe) {
         return !recipe.isSpecial();
     }
 

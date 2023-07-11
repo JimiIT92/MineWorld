@@ -30,7 +30,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
     /**
      * {@link Codec<PalmTrunkPlacer> The palm trunk placer codec}
      */
-    public static final Codec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.create(builder -> trunkPlacerParts(builder).apply(builder, PalmTrunkPlacer::new));
+    public static Codec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.create(builder -> trunkPlacerParts(builder).apply(builder, PalmTrunkPlacer::new));
 
     /**
      * Constructor. Set the trunk placer properties
@@ -39,7 +39,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
      * @param heightRandA {@link Integer The additional height the tree can have}
      * @param heightRandB {@link Integer The additional height the tree can have after the extra one}
      */
-    public PalmTrunkPlacer(final int minHeight, final int heightRandA, final int heightRandB) {
+    public PalmTrunkPlacer(int minHeight, int heightRandA, int heightRandB) {
         super(minHeight, heightRandA, heightRandB);
     }
 
@@ -65,13 +65,13 @@ public class PalmTrunkPlacer extends TrunkPlacer {
      * @return {@link List<FoliagePlacer.FoliageAttachment> The foliage attachment list}
      */
     @Override
-    public @NotNull List<FoliagePlacer.FoliageAttachment> placeTrunk(final @NotNull LevelSimulatedReader levelSimulatedReader, final @NotNull BiConsumer<BlockPos, BlockState> stateBiConsumer, final @NotNull RandomSource random, final int height, BlockPos blockPos, final @NotNull TreeConfiguration treeConfiguration) {
-        final BlockPos below = blockPos.below();
+    public @NotNull List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader levelSimulatedReader, @NotNull BiConsumer<BlockPos, BlockState> stateBiConsumer, @NotNull RandomSource random, int height, BlockPos blockPos, @NotNull TreeConfiguration treeConfiguration) {
+        BlockPos below = blockPos.below();
         if(!((LevelReader)levelSimulatedReader).getBlockState(below).is(BlockTags.SAND)) {
             setDirtAt(levelSimulatedReader, stateBiConsumer, random, below, treeConfiguration);
         }
 
-        final Direction direction = LevelHelper.getRandomHorizontalDirection(random);
+        Direction direction = LevelHelper.getRandomHorizontalDirection(random);
 
         for (int i = 0; i < Math.min(4, height); ++i) {
             this.placeLog(levelSimulatedReader, stateBiConsumer, random, blockPos.above(i), treeConfiguration);

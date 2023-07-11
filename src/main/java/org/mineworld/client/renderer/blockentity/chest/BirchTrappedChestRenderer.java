@@ -16,7 +16,7 @@ public class BirchTrappedChestRenderer extends BirchChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public BirchTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public BirchTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

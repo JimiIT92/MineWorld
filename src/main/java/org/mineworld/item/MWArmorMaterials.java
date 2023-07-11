@@ -76,11 +76,11 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
     /**
      * {@link StringRepresentable.EnumCodec The enum codec for this enum}
      */
-    public static final StringRepresentable.EnumCodec<MWArmorMaterials> CODEC = StringRepresentable.fromEnum(MWArmorMaterials::values);
+    public static StringRepresentable.EnumCodec<MWArmorMaterials> CODEC = StringRepresentable.fromEnum(MWArmorMaterials::values);
     /**
      * {@link EnumMap The base protection values for each armor id type}
      */
-    private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
+    private static EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 13);
         enumMap.put(ArmorItem.Type.LEGGINGS, 15);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 16);
@@ -90,39 +90,39 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
     /**
      * {@link String The armor material name}
      */
-    private final String name;
+    private String name;
     /**
      * {@link Integer The armor material durability multiplier}
      */
-    private final int durabilityMultiplier;
+    private int durabilityMultiplier;
     /**
      * {@link EnumMap The armor id protection values}
      */
-    private final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
+    private EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
     /**
      * {@link Integer The armor enchantment value}
      */
-    private final int enchantmentValue;
+    private int enchantmentValue;
     /**
      * {@link SoundEvent The armor equip sound}
      */
-    private final SoundEvent sound;
+    private SoundEvent sound;
     /**
      * {@link Float The armor thoughness}
      */
-    private final float toughness;
+    private float toughness;
     /**
      * {@link Float The armor knockback resistance}
      */
-    private final float knockbackResistance;
+    private float knockbackResistance;
     /**
      * {@link LazyLoadedValue <Ingredient> The armor repair ingredient}
      */
-    private final LazyLoadedValue<Ingredient> repairIngredient;
+    private LazyLoadedValue<Ingredient> repairIngredient;
     /**
      * {@link Boolean If the armor material is a cosmetic one}
      */
-    private final boolean isCosmetic;
+    private boolean isCosmetic;
 
     /**
      * Cosmetic constructor. Set the armor material properties
@@ -130,7 +130,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      *
      * @param name {@link String The armor material name}
      */
-    MWArmorMaterials(final String name) {
+    MWArmorMaterials(String name) {
         this(name, 0, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
             enumMap.put(ArmorItem.Type.BOOTS, 0);
             enumMap.put(ArmorItem.Type.LEGGINGS, 0);
@@ -151,7 +151,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param knockbackResistance {@link Float The armor knockback resistance}
      * @param ingredient {@link LazyLoadedValue<Ingredient> The armor repair ingredient}
      */
-    MWArmorMaterials(final String name, final int durabilityMultiplier, final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, final int enchantmentValue, final SoundEvent sound, final float thoughness, final float knockbackResistance, final Supplier<Ingredient> ingredient) {
+    MWArmorMaterials(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue, SoundEvent sound, float thoughness, float knockbackResistance, Supplier<Ingredient> ingredient) {
         this.name = KeyHelper.location(name).toString();
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionFunctionForType = protectionFunctionForType;
@@ -169,7 +169,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param type {@link ArmorItem.Type The armor id type}
      * @return {@link Integer The armor id durability}
      */
-    public int getDurabilityForType(final @NotNull ArmorItem.Type type) {
+    public int getDurabilityForType(@NotNull ArmorItem.Type type) {
         return HEALTH_FUNCTION_FOR_TYPE.get(type) * this.durabilityMultiplier;
     }
 
@@ -179,7 +179,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param type {@link ArmorItem.Type The armor id type}
      * @return {@link Integer The armor id protection}
      */
-    public int getDefenseForType(final @NotNull ArmorItem.Type type) {
+    public int getDefenseForType(@NotNull ArmorItem.Type type) {
         return this.protectionFunctionForType.get(type);
     }
 
@@ -252,7 +252,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param material {@link ArmorMaterial The armor material}
      * @return {@link Boolean True if is a cosmetic material}
      */
-    public static boolean isCosmetic(final ArmorMaterial material) {
+    public static boolean isCosmetic(ArmorMaterial material) {
         return material instanceof MWArmorMaterials armorMaterial && armorMaterial.isCosmetic;
     }
 

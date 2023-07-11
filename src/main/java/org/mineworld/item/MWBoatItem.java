@@ -33,15 +33,15 @@ public class MWBoatItem extends Item {
     /**
      * {@link Predicate<Entity> The boat entity predicate}
      */
-    private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
+    private static Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     /**
      * {@link MWBoat.Type The boat type}
      */
-    private final MWBoat.Type type;
+    private MWBoat.Type type;
     /**
      * {@link Boolean If the boas has a chest}
      */
-    private final boolean hasChest;
+    private boolean hasChest;
 
     /**
      * Constructor. Set the boat properties
@@ -50,7 +50,7 @@ public class MWBoatItem extends Item {
      * @param type {@link MWBoat.Type The boat type}
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
      */
-    public MWBoatItem(final boolean hasChest, final MWBoat.Type type, final FeatureFlag... featureFlags) {
+    public MWBoatItem(boolean hasChest, MWBoat.Type type, FeatureFlag... featureFlags) {
         super(PropertyHelper.basicItemProperties(featureFlags).stacksTo(1));
         this.hasChest = hasChest;
         this.type = type;
@@ -64,16 +64,16 @@ public class MWBoatItem extends Item {
      * @param interactionHand {@link InteractionHand The hand the player is interacting with}
      * @return {@link InteractionResultHolder<ItemStack> The interaction result}
      */
-    public @NotNull InteractionResultHolder<ItemStack> use(final @NotNull Level level, final Player player, final @NotNull InteractionHand interactionHand) {
-        final ItemStack itemstack = player.getItemInHand(interactionHand);
-        final HitResult hitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
+        ItemStack itemstack = player.getItemInHand(interactionHand);
+        HitResult hitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
         if (hitresult.getType().equals(HitResult.Type.MISS)) {
             return InteractionResultHolder.pass(itemstack);
         }
-        final List<Entity> list = level.getEntities(player, player.getBoundingBox().expandTowards(player.getViewVector(1.0F).scale(5.0D)).inflate(1.0D), ENTITY_PREDICATE);
+        List<Entity> list = level.getEntities(player, player.getBoundingBox().expandTowards(player.getViewVector(1.0F).scale(5.0D)).inflate(1.0D), ENTITY_PREDICATE);
         if (!list.isEmpty()) {
-            final Vec3 playerEyePosition = player.getEyePosition();
-            for(final Entity entity : list) {
+            Vec3 playerEyePosition = player.getEyePosition();
+            for(Entity entity : list) {
                 if (entity.getBoundingBox().inflate(entity.getPickRadius()).contains(playerEyePosition)) {
                     return InteractionResultHolder.pass(itemstack);
                 }
@@ -81,7 +81,7 @@ public class MWBoatItem extends Item {
         }
 
         if (hitresult.getType().equals(HitResult.Type.BLOCK)) {
-            final MWBoat boat = this.getBoat(level, hitresult);
+            MWBoat boat = this.getBoat(level, hitresult);
             boat.setBoatType(this.type);
             boat.setYRot(player.getYRot());
             if (!level.noCollision(boat, boat.getBoundingBox())) {
@@ -106,7 +106,7 @@ public class MWBoatItem extends Item {
      * @param hitResult {@link HitResult The hit result}
      * @return {@link MWBoat The boat entity}
      */
-    private MWBoat getBoat(final Level level, final HitResult hitResult) {
+    private MWBoat getBoat(Level level, HitResult hitResult) {
         return this.hasChest ? new MWChestBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z) :
                 new MWBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
     }

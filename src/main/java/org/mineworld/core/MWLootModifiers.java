@@ -11,16 +11,16 @@ import org.mineworld.loot.AddItemsModifier;
 /**
  * {@link MineWorld MineWorld} {@link IGlobalLootModifier loot modifiers}
  */
-public final class MWLootModifiers {
+public class MWLootModifiers {
 
-    public static final RegistryObject<Codec<AddItemsModifier>> ADD_ITEM = RegisterHelper.registerLootModifier("add_items", AddItemsModifier.CODEC);
+    public static RegistryObject<Codec<AddItemsModifier>> ADD_ITEM = RegisterHelper.registerLootModifier("add_items", AddItemsModifier.CODEC);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link IGlobalLootModifier loot modifiers}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerLootModifiers(eventBus);
     }
 

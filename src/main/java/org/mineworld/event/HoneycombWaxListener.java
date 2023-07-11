@@ -17,7 +17,7 @@ import org.mineworld.block.weathering.IMWWaxableBlock;
  * Apply wax to a {@link MineWorld MineWorld} {@link ChangeOverTimeBlock oxidizable block}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class HoneycombWaxListener {
+public class HoneycombWaxListener {
 
     /**
      * Wax a {@link Block block} if is waxable
@@ -25,13 +25,13 @@ public final class HoneycombWaxListener {
      * @param event {@link PlayerInteractEvent.RightClickBlock Player right click block event}
      */
     @SubscribeEvent
-    public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if(!event.isCanceled()) {
             ItemStack itemStack = event.getItemStack();
             if(itemStack.getItem() instanceof HoneycombItem honeyComb) {
-                final Level level = event.getLevel();
-                final BlockPos blockPos = event.getPos();
-                final BlockState blockState = level.getBlockState(blockPos);
+                Level level = event.getLevel();
+                BlockPos blockPos = event.getPos();
+                BlockState blockState = level.getBlockState(blockPos);
                 if(blockState.getBlock() instanceof IMWWaxableBlock) {
                     event.setCancellationResult(IMWWaxableBlock.applyWax(blockState, itemStack, event.getEntity(), blockPos, event.getHand(), level));
                 }

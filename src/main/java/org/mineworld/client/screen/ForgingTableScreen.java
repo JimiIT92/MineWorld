@@ -24,11 +24,11 @@ public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu
     /**
      * {@link ResourceLocation The forging table texture location}
      */
-    public static final ResourceLocation BACKGROUND_LOCATION = KeyHelper.container("forging_table");
+    public static ResourceLocation BACKGROUND_LOCATION = KeyHelper.container("forging_table");
     /**
      * {@link ForgingTableMenu The forging table menu}
      */
-    private final ForgingTableMenu menu;
+    private ForgingTableMenu menu;
 
     /**
      * Constructor. Set the screen properties
@@ -50,7 +50,7 @@ public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu
      * @param screenY {@link Integer The screen Y coordinate}
      * @param partialTicks {@link Float The screen partial ticks}
      */
-    public void render(final @NotNull PoseStack poseStack, final int screenX, final int screenY, final float partialTicks) {
+    public void render(@NotNull PoseStack poseStack, int screenX, int screenY, float partialTicks) {
         super.render(poseStack, screenX, screenY, partialTicks);
         this.renderTooltip(poseStack, screenX, screenY);
     }
@@ -64,20 +64,20 @@ public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu
      * @param screenY {@link Integer The screen Y coordinate}
      */
     @Override
-    protected void renderBg(final @NotNull PoseStack poseStack, final float partialTicks, final int screenX, final int screenY) {
+    protected void renderBg(@NotNull PoseStack poseStack, float partialTicks, int screenX, int screenY) {
         this.renderBackground(poseStack);
         RenderSystem.setShaderTexture(0, BACKGROUND_LOCATION);
-        final int x = this.leftPos;
-        final int y = this.topPos;
+        int x = this.leftPos;
+        int y = this.topPos;
         blit(poseStack, x, y, 0, 0, this.imageWidth, this.imageHeight);
         if (this.menu.isLit()) {
-            final int litProgress = Mth.clamp((28 * this.menu.getLitProgress() + 27 - 1) / 27, 0, 28);
+            int litProgress = Mth.clamp((28 * this.menu.getLitProgress() + 27 - 1) / 27, 0, 28);
             if (litProgress > 0) {
                 blit(poseStack, x + 74, y + 69, 176, 0, litProgress, 5);
             }
         }
 
-        final int forgingProgress = this.menu.getForgingProgress();
+        int forgingProgress = this.menu.getForgingProgress();
         blit(poseStack, x + 101, y + 21, 176, 5, forgingProgress + 1, 16);
     }
 

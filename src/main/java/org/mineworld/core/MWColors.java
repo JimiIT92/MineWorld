@@ -30,11 +30,11 @@ public enum MWColors {
     /**
      * {@link Integer RGB color}
      */
-    private final int color;
+    private int color;
     /**
      * {@link MaterialColor The material color}
      */
-    private final MaterialColor materialColor;
+    private MaterialColor materialColor;
 
     /**
      * Constructor. Set the {@link Integer RGB color}
@@ -42,7 +42,7 @@ public enum MWColors {
      * @param color {@link Integer The RGB color}
      * @param materialColor {@link MaterialColor The material color}
      */
-    MWColors(final int color, final MaterialColor materialColor) {
+    MWColors(int color, MaterialColor materialColor) {
         this.color = color;
         this.materialColor = materialColor;
     }

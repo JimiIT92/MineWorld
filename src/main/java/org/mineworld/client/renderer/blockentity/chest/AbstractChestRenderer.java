@@ -23,27 +23,27 @@ abstract class AbstractChestRenderer extends ChestRenderer<ChestBlockEntity> {
     /**
      * {@link Material The single chest texture location}
      */
-    private final Material CHEST_LOCATION = getMaterial("normal");
+    private Material CHEST_LOCATION = getMaterial("normal");
     /**
      * {@link Material The left chest texture location}
      */
-    private final Material CHEST_LOCATION_LEFT = getMaterial("normal_left");
+    private Material CHEST_LOCATION_LEFT = getMaterial("normal_left");
     /**
      * {@link Material The right chest texture location}
      */
-    private final Material CHEST_LOCATION_RIGHT = getMaterial("normal_right");
+    private Material CHEST_LOCATION_RIGHT = getMaterial("normal_right");
     /**
      * {@link Material The single trapped chest texture location}
      */
-    private final Material TRAPPED_CHEST_LOCATION = getMaterial("trapped");
+    private Material TRAPPED_CHEST_LOCATION = getMaterial("trapped");
     /**
      * {@link Material The left trapped chest texture location}
      */
-    private final Material TRAPPED_CHEST_LOCATION_LEFT = getMaterial("trapped_left");
+    private Material TRAPPED_CHEST_LOCATION_LEFT = getMaterial("trapped_left");
     /**
      * {@link Material The right trapped chest texture location}
      */
-    private final Material TRAPPED_CHEST_LOCATION_RIGHT = getMaterial("trapped_right");
+    private Material TRAPPED_CHEST_LOCATION_RIGHT = getMaterial("trapped_right");
 
     /**
      * Constructor. Set up the {@link BlockEntityRendererProvider.Context render context}
@@ -51,7 +51,7 @@ abstract class AbstractChestRenderer extends ChestRenderer<ChestBlockEntity> {
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
 
-    public AbstractChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public AbstractChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
@@ -72,8 +72,8 @@ abstract class AbstractChestRenderer extends ChestRenderer<ChestBlockEntity> {
      * @return {@link Material The chest material}
      */
     @Override
-    protected @NotNull Material getMaterial(final @NotNull ChestBlockEntity blockEntity, final ChestType chestType) {
-        final boolean isTrapped = isTrappedChest();
+    protected @NotNull Material getMaterial(@NotNull ChestBlockEntity blockEntity, ChestType chestType) {
+        boolean isTrapped = isTrappedChest();
         return switch (chestType) {
             case LEFT -> isTrapped ? TRAPPED_CHEST_LOCATION_LEFT : CHEST_LOCATION_LEFT;
             case RIGHT -> isTrapped ? TRAPPED_CHEST_LOCATION_RIGHT : CHEST_LOCATION_RIGHT;
@@ -87,7 +87,7 @@ abstract class AbstractChestRenderer extends ChestRenderer<ChestBlockEntity> {
      * @param type {@link String The chest type}
      * @return {@link Material The chest material}
      */
-    private Material getMaterial(final String type) {
+    private Material getMaterial(String type) {
         return new Material(Sheets.CHEST_SHEET, KeyHelper.entity("chest/" + PropertyHelper.getWoodTypeName(getWoodType()) + "/" + type));
     }
 

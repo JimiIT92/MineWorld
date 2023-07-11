@@ -18,7 +18,7 @@ import org.mineworld.core.MWTags;
  * Handle events for handling the furnace fuel
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class FurnaceFuelEventListener {
+public class FurnaceFuelEventListener {
 
     /**
      * Makes some items burnable by the furnace
@@ -26,17 +26,17 @@ public final class FurnaceFuelEventListener {
      * @param event {@link FurnaceFuelBurnTimeEvent The furnace fuel burn time event}
      */
     @SubscribeEvent
-    public static void onFurnaceFuel(final FurnaceFuelBurnTimeEvent event) {
+    public static void onFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
         if(!event.isCanceled()) {
-            final ItemStack itemStack = event.getItemStack();
+            ItemStack itemStack = event.getItemStack();
             if(!itemStack.is(ItemTags.NON_FLAMMABLE_WOOD)) {
-                final Item item = itemStack.getItem();
+                Item item = itemStack.getItem();
                 if(itemStack.is(Items.LEAD)) {
                     event.setBurnTime(100);
                     return;
                 }
                 if(item instanceof BlockItem blockItem) {
-                    final Block block = blockItem.getBlock();
+                    Block block = blockItem.getBlock();
                     if(block instanceof LecternBlock || block instanceof ChestBlock || block instanceof BarrelBlock
                         || block instanceof ChiseledBookShelfBlock || itemStack.is(MWTags.Items.BOOKSHELVES)
                         || block.equals(MWBlocks.MANGROVE_ROOTS_CARPET.get())) {

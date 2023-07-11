@@ -16,7 +16,7 @@ public class WarpedTrappedChestBlockEntity extends AbstractTrappedChestBlockEnti
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public WarpedTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public WarpedTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.WARPED_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

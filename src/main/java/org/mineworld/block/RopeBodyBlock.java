@@ -33,7 +33,7 @@ public abstract class RopeBodyBlock extends AbstractRopeBlock {
      * @param neighborState {@link BlockState The neighbor block state}
      * @return {@link BlockState The updated block state}
      */
-    protected BlockState updateHeadAfterConvertedFromBody(final BlockState blockState, final BlockState neighborState) {
+    protected BlockState updateHeadAfterConvertedFromBody(BlockState blockState, BlockState neighborState) {
         return neighborState;
     }
 
@@ -48,11 +48,11 @@ public abstract class RopeBodyBlock extends AbstractRopeBlock {
      * @param neighborPos {@link BlockPos The neighbor block pos}
      * @return {@link BlockState The updated block state}
      */
-    public @NotNull BlockState updateShape(final @NotNull BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborPos) {
         if (direction.equals(this.ropeDirection.getOpposite()) && !blockState.canSurvive(levelAccessor, blockPos)) {
             levelAccessor.scheduleTick(blockPos, this, 1);
         }
-        final RopeHeadBlock ropeHeadBlock = this.getHeadBlock();
+        RopeHeadBlock ropeHeadBlock = this.getHeadBlock();
         return direction.equals(this.ropeDirection) && !neighborState.is(this) && !neighborState.is(ropeHeadBlock) ?
                 this.updateHeadAfterConvertedFromBody(blockState, ropeHeadBlock.getStateForPlacement(levelAccessor)) :
                 super.updateShape(blockState, direction, neighborState, levelAccessor, blockPos, neighborPos);
@@ -66,7 +66,7 @@ public abstract class RopeBodyBlock extends AbstractRopeBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link ItemStack The block id stack}
      */
-    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         return new ItemStack(this.getHeadBlock());
     }
 
@@ -78,7 +78,7 @@ public abstract class RopeBodyBlock extends AbstractRopeBlock {
      * @param block {@link Block The current block}
      * @return {@link Optional<BlockPos> The rope head block pos, if any}
      */
-    private Optional<BlockPos> getHeadPos(final BlockGetter blockGetter, final BlockPos blockPos, final Block block) {
+    private Optional<BlockPos> getHeadPos(BlockGetter blockGetter, BlockPos blockPos, Block block) {
         return BlockUtil.getTopConnectedBlock(blockGetter, blockPos, block, this.ropeDirection, this.getHeadBlock());
     }
 
@@ -89,8 +89,8 @@ public abstract class RopeBodyBlock extends AbstractRopeBlock {
      * @param blockPlaceContext {@link BlockPlaceContext The block place context}
      * @return {@link Boolean True if the block can be replaced}
      */
-    public boolean canBeReplaced(final @NotNull BlockState blockState, final @NotNull BlockPlaceContext blockPlaceContext) {
-        final boolean flag = super.canBeReplaced(blockState, blockPlaceContext);
+    public boolean canBeReplaced(@NotNull BlockState blockState, @NotNull BlockPlaceContext blockPlaceContext) {
+        boolean flag = super.canBeReplaced(blockState, blockPlaceContext);
         return (!flag || !blockPlaceContext.getItemInHand().is(this.getHeadBlock().asItem())) && flag;
     }
 

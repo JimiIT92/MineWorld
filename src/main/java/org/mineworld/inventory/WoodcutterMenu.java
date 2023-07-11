@@ -29,15 +29,15 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     /**
      * {@link ContainerLevelAccess The container level access reference}
      */
-    private final ContainerLevelAccess containerLevelAccess;
+    private ContainerLevelAccess containerLevelAccess;
     /**
      * {@link DataSlot The selected recipe index}
      */
-    private final DataSlot selectedRecipeIndex = DataSlot.standalone();
+    private DataSlot selectedRecipeIndex = DataSlot.standalone();
     /**
      * {@link Level The level reference}
      */
-    private final Level level;
+    private Level level;
     /**
      * {@link List<WoodcutterRecipe> The woodcutter recipes}
      */
@@ -53,11 +53,11 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     /**
      * {@link Slot The input slot}
      */
-    private final Slot inputSlot;
+    private Slot inputSlot;
     /**
      * {@link Slot The output slot}
      */
-    private final Slot resultSlot;
+    private Slot resultSlot;
     /**
      * {@link Runnable The slot update listener}
      */
@@ -66,7 +66,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     /**
      * {@link Container The woodcutter container}
      */
-    public final Container container = new SimpleContainer(1) {
+    public Container container = new SimpleContainer(1) {
 
         /**
          * Update the result on changes
@@ -82,7 +82,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     /**
      * {@link ResultContainer The result container}
      */
-    private final ResultContainer resultContainer = new ResultContainer();
+    private ResultContainer resultContainer = new ResultContainer();
 
     /**
      * Forge Constructor. Sets the screen default properties
@@ -91,7 +91,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param inventory {@link Inventory The screen inventory}
      * @param buffer {@link FriendlyByteBuf The screen byte buffer}
      */
-    public WoodcutterMenu(final int id, final Inventory inventory, final FriendlyByteBuf buffer) {
+    public WoodcutterMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
         this(id, inventory);
     }
 
@@ -101,7 +101,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param id {@link Integer The screen id}
      * @param inventory {@link Inventory The screen inventory}
      */
-    public WoodcutterMenu(final int id, final Inventory inventory) {
+    public WoodcutterMenu(int id, Inventory inventory) {
         this(id, inventory, ContainerLevelAccess.NULL);
     }
 
@@ -112,7 +112,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param inventory {@link Inventory The screen inventory}
      * @param containerLevelAccess {@link ContainerLevelAccess The container level access reference}
      */
-    public WoodcutterMenu(final int id, final Inventory inventory, final ContainerLevelAccess containerLevelAccess) {
+    public WoodcutterMenu(int id, Inventory inventory, ContainerLevelAccess containerLevelAccess) {
         super(MWMenuTypes.WOODCUTTER.get(), id);
         this.containerLevelAccess = containerLevelAccess;
         this.level = inventory.player.level;
@@ -125,7 +125,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
              * @param itemStack {@link ItemStack The id stack to place inside the slot}
              * @return {@link Boolean False}
              */
-            public boolean mayPlace(final @NotNull ItemStack itemStack) {
+            public boolean mayPlace(@NotNull ItemStack itemStack) {
                 return false;
             }
 
@@ -135,16 +135,16 @@ public class WoodcutterMenu extends AbstractContainerMenu {
              * @param player {@link Player The palyer taking the result}
              * @param itemStack {@link ItemStack The recipe resuòt}
              */
-            public void onTake(final @NotNull Player player, final @NotNull ItemStack itemStack) {
+            public void onTake(@NotNull Player player, @NotNull ItemStack itemStack) {
                 itemStack.onCraftedBy(player.level, player, itemStack.getCount());
                 WoodcutterMenu.this.resultContainer.awardUsedRecipes(player);
-                final ItemStack inputStack = WoodcutterMenu.this.inputSlot.remove(1);
+                ItemStack inputStack = WoodcutterMenu.this.inputSlot.remove(1);
                 if (!inputStack.isEmpty()) {
                     WoodcutterMenu.this.setupResultSlot();
                 }
 
                 containerLevelAccess.execute((level, blockPos) -> {
-                    final long gameTime = level.getGameTime();
+                    long gameTime = level.getGameTime();
                     if (WoodcutterMenu.this.lastSoundTime != gameTime) {
                         level.playSound(null, blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
                         WoodcutterMenu.this.lastSoundTime = gameTime;
@@ -219,7 +219,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param player {@link Player The player using the screen}
      * @return {@link Boolean True if the screen can still be displayed}
      */
-    public boolean stillValid(final @NotNull Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return stillValid(this.containerLevelAccess, player, MWBlocks.WOODCUTTER.get());
     }
 
@@ -230,7 +230,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param slotId {@link Integer The button id}
      * @return {@link Boolean True}
      */
-    public boolean clickMenuButton(final @NotNull Player player, final int slotId) {
+    public boolean clickMenuButton(@NotNull Player player, int slotId) {
         if (this.isValidRecipeIndex(slotId)) {
             this.selectedRecipeIndex.set(slotId);
             this.setupResultSlot();
@@ -262,8 +262,8 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      *
      * @param container {@link Container The screen container}
      */
-    public void slotsChanged(final @NotNull Container container) {
-        final ItemStack inputStack = this.inputSlot.getItem();
+    public void slotsChanged(@NotNull Container container) {
+        ItemStack inputStack = this.inputSlot.getItem();
         if (!inputStack.is(this.input.getItem())) {
             this.input = inputStack.copy();
             this.setupRecipeList(container, inputStack);
@@ -276,7 +276,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param container {@link Container The screen container}
      * @param itemStack {@link ItemStack The input id stack}
      */
-    private void setupRecipeList(final Container container, final ItemStack itemStack) {
+    private void setupRecipeList(Container container, ItemStack itemStack) {
         this.recipes.clear();
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
@@ -290,8 +290,8 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      */
     void setupResultSlot() {
         if (this.hasRecipes() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            final WoodcutterRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
-            final ItemStack result = recipe.assemble(this.container, this.level.registryAccess());
+            WoodcutterRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
+            ItemStack result = recipe.assemble(this.container, this.level.registryAccess());
             if (result.isItemEnabled(this.level.enabledFeatures())) {
                 this.resultContainer.setRecipeUsed(recipe);
                 this.resultSlot.set(result);
@@ -318,7 +318,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      *
      * @param runnable {@link Runnable The update listener}
      */
-    public void registerUpdateListener(final Runnable runnable) {
+    public void registerUpdateListener(Runnable runnable) {
         this.slotUpdateListener = runnable;
     }
 
@@ -329,7 +329,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param slot {@link Slot The slot to take the id stack from}
      * @return {@link Boolean True if the id stack can be quickly taken}
      */
-    public boolean canTakeItemForPickAll(final @NotNull ItemStack itemStack, final Slot slot) {
+    public boolean canTakeItemForPickAll(@NotNull ItemStack itemStack, Slot slot) {
         return slot.container != this.resultContainer && super.canTakeItemForPickAll(itemStack, slot);
     }
 
@@ -340,11 +340,11 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      * @param slotId {@link Integer The id of the slot to move into or from}
      * @return {@link ItemStack The moved id stack}
      */
-    public @NotNull ItemStack quickMoveStack(final @NotNull Player player, final int slotId) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int slotId) {
         ItemStack itemStack = ItemStack.EMPTY;
-        final Slot slot = this.slots.get(slotId);
+        Slot slot = this.slots.get(slotId);
         if (slot.hasItem()) {
-            final ItemStack result = slot.getItem();
+            ItemStack result = slot.getItem();
             itemStack = result.copy();
             if (slotId == 1) {
                 result.getItem().onCraftedBy(result, player.level, player);
@@ -389,7 +389,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      *
      * @param player {@link Player The player interacting with the screen}
      */
-    public void removed(final @NotNull Player player) {
+    public void removed(@NotNull Player player) {
         super.removed(player);
         this.resultContainer.removeItemNoUpdate(1);
         this.containerLevelAccess.execute((p_40313_, p_40314_) -> this.clearContainer(player, this.container));

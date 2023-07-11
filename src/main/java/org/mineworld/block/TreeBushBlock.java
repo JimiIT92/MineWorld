@@ -26,7 +26,7 @@ public class TreeBushBlock extends AzaleaBlock {
     /**
      * {@link Supplier<AbstractTreeGrower> The supplier for the tree grower for this bush}
      */
-    private final Supplier<AbstractTreeGrower> treeGrowerSupplier;
+    private Supplier<AbstractTreeGrower> treeGrowerSupplier;
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties block properties}
@@ -34,7 +34,7 @@ public class TreeBushBlock extends AzaleaBlock {
      * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The supplier for the tree grower}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public TreeBushBlock(final Supplier<AbstractTreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
+    public TreeBushBlock(Supplier<AbstractTreeGrower> treeGrowerSupplier, FeatureFlag... featureFlags) {
         super(PropertyHelper.copyFromBlock(Blocks.AZALEA, featureFlags));
         this.treeGrowerSupplier = treeGrowerSupplier;
     }
@@ -48,7 +48,7 @@ public class TreeBushBlock extends AzaleaBlock {
      * @param blockState {@link BlockState The current block state}
      */
     @Override
-    public void performBonemeal(final @NotNull ServerLevel level, final @NotNull RandomSource random, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         this.treeGrowerSupplier.get().growTree(level, level.getChunkSource().getGenerator(), blockPos, blockState, random);
     }
 
@@ -62,7 +62,7 @@ public class TreeBushBlock extends AzaleaBlock {
      * @return {@link Boolean True}
      */
     @Override
-    public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public boolean isFlammable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return true;
     }
 
@@ -76,7 +76,7 @@ public class TreeBushBlock extends AzaleaBlock {
      * @return {@link Integer 60}
      */
     @Override
-    public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFlammability(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 60;
     }
 
@@ -90,7 +90,7 @@ public class TreeBushBlock extends AzaleaBlock {
      * @return {@link Integer 30}
      */
     @Override
-    public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+    public int getFireSpreadSpeed(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
         return 30;
     }
 

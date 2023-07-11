@@ -16,7 +16,7 @@ import org.mineworld.core.MWBlocks;
  * Handles the {@link Block block coloring} on the client side
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class ColorHandlerListener {
+public class ColorHandlerListener {
 
     /**
      * Register block coloring for the client side
@@ -24,7 +24,7 @@ public final class ColorHandlerListener {
      * @param event {@link RegisterColorHandlersEvent.Block Block register color handlers event}
      */
     @SubscribeEvent
-    public static void onRegisterBlockColorHandlers(final RegisterColorHandlersEvent.Block event) {
+    public static void onRegisterBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
         event.register((blockState, tintGetter, blockPos, tintIndex) ->
                         tintGetter != null && blockPos != null ?
                                 BiomeColors.getAverageGrassColor(tintGetter, blockPos) :
@@ -100,7 +100,7 @@ public final class ColorHandlerListener {
      * @param event {@link RegisterColorHandlersEvent.Item Item register color handlers event}
      */
     @SubscribeEvent
-    public static void onRegisterItemColorHandlers(final RegisterColorHandlersEvent.Item event) {
+    public static void onRegisterItemColorHandlers(RegisterColorHandlersEvent.Item event) {
         event.register((itemStack, tintIndex) -> event.getBlockColors().getColor(((BlockItem)itemStack.getItem()).getBlock().defaultBlockState(), null, null, tintIndex),
                 MWBlocks.DISGUISED_GRASS_TNT.get(),
                 MWBlocks.GRASS_CARPET.get()

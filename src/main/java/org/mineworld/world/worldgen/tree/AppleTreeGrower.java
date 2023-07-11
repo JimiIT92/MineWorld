@@ -22,7 +22,7 @@ public class AppleTreeGrower extends AbstractTreeGrower {
      */
     @Nullable
     @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(final @NotNull RandomSource random, final boolean withBeeNest) {
+    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean withBeeNest) {
         return random.nextInt(10) == 0 ? (
                 withBeeNest ? MWConfiguredFeatures.FANCY_APPLE_BEES_TREE : MWConfiguredFeatures.FANCY_APPLE_TREE) :
                 withBeeNest ? MWConfiguredFeatures.APPLE_BEES_TREE : MWConfiguredFeatures.APPLE_TREE;

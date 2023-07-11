@@ -34,14 +34,14 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
     /**
      * {@link Map Cached boat resources}
      */
-    private final Map<MWBoat.Type, Pair<ResourceLocation, ListModel<Boat>>> boatResources;
+    private Map<MWBoat.Type, Pair<ResourceLocation, ListModel<Boat>>> boatResources;
 
     /**
      * Constructor. Set the {@link EntityRendererProvider.Context renderer context}
      *
      * @param context {@link EntityRendererProvider.Context The entity renderer provider context}
      */
-    public MWBoatRenderer(final EntityRendererProvider.Context context) {
+    public MWBoatRenderer(EntityRendererProvider.Context context) {
         this(context, false);
     }
 
@@ -52,7 +52,7 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
      * @param context {@link EntityRendererProvider.Context The entity renderer provider context}
      * @param hasChest {@link Boolean If the boat has a chest}
      */
-    public MWBoatRenderer(final EntityRendererProvider.Context context, final boolean hasChest) {
+    public MWBoatRenderer(EntityRendererProvider.Context context, boolean hasChest) {
         super(context);
         this.shadowRadius = 0.8F;
         this.boatResources = Stream.of(MWBoat.Type.values()).collect(ImmutableMap.toImmutableMap(
@@ -69,10 +69,10 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
      * @param hasChest {@link Boolean If the boat has a chest}
      * @return {@link ListModel<Boat> The boat models}
      */
-    private ListModel<Boat> createBoatModel(final EntityRendererProvider.Context context, final MWBoat.Type type, final boolean hasChest) {
-        final boolean isRaft = type.equals(MWBoat.Type.PALM);
-        final Boat.Type modelBoatType = isRaft ? Boat.Type.BAMBOO : Boat.Type.OAK;
-        final ModelPart modelpart = context.bakeLayer(hasChest ? ModelLayers.createChestBoatModelName(modelBoatType) : ModelLayers.createBoatModelName(modelBoatType));
+    private ListModel<Boat> createBoatModel(EntityRendererProvider.Context context, MWBoat.Type type, boolean hasChest) {
+        boolean isRaft = type.equals(MWBoat.Type.PALM);
+        Boat.Type modelBoatType = isRaft ? Boat.Type.BAMBOO : Boat.Type.OAK;
+        ModelPart modelpart = context.bakeLayer(hasChest ? ModelLayers.createChestBoatModelName(modelBoatType) : ModelLayers.createBoatModelName(modelBoatType));
         return isRaft ? (hasChest ? new ChestRaftModel(modelpart) : new RaftModel(modelpart)) :
                 hasChest ? new ChestBoatModel(modelpart) : new BoatModel(modelpart);
     }
@@ -88,7 +88,7 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
      * @param packedLight {@link Integer The client packed light}
      */
     @Override
-    public void render(final MWBoat boat, final float partialYaw, final float partialTicks, final PoseStack posStack, final @NotNull MultiBufferSource multiBufferSource, final int packedLight) {
+    public void render(MWBoat boat, float partialYaw, float partialTicks, PoseStack posStack, @NotNull MultiBufferSource multiBufferSource, int packedLight) {
         posStack.pushPose();
         posStack.translate(0.0F, 0.375F, 0.0F);
         posStack.mulPose(Axis.YP.rotationDegrees(180.0F - partialYaw));
@@ -99,8 +99,8 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
         if (!Mth.equal( boat.getBubbleAngle(partialTicks), 0.0F)) {
             posStack.mulPose((new Quaternionf()).setAngleAxis(boat.getBubbleAngle(partialTicks) * ((float)Math.PI / 180F), 1.0F, 0.0F, 1.0F));
         }
-        final Pair<ResourceLocation, ListModel<Boat>> pair = getModelWithLocation(boat);
-        final ListModel<Boat> model = pair.getSecond();
+        Pair<ResourceLocation, ListModel<Boat>> pair = getModelWithLocation(boat);
+        ListModel<Boat> model = pair.getSecond();
         posStack.scale(-1.0F, -1.0F, 1.0F);
         posStack.mulPose(Axis.YP.rotationDegrees(90.0F));
         model.setupAnim(boat, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
@@ -119,7 +119,7 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
      * @return {@link ResourceLocation The boat resource location}
      */
     @Override
-    public @NotNull ResourceLocation getTextureLocation(final @NotNull MWBoat boat) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull MWBoat boat) {
         return getModelWithLocation(boat).getFirst();
     }
 
@@ -129,6 +129,6 @@ public class MWBoatRenderer extends EntityRenderer<MWBoat> {
      * @param boat {@link MWBoat The boat entity}
      * @return {@link Pair The boat model and texture location}
      */
-    public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(final MWBoat boat) { return this.boatResources.get(boat.getBoatType()); }
+    public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(MWBoat boat) { return this.boatResources.get(boat.getBoatType()); }
 
 }

@@ -30,7 +30,7 @@ public class WoodcutterBlock extends StonecutterBlock {
     /**
      * {@link Component The woodcutter screen title}
      */
-    public static final Component CONTAINER_TITLE = ComponentHelper.container("woodcutter");
+    public static Component CONTAINER_TITLE = ComponentHelper.container("woodcutter");
 
     /**
      * Constructor. Set the block properties
@@ -51,7 +51,7 @@ public class WoodcutterBlock extends StonecutterBlock {
      * @return {@link InteractionResult The interaction result}
      */
     @Override
-    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult blockHitResult) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -70,7 +70,7 @@ public class WoodcutterBlock extends StonecutterBlock {
      */
     @Nullable
     @Override
-    public MenuProvider getMenuProvider(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos) {
+    public MenuProvider getMenuProvider(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
         return new SimpleMenuProvider((id, inventory, player) -> new WoodcutterMenu(id, inventory, ContainerLevelAccess.create(level, blockPos)), CONTAINER_TITLE);
     }
 

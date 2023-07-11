@@ -16,7 +16,7 @@ public class SpruceTrappedChestRenderer extends SpruceChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public SpruceTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public SpruceTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

@@ -9,9 +9,9 @@ import org.mineworld.helper.KeyHelper;
 /**
  * {@link MineWorld MineWorld} {@link DamageType damage types}
  */
-public final class MWDamageTypes {
+public class MWDamageTypes {
 
-    public static final ResourceKey<DamageType> BLUEBERRY_BUSH = KeyHelper.registerDamageType("blueberry_bush");
+    public static ResourceKey<DamageType> BLUEBERRY_BUSH = KeyHelper.registerDamageType("blueberry_bush");
 
     /**
      * Register the {@link DamageType damage types}

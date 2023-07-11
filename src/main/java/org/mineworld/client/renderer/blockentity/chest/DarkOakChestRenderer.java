@@ -17,7 +17,7 @@ public class DarkOakChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public DarkOakChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public DarkOakChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

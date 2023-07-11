@@ -38,15 +38,15 @@ public class ForgingTableBlock extends BaseEntityBlock {
     /**
      * {@link Component The forging table screen title}
      */
-    public static final Component CONTAINER_TITLE = ComponentHelper.container("forging_table");
+    public static Component CONTAINER_TITLE = ComponentHelper.container("forging_table");
     /**
      * {@link DirectionProperty The facing property}
      */
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     /**
      * {@link BooleanProperty The lit property}
      */
-    public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    public static BooleanProperty LIT = BlockStateProperties.LIT;
 
     /**
      * Constructor. Set the block properties
@@ -63,7 +63,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @return {@link BlockState The placed block state}
      */
     @Override
-    public BlockState getStateForPlacement(final BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
@@ -75,7 +75,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @return {@link Rotation The rotated block state}
      */
     @Override
-    public @NotNull BlockState rotate(final BlockState blockState, final Rotation rotation) {
+    public @NotNull BlockState rotate(BlockState blockState, Rotation rotation) {
         return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
     }
 
@@ -87,7 +87,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @return {@link BlockState The mirrored block state}
      */
     @Override
-    public @NotNull BlockState mirror(final BlockState blockState, final Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState blockState, Mirror mirror) {
         return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
     }
 
@@ -97,7 +97,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @param stateBuilder {@link StateDefinition.Builder The block state definition builder}
      */
     @Override
-    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, LIT);
     }
 
@@ -108,7 +108,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @return {@link RenderShape The block render shape}
      */
     @Override
-    public @NotNull RenderShape getRenderShape(final @NotNull BlockState blockState) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }
 
@@ -122,7 +122,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @param isMoving {@link Boolean If the block entity is moving}
      */
     @Override
-    public void onRemove(final BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final BlockState newState, final boolean isMoving) {
+    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
         if (!blockState.is(newState.getBlock())) {
             if (level.getBlockEntity(blockPos) instanceof ForgingTableBlockEntity blockEntity) {
                 if (level instanceof ServerLevel) {
@@ -146,7 +146,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      */
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         return new ForgingTableBlockEntity(blockPos, blockState);
     }
 
@@ -162,7 +162,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @return {@link InteractionResult The interaction result}
      */
     @Override
-    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult blockHitResult) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -183,7 +183,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @param placer {@link LivingEntity The entity that is placing the block}
      * @param itemStack {@link ItemStack The block item stack}
      */
-    public void setPlacedBy(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final LivingEntity placer, final ItemStack itemStack) {
+    public void setPlacedBy(@NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState, LivingEntity placer, ItemStack itemStack) {
         if (itemStack.hasCustomHoverName()) {
             BlockEntity blockentity = level.getBlockEntity(blockPos);
             if (blockentity instanceof ForgingTableBlockEntity blockEntity) {
@@ -203,7 +203,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      */
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(final @NotNull Level level, final @NotNull BlockState blockState, final @NotNull BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
         return level.isClientSide ? null : createTickerHelper(blockEntityType, MWBlockEntityTypes.FORGING_TABLE.get(), ForgingTableBlockEntity::serverTick);
     }
 
@@ -217,7 +217,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      */
     @Nullable
     @Override
-    public MenuProvider getMenuProvider(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos) {
+    public MenuProvider getMenuProvider(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
         return new SimpleMenuProvider((id, inventory, player) -> new ForgingTableMenu(id, inventory), CONTAINER_TITLE);
     }
 
@@ -227,7 +227,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link Boolean True}
      */
-    public boolean hasAnalogOutputSignal(final @NotNull BlockState blockState) {
+    public boolean hasAnalogOutputSignal(@NotNull BlockState blockState) {
         return true;
     }
 
@@ -239,7 +239,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Integer The comparator signal}
      */
-    public int getAnalogOutputSignal(final @NotNull BlockState blockState, final Level level, final @NotNull BlockPos blockPos) {
+    public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos) {
         return ForgingTableMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(blockPos));
     }
 

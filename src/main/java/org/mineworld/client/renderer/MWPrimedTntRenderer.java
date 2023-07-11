@@ -26,7 +26,7 @@ public class MWPrimedTntRenderer extends EntityRenderer<MWPrimedTnt> {
     /**
      * {@link BlockRenderDispatcher The block renderer reference}
      */
-    private final BlockRenderDispatcher blockRenderer;
+    private BlockRenderDispatcher blockRenderer;
 
     /**
      * Constructor. Set the {@link BlockRenderDispatcher block renderer reference}
@@ -34,7 +34,7 @@ public class MWPrimedTntRenderer extends EntityRenderer<MWPrimedTnt> {
      *
      * @param context {@link EntityRendererProvider.Context The entity render provider context}
      */
-    public MWPrimedTntRenderer(final EntityRendererProvider.Context context) {
+    public MWPrimedTntRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.shadowRadius = 0.5F;
         this.blockRenderer = context.getBlockRenderDispatcher();
@@ -51,16 +51,16 @@ public class MWPrimedTntRenderer extends EntityRenderer<MWPrimedTnt> {
      * @param packedLight {@link Integer The world packed light}
      */
     @Override
-    public void render(final MWPrimedTnt tnt, final float yaw, final float partialTicks, final PoseStack poseStack, final @NotNull MultiBufferSource multiBufferSource, final int packedLight) {
+    public void render(MWPrimedTnt tnt, float yaw, float partialTicks, PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int packedLight) {
         poseStack.pushPose();
         poseStack.translate(0.0F, 0.5F, 0.0F);
-        final int fuse = tnt.getFuse();
+        int fuse = tnt.getFuse();
         if ((float)fuse - partialTicks + 1.0F < 10.0F) {
             float fuseFactor = 1.0F - ((float)fuse - partialTicks + 1.0F) / 10.0F;
             fuseFactor = Mth.clamp(fuseFactor, 0.0F, 1.0F);
             fuseFactor *= fuseFactor;
             fuseFactor *= fuseFactor;
-            final float fuseScale = 1.0F + fuseFactor * 0.3F;
+            float fuseScale = 1.0F + fuseFactor * 0.3F;
             poseStack.scale(fuseScale, fuseScale, fuseScale);
         }
 
@@ -79,7 +79,7 @@ public class MWPrimedTntRenderer extends EntityRenderer<MWPrimedTnt> {
      * @param tnt {@link MWPrimedTnt The primed tnt}
      * @return {@link BlockState The tnt block state to render}
      */
-    private BlockState getTntBlockState(final MWPrimedTnt tnt) {
+    private BlockState getTntBlockState(MWPrimedTnt tnt) {
         return switch (tnt.getTntType()) {
             case MEGA -> MWBlocks.MEGA_TNT.get().defaultBlockState();
             case SUPER -> MWBlocks.SUPER_TNT.get().defaultBlockState();
@@ -100,7 +100,7 @@ public class MWPrimedTntRenderer extends EntityRenderer<MWPrimedTnt> {
      * @return {@link TextureAtlas#LOCATION_BLOCKS The blocks texture atlas location}
      */
     @Override
-    public @NotNull ResourceLocation getTextureLocation(final @NotNull MWPrimedTnt tnt) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull MWPrimedTnt tnt) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
 

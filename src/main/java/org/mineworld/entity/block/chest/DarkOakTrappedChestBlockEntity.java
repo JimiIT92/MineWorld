@@ -16,7 +16,7 @@ public class DarkOakTrappedChestBlockEntity extends AbstractTrappedChestBlockEnt
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public DarkOakTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public DarkOakTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.DARK_OAK_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

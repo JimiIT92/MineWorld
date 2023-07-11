@@ -22,7 +22,7 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
     /**
      * {@link WeatheringCopper.WeatherState The stair weather state}
      */
-    private final WeatheringCopper.WeatherState weatherState;
+    private WeatheringCopper.WeatherState weatherState;
 
     /**
      * Constructor. Set the block properties
@@ -30,7 +30,7 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
      * @param weatherState {@link WeatheringCopper.WeatherState The weather state}
      * @param properties {@link BlockState The block properties}
      */
-    public MWWeatheringCopperSlabBlock(final WeatheringCopper.WeatherState weatherState, final BlockBehaviour.Properties properties) {
+    public MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState weatherState, BlockBehaviour.Properties properties) {
         super(properties);
         this.weatherState = weatherState;
     }
@@ -45,7 +45,7 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
      * @param random {@link RandomSource The random reference}
      */
     @Override
-    public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
+    public void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
         IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, random);
     }
 
@@ -56,7 +56,7 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
      * @return {@link Boolean True if there is another state}
      */
     @Override
-    public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
+    public boolean isRandomlyTicking(@NotNull BlockState blockState) {
         return IMWWeatheringBlock.isRandomlyTicking(blockState);
     }
 
@@ -81,8 +81,8 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
      * @return {@link BlockState The modified block state}
      */
     @Override
-    public @Nullable BlockState getToolModifiedState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        final BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
+    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean isClient) {
+        BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
         return modifiedState != null ? modifiedState : super.getToolModifiedState(state, context, toolAction, isClient);
     }
 

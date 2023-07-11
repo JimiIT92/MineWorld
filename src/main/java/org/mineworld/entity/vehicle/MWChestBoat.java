@@ -45,7 +45,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     /**
      * {@link Integer The chest boat container size}
      */
-    private static final int CONTAINER_SIZE = 27;
+    private static int CONTAINER_SIZE = 27;
     /**
      * {@link NonNullList<ItemStack> The chest boat content}
      */
@@ -70,7 +70,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param entityType {@link EntityType The boat entity type}
      * @param level {@link Level The level reference}
      */
-    public MWChestBoat(final EntityType<? extends Boat> entityType, final Level level) {
+    public MWChestBoat(EntityType<? extends Boat> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -82,7 +82,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param posY {@link Double The boat Y coordinate}
      * @param posZ {@link Double The boat Z coordinate}
      */
-    public MWChestBoat(final Level level, final double posX, final double posY, final double posZ) {
+    public MWChestBoat(Level level, double posX, double posY, double posZ) {
         this(MWEntityTypes.CHEST_BOAT.get(), level);
         this.setPos(posX, posY, posZ);
         this.xo = posX;
@@ -113,7 +113,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param nbt {@link CompoundTag The boat nbt data}
      */
-    protected void addAdditionalSaveData(final CompoundTag nbt) {
+    protected void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         this.addChestVehicleSaveData(nbt);
     }
@@ -123,7 +123,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param nbt {@link CompoundTag The boat nbt data}
      */
-    protected void readAdditionalSaveData(final CompoundTag nbt) {
+    protected void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.readChestVehicleSaveData(nbt);
     }
@@ -133,7 +133,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param damageSource {@link DamageSource The damage source that destroyed the boat}
      */
-    public void destroy(final @NotNull DamageSource damageSource) {
+    public void destroy(@NotNull DamageSource damageSource) {
         super.destroy(damageSource);
         this.chestVehicleDestroyed(damageSource, this.level, this);
     }
@@ -143,7 +143,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param removalReason {@link Entity.RemovalReason The reason why the entity has been removed}
      */
-    public void remove(final Entity.@NotNull RemovalReason removalReason) {
+    public void remove(Entity.@NotNull RemovalReason removalReason) {
         if (!this.level.isClientSide && removalReason.shouldDestroy()) {
             Containers.dropContents(this.level, this, this);
         }
@@ -157,11 +157,11 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param interactionHand {@link InteractionHand The hand the player is interacting with}
      * @return {@link InteractionResult The interaction result}
      */
-    public @NotNull InteractionResult interact(final @NotNull Player player, final @NotNull InteractionHand interactionHand) {
+    public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand interactionHand) {
         if (this.canAddPassenger(player) && !player.isSecondaryUseActive()) {
             return super.interact(player, interactionHand);
         }
-        final InteractionResult interactionresult = this.interactWithContainerVehicle(player);
+        InteractionResult interactionresult = this.interactWithContainerVehicle(player);
         if (interactionresult.consumesAction()) {
             this.gameEvent(GameEvent.CONTAINER_OPEN, player);
             PiglinAi.angerNearbyPiglins(player, true);
@@ -219,7 +219,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param slotId {@link Integer The chest slot id}
      * @return {@link ItemStack The id stack}
      */
-    public @NotNull ItemStack getItem(final int slotId) {
+    public @NotNull ItemStack getItem(int slotId) {
         return this.getChestVehicleItem(slotId);
     }
 
@@ -230,7 +230,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param amount {@link Integer The amount of items to take}
      * @return {@link ItemStack The removed id stack}
      */
-    public @NotNull ItemStack removeItem(final int slotId, final int amount) {
+    public @NotNull ItemStack removeItem(int slotId, int amount) {
         return this.removeChestVehicleItem(slotId, amount);
     }
 
@@ -240,7 +240,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param slotId {@link Integer The chest slot id}
      * @return {@link ItemStack The removed id stack}
      */
-    public @NotNull ItemStack removeItemNoUpdate(final int slotId) {
+    public @NotNull ItemStack removeItemNoUpdate(int slotId) {
         return this.removeChestVehicleItemNoUpdate(slotId);
     }
 
@@ -250,7 +250,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param slotId {@link Integer The chest slot id}
      * @param itemStack {@link ItemStack The id stack to set}
      */
-    public void setItem(final int slotId, final @NotNull ItemStack itemStack) {
+    public void setItem(int slotId, @NotNull ItemStack itemStack) {
         this.setChestVehicleItem(slotId, itemStack);
     }
 
@@ -260,7 +260,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param slotId {@link Integer The chest slot id}
      * @return {@link SlotAccess The chest slot}
      */
-    public @NotNull SlotAccess getSlot(final int slotId) {
+    public @NotNull SlotAccess getSlot(int slotId) {
         return this.getChestVehicleSlot(slotId);
     }
 
@@ -275,7 +275,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param player {@link Player The player interacting with the boat}
      * @return {@link Boolean True if the boat is still valid}
      */
-    public boolean stillValid(final @NotNull Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return this.isChestVehicleStillValid(player);
     }
 
@@ -288,7 +288,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @return {@link AbstractContainerMenu The chest menu}
      */
     @Nullable
-    public AbstractContainerMenu createMenu(final int size, final @NotNull Inventory inventory, final @NotNull Player player) {
+    public AbstractContainerMenu createMenu(int size, @NotNull Inventory inventory, @NotNull Player player) {
         if (this.lootTable != null && player.isSpectator()) {
             return null;
         }
@@ -301,7 +301,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param player {@link Player The player opening the chest}
      */
-    public void unpackLootTable(final @Nullable Player player) {
+    public void unpackLootTable(@Nullable Player player) {
         this.unpackChestVehicleLootTable(player);
     }
 
@@ -320,7 +320,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param lootTable {@link ResourceLocation The chest loot table}
      */
-    public void setLootTable(final @Nullable ResourceLocation lootTable) {
+    public void setLootTable(@Nullable ResourceLocation lootTable) {
         this.lootTable = lootTable;
     }
 
@@ -338,7 +338,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param seed {@link Long The loot table seed}
      */
-    public void setLootTableSeed(final long seed) {
+    public void setLootTableSeed(long seed) {
         this.lootTableSeed = seed;
     }
 
@@ -367,7 +367,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param <T> {@link T The capability type}
      */
     @Override
-    public <T> @NotNull LazyOptional<T> getCapability(final @NotNull Capability<T> capability, final @Nullable Direction facing) {
+    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
         return this.isAlive() && ForgeCapabilities.ITEM_HANDLER.equals(capability) ? itemHandler.cast() : super.getCapability(capability, facing);
     }
 
@@ -394,7 +394,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      *
      * @param player {@link Player The player closing the chest}
      */
-    public void stopOpen(final @NotNull Player player) {
+    public void stopOpen(@NotNull Player player) {
         this.level.gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));
     }
 

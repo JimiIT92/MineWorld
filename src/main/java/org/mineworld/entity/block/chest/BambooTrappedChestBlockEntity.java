@@ -16,7 +16,7 @@ public class BambooTrappedChestBlockEntity extends AbstractTrappedChestBlockEnti
      * @param blockPos {@link BlockPos The current block pos}
      * @param blockState {@link BlockState The current block state}
      */
-    public BambooTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+    public BambooTrappedChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MWBlockEntityTypes.BAMBOO_TRAPPED_CHEST.get(), blockPos, blockState);
     }
 

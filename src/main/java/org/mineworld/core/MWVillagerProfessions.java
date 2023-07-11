@@ -10,16 +10,16 @@ import org.mineworld.helper.RegisterHelper;
 /**
  * {@link MineWorld MineWorld} {@link VillagerProfession villager professions}
  */
-public final class MWVillagerProfessions {
+public class MWVillagerProfessions {
 
-    public static final RegistryObject<VillagerProfession> CARPENTER = RegisterHelper.registerVillagerProfession("carpenter", MWPoiTypes.CARPENTER, SoundEvents.VILLAGER_WORK_MASON);
+    public static RegistryObject<VillagerProfession> CARPENTER = RegisterHelper.registerVillagerProfession("carpenter", MWPoiTypes.CARPENTER, SoundEvents.VILLAGER_WORK_MASON);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link VillagerProfession villager professions}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerVillagerProfessions(eventBus);
     }
 

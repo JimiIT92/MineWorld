@@ -18,7 +18,7 @@ public class PalmChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public PalmChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public PalmChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

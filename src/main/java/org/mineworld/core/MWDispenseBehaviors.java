@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * {@link MineWorld MineWorld} {@link DispenseItemBehavior dispense id behaviors}
  */
-public final class MWDispenseBehaviors {
+public class MWDispenseBehaviors {
 
     /**
      * Register the {@link DispenseItemBehavior dispense id behaviors}

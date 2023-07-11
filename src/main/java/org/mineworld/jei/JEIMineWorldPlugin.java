@@ -49,7 +49,7 @@ public class JEIMineWorldPlugin implements IModPlugin {
      * @param recipeCategoryRegistration {@link IRecipeCategoryRegistration The recipe category recipeCategoryRegistration reference}
      */
     @Override
-    public void registerCategories(final @NotNull IRecipeCategoryRegistration recipeCategoryRegistration) {
+    public void registerCategories(@NotNull IRecipeCategoryRegistration recipeCategoryRegistration) {
         recipeCategoryRegistration.addRecipeCategories(
                 new WoodcuttingRecipeCategory(recipeCategoryRegistration.getJeiHelpers().getGuiHelper()),
                 new ForgingRecipeCategory(recipeCategoryRegistration.getJeiHelpers().getGuiHelper()));
@@ -61,8 +61,8 @@ public class JEIMineWorldPlugin implements IModPlugin {
      * @param recipeRegistration {@link IRecipeRegistration The recipe registration reference}
      */
     @Override
-    public void registerRecipes(final @NotNull IRecipeRegistration recipeRegistration) {
-        final RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+    public void registerRecipes(@NotNull IRecipeRegistration recipeRegistration) {
+        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
         recipeRegistration.addRecipes(WOODCUTTING, recipeManager.getAllRecipesFor(MWRecipeTypes.WOODCUTTING.get()));
         recipeRegistration.addRecipes(FORGING, recipeManager.getAllRecipesFor(MWRecipeTypes.FORGING.get()));
     }

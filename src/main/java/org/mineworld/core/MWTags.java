@@ -9,14 +9,14 @@ import org.mineworld.helper.RegisterHelper;
 /**
  * {@link MineWorld MineWorld} tags
  */
-public final class MWTags {
+public class MWTags {
 
     /**
      * {@link TagKey<Block> Block tags}
      */
     public static class Blocks {
 
-        public static final TagKey<Block> LECTERNS = RegisterHelper.registerBlockTag("lecterns");
+        public static TagKey<Block> LECTERNS = RegisterHelper.registerBlockTag("lecterns");
 
     }
 
@@ -25,8 +25,8 @@ public final class MWTags {
      */
     public static class Items {
 
-        public static final TagKey<Item> LANTERNS = RegisterHelper.registerItemTag("lanterns");
-        public static final TagKey<Item> BOOKSHELVES = RegisterHelper.registerItemTag("bookshelves");
+        public static TagKey<Item> LANTERNS = RegisterHelper.registerItemTag("lanterns");
+        public static TagKey<Item> BOOKSHELVES = RegisterHelper.registerItemTag("bookshelves");
 
     }
 

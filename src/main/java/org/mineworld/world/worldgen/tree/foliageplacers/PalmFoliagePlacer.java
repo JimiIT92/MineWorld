@@ -20,7 +20,7 @@ public class PalmFoliagePlacer extends BlobFoliagePlacer {
     /**
      * {@link Codec<PalmFoliagePlacer> The palm foliage placer codec}
      */
-    public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create(builder -> blobParts(builder).apply(builder, PalmFoliagePlacer::new));
+    public static Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create(builder -> blobParts(builder).apply(builder, PalmFoliagePlacer::new));
 
     /**
      * Constructor. Set the trunk placer properties
@@ -29,7 +29,7 @@ public class PalmFoliagePlacer extends BlobFoliagePlacer {
      * @param offset {@link IntProvider The leaves offset}
      * @param height {@link Integer The leaves height}
      */
-    public PalmFoliagePlacer(final IntProvider radius, final IntProvider offset, final int height) {
+    public PalmFoliagePlacer(IntProvider radius, IntProvider offset, int height) {
         super(radius, offset, height);
     }
 
@@ -56,9 +56,9 @@ public class PalmFoliagePlacer extends BlobFoliagePlacer {
      * @param offset {@link Integer The tree foliage offset}
      */
     @Override
-    protected void createFoliage(final @NotNull LevelSimulatedReader levelSimulatedReader, final FoliagePlacer.@NotNull FoliageSetter foliageSetter, final @NotNull RandomSource random, final @NotNull TreeConfiguration treeConfiguration, final int treeHeight, final FoliagePlacer.@NotNull FoliageAttachment foliageAttachment, final int height, final int radius, final int offset) {
+    protected void createFoliage(@NotNull LevelSimulatedReader levelSimulatedReader, FoliagePlacer.@NotNull FoliageSetter foliageSetter, @NotNull RandomSource random, @NotNull TreeConfiguration treeConfiguration, int treeHeight, FoliagePlacer.@NotNull FoliageAttachment foliageAttachment, int height, int radius, int offset) {
         for(int i = offset; i >= offset - height; --i) {
-            final int j = Math.max(radius + foliageAttachment.radiusOffset() - 1 - i / 2, 0);
+            int j = Math.max(radius + foliageAttachment.radiusOffset() - 1 - i / 2, 0);
             this.placeLeavesRowWithHangingLeavesBelow(levelSimulatedReader, foliageSetter, random, treeConfiguration, foliageAttachment.pos(), j, i, foliageAttachment.doubleTrunk(),0.25F, 0.25F);
         }
     }

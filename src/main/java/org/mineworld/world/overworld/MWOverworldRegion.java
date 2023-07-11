@@ -31,7 +31,7 @@ public class MWOverworldRegion extends Region {
      * @param mapper {@link Pair The region mapper}
      */
     @Override
-    public void addBiomes(final Registry<Biome> biomeRegistry, final Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
+    public void addBiomes(Registry<Biome> biomeRegistry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
         new MWOverworldBiomeBuilder().addBiomes(mapper);
     }
 

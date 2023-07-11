@@ -18,7 +18,7 @@ public class AppleChestRenderer extends AbstractChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public AppleChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public AppleChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

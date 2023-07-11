@@ -23,7 +23,7 @@ public class MWTntMinecartRenderer extends MinecartRenderer<MWMinecartTNT> {
     /**
      * {@link BlockRenderDispatcher The block renderer reference}
      */
-    private final BlockRenderDispatcher blockRenderer;
+    private BlockRenderDispatcher blockRenderer;
 
     /**
      * Constructor. Set the {@link BlockRenderDispatcher block renderer reference}
@@ -46,14 +46,14 @@ public class MWTntMinecartRenderer extends MinecartRenderer<MWMinecartTNT> {
      * @param packedLight {@link Integer The world packed light}
      */
     @Override
-    protected void renderMinecartContents(final MWMinecartTNT minecart, final float partialTicks, final @NotNull BlockState tntBlockState, final @NotNull PoseStack poseStack, final @NotNull MultiBufferSource multiBufferSource, final int packedLight) {
+    protected void renderMinecartContents(MWMinecartTNT minecart, float partialTicks, @NotNull BlockState tntBlockState, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int packedLight) {
         int fuse = minecart.getFuse();
         if (fuse > -1 && (float)fuse - partialTicks + 1.0F < 10.0F) {
             float fuseFactor = 1.0F - ((float)fuse - partialTicks + 1.0F) / 10.0F;
             fuseFactor = Mth.clamp(fuseFactor, 0.0F, 1.0F);
             fuseFactor *= fuseFactor;
             fuseFactor *= fuseFactor;
-            final float fuseFactorScale = 1.0F + fuseFactor * 0.3F;
+            float fuseFactorScale = 1.0F + fuseFactor * 0.3F;
             poseStack.scale(fuseFactorScale, fuseFactorScale, fuseFactorScale);
         }
         renderWhiteSolidBlock(this.blockRenderer, tntBlockState, poseStack, multiBufferSource, packedLight, fuse > -1 && fuse / 5 % 2 == 0);

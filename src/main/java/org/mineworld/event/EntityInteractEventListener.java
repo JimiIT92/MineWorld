@@ -17,7 +17,7 @@ import org.mineworld.helper.ItemHelper;
  * Handle interactions with {@link Entity entities}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class EntityInteractEventListener {
+public class EntityInteractEventListener {
 
     /**
      * Handle the {@link Player player} interaction with an {@link Entity entity}
@@ -25,11 +25,11 @@ public final class EntityInteractEventListener {
      * @param event {@link PlayerInteractEvent.EntityInteractSpecific Entity interact specific event}
      */
     @SubscribeEvent
-    public static void onEntityInteract(final PlayerInteractEvent.EntityInteractSpecific event) {
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         if(!event.isCanceled()) {
-            final Player player = event.getEntity();
-            final Entity target = event.getTarget();
-            final ItemStack itemStack = event.getItemStack();
+            Player player = event.getEntity();
+            Entity target = event.getTarget();
+            ItemStack itemStack = event.getItemStack();
             if(target instanceof ItemFrame itemFrame && itemStack.getItem() instanceof ShearsItem) {
                 handleItemFrameInteraction(event, player, itemFrame, itemStack);
             }
@@ -44,7 +44,7 @@ public final class EntityInteractEventListener {
      * @param player {@link Player The player interacting with the entity}
      * @param itemStack {@link ItemStack The id stack used to interact}
      */
-    private static void cancelEvent(final PlayerInteractEvent.EntityInteractSpecific event, final InteractionResult result, final Player player, final ItemStack itemStack) {
+    private static void cancelEvent(PlayerInteractEvent.EntityInteractSpecific event, InteractionResult result, Player player, ItemStack itemStack) {
         ItemHelper.hurt(itemStack, player);
         event.setCanceled(true);
         event.setCancellationResult(result);
@@ -58,11 +58,11 @@ public final class EntityInteractEventListener {
      * @param itemFrame {@link ItemFrame The id frame being interacted}
      * @param itemStack {@link ItemStack The id stack used to interact}
      */
-    private static void handleItemFrameInteraction(final PlayerInteractEvent.EntityInteractSpecific event, final Player player, final ItemFrame itemFrame, final ItemStack itemStack) {
+    private static void handleItemFrameInteraction(PlayerInteractEvent.EntityInteractSpecific event, Player player, ItemFrame itemFrame, ItemStack itemStack) {
         if(!player.isShiftKeyDown()) {
             return;
         }
-        final boolean invisible = !itemFrame.isInvisible();
+        boolean invisible = !itemFrame.isInvisible();
         itemFrame.setInvisible(invisible);
         player.playSound(invisible ? SoundEvents.ITEM_FRAME_REMOVE_ITEM : SoundEvents.ITEM_FRAME_ADD_ITEM, 0.75F, 1.0F);
         cancelEvent(event, InteractionResult.CONSUME, player, itemStack);

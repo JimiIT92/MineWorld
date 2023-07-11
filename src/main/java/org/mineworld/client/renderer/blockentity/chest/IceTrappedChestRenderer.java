@@ -16,7 +16,7 @@ public class IceTrappedChestRenderer extends IceChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public IceTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public IceTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

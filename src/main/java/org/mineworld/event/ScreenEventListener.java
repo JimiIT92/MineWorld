@@ -15,7 +15,7 @@ import org.mineworld.helper.SplashScreenHelper;
  * Listener for a {@link ScreenEvent screen event}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, value = Dist.CLIENT)
-public final class ScreenEventListener {
+public class ScreenEventListener {
 
     /**
      * Show custom splash screen on main screen opening or
@@ -24,9 +24,9 @@ public final class ScreenEventListener {
      * @param event {@link ScreenEvent.Opening The screen opening event}
      */
     @SubscribeEvent
-    public static void onScreenOpen(final ScreenEvent.Opening event) {
+    public static void onScreenOpen(ScreenEvent.Opening event) {
         if(!event.isCanceled()) {
-            final Screen screen = event.getScreen();
+            Screen screen = event.getScreen();
             if(screen instanceof TitleScreen titleScreen) {
                 SplashScreenHelper.getSplashText().ifPresent(text -> titleScreen.splash = text);
                 return;

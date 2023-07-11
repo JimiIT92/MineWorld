@@ -32,7 +32,7 @@ public class MWBoat extends Boat {
     /**
      * {@link EntityDataAccessor<Integer> The boat data type accessor}
      */
-    private static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(MWBoat.class, EntityDataSerializers.INT);
+    private static EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(MWBoat.class, EntityDataSerializers.INT);
 
     /**
      * Constructor. Set the {@link EntityType boat entity type}
@@ -40,7 +40,7 @@ public class MWBoat extends Boat {
      * @param entityType {@link EntityType The boat entity type}
      * @param level {@link Level The level reference}
      */
-    public MWBoat(final EntityType<? extends Boat> entityType, final Level level) {
+    public MWBoat(EntityType<? extends Boat> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -52,7 +52,7 @@ public class MWBoat extends Boat {
      * @param posY {@link Double The boat Y coordinate}
      * @param posZ {@link Double The boat Z coordinate}
      */
-    public MWBoat(final Level level, final double posX, final double posY, final double posZ) {
+    public MWBoat(Level level, double posX, double posY, double posZ) {
         this(MWEntityTypes.BOAT.get(), level);
         this.setPos(posX, posY, posZ);
         this.xo = posX;
@@ -74,7 +74,7 @@ public class MWBoat extends Boat {
      *
      * @param type {@link MWBoat.Type The boat type}
      */
-    public void setBoatType(final MWBoat.Type type) {
+    public void setBoatType(MWBoat.Type type) {
         this.entityData.set(DATA_ID_TYPE, type.ordinal());
     }
 
@@ -109,7 +109,7 @@ public class MWBoat extends Boat {
      *
      * @param nbt {@link CompoundTag The boat nbt data}
      */
-    protected void addAdditionalSaveData(final CompoundTag nbt) {
+    protected void addAdditionalSaveData(CompoundTag nbt) {
         nbt.putString("Type", this.getBoatType().getSerializedName());
     }
 
@@ -118,7 +118,7 @@ public class MWBoat extends Boat {
      *
      * @param nbt {@link CompoundTag The boat nbt data}
      */
-    protected void readAdditionalSaveData(final CompoundTag nbt) {
+    protected void readAdditionalSaveData(CompoundTag nbt) {
         if (nbt.contains("Type", 8)) {
             this.setBoatType(MWBoat.Type.byName(nbt.getString("Type")));
         }
@@ -156,19 +156,19 @@ public class MWBoat extends Boat {
         /**
          * {@link String The boat type name}
          */
-        private final String name;
+        private String name;
         /**
          * {@link Block The planks representing this boat type}
          */
-        private final Block planks;
+        private Block planks;
         /**
          * {@link StringRepresentable.EnumCodec The boat type coded}
          */
-        public static final StringRepresentable.EnumCodec<MWBoat.Type> CODEC = StringRepresentable.fromEnum(MWBoat.Type::values);
+        public static StringRepresentable.EnumCodec<MWBoat.Type> CODEC = StringRepresentable.fromEnum(MWBoat.Type::values);
         /**
          * {@link IntFunction The boat type by ID function}
          */
-        private static final IntFunction<MWBoat.Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
+        private static IntFunction<MWBoat.Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
 
         /**
          * Constructor. Set the boat type properties
@@ -176,7 +176,7 @@ public class MWBoat extends Boat {
          * @param planks {@link Block The planks representing this boat type}
          * @param woodType {@link WoodType The boat wood type}
          */
-        Type(final Block planks, final WoodType woodType) {
+        Type(Block planks, WoodType woodType) {
             this.name = PropertyHelper.getWoodTypeName(woodType);
             this.planks = planks;
         }
@@ -223,7 +223,7 @@ public class MWBoat extends Boat {
          * @param id {@link Integer The boat id}
          * @return {@link MWBoat.Type The boat type}
          */
-        public static MWBoat.Type byId(final int id) {
+        public static MWBoat.Type byId(int id) {
             return BY_ID.apply(id);
         }
 
@@ -233,7 +233,7 @@ public class MWBoat extends Boat {
          * @param name {@link String The boat name}
          * @return {@link MWBoat.Type The boat type}
          */
-        public static MWBoat.Type byName(final String name) {
+        public static MWBoat.Type byName(String name) {
             return CODEC.byName(name, CRIMSON);
         }
     }

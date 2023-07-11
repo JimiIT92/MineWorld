@@ -20,18 +20,18 @@ import terrablender.api.SurfaceRuleManager;
 /**
  * {@link MineWorld MineWorld} {@link Biome biomes}
  */
-public final class MWBiomes {
+public class MWBiomes {
 
-    public static final ResourceKey<Biome> FROZEN_PLAINS = KeyHelper.registerBiome("frozen_plains");
-    public static final ResourceKey<Biome> WASTELAND = KeyHelper.registerBiome("wasteland");
-    public static final ResourceKey<Biome> VOLCANIC_PEAK = KeyHelper.registerBiome("volcanic_peak");
+    public static ResourceKey<Biome> FROZEN_PLAINS = KeyHelper.registerBiome("frozen_plains");
+    public static ResourceKey<Biome> WASTELAND = KeyHelper.registerBiome("wasteland");
+    public static ResourceKey<Biome> VOLCANIC_PEAK = KeyHelper.registerBiome("volcanic_peak");
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Biome biomes}
      *
      * @param eventBus {@link IEventBus The event bus}
      */
-    public static void register(final IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         RegisterHelper.registerBiomes(eventBus);
     }
 
@@ -40,9 +40,9 @@ public final class MWBiomes {
      *
      * @param context {@link BootstapContext<Biome> The bootstrap context}
      */
-    public static void bootstrapBiomes(final BootstapContext<Biome> context) {
-        final HolderGetter<PlacedFeature> placedFeatureHolder = context.lookup(Registries.PLACED_FEATURE);
-        final HolderGetter<ConfiguredWorldCarver<?>> carver = context.lookup(Registries.CONFIGURED_CARVER);
+    public static void bootstrapBiomes(BootstapContext<Biome> context) {
+        HolderGetter<PlacedFeature> placedFeatureHolder = context.lookup(Registries.PLACED_FEATURE);
+        HolderGetter<ConfiguredWorldCarver<?>> carver = context.lookup(Registries.CONFIGURED_CARVER);
         context.register(FROZEN_PLAINS, BiomeHelper.frozenPlains(placedFeatureHolder, carver));
         context.register(WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
         context.register(VOLCANIC_PEAK, BiomeHelper.volcanicPeak(placedFeatureHolder, carver));

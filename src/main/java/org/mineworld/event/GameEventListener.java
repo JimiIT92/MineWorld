@@ -17,7 +17,7 @@ import org.mineworld.block.weathering.IMWWeatheringBlock;
  * Listener for a {@link GameEvent game event}
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
-public final class GameEventListener {
+public class GameEventListener {
 
     /**
      * Listen for a {@link GameEvent vanilla game event} and apply some custom logic
@@ -25,11 +25,11 @@ public final class GameEventListener {
      * @param event {@link VanillaGameEvent The vanilla game event}
      */
     @SubscribeEvent
-    public static void onGameEvent(final VanillaGameEvent event) {
+    public static void onGameEvent(VanillaGameEvent event) {
         if(!event.isCanceled()) {
-            final GameEvent gameEvent = event.getVanillaEvent();
-            final Level level = event.getLevel();
-            final Entity cause = event.getCause();
+            GameEvent gameEvent = event.getVanillaEvent();
+            Level level = event.getLevel();
+            Entity cause = event.getCause();
             if(gameEvent.equals(GameEvent.LIGHTNING_STRIKE)) {
                 handleLightningStrike(cause.getBlockStateOn(), level, cause.getOnPos());
             }
@@ -44,7 +44,7 @@ public final class GameEventListener {
      * @param level {@link Level The level reference}
      * @param blockPos {@link BlockPos The lightning strike hitted block pos}
      */
-    private static void handleLightningStrike(final BlockState blockState, final Level level, final BlockPos blockPos) {
+    private static void handleLightningStrike(BlockState blockState, Level level, BlockPos blockPos) {
         if(blockState.getBlock() instanceof IMWWeatheringBlock) {
             IMWWeatheringBlock.lightningStrike(blockState, level, blockPos);
         }

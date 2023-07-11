@@ -24,59 +24,59 @@ public class ForgingTableMenu extends AbstractContainerMenu {
     /**
      * {@link Integer The base ingredient slot id}
      */
-    public static final int INGREDIENT_BASE_SLOT = 0;
+    public static int INGREDIENT_BASE_SLOT = 0;
     /**
      * {@link Integer The addition ingredient slot id}
      */
-    public static final int INGREDIENT_ADDITION_SLOT = 1;
+    public static int INGREDIENT_ADDITION_SLOT = 1;
     /**
      * {@link Integer The fuel slot id}
      */
-    public static final int FUEL_SLOT = 2;
+    public static int FUEL_SLOT = 2;
     /**
      * {@link Integer The result slot id}
      */
-    public static final int RESULT_SLOT = 3;
+    public static int RESULT_SLOT = 3;
     /**
      * {@link Integer The number of slots}
      */
-    public static final int SLOT_COUNT = 4;
+    public static int SLOT_COUNT = 4;
     /**
      * {@link Integer The data values count}
      */
-    public static final int DATA_COUNT = 4;
+    public static int DATA_COUNT = 4;
     /**
      * {@link Integer The initial inventory slot id}
      */
-    private static final int INV_SLOT_START = 4;
+    private static int INV_SLOT_START = 4;
     /**
-     * {@link Integer The final inventory slot id}
+     * {@link Integer The inventory slot id}
      */
-    private static final int INV_SLOT_END = 31;
+    private static int INV_SLOT_END = 31;
     /**
      * {@link Integer The initial hotbar slot id}
      */
-    private static final int USE_ROW_SLOT_START = 31;
+    private static int USE_ROW_SLOT_START = 31;
     /**
-     * {@link Integer The final hotbar slot id}
+     * {@link Integer The hotbar slot id}
      */
-    private static final int USE_ROW_SLOT_END = 40;
+    private static int USE_ROW_SLOT_END = 40;
     /**
      * {@link Container The screen container}
      */
-    private final Container container;
+    private Container container;
     /**
      * {@link ContainerData The screen container data}
      */
-    private final ContainerData containerData;
+    private ContainerData containerData;
     /**
      * {@link Level The level reference}
      */
-    private final Level level;
+    private Level level;
     /**
      * {@link RecipeType<ForgingRecipe> The forging recipe type}
      */
-    private final RecipeType<? extends ForgingRecipe> recipeType;
+    private RecipeType<? extends ForgingRecipe> recipeType;
 
     /**
      * Forge Constructor. Sets the screen default properties
@@ -85,7 +85,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
      * @param inventory {@link Inventory The screen inventory}
      * @param buffer {@link FriendlyByteBuf The screen byte buffer}
      */
-    public ForgingTableMenu(final int id, final Inventory inventory, final FriendlyByteBuf buffer) {
+    public ForgingTableMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
         this(id, inventory);
     }
 
@@ -95,7 +95,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
      * @param id {@link Integer The screen id}
      * @param inventory {@link Inventory The screen inventory}
      */
-    public ForgingTableMenu(final int id, final Inventory inventory) {
+    public ForgingTableMenu(int id, Inventory inventory) {
         this(id, inventory, new SimpleContainer(SLOT_COUNT), new SimpleContainerData(DATA_COUNT));
     }
 
@@ -134,7 +134,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
      * @param container {@link Container The screen container}
      * @param containerData {@link ContainerData The screen container data}
      */
-    public ForgingTableMenu(final int id, final Inventory inventory, final Container container, final ContainerData containerData) {
+    public ForgingTableMenu(int id, Inventory inventory, Container container, ContainerData containerData) {
         super(MWMenuTypes.FORGING_TABLE.get(), id);
         this.recipeType = MWRecipeTypes.FORGING.get();
         checkContainerSize(container, SLOT_COUNT);
@@ -153,7 +153,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
              * @return {@link Boolean True if is a forging table fuel}
              */
             @Override
-            public boolean mayPlace(final @NotNull ItemStack itemStack) {
+            public boolean mayPlace(@NotNull ItemStack itemStack) {
                 return ForgingTableBlockEntity.isFuel(itemStack);
             }
         });
@@ -171,7 +171,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
              * @return {@link Boolean False}
              */
             @Override
-            public boolean mayPlace(final @NotNull ItemStack itemStack) {
+            public boolean mayPlace(@NotNull ItemStack itemStack) {
                 return false;
             }
 
@@ -181,7 +181,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
              * @param amount {@link Integer The amount of items to remove}
              * @return {@link ItemStack The removed item stack}
              */
-            public @NotNull ItemStack remove(final int amount) {
+            public @NotNull ItemStack remove(int amount) {
                 if (this.hasItem()) {
                     this.removeCount += Math.min(amount, this.getItem().getCount());
                 }
@@ -194,7 +194,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
              * @param player {@link Player The player taking the item}
              * @param itemStack {@link ItemStack The item to take from the slot}
              */
-            public void onTake(final @NotNull Player player, final @NotNull ItemStack itemStack) {
+            public void onTake(@NotNull Player player, @NotNull ItemStack itemStack) {
                 this.checkTakeAchievements(itemStack);
                 super.onTake(player, itemStack);
             }
@@ -205,7 +205,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
              * @param itemStack {@link ItemStack The item stack to quickly take}
              * @param amount {@link Integer The amount of items to take}
              */
-            protected void onQuickCraft(final @NotNull ItemStack itemStack, final int amount) {
+            protected void onQuickCraft(@NotNull ItemStack itemStack, int amount) {
                 this.removeCount += amount;
                 this.checkTakeAchievements(itemStack);
             }
@@ -215,8 +215,8 @@ public class ForgingTableMenu extends AbstractContainerMenu {
              *
              * @param itemStack {@link ItemStack The crafted item stack}
              */
-            protected void checkTakeAchievements(final ItemStack itemStack) {
-                final Player player = inventory.player;
+            protected void checkTakeAchievements(ItemStack itemStack) {
+                Player player = inventory.player;
                 itemStack.onCraftedBy(player.level, player, this.removeCount);
                 if (player instanceof ServerPlayer && this.container instanceof ForgingTableBlockEntity) {
                     ((ForgingTableBlockEntity)this.container).awardUsedRecipesAndPopExperience((ServerPlayer)player);
@@ -246,11 +246,11 @@ public class ForgingTableMenu extends AbstractContainerMenu {
      * @return {@link ItemStack The moved item stack}
      */
     @Override
-    public @NotNull ItemStack quickMoveStack(final @NotNull Player player, final int slotId) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int slotId) {
         ItemStack result = ItemStack.EMPTY;
-        final Slot slot = this.slots.get(slotId);
+        Slot slot = this.slots.get(slotId);
         if (slot.hasItem()) {
-            final ItemStack slotItem = slot.getItem();
+            ItemStack slotItem = slot.getItem();
             result = slotItem.copy();
             if (slotId == RESULT_SLOT) {
                 if (!this.moveItemStackTo(slotItem, INV_SLOT_START, INV_SLOT_END, true)) {
@@ -301,7 +301,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
      * @return {@link Boolean True if the screen container is still valid}
      */
     @Override
-    public boolean stillValid(final @NotNull Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return this.container.stillValid(player);
     }
 
@@ -311,7 +311,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
      * @param itemStack {@link ItemStack The item stack to check}
      * @return {@link Boolean True if the item can be forged}
      */
-    private boolean canForge(final ItemStack itemStack) {
+    private boolean canForge(ItemStack itemStack) {
         return this.level.getRecipeManager().getRecipeFor((RecipeType<ForgingRecipe>)this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
     }
 
@@ -321,8 +321,8 @@ public class ForgingTableMenu extends AbstractContainerMenu {
      * @return {@link Integer The forging progress}
      */
     public int getForgingProgress() {
-        final int forgingProgress = this.containerData.get(2);
-        final int forgingTotalTime = this.containerData.get(3);
+        int forgingProgress = this.containerData.get(2);
+        int forgingTotalTime = this.containerData.get(3);
         return forgingTotalTime != 0 && forgingProgress != 0 ? forgingProgress * 24 / forgingTotalTime : 0;
     }
 

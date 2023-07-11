@@ -16,7 +16,7 @@ public class MWChestBoatRenderer extends MWBoatRenderer {
      *
      * @param context {@link EntityRendererProvider.Context The entity renderer provider context}
      */
-    public MWChestBoatRenderer(final EntityRendererProvider.Context context) {
+    public MWChestBoatRenderer(EntityRendererProvider.Context context) {
         super(context, true);
     }
 

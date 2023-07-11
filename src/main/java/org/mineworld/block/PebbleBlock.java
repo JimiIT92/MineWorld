@@ -31,19 +31,19 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
     /**
      * {@link Integer The maximum amount of pebbles that can be placed on a block}
      */
-    private static final int MAX_AMOUNT = 8;
+    private static int MAX_AMOUNT = 8;
     /**
      * {@link DirectionProperty The facing direction property}
      */
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     /**
      * {@link Integer The pebble amount property}
      */
-    public static final IntegerProperty AMOUNT = IntegerProperty.create("pebbles", 1, MAX_AMOUNT);
+    public static IntegerProperty AMOUNT = IntegerProperty.create("pebbles", 1, MAX_AMOUNT);
     /**
      * {@link Boolean The pebble waterlogged property}
      */
-    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    private static BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     /**
      * Constructor. Set the block properties
@@ -51,7 +51,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @param block {@link Block The block the pebbles are based on}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public PebbleBlock(final Block block, final FeatureFlag... featureFlags) {
+    public PebbleBlock(Block block, FeatureFlag... featureFlags) {
         super(PropertyHelper.copyFromBlock(block, featureFlags).noCollission().requiresCorrectToolForDrops());
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE));
     }
@@ -64,7 +64,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @return {@link BlockState The rotated block state}
      */
     @Override
-    public @NotNull BlockState rotate(final BlockState blockState, final Rotation direction) {
+    public @NotNull BlockState rotate(BlockState blockState, Rotation direction) {
         return blockState.setValue(FACING, direction.rotate(blockState.getValue(FACING)));
     }
 
@@ -76,7 +76,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @return {@link BlockState The mirrored block state}
      */
     @Override
-    public @NotNull BlockState mirror(final @NotNull BlockState blockState, final @NotNull Mirror mirror) {
+    public @NotNull BlockState mirror(@NotNull BlockState blockState, @NotNull Mirror mirror) {
         return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
     }
 
@@ -88,7 +88,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @return {@link Boolean True if the player is not placing a pebble}
      */
     @Override
-    public boolean canBeReplaced(final @NotNull BlockState blockState, final BlockPlaceContext context) {
+    public boolean canBeReplaced(@NotNull BlockState blockState, BlockPlaceContext context) {
         return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && blockState.getValue(AMOUNT) < MAX_AMOUNT || super.canBeReplaced(blockState, context);
     }
 
@@ -102,7 +102,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @return {@link VoxelShape The block shape}
      */
     @Override
-    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
     }
 
@@ -143,7 +143,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @return {@link Boolean True if the block below is solid}
      */
     @Override
-    public boolean canSurvive(final @NotNull BlockState blockState, final @NotNull LevelReader level, final @NotNull BlockPos blockPos) {
+    public boolean canSurvive(@NotNull BlockState blockState, @NotNull LevelReader level, @NotNull BlockPos blockPos) {
         BlockPos blockpos = blockPos.below();
         return this.mayPlaceOn(level.getBlockState(blockpos), level, blockpos);
     }
@@ -156,7 +156,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Boolean True if the block below is solid}
      */
-    protected boolean mayPlaceOn(final BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+    protected boolean mayPlaceOn(BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return !blockState.getCollisionShape(blockGetter, blockPos).getFaceShape(Direction.UP).isEmpty() || blockState.isFaceSturdy(blockGetter, blockPos, Direction.UP);
     }
 
@@ -172,7 +172,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @return {@link BlockState The updated block state}
      */
     @Override
-    public @NotNull BlockState updateShape(final @NotNull BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
@@ -185,7 +185,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link Fluids#WATER Water if the pebble is waterlogged}
      */
-    public @NotNull FluidState getFluidState(final BlockState blockState) {
+    public @NotNull FluidState getFluidState(BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
@@ -195,7 +195,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link PushReaction#DESTROY Destroy push reaction}
      */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
         return PushReaction.DESTROY;
     }
 

@@ -23,7 +23,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
     /**
      * The {@link Fallable falling block} {@link Integer dust color}
      */
-    private final int dustColor;
+    private int dustColor;
 
     /**
      * Constructor. Set the {@link Float tnt explosion power}
@@ -32,7 +32,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      *
      * @param featureFlags   {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
-    public MWFallableTntBlock(final MWPrimedTnt.Type type, final int dustColor, final FeatureFlag... featureFlags) {
+    public MWFallableTntBlock(MWPrimedTnt.Type type, int dustColor, FeatureFlag... featureFlags) {
         super(type, featureFlags);
         this.dustColor = dustColor;
     }
@@ -45,7 +45,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Integer The dust color}
      */
-    public int getDustColor(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos) {
+    public int getDustColor(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
         return dustColor;
     }
 
@@ -59,7 +59,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @param isClient {@link Boolean If the code is executing on the client side}
      */
     @Override
-    public void onPlace(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState neighborBlockState, final boolean isClient) {
+    public void onPlace(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState neighborBlockState, boolean isClient) {
         level.scheduleTick(blockPos, this, this.getDelayAfterPlace());
     }
 
@@ -75,7 +75,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @return {@link BlockState The updated block state}
      */
     @Override
-    public @NotNull BlockState updateShape(final @NotNull BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
+    public @NotNull BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborBlockState, LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborBlockPos) {
         levelAccessor.scheduleTick(blockPos, this, this.getDelayAfterPlace());
         return super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
@@ -89,9 +89,9 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @param randomSource {@link RandomSource The random reference}
      */
     @Override
-    public void tick(final @NotNull BlockState blockState, final ServerLevel level, final BlockPos blockPos, final @NotNull RandomSource randomSource) {
+    public void tick(@NotNull BlockState blockState, ServerLevel level, BlockPos blockPos, @NotNull RandomSource randomSource) {
         if (canFall(level.getBlockState(blockPos.below())) && blockPos.getY() >= level.getMinBuildHeight()) {
-            final FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, blockPos, blockState);
+            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, blockPos, blockState);
             this.falling(fallingblockentity);
         }
     }
@@ -101,7 +101,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      *
      * @param entity {@link FallingBlockEntity The falling block entity for this block}
      */
-    protected void falling(final FallingBlockEntity entity) { }
+    protected void falling(FallingBlockEntity entity) { }
 
     /**
      * Check if the block can fall
@@ -109,7 +109,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @param blockState {@link BlockState The current block state}
      * @return {@link Boolean True if the block can fall}
      */
-    private boolean canFall(final BlockState blockState) {
+    private boolean canFall(BlockState blockState) {
         return blockState.isAir() || blockState.is(BlockTags.FIRE) || blockState.getMaterial().isLiquid() || blockState.canBeReplaced();
     }
 
@@ -122,7 +122,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @param randomSource {@link RandomSource The random reference}
      */
     @Override
-    public void animateTick(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final RandomSource randomSource) {
+    public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, RandomSource randomSource) {
         if (randomSource.nextInt(16) == 0) {
             if (canFall(level.getBlockState(blockPos.below()))) {
                 ParticleUtils.spawnParticleBelow(level, blockPos, randomSource, new BlockParticleOption(ParticleTypes.FALLING_DUST, blockState));

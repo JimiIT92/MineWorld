@@ -45,7 +45,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
     /**
      * {@link Supplier<Map> Wall hanging lanterns}
      */
-    public static final Supplier<BiMap<Item, Block>> HANGING_BY_LANTERNS = Suppliers.memoize(() -> ImmutableBiMap.<Item, Block>builder()
+    public static Supplier<BiMap<Item, Block>> HANGING_BY_LANTERNS = Suppliers.memoize(() -> ImmutableBiMap.<Item, Block>builder()
             .put(Items.LANTERN, MWBlocks.WALL_HANGING_LANTERN.get())
             .put(Items.SOUL_LANTERN, MWBlocks.WALL_HANGING_SOUL_LANTERN.get())
             .put(ItemHelper.getItem(MWBlocks.GOLDEN_LANTERN.get()), MWBlocks.WALL_HANGING_GOLDEN_LANTERN.get())
@@ -78,15 +78,15 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
     /**
      * {@link Supplier<BiMap> Lantern by wall hanging lanterns}
      */
-    private static final Supplier<BiMap<Block, Item>> LANTERN_BY_WALL_HANGING_LANTERNS = Suppliers.memoize(() -> HANGING_BY_LANTERNS.get().inverse());
+    private static Supplier<BiMap<Block, Item>> LANTERN_BY_WALL_HANGING_LANTERNS = Suppliers.memoize(() -> HANGING_BY_LANTERNS.get().inverse());
     /**
      * {@link BooleanProperty The wall hanging lantern waterlogged property}
      */
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /**
      * {@link Map The wall hanging lantern block shapes}
      */
-    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
+    private static Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.of(
                     Direction.NORTH, Block.box(5.0D, 1.0D, 0.0D, 11.0D, 16.0D, 11.0D),
                     Direction.SOUTH, Block.box(5.0D, 1.0D, 5.0D, 11.0D, 16.0D, 16.0D),
@@ -100,7 +100,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      *
      * @param properties {@link BlockBehaviour.Properties The block properties}
      */
-    public WallHangingLanternBlock(final BlockBehaviour.Properties properties) {
+    public WallHangingLanternBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
@@ -112,7 +112,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param itemStack {@link BlockState The current block state}
      * @return {@link Optional <BlockState> The wall hanging lantern state, if any}
      */
-    public static Optional<BlockState> getWallHangingLantern(final ItemStack itemStack, final Direction face) {
+    public static Optional<BlockState> getWallHangingLantern(ItemStack itemStack, Direction face) {
         return Optional.ofNullable(HANGING_BY_LANTERNS.get().get(itemStack.getItem())).map(block -> block.defaultBlockState().setValue(FACING, face.getOpposite()));
     }
 
@@ -127,7 +127,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @return {@link ItemStack The block id stack}
      */
     @Override
-    public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final BlockGetter blockGetter, final BlockPos blockPos, final Player player) {
+    public ItemStack getCloneItemStack(BlockState blockState, HitResult hitResult, BlockGetter blockGetter, BlockPos blockPos, Player player) {
         return Optional.ofNullable(LANTERN_BY_WALL_HANGING_LANTERNS.get().get(blockState.getBlock())).map(ItemHelper::getDefaultStack).orElse(ItemStack.EMPTY);
     }
 
@@ -140,7 +140,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link VoxelShape The block shape}
      */
-    public @NotNull VoxelShape getShape(final BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+    public @NotNull VoxelShape getShape(BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         return SHAPES.get(blockState.getValue(FACING));
     }
 
@@ -152,7 +152,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param blockPos {@link BlockPos The current block pos}
      * @return {@link Boolean True if the block can survive}
      */
-    public boolean canSurvive(final BlockState blockState, final LevelReader levelReader, final BlockPos blockPos) {
+    public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
         return levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING).getOpposite())).getMaterial().isSolid();
     }
 
@@ -163,10 +163,10 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @return {@link BlockState The placed block state}
      */
     @Nullable
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         BlockState blockState = this.defaultBlockState();
-        final LevelReader level = blockPlaceContext.getLevel();
-        final BlockPos blockPos = blockPlaceContext.getClickedPos();
+        LevelReader level = blockPlaceContext.getLevel();
+        BlockPos blockPos = blockPlaceContext.getClickedPos();
         for(Direction direction : blockPlaceContext.getNearestLookingDirections()) {
             if (direction.getAxis().isHorizontal()) {
                 blockState = blockState.setValue(FACING, direction.getOpposite());
@@ -184,7 +184,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param blockState {@link BlockState The current block state}
      * @return {@link PushReaction#DESTROY Destroy push reaction}
      */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
+    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
         return PushReaction.DESTROY;
     }
 
@@ -199,7 +199,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param neighborPos {@link BlockPos The neighbor block pos}
      * @return {@link BlockState The updated block state}
      */
-    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
@@ -212,7 +212,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param blockState {@link BlockState The current block state}
      * @return {@link FluidState The block fluid state}
      */
-    public @NotNull FluidState getFluidState(final BlockState blockState) {
+    public @NotNull FluidState getFluidState(BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
@@ -225,7 +225,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param pathComputationType {@link PathComputationType The path computation type}
      * @return {@link Boolean False}
      */
-    public boolean isPathfindable(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull PathComputationType pathComputationType) {
+    public boolean isPathfindable(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull PathComputationType pathComputationType) {
         return false;
     }
 
@@ -235,7 +235,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @param stateBuilder {@link StateDefinition.Builder The block state definition builder}
      */
     @Override
-    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, WATERLOGGED);
     }
 

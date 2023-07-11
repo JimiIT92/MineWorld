@@ -58,7 +58,7 @@ import java.util.function.Supplier;
 /**
  * Helper methods for creating {@link BlockBehaviour.Properties block} and {@link Item.Properties id} properties
  */
-public final class PropertyHelper {
+public class PropertyHelper {
 
     /**
      * Get the basic {@link Item.Properties id properties}
@@ -66,7 +66,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
      * @return {@link Item.Properties id properties}
      */
-    public static Item.Properties basicItemProperties(final FeatureFlag... featureFlags) {
+    public static Item.Properties basicItemProperties(FeatureFlag... featureFlags) {
         return applyFeatureFlags(new Item.Properties(), featureFlags);
     }
 
@@ -77,7 +77,7 @@ public final class PropertyHelper {
      * @param saturation {@link Float How much saturation this food will restore}
      * @return {@link FoodProperties.Builder Food properties builder}
      */
-    public static FoodProperties.Builder basicFoodProperties(final int nutrition, final float saturation) {
+    public static FoodProperties.Builder basicFoodProperties(int nutrition, float saturation) {
         return new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturation);
     }
 
@@ -87,7 +87,7 @@ public final class PropertyHelper {
      * @param foodProperties {@link FoodProperties The raw food properties}
      * @return {@link FoodProperties.Builder The cooked food properties builder}
      */
-    public static FoodProperties.Builder cookedFoodProperties(final FoodProperties foodProperties) {
+    public static FoodProperties.Builder cookedFoodProperties(FoodProperties foodProperties) {
         return getFoodPropertiesBuilder(foodProperties).nutrition(foodProperties.getNutrition() * 2).saturationMod(foodProperties.getSaturationModifier() * 2);
     }
 
@@ -98,7 +98,7 @@ public final class PropertyHelper {
      * @param foodProperties {@link FoodProperties The food properties to get the builder}
      * @return {@link FoodProperties.Builder The food properties builder}
      */
-    static FoodProperties.Builder getFoodPropertiesBuilder(final FoodProperties foodProperties) {
+    static FoodProperties.Builder getFoodPropertiesBuilder(FoodProperties foodProperties) {
         FoodProperties.Builder propertiesBuilder = new FoodProperties.Builder()
                 .nutrition(foodProperties.getNutrition())
                 .saturationMod(foodProperties.getSaturationModifier());
@@ -127,7 +127,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties basicBlockProperties(final Material material, final float hardnessAndBlastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties basicBlockProperties(Material material, float hardnessAndBlastResistance, boolean requiresTool, FeatureFlag... featureFlags) {
         return basicBlockProperties(material, hardnessAndBlastResistance, hardnessAndBlastResistance, requiresTool, featureFlags);
     }
 
@@ -142,7 +142,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties basicBlockProperties(final Material material, final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
+    static BlockBehaviour.Properties basicBlockProperties(Material material, float hardness, float blastResistance, boolean requiresTool, FeatureFlag... featureFlags) {
         return basicBlockProperties(material, material.getColor(), hardness, blastResistance, requiresTool, featureFlags);
     }
 
@@ -158,7 +158,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties basicBlockProperties(final Material material, final MaterialColor color, final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
+    static BlockBehaviour.Properties basicBlockProperties(Material material, MaterialColor color, float hardness, float blastResistance, boolean requiresTool, FeatureFlag... featureFlags) {
         return basicBlockProperties(material, color, hardness, blastResistance, requiresTool, null, featureFlags);
     }
 
@@ -174,7 +174,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties basicBlockProperties(final Material material, final MaterialColor color, final float hardness, final float blastResistance, final boolean requiresTool, final SoundType sound, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties basicBlockProperties(Material material, MaterialColor color, float hardness, float blastResistance, boolean requiresTool, SoundType sound, FeatureFlag... featureFlags) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.of(material, color).strength(hardness, blastResistance);
         if(requiresTool) {
             properties = properties.requiresCorrectToolForDrops();
@@ -192,7 +192,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The ore block properties}
      */
-    static BlockBehaviour.Properties oreBlockProperties(final boolean isDeepslateOre, final FeatureFlag... featureFlags) {
+    static BlockBehaviour.Properties oreBlockProperties(boolean isDeepslateOre, FeatureFlag... featureFlags) {
         return basicBlockProperties(Material.STONE,
                 isDeepslateOre ? MaterialColor.DEEPSLATE : Material.STONE.getColor(),
                 isDeepslateOre ? 4.5F : 3.0F, 3.0F,
@@ -208,7 +208,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties oreStorageBlockProperties(final MaterialColor color, final FeatureFlag... featureFlags) {
+    static BlockBehaviour.Properties oreStorageBlockProperties(MaterialColor color, FeatureFlag... featureFlags) {
         return oreStorageBlockProperties(Material.STONE, color, SoundType.STONE, featureFlags);
     }
 
@@ -219,7 +219,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties oreStorageMetalBlockProperties(final MaterialColor color, final FeatureFlag... featureFlags) {
+    static BlockBehaviour.Properties oreStorageMetalBlockProperties(MaterialColor color, FeatureFlag... featureFlags) {
         return oreStorageBlockProperties(Material.METAL, color, SoundType.METAL, featureFlags);
     }
 
@@ -232,7 +232,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties oreStorageBlockProperties(final Material material, final MaterialColor color, final SoundType sound, final FeatureFlag... featureFlags) {
+    static BlockBehaviour.Properties oreStorageBlockProperties(Material material, MaterialColor color, SoundType sound, FeatureFlag... featureFlags) {
         return basicBlockProperties(material, color,5.0F, 6.0F, true, sound, featureFlags);
     }
 
@@ -243,7 +243,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties makeTranslucentBlock(final Block block, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties makeTranslucentBlock(Block block, FeatureFlag... featureFlags) {
         return translucentBlockProperties(copyFromBlock(block, featureFlags));
     }
 
@@ -254,7 +254,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties translucentBlockProperties(final BlockBehaviour.Properties properties, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties translucentBlockProperties(BlockBehaviour.Properties properties, FeatureFlag... featureFlags) {
         return applyFeatureFlags(properties.noOcclusion()
                 .isValidSpawn((state, level, blockPos, entityType) -> false)
                 .isRedstoneConductor((state, level, blockPos) -> false)
@@ -269,7 +269,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties lanternProperties(final Boolean isSoulLantern, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties lanternProperties(Boolean isSoulLantern, FeatureFlag... featureFlags) {
         return copyFromBlock(isSoulLantern ? Blocks.SOUL_LANTERN : Blocks.LANTERN, featureFlags);
     }
 
@@ -281,7 +281,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties copyFromBlock(final Block block, final FeatureFlag... featureFlags) {
+    public static BlockBehaviour.Properties copyFromBlock(Block block, FeatureFlag... featureFlags) {
         return applyFeatureFlags(BlockBehaviour.Properties.copy(block), featureFlags);
     }
 
@@ -292,7 +292,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the id to be functional}
      * @return {@link Item.Properties The id properties}
      */
-    static Item.Properties applyFeatureFlags(Item.Properties properties, final FeatureFlag... featureFlags) {
+    static Item.Properties applyFeatureFlags(Item.Properties properties, FeatureFlag... featureFlags) {
         if(featureFlags != null && featureFlags.length > 0) {
             properties = properties.requiredFeatures(featureFlags);
         }
@@ -306,7 +306,7 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties applyFeatureFlags(BlockBehaviour.Properties properties, final FeatureFlag... featureFlags) {
+    static BlockBehaviour.Properties applyFeatureFlags(BlockBehaviour.Properties properties, FeatureFlag... featureFlags) {
         if(featureFlags != null && featureFlags.length > 0) {
             properties = properties.requiredFeatures(featureFlags);
         }
@@ -320,7 +320,7 @@ public final class PropertyHelper {
      * @param deepslateOreSupplier {@link Supplier<Block> The deepslate ore block supplier}
      * @return {@link OreConfiguration.TargetBlockState Overworld target block states}
      */
-    static Supplier<List<OreConfiguration.TargetBlockState>> createOverworldTargetStates(final Supplier<Block> stoneOreSupplier, final Supplier<Block> deepslateOreSupplier) {
+    static Supplier<List<OreConfiguration.TargetBlockState>> createOverworldTargetStates(Supplier<Block> stoneOreSupplier, Supplier<Block> deepslateOreSupplier) {
         return Suppliers.memoize(() -> List.of(
                 OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), stoneOreSupplier.get().defaultBlockState()),
                 OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslateOreSupplier.get().defaultBlockState())));
@@ -333,7 +333,7 @@ public final class PropertyHelper {
      * @param oreSupplier {@link Supplier<Block> The stone ore block supplier}
      * @return {@link OreConfiguration.TargetBlockState Overworld target block states}
      */
-    static Supplier<List<OreConfiguration.TargetBlockState>> createOverworldTargetStates(final Supplier<Block> oreSupplier) {
+    static Supplier<List<OreConfiguration.TargetBlockState>> createOverworldTargetStates(Supplier<Block> oreSupplier) {
         return Suppliers.memoize(() -> List.of(OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD), oreSupplier.get().defaultBlockState())));
     }
 
@@ -343,7 +343,7 @@ public final class PropertyHelper {
      * @param oreSupplier {@link Supplier<Block> The ore block supplier}
      * @return {@link OreConfiguration.TargetBlockState Nether target block states}
      */
-    static Supplier<List<OreConfiguration.TargetBlockState>> createNetherTargetState(final Supplier<Block> oreSupplier) {
+    static Supplier<List<OreConfiguration.TargetBlockState>> createNetherTargetState(Supplier<Block> oreSupplier) {
         return Suppliers.memoize(() -> List.of(OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_NETHER), oreSupplier.get().defaultBlockState())));
     }
 
@@ -354,7 +354,7 @@ public final class PropertyHelper {
      * @param heightPlacementModifier {@link PlacementModifier The height placement modifier. Affects the levels at which the ore can spawn}
      * @return {@link List<PlacementModifier> The ore placement modifiers}
      */
-    static List<PlacementModifier> orePlacement(final PlacementModifier rarityPlacementModifier, final PlacementModifier heightPlacementModifier) {
+    static List<PlacementModifier> orePlacement(PlacementModifier rarityPlacementModifier, PlacementModifier heightPlacementModifier) {
         return List.of(rarityPlacementModifier, InSquarePlacement.spread(), heightPlacementModifier, BiomeFilter.biome());
     }
 
@@ -365,7 +365,7 @@ public final class PropertyHelper {
      * @param heightPlacementModifier {@link PlacementModifier The height placement modifier. Affects the levels at which the ore can spawn}
      * @return {@link List<PlacementModifier> The common ore placement modifiers}
      */
-    public static List<PlacementModifier> commonOrePlacement(final int count, final PlacementModifier heightPlacementModifier) {
+    public static List<PlacementModifier> commonOrePlacement(int count, PlacementModifier heightPlacementModifier) {
         return orePlacement(CountPlacement.of(count), heightPlacementModifier);
     }
 
@@ -376,7 +376,7 @@ public final class PropertyHelper {
      * @param heightPlacementModifier {@link PlacementModifier The height placement modifier. Affects the levels at which the ore can spawn}
      * @return {@link List<PlacementModifier> The rare ore placement modifiers}
      */
-    static List<PlacementModifier> rareOrePlacement(final int chance, final PlacementModifier heightPlacementModifier) {
+    static List<PlacementModifier> rareOrePlacement(int chance, PlacementModifier heightPlacementModifier) {
         return orePlacement(RarityFilter.onAverageOnceEvery(chance), heightPlacementModifier);
     }
 
@@ -386,7 +386,7 @@ public final class PropertyHelper {
      * @param type {@link MWPrimedTnt.Type The primed tnt type}
      * @return {@link DispenseItemBehavior The tnt dispense behavior}
      */
-    public static DispenseItemBehavior tntDispenseItemBehavior(final MWPrimedTnt.Type type) {
+    public static DispenseItemBehavior tntDispenseItemBehavior(MWPrimedTnt.Type type) {
         return new DefaultDispenseItemBehavior() {
             /**
              * Dispense the {@link PrimedTnt tnt} when activated from a dispenser
@@ -396,7 +396,7 @@ public final class PropertyHelper {
              * @return {@link ItemStack The shrinked id stack if the tnt has been primed}
              */
             @Override
-            protected @NotNull ItemStack execute(final @NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
+            protected @NotNull ItemStack execute(@NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
                 Level level = blockSource.getLevel();
                 BlockPos blockpos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
                 MWPrimedTnt primedtnt = new MWPrimedTnt(level, (double) blockpos.getX() + 0.5D, blockpos.getY(), (double) blockpos.getZ() + 0.5D, null, type);
@@ -424,8 +424,8 @@ public final class PropertyHelper {
              * @return {@link ItemStack The shrinked id stack if the armor has been equipped}
              */
             @Override
-            protected @NotNull ItemStack execute(final @NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
-                final BlockPos blockpos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+            protected @NotNull ItemStack execute(@NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
+                BlockPos blockpos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
                 for(AbstractHorse horse : blockSource.getLevel().getEntitiesOfClass(AbstractHorse.class, new AABB(blockpos), entity -> entity.isAlive() && entity.canWearArmor())) {
                     if (horse.isArmor(itemStack) && !horse.isWearingArmor() && horse.isTamed()) {
                         horse.getSlot(401).set(itemStack.split(1));
@@ -445,7 +445,7 @@ public final class PropertyHelper {
      */
     public static DispenseItemBehavior pebbleDispenseBehavior() {
         return new AbstractProjectileDispenseBehavior() {
-            protected @NotNull Projectile getProjectile(final @NotNull Level level, final @NotNull Position position, final @NotNull ItemStack itemStack) {
+            protected @NotNull Projectile getProjectile(@NotNull Level level, @NotNull Position position, @NotNull ItemStack itemStack) {
                 return Util.make(new ThrownGrenade(level, position.x(), position.y(), position.z()), pebble -> pebble.setItem(itemStack));
             }
         };
@@ -458,10 +458,10 @@ public final class PropertyHelper {
      */
     public static DispenseItemBehavior honeycombDispenseBehavior() {
         return new OptionalDispenseItemBehavior() {
-            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
-                final BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
-                final Level level = blockSource.getLevel();
-                final Optional<BlockState> optionalBlockState = IMWWaxableBlock.getWaxed(level.getBlockState(blockPos));
+            public @NotNull ItemStack execute(@NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
+                BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+                Level level = blockSource.getLevel();
+                Optional<BlockState> optionalBlockState = IMWWaxableBlock.getWaxed(level.getBlockState(blockPos));
                 if (optionalBlockState.isPresent()) {
                     level.setBlockAndUpdate(blockPos, optionalBlockState.get());
                     level.levelEvent(3003, blockPos, 0);
@@ -481,8 +481,8 @@ public final class PropertyHelper {
      */
     public static DispenseItemBehavior chestDispenseBehavior() {
         return new OptionalDispenseItemBehavior() {
-            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
-                final BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+            public @NotNull ItemStack execute(@NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
+                BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
 
                 for(AbstractChestedHorse abstractchestedhorse : blockSource.getLevel().getEntitiesOfClass(AbstractChestedHorse.class, new AABB(blockPos), horse -> horse.isAlive() && !horse.hasChest())) {
                     if (abstractchestedhorse.isTamed() && abstractchestedhorse.getSlot(499).set(itemStack)) {
@@ -504,16 +504,16 @@ public final class PropertyHelper {
      * @param isChestBoat {@link Boolean If the dispense behavior is for a chest boat}
      * @return {@link DispenseItemBehavior The boat dispense behavior}
      */
-    public static DispenseItemBehavior boatDispenseBehavior(final MWBoat.Type type, final boolean isChestBoat) {
+    public static DispenseItemBehavior boatDispenseBehavior(MWBoat.Type type, boolean isChestBoat) {
         return new DefaultDispenseItemBehavior() {
-            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
-                final Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
-                final Level level = blockSource.getLevel();
-                final double x = blockSource.x() + (double)((float)direction.getStepX() * 1.125F);
-                final double y = blockSource.y() + (double)((float)direction.getStepY() * 1.125F);
-                final double z = blockSource.z() + (double)((float)direction.getStepZ() * 1.125F);
-                final BlockPos blockPos = blockSource.getPos().relative(direction);
-                final MWBoat boat = isChestBoat ? new MWChestBoat(level, x, y, z) : new MWBoat(level, x, y, z);
+            public @NotNull ItemStack execute(@NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
+                Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
+                Level level = blockSource.getLevel();
+                double x = blockSource.x() + (double)((float)direction.getStepX() * 1.125F);
+                double y = blockSource.y() + (double)((float)direction.getStepY() * 1.125F);
+                double z = blockSource.z() + (double)((float)direction.getStepZ() * 1.125F);
+                BlockPos blockPos = blockSource.getPos().relative(direction);
+                MWBoat boat = isChestBoat ? new MWChestBoat(level, x, y, z) : new MWBoat(level, x, y, z);
                 boat.setBoatType(type);
                 boat.setYRot(direction.toYRot());
                 double offset;
@@ -533,7 +533,7 @@ public final class PropertyHelper {
                 return itemStack;
             }
 
-            protected void playSound(final @NotNull BlockSource blockSource) {
+            protected void playSound(@NotNull BlockSource blockSource) {
                 blockSource.getLevel().levelEvent(1000, blockSource.getPos(), 0);
             }
         };
@@ -548,7 +548,7 @@ public final class PropertyHelper {
      * @param isTrappedChest {@link Boolean If the chest is a trapped chest}
      * @return {@link ChestBlockEntity The chest block entity}
      */
-    public static ChestBlockEntity getChestBlockEntity(final WoodType woodType, final BlockPos blockPos, final BlockState blockState, final boolean isTrappedChest) {
+    public static ChestBlockEntity getChestBlockEntity(WoodType woodType, BlockPos blockPos, BlockState blockState, boolean isTrappedChest) {
         ChestBlockEntity blockEntity = null;
         if(woodType.equals(WoodType.SPRUCE)) {
             blockEntity = isTrappedChest ? new SpruceTrappedChestBlockEntity(blockPos, blockState) : new SpruceChestBlockEntity(blockPos, blockState);
@@ -601,7 +601,7 @@ public final class PropertyHelper {
      * @param woodType {@link WoodType The wood type}
      * @return {@link String The wood type name}
      */
-    public static String getWoodTypeName(final WoodType woodType) {
+    public static String getWoodTypeName(WoodType woodType) {
         return woodType.name().replace(MineWorld.MOD_ID, "").replace(":", "");
     }
 

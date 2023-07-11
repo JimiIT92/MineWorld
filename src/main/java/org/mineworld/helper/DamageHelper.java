@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 /**
  * Helper methods for {@link DamageSource damage sources}
  */
-public final class DamageHelper {
+public class DamageHelper {
 
     /**
      * Get a {@link DamageSource damage source} based on the {@link ResourceKey<DamageType> damage type resource key}
@@ -19,7 +19,7 @@ public final class DamageHelper {
      * @param damageType {@link ResourceKey<DamageType> The damage type resource key}
      * @return {@link DamageSource The damage source}
      */
-    public static DamageSource source(final Level level, final ResourceKey<DamageType> damageType) {
+    public static DamageSource source(Level level, ResourceKey<DamageType> damageType) {
         return new DamageSource(getRegistry(level).getHolderOrThrow(damageType));
     }
 
@@ -29,7 +29,7 @@ public final class DamageHelper {
      * @param level {@link Level The level reference}
      * @return {@link Registry<DamageType> The damage type registry}
      */
-    private static Registry<DamageType> getRegistry(final Level level) {
+    private static Registry<DamageType> getRegistry(Level level) {
         return level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
     }
 

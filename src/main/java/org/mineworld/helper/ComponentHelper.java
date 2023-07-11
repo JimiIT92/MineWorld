@@ -10,7 +10,7 @@ import org.mineworld.MineWorld;
 /**
  * Helper methods for {@link Component components}
  */
-public final class ComponentHelper {
+public class ComponentHelper {
 
     /**
      * Get the {@link Component component} for a container name
@@ -18,7 +18,7 @@ public final class ComponentHelper {
      * @param name {@link String The container name}
      * @return {@link MutableComponent The container name component}
      */
-    public static MutableComponent container(final String name) {
+    public static MutableComponent container(String name) {
         return get("container", name);
     }
 
@@ -28,7 +28,7 @@ public final class ComponentHelper {
      * @param name {@link String The creative tab name}
      * @return {@link MutableComponent The creative tab name component}
      */
-    public static MutableComponent itemGroup(final String name) {
+    public static MutableComponent itemGroup(String name) {
         return get("itemGroup", name);
     }
 
@@ -39,7 +39,7 @@ public final class ComponentHelper {
      * @param args {@link Object The translation arguments}
      * @return {@link MutableComponent The splash text component}
      */
-    public static MutableComponent splashText(final String name, final Object... args) {
+    public static MutableComponent splashText(String name, Object... args) {
         return get("splash", name);
     }
 
@@ -50,7 +50,7 @@ public final class ComponentHelper {
      * @param args {@link Object The translation arguments}
      * @return {@link MutableComponent The update message component}
      */
-    public static MutableComponent updateMessage(final String name, final Object... args) {
+    public static MutableComponent updateMessage(String name, Object... args) {
         return get("update", name, args);
     }
 
@@ -61,7 +61,7 @@ public final class ComponentHelper {
      * @param suffix {@link String The smithing template description part}
      * @return {@link MutableComponent The smithing template description component}
      */
-    public static MutableComponent smithingTemplateDescription(final String name, final String suffix) {
+    public static MutableComponent smithingTemplateDescription(String name, String suffix) {
         return get(Util.makeDescriptionId("id", KeyHelper.location("smithing_template." + name + "." + suffix)));
     }
 
@@ -71,7 +71,7 @@ public final class ComponentHelper {
      * @param name {@link String The smithing template name}
      * @return {@link MutableComponent The smithing template description component}
      */
-    public static MutableComponent smithingTemplateUpgradeDescription(final String name) {
+    public static MutableComponent smithingTemplateUpgradeDescription(String name) {
         return get(Util.makeDescriptionId("upgrade", KeyHelper.location(name)));
     }
 
@@ -81,7 +81,7 @@ public final class ComponentHelper {
      * @param key {@link ResourceKey<TrimMaterial> The trim material resource key}
      * @return {@link MutableComponent The trim material description component}
      */
-    public static MutableComponent trimMaterial(final ResourceKey<TrimMaterial> key) {
+    public static MutableComponent trimMaterial(ResourceKey<TrimMaterial> key) {
         return get(Util.makeDescriptionId("trim_material", key.location()));
     }
 
@@ -93,7 +93,7 @@ public final class ComponentHelper {
      * @param args {@link Object The translation arguments}
      * @return {@link Component The translatable component}
      */
-    private static MutableComponent get(final String prefix, final String suffix, final Object... args) {
+    private static MutableComponent get(String prefix, String suffix, Object... args) {
         return get(prefix + "." + MineWorld.MOD_ID + "." + suffix, args);
     }
 
@@ -104,7 +104,7 @@ public final class ComponentHelper {
      * @param args {@link Object The translation arguments}
      * @return {@link Component The translatable component}
      */
-    public static MutableComponent get(final String key, final Object... args) {
+    public static MutableComponent get(String key, Object... args) {
         return Component.translatable(key, args);
     }
 }

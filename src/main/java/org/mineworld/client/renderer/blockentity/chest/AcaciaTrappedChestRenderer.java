@@ -16,7 +16,7 @@ public class AcaciaTrappedChestRenderer extends AcaciaChestRenderer {
      *
      * @param context {@link BlockEntityRendererProvider.Context The block render context}
      */
-    public AcaciaTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public AcaciaTrappedChestRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

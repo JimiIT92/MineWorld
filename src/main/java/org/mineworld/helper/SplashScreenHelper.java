@@ -12,16 +12,16 @@ import java.util.Set;
 /**
  * Helper methods for splash screens
  */
-public final class SplashScreenHelper {
+public class SplashScreenHelper {
 
     /**
      * The {@link MineWorld MineWorld} {@link Set<String> splash texts}
      */
-    private static final Set<String> splashTexts;
+    private static Set<String> splashTexts;
     /**
      * {@link String The special splash text} shown for {@link MineWorld MineWorld} birthday on November 30
      */
-    private static final String birthdaySplashText;
+    private static String birthdaySplashText;
 
     /**
      * Get a {@link String random splash text}
@@ -41,7 +41,7 @@ public final class SplashScreenHelper {
      * @return {@link Boolean True if is halloween, christmas or new year's eve}
      */
     private static boolean isVanillaSplashTextSpecialDate() {
-        final Calendar calendar = getCalendar();
+        Calendar calendar = getCalendar();
         return (calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) == 24) ||
                 (calendar.get(Calendar.MONTH) + 1 == 1 && calendar.get(Calendar.DATE) == 1) ||
                 (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31);
@@ -53,7 +53,7 @@ public final class SplashScreenHelper {
      * @return {@link Boolean True if is November 30}
      */
     private static boolean isMineWorldBirhday() {
-        final Calendar calendar = getCalendar();
+        Calendar calendar = getCalendar();
         return calendar.get(Calendar.MONTH) + 1 == 11 && calendar.get(Calendar.DATE) == 30;
     }
 
@@ -63,7 +63,7 @@ public final class SplashScreenHelper {
      * @return {@link Calendar The calendar instance}
      */
     private static Calendar getCalendar() {
-        final Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         return calendar;
     }
@@ -94,7 +94,7 @@ public final class SplashScreenHelper {
      * @param args {@link Object The translation arguments}
      * @return {@link String The translated splash text}
      */
-    private static String getSplashText(final String key, final Object... args) {
+    private static String getSplashText(String key, Object... args) {
         return ComponentHelper.splashText(key, args).getString();
     }
 

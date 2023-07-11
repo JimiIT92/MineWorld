@@ -31,7 +31,7 @@ public class WarpedWartBlock extends NetherWartBlock {
      * @return {@link ItemStack The block id stack}
      */
     @Override
-    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         return new ItemStack(MWItems.WARPED_WART.get());
     }
 

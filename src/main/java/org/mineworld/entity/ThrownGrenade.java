@@ -29,7 +29,7 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      * @param entityType {@link EntityType The entity type for this grenade}
      * @param level {@link Level The world reference}
      */
-    public ThrownGrenade(final EntityType<? extends ThrowableItemProjectile> entityType, final Level level) {
+    public ThrownGrenade(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -39,7 +39,7 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      * @param level {@link Level The world reference}
      * @param shooter {@link LivingEntity The entity that shoot the grenade}
      */
-    public ThrownGrenade(final Level level, final LivingEntity shooter) {
+    public ThrownGrenade(Level level, LivingEntity shooter) {
         super(MWEntityTypes.GRENADE.get(), shooter, level);
     }
 
@@ -51,7 +51,7 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      * @param posY {@link Double The grenade Y coordinate}
      * @param posZ {@link Double The grenade Z coordinate}
      */
-    public ThrownGrenade(final Level level, final double posX, final double posY, final double posZ) {
+    public ThrownGrenade(Level level, double posX, double posY, double posZ) {
         super(MWEntityTypes.GRENADE.get(), posX, posY, posZ, level);
     }
 
@@ -71,7 +71,7 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      * @return {@link ParticleOptions Item particles}
      */
     private ParticleOptions getParticle() {
-        final ItemStack itemstack = this.getItemRaw();
+        ItemStack itemstack = this.getItemRaw();
         return new ItemParticleOption(ParticleTypes.ITEM, itemstack.isEmpty() ? ItemHelper.getDefaultStack(getDefaultItem()) : itemstack);
     }
 
@@ -80,7 +80,7 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      *
      * @param event {@link Byte The entity event byte}
      */
-    public void handleEntityEvent(final byte event) {
+    public void handleEntityEvent(byte event) {
         if (event == 3) {
             ParticleOptions particleoptions = this.getParticle();
             for(int i = 0; i < 8; ++i) {
@@ -94,7 +94,7 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      *
      * @param entityHitResult {@link EntityHitResult The entity hit result}
      */
-    protected void onHitEntity(final @NotNull EntityHitResult entityHitResult) {
+    protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
         entityHitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 1.25F);
     }
@@ -104,10 +104,10 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      *
      * @param hitResult {@link HitResult The hit result}
      */
-    protected void onHit(final @NotNull HitResult hitResult) {
+    protected void onHit(@NotNull HitResult hitResult) {
         super.onHit(hitResult);
         if (!this.level.isClientSide) {
-            final Vec3 pos = this.position();
+            Vec3 pos = this.position();
             this.level.broadcastEntityEvent(this, (byte)3);
             this.level.explode(this, pos.x, pos.y, pos.z, 2.5F, Level.ExplosionInteraction.TNT);
             this.discard();

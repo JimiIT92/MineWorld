@@ -46,7 +46,7 @@ public class BlueberryBushBlock extends SweetBerryBushBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link ItemStack The block item stack}
      */
-    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         return ItemHelper.getDefaultStack(MWItems.BLUEBERRIES);
     }
 
@@ -61,16 +61,16 @@ public class BlueberryBushBlock extends SweetBerryBushBlock {
      * @param blockHitResult {@link BlockHitResult The block hit result}
      * @return {@link InteractionResult The interaction result}
      */
-    public @NotNull InteractionResult use(final BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult blockHitResult) {
-        final int age = blockState.getValue(AGE);
-        final boolean isMaxAge = age == 3;
+    public @NotNull InteractionResult use(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult blockHitResult) {
+        int age = blockState.getValue(AGE);
+        boolean isMaxAge = age == 3;
         if (!isMaxAge && player.getItemInHand(hand).is(Items.BONE_MEAL)) {
             return InteractionResult.PASS;
         }
         if (age > 1) {
             popResource(level, blockPos, new ItemStack(MWItems.BLUEBERRIES.get(), 1 + level.random.nextInt(2) + (isMaxAge ? 1 : 0)));
             level.playSound(null, blockPos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
-            final BlockState harvestedBlockState = blockState.setValue(AGE, 1);
+            BlockState harvestedBlockState = blockState.setValue(AGE, 1);
             level.setBlock(blockPos, harvestedBlockState, 2);
             level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, harvestedBlockState));
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -86,12 +86,12 @@ public class BlueberryBushBlock extends SweetBerryBushBlock {
      * @param blockPos {@link BlockPos The current block pos}
      * @param entity {@link Entity The entity inside the bush}
      */
-    public void entityInside(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Entity entity) {
+    public void entityInside(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Entity entity) {
         if (entity instanceof LivingEntity && !entity.getType().equals(EntityType.FOX) && !entity.getType().equals(EntityType.BEE)) {
             entity.makeStuckInBlock(blockState, new Vec3(0.8F, 0.75D, 0.8F));
             if (!level.isClientSide && blockState.getValue(AGE) > 0 && (entity.xOld != entity.getX() || entity.zOld != entity.getZ())) {
-                final double deltaX = Math.abs(entity.getX() - entity.xOld);
-                final double deltaZ = Math.abs(entity.getZ() - entity.zOld);
+                double deltaX = Math.abs(entity.getX() - entity.xOld);
+                double deltaZ = Math.abs(entity.getZ() - entity.zOld);
                 if (deltaX >= (double)0.003F || deltaZ >= (double)0.003F) {
                     entity.hurt(DamageHelper.source(level, MWDamageTypes.BLUEBERRY_BUSH), 1.0F);
                 }

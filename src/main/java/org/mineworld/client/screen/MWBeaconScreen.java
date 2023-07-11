@@ -26,7 +26,7 @@ public class MWBeaconScreen extends BeaconScreen {
     /**
      * {@link ResourceLocation The becon screen texture location}
      */
-    private static final ResourceLocation BEACON_LOCATION = KeyHelper.container("beacon");
+    private static ResourceLocation BEACON_LOCATION = KeyHelper.container("beacon");
 
     /**
      * Constructor. Set the beacon screen properties
@@ -34,7 +34,7 @@ public class MWBeaconScreen extends BeaconScreen {
      *
      * @param beaconScreen {@link BeaconScreen The beacon screen}
      */
-    public MWBeaconScreen(final BeaconScreen beaconScreen) {
+    public MWBeaconScreen(BeaconScreen beaconScreen) {
         this(beaconScreen.getMenu(), Minecraft.getInstance().player.getInventory(), beaconScreen.getTitle());
     }
 
@@ -45,7 +45,7 @@ public class MWBeaconScreen extends BeaconScreen {
      * @param inventory {@link Inventory The beacon inventory}
      * @param title {@link Component The beacon screen title component}
      */
-    public MWBeaconScreen(final BeaconMenu beaconMenu, final Inventory inventory, final Component title) {
+    public MWBeaconScreen(BeaconMenu beaconMenu, Inventory inventory, Component title) {
         super(beaconMenu, inventory, title);
     }
 
@@ -58,10 +58,10 @@ public class MWBeaconScreen extends BeaconScreen {
      * @param screenY {@link Integer The screen Y coordinate}
      */
     @Override
-    protected void renderBg(final @NotNull PoseStack poseStack, final float partialTicks, int screenX, int screenY) {
+    protected void renderBg(@NotNull PoseStack poseStack, float partialTicks, int screenX, int screenY) {
         RenderSystem.setShaderTexture(0, BEACON_LOCATION);
-        final int guiX = (this.width - this.imageWidth) / 2;
-        final int guiY = (this.height - this.imageHeight) / 2;
+        int guiX = (this.width - this.imageWidth) / 2;
+        int guiY = (this.height - this.imageHeight) / 2;
         blit(poseStack, guiX, guiY, 0, 0, this.imageWidth, this.imageHeight);
         poseStack.pushPose();
         poseStack.translate(0.0F, 0.0F, 100.0F);

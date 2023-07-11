@@ -18,7 +18,7 @@ public abstract class RopeHeadBlock extends AbstractRopeBlock {
      * @param ropeDirection {@link Direction The rope direction}
      * @param shape {@link VoxelShape The rope shape}
      */
-    public RopeHeadBlock(final Direction ropeDirection, final VoxelShape shape) {
+    public RopeHeadBlock(Direction ropeDirection, VoxelShape shape) {
         super(ropeDirection, shape);
     }
 
@@ -28,7 +28,7 @@ public abstract class RopeHeadBlock extends AbstractRopeBlock {
      * @param blockState {@link BlockState The current block state}
      * @return {@link Boolean False}
      */
-    public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
+    public boolean isRandomlyTicking(@NotNull BlockState blockState) {
         return false;
     }
 
@@ -39,7 +39,7 @@ public abstract class RopeHeadBlock extends AbstractRopeBlock {
      * @param neighborState {@link BlockState The neighbor block state}
      * @return {@link BlockState The updated block state}
      */
-    protected BlockState updateBodyAfterConvertedFromHead(final BlockState blockState, final BlockState neighborState) {
+    protected BlockState updateBodyAfterConvertedFromHead(BlockState blockState, BlockState neighborState) {
         return neighborState;
     }
 
@@ -54,7 +54,7 @@ public abstract class RopeHeadBlock extends AbstractRopeBlock {
      * @param neighborPos {@link BlockPos The neighbor block pos}
      * @return {@link BlockState The updated block state}
      */
-    public @NotNull BlockState updateShape(final @NotNull BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos neighborPos) {
         if (direction.equals(this.ropeDirection.getOpposite()) && !blockState.canSurvive(levelAccessor, blockPos)) {
             levelAccessor.scheduleTick(blockPos, this, 1);
         }

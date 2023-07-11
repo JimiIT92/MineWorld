@@ -12,23 +12,23 @@ import org.mineworld.helper.RegisterHelper;
 /**
  * {@link MineWorld MineWorld} {@link TrimMaterial trim materials}
  */
-public final class MWTrimMaterials {
+public class MWTrimMaterials {
 
-    public static final ResourceKey<TrimMaterial> PRISMARINE = KeyHelper.registerTrimMaterialKey("prismarine");
-    public static final ResourceKey<TrimMaterial> ECHO_SHARD = KeyHelper.registerTrimMaterialKey("echo_shard");
-    public static final ResourceKey<TrimMaterial> RUBY = KeyHelper.registerTrimMaterialKey("ruby");
-    public static final ResourceKey<TrimMaterial> SAPPHIRE = KeyHelper.registerTrimMaterialKey("sapphire");
-    public static final ResourceKey<TrimMaterial> SILVER = KeyHelper.registerTrimMaterialKey("silver");
-    public static final ResourceKey<TrimMaterial> ALUMINUM = KeyHelper.registerTrimMaterialKey("aluminum");
-    public static final ResourceKey<TrimMaterial> BRONZE = KeyHelper.registerTrimMaterialKey("bronze");
-    public static final ResourceKey<TrimMaterial> EMERALD_DARKER = KeyHelper.registerTrimMaterialKey("emerald_darker");
+    public static ResourceKey<TrimMaterial> PRISMARINE = KeyHelper.registerTrimMaterialKey("prismarine");
+    public static ResourceKey<TrimMaterial> ECHO_SHARD = KeyHelper.registerTrimMaterialKey("echo_shard");
+    public static ResourceKey<TrimMaterial> RUBY = KeyHelper.registerTrimMaterialKey("ruby");
+    public static ResourceKey<TrimMaterial> SAPPHIRE = KeyHelper.registerTrimMaterialKey("sapphire");
+    public static ResourceKey<TrimMaterial> SILVER = KeyHelper.registerTrimMaterialKey("silver");
+    public static ResourceKey<TrimMaterial> ALUMINUM = KeyHelper.registerTrimMaterialKey("aluminum");
+    public static ResourceKey<TrimMaterial> BRONZE = KeyHelper.registerTrimMaterialKey("bronze");
+    public static ResourceKey<TrimMaterial> EMERALD_DARKER = KeyHelper.registerTrimMaterialKey("emerald_darker");
 
     /**
      * Register the {@link TrimMaterial trim materials}
      *
      * @param context {@link BootstapContext<TrimMaterial> The bootstrap context}
      */
-    public static void nextUpdate(final BootstapContext<TrimMaterial> context) {
+    public static void nextUpdate(BootstapContext<TrimMaterial> context) {
         RegisterHelper.registerTrimMaterial(context, PRISMARINE, Items.PRISMARINE_SHARD, MWColors.PRISMARINE, 0.01F, ArmorMaterials.DIAMOND);
         RegisterHelper.registerTrimMaterial(context, ECHO_SHARD, Items.ECHO_SHARD, MWColors.ECHO_SHARD, 0.02F);
         RegisterHelper.registerTrimMaterial(context, RUBY, MWItems.RUBY.get(), MWColors.RUBY, 0.03F);
