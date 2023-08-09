@@ -115,7 +115,7 @@ public class MWPrimedTnt extends PrimedTnt {
      */
     @Override
     protected void explode() {
-        this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), this.getTntType().explosionPower, Level.ExplosionInteraction.TNT);
+        this.level().explode(this, this.getX(), this.getY(0.0625D), this.getZ(), this.getTntType().explosionPower, Level.ExplosionInteraction.TNT);
     }
 
     /**

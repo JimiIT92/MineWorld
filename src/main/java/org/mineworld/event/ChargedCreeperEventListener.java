@@ -57,7 +57,7 @@ public final class ChargedCreeperEventListener {
      * @param drops {@link Collection<ItemEntity> The entity drops}
      */
     private static void tryDropSkull(final Creeper creeper, final Vec3 pos, final RegistryObject<? extends ItemLike> skullSupplier, Collection<ItemEntity> drops) {
-        final ItemEntity skull = new ItemEntity(creeper.level, pos.x, pos.y, pos.z, ItemHelper.getDefaultStack(skullSupplier));
+        final ItemEntity skull = new ItemEntity(creeper.level(), pos.x, pos.y, pos.z, ItemHelper.getDefaultStack(skullSupplier));
         if(!drops.contains(skull) && creeper.canDropMobsSkull()) {
             drops.add(skull);
             creeper.increaseDroppedSkulls();

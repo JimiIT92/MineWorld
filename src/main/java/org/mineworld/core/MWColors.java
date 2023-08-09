@@ -1,7 +1,7 @@
 package org.mineworld.core;
 
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import org.mineworld.MineWorld;
 
 /**
@@ -9,42 +9,42 @@ import org.mineworld.MineWorld;
  */
 public enum MWColors {
 
-    PRISMARINE(0x49C4AF, MaterialColor.COLOR_CYAN),
-    ECHO_SHARD(0x0A2330, MaterialColor.COLOR_BLACK),
-    RUBY(0x9F3535, MaterialColor.FIRE),
-    SAPPHIRE(0x35559F, MaterialColor.COLOR_BLUE),
-    RAW_SILVER(0xC5C5C5, MaterialColor.RAW_IRON),
-    SILVER(0xC5C5C5, MaterialColor.COLOR_LIGHT_GRAY),
-    ALUMINUM(0x666666, MaterialColor.COLOR_GRAY),
-    RAW_ALUMINUM(0xC5C5C5, MaterialColor.RAW_IRON),
-    RAW_BRONZE(0xC5C5C5, MaterialColor.TERRACOTTA_BROWN),
-    BRONZE(0x755848, MaterialColor.COLOR_BROWN),
-    PYRITE(0x847C50, MaterialColor.TERRACOTTA_YELLOW),
-    CHARCOAL(0x755848, MaterialColor.COLOR_BLACK),
-    MARBLE(0x9E9A86, MaterialColor.TERRACOTTA_GRAY),
-    WHITE_MARBLE(0xF0F0EB, MaterialColor.TERRACOTTA_WHITE),
-    APPLE(0x0000, MaterialColor.TERRACOTTA_RED),
-    PALM(0x000, MaterialColor.TERRACOTTA_YELLOW),
-    DEAD(0x000, MaterialColor.COLOR_GRAY);
+    PRISMARINE(0x49C4AF, MapColor.COLOR_CYAN),
+    ECHO_SHARD(0x0A2330, MapColor.COLOR_BLACK),
+    RUBY(0x9F3535, MapColor.FIRE),
+    SAPPHIRE(0x35559F, MapColor.COLOR_BLUE),
+    RAW_SILVER(0xC5C5C5, MapColor.RAW_IRON),
+    SILVER(0xC5C5C5, MapColor.COLOR_LIGHT_GRAY),
+    ALUMINUM(0x666666, MapColor.COLOR_GRAY),
+    RAW_ALUMINUM(0xC5C5C5, MapColor.RAW_IRON),
+    RAW_BRONZE(0xC5C5C5, MapColor.TERRACOTTA_BROWN),
+    BRONZE(0x755848, MapColor.COLOR_BROWN),
+    PYRITE(0x847C50, MapColor.TERRACOTTA_YELLOW),
+    CHARCOAL(0x755848, MapColor.COLOR_BLACK),
+    MARBLE(0x9E9A86, MapColor.TERRACOTTA_GRAY),
+    WHITE_MARBLE(0xF0F0EB, MapColor.TERRACOTTA_WHITE),
+    APPLE(0x0000, MapColor.TERRACOTTA_RED),
+    PALM(0x000, MapColor.TERRACOTTA_YELLOW),
+    DEAD(0x000, MapColor.COLOR_GRAY);
 
     /**
      * {@link Integer RGB color}
      */
     private final int color;
     /**
-     * {@link MaterialColor The material color}
+     * {@link MapColor The map color}
      */
-    private final MaterialColor materialColor;
+    private final MapColor mapColor;
 
     /**
      * Constructor. Set the {@link Integer RGB color}
      *
      * @param color {@link Integer The RGB color}
-     * @param materialColor {@link MaterialColor The material color}
+     * @param mapColor {@link MapColor The map color}
      */
-    MWColors(final int color, final MaterialColor materialColor) {
+    MWColors(final int color, final MapColor mapColor) {
         this.color = color;
-        this.materialColor = materialColor;
+        this.mapColor = mapColor;
     }
 
     /**
@@ -57,12 +57,12 @@ public enum MWColors {
     }
 
     /**
-     * Get the {@link MaterialColor material color}
+     * Get the {@link MapColor map color}
      *
-     * @return {@link MaterialColor The material color}
+     * @return {@link MapColor The map color}
      */
-    public MaterialColor toMaterialColor() {
-        return this.materialColor;
+    public MapColor toMapColor() {
+        return this.mapColor;
     }
 
 }

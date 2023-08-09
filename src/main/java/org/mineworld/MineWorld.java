@@ -38,6 +38,7 @@ public final class MineWorld {
     public MineWorld() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        MWTabs.register(eventBus);
         MWBlocks.register(eventBus);
         MWItems.register(eventBus);
         MWEntityTypes.register(eventBus);

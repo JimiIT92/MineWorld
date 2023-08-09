@@ -14,16 +14,18 @@ import org.mineworld.MineWorld;
 import org.mineworld.block.HorizontalPaneBlock;
 import org.mineworld.block.MWPointedDripstoneBlock;
 
+import java.util.Objects;
+
 /**
  * Place an {@link HorizontalPaneBlock horizontal pane block} if the placed block has a variant
- * and the {@link Player player} is sneaking or is placing the block against a non solid block
+ * and the {@link Player player} is sneaking or is placing the block against a non-solid block
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID)
 public final class BlockPlaceEventListener {
 
     /**
      * Place an {@link HorizontalPaneBlock horizontal pane block} if the placed block has a variant
-     * and the {@link Player player} is sneaking or is placing the block against a non solid block
+     * and the {@link Player player} is sneaking or is placing the block against a non-solid block
      *
      * @param event {@link BlockEvent.EntityPlaceEvent Entity place block event}
      */
@@ -31,7 +33,7 @@ public final class BlockPlaceEventListener {
     public static void onBlockPlaced(final BlockEvent.EntityPlaceEvent event) {
         if(!event.isCanceled()) {
             final Entity placer = event.getEntity();
-            final Level level = placer.getLevel();
+            final Level level = Objects.requireNonNull(placer).level();
             final BlockPos blockPos = event.getPos();
             final BlockState placedBlock = event.getPlacedBlock();
             if(placer instanceof Player player && !event.getPlacedAgainst().isAir()) {

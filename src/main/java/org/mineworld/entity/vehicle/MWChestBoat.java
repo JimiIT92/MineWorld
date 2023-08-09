@@ -135,7 +135,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      */
     public void destroy(final @NotNull DamageSource damageSource) {
         super.destroy(damageSource);
-        this.chestVehicleDestroyed(damageSource, this.level, this);
+        this.chestVehicleDestroyed(damageSource, this.level(), this);
     }
 
     /**
@@ -144,8 +144,8 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param removalReason {@link Entity.RemovalReason The reason why the entity has been removed}
      */
     public void remove(final Entity.@NotNull RemovalReason removalReason) {
-        if (!this.level.isClientSide && removalReason.shouldDestroy()) {
-            Containers.dropContents(this.level, this, this);
+        if (!this.level().isClientSide && removalReason.shouldDestroy()) {
+            Containers.dropContents(this.level(), this, this);
         }
         super.remove(removalReason);
     }
@@ -176,7 +176,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      */
     public void openCustomInventoryScreen(Player player) {
         player.openMenu(this);
-        if (!player.level.isClientSide) {
+        if (!player.level().isClientSide) {
             this.gameEvent(GameEvent.CONTAINER_OPEN, player);
             PiglinAi.angerNearbyPiglins(player, true);
         }
@@ -395,7 +395,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
      * @param player {@link Player The player closing the chest}
      */
     public void stopOpen(final @NotNull Player player) {
-        this.level.gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));
+        this.level().gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));
     }
 
 }

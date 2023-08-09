@@ -13,19 +13,44 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWStructures;
 
 import java.util.Optional;
 
+/**
+ * {@link Structure Implementation class for an Ice Castle structure}
+ */
 public class IceCastle extends Structure {
 
+    /**
+     * {@link StructureTemplatePool The starting structure template pool}
+     */
     private final Holder<StructureTemplatePool> startPool;
+    /**
+     * {@link ResourceLocation The starting structure jigsaw name}
+     */
     private final Optional<ResourceLocation> startJigsawName;
+    /**
+     * {@link Integer The structure size}
+     */
     private final int size;
+    /**
+     * {@link HeightProvider The structure starting height for generation}
+     */
     private final HeightProvider startHeight;
+    /**
+     * {@link Heightmap.Types The structure generation heightmap types}
+     */
     private final Optional<Heightmap.Types> projectStartToHeightmap;
+    /**
+     * {@link Integer The max distance from the structure center} that branches can spawn
+     */
     private final int maxDistanceFromCenter;
 
+    /**
+     * {@link Codec The structure serialization codec}
+     */
     public static final Codec<IceCastle> CODEC = RecordCodecBuilder.<IceCastle>mapCodec(instance ->
             instance.group(IceCastle.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -36,6 +61,17 @@ public class IceCastle extends Structure {
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
             ).apply(instance, IceCastle::new)).codec();
 
+    /**
+     * Constructor. Set the structure properties
+     *
+     * @param config {@link StructureSettings The structure settings}
+     * @param startPool {@link StructureTemplatePool The starting structure template pool}
+     * @param startJigsawName {@link ResourceLocation The starting structure jigsaw name}
+     * @param size {@link Integer The structure size}
+     * @param startHeight {@link HeightProvider The structure starting height for generation}
+     * @param projectStartToHeightmap {@link Heightmap.Types The structure generation heightmap types}
+     * @param maxDistanceFromCenter {@link Integer The max distance from the structure center} that branches can spawn
+     */
     protected IceCastle(Structure.StructureSettings config,
                         Holder<StructureTemplatePool> startPool,
                         Optional<ResourceLocation> startJigsawName,
@@ -52,6 +88,12 @@ public class IceCastle extends Structure {
         this.maxDistanceFromCenter = maxDistanceFromCenter;
     }
 
+    /**
+     * Check if the structure can spawn
+     *
+     * @param context {@link GenerationContext The structure generation context}
+     * @return {@link Boolean True if the structure can spawn}
+     */
     private static boolean extraSpawningChecks(Structure.GenerationContext context) {
         ChunkPos chunkpos = context.chunkPos();
         return context.chunkGenerator().getFirstOccupiedHeight(
@@ -62,29 +104,38 @@ public class IceCastle extends Structure {
                 context.randomState()) < 150;
     }
 
+    /**
+     * Find the structure generation point
+     *
+     * @param context {@link GenerationContext The structure generation context}
+     * @return {@link Optional<GenerationStub> The structure generation point, if any}
+     */
     @Override
-    protected Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
+    protected @NotNull Optional<GenerationStub> findGenerationPoint(@NotNull GenerationContext context) {
         if (!extraSpawningChecks(context)) {
             return Optional.empty();
         }
         int startY = this.startHeight.sample(context.random(), new WorldGenerationContext(context.chunkGenerator(), context.heightAccessor()));
         ChunkPos chunkPos = context.chunkPos();
         BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), startY, chunkPos.getMinBlockZ());
-        Optional<Structure.GenerationStub> structurePiecesGenerator =
-                JigsawPlacement.addPieces(
-                        context,
-                        this.startPool,
-                        this.startJigsawName,
-                        this.size,
-                        blockPos,
-                        false,
-                        this.projectStartToHeightmap,
-                        this.maxDistanceFromCenter);
-        return structurePiecesGenerator;
+        return JigsawPlacement.addPieces(
+                context,
+                this.startPool,
+                this.startJigsawName,
+                this.size,
+                blockPos,
+                false,
+                this.projectStartToHeightmap,
+                this.maxDistanceFromCenter);
     }
 
+    /**
+     * Get the {@link StructureType structure type}
+     *
+     * @return {@link MWStructures#ICE_CASTLE The ice castle structure type}
+     */
     @Override
-    public StructureType<?> type() {
+    public @NotNull StructureType<?> type() {
         return MWStructures.ICE_CASTLE.get();
     }
 }

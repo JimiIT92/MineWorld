@@ -115,7 +115,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     public WoodcutterMenu(final int id, final Inventory inventory, final ContainerLevelAccess containerLevelAccess) {
         super(MWMenuTypes.WOODCUTTER.get(), id);
         this.containerLevelAccess = containerLevelAccess;
-        this.level = inventory.player.level;
+        this.level = inventory.player.level();
         this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
         this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
 
@@ -136,8 +136,8 @@ public class WoodcutterMenu extends AbstractContainerMenu {
              * @param itemStack {@link ItemStack The recipe resuòt}
              */
             public void onTake(final @NotNull Player player, final @NotNull ItemStack itemStack) {
-                itemStack.onCraftedBy(player.level, player, itemStack.getCount());
-                WoodcutterMenu.this.resultContainer.awardUsedRecipes(player);
+                itemStack.onCraftedBy(player.level(), player, itemStack.getCount());
+                WoodcutterMenu.this.resultContainer.awardUsedRecipes(player, this.getRelevantItems());
                 final ItemStack inputStack = WoodcutterMenu.this.inputSlot.remove(1);
                 if (!inputStack.isEmpty()) {
                     WoodcutterMenu.this.setupResultSlot();
@@ -151,6 +151,10 @@ public class WoodcutterMenu extends AbstractContainerMenu {
                     }
                 });
                 super.onTake(player, itemStack);
+            }
+
+            private List<ItemStack> getRelevantItems() {
+                return List.of(WoodcutterMenu.this.inputSlot.getItem());
             }
 
         });
@@ -347,7 +351,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
             final ItemStack result = slot.getItem();
             itemStack = result.copy();
             if (slotId == 1) {
-                result.getItem().onCraftedBy(result, player.level, player);
+                result.getItem().onCraftedBy(result, player.level(), player);
                 if (!this.moveItemStackTo(result, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }

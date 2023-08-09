@@ -40,7 +40,7 @@ public final class LevelHelper {
     /**
      * Adjust a {@link Double coordinate} for the {@link BlockPos block pos} conversion.
      * Specifically subtract 0.5 if the coordinate is negative, otherwise leaves it unchanged
-     * and returns it casted to int.
+     * and returns it cast to int.
      *
      * @param coordinate {@link Double The coordinate to adjust}
      * @return {@link Integer The adjusted coordinate}

@@ -309,7 +309,7 @@ public class MWOverworldBiomeBuilder {
     }
 
     /**
-     * Add the mid slice biomes into the overworld
+     * Add the mid-slice biomes into the overworld
      *
      * @param mapper {@link Pair The biome mapper}
      * @param weirdness {@link Climate.Parameter The region weirdness}

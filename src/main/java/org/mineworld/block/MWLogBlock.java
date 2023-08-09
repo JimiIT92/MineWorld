@@ -14,8 +14,7 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
@@ -46,21 +45,21 @@ public class MWLogBlock extends RotatedPillarBlock {
     /**
      * Constructor. Set the log properties
      *
-     * @param color {@link MaterialColor The log color on maps}
+     * @param color {@link MapColor The log color on maps}
      */
-    public MWLogBlock(final MaterialColor color) {
+    public MWLogBlock(final MapColor color) {
         this(color, color);
     }
 
     /**
      * Constructor. Set the log properties
      *
-     * @param topColor {@link MaterialColor The log top color on maps}
-     * @param sideColor {@link MaterialColor The log side color on maps}
+     * @param topColor {@link MapColor The log top color on maps}
+     * @param sideColor {@link MapColor The log side color on maps}
      */
-    public MWLogBlock(final MaterialColor topColor, final MaterialColor sideColor) {
-        super(BlockBehaviour.Properties.of(Material.WOOD,
-                state -> Direction.Axis.Y.equals(state.getValue(RotatedPillarBlock.AXIS)) ? topColor : sideColor)
+    public MWLogBlock(final MapColor topColor, final MapColor sideColor) {
+        super(BlockBehaviour.Properties.of()
+                .mapColor(state -> Direction.Axis.Y.equals(state.getValue(RotatedPillarBlock.AXIS)) ? topColor : sideColor)
                 .strength(2.0F).sound(SoundType.WOOD)
         );
     }

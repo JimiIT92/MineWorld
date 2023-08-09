@@ -141,7 +141,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
         checkContainerDataCount(containerData, DATA_COUNT);
         this.container = container;
         this.containerData = containerData;
-        this.level = inventory.player.level;
+        this.level = inventory.player.level();
         this.addSlot(new Slot(container, INGREDIENT_BASE_SLOT, 41, 21));
         this.addSlot(new Slot(container, INGREDIENT_ADDITION_SLOT, 80, 21));
         this.addSlot(new Slot(container, FUEL_SLOT, 80, 51) {
@@ -217,7 +217,7 @@ public class ForgingTableMenu extends AbstractContainerMenu {
              */
             protected void checkTakeAchievements(final ItemStack itemStack) {
                 final Player player = inventory.player;
-                itemStack.onCraftedBy(player.level, player, this.removeCount);
+                itemStack.onCraftedBy(player.level(), player, this.removeCount);
                 if (player instanceof ServerPlayer && this.container instanceof ForgingTableBlockEntity) {
                     ((ForgingTableBlockEntity)this.container).awardUsedRecipesAndPopExperience((ServerPlayer)player);
                 }

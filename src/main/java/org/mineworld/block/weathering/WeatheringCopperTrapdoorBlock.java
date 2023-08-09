@@ -53,7 +53,7 @@ public class WeatheringCopperTrapdoorBlock extends TrapDoorBlock implements IMWW
     }
 
     /**
-     * Check if the block should randomly ticking
+     * Check if the block should randomly tick
      *
      * @param blockState {@link BlockState The current block state}
      * @return {@link Boolean True if there is another state}

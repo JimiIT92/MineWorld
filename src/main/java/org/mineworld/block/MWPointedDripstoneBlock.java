@@ -13,7 +13,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
@@ -444,16 +443,6 @@ public class MWPointedDripstoneBlock extends Block implements Fallable, SimpleWa
     }
 
     /**
-     * Get the {@link Predicate<Entity> entity predicate} for the damage functions
-     *
-     * @return {@link Predicate<Entity> The entity predicate} for the damage functions
-     */
-    @Override
-    public @NotNull Predicate<Entity> getHurtsEntitySelector() {
-        return EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE);
-    }
-
-    /**
      * Spawn the {@link FallingBlockEntity falling dripstone}
      *
      * @param state {@link BlockState The current block state}
@@ -713,7 +702,7 @@ public class MWPointedDripstoneBlock extends Block implements Fallable, SimpleWa
      * @param level {@link LevelReader The level reference}
      * @param pos {@link BlockPos The current block pos}
      * @param direction {@link Direction The placing direction}
-     * @return {@link Boolean True} if the location is valid for the dripstone placement}
+     * @return {@link Boolean True} if the location is valid for the dripstone placement
      */
     private boolean isValidPointedDripstonePlacement(final LevelReader level, final BlockPos pos, final Direction direction) {
         final BlockPos placingPos = pos.relative(direction.getOpposite());

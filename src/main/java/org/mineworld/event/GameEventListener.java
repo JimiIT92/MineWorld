@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.block.weathering.IMWWeatheringBlock;
 
+import java.util.Objects;
+
 /**
  * Listener for a {@link GameEvent game event}
  */
@@ -31,7 +33,7 @@ public final class GameEventListener {
             final Level level = event.getLevel();
             final Entity cause = event.getCause();
             if(gameEvent.equals(GameEvent.LIGHTNING_STRIKE)) {
-                handleLightningStrike(cause.getBlockStateOn(), level, cause.getOnPos());
+                handleLightningStrike(Objects.requireNonNull(cause).getBlockStateOn(), level, cause.getOnPos());
             }
         }
     }

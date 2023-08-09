@@ -1,7 +1,7 @@
 package org.mineworld.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -45,40 +45,40 @@ public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu
     /**
      * Render the screen
      *
-     * @param poseStack {@link PoseStack The screen pose stack}
+     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      * @param partialTicks {@link Float The screen partial ticks}
      */
-    public void render(final @NotNull PoseStack poseStack, final int screenX, final int screenY, final float partialTicks) {
-        super.render(poseStack, screenX, screenY, partialTicks);
-        this.renderTooltip(poseStack, screenX, screenY);
+    public void render(final @NotNull GuiGraphics guiGraphics, final int screenX, final int screenY, final float partialTicks) {
+        super.render(guiGraphics, screenX, screenY, partialTicks);
+        this.renderTooltip(guiGraphics, screenX, screenY);
     }
 
     /**
      * Render the forging table background
      *
-     * @param poseStack {@link PoseStack The forging table pose stack}
+     * @param guiGraphics {@link GuiGraphics The forging table GUI graphics}
      * @param partialTicks {@link Float The screen partial ticks}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      */
     @Override
-    protected void renderBg(final @NotNull PoseStack poseStack, final float partialTicks, final int screenX, final int screenY) {
-        this.renderBackground(poseStack);
+    protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, final int screenX, final int screenY) {
+        this.renderBackground(guiGraphics);
         RenderSystem.setShaderTexture(0, BACKGROUND_LOCATION);
         final int x = this.leftPos;
         final int y = this.topPos;
-        blit(poseStack, x, y, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(BACKGROUND_LOCATION, x, y, 0, 0, this.imageWidth, this.imageHeight);
         if (this.menu.isLit()) {
             final int litProgress = Mth.clamp((28 * this.menu.getLitProgress() + 27 - 1) / 27, 0, 28);
             if (litProgress > 0) {
-                blit(poseStack, x + 74, y + 69, 176, 0, litProgress, 5);
+                guiGraphics.blit(BACKGROUND_LOCATION, x + 74, y + 69, 176, 0, litProgress, 5);
             }
         }
 
         final int forgingProgress = this.menu.getForgingProgress();
-        blit(poseStack, x + 101, y + 21, 176, 5, forgingProgress + 1, 16);
+        guiGraphics.blit(BACKGROUND_LOCATION, x + 101, y + 21, 176, 5, forgingProgress + 1, 16);
     }
 
 }

@@ -1,6 +1,7 @@
 package org.mineworld.helper;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.SplashRenderer;
 import org.mineworld.MineWorld;
 
 import java.time.LocalDate;
@@ -17,22 +18,22 @@ public final class SplashScreenHelper {
     /**
      * The {@link MineWorld MineWorld} {@link Set<String> splash texts}
      */
-    private static final Set<String> splashTexts;
+    private static final Set<SplashRenderer> splashTexts;
     /**
      * {@link String The special splash text} shown for {@link MineWorld MineWorld} birthday on November 30
      */
-    private static final String birthdaySplashText;
+    private static final SplashRenderer birthdaySplashText;
 
     /**
      * Get a {@link String random splash text}
      *
      * @return {@link String A random splash text}
      */
-    public static Optional<String> getSplashText() {
+    public static Optional<SplashRenderer> getSplashText() {
         if(isMineWorldBirhday()) {
             return Optional.of(birthdaySplashText);
         }
-        return !RandomHelper.choose() || isVanillaSplashTextSpecialDate() ? Optional.of(Minecraft.getInstance().getSplashManager().getSplash()) : RandomHelper.randomValue(splashTexts);
+        return !RandomHelper.choose() || isVanillaSplashTextSpecialDate() ? Optional.ofNullable(Minecraft.getInstance().getSplashManager().getSplash()) : RandomHelper.randomValue(splashTexts);
     }
 
     /**
@@ -73,7 +74,7 @@ public final class SplashScreenHelper {
      *
      * @return {@link Set<String> The MineWorld splash texts}
      */
-    private static Set<String> loadSplashTexts() {
+    private static Set<SplashRenderer> loadSplashTexts() {
         return Set.of(
                 getSplashText("blocks"),
                 getSplashText("logs"),
@@ -94,8 +95,8 @@ public final class SplashScreenHelper {
      * @param args {@link Object The translation arguments}
      * @return {@link String The translated splash text}
      */
-    private static String getSplashText(final String key, final Object... args) {
-        return ComponentHelper.splashText(key, args).getString();
+    private static SplashRenderer getSplashText(final String key, final Object... args) {
+        return new SplashRenderer(ComponentHelper.splashText(key, args).getString());
     }
 
     static {

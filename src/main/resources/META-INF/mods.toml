@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[45,)"
+loaderVersion="${forge_version_range}"
 license="https://github.com/JimiIT92/Mineworld/blob/master/LICENSE"
 issueTrackerURL="https://github.com/JimiIT92/MineWorld/issues"
 [[mods]]
@@ -23,24 +23,24 @@ description="Just another Minecraft mod"
 [[dependencies.mineworld]]
    modId="terrablender"
    mandatory=true
-   versionRange="[1.19.4-2.2.0.156,)"
+   versionRange="[${mc_version}-${terrablender_version},)"
    ordering="NONE"
    side="BOTH"
 [[dependencies.mineworld]]
    modId="jei"
    mandatory=false
-   versionRange="[1.19.4-forge-13.1.0.11,)"
+   versionRange="[${mc_version}-forge-${jei_version},)"
    ordering="NONE"
    side="BOTH"
 [[dependencies.mineworld]]
    modId="forge"
    mandatory=true
-   versionRange="[45,)"
+   versionRange="${forge_version_range}"
    ordering="NONE"
    side="BOTH"
 [[dependencies.mineworld]]
    modId="minecraft"
    mandatory=true
-   versionRange="[1.19.4,1.20)"
+   versionRange="${minecraft_version_range}"
    ordering="NONE"
    side="BOTH"

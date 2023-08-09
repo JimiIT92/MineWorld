@@ -383,7 +383,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
             if (currentResult.isEmpty() || (currentResult.getCount() + result.getCount() <= count && currentResult.getCount() + result.getCount() <= currentResult.getMaxStackSize())) {
                 return true;
             }
-            if (!currentResult.sameItem(result)) {
+            if (!ItemStack.isSameItem(currentResult, result)) {
                 return false;
             }
             return currentResult.getCount() + result.getCount() <= result.getMaxStackSize();
@@ -535,7 +535,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     @Override
     public void setItem(final int slotId, final ItemStack itemStack) {
         final ItemStack content = this.items.get(slotId);
-        final boolean isSameItem = !itemStack.isEmpty() && itemStack.sameItem(content) && ItemStack.tagMatches(itemStack, content);
+        final boolean isSameItem = !itemStack.isEmpty() && ItemStack.isSameItem(itemStack, content) && ItemStack.isSameItemSameTags(itemStack, content);
         this.items.set(slotId, itemStack);
         if (itemStack.getCount() > this.getMaxStackSize()) {
             itemStack.setCount(this.getMaxStackSize());
@@ -607,13 +607,12 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Award the {@link Player player} with the used recipe
+     * Award the {@link Player player} with the used recipe and experience
      *
      * @param player {@link Player The player to award}
+     * @param itemStacks {@link List<ItemStack> The recipe item stacks}
      */
-    @Override
-    public void awardUsedRecipes(final @NotNull Player player) {
-
+    public void awardUsedRecipes(@NotNull Player player, @NotNull List<ItemStack> itemStacks) {
     }
 
     /**
@@ -622,7 +621,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      * @param player {@link ServerPlayer The player to award}
      */
     public void awardUsedRecipesAndPopExperience(final ServerPlayer player) {
-        player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.getLevel(), player.position()));
+        player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.serverLevel(), player.position()));
         this.recipesUsed.clear();
     }
 

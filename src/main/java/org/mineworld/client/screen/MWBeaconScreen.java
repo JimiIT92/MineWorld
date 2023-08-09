@@ -1,8 +1,8 @@
 package org.mineworld.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.BeaconScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +35,7 @@ public class MWBeaconScreen extends BeaconScreen {
      * @param beaconScreen {@link BeaconScreen The beacon screen}
      */
     public MWBeaconScreen(final BeaconScreen beaconScreen) {
-        this(beaconScreen.getMenu(), Minecraft.getInstance().player.getInventory(), beaconScreen.getTitle());
+        this(beaconScreen.getMenu(), Minecraft.getInstance().player != null ? Minecraft.getInstance().player.getInventory() : null, beaconScreen.getTitle());
     }
 
     /**
@@ -52,27 +52,27 @@ public class MWBeaconScreen extends BeaconScreen {
     /**
      * Render the beacon screen background
      *
-     * @param poseStack {@link PoseStack The screen pose stack}
+     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
      * @param partialTicks {@link Float The client partial ticks}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      */
     @Override
-    protected void renderBg(final @NotNull PoseStack poseStack, final float partialTicks, int screenX, int screenY) {
+    protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, int screenX, int screenY) {
         RenderSystem.setShaderTexture(0, BEACON_LOCATION);
         final int guiX = (this.width - this.imageWidth) / 2;
         final int guiY = (this.height - this.imageHeight) / 2;
-        blit(poseStack, guiX, guiY, 0, 0, this.imageWidth, this.imageHeight);
-        poseStack.pushPose();
-        poseStack.translate(0.0F, 0.0F, 100.0F);
-        this.itemRenderer.renderAndDecorateItem(poseStack, ItemHelper.getDefaultStack(Items.IRON_INGOT), guiX + 40, guiY + 102);
-        this.itemRenderer.renderAndDecorateItem(poseStack, ItemHelper.getDefaultStack(Items.GOLD_INGOT), guiX + 61, guiY + 102);
-        this.itemRenderer.renderAndDecorateItem(poseStack, ItemHelper.getDefaultStack(Items.DIAMOND), guiX + 82, guiY + 102);
-        this.itemRenderer.renderAndDecorateItem(poseStack, ItemHelper.getDefaultStack(Items.EMERALD), guiX + 103, guiY + 102);
-        this.itemRenderer.renderAndDecorateItem(poseStack, ItemHelper.getDefaultStack(MWItems.RUBY), guiX + 49, guiY + 119);
-        this.itemRenderer.renderAndDecorateItem(poseStack, ItemHelper.getDefaultStack(MWItems.SAPPHIRE), guiX + 70, guiY + 119);
-        this.itemRenderer.renderAndDecorateItem(poseStack, ItemHelper.getDefaultStack(Items.NETHERITE_INGOT), guiX + 91, guiY + 119);
-        poseStack.popPose();
+        guiGraphics.blit(BEACON_LOCATION, guiX, guiY, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(0.0F, 0.0F, 100.0F);
+        guiGraphics.renderItem(ItemHelper.getDefaultStack(Items.IRON_INGOT), guiX + 40, guiY + 102);
+        guiGraphics.renderItem(ItemHelper.getDefaultStack(Items.GOLD_INGOT), guiX + 61, guiY + 102);
+        guiGraphics.renderItem(ItemHelper.getDefaultStack(Items.DIAMOND), guiX + 82, guiY + 102);
+        guiGraphics.renderItem(ItemHelper.getDefaultStack(Items.EMERALD), guiX + 103, guiY + 102);
+        guiGraphics.renderItem(ItemHelper.getDefaultStack(MWItems.RUBY), guiX + 49, guiY + 119);
+        guiGraphics.renderItem(ItemHelper.getDefaultStack(MWItems.SAPPHIRE), guiX + 70, guiY + 119);
+        guiGraphics.renderItem(ItemHelper.getDefaultStack(Items.NETHERITE_INGOT), guiX + 91, guiY + 119);
+        guiGraphics.pose().popPose();
     }
 
 }

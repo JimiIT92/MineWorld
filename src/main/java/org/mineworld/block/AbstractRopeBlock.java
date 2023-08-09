@@ -13,8 +13,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +42,7 @@ public abstract class AbstractRopeBlock extends Block {
      * @param shape {@link VoxelShape The rope shape}
      */
     protected AbstractRopeBlock(final Direction direction, final VoxelShape shape) {
-        super(PropertyHelper.basicBlockProperties(Material.DECORATION, MaterialColor.DIRT, 1.0F, 1.0F, false, SoundType.CAVE_VINES).noCollission().instabreak());
+        super(PropertyHelper.basicBlockProperties(MapColor.DIRT, 1.0F, 1.0F, false, SoundType.CAVE_VINES).noCollission().instabreak());
         this.ropeDirection = direction;
         this.shape = shape;
     }

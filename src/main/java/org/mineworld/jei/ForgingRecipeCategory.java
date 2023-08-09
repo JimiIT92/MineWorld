@@ -3,7 +3,6 @@ package org.mineworld.jei;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -16,6 +15,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -159,29 +159,29 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      *
      * @param recipe {@link ForgingRecipe The recipe to draw}
      * @param recipeSlotsView {@link IRecipeSlotsView The recipe slots view}
-     * @param poseStack {@link PoseStack The recipe pose stack}
+     * @param guiGraphics {@link GuiGraphics The recipe GUI graphics}
      * @param mouseX {@link Double The mouse X coordinate}
      * @param mouseY {@link Double The mouse Y coordinate}
      */
     @Override
-    public void draw(final @NotNull ForgingRecipe recipe, final @NotNull IRecipeSlotsView recipeSlotsView, final @NotNull PoseStack poseStack, final double mouseX, final double mouseY) {
-        animatedLava.draw(poseStack, 36, 66);
-        this.cachedArrows.getUnchecked(forgingTime).draw(poseStack, 63, 18);
-        drawExperience(recipe, poseStack ,0);
-        drawForgeTime(recipe, poseStack ,66);
+    public void draw(final @NotNull ForgingRecipe recipe, final @NotNull IRecipeSlotsView recipeSlotsView, final @NotNull GuiGraphics guiGraphics, final double mouseX, final double mouseY) {
+        animatedLava.draw(guiGraphics, 36, 66);
+        this.cachedArrows.getUnchecked(forgingTime).draw(guiGraphics, 63, 18);
+        drawExperience(recipe, guiGraphics ,0);
+        drawForgeTime(recipe, guiGraphics ,66);
     }
 
     /**
      * Draw the recipe experience
      *
      * @param recipe {@link ForgingRecipe The recipe}
-     * @param poseStack {@link PoseStack The recipe pose stack}
+     * @param guiGraphics {@link GuiGraphics The recipe GUI graphics}
      * @param y {@link Integer The Y coordinate where to draw the experience}
      */
-    private void drawExperience(final ForgingRecipe recipe, final PoseStack poseStack, final int y) {
+    private void drawExperience(final ForgingRecipe recipe, final GuiGraphics guiGraphics, final int y) {
         final float experience = recipe.experience();
         if (experience > 0) {
-            drawText(Component.translatable("gui.jei.category.smelting.experience", experience), poseStack, y);
+            drawText(Component.translatable("gui.jei.category.smelting.experience", experience), guiGraphics, y);
         }
     }
 
@@ -189,13 +189,13 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * Draw the recipe forging time
      *
      * @param recipe {@link ForgingRecipe The recipe}
-     * @param poseStack {@link PoseStack The recipe pose stack}
+     * @param guiGraphics {@link GuiGraphics The recipe GUI graphics}
      * @param y {@link Integer The Y coordinate where to draw the forging time}
      */
-    private void drawForgeTime(final ForgingRecipe recipe, final PoseStack poseStack, final int y) {
+    private void drawForgeTime(final ForgingRecipe recipe, final GuiGraphics guiGraphics, final int y) {
         final int cookTime = recipe.forgingTime();
         if (cookTime > 0) {
-            drawText(Component.translatable("gui.jei.category.smelting.time.seconds", cookTime / 20), poseStack, y);
+            drawText(Component.translatable("gui.jei.category.smelting.time.seconds", cookTime / 20), guiGraphics, y);
         }
     }
 
@@ -203,12 +203,12 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgingRecipe> {
      * Draw a text on the screen
      *
      * @param text {@link Component The text to draw}
-     * @param poseStack {@link PoseStack The recipe pose stack}
+     * @param guiGraphics {@link GuiGraphics The recipe GUI graphics}
      * @param y {@link Integer The Y coordinate where to draw the text}
      */
-    private void drawText(final Component text, final PoseStack poseStack, final int y) {
+    private void drawText(final Component text, final GuiGraphics guiGraphics, final int y) {
         final Font fontRenderer = Minecraft.getInstance().font;
-        fontRenderer.draw(poseStack, text, getWidth() - fontRenderer.width(text), y, 0xFF808080);
+        guiGraphics.drawString(fontRenderer, text, getWidth() - fontRenderer.width(text), y, 0xFF808080);
     }
 
 }

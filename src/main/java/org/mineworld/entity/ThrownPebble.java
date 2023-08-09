@@ -83,7 +83,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
         if (event == 3) {
             ParticleOptions particleoptions = this.getParticle();
             for(int i = 0; i < 8; ++i) {
-                this.level.addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+                this.level().addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -105,8 +105,8 @@ public class ThrownPebble extends ThrowableItemProjectile {
      */
     protected void onHit(final @NotNull HitResult hitResult) {
         super.onHit(hitResult);
-        if (!this.level.isClientSide) {
-            this.level.broadcastEntityEvent(this, (byte)3);
+        if (!this.level().isClientSide) {
+            this.level().broadcastEntityEvent(this, (byte)3);
             this.discard();
         }
     }

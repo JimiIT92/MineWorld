@@ -31,7 +31,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -68,8 +67,7 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -78,7 +76,6 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
@@ -106,7 +103,11 @@ public final class RegisterHelper {
     //#region Registries
 
     /**
-     * {@link DeferredRegister <Block> The block registry}
+     * {@link DeferredRegister<CreativeModeTab> The creative mode tab registry}
+     */
+    private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<Block> The block registry}
      */
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MineWorld.MOD_ID);
     /**
@@ -449,7 +450,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerNetherOreBlock(final String name, final FeatureFlag... featureFlags) {
-        return registerOreBlock(name, PropertyHelper.oreBlockProperties(false, featureFlags).color(MaterialColor.NETHER).sound(SoundType.NETHER_ORE), 2, 5);
+        return registerOreBlock(name, PropertyHelper.oreBlockProperties(false, featureFlags).mapColor(MapColor.NETHER).sound(SoundType.NETHER_ORE), 2, 5);
     }
 
     /**
@@ -469,51 +470,50 @@ public final class RegisterHelper {
      * Register a {@link Block raw ore block}
      *
      * @param name {@link String The block name}
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerRawOreBlock(final String name, final MaterialColor color, final FeatureFlag... featureFlags) {
-        return registerOreStorageBlock(name, Material.STONE, color,null, featureFlags);
+    public static RegistryObject<Block> registerRawOreBlock(final String name, final MapColor color, final FeatureFlag... featureFlags) {
+        return registerOreStorageBlock(name, color,null, featureFlags);
     }
 
     /**
      * Register a {@link Block raw ore block}
      *
      * @param name {@link String The block name}
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerMetalOreStorageBlock(final String name, MaterialColor color, final FeatureFlag... featureFlags) {
-        return registerOreStorageBlock(name, Material.METAL, color, SoundType.METAL, featureFlags);
+    public static RegistryObject<Block> registerMetalOreStorageBlock(final String name, MapColor color, final FeatureFlag... featureFlags) {
+        return registerOreStorageBlock(name, color, SoundType.METAL, featureFlags);
     }
 
     /**
      * Register a {@link Block raw ore block}
      *
      * @param name {@link String The block name}
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param sound {@link SoundType The block sound}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    static RegistryObject<Block> registerOreStorageBlock(final String name, final Material material, final MaterialColor color, final SoundType sound, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> PropertyHelper.oreStorageBlockProperties(material, color,sound, featureFlags));
+    static RegistryObject<Block> registerOreStorageBlock(final String name, final MapColor color, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> PropertyHelper.oreStorageBlockProperties(color,sound, featureFlags));
     }
 
     /**
      * Register a {@link Block fuel block}
      *
      * @param name {@link String The block name}
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param burnTime {@link Integer The fuel burn time}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFuelBlock(final String name, final MaterialColor color, final int burnTime, final FeatureFlag... featureFlags) {
-        RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new Block(PropertyHelper.basicBlockProperties(Material.STONE, color, 5.0F, 6.0F, true, featureFlags)));
+    public static RegistryObject<Block> registerFuelBlock(final String name, final MapColor color, final int burnTime, final FeatureFlag... featureFlags) {
+        RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new Block(PropertyHelper.basicBlockProperties(color, 5.0F, 6.0F, true, featureFlags)));
         registerFuelBlockItem(name, block, burnTime, featureFlags);
         return block;
     }
@@ -715,7 +715,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)) {
+        return registerBlock(name, () -> new FenceBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)) {
 
             /**
              * Determine if the {@link RotatedPillarBlock block} is flammable
@@ -728,7 +728,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return this.material.isFlammable();
+                return blockState.isFlammable(blockGetter, blockPos, direction);
             }
 
             /**
@@ -772,7 +772,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).strength(2.0F, 3.0F), woodType) {
+        return registerBlock(name, () -> new FenceGateBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F), woodType) {
 
             /**
              * Determine if the {@link RotatedPillarBlock block} is flammable
@@ -785,7 +785,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return this.material.isFlammable();
+                return blockState.isFlammable(blockGetter, blockPos, direction);
             }
 
             /**
@@ -899,7 +899,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerHangingSign(final String name, final Supplier<Block> blockSupplier, final WoodType woodType) {
-        return registerBlockWithoutBlockItem(name, () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).noCollission().strength(1.0F).requiredFeatures(FeatureFlags.UPDATE_1_20), woodType) {
+        return registerBlockWithoutBlockItem(name, () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).noCollission().strength(1.0F), woodType) {
 
             /**
              * Get the {@link BlockEntity sign block entity}
@@ -934,7 +934,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWallHangingSign(final String name, final Supplier<Block> blockSupplier, final Supplier<Block> standingSignSupplier, final WoodType woodType) {
-        return registerBlockWithoutBlockItem(name, () -> new WallHangingSignBlock(BlockBehaviour.Properties.of(Material.WOOD, blockSupplier.get().defaultMaterialColor()).noCollission().strength(1.0F).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(standingSignSupplier.get()), woodType) {
+        return registerBlockWithoutBlockItem(name, () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).noCollission().strength(1.0F).dropsLike(standingSignSupplier.get()), woodType) {
 
             /**
              * Get the {@link BlockEntity sign block entity}
@@ -991,13 +991,13 @@ public final class RegisterHelper {
      *
      * @param name {@link String The block name}
      * @param isWooden {@link Boolean If the pressure plate is a wooden pressure plate}
-     * @param materialColor {@link MaterialColor The block color on maps}
+     * @param materialColor {@link MapColor The block color on maps}
      * @param blockSetType {@link BlockSetType The pressure plate block set type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerPressurePlate(final String name, final boolean isWooden, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        final BlockBehaviour.Properties properties = PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).color(materialColor);
+    public static RegistryObject<Block> registerPressurePlate(final String name, final boolean isWooden, final MapColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        final BlockBehaviour.Properties properties = PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).mapColor(materialColor);
         return registerBlock(name, () -> new PressurePlateBlock(isWooden ? PressurePlateBlock.Sensitivity.EVERYTHING : PressurePlateBlock.Sensitivity.MOBS, properties, blockSetType));
     }
 
@@ -1006,12 +1006,12 @@ public final class RegisterHelper {
      *
      * @param name {@link String The block name}
      * @param maxWeight {@link Integer The max weight the pressure plate can detect}
-     * @param materialColor {@link MaterialColor The block color on maps}
+     * @param materialColor {@link MapColor The block color on maps}
      * @param blockSetType {@link BlockSetType The pressure plate block set type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MaterialColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+    public static RegistryObject<Block> registerWeightedPressurePlate(final String name, final int maxWeight, final MapColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new WeightedPressurePlateBlock(maxWeight, PropertyHelper.copyFromBlock(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE), blockSetType));
     }
 
@@ -1072,7 +1072,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return this.material.isFlammable();
+                return blockState.isFlammable(blockGetter, blockPos, direction);
             }
 
             /**
@@ -1161,7 +1161,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return this.material.isFlammable();
+                return blockState.isFlammable(blockGetter, blockPos, direction);
             }
 
             /**
@@ -1553,12 +1553,12 @@ public final class RegisterHelper {
      * Register some {@link Block wood planks}
      *
      * @param name {@link String The block name}
-     * @param materialColor {@link MaterialColor The block color on maps}
+     * @param materialColor {@link MapColor The block color on maps}
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerPlanks(final String name, final MaterialColor materialColor, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.OAK_PLANKS, featureFlags).color(materialColor)) {
+    public static RegistryObject<Block> registerPlanks(final String name, final MapColor materialColor, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.OAK_PLANKS, featureFlags).mapColor(materialColor)) {
 
             /**
              * Makes the block able to catch fire
@@ -1912,26 +1912,30 @@ public final class RegisterHelper {
     /**
      * Register a {@link CreativeModeTab creative tab}
      *
-     * @param event {@link CreativeModeTabEvent.Register Creative mode tab register event}
      * @param name {@link String The tab name}
-     * @param afterTab After which {@link CreativeModeTab creative tab} this tab should appear
+     * @param beforeTab Before which {@link ResourceKey<CreativeModeTab> creative tab} this tab should appear
      * @param iconSupplier {@link Supplier<ItemStack> The icon supplier}. Determines which {@link Item id} to use as tab icon
-     * @return {@link CreativeModeTab The registered creative mode tab}
+     * @return {@link RegistryObject<CreativeModeTab> The registered creative mode tab}
      */
-    public static CreativeModeTab registerCreativeTab(final CreativeModeTabEvent.Register event, final String name, final CreativeModeTab afterTab, final Supplier<ItemStack> iconSupplier) {
-        return event.registerCreativeModeTab(KeyHelper.location(name),
-                List.of(),
-                afterTab != null ? List.of(afterTab) : List.of(),
-                builder -> builder
-                        .icon(iconSupplier)
-                        .title(ComponentHelper.itemGroup(name))
-                        .build());
+    public static RegistryObject<CreativeModeTab> registerCreativeTab(final String name, final ResourceKey<CreativeModeTab> beforeTab, final Supplier<ItemStack> iconSupplier) {
+        return CREATIVE_MODE_TABS.register(name, () -> {
+                    CreativeModeTab.Builder builder = CreativeModeTab.builder()
+                    .icon(iconSupplier)
+                    .title(ComponentHelper.itemGroup(name));
+
+                    if(beforeTab != null) {
+                         builder = builder.withTabsBefore(beforeTab);
+                    }
+
+                    return builder.build();
+                });
     }
 
     /**
      * Register a {@link BlockSetType block set type}
      *
      * @param name {@link String The block set type name}
+     * @param canOpenByHand {@link Boolean If the block set doors/trapdoors can be open using hands}
      * @param defaultSound {@link SoundType The block set type default sound}
      * @param doorCloseSound {@link SoundEvent The sound to play when a door or a trapdoor is closed}
      * @param doorOpenSound {@link SoundEvent The sound to play when a door or a trapdoor is opened}
@@ -1941,8 +1945,9 @@ public final class RegisterHelper {
      * @param buttonClickOnSound {@link SoundEvent The sound to play when a button is pressed}
      * @return {@link BlockSetType The registered block set type}
      */
-    public static BlockSetType registerBlockSetType(final String name, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
-        return registerBlockSetType(name, defaultSound,
+    public static BlockSetType registerBlockSetType(final String name, final boolean canOpenByHand, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
+        return registerBlockSetType(name,
+                canOpenByHand, defaultSound,
                 doorCloseSound, doorOpenSound,
                 doorCloseSound, doorOpenSound,
                 pressurePlateClickOffSound, pressurePlateClickOnSound,
@@ -1953,6 +1958,7 @@ public final class RegisterHelper {
      * Register a {@link BlockSetType block set type}
      *
      * @param name {@link String The block set type name}
+     * @param canOpenByHand {@link Boolean If the block set doors/trapdoors can be open using hands}
      * @param defaultSound {@link SoundType The block set type default sound}
      * @param doorCloseSound {@link SoundEvent The sound to play when a door is closed}
      * @param doorOpenSound {@link SoundEvent The sound to play when a door is opened}
@@ -1964,8 +1970,10 @@ public final class RegisterHelper {
      * @param buttonClickOnSound {@link SoundEvent The sound to play when a button is pressed}
      * @return {@link BlockSetType The registered block set type}
      */
-    private static BlockSetType registerBlockSetType(final String name, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
-        return BlockSetType.register(new BlockSetType(KeyHelper.location(name).toString(), defaultSound,
+    private static BlockSetType registerBlockSetType(final String name, final boolean canOpenByHand, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
+        return BlockSetType.register(new BlockSetType(KeyHelper.location(name).toString(),
+                canOpenByHand,
+                defaultSound,
                 doorCloseSound, doorOpenSound,
                 trapdoorCloseSound, trapdoorOpenSound,
                 pressurePlateClickOffSound, pressurePlateClickOnSound,
@@ -2257,6 +2265,15 @@ public final class RegisterHelper {
      */
     public static void registerStructureProcessor(final BootstapContext<StructureProcessorList> context, final ResourceKey<StructureProcessorList> key, final List<StructureProcessor> structureProcessors) {
         context.register(key, new StructureProcessorList(structureProcessors));
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link CreativeModeTab creative mode tabs}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerCreativeModeTabs(final IEventBus eventBus) {
+        CREATIVE_MODE_TABS.register(eventBus);
     }
 
     /**

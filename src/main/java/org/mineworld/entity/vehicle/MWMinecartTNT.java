@@ -155,9 +155,9 @@ public class MWMinecartTNT extends MinecartTNT {
      */
     @Override
     protected void explode(final @Nullable DamageSource damageSource, final double fallDistance) {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             double multiplier = Math.min(Math.sqrt(fallDistance), 5.0D);
-            this.level.explode(this, damageSource, null, this.getX(), this.getY(), this.getZ(), (float)(type.getExplosionPower() + this.random.nextDouble() * 1.5D * multiplier), false, Level.ExplosionInteraction.TNT);
+            this.level().explode(this, damageSource, null, this.getX(), this.getY(), this.getZ(), (float)(type.getExplosionPower() + this.random.nextDouble() * 1.5D * multiplier), false, Level.ExplosionInteraction.TNT);
             this.discard();
         }
     }

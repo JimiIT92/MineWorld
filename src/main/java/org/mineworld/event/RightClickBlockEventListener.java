@@ -37,6 +37,7 @@ import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.LevelHelper;
 import org.mineworld.helper.PlayerHelper;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -46,8 +47,8 @@ import java.util.Optional;
 public final class RightClickBlockEventListener {
 
     /**
-     * Attach a {@link LeadItem lead} to a {@link FenceBlock fence} when the {@link Player player} right clicks on it
-     * and it doesn't have a leashed entity
+     * Attach a {@link LeadItem lead} to a {@link FenceBlock fence} when the {@link Player player}
+     * right clicks on it, and it doesn't have a leashed entity
      *
      * @param event {@link PlayerInteractEvent.RightClickBlock Player right click block event}
      */
@@ -161,7 +162,7 @@ public final class RightClickBlockEventListener {
      */
     private static void handleWallHangingLantern(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack) {
         final Direction direction = event.getFace();
-        if(direction.getAxis().isHorizontal() && LevelHelper.isFaceSolid(level, clickedPos, direction)) {
+        if(Objects.requireNonNull(direction).getAxis().isHorizontal() && LevelHelper.isFaceSolid(level, clickedPos, direction)) {
             WallHangingLanternBlock.getWallHangingLantern(itemStack, direction).ifPresent(hangingLantern -> {
                 final BlockPos offsetPos = LevelHelper.offset(clickedPos, direction);
                 final BlockState blockState = hangingLantern.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, offsetPos));

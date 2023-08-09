@@ -23,6 +23,8 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.PropertyHelper;
 
+import java.util.Objects;
+
 /**
  * {@link MineWorld MineWorld} class for a pebble block
  */
@@ -120,7 +122,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
         } else {
             FluidState fluidstate = placeContext.getLevel().getFluidState(placeContext.getClickedPos());
             boolean flag = fluidstate.getType() == Fluids.WATER;
-            return super.getStateForPlacement(placeContext).setValue(WATERLOGGED, flag);
+            return Objects.requireNonNull(super.getStateForPlacement(placeContext)).setValue(WATERLOGGED, flag);
         }
     }
 

@@ -84,7 +84,7 @@ public class ThrownGrenade extends ThrowableItemProjectile {
         if (event == 3) {
             ParticleOptions particleoptions = this.getParticle();
             for(int i = 0; i < 8; ++i) {
-                this.level.addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+                this.level().addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -106,10 +106,10 @@ public class ThrownGrenade extends ThrowableItemProjectile {
      */
     protected void onHit(final @NotNull HitResult hitResult) {
         super.onHit(hitResult);
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             final Vec3 pos = this.position();
-            this.level.broadcastEntityEvent(this, (byte)3);
-            this.level.explode(this, pos.x, pos.y, pos.z, 2.5F, Level.ExplosionInteraction.TNT);
+            this.level().broadcastEntityEvent(this, (byte)3);
+            this.level().explode(this, pos.x, pos.y, pos.z, 2.5F, Level.ExplosionInteraction.TNT);
             this.discard();
         }
     }

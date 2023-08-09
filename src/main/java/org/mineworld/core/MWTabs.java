@@ -1,12 +1,14 @@
 package org.mineworld.core;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -24,82 +26,74 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class MWTabs {
 
-    public static CreativeModeTab BUILDING_BLOCKS;
-    public static CreativeModeTab COLORED_BLOCKS;
-    public static CreativeModeTab NATURAL;
-    public static CreativeModeTab FUNCTIONAL;
-    public static CreativeModeTab REDSTONE;
-    public static CreativeModeTab TOOLS;
-    public static CreativeModeTab COMBAT;
-    public static CreativeModeTab FOOD_AND_DRINK;
-    public static CreativeModeTab INGREDIENTS;
-    public static CreativeModeTab SPAWN_EGGS;
-
-    /**
-     * Register the {@link CreativeModeTab creative tabs}
-     *
-     * @param event {@link CreativeModeTabEvent.Register Creative mode tab register event}
-     */
-    @SubscribeEvent
-    public static void onRegisterCreativeTabs(final CreativeModeTabEvent.Register event) {
-        BUILDING_BLOCKS = RegisterHelper.registerCreativeTab(event, "building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> ItemHelper.getDefaultStack(MWBlocks.GLOWING_OBSIDIAN));
-        COLORED_BLOCKS = RegisterHelper.registerCreativeTab(event, "colored_blocks", BUILDING_BLOCKS, () -> ItemHelper.getDefaultStack(MWBlocks.PINK_MARBLE));
-        NATURAL = RegisterHelper.registerCreativeTab(event, "natural", COLORED_BLOCKS, () -> ItemHelper.getDefaultStack(MWBlocks.HOLLOW_BIRCH_LOG));
-        FUNCTIONAL = RegisterHelper.registerCreativeTab(event, "functional", NATURAL, () -> ItemHelper.getDefaultStack(MWBlocks.NETHERITE_CHAIN));
-        REDSTONE = RegisterHelper.registerCreativeTab(event, "redstone", FUNCTIONAL, () -> ItemHelper.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
-        TOOLS = RegisterHelper.registerCreativeTab(event, "tools", REDSTONE, () -> ItemHelper.getDefaultStack(MWItems.EMERALD_PICKAXE));
-        COMBAT = RegisterHelper.registerCreativeTab(event, "combat", TOOLS, () -> ItemHelper.getDefaultStack(MWItems.SAPPHIRE_SWORD));
-        FOOD_AND_DRINK = RegisterHelper.registerCreativeTab(event, "food_and_drink", COMBAT, () -> ItemHelper.getDefaultStack(MWItems.COB));
-        INGREDIENTS = RegisterHelper.registerCreativeTab(event, "ingredients", FOOD_AND_DRINK, () -> ItemHelper.getDefaultStack(MWItems.RUBY));
-        //SPAWN_EGGS = RegisterHelper.registerCreativeTab(event, "spawn_eggs", INGREDIENTS, () -> ItemHelper.getDefaultStack(Blocks.BARRIER));
-    }
+    public static RegistryObject<CreativeModeTab> BUILDING_BLOCKS = RegisterHelper.registerCreativeTab("building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> ItemHelper.getDefaultStack(MWBlocks.GLOWING_OBSIDIAN));
+    public static RegistryObject<CreativeModeTab> COLORED_BLOCKS = RegisterHelper.registerCreativeTab("colored_blocks", BUILDING_BLOCKS.getKey(), () -> ItemHelper.getDefaultStack(MWBlocks.PINK_MARBLE));
+    public static RegistryObject<CreativeModeTab> NATURAL = RegisterHelper.registerCreativeTab("natural", COLORED_BLOCKS.getKey(), () -> ItemHelper.getDefaultStack(MWBlocks.HOLLOW_BIRCH_LOG));
+    public static RegistryObject<CreativeModeTab> FUNCTIONAL = RegisterHelper.registerCreativeTab("functional", NATURAL.getKey(), () -> ItemHelper.getDefaultStack(MWBlocks.NETHERITE_CHAIN));
+    public static RegistryObject<CreativeModeTab> REDSTONE = RegisterHelper.registerCreativeTab("redstone", FUNCTIONAL.getKey(), () -> ItemHelper.getDefaultStack(MWBlocks.DAYLIGHT_LAMP));
+    public static RegistryObject<CreativeModeTab> TOOLS = RegisterHelper.registerCreativeTab("tools", REDSTONE.getKey(), () -> ItemHelper.getDefaultStack(MWItems.EMERALD_PICKAXE));
+    public static RegistryObject<CreativeModeTab> COMBAT = RegisterHelper.registerCreativeTab("combat", TOOLS.getKey(), () -> ItemHelper.getDefaultStack(MWItems.SAPPHIRE_SWORD));
+    public static RegistryObject<CreativeModeTab> FOOD_AND_DRINK = RegisterHelper.registerCreativeTab("food_and_drink", COMBAT.getKey(), () -> ItemHelper.getDefaultStack(MWItems.COB));
+    public static RegistryObject<CreativeModeTab> INGREDIENTS = RegisterHelper.registerCreativeTab("ingredients", FOOD_AND_DRINK.getKey(), () -> ItemHelper.getDefaultStack(MWItems.RUBY));
+    public static RegistryObject<CreativeModeTab> SPAWN_EGGS = RegisterHelper.registerCreativeTab("spawn_eggs", INGREDIENTS.getKey(), () -> ItemHelper.getDefaultStack(Blocks.BARRIER));
 
     /**
      * Set the {@link CreativeModeTab creative tabs} content
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
     @SubscribeEvent
-    public static void onTabBuildContents(final CreativeModeTabEvent.BuildContents event) {
-        final CreativeModeTab tab = event.getTab();
-        if(tab.equals(BUILDING_BLOCKS)) {
+    public static void onTabBuildContents(final BuildCreativeModeTabContentsEvent event) {
+        final ResourceKey<CreativeModeTab> tab = event.getTabKey();
+        if(isSameTab(tab, BUILDING_BLOCKS)) {
             setBuildingBlocksTab(event);
         }
-        else if(tab.equals(COLORED_BLOCKS)) {
+        else if(isSameTab(tab, COLORED_BLOCKS)) {
             setColoredBlocksTab(event);
         }
-        else if(tab.equals(NATURAL)) {
+        else if(isSameTab(tab, NATURAL)) {
             setNaturalBlocksTab(event);
         }
-        else if(tab.equals(FUNCTIONAL)) {
+        else if(isSameTab(tab, FUNCTIONAL)) {
             setFunctionalBlocksTab(event);
         }
-        else if(tab.equals(REDSTONE)) {
+        else if(isSameTab(tab, REDSTONE)) {
             setRedstoneBlocksTab(event);
         }
-        else if(tab.equals(TOOLS)) {
+        else if(isSameTab(tab, TOOLS)) {
             setToolsTab(event);
         }
-        else if(tab.equals(COMBAT)) {
+        else if(isSameTab(tab, COMBAT)) {
             setCombatTab(event);
         }
-        else if(tab.equals(FOOD_AND_DRINK)) {
+        else if(isSameTab(tab, FOOD_AND_DRINK)) {
             setFoodAndDrinkTab(event);
         }
-        else if(tab.equals(INGREDIENTS)) {
+        else if(isSameTab(tab, INGREDIENTS)) {
             setIngredientsTab(event);
         }
-        /*else if(tab.equals(SPAWN_EGGS)) {
+        else if(isSameTab(tab, SPAWN_EGGS)) {
             setSpawnEggsTab(event);
-        }*/
+        }
+    }
+
+    /**
+     * Check if a {@link ResourceKey<CreativeModeTab> creative mode tab key} corresponds to a {@link RegistryObject<CreativeModeTab> creative tab}
+     *
+     * @param tabKey {@link ResourceKey<CreativeModeTab> The creative mode tab key}
+     * @param tab {@link RegistryObject<CreativeModeTab> The creative mode tab}
+     * @return {@link Boolean True if the creative mode tab key corresponds to the creative mode tab}
+     */
+    private static boolean isSameTab(final ResourceKey<CreativeModeTab> tabKey, final RegistryObject<CreativeModeTab> tab) {
+        return tab.getKey().equals(tabKey);
     }
 
     /**
      * Set the content of the {@link #BUILDING_BLOCKS building blocks tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setBuildingBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setBuildingBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWBlocks.HOLLOW_OAK_LOG,
                 MWBlocks.HOLLOW_STRIPPED_OAK_LOG,
@@ -550,9 +544,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #COLORED_BLOCKS colored blocks tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setColoredBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setColoredBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWBlocks.WHITE_WOOL_STAIRS,
                 MWBlocks.WHITE_WOOL_SLAB,
@@ -1071,9 +1065,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #NATURAL natural blocks tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setNaturalBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setNaturalBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWBlocks.GRASS_CARPET,
                 MWBlocks.PODZOL_CARPET,
@@ -1199,9 +1193,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #FUNCTIONAL functional blocks tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setFunctionalBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setFunctionalBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWBlocks.GOLDEN_LANTERN,
                 MWBlocks.GOLDEN_SOUL_LANTERN,
@@ -1382,9 +1376,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #REDSTONE redstone blocks tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setRedstoneBlocksTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setRedstoneBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWBlocks.APPLE_BUTTON,
                 MWBlocks.PALM_BUTTON,
@@ -1786,9 +1780,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #TOOLS tools tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setToolsTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setToolsTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWItems.ALUMINUM_SHOVEL,
                 MWItems.ALUMINUM_PICKAXE,
@@ -1903,9 +1897,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #COMBAT combat tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setCombatTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setCombatTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWItems.ALUMINUM_SWORD,
                 MWItems.BRONZE_SWORD,
@@ -2026,9 +2020,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #FOOD_AND_DRINK food and drink tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setFoodAndDrinkTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setFoodAndDrinkTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWItems.BLUEBERRIES,
                 MWItems.COB,
@@ -2039,9 +2033,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #INGREDIENTS ingredients tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setIngredientsTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setIngredientsTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWItems.PYRITE,
                 MWItems.RAW_ALUMINUM,
@@ -2064,9 +2058,9 @@ public final class MWTabs {
     /**
      * Set the content of the {@link #SPAWN_EGGS spawn eggs tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      */
-    private static void setSpawnEggsTab(final CreativeModeTabEvent.BuildContents event) {
+    private static void setSpawnEggsTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 Blocks.STRUCTURE_VOID
         );
@@ -2075,33 +2069,42 @@ public final class MWTabs {
     /**
      * Add some {@link T items} to a {@link CreativeModeTab creative tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      * @param items {@link T The items to add}
      */
     @SafeVarargs
-    private static <T extends ItemLike> void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final T... items) {
+    private static <T extends ItemLike> void addToTab(final BuildCreativeModeTabContentsEvent event, @NotNull final T... items) {
         addToTab(event, Arrays.stream(items).map(ItemHelper::getDefaultStack).toList());
     }
 
     /**
      * Add some {@link RegistryObject items} to a {@link CreativeModeTab creative tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      * @param items {@link RegistryObject The items to add}
      */
     @SafeVarargs
-    private static void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final RegistryObject<? extends ItemLike>... items) {
+    private static void addToTab(final BuildCreativeModeTabContentsEvent event, @NotNull final RegistryObject<? extends ItemLike>... items) {
         addToTab(event, Arrays.stream(items).map(ItemHelper::getDefaultStack).toList());
     }
 
     /**
      * Add some {@link ItemStack items} to a {@link CreativeModeTab creative tab}
      *
-     * @param event {@link CreativeModeTabEvent.BuildContents Creative mode tab build contents event}
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
      * @param items {@link List<ItemStack> The items to add}
      */
-    private static void addToTab(final CreativeModeTabEvent.BuildContents event, @NotNull final List<ItemStack> items) {
+    private static void addToTab(final BuildCreativeModeTabContentsEvent event, @NotNull final List<ItemStack> items) {
         event.acceptAll(items);
+    }
+
+    /**
+     * Register the {@link MineWorld MineWorld} {@link CreativeModeTab creative mode tabs}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void register(final IEventBus eventBus) {
+        RegisterHelper.registerCreativeModeTabs(eventBus);
     }
 
 }

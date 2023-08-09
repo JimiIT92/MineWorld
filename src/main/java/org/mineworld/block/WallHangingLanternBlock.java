@@ -153,7 +153,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      * @return {@link Boolean True if the block can survive}
      */
     public boolean canSurvive(final BlockState blockState, final LevelReader levelReader, final BlockPos blockPos) {
-        return levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING).getOpposite())).getMaterial().isSolid();
+        return levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING).getOpposite())).isSolid();
     }
 
     /**

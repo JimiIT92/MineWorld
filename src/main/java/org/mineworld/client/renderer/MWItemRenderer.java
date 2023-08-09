@@ -36,10 +36,6 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      */
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     /**
-     * {@link EntityModelSet The entity model set}
-     */
-    private final EntityModelSet entityModelSet;
-    /**
      * {@link ChestBlockEntity The spruce chest block entity}
      */
     private final ChestBlockEntity spruceChest = PropertyHelper.getChestBlockEntity(WoodType.SPRUCE, BlockPos.ZERO, MWBlocks.SPRUCE_CHEST.get().defaultBlockState(), false);
@@ -158,7 +154,6 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
     public MWItemRenderer() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
         this.blockEntityRenderDispatcher = Minecraft.getInstance().getBlockEntityRenderDispatcher();
-        this.entityModelSet = Minecraft.getInstance().getEntityModels();
         initModels();
     }
 

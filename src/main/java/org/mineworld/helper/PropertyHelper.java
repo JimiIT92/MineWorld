@@ -36,8 +36,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
@@ -119,54 +118,50 @@ public final class PropertyHelper {
 
     /**
      * Create some basic {@link BlockBehaviour.Properties block properties}
-     * using the {@link Material material color} and the base {@link SoundType block sound}
+     * using the base {@link SoundType block sound}
      *
-     * @param material {@link Material The block material}
      * @param hardnessAndBlastResistance {@link Float The block hardness and blast resistance values}
      * @param requiresTool {@link Boolean If the block requires the correct tool to drop}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties basicBlockProperties(final Material material, final float hardnessAndBlastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(material, hardnessAndBlastResistance, hardnessAndBlastResistance, requiresTool, featureFlags);
+    public static BlockBehaviour.Properties basicBlockProperties( final float hardnessAndBlastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
+        return basicBlockProperties(hardnessAndBlastResistance, hardnessAndBlastResistance, requiresTool, featureFlags);
     }
 
     /**
      * Create some basic {@link BlockBehaviour.Properties block properties}
-     * using the {@link Material material color} and the base {@link SoundType block sound}
+     * using the base {@link SoundType block sound}
      *
-     * @param material {@link Material The block material}
      * @param hardness {@link Float The block hardness value}
      * @param blastResistance {@link Float The block blast resistance value}
      * @param requiresTool {@link Boolean If the block requires the correct tool to drop}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties basicBlockProperties(final Material material, final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(material, material.getColor(), hardness, blastResistance, requiresTool, featureFlags);
+    static BlockBehaviour.Properties basicBlockProperties(final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
+        return basicBlockProperties(MapColor.STONE, hardness, blastResistance, requiresTool, featureFlags);
     }
 
     /**
      * Create some basic {@link BlockBehaviour.Properties block properties}
-     * using the provided {@link MaterialColor color} and the base {@link SoundType block sound}
+     * using the provided {@link MapColor color} and the base {@link SoundType block sound}
      *
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param hardness {@link Float The block hardness value}
      * @param blastResistance {@link Float The block blast resistance value}
      * @param requiresTool {@link Boolean If the block requires the correct tool to drop}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties basicBlockProperties(final Material material, final MaterialColor color, final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(material, color, hardness, blastResistance, requiresTool, null, featureFlags);
+    static BlockBehaviour.Properties basicBlockProperties(final MapColor color, final float hardness, final float blastResistance, final boolean requiresTool, final FeatureFlag... featureFlags) {
+        return basicBlockProperties(color, hardness, blastResistance, requiresTool, null, featureFlags);
     }
 
     /**
      * Create some basic {@link BlockBehaviour.Properties block properties}
      *
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param hardness {@link Float The block hardness value}
      * @param blastResistance {@link Float The block blast resistance value}
      * @param requiresTool {@link Boolean If the block requires the correct tool to drop}
@@ -174,8 +169,8 @@ public final class PropertyHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    public static BlockBehaviour.Properties basicBlockProperties(final Material material, final MaterialColor color, final float hardness, final float blastResistance, final boolean requiresTool, final SoundType sound, final FeatureFlag... featureFlags) {
-        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of(material, color).strength(hardness, blastResistance);
+    public static BlockBehaviour.Properties basicBlockProperties(final MapColor color, final float hardness, final float blastResistance, final boolean requiresTool, final SoundType sound, final FeatureFlag... featureFlags) {
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().mapColor(color).strength(hardness, blastResistance);
         if(requiresTool) {
             properties = properties.requiresCorrectToolForDrops();
         }
@@ -193,8 +188,8 @@ public final class PropertyHelper {
      * @return {@link BlockBehaviour.Properties The ore block properties}
      */
     static BlockBehaviour.Properties oreBlockProperties(final boolean isDeepslateOre, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(Material.STONE,
-                isDeepslateOre ? MaterialColor.DEEPSLATE : Material.STONE.getColor(),
+        return basicBlockProperties(
+                isDeepslateOre ? MapColor.DEEPSLATE : MapColor.STONE,
                 isDeepslateOre ? 4.5F : 3.0F, 3.0F,
                 true,
                 isDeepslateOre ? SoundType.DEEPSLATE : null,
@@ -204,36 +199,35 @@ public final class PropertyHelper {
     /**
      * Get the {@link BlockBehaviour.Properties block properties} for an ore storage block
      *
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties oreStorageBlockProperties(final MaterialColor color, final FeatureFlag... featureFlags) {
-        return oreStorageBlockProperties(Material.STONE, color, SoundType.STONE, featureFlags);
+    static BlockBehaviour.Properties oreStorageBlockProperties(final MapColor color, final FeatureFlag... featureFlags) {
+        return oreStorageBlockProperties(color, SoundType.STONE, featureFlags);
     }
 
     /**
      * Get the {@link BlockBehaviour.Properties block properties} for a metal ore storage block
      *
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties oreStorageMetalBlockProperties(final MaterialColor color, final FeatureFlag... featureFlags) {
-        return oreStorageBlockProperties(Material.METAL, color, SoundType.METAL, featureFlags);
+    static BlockBehaviour.Properties oreStorageMetalBlockProperties(final MapColor color, final FeatureFlag... featureFlags) {
+        return oreStorageBlockProperties(color, SoundType.METAL, featureFlags);
     }
 
     /**
      * Get the {@link BlockBehaviour.Properties block properties} for an ore storage block
      *
-     * @param material {@link Material The block material}
-     * @param color {@link MaterialColor The block color on maps}
+     * @param color {@link MapColor The block color on maps}
      * @param sound {@link SoundType The block sound}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link BlockBehaviour.Properties The block properties}
      */
-    static BlockBehaviour.Properties oreStorageBlockProperties(final Material material, final MaterialColor color, final SoundType sound, final FeatureFlag... featureFlags) {
-        return basicBlockProperties(material, color,5.0F, 6.0F, true, sound, featureFlags);
+    static BlockBehaviour.Properties oreStorageBlockProperties(final MapColor color, final SoundType sound, final FeatureFlag... featureFlags) {
+        return basicBlockProperties(color,5.0F, 6.0F, true, sound, featureFlags);
     }
 
     /**

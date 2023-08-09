@@ -1,8 +1,8 @@
 package org.mineworld.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -20,6 +20,7 @@ import org.mineworld.inventory.WoodcutterMenu;
 import org.mineworld.recipe.WoodcutterRecipe;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Implementation class for a {@link MineWorld MineWorld} {@link WoodcutterBlock woodcutter screen}
@@ -64,48 +65,48 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     /**
      * Render the screen
      *
-     * @param poseStack {@link PoseStack The screen pose stack}
+     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      * @param partialTicks {@link Float The screen partial ticks}
      */
-    public void render(final @NotNull PoseStack poseStack, final int screenX, final int screenY, final float partialTicks) {
-        super.render(poseStack, screenX, screenY, partialTicks);
-        this.renderTooltip(poseStack, screenX, screenY);
+    public void render(final @NotNull GuiGraphics guiGraphics, final int screenX, final int screenY, final float partialTicks) {
+        super.render(guiGraphics, screenX, screenY, partialTicks);
+        this.renderTooltip(guiGraphics, screenX, screenY);
     }
 
     /**
      * Render the screen background
      *
-     * @param poseStack {@link PoseStack The screen pos stack}
+     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
      * @param partialTicks {@link Float The screen partial ticks}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      */
-    protected void renderBg(final @NotNull PoseStack poseStack, final float partialTicks, final int screenX, final int screenY) {
-        this.renderBackground(poseStack);
+    protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, final int screenX, final int screenY) {
+        this.renderBackground(guiGraphics);
         RenderSystem.setShaderTexture(0, BG_LOCATION);
         final int x = this.leftPos;
         final int y = this.topPos;
-        blit(poseStack, x, y, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(BG_LOCATION, x, y, 0, 0, this.imageWidth, this.imageHeight);
         int scrollOffset = (int)(41.0F * this.scrollOffset);
-        blit(poseStack, x + 119, y + 15 + scrollOffset, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
+        guiGraphics.blit(BG_LOCATION, x + 119, y + 15 + scrollOffset, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
         int recipesX = this.leftPos + 52;
         int recipesY = this.topPos + 14;
         int recipesCount = this.startIndex + 12;
-        this.renderButtons(poseStack, screenX, screenY, recipesX, recipesY, recipesCount);
-        this.renderRecipes(poseStack, recipesX, recipesY, recipesCount);
+        this.renderButtons(guiGraphics, screenX, screenY, recipesX, recipesY, recipesCount);
+        this.renderRecipes(guiGraphics, recipesX, recipesY, recipesCount);
     }
 
     /**
      * Render the screen tooltips
      *
-     * @param poseStack {@link PoseStack The screen pose stack}
+     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      */
-    protected void renderTooltip(final @NotNull PoseStack poseStack, final int screenX, final int screenY) {
-        super.renderTooltip(poseStack, screenX, screenY);
+    protected void renderTooltip(final @NotNull GuiGraphics guiGraphics, final int screenX, final int screenY) {
+        super.renderTooltip(guiGraphics, screenX, screenY);
         if (this.displayRecipes) {
             final int x = this.leftPos + 52;
             final int y = this.topPos + 14;
@@ -116,7 +117,7 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
                 int column = x + currentIndex % 4 * 16;
                 int row = y + currentIndex / 4 * 18 + 2;
                 if (screenX >= column && screenX < column + 16 && screenY >= row && screenY < row + 18) {
-                    this.renderTooltip(poseStack, recipes.get(index).getResultItem(this.minecraft.level.registryAccess()), screenX, screenY);
+                    guiGraphics.renderTooltip(this.font, recipes.get(index).getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), screenX, screenY);
                 }
             }
         }
@@ -125,14 +126,14 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     /**
      * Render the screen buttons
      *
-     * @param poseStack {@link PoseStack The screen pose stack}
+     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      * @param recipesX {@link Integer The screen recipes X coordinate}
      * @param recipesY {@link Integer The screen recipes Y coordinate}
      * @param count {@link Integer How many buttons to render}
      */
-    private void renderButtons(final PoseStack poseStack, final int screenX, final int screenY, final int recipesX, final int recipesY, final int count) {
+    private void renderButtons(final GuiGraphics guiGraphics, final int screenX, final int screenY, final int recipesX, final int recipesY, final int count) {
         for(int i = this.startIndex; i < count && i < this.menu.getNumRecipes(); ++i) {
             final int currentIndex = i - this.startIndex;
             final int column = recipesX + currentIndex % 4 * 16;
@@ -143,25 +144,25 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
             } else if (screenX >= column && screenY >= row && screenX < column + 16 && screenY < row + 18) {
                 imageHeight += 36;
             }
-            blit(poseStack, column, row - 1, 0, imageHeight, 16, 18);
+            guiGraphics.blit(BG_LOCATION, column, row - 1, 0, imageHeight, 16, 18);
         }
     }
 
     /**
      * Render the screen recipes
      *
-     * @param poseStack {@link PoseStack The screen pose stack}
+     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
      * @param screenX {@link Integer The screen X coordinate}
      * @param screenY {@link Integer The screen Y coordinate}
      * @param count {@link Integer How many recipes to render}
      */
-    private void renderRecipes(final PoseStack poseStack, final int screenX, final int screenY, final int count) {
+    private void renderRecipes(final GuiGraphics guiGraphics, final int screenX, final int screenY, final int count) {
         final List<WoodcutterRecipe> recipes = this.menu.getRecipes();
         for(int i = this.startIndex; i < count && i < this.menu.getNumRecipes(); ++i) {
             final int currentIndex = i - this.startIndex;
             final int column = screenX + currentIndex % 4 * 16;
             int row = screenY + (currentIndex / 4) * 18 + 2;
-            this.minecraft.getItemRenderer().renderAndDecorateItem(poseStack, recipes.get(i).getResultItem(this.minecraft.level.registryAccess()), column, row);
+            guiGraphics.renderItem(recipes.get(i).getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), column, row);
         }
     }
 
@@ -184,9 +185,9 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
                 final int currentIndex = l - this.startIndex;
                 final double mouseOffsetX = mouseX - (double)(x + currentIndex % 4 * 16);
                 final double mouseOffsetY = mouseY - (double)(y + currentIndex / 4 * 18);
-                if (mouseOffsetX >= 0.0D && mouseOffsetY >= 0.0D && mouseOffsetX < 16.0D && mouseOffsetY < 18.0D && this.menu.clickMenuButton(this.minecraft.player, l)) {
+                if (mouseOffsetX >= 0.0D && mouseOffsetY >= 0.0D && mouseOffsetX < 16.0D && mouseOffsetY < 18.0D && this.menu.clickMenuButton(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).player), l)) {
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.WOOD_PLACE, 1.0F));
-                    this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
+                    Objects.requireNonNull(this.minecraft.gameMode).handleInventoryButtonClick((this.menu).containerId, l);
                     return true;
                 }
             }

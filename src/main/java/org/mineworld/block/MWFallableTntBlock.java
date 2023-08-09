@@ -110,7 +110,7 @@ public class MWFallableTntBlock extends MWTntBlock implements Fallable {
      * @return {@link Boolean True if the block can fall}
      */
     private boolean canFall(final BlockState blockState) {
-        return blockState.isAir() || blockState.is(BlockTags.FIRE) || blockState.getMaterial().isLiquid() || blockState.canBeReplaced();
+        return blockState.isAir() || blockState.is(BlockTags.FIRE) || blockState.liquid() || blockState.canBeReplaced();
     }
 
     /**
