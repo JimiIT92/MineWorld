@@ -17,7 +17,7 @@ public final class MWTags {
     public static class Blocks {
 
         public static final TagKey<Block> LECTERNS = RegisterHelper.registerBlockTag("lecterns");
-
+        public static final TagKey<Block> CORRUPTED_PORTAL_FRAME_BLOCKS = RegisterHelper.registerBlockTag("corrupted_portal_frame_blocks");
     }
 
     /**

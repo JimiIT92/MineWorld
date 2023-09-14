@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "mineworld:block/corrupted_portal_ns"
+    },
+    "axis=z": {
+      "model": "mineworld:block/corrupted_portal_ew"
+    }
+  }
+}

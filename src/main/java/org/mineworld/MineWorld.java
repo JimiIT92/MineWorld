@@ -54,6 +54,7 @@ public final class MineWorld {
         MWTrunkPlacerTypes.register(eventBus);
         MWFoliagePlacerTypes.register(eventBus);
         MWStructures.register(eventBus);
+        MWDimensions.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);

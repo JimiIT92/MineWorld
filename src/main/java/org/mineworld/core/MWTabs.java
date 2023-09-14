@@ -19,6 +19,7 @@ import org.mineworld.helper.RegisterHelper;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * {@link MineWorld MineWorld} {@link CreativeModeTab creative tabs}
@@ -85,7 +86,7 @@ public final class MWTabs {
      * @return {@link Boolean True if the creative mode tab key corresponds to the creative mode tab}
      */
     private static boolean isSameTab(final ResourceKey<CreativeModeTab> tabKey, final RegistryObject<CreativeModeTab> tab) {
-        return tab.getKey().equals(tabKey);
+        return Objects.equals(tab.getKey(), tabKey);
     }
 
     /**
@@ -1812,6 +1813,7 @@ public final class MWTabs {
                 MWItems.SAPPHIRE_PICKAXE,
                 MWItems.SAPPHIRE_AXE,
                 MWItems.SAPPHIRE_HOE,
+                MWItems.CORRUPTED_FLINT_AND_STEEL,
                 MWBlocks.ROPE,
                 MWItems.CRIMSON_BOAT,
                 MWItems.CRIMSON_CHEST_BOAT,
@@ -2051,6 +2053,7 @@ public final class MWTabs {
                 MWItems.ALUMINUM_INGOT,
                 MWItems.SILVER_INGOT,
                 MWItems.BRONZE_INGOT,
+                MWItems.CORRUPTED_FLINT,
                 MWItems.WARPED_WART
         );
     }

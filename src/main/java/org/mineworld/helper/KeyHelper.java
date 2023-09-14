@@ -9,7 +9,9 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
@@ -88,6 +90,36 @@ public final class KeyHelper {
      */
     public static ResourceKey<Biome> registerBiome(final String name) {
         return register(Registries.BIOME, name);
+    }
+
+    /**
+     * Register a {@link ResourceKey resource key} for a dimension
+     *
+     * @param name {@link String The dimension name}
+     * @return {@link ResourceKey<Level> The dimension resource key}
+     */
+    public static ResourceKey<Level> registerDimension(final String name) {
+        return register(Registries.DIMENSION, name);
+    }
+
+    /**
+     * Register a {@link ResourceKey resource key} for a {@link DimensionType dimension type}
+     *
+     * @param dimensionResourceKey {@link ResourceKey<Level> The dimension resource key}
+     * @return {@link ResourceKey<DimensionType> The dimension type resource key}
+     */
+    public static ResourceKey<DimensionType> registerDimensionType(final  ResourceKey<Level> dimensionResourceKey) {
+        return registerDimensionType(dimensionResourceKey.registry().getPath());
+    }
+
+    /**
+     * Register a {@link ResourceKey resource key} for a {@link DimensionType dimension type}
+     *
+     * @param name {@link String The dimension name}
+     * @return {@link ResourceKey<DimensionType> The dimension type resource key}
+     */
+    public static ResourceKey<DimensionType> registerDimensionType(final String name) {
+        return register(Registries.DIMENSION_TYPE, name);
     }
 
     /**

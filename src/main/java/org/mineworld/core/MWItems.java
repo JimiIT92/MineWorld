@@ -321,6 +321,8 @@ public final class MWItems {
     public static final RegistryObject<Item> ICE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_chest", MWBlocks.ICE_CHEST);
     public static final RegistryObject<Item> ICE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_trapped_chest", MWBlocks.ICE_TRAPPED_CHEST);
     public static final RegistryObject<Item> ICE_CHEST_MINECART = RegisterHelper.registerItem("ice_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.ICE_CHEST));
+    public static final RegistryObject<Item> CORRUPTED_FLINT = RegisterHelper.registerRareItem("corrupted_flint", Rarity.RARE);
+    public static final RegistryObject<Item> CORRUPTED_FLINT_AND_STEEL = RegisterHelper.registerItem("corrupted_flint_and_steel", CorruptedFlintAndSteelItem::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

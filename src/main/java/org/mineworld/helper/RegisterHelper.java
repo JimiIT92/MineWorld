@@ -420,6 +420,18 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a basic {@link Item item} with a rarity
+     *
+     * @param name {@link String The item name}
+     * @param rarity {@link Rarity The item rariry}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this item to be registered}
+     * @return {@link RegistryObject<Item> The registered item}
+     */
+    public static RegistryObject<Item> registerRareItem(final String name, final Rarity rarity, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags).rarity(rarity)));
+    }
+
+    /**
      * Register an {@link Item item}
      *
      * @param name {@link String The item name}
