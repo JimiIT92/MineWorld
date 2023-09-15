@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "mineworld:corrupted_stone"
+    }
+  ],
+  "result": {
+    "item": "mineworld:corrupted_stone_button"
+  }
+}

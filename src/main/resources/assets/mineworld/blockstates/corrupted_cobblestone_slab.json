@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/corrupted_cobblestone_slab"
+    },
+    "type=double": {
+      "model": "mineworld:block/corrupted_cobblestone"
+    },
+    "type=top": {
+      "model": "mineworld:block/corrupted_cobblestone_slab_top"
+    }
+  }
+}

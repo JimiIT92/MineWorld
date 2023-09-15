@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mineworld:block/corrupted_stone"
+      },
+      {
+        "model": "mineworld:block/corrupted_stone_mirrored"
+      },
+      {
+        "model": "mineworld:block/corrupted_stone",
+        "y": 180
+      },
+      {
+        "model": "mineworld:block/corrupted_stone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

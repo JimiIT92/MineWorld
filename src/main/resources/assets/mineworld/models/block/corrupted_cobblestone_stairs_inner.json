@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "mineworld:block/corrupted_cobblestone",
+    "side": "mineworld:block/corrupted_cobblestone",
+    "top": "mineworld:block/corrupted_cobblestone"
+  }
+}

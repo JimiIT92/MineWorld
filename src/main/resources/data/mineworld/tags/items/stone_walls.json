@@ -98,6 +98,8 @@
     "mineworld:green_marble_wall",
     "mineworld:red_marble_wall",
     "mineworld:black_marble_wall",
-    "mineworld:warped_nether_bricks_wall"
+    "mineworld:warped_nether_bricks_wall",
+    "mineworld:corrupted_cobblestone_wall",
+    "mineworld:corrupted_stone_wall"
   ]
 }

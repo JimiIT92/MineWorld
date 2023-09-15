@@ -10,6 +10,8 @@
     "mineworld:warped_nether_bricks",
     "mineworld:cracked_warped_nether_bricks",
     "mineworld:chiseled_warped_nether_bricks",
-    "mineworld:lava_rock"
+    "mineworld:lava_rock",
+    "mineworld:corrupted_cobblestone",
+    "mineworld:corrupted_stone"
   ]
 }
