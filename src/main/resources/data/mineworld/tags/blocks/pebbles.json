@@ -119,8 +119,6 @@
     "mineworld:green_marble_pebble",
     "mineworld:red_marble_pebble",
     "mineworld:black_marble_pebble",
-    "mineworld:warped_nether_bricks_pebble",
-    "mineworld:corrupted_cobblestone_pebble",
-    "mineworld:corrupted_stone_pebble"
+    "mineworld:warped_nether_bricks_pebble"
   ]
 }

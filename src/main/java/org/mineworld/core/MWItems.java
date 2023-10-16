@@ -321,10 +321,6 @@ public final class MWItems {
     public static final RegistryObject<Item> ICE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_chest", MWBlocks.ICE_CHEST);
     public static final RegistryObject<Item> ICE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_trapped_chest", MWBlocks.ICE_TRAPPED_CHEST);
     public static final RegistryObject<Item> ICE_CHEST_MINECART = RegisterHelper.registerItem("ice_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.ICE_CHEST));
-    public static final RegistryObject<Item> CORRUPTED_FLINT = RegisterHelper.registerRareItem("corrupted_flint", Rarity.RARE);
-    public static final RegistryObject<Item> CORRUPTED_FLINT_AND_STEEL = RegisterHelper.registerItem("corrupted_flint_and_steel", CorruptedFlintAndSteelItem::new);
-    public static final RegistryObject<Item> CORRUPTED_COBBLESTONE_PEBBLE = RegisterHelper.registerItem("corrupted_cobblestone_pebble", () -> new PebbleItem(MWBlocks.CORRUPTED_COBBLESTONE_PEBBLE.get()));
-    public static final RegistryObject<Item> CORRUPTED_STONE_PEBBLE = RegisterHelper.registerItem("corrupted_stone_pebble", () -> new PebbleItem(MWBlocks.CORRUPTED_STONE_PEBBLE.get()));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

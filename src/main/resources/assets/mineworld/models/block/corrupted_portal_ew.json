@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/nether_portal_ew",
-    "render_type": "translucent",
-    "textures": {
-        "particle": "mineworld:block/corrupted_portal",
-        "portal": "mineworld:block/corrupted_portal"
-    }
-}

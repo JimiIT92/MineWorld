@@ -1444,21 +1444,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DROWNED_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(1.0F, false).lootFrom(DROWNED_HEAD)));
     public static final RegistryObject<Block> ICE_CHEST = RegisterHelper.registerChest("ice_chest", () -> MWBlockEntityTypes.ICE_CHEST.get(), MWWoodTypes.ICE);
     public static final RegistryObject<Block> ICE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("ice_trapped_chest", () -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get(), MWWoodTypes.ICE);
-    public static final RegistryObject<Block> CORRUPTED_COBBLESTONE = RegisterHelper.registerBlock("corrupted_cobblestone", () -> PropertyHelper.copyFromBlock(Blocks.COBBLESTONE));
-    public static final RegistryObject<Block> CORRUPTED_COBBLESTONE_STAIRS = RegisterHelper.registerStair("corrupted_cobblestone_stairs", () -> CORRUPTED_COBBLESTONE.get().defaultBlockState());
-    public static final RegistryObject<Block> CORRUPTED_COBBLESTONE_SLAB = RegisterHelper.registerSlab("corrupted_cobblestone_slab", CORRUPTED_COBBLESTONE);
-    public static final RegistryObject<Block> CORRUPTED_COBBLESTONE_WALL = RegisterHelper.registerWall("corrupted_cobblestone_wall", CORRUPTED_COBBLESTONE);
-    public static final RegistryObject<Block> CORRUPTED_COBBLESTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("corrupted_cobblestone_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> CORRUPTED_COBBLESTONE_BUTTON = RegisterHelper.registerButton("corrupted_cobblestone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CORRUPTED_COBBLESTONE_PEBBLE = RegisterHelper.registerPebble("corrupted_cobblestone_pebble", CORRUPTED_COBBLESTONE);
-    public static final RegistryObject<Block> CORRUPTED_STONE = RegisterHelper.registerBlock("corrupted_stone", () -> PropertyHelper.copyFromBlock(Blocks.STONE));
-    public static final RegistryObject<Block> CORRUPTED_STONE_STAIRS = RegisterHelper.registerStair("corrupted_stone_stairs", () -> CORRUPTED_STONE.get().defaultBlockState());
-    public static final RegistryObject<Block> CORRUPTED_STONE_SLAB = RegisterHelper.registerSlab("corrupted_stone_slab", CORRUPTED_STONE);
-    public static final RegistryObject<Block> CORRUPTED_STONE_WALL = RegisterHelper.registerWall("corrupted_stone_wall", CORRUPTED_STONE);
-    public static final RegistryObject<Block> CORRUPTED_STONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("corrupted_stone_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> CORRUPTED_STONE_BUTTON = RegisterHelper.registerButton("corrupted_stone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CORRUPTED_STONE_PEBBLE = RegisterHelper.registerPebble("corrupted_stone_pebble", CORRUPTED_STONE);
-    public static final RegistryObject<Block> CORRUPTED_PORTAL = RegisterHelper.registerBlockWithoutBlockItem("corrupted_portal", CorruptedPortalBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

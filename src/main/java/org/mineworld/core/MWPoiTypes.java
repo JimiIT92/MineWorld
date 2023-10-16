@@ -12,7 +12,6 @@ import org.mineworld.helper.RegisterHelper;
 public final class MWPoiTypes {
 
     public static final RegistryObject<PoiType> CARPENTER = RegisterHelper.registerPOIType("carpenter", MWBlocks.WOODCUTTER);
-    public static final RegistryObject<PoiType> CORRUPTED_PORTAL = RegisterHelper.registerPOIType("corrupted_portal", MWBlocks.CORRUPTED_PORTAL);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link PoiType villager poi types}

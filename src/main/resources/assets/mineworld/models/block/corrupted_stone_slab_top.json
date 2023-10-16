@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "mineworld:block/corrupted_stone",
-    "side": "mineworld:block/corrupted_stone",
-    "top": "mineworld:block/corrupted_stone"
-  }
-}

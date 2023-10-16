@@ -88,8 +88,6 @@
     "mineworld:green_marble_stairs",
     "mineworld:red_marble_stairs",
     "mineworld:black_marble_stairs",
-    "mineworld:warped_nether_bricks_stairs",
-    "mineworld:corrupted_cobblestone_stairs",
-    "mineworld:corrupted_stone_stairs"
+    "mineworld:warped_nether_bricks_stairs"
   ]
 }

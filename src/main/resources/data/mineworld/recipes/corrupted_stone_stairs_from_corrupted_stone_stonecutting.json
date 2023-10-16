@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "mineworld:corrupted_stone"
-  },
-  "result": "mineworld:corrupted_stone_stairs"
-}

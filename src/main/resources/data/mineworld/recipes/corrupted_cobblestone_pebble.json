@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "mineworld:corrupted_cobblestone"
-  },
-  "result": "mineworld:corrupted_cobblestone_pebble"
-}

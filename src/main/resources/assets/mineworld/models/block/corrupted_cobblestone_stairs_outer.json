@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "mineworld:block/corrupted_cobblestone",
-    "side": "mineworld:block/corrupted_cobblestone",
-    "top": "mineworld:block/corrupted_cobblestone"
-  }
-}

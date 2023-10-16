@@ -117,8 +117,6 @@
     "mineworld:green_marble_button",
     "mineworld:red_marble_button",
     "mineworld:black_marble_button",
-    "mineworld:warped_nether_bricks_button",
-    "mineworld:corrupted_cobblestone_button",
-    "mineworld:corrupted_stone_button"
+    "mineworld:warped_nether_bricks_button"
   ]
 }
