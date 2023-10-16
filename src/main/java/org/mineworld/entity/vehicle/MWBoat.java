@@ -7,6 +7,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
@@ -15,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
@@ -134,13 +137,14 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Get the {@link Double boat passegner offset}
+     * Get the {@link Vector3f boat passenger offset}
      *
-     * @return {@link Double The boat passegner offset}
+     * @return {@link Vector3f The boat passenger offset}
      */
     @Override
-    public double getPassengersRidingOffset() {
-        return isRaft() ? 0.3D : super.getPassengersRidingOffset();
+    protected @NotNull Vector3f getPassengerAttachmentPoint(final @NotNull Entity entity, final @NotNull EntityDimensions size, final float par3) {
+        final Vector3f attachmentPoint = super.getPassengerAttachmentPoint(entity, size, par3);
+        return this.isRaft() ? new Vector3f(attachmentPoint.x, size.height * 0.8888889F, attachmentPoint.z) : attachmentPoint;
     }
 
     /**

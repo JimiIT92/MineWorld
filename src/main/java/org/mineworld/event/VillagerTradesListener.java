@@ -158,7 +158,7 @@ public final class VillagerTradesListener {
      */
     private static void addFarmerTrades(final VillagerTradesEvent event) {
         addVillagerTrades(event, 1, new VillagerTrades.EmeraldForItems(MWItems.COB.get(), 15, 16, 2));
-        addVillagerTrades(event, 2, new VillagerTrades.ItemsAndEmeraldsToItems(MWItems.COB.get(), 6, MWItems.BAKED_COB.get(), 6, 16, 1));
+        addVillagerTrades(event, 2, new VillagerTrades.ItemsAndEmeraldsToItems(MWItems.COB.get(), 6, 1, MWItems.BAKED_COB.get(), 6, 16, 1, 0.05F));
     }
 
     /**

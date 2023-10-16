@@ -89,16 +89,15 @@ public class TallCropBlock extends CropBlock {
      * @param levelReader {@link LevelReader The world reference}
      * @param blockPos {@link BlockPos The block pos}
      * @param blockState {@link BlockState The current block state}
-     * @param isClient {@link Boolean If the code is running client side}
      * @return {@link Boolean True if the crop can be bonemealed}
      */
     @Override
-    public boolean isValidBonemealTarget(final @NotNull LevelReader levelReader, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, boolean isClient) {
+    public boolean isValidBonemealTarget(final @NotNull LevelReader levelReader, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         if(isLower(blockState)) {
             final BlockState aboveBlockState = levelReader.getBlockState(blockPos.above());
             return (isSameCrop(aboveBlockState) && !isFullyGrown(aboveBlockState)) || aboveBlockState.isAir();
         }
-        return super.isValidBonemealTarget(levelReader, blockPos, blockState, isClient);
+        return super.isValidBonemealTarget(levelReader, blockPos, blockState);
     }
 
     /**

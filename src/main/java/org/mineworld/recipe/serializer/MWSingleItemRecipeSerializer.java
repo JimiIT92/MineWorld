@@ -1,17 +1,16 @@
 package org.mineworld.recipe.serializer;
 
-import com.google.gson.JsonObject;
-import net.minecraft.core.registries.BuiltInRegistries;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.KeyHelper;
 
 /**
  * {@link MineWorld MineWorld} {@link SingleItemRecipe single id recipe} serializer
@@ -23,6 +22,10 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
      * {@link IMWSingleItemMaker<T> The recipe maker factory}
      */
     private final IMWSingleItemMaker<T> factory;
+    /**
+     * {@link Codec<T> The codec instance}
+     */
+    private final Codec<T> codec;
 
     /**
      * Constructor. Set the serializer properties
@@ -31,45 +34,31 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
      */
     public MWSingleItemRecipeSerializer(final IMWSingleItemMaker<T> factory) {
         this.factory = factory;
+        this.codec = RecordCodecBuilder.create((builder) -> builder.group(
+                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(recipe -> recipe.group),
+                Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
+                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+        ).apply(builder, factory::create));
     }
 
     /**
-     * Deserialize a recipe from a JSON file
+     * Get the {@link Codec<T> Codec Instance}
      *
-     * @param recipeId {@link ResourceLocation The recipe resource location}
-     * @param json {@link JsonObject The recipe json object}
-     * @return {@link T The deserialized recipe}
+     * @return The {@link Codec<T> Codec Instance}
      */
-    public @NotNull T fromJson(final @NotNull ResourceLocation recipeId, final @NotNull JsonObject json) {
-        return this.factory.create(recipeId,
-                GsonHelper.getAsString(json, "group", ""),
-                getIngredient("ingredient", json),
-                new ItemStack(BuiltInRegistries.ITEM.get(KeyHelper.fromJson(json, "result")),
-                        GsonHelper.getAsInt(json, "count", 1)
-                )
-        );
-    }
-
-    /**
-     * Get an {@link Ingredient ingredient} from the {@link JsonObject serialized recipe json}
-     *
-     * @param key {@link String The ingredient key}
-     * @param json {@link JsonObject The serialized recipe json}
-     * @return {@link Ingredient The ingredient}
-     */
-    private Ingredient getIngredient(final String key, final JsonObject json) {
-        return Ingredient.fromJson(GsonHelper.isArrayNode(json, key) ? GsonHelper.getAsJsonArray(json, key) : GsonHelper.getAsJsonObject(json, key));
+    @Override
+    public @NotNull Codec<T> codec() {
+        return codec;
     }
 
     /**
      * Deserialize a recipe from the network
      *
-     * @param recipeId {@link ResourceLocation The recipe resource location}
      * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
      * @return {@link T The deserialized recipe}
      */
-    public T fromNetwork(final @NotNull ResourceLocation recipeId, final FriendlyByteBuf byteBuffer) {
-        return this.factory.create(recipeId, byteBuffer.readUtf(), Ingredient.fromNetwork(byteBuffer), byteBuffer.readItem());
+    public T fromNetwork(final @NotNull FriendlyByteBuf byteBuffer) {
+        return this.factory.create(byteBuffer.readUtf(), Ingredient.fromNetwork(byteBuffer), byteBuffer.readItem());
     }
 
     /**
@@ -94,13 +83,12 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
         /**
          * Create a recipe
          *
-         * @param recipeId {@link ResourceLocation The recipe resource location}
          * @param group {@link String The recipe group}
          * @param ingredient {@link Ingredient The recipe ingredient}
          * @param result {@link ItemStack The recipe result}
          * @return {@link T The created recipe}
          */
-        T create(final ResourceLocation recipeId, final String group, final Ingredient ingredient, final ItemStack result);
+        T create(final String group, final Ingredient ingredient, final ItemStack result);
     }
 
 }

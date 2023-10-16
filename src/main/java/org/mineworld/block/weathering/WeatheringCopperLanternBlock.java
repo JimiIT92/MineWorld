@@ -33,7 +33,7 @@ public class WeatheringCopperLanternBlock extends LanternBlock implements IMWWea
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
     public WeatheringCopperLanternBlock(final WeatheringCopper.WeatherState weatherState, final boolean isSoulLantern, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.lanternProperties(isSoulLantern, featureFlags));
+        super(PropertyHelper.copperLanternProperties(isSoulLantern, weatherState, featureFlags));
         this.weatherState = weatherState;
     }
 

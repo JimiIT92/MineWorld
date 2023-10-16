@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     /**
      * {@link List<WoodcutterRecipe> The woodcutter recipes}
      */
-    private List<WoodcutterRecipe> recipes = Lists.newArrayList();
+    private List<RecipeHolder<WoodcutterRecipe>> recipes = Lists.newArrayList();
     /**
      * {@link ItemStack The input slot id stack}
      */
@@ -195,7 +196,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      *
      * @return {@link List<WoodcutterRecipe> The woodcutter recipes}
      */
-    public List<WoodcutterRecipe> getRecipes() {
+    public List<RecipeHolder<WoodcutterRecipe>> getRecipes() {
         return this.recipes;
     }
 
@@ -294,8 +295,8 @@ public class WoodcutterMenu extends AbstractContainerMenu {
      */
     void setupResultSlot() {
         if (this.hasRecipes() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            final WoodcutterRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
-            final ItemStack result = recipe.assemble(this.container, this.level.registryAccess());
+            final RecipeHolder<WoodcutterRecipe> recipe = this.recipes.get(this.selectedRecipeIndex.get());
+            final ItemStack result = recipe.value().assemble(this.container, this.level.registryAccess());
             if (result.isItemEnabled(this.level.enabledFeatures())) {
                 this.resultContainer.setRecipeUsed(recipe);
                 this.resultSlot.set(result);

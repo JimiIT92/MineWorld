@@ -4,13 +4,9 @@ import com.google.common.base.Suppliers;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.core.dispenser.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -41,6 +37,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.block.weathering.IMWWaxableBlock;
+import org.mineworld.block.weathering.WeatheringCopperLanternBlock;
 import org.mineworld.core.MWWoodTypes;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.ThrownGrenade;
@@ -268,6 +265,27 @@ public final class PropertyHelper {
     }
 
     /**
+     * Get the {@link BlockBehaviour.Properties block properties} for a {@link WeatheringCopperLanternBlock copper lantern}
+     *
+     * @param isSoulLantern {@link Boolean If the lantern is a soul lantern}
+     * @param weatherState {@link WeatheringCopper.WeatherState The weather state}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link BlockBehaviour.Properties The block properties}
+     */
+    public static BlockBehaviour.Properties copperLanternProperties(final Boolean isSoulLantern, final WeatheringCopper.WeatherState weatherState, final FeatureFlag... featureFlags) {
+        BlockBehaviour.Properties properties = copyFromBlock(isSoulLantern ? Blocks.SOUL_LANTERN : Blocks.LANTERN, featureFlags);
+        int lightLevel = isSoulLantern ? 10 : 15;
+        switch (weatherState) {
+            case EXPOSED -> lightLevel -= 2;
+            case WEATHERED -> lightLevel -= 4;
+            case OXIDIZED -> lightLevel -= 6;
+        }
+        final int finalLightLevel = lightLevel;
+        properties.lightLevel(state -> finalLightLevel);
+        return properties;
+    }
+
+    /**
      * Copy the {@link BlockBehaviour.Properties block properties} of an existing block
      * and makes them required by the provided {@link FeatureFlag feature flags}
      *
@@ -391,8 +409,8 @@ public final class PropertyHelper {
              */
             @Override
             protected @NotNull ItemStack execute(final @NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
-                Level level = blockSource.getLevel();
-                BlockPos blockpos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+                Level level = blockSource.level();
+                BlockPos blockpos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
                 MWPrimedTnt primedtnt = new MWPrimedTnt(level, (double) blockpos.getX() + 0.5D, blockpos.getY(), (double) blockpos.getZ() + 0.5D, null, type);
                 level.addFreshEntity(primedtnt);
                 level.playSound(null, primedtnt.getX(), primedtnt.getY(), primedtnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -419,8 +437,8 @@ public final class PropertyHelper {
              */
             @Override
             protected @NotNull ItemStack execute(final @NotNull BlockSource blockSource, @NotNull ItemStack itemStack) {
-                final BlockPos blockpos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
-                for(AbstractHorse horse : blockSource.getLevel().getEntitiesOfClass(AbstractHorse.class, new AABB(blockpos), entity -> entity.isAlive() && entity.canWearArmor())) {
+                final BlockPos blockpos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
+                for(AbstractHorse horse : blockSource.level().getEntitiesOfClass(AbstractHorse.class, new AABB(blockpos), entity -> entity.isAlive() && entity.canWearArmor())) {
                     if (horse.isArmor(itemStack) && !horse.isWearingArmor() && horse.isTamed()) {
                         horse.getSlot(401).set(itemStack.split(1));
                         this.setSuccess(true);
@@ -453,8 +471,8 @@ public final class PropertyHelper {
     public static DispenseItemBehavior honeycombDispenseBehavior() {
         return new OptionalDispenseItemBehavior() {
             public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
-                final BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
-                final Level level = blockSource.getLevel();
+                final BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
+                final Level level = blockSource.level();
                 final Optional<BlockState> optionalBlockState = IMWWaxableBlock.getWaxed(level.getBlockState(blockPos));
                 if (optionalBlockState.isPresent()) {
                     level.setBlockAndUpdate(blockPos, optionalBlockState.get());
@@ -476,9 +494,9 @@ public final class PropertyHelper {
     public static DispenseItemBehavior chestDispenseBehavior() {
         return new OptionalDispenseItemBehavior() {
             public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
-                final BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+                final BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
 
-                for(AbstractChestedHorse abstractchestedhorse : blockSource.getLevel().getEntitiesOfClass(AbstractChestedHorse.class, new AABB(blockPos), horse -> horse.isAlive() && !horse.hasChest())) {
+                for(AbstractChestedHorse abstractchestedhorse : blockSource.level().getEntitiesOfClass(AbstractChestedHorse.class, new AABB(blockPos), horse -> horse.isAlive() && !horse.hasChest())) {
                     if (abstractchestedhorse.isTamed() && abstractchestedhorse.getSlot(499).set(itemStack)) {
                         itemStack.shrink(1);
                         this.setSuccess(true);
@@ -501,12 +519,13 @@ public final class PropertyHelper {
     public static DispenseItemBehavior boatDispenseBehavior(final MWBoat.Type type, final boolean isChestBoat) {
         return new DefaultDispenseItemBehavior() {
             public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
-                final Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
-                final Level level = blockSource.getLevel();
-                final double x = blockSource.x() + (double)((float)direction.getStepX() * 1.125F);
-                final double y = blockSource.y() + (double)((float)direction.getStepY() * 1.125F);
-                final double z = blockSource.z() + (double)((float)direction.getStepZ() * 1.125F);
-                final BlockPos blockPos = blockSource.getPos().relative(direction);
+                final Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
+                final Level level = blockSource.level();
+                final BlockPos pos = blockSource.pos();
+                final double x = pos.getX() + (double)((float)direction.getStepX() * 1.125F);
+                final double y = pos.getY() + (double)((float)direction.getStepY() * 1.125F);
+                final double z = pos.getZ() + (double)((float)direction.getStepZ() * 1.125F);
+                final BlockPos blockPos = blockSource.pos().relative(direction);
                 final MWBoat boat = isChestBoat ? new MWChestBoat(level, x, y, z) : new MWBoat(level, x, y, z);
                 boat.setBoatType(type);
                 boat.setYRot(direction.toYRot());
@@ -528,7 +547,7 @@ public final class PropertyHelper {
             }
 
             protected void playSound(final @NotNull BlockSource blockSource) {
-                blockSource.getLevel().levelEvent(1000, blockSource.getPos(), 0);
+                blockSource.level().levelEvent(1000, blockSource.pos(), 0);
             }
         };
     }

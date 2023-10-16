@@ -1,6 +1,5 @@
 package org.mineworld.recipe;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -20,13 +19,12 @@ public class WoodcutterRecipe extends SingleItemRecipe {
     /**
      * Constructor. Set the recipe properties
      *
-     * @param id {@link ResourceLocation The recipe resource location}
      * @param name {@link String The recipe name}
      * @param ingredient {@link Ingredient The recipe ingredient}
      * @param itemStack {@link ItemStack The recipe result}
      */
-    public WoodcutterRecipe(final ResourceLocation id, final String name, final Ingredient ingredient, final ItemStack itemStack) {
-        super(MWRecipeTypes.WOODCUTTING.get(), MWRecipeSerializers.WOODCUTTER.get(), id, name, ingredient, itemStack);
+    public WoodcutterRecipe(final String name, final Ingredient ingredient, final ItemStack itemStack) {
+        super(MWRecipeTypes.WOODCUTTING.get(), MWRecipeSerializers.WOODCUTTER.get(), name, ingredient, itemStack);
     }
 
     /**

@@ -4,19 +4,18 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctions;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.ItemHelper;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,7 +25,7 @@ import java.util.Optional;
  * @param chance {@link Float The chance for the id to be added to the loot}
  * @param functions {@link Optional<JsonElement> The serialized functions to apply to the item}
  */
-public record MWLootItem(Item item, float chance, Optional<JsonElement> functions) {
+public record MWLootItem(Item item, float chance, Optional<List<LootItemFunction>> functions) {
 
     /**
      * {@link MWLootItem The loot id codec}
@@ -35,7 +34,7 @@ public record MWLootItem(Item item, float chance, Optional<JsonElement> function
             .create(instance -> instance.group(
                             ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(modifier -> modifier.item),
                             Codec.FLOAT.fieldOf("chance").forGetter(modifier -> modifier.chance),
-                            ExtraCodecs.JSON.optionalFieldOf("functions").forGetter(modifier -> modifier.functions)
+                            LootItemFunctions.CODEC.listOf().optionalFieldOf("functions").forGetter(modifier -> modifier.functions)
                     ).apply(instance, MWLootItem::new));
 
     /**
@@ -49,12 +48,7 @@ public record MWLootItem(Item item, float chance, Optional<JsonElement> function
         final RandomSource random = context.getRandom();
         if(random.nextFloat() <= chance) {
             final ItemStack itemStack = ItemHelper.getDefaultStack(item);
-            functions.ifPresent(func -> {
-                LootItemFunction[] itemFunctions = Deserializers.createFunctionSerializer().create().fromJson(func, LootItemFunction[].class);
-                if(itemFunctions != null) {
-                    Arrays.stream(itemFunctions).forEach(function -> function.apply(itemStack, context));
-                }
-            });
+            functions.ifPresent(func -> func.forEach(function -> function.apply(itemStack, context)));
             loot.add(itemStack);
         }
         return loot;

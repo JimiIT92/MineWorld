@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -84,7 +85,7 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
      * @param screenY {@link Integer The screen Y coordinate}
      */
     protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, final int screenX, final int screenY) {
-        this.renderBackground(guiGraphics);
+        this.renderBackground(guiGraphics, screenX, screenY, partialTicks);
         RenderSystem.setShaderTexture(0, BG_LOCATION);
         final int x = this.leftPos;
         final int y = this.topPos;
@@ -111,13 +112,13 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
             final int x = this.leftPos + 52;
             final int y = this.topPos + 14;
             final int count = this.startIndex + 12;
-            final List<WoodcutterRecipe> recipes = this.menu.getRecipes();
+            final List<RecipeHolder<WoodcutterRecipe>> recipes = this.menu.getRecipes();
             for(int index = this.startIndex; index < count && index < this.menu.getNumRecipes(); ++index) {
                 int currentIndex = index - this.startIndex;
                 int column = x + currentIndex % 4 * 16;
                 int row = y + currentIndex / 4 * 18 + 2;
                 if (screenX >= column && screenX < column + 16 && screenY >= row && screenY < row + 18) {
-                    guiGraphics.renderTooltip(this.font, recipes.get(index).getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), screenX, screenY);
+                    guiGraphics.renderTooltip(this.font, recipes.get(index).value().getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), screenX, screenY);
                 }
             }
         }
@@ -157,12 +158,12 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
      * @param count {@link Integer How many recipes to render}
      */
     private void renderRecipes(final GuiGraphics guiGraphics, final int screenX, final int screenY, final int count) {
-        final List<WoodcutterRecipe> recipes = this.menu.getRecipes();
+        final List<RecipeHolder<WoodcutterRecipe>> recipes = this.menu.getRecipes();
         for(int i = this.startIndex; i < count && i < this.menu.getNumRecipes(); ++i) {
             final int currentIndex = i - this.startIndex;
             final int column = screenX + currentIndex % 4 * 16;
             int row = screenY + (currentIndex / 4) * 18 + 2;
-            guiGraphics.renderItem(recipes.get(i).getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), column, row);
+            guiGraphics.renderItem(recipes.get(i).value().getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), column, row);
         }
     }
 

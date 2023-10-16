@@ -1,12 +1,11 @@
 package org.mineworld.recipe.serializer;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.recipe.ForgingRecipe;
 
@@ -16,39 +15,23 @@ import org.mineworld.recipe.ForgingRecipe;
 public class ForgingRecipeSerializer implements RecipeSerializer<ForgingRecipe> {
 
     /**
-     * Deserialize a recipe from a JSON file
-     *
-     * @param recipeId {@link ResourceLocation The recipe resource location}
-     * @param json {@link JsonObject The recipe json object}
+     * The {@link Codec<ForgingRecipe> recipe codec}
      */
-    public @NotNull ForgingRecipe fromJson(final @NotNull ResourceLocation recipeId, final @NotNull JsonObject json) {
-        return new ForgingRecipe(recipeId,
-                getIngredient("base", json),
-                getIngredient("addition", json),
-                ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")),
-                GsonHelper.getAsInt(json, "forging_time"),
-                GsonHelper.getAsFloat(json, "experience"));
-    }
-
-    /**
-     * Get an {@link Ingredient ingredient} from the {@link JsonObject serialized recipe json}
-     *
-     * @param key {@link String The ingredient key}
-     * @param json {@link JsonObject The serialized recipe json}
-     * @return {@link Ingredient The ingredient}
-     */
-    private Ingredient getIngredient(final String key, final JsonObject json) {
-        return Ingredient.fromJson(GsonHelper.isArrayNode(json, key) ? GsonHelper.getAsJsonArray(json, key) : GsonHelper.getAsJsonObject(json, key));
-    }
+    private static final Codec<ForgingRecipe> CODEC = RecordCodecBuilder.create(builder ->
+            builder.group(Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base()),
+            Ingredient.CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition()),
+            CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result()),
+            Codec.INT.fieldOf("forging_time").forGetter(recipe -> recipe.forgingTime()),
+            Codec.FLOAT.fieldOf("experience").forGetter(recipe -> recipe.experience())
+            ).apply(builder, ForgingRecipe::new));
 
     /**
      * Deserialize a recipe from the network
      *
-     * @param recipeId {@link ResourceLocation The recipe resource location}
      * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
      */
-    public ForgingRecipe fromNetwork(final @NotNull ResourceLocation recipeId, final @NotNull FriendlyByteBuf byteBuffer) {
-        return new ForgingRecipe(recipeId,
+    public ForgingRecipe fromNetwork(final @NotNull FriendlyByteBuf byteBuffer) {
+        return new ForgingRecipe(
                 Ingredient.fromNetwork(byteBuffer),
                 Ingredient.fromNetwork(byteBuffer),
                 byteBuffer.readItem(),
@@ -68,6 +51,15 @@ public class ForgingRecipeSerializer implements RecipeSerializer<ForgingRecipe> 
         byteBuffer.writeItem(recipe.result());
         byteBuffer.writeInt(recipe.forgingTime());
         byteBuffer.writeFloat(recipe.experience());
+    }
+
+    /**
+     * Get the {@link Codec<ForgingRecipe> Forging Recipe Codec}
+     *
+     * @return The {@link Codec<ForgingRecipe> Forging Recipe Codec}
+     */
+    public @NotNull Codec<ForgingRecipe> codec() {
+        return CODEC;
     }
 
 }

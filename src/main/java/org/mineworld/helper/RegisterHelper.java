@@ -563,7 +563,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFlower(final String name, final Supplier<MobEffect> effectSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new FlowerBlock(effectSupplier, 5, PropertyHelper.copyFromBlock(Blocks.POPPY, featureFlags)) {
+        return registerBlock(name, () -> new FlowerBlock(effectSupplier.get(), 5, PropertyHelper.copyFromBlock(Blocks.POPPY, featureFlags)) {
 
             /**
              * Makes the block able to catch fire

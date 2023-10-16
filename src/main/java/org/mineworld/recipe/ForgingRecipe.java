@@ -2,7 +2,6 @@ package org.mineworld.recipe;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -22,7 +21,7 @@ import java.util.stream.Stream;
 /**
  * Record class for a {@link MineWorld MineWorld} forging recipe
  */
-public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient addition, ItemStack result, int forgingTime, float experience) implements SmithingRecipe {
+public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack result, int forgingTime, float experience) implements SmithingRecipe {
 
     /**
      * Check if some ingredients matches a recipe
@@ -117,16 +116,6 @@ public record ForgingRecipe(ResourceLocation id, Ingredient base, Ingredient add
      */
     private boolean isIngredient(final ItemStack itemStack) {
         return this.base.test(itemStack) || this.addition.test(itemStack);
-    }
-
-    /**
-     * Get the {@link ResourceLocation recipe id}
-     *
-     * @return {@link ResourceLocation The recipe id}
-     */
-    @Override
-    public @NotNull ResourceLocation getId() {
-        return this.id;
     }
 
     /**

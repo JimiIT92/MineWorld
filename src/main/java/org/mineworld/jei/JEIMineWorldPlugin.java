@@ -63,8 +63,8 @@ public class JEIMineWorldPlugin implements IModPlugin {
     @Override
     public void registerRecipes(final @NotNull IRecipeRegistration recipeRegistration) {
         final RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-        recipeRegistration.addRecipes(WOODCUTTING, recipeManager.getAllRecipesFor(MWRecipeTypes.WOODCUTTING.get()));
-        recipeRegistration.addRecipes(FORGING, recipeManager.getAllRecipesFor(MWRecipeTypes.FORGING.get()));
+        recipeRegistration.addRecipes(WOODCUTTING, KeyHelper.getAllRecipes(MWRecipeTypes.WOODCUTTING.get()));
+        recipeRegistration.addRecipes(FORGING, KeyHelper.getAllRecipes(MWRecipeTypes.FORGING.get()));
     }
 
     /**

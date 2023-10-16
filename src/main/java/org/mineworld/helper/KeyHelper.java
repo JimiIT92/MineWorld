@@ -1,14 +1,20 @@
 package org.mineworld.helper;
 
 import com.google.gson.JsonObject;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -16,6 +22,9 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.mineworld.MineWorld;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Helper methods for handling {@link ResourceKey resource keys}
@@ -223,5 +232,28 @@ public final class KeyHelper {
      */
     public static ResourceLocation fromJson(final JsonObject json, final String key) {
         return new ResourceLocation(GsonHelper.getAsString(json, key));
+    }
+
+    /**
+     * Get all the {@link Recipe recipes} from a {@link RecipeType recipe type}
+     *
+     * @param recipeType {@link RecipeType The recipe type}
+     * @return {@link List<Recipe> The recipe list}
+     * @param <T> {@link T The recipe type}
+     */
+    public static <C extends Container, T extends Recipe<C>> List<T> getAllRecipes(final RecipeType<T> recipeType) {
+        final RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+        return getAllRecipes(recipeManager.getAllRecipesFor(recipeType));
+    }
+
+    /**
+     * Get all the {@link Recipe recipes} from a {@link List<RecipeHolder> recipe holder list}
+     *
+     * @param recipeHolderList {@link List<RecipeHolder> The recipe holder list}
+     * @return {@link List<Recipe> The recipe list}
+     * @param <T> {@link T The recipe type}
+     */
+    public static <T extends Recipe<?>> List<T> getAllRecipes(final List<RecipeHolder<T>> recipeHolderList) {
+        return recipeHolderList.stream().map(recipeHolder -> recipeHolder.value()).collect(Collectors.toList());
     }
 }

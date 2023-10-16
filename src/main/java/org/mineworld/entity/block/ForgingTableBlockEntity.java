@@ -22,11 +22,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.RecipeHolder;
+import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -55,7 +56,7 @@ import java.util.List;
 /**
  * Implementation class for the forging table block entity
  */
-public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
+public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible {
 
     /**
      * {@link Integer The base ingredient input slot id}
@@ -314,9 +315,9 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
         final boolean hasFuel = !fuel.isEmpty();
         final boolean hasIngredients = hasIngredients(blockEntity.items);
         if (isLit || hasFuel && hasIngredients) {
-            final Recipe<?> recipe = hasIngredients ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
+            final RecipeHolder<?> recipe = hasIngredients ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
             final int maxStackSize = blockEntity.getMaxStackSize();
-            final boolean canBurn = blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, maxStackSize);
+            final boolean canBurn = blockEntity.canBurn(level.registryAccess(), recipe.value(), blockEntity.items, maxStackSize);
             if (!isLit && canBurn) {
                 blockEntity.litTime = blockEntity.getBurnDuration(fuel);
                 blockEntity.litDuration = blockEntity.litTime;
@@ -331,7 +332,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
                 if (blockEntity.forgingProgress == blockEntity.forgingTotalTime) {
                     blockEntity.forgingProgress = 0;
                     blockEntity.forgingTotalTime = getTotalForgingTime(level, blockEntity);
-                    if (blockEntity.forge(level.registryAccess(), recipe, blockEntity.items, maxStackSize)) {
+                    if (blockEntity.forge(level.registryAccess(), recipe.value(), blockEntity.items, maxStackSize)) {
                         blockEntity.setRecipeUsed(recipe);
                     }
                     hasChanges = true;
@@ -427,7 +428,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      * @return {@link Integer 400}
      */
     private static int getTotalForgingTime(final Level level, final ForgingTableBlockEntity blockEntity) {
-        return blockEntity.quickCheck.getRecipeFor(blockEntity, level).map(ForgingRecipe::forgingTime).orElse(400);
+        return blockEntity.quickCheck.getRecipeFor(blockEntity, level).map(recipe -> recipe.value().forgingTime()).orElse(400);
     }
 
     /**
@@ -589,9 +590,9 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      * @param recipe {@link Recipe The recipe}
      */
     @Override
-    public void setRecipeUsed(final @Nullable Recipe<?> recipe) {
+    public void setRecipeUsed(final @Nullable RecipeHolder<?> recipe) {
         if (recipe != null) {
-            this.recipesUsed.addTo(recipe.getId(), 1);
+            this.recipesUsed.addTo(recipe.id(), 1);
         }
     }
 
@@ -602,7 +603,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      */
     @Override
     @Nullable
-    public Recipe<?> getRecipeUsed() {
+    public RecipeHolder<?> getRecipeUsed() {
         return null;
     }
 
@@ -632,12 +633,12 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      * @param position {@link Vec3 The player position}
      * @return {@link List<Recipe> The recipe list}
      */
-    public List<Recipe<?>> getRecipesToAwardAndPopExperience(final ServerLevel player, final Vec3 position) {
-        final List<Recipe<?>> recipes = Lists.newArrayList();
+    public List<RecipeHolder<?>> getRecipesToAwardAndPopExperience(final ServerLevel player, final Vec3 position) {
+        final List<RecipeHolder<?>> recipes = Lists.newArrayList();
         for(Object2IntMap.Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
             player.getRecipeManager().byKey(entry.getKey()).ifPresent(recipe -> {
                 recipes.add(recipe);
-                createExperience(player, position, entry.getIntValue(), ((ForgingRecipe)recipe).experience());
+                createExperience(player, position, entry.getIntValue(), ((ForgingRecipe)recipe.value()).experience());
             });
         }
         return recipes;
