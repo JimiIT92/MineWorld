@@ -1,11 +1,12 @@
 package org.mineworld.recipe.serializer;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
@@ -26,6 +27,13 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
      * {@link Codec<T> The codec instance}
      */
     private final Codec<T> codec;
+    /**
+     * {@link MapCodec<ItemStack> The result codec instance}
+     */
+    private static final MapCodec<ItemStack> RESULT_CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
+            BuiltInRegistries.ITEM.byNameCodec().fieldOf("result").forGetter(ItemStack::getItem),
+            Codec.INT.optionalFieldOf("count", 1).forGetter(ItemStack::getCount)
+    ).apply(builder, ItemStack::new));
 
     /**
      * Constructor. Set the serializer properties
@@ -36,8 +44,8 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
         this.factory = factory;
         this.codec = RecordCodecBuilder.create((builder) -> builder.group(
                 ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(recipe -> recipe.group),
-                Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
+                RESULT_CODEC.forGetter(recipe -> recipe.result)
         ).apply(builder, factory::create));
     }
 

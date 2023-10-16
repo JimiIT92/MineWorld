@@ -46,5 +46,4 @@ public class WoodcutterRecipe extends SingleItemRecipe {
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(MWBlocks.WOODCUTTER.get());
     }
-
 }

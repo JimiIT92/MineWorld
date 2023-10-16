@@ -85,7 +85,6 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
      * @param screenY {@link Integer The screen Y coordinate}
      */
     protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, final int screenX, final int screenY) {
-        this.renderBackground(guiGraphics, screenX, screenY, partialTicks);
         RenderSystem.setShaderTexture(0, BG_LOCATION);
         final int x = this.leftPos;
         final int y = this.topPos;

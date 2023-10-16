@@ -65,7 +65,6 @@ public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu
      */
     @Override
     protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, final int screenX, final int screenY) {
-        this.renderBackground(guiGraphics, screenX, screenY, partialTicks);
         RenderSystem.setShaderTexture(0, BACKGROUND_LOCATION);
         final int x = this.leftPos;
         final int y = this.topPos;

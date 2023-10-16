@@ -107,10 +107,6 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      */
     private final int CONTAINER_SIZE = 4;
     /**
-     * {@link RecipeType<ForgingRecipe> The recipe types}
-     */
-    private final RecipeType<? extends ForgingRecipe> recipeType;
-    /**
      * {@link NonNullList<ItemStack> The forging table items}
      */
     private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
@@ -208,7 +204,6 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     public ForgingTableBlockEntity(final BlockPos blockPos, final BlockState blockState, final RecipeType<? extends ForgingRecipe> recipeType) {
         super(MWBlockEntityTypes.FORGING_TABLE.get(), blockPos, blockState);
         this.quickCheck = RecipeManager.createCheck(recipeType);
-        this.recipeType = recipeType;
     }
 
     /**
@@ -317,7 +312,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
         if (isLit || hasFuel && hasIngredients) {
             final RecipeHolder<?> recipe = hasIngredients ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
             final int maxStackSize = blockEntity.getMaxStackSize();
-            final boolean canBurn = blockEntity.canBurn(level.registryAccess(), recipe.value(), blockEntity.items, maxStackSize);
+            final boolean canBurn = recipe != null && blockEntity.canBurn(level.registryAccess(), recipe.value(), blockEntity.items, maxStackSize);
             if (!isLit && canBurn) {
                 blockEntity.litTime = blockEntity.getBurnDuration(fuel);
                 blockEntity.litDuration = blockEntity.litTime;
