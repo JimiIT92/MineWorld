@@ -334,6 +334,7 @@ public final class MWTabs {
                 MWBlocks.END_STONE_BRICKS_PRESSURE_PLATE,
                 MWBlocks.END_STONE_BRICKS_BUTTON,
                 MWItems.END_STONE_BRICKS_PEBBLE,
+                MWBlocks.ETHEREAL_RUNE,
                 MWBlocks.PURPUR_WALL,
                 MWBlocks.PURPUR_PRESSURE_PLATE,
                 MWBlocks.PURPUR_BUTTON,

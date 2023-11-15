@@ -1,6 +1,7 @@
 package org.mineworld.helper;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +32,16 @@ public final class PlayerHelper {
 
         return level.getEntitiesOfClass(Mob.class, new AABB(x - distance, y - distance, z - distance, x + distance, y + distance, z + distance))
                 .stream().filter(entity -> entity.getLeashHolder() != null && entity.getLeashHolder().is(player)).collect(Collectors.toList());
+    }
+
+    /**
+     * Play a {@link SoundEvent sound} to the {@link Player player}
+     *
+     * @param player {@link Player The player to play the sound}
+     * @param sound {@link SoundEvent The sound to play}
+     */
+    public static void playSound(final Player player, final SoundEvent sound) {
+        player.playSound(sound, 1.0F, 1.0F);
     }
 
 }

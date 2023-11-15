@@ -1444,6 +1444,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DROWNED_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(1.0F, false).lootFrom(DROWNED_HEAD)));
     public static final RegistryObject<Block> ICE_CHEST = RegisterHelper.registerChest("ice_chest", () -> MWBlockEntityTypes.ICE_CHEST.get(), MWWoodTypes.ICE);
     public static final RegistryObject<Block> ICE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("ice_trapped_chest", () -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get(), MWWoodTypes.ICE);
+    public static final RegistryObject<Block> ETHEREAL_RUNE = RegisterHelper.registerBlock("ethereal_rune", EtherealRuneBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
