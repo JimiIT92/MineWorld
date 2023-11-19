@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "mineworld:block/ethereal_rune_beta"
+    },
+    "lit=true": {
+      "model": "mineworld:block/ethereal_rune_beta_lit"
+    }
+  }
+}

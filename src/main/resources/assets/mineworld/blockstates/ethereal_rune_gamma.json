@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "mineworld:block/ethereal_rune_gamma"
+    },
+    "lit=true": {
+      "model": "mineworld:block/ethereal_rune_gamma_lit"
+    }
+  }
+}

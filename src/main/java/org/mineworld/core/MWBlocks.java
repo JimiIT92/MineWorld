@@ -1444,7 +1444,11 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DROWNED_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(1.0F, false).lootFrom(DROWNED_HEAD)));
     public static final RegistryObject<Block> ICE_CHEST = RegisterHelper.registerChest("ice_chest", () -> MWBlockEntityTypes.ICE_CHEST.get(), MWWoodTypes.ICE);
     public static final RegistryObject<Block> ICE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("ice_trapped_chest", () -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get(), MWWoodTypes.ICE);
-    public static final RegistryObject<Block> ETHEREAL_RUNE = RegisterHelper.registerBlock("ethereal_rune", EtherealRuneBlock::new);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_ALPHA = RegisterHelper.registerBlock("ethereal_rune_alpha", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.ALPHA));
+    public static final RegistryObject<Block> ETHEREAL_RUNE_BETA = RegisterHelper.registerBlock("ethereal_rune_beta", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.BETA));
+    public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = RegisterHelper.registerBlock("ethereal_rune_gamma", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.GAMMA));
+    public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = RegisterHelper.registerBlock("ethereal_rune_delta", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.DELTA));
+    public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = RegisterHelper.registerBlock("ethereal_rune_omega", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.OMEGA));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

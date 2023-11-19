@@ -2,7 +2,6 @@ package org.mineworld.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +31,7 @@ public class EtherealRuneBlock extends Block {
     /**
      * The {@link EnumProperty Ethereal Rune Type} property
      */
-    public static final EnumProperty<EtherealRuneType> TYPE = EnumProperty.create("type", EtherealRuneType.class);
+    private final EtherealRuneType TYPE;
     /**
      * The {@link BooleanProperty Lit property}
      */
@@ -40,12 +39,15 @@ public class EtherealRuneBlock extends Block {
 
     /**
      * Constructor. Set the block properties
+     *
+     * @param type The {@link EtherealRuneType Ethereal Rune Type}
      */
-    public EtherealRuneBlock() {
+    public EtherealRuneBlock(EtherealRuneType type) {
         super(PropertyHelper.basicBlockProperties(MapColor.COLOR_YELLOW, 55F, 1200F, true, SoundType.SCULK_SHRIEKER)
                 .noLootTable()
                 .lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 10 : 0));
-        this.registerDefaultState(this.defaultBlockState().setValue(TYPE, EtherealRuneType.ALPHA).setValue(LIT, Boolean.FALSE));
+        this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.FALSE));
+        TYPE = type;
     }
 
     /**
@@ -55,7 +57,7 @@ public class EtherealRuneBlock extends Block {
      */
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(TYPE).add(LIT);
+        stateBuilder.add(LIT);
     }
 
     /**
@@ -77,6 +79,7 @@ public class EtherealRuneBlock extends Block {
             level.setBlock(pos, state.setValue(LIT, Boolean.TRUE), 2);
             ItemHelper.hurt(itemstack, player);
             PlayerHelper.playSound(player, SoundEvents.SCULK_CLICKING_STOP);
+            //try drop sculk charge
             return InteractionResult.SUCCESS;
         }
 
@@ -86,42 +89,11 @@ public class EtherealRuneBlock extends Block {
     /**
      * The Ethereal Rune types
      */
-    public enum EtherealRuneType implements StringRepresentable {
-        ALPHA("alpha"),
-        BETA("beta"),
-        GAMMA("gamma");
-
-        /**
-         * The Ethereal Rune type name
-         */
-        private final String name;
-
-        /**
-         * Constructor. Set the Ethereal Rune type name
-         *
-         * @param name {@link String The Ethereal Rune type name}
-         */
-        EtherealRuneType(String name) {
-            this.name = name;
-        }
-
-        /**
-         * Print the Ethereal Rune type name
-         *
-         * @return {@link String The Ethereal Rune type name}
-         */
-        public String toString() {
-            return this.name;
-        }
-
-        /**
-         * Get the Ethereal Rune type name
-         *
-         * @return {@link String The Ethereal Rune type name}
-         */
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
+    public enum EtherealRuneType {
+        ALPHA,
+        BETA,
+        GAMMA,
+        DELTA,
+        OMEGA
     }
 }
