@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "mineworld:apple_leaves",
-    "mineworld:palm_leaves"
+    "mineworld:palm_leaves",
+    "mineworld:sculk_leaves"
   ]
 }

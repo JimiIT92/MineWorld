@@ -150,6 +150,9 @@ public class MWMinecartChest extends MinecartChest {
         if(type.equals(MWWoodTypes.ICE)) {
             return MWItems.ICE_CHEST_MINECART.get();
         }
+        if(type.equals(MWWoodTypes.SCULK)) {
+            return MWItems.SCULK_CHEST_MINECART.get();
+        }
         return Items.CHEST_MINECART;
     }
 
@@ -203,6 +206,9 @@ public class MWMinecartChest extends MinecartChest {
         }
         if(type.equals(MWWoodTypes.ICE)) {
             return MWBlocks.ICE_CHEST.get().defaultBlockState();
+        }
+        if(type.equals(MWWoodTypes.SCULK)) {
+            return MWBlocks.SCULK_CHEST.get().defaultBlockState();
         }
         return Blocks.CHEST.defaultBlockState();
     }

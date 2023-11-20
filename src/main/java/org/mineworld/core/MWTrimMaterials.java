@@ -30,7 +30,7 @@ public final class MWTrimMaterials {
      */
     public static void nextUpdate(final BootstapContext<TrimMaterial> context) {
         RegisterHelper.registerTrimMaterial(context, PRISMARINE, Items.PRISMARINE_SHARD, MWColors.PRISMARINE, 0.01F, ArmorMaterials.DIAMOND);
-        RegisterHelper.registerTrimMaterial(context, ECHO_SHARD, Items.ECHO_SHARD, MWColors.ECHO_SHARD, 0.02F);
+        RegisterHelper.registerTrimMaterial(context, ECHO_SHARD, Items.ECHO_SHARD, MWColors.SCULK, 0.02F);
         RegisterHelper.registerTrimMaterial(context, RUBY, MWItems.RUBY.get(), MWColors.RUBY, 0.03F);
         RegisterHelper.registerTrimMaterial(context, SAPPHIRE, MWItems.SAPPHIRE.get(), MWColors.SAPPHIRE, 0.04F);
         RegisterHelper.registerTrimMaterial(context, SILVER, MWItems.SILVER_INGOT.get(), MWColors.SILVER, 0.05F, ArmorMaterials.CHAIN, ArmorMaterials.IRON);

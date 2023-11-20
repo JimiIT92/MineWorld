@@ -14,6 +14,7 @@
     "mineworld:apple_trapped_chest",
     "mineworld:palm_trapped_chest",
     "mineworld:dead_trapped_chest",
-    "mineworld:ice_trapped_chest"
+    "mineworld:ice_trapped_chest",
+    "mineworld:sculk_trapped_chest"
   ]
 }

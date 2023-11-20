@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
+    "mineworld:blocks/cherry_leaves",
     "mineworld:chests/abandoned_mineshaft",
     "mineworld:chests/ancient_city",
     "mineworld:chests/buried_treasure",

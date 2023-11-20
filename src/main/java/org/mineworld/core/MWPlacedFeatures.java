@@ -52,6 +52,7 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> DEAD_TREE = KeyHelper.registerPlacedFeatureKey("dead_tree");
     public static final ResourceKey<PlacedFeature> FANCY_DEAD_TREE = KeyHelper.registerPlacedFeatureKey("fancy_dead_tree");
     public static final ResourceKey<PlacedFeature> PALM_TREE = KeyHelper.registerPlacedFeatureKey("palm_tree");
+    public static final ResourceKey<PlacedFeature> SCULK_TREE = KeyHelper.registerPlacedFeatureKey("sculk_tree");
 
     /**
      * Register the {@link PlacedFeature placed features}
@@ -103,12 +104,14 @@ public final class MWPlacedFeatures {
                 VegetationPlacements.treePlacement(CountPlacement.of(1), MWBlocks.APPLE_SAPLING.get()));
         RegisterHelper.registerPlacedFeature(context, FANCY_APPLE_BEES_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.FANCY_APPLE_BEES_TREE),
                 VegetationPlacements.treePlacement(CountPlacement.of(1), MWBlocks.APPLE_SAPLING.get()));
+        RegisterHelper.registerPlacedFeature(context, PALM_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PALM_TREE),
+                VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(5), MWBlocks.PALM_SAPLING.get()));
         RegisterHelper.registerPlacedFeature(context, DEAD_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.DEAD_TREE),
                 VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(1), Blocks.OAK_SAPLING));
         RegisterHelper.registerPlacedFeature(context, FANCY_DEAD_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.FANCY_DEAD_TREE),
                 VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(1), Blocks.OAK_SAPLING));
-        RegisterHelper.registerPlacedFeature(context, PALM_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PALM_TREE),
-                VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(5), MWBlocks.PALM_SAPLING.get()));
+        RegisterHelper.registerPlacedFeature(context, SCULK_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.SCULK_TREE),
+                VegetationPlacements.treePlacement(CountPlacement.of(1), MWBlocks.SCULK_SAPLING.get()));
     }
 
 }

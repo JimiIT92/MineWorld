@@ -727,6 +727,19 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerFence(name, blockSupplier, true, featureFlags);
+    }
+
+    /**
+     * Register a {@link FenceBlock fence block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this fence is referring to}
+     * @param isFlammable {@link Boolean If the fence is flammable}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final boolean isFlammable, final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new FenceBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)) {
 
             /**
@@ -740,7 +753,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return blockState.isFlammable(blockGetter, blockPos, direction);
+                return isFlammable;
             }
 
             /**
@@ -754,7 +767,7 @@ public final class RegisterHelper {
              */
             @Override
             public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return 5;
+                return isFlammable ? 5 : 0;
             }
 
             /**
@@ -768,7 +781,7 @@ public final class RegisterHelper {
              */
             @Override
             public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return 20;
+                return isFlammable ? 20 : 0;
             }
 
         });
@@ -784,6 +797,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerFenceGate(name, blockSupplier, woodType,true, featureFlags);
+    }
+
+    /**
+     * Register a {@link FenceBlock fence gate block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this fence gate is referring to}
+     * @param woodType {@link WoodType The fence gate wood type}
+     * @param isFlammable {@link Boolean If the fence gate is flammable}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final WoodType woodType, final boolean isFlammable,  final FeatureFlag... featureFlags) {
         return registerBlock(name, () -> new FenceGateBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F), woodType) {
 
             /**
@@ -797,7 +824,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return blockState.isFlammable(blockGetter, blockPos, direction);
+                return isFlammable;
             }
 
             /**
@@ -811,7 +838,7 @@ public final class RegisterHelper {
              */
             @Override
             public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return 5;
+                return isFlammable ? 5 : 0;
             }
 
             /**
@@ -825,7 +852,7 @@ public final class RegisterHelper {
              */
             @Override
             public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return 20;
+                return isFlammable ? 20 : 0;
             }
 
         });
@@ -899,6 +926,7 @@ public final class RegisterHelper {
                     }
                 };
             }
+
         });
     }
 
@@ -1084,7 +1112,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return blockState.isFlammable(blockGetter, blockPos, direction);
+                return blockStateSupplier.get().isFlammable(blockGetter, blockPos, direction);
             }
 
             /**
@@ -1119,26 +1147,28 @@ public final class RegisterHelper {
     }
 
     /**
-     * Register a {@link StairBlock stair block}
+     * Register a {@link StairBlock slab block}
      *
      * @param name {@link String The block name}
-     * @param blockSupplier {@link Supplier<Block> The supplier for block this stair is based on}
+     * @param blockSupplier {@link Supplier<Block> The supplier for block this slab is based on}
+     * @param isFlammable {@link Boolean If the slab is flammable}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerSlab(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerSlab(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()));
+    public static RegistryObject<Block> registerSlab(final String name, final Supplier<? extends Block> blockSupplier, final boolean isFlammable, final FeatureFlag... featureFlags) {
+        return registerSlab(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()), isFlammable);
     }
 
     /**
-     * Register a {@link StairBlock stair block}
+     * Register a {@link StairBlock slab block}
      *
      * @param name {@link String The block name}
-     * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this stair is based on}
+     * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this slab is based on}
+     * @param isFlammable {@link Boolean If the slab is flammable}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
-        return registerSlab(name, propertiesSupplier, () -> PushReaction.NORMAL);
+    public static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final boolean isFlammable) {
+        return registerSlab(name, propertiesSupplier, () -> PushReaction.NORMAL, isFlammable);
     }
 
     /**
@@ -1147,9 +1177,10 @@ public final class RegisterHelper {
      * @param name {@link String The block name}
      * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this stair is based on}
      * @param pistonPushReaction {@link Supplier<PushReaction> The piston push reaction supplier for this block}
+     * @param isFlammable {@link Boolean If the slab is flammable}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction) {
+    private static RegistryObject<Block> registerSlab(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction, final boolean isFlammable) {
         return registerBlock(name, () -> new SlabBlock(propertiesSupplier.get()) {
 
             /**
@@ -1173,7 +1204,7 @@ public final class RegisterHelper {
              */
             @Override
             public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return blockState.isFlammable(blockGetter, blockPos, direction);
+                return isFlammable;
             }
 
             /**
@@ -1187,7 +1218,7 @@ public final class RegisterHelper {
              */
             @Override
             public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return 5;
+                return isFlammable ? 5 : 0;
             }
 
             /**
@@ -1201,9 +1232,8 @@ public final class RegisterHelper {
              */
             @Override
             public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-                return 20;
+                return isFlammable ? 20 : 0;
             }
-
         });
     }
 
@@ -1250,7 +1280,7 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWall(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerWall(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()));
+        return registerWall(name, () -> PropertyHelper.copyFromBlock(blockSupplier.get(), featureFlags).requiresCorrectToolForDrops(), () -> LevelHelper.getPushReaction(blockSupplier.get().defaultBlockState()), false);
     }
 
     /**
@@ -1261,7 +1291,18 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
-        return registerWall(name, propertiesSupplier, () -> PushReaction.NORMAL);
+        return registerWall(name, propertiesSupplier, () -> PushReaction.NORMAL, false);
+    }
+
+    /**
+     * Register a {@link WallBlock wall block}
+     *
+     * @param name {@link String The block name}
+     * @param propertiesSupplier {@link Supplier<Block> The supplier for the block properties this wall is based on}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerWoolWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+        return registerWall(name, propertiesSupplier, () -> PushReaction.NORMAL, true);
     }
 
     /**
@@ -1270,9 +1311,10 @@ public final class RegisterHelper {
      * @param name {@link String The block name}
      * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The supplier for block properties this stair is based on}
      * @param pistonPushReaction {@link Supplier<PushReaction> The piston push reaction supplier for this block}
+     * @param isFlammable {@link Boolean If the wall block is flammable}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    private static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction) {
+    private static RegistryObject<Block> registerWall(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier, final Supplier<PushReaction> pistonPushReaction, final boolean isFlammable) {
         return registerBlock(name, () -> new WallBlock(propertiesSupplier.get()) {
             /**
              * Get the {@link PushReaction push reaction} when this block is pushed by pistons
@@ -1282,6 +1324,48 @@ public final class RegisterHelper {
              */
             public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
                 return pistonPushReaction.get();
+            }
+
+            /**
+             * Determine if the {@link RotatedPillarBlock block} is flammable
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Boolean True if the block is flammable}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return isFlammable;
+            }
+
+            /**
+             * Get the {@link Integer block flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block flammability value}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return isFlammable ? 5 : 0;
+            }
+
+            /**
+             * Get the {@link Integer block fire spread chance value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link BlockGetter The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The update direction}
+             * @return {@link Integer The block fire spread chance value}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return isFlammable ? 20 : 0;
             }
         });
     }
@@ -1404,6 +1488,48 @@ public final class RegisterHelper {
                         return lecternBlockEntityTypeSupplier.get();
                     }
                 };
+            }
+
+            /**
+             * Makes the block able to catch fire
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Boolean True}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return true;
+            }
+
+            /**
+             * Get the block {@link Integer flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 20}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 20;
+            }
+
+            /**
+             * Get the block {@link Integer fire spread speed value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 5}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 30;
             }
         });
     }
@@ -1557,6 +1683,48 @@ public final class RegisterHelper {
             @Override
             public float getEnchantPowerBonus(final BlockState state, final LevelReader level, final BlockPos blockPos) {
                 return 1.0F;
+            }
+
+            /**
+             * Makes the block able to catch fire
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Boolean True}
+             */
+            @Override
+            public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return true;
+            }
+
+            /**
+             * Get the block {@link Integer flammability value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 20}
+             */
+            @Override
+            public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 20;
+            }
+
+            /**
+             * Get the block {@link Integer fire spread speed value}
+             *
+             * @param blockState {@link BlockState The current block state}
+             * @param blockGetter {@link Level The block getter reference}
+             * @param blockPos {@link BlockPos The current block pos}
+             * @param direction {@link Direction The direction the fire is coming from}
+             * @return {@link Integer 5}
+             */
+            @Override
+            public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
+                return 30;
             }
         });
     }
@@ -2201,41 +2369,45 @@ public final class RegisterHelper {
     public static void registerCompostables() {
         registerCompostable(MWBlocks.GRASS_CARPET.get(), 0.1F);
         registerCompostable(MWBlocks.OAK_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.OAK_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.SPRUCE_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.SPRUCE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.BIRCH_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.BIRCH_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.JUNGLE_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.JUNGLE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.ACACIA_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.ACACIA_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.DARK_OAK_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.DARK_OAK_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.MANGROVE_LEAVES_CARPET.get(), 0.1F);
         registerCompostable(MWBlocks.MANGROVE_ROOTS_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.MANGROVE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.CHERRY_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.CHERRY_BUSH.get(), 0.85F);
         registerCompostable(MWBlocks.AZALEA_LEAVES_CARPET.get(), 0.25F);
         registerCompostable(MWBlocks.FLOWERING_AZALEA_LEAVES_CARPET.get(), 0.3F);
         registerCompostable(MWBlocks.APPLE_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.APPLE_LEAVES.get(), 0.3F);
+        registerCompostable(MWBlocks.APPLE_SAPLING.get(), 0.3F);
+        registerCompostable(MWBlocks.APPLE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.PALM_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.PALM_LEAVES.get(), 0.3F);
+        registerCompostable(MWBlocks.PALM_SAPLING.get(), 0.3F);
+        registerCompostable(MWBlocks.PALM_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.SCULK_LEAVES_CARPET.get(), 0.1F);
+        registerCompostable(MWBlocks.SCULK_LEAVES.get(), 0.3F);
+        registerCompostable(MWBlocks.SCULK_SAPLING.get(), 0.3F);
+        registerCompostable(MWBlocks.SCULK_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.NETHER_WART_CARPET.get(), 0.3F);
         registerCompostable(MWBlocks.WARPED_WART_CARPET.get(), 0.3F);
         registerCompostable(MWBlocks.WARPED_WART.get(), 0.85F);
-        registerCompostable(MWBlocks.OAK_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.SPRUCE_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.BIRCH_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.JUNGLE_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.ACACIA_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.DARK_OAK_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.MANGROVE_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.CHERRY_BUSH.get(), 0.85F);
-        registerCompostable(MWBlocks.APPLE_BUSH.get(), 0.65F);
-        registerCompostable(MWBlocks.PALM_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.BLUE_ROSE.get(), 0.65F);
         registerCompostable(MWBlocks.BLUE_ROSE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.WHITE_ROSE.get(), 0.65F);
         registerCompostable(MWBlocks.WHITE_ROSE_BUSH.get(), 0.65F);
         registerCompostable(MWItems.CORN_SEEDS.get(), 0.3F);
         registerCompostable(MWItems.BLUEBERRIES.get(), 0.3F);
-        registerCompostable(MWBlocks.APPLE_LEAVES.get(), 0.3F);
-        registerCompostable(MWBlocks.PALM_LEAVES.get(), 0.3F);
-        registerCompostable(MWBlocks.APPLE_SAPLING.get(), 0.3F);
-        registerCompostable(MWBlocks.PALM_SAPLING.get(), 0.3F);
     }
 
     /**

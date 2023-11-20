@@ -269,6 +269,7 @@ public final class MWItems {
     public static final RegistryObject<Item> WARPED_BOAT = RegisterHelper.registerItem("warped_boat", () -> new MWBoatItem(false, MWBoat.Type.WARPED));
     public static final RegistryObject<Item> WARPED_CHEST_BOAT = RegisterHelper.registerItem("warped_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.WARPED));
     public static final RegistryObject<Item> BLUEBERRIES = RegisterHelper.registerFoodBlockItem("blueberries", MWBlocks.BLUEBERRY_BUSH, MWFoods.BLUEBERRIES);
+    public static final RegistryObject<Item> CHERRY = RegisterHelper.registerFoodItem("cherry", MWFoods.CHERRY);
     public static final RegistryObject<Item> APPLE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("apple_chest", MWBlocks.APPLE_CHEST);
     public static final RegistryObject<Item> APPLE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("apple_trapped_chest", MWBlocks.APPLE_TRAPPED_CHEST);
     public static final RegistryObject<Item> APPLE_CHEST_MINECART = RegisterHelper.registerItem("apple_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.APPLE_CHEST));
@@ -321,6 +322,13 @@ public final class MWItems {
     public static final RegistryObject<Item> ICE_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_chest", MWBlocks.ICE_CHEST);
     public static final RegistryObject<Item> ICE_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("ice_trapped_chest", MWBlocks.ICE_TRAPPED_CHEST);
     public static final RegistryObject<Item> ICE_CHEST_MINECART = RegisterHelper.registerItem("ice_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.ICE_CHEST));
+    public static final RegistryObject<Item> SCULK_CHEST = RegisterHelper.registerSpecialRendererBlockItem("sculk_chest", MWBlocks.SCULK_CHEST);
+    public static final RegistryObject<Item> SCULK_TRAPPED_CHEST = RegisterHelper.registerSpecialRendererBlockItem("sculk_trapped_chest", MWBlocks.SCULK_TRAPPED_CHEST);
+    public static final RegistryObject<Item> SCULK_CHEST_MINECART = RegisterHelper.registerItem("sculk_chest_minecart", () -> new MWMinecartItem(MWMinecartItem.Type.SCULK_CHEST));
+    public static final RegistryObject<Item> SCULK_BOAT = RegisterHelper.registerItem("sculk_boat", () -> new MWBoatItem(false, MWBoat.Type.SCULK));
+    public static final RegistryObject<Item> SCULK_CHEST_BOAT = RegisterHelper.registerItem("sculk_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.SCULK));
+    public static final RegistryObject<Item> SCULK_SIGN = RegisterHelper.registerItem("sculk_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.SCULK_SIGN.get(), MWBlocks.SCULK_WALL_SIGN.get()));
+    public static final RegistryObject<Item> SCULK_HANGING_SIGN = RegisterHelper.registerItem("sculk_hanging_sign", () -> new HangingSignItem(MWBlocks.SCULK_HANGING_SIGN.get(), MWBlocks.SCULK_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

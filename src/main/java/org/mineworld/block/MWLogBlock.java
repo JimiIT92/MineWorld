@@ -40,6 +40,8 @@ public class MWLogBlock extends RotatedPillarBlock {
             .put(MWBlocks.PALM_WOOD.get(), MWBlocks.STRIPPED_PALM_WOOD.get())
             .put(MWBlocks.DEAD_LOG.get(), MWBlocks.STRIPPED_DEAD_LOG.get())
             .put(MWBlocks.DEAD_WOOD.get(), MWBlocks.STRIPPED_DEAD_WOOD.get())
+            .put(MWBlocks.SCULK_LOG.get(), MWBlocks.STRIPPED_SCULK_LOG.get())
+            .put(MWBlocks.SCULK_WOOD.get(), MWBlocks.STRIPPED_SCULK_WOOD.get())
             .build());
 
     /**

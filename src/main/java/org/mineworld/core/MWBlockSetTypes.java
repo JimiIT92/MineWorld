@@ -22,7 +22,9 @@ public final class MWBlockSetTypes {
     public static final BlockSetType METAL = RegisterHelper.registerBlockSetType("metal", false, SoundType.METAL,
             SoundEvents.METAL_FALL, SoundEvents.METAL_STEP,
             SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON,
-            SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON
-    );
-
+            SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON);
+    public static final BlockSetType SCULK = RegisterHelper.registerBlockSetType("sculk", true, SoundType.SCULK,
+            SoundEvents.SCULK_CATALYST_FALL, SoundEvents.SCULK_CATALYST_STEP,
+            SoundEvents.SCULK_CATALYST_HIT, SoundEvents.SCULK_CATALYST_BREAK,
+            SoundEvents.SCULK_BLOCK_HIT, SoundEvents.SCULK_BLOCK_BREAK);
 }

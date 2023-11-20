@@ -11,6 +11,9 @@
     "#mineworld:hollow_cherry_logs",
     "#mineworld:hollow_crimson_stems",
     "#mineworld:hollow_warped_stems",
-    "#mineworld:hollow_apple_logs"
+    "#mineworld:hollow_apple_logs",
+    "#mineworld:hollow_palm_logs",
+    "#mineworld:hollow_dead_logs",
+    "#mineworld:hollow_sculk_logs"
   ]
 }

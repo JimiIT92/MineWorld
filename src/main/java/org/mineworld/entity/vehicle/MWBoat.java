@@ -104,6 +104,7 @@ public class MWBoat extends Boat {
             case APPLE -> MWItems.APPLE_BOAT.get();
             case PALM -> MWItems.PALM_RAFT.get();
             case DEAD -> MWItems.DEAD_BOAT.get();
+            case SCULK -> MWItems.SCULK_BOAT.get();
         };
     }
 
@@ -155,7 +156,8 @@ public class MWBoat extends Boat {
         WARPED(Blocks.WARPED_PLANKS, WoodType.WARPED),
         APPLE(MWBlocks.APPLE_PLANKS.get(), MWWoodTypes.APPLE),
         PALM(MWBlocks.PALM_PLANKS.get(), MWWoodTypes.PALM),
-        DEAD(MWBlocks.DEAD_PLANKS.get(), MWWoodTypes.DEAD);
+        DEAD(MWBlocks.DEAD_PLANKS.get(), MWWoodTypes.DEAD),
+        SCULK(MWBlocks.SCULK_PLANKS.get(), MWWoodTypes.SCULK);
 
         /**
          * {@link String The boat type name}

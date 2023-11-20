@@ -1,0 +1,6 @@
+{
+    "parent": "mineworld:block/rod_block",
+    "textures": {
+        "texture": "mineworld:block/blaze_rod_block"
+    }
+}

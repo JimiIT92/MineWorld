@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/leaves_carpet",
+  "textures": {
+    "leaves": "mineworld:block/sculk_leaves"
+  }
+}

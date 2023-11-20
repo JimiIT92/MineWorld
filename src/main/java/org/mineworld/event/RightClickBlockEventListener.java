@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.LecternBlock;
+import net.minecraft.world.level.block.RodBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -31,6 +32,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.block.HollowBlock;
 import org.mineworld.block.WallHangingLanternBlock;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWTags;
 import org.mineworld.helper.ItemHelper;
@@ -61,6 +63,18 @@ public final class RightClickBlockEventListener {
             final BlockState blockState = level.getBlockState(clickedPos);
             final ItemStack itemStack = event.getItemStack();
             final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
+            if(itemStack.is(Items.BONE)) {
+                handleRodPlacement(event, level, clickedPos, player, itemStack, MWBlocks.BONE_ROD_BLOCK.get());
+                return;
+            }
+            if(itemStack.is(Items.BLAZE_ROD)) {
+                handleRodPlacement(event, level, clickedPos, player, itemStack, MWBlocks.BLAZE_ROD_BLOCK.get());
+                return;
+            }
+            if(itemStack.is(Items.STICK)) {
+                handleRodPlacement(event, level, clickedPos, player, itemStack, MWBlocks.STICK_ROD_BLOCK.get());
+                return;
+            }
             if(itemStack.is(Items.LEAD) || hasLeashedEntities) {
                 handleLeashKnot(event, level, clickedPos, player, hasLeashedEntities);
                 return;
@@ -239,5 +253,29 @@ public final class RightClickBlockEventListener {
         leashKnotEntity.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         level.addFreshEntity(leashKnotEntity);
         return leashKnotEntity;
+    }
+
+    /**
+     * Handle interaction with a {@link RodBlock rod block}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param itemStack {@link ItemStack The id stack used to interact with the block}
+     * @param rodBlock {@link Block The rod block to place}
+     */
+    private static void handleRodPlacement(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final Block rodBlock) {
+        if(player.isShiftKeyDown()) {
+            final Direction face = event.getFace();
+            final BlockPos rodPos = clickedPos.offset(event.getFace().getNormal());
+            if(level.getBlockState(rodPos).isAir()) {
+                final BlockState rodState = rodBlock.defaultBlockState().setValue(RodBlock.FACING, face.getOpposite());
+                level.setBlock(rodPos, rodState, 2);
+                player.playSound(rodBlock.getSoundType(rodState, level, rodPos, player).getPlaceSound(), 0.75F, 0.75F);
+                event.setCanceled(true);
+                ItemHelper.hurt(event.getItemStack(), player);
+            }
+        }
     }
 }

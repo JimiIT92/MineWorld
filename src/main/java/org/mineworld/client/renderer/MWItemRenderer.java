@@ -147,6 +147,14 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
      * {@link ChestBlockEntity The ice trapped chest block entity}
      */
     private final ChestBlockEntity trappedIceChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.ICE, BlockPos.ZERO, MWBlocks.ICE_TRAPPED_CHEST.get().defaultBlockState(), true);
+    /**
+     * {@link ChestBlockEntity The sculk chest block entity}
+     */
+    private final ChestBlockEntity sculkChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.SCULK, BlockPos.ZERO, MWBlocks.SCULK_CHEST.get().defaultBlockState(), false);
+    /**
+     * {@link ChestBlockEntity The sculk trapped chest block entity}
+     */
+    private final ChestBlockEntity trappedSculkChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.SCULK, BlockPos.ZERO, MWBlocks.SCULK_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}
@@ -197,83 +205,89 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             else if(blockState.is(MWBlocks.SPRUCE_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedSpruceChest;
             }
-            if(blockState.is(MWBlocks.BIRCH_CHEST.get())) {
+            else if(blockState.is(MWBlocks.BIRCH_CHEST.get())) {
                 blockentity = this.birchChest;
             }
             else if(blockState.is(MWBlocks.BIRCH_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedBirchChest;
             }
-            if(blockState.is(MWBlocks.JUNGLE_CHEST.get())) {
+            else if(blockState.is(MWBlocks.JUNGLE_CHEST.get())) {
                 blockentity = this.jungleChest;
             }
             else if(blockState.is(MWBlocks.JUNGLE_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedJungleChest;
             }
-            if(blockState.is(MWBlocks.ACACIA_CHEST.get())) {
+            else if(blockState.is(MWBlocks.ACACIA_CHEST.get())) {
                 blockentity = this.acaciaChest;
             }
             else if(blockState.is(MWBlocks.ACACIA_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedAcaciaChest;
             }
-            if(blockState.is(MWBlocks.DARK_OAK_CHEST.get())) {
+            else if(blockState.is(MWBlocks.DARK_OAK_CHEST.get())) {
                 blockentity = this.darkOakChest;
             }
             else if(blockState.is(MWBlocks.DARK_OAK_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedDarkOakChest;
             }
-            if(blockState.is(MWBlocks.MANGROVE_CHEST.get())) {
+            else if(blockState.is(MWBlocks.MANGROVE_CHEST.get())) {
                 blockentity = this.mangroveChest;
             }
             else if(blockState.is(MWBlocks.MANGROVE_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedMangroveChest;
             }
-            if(blockState.is(MWBlocks.CHERRY_CHEST.get())) {
+            else if(blockState.is(MWBlocks.CHERRY_CHEST.get())) {
                 blockentity = this.cherryChest;
             }
             else if(blockState.is(MWBlocks.CHERRY_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedCherryChest;
             }
-            if(blockState.is(MWBlocks.BAMBOO_CHEST.get())) {
+            else if(blockState.is(MWBlocks.BAMBOO_CHEST.get())) {
                 blockentity = this.bambooChest;
             }
             else if(blockState.is(MWBlocks.BAMBOO_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedBambooChest;
             }
-            if(blockState.is(MWBlocks.CRIMSON_CHEST.get())) {
+            else if(blockState.is(MWBlocks.CRIMSON_CHEST.get())) {
                 blockentity = this.crimsonChest;
             }
             else if(blockState.is(MWBlocks.CRIMSON_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedCrimsonChest;
             }
-            if(blockState.is(MWBlocks.WARPED_CHEST.get())) {
+            else if(blockState.is(MWBlocks.WARPED_CHEST.get())) {
                 blockentity = this.warpedChest;
             }
             else if(blockState.is(MWBlocks.WARPED_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedWarpedChest;
             }
-            if(blockState.is(MWBlocks.APPLE_CHEST.get())) {
+            else if(blockState.is(MWBlocks.APPLE_CHEST.get())) {
                 blockentity = this.appleChest;
             }
             else if(blockState.is(MWBlocks.APPLE_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedAppleChest;
             }
-            if(blockState.is(MWBlocks.PALM_CHEST.get())) {
+            else if(blockState.is(MWBlocks.PALM_CHEST.get())) {
                 blockentity = this.palmChest;
             }
             else if(blockState.is(MWBlocks.PALM_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedPalmChest;
             }
-            if(blockState.is(MWBlocks.DEAD_CHEST.get())) {
+            else if(blockState.is(MWBlocks.DEAD_CHEST.get())) {
                 blockentity = this.deadChest;
             }
             else if(blockState.is(MWBlocks.DEAD_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedDeadChest;
             }
-            if(blockState.is(MWBlocks.ICE_CHEST.get())) {
+            else if(blockState.is(MWBlocks.ICE_CHEST.get())) {
                 blockentity = this.iceChest;
             }
             else if(blockState.is(MWBlocks.ICE_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedIceChest;
+            }
+            else if(blockState.is(MWBlocks.SCULK_CHEST.get())) {
+                blockentity = this.sculkChest;
+            }
+            else if(blockState.is(MWBlocks.SCULK_TRAPPED_CHEST.get())) {
+                blockentity = this.trappedSculkChest;
             }
             if(blockentity != null) {
                 this.blockEntityRenderDispatcher.renderItem(blockentity, pose, buffer, packedLight, packedOverlay);

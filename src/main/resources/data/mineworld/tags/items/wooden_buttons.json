@@ -3,6 +3,7 @@
   "values": [
     "mineworld:apple_button",
     "mineworld:palm_button",
-    "mineworld:dead_button"
+    "mineworld:dead_button",
+    "mineworld:sculk_button"
   ]
 }

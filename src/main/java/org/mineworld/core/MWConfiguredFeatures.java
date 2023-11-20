@@ -6,8 +6,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -18,9 +21,11 @@ import net.minecraft.world.level.levelgen.feature.configurations.SpringConfigura
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.material.Fluids;
@@ -66,6 +71,8 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PALM_TREE = KeyHelper.registerConfiguredFeatureKey("palm_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("dead_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_dead_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SCULK_TREE = KeyHelper.registerConfiguredFeatureKey("sculk_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_SCULK_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_sculk_tree");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -101,6 +108,7 @@ public final class MWConfiguredFeatures {
         FeatureUtils.register(context, PALM_TREE, Feature.TREE, palmTree(context));
         FeatureUtils.register(context, DEAD_TREE, Feature.TREE, deadTree(false));
         FeatureUtils.register(context, FANCY_DEAD_TREE, Feature.TREE, deadTree(true));
+        FeatureUtils.register(context, SCULK_TREE, Feature.TREE, sculkTree());
     }
 
     /**
@@ -127,7 +135,7 @@ public final class MWConfiguredFeatures {
     /**
      * Get the {@link TreeConfiguration palm tree configuration}
      *
-     * @return {@link TreeConfiguration The apple tree configuration}
+     * @return {@link TreeConfiguration The palm tree configuration}
      */
     private static TreeConfiguration palmTree(final BootstapContext<ConfiguredFeature<?, ?>> context) {
         final HolderGetter<Block> holderGetter = context.lookup(Registries.BLOCK);
@@ -141,10 +149,10 @@ public final class MWConfiguredFeatures {
     }
 
     /**
-     * Get the {@link TreeConfiguration palm tree configuration}
+     * Get the {@link TreeConfiguration dead tree configuration}
      *
      * @param fancy {@link Boolean If the tree should be a large tree}
-     * @return {@link TreeConfiguration The apple tree configuration}
+     * @return {@link TreeConfiguration The dead tree configuration}
      */
     private static TreeConfiguration deadTree(final boolean fancy) {
         return new TreeConfiguration.TreeConfigurationBuilder(
@@ -156,4 +164,21 @@ public final class MWConfiguredFeatures {
         ).ignoreVines().build();
     }
 
+    /**
+     * Get the {@link TreeConfiguration sculk tree configuration}
+     *
+     * @return {@link TreeConfiguration The sculk tree configuration}
+     */
+    private static TreeConfiguration sculkTree() {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(MWBlocks.SCULK_LOG.get()),
+                new CherryTrunkPlacer(7, 1, 0,
+                        new WeightedListInt(SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()),
+                        UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)
+                ),
+                BlockStateProvider.simple(MWBlocks.SCULK_LEAVES.get()),
+                new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
+                new TwoLayersFeatureSize(1, 0, 2)
+        ).ignoreVines().build();
+    }
 }

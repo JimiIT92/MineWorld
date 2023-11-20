@@ -1,0 +1,8 @@
+{
+  "parent": "mineworld:block/template_bush",
+  "textures": {
+    "side": "mineworld:block/sculk_leaves",
+    "top": "mineworld:block/sculk_leaves",
+    "plant": "mineworld:block/sculk_sapling"
+  }
+}

@@ -177,6 +177,11 @@ public final class MWDispenseBehaviors {
                 PropertyHelper.boatDispenseBehavior(MWBoat.Type.DEAD, true), MWItems.DEAD_CHEST_BOAT
             )
         );
+        RegisterHelper.registerDispenseBehaviors(Map.of(
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.SCULK, false), MWItems.SCULK_BOAT,
+                PropertyHelper.boatDispenseBehavior(MWBoat.Type.SCULK, true), MWItems.SCULK_CHEST_BOAT
+            )
+        );
     }
 
 }

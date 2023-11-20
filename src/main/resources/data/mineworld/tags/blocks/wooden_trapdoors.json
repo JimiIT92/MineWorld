@@ -3,6 +3,7 @@
   "values": [
     "mineworld:apple_trapdoor",
     "mineworld:palm_trapdoor",
-    "mineworld:dead_trapdoor"
+    "mineworld:dead_trapdoor",
+    "mineworld:sculk_trapdoor"
   ]
 }

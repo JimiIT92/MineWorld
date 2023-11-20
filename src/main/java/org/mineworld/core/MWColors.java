@@ -10,7 +10,7 @@ import org.mineworld.MineWorld;
 public enum MWColors {
 
     PRISMARINE(0x49C4AF, MapColor.COLOR_CYAN),
-    ECHO_SHARD(0x0A2330, MapColor.COLOR_BLACK),
+    SCULK(0x0A2330, MapColor.COLOR_BLACK),
     RUBY(0x9F3535, MapColor.FIRE),
     SAPPHIRE(0x35559F, MapColor.COLOR_BLUE),
     RAW_SILVER(0xC5C5C5, MapColor.RAW_IRON),

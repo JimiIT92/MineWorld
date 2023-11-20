@@ -13,5 +13,6 @@ public final class MWWoodTypes {
     public static final WoodType PALM = RegisterHelper.registerWoodType("palm");
     public static final WoodType DEAD = RegisterHelper.registerWoodType("dead");
     public static final WoodType ICE = RegisterHelper.registerWoodType("ice");
+    public static final WoodType SCULK = RegisterHelper.registerWoodType("sculk");
 
 }

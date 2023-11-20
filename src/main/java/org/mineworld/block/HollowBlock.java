@@ -86,21 +86,39 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
             .put(MWBlocks.DEAD_LOG.get(), MWBlocks.HOLLOW_DEAD_LOG.get())
             .put(MWBlocks.STRIPPED_DEAD_LOG.get(), MWBlocks.HOLLOW_STRIPPED_DEAD_LOG.get())
             .put(MWBlocks.HOLLOW_DEAD_LOG.get(), MWBlocks.HOLLOW_STRIPPED_DEAD_LOG.get())
+            .put(MWBlocks.SCULK_LOG.get(), MWBlocks.HOLLOW_SCULK_LOG.get())
+            .put(MWBlocks.STRIPPED_SCULK_LOG.get(), MWBlocks.HOLLOW_STRIPPED_SCULK_LOG.get())
+            .put(MWBlocks.HOLLOW_SCULK_LOG.get(), MWBlocks.HOLLOW_STRIPPED_SCULK_LOG.get())
     .build());
 
     /**
      * {@link BooleanProperty The block waterlogged property}
      */
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    /**
+     * {@link Boolean If the block is flammable}
+     */
+    private final Boolean IS_FLAMMABLE;
+
+    /**
+     * Default constructor. Set the {@link BlockBehaviour.Properties block properties}
+     *
+     * @param properties {@link BlockBehaviour.Properties The block properties}
+     */
+    public HollowBlock(final BlockBehaviour.Properties properties) {
+        this(properties, true);
+    }
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties block properties}
      *
      * @param properties {@link BlockBehaviour.Properties The block properties}
+     * @param isFlammable {@link Boolean If the block is flammable}
      */
-    public HollowBlock(final BlockBehaviour.Properties properties) {
+    public HollowBlock(final BlockBehaviour.Properties properties, boolean isFlammable) {
         super(properties.noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, Boolean.FALSE));
+        IS_FLAMMABLE = isFlammable;
     }
 
     /**
@@ -114,7 +132,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      */
     @Override
     public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return blockState.isFlammable(blockGetter, blockPos, direction);
+        return IS_FLAMMABLE;
     }
 
     /**
@@ -128,7 +146,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      */
     @Override
     public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 5;
+        return IS_FLAMMABLE ? 5 : 0;
     }
 
     /**
@@ -142,7 +160,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      */
     @Override
     public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 5;
+        return IS_FLAMMABLE ? 5 : 0;
     }
 
     /**

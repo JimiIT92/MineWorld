@@ -1,0 +1,8 @@
+{
+  "type": "mineworld:woodcutting",
+  "count": 2,
+  "ingredient": {
+    "item": "mineworld:sculk_planks"
+  },
+  "result": "mineworld:sculk_slab"
+}

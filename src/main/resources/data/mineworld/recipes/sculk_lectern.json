@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": {
+      "tag": "mineworld:bookshelves"
+    },
+    "S": {
+      "item": "mineworld:sculk_slab"
+    }
+  },
+  "pattern": [
+    "SSS",
+    " B ",
+    " S "
+  ],
+  "result": {
+    "item": "mineworld:sculk_lectern"
+  },
+  "show_notification": true
+}

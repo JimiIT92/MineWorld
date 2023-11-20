@@ -51,11 +51,13 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<SignBlockEntity>> SIGN = RegisterHelper.registerBlockEntity("sign", SignBlockEntity::new,
             MWBlocks.APPLE_SIGN, MWBlocks.APPLE_WALL_SIGN,
             MWBlocks.PALM_SIGN, MWBlocks.PALM_WALL_SIGN,
-            MWBlocks.DEAD_SIGN, MWBlocks.DEAD_WALL_SIGN);
+            MWBlocks.DEAD_SIGN, MWBlocks.DEAD_WALL_SIGN,
+            MWBlocks.SCULK_SIGN, MWBlocks.SCULK_WALL_SIGN);
     public static final RegistryObject<BlockEntityType<HangingSignBlockEntity>> HANGING_SIGN = RegisterHelper.registerBlockEntity("hanging_sign", HangingSignBlockEntity::new,
             MWBlocks.APPLE_HANGING_SIGN, MWBlocks.APPLE_WALL_HANGING_SIGN,
             MWBlocks.PALM_HANGING_SIGN, MWBlocks.PALM_WALL_HANGING_SIGN,
-            MWBlocks.DEAD_HANGING_SIGN, MWBlocks.DEAD_WALL_HANGING_SIGN);
+            MWBlocks.DEAD_HANGING_SIGN, MWBlocks.DEAD_WALL_HANGING_SIGN,
+            MWBlocks.SCULK_HANGING_SIGN, MWBlocks.SCULK_WALL_HANGING_SIGN);
     public static final RegistryObject<BlockEntityType<LecternBlockEntity>> APPLE_LECTERN = RegisterHelper.registerBlockEntity("apple_lectern", LecternBlockEntity::new, MWBlocks.APPLE_LECTERN);
     public static final RegistryObject<BlockEntityType<AppleChestBlockEntity>> APPLE_CHEST = RegisterHelper.registerBlockEntity("apple_chest", AppleChestBlockEntity::new, MWBlocks.APPLE_CHEST);
     public static final RegistryObject<BlockEntityType<AppleTrappedChestBlockEntity>> APPLE_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("apple_trapped_chest", AppleTrappedChestBlockEntity::new, MWBlocks.APPLE_TRAPPED_CHEST);
@@ -67,6 +69,9 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<DeadTrappedChestBlockEntity>> DEAD_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("dead_trapped_chest", DeadTrappedChestBlockEntity::new, MWBlocks.DEAD_TRAPPED_CHEST);
     public static final RegistryObject<BlockEntityType<IceChestBlockEntity>> ICE_CHEST = RegisterHelper.registerBlockEntity("ice_chest", IceChestBlockEntity::new, MWBlocks.ICE_CHEST);
     public static final RegistryObject<BlockEntityType<IceTrappedChestBlockEntity>> ICE_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("ice_trapped_chest", IceTrappedChestBlockEntity::new, MWBlocks.ICE_TRAPPED_CHEST);
+    public static final RegistryObject<BlockEntityType<LecternBlockEntity>> SCULK_LECTERN = RegisterHelper.registerBlockEntity("sculk_lectern", LecternBlockEntity::new, MWBlocks.SCULK_LECTERN);
+    public static final RegistryObject<BlockEntityType<SculkChestBlockEntity>> SCULK_CHEST = RegisterHelper.registerBlockEntity("sculk_chest", SculkChestBlockEntity::new, MWBlocks.SCULK_CHEST);
+    public static final RegistryObject<BlockEntityType<SculkTrappedChestBlockEntity>> SCULK_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("sculk_trapped_chest", SculkTrappedChestBlockEntity::new, MWBlocks.SCULK_TRAPPED_CHEST);
 
     public static final RegistryObject<BlockEntityType<SkullBlockEntity>> SKULL = RegisterHelper.registerBlockEntity("skull", SkullBlockEntity::new,
             MWBlocks.STRAY_SKULL,
@@ -133,5 +138,8 @@ public final class MWBlockEntityTypes {
         BlockEntityRenderers.register(SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(HANGING_SIGN.get(), HangingSignRenderer::new);
         BlockEntityRenderers.register(SKULL.get(), SkullBlockRenderer::new);
+        BlockEntityRenderers.register(SCULK_LECTERN.get(), LecternRenderer::new);
+        BlockEntityRenderers.register(SCULK_CHEST.get(), SculkChestRenderer::new);
+        BlockEntityRenderers.register(SCULK_TRAPPED_CHEST.get(), SculkTrappedChestRenderer::new);
     }
 }
