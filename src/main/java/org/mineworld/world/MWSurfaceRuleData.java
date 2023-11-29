@@ -1,5 +1,6 @@
 package org.mineworld.world;
 
+import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
@@ -52,6 +53,7 @@ public class MWSurfaceRuleData {
                                                         SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, PERENNIAL_ICE), SurfaceRules.sequence(SurfaceRules.ifTrue(surfaceNoise(), blueIceSurface), blueIceSurface))),
                                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.WASTELAND),
                                                         SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE), SurfaceRules.sequence(SurfaceRules.ifTrue(surfaceNoise(), coarseDirtSurface), STONE))),
+                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.FOSSILS_WASTELAND), SurfaceRuleData.overworld()),
                                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.VOLCANIC_PEAK),
                                                         SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, DEEPSLATE), SurfaceRules.ifTrue(surfaceNoise(), BLACKSTONE)))
                                         )
@@ -60,7 +62,7 @@ public class MWSurfaceRuleData {
                                         SurfaceRules.DEEP_UNDER_FLOOR,
                                         SurfaceRules.sequence(
                                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.FROZEN_PLAINS), PERENNIAL_ICE),
-                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.WASTELAND), STONE)
+                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.WASTELAND, MWBiomes.FOSSILS_WASTELAND), STONE)
                                         )
                                 )
                         )
@@ -74,7 +76,7 @@ public class MWSurfaceRuleData {
                                 )
                         )
                 ),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.WASTELAND),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.WASTELAND, MWBiomes.FOSSILS_WASTELAND),
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(surfaceNoise(), STONE),
                                 SurfaceRules.sequence(

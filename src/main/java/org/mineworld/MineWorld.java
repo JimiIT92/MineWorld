@@ -50,6 +50,7 @@ public final class MineWorld {
         MWPoiTypes.register(eventBus);
         MWVillagerProfessions.register(eventBus);
         MWLootModifiers.register(eventBus);
+        MWFeatures.register(eventBus);
         MWBiomes.register(eventBus);
         MWTrunkPlacerTypes.register(eventBus);
         MWFoliagePlacerTypes.register(eventBus);

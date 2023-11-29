@@ -3,6 +3,7 @@
   "values": [
     "#mineworld:is_mountain",
     "mineworld:frozen_plains",
-    "mineworld:wasteland"
+    "mineworld:wasteland",
+    "mineworld:fossils_wasteland"
   ]
 }

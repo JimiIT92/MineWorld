@@ -53,6 +53,7 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> FANCY_DEAD_TREE = KeyHelper.registerPlacedFeatureKey("fancy_dead_tree");
     public static final ResourceKey<PlacedFeature> PALM_TREE = KeyHelper.registerPlacedFeatureKey("palm_tree");
     public static final ResourceKey<PlacedFeature> SCULK_TREE = KeyHelper.registerPlacedFeatureKey("sculk_tree");
+    public static final ResourceKey<PlacedFeature> BONE_SPIKE = KeyHelper.registerPlacedFeatureKey("bone_key");
 
     /**
      * Register the {@link PlacedFeature placed features}
@@ -112,6 +113,8 @@ public final class MWPlacedFeatures {
                 VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(1), Blocks.OAK_SAPLING));
         RegisterHelper.registerPlacedFeature(context, SCULK_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.SCULK_TREE),
                 VegetationPlacements.treePlacement(CountPlacement.of(1), MWBlocks.SCULK_SAPLING.get()));
+        RegisterHelper.registerPlacedFeature(context, BONE_SPIKE, configuredFeatures.getOrThrow(MWConfiguredFeatures.BONE_SPIKE),
+                List.of(RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), PlacementUtils.FULL_RANGE, BiomeFilter.biome()));
     }
 
 }

@@ -153,17 +153,6 @@ public class MWOverworldBiomeBuilder {
     };
 
     /**
-     * {@link ResourceKey<Biome> Plateau biome variants}
-     */
-    private final ResourceKey<Biome>[][] PLATEAU_BIOMES_VARIANT = new ResourceKey[][]{
-            {Biomes.ICE_SPIKES,      null,                   null,          null,                null},
-            {null,                   null,                   Biomes.MEADOW, Biomes.MEADOW,       Biomes.OLD_GROWTH_PINE_TAIGA},
-            {null,                   null,                   Biomes.FOREST, Biomes.BIRCH_FOREST, null},
-            {MWBiomes.WASTELAND,     MWBiomes.WASTELAND,     null,          null,                null},
-            {Biomes.ERODED_BADLANDS, Biomes.ERODED_BADLANDS, null,          null,                null}
-    };
-
-    /**
      * {@link ResourceKey<Biome> MineWorld Plateau biome variants}
      */
     private final ResourceKey<Biome>[][] MW_PLATEAU_BIOMES_VARIANT = new ResourceKey[][]{
@@ -471,7 +460,10 @@ public class MWOverworldBiomeBuilder {
      * @return {@link ResourceKey<Biome> The MineWorld middle biome}
      */
     private ResourceKey<Biome> pickMiddleBiomeMW(final int temperatureIndex, final int humidityIndex, final Climate.Parameter weirdness) {
-        final ResourceKey<Biome> biome = weirdness.max() < 0 ? this.MIDDLE_BIOMES[temperatureIndex][humidityIndex] : this.MW_MIDDLE_BIOMES_VARIANT[temperatureIndex][humidityIndex];
+        ResourceKey<Biome> biome = weirdness.max() < 0 ? this.MIDDLE_BIOMES[temperatureIndex][humidityIndex] : this.MW_MIDDLE_BIOMES_VARIANT[temperatureIndex][humidityIndex];
+        if(biome != null && biome.equals(MWBiomes.WASTELAND) && weirdness.max() >= 0L) {
+            biome = MWBiomes.FOSSILS_WASTELAND;
+        }
         return biome == null ? this.MIDDLE_BIOMES[temperatureIndex][humidityIndex] : biome;
     }
 

@@ -25,6 +25,7 @@ public final class MWBiomes {
     public static final ResourceKey<Biome> FROZEN_PLAINS = KeyHelper.registerBiome("frozen_plains");
     public static final ResourceKey<Biome> WASTELAND = KeyHelper.registerBiome("wasteland");
     public static final ResourceKey<Biome> VOLCANIC_PEAK = KeyHelper.registerBiome("volcanic_peak");
+    public static final ResourceKey<Biome> FOSSILS_WASTELAND = KeyHelper.registerBiome("fossils_wasteland");
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Biome biomes}
@@ -46,6 +47,7 @@ public final class MWBiomes {
         context.register(FROZEN_PLAINS, BiomeHelper.frozenPlains(placedFeatureHolder, carver));
         context.register(WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
         context.register(VOLCANIC_PEAK, BiomeHelper.volcanicPeak(placedFeatureHolder, carver));
+        context.register(FOSSILS_WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
     }
 
     /**
