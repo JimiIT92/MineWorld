@@ -73,7 +73,6 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_dead_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SCULK_TREE = KeyHelper.registerConfiguredFeatureKey("sculk_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BONE_SPIKE = KeyHelper.registerConfiguredFeatureKey("bone_spike");
-    //public static final ResourceKey<ConfiguredFeature<?, ?>> FOSSIL_WASTELAND = KeyHelper.registerConfiguredFeatureKey("fossil_wasteland");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -111,7 +110,6 @@ public final class MWConfiguredFeatures {
         FeatureUtils.register(context, FANCY_DEAD_TREE, Feature.TREE, deadTree(true));
         FeatureUtils.register(context, SCULK_TREE, Feature.TREE, sculkTree());
         FeatureUtils.register(context, BONE_SPIKE, MWFeatures.BONE_SPIKE.get());
-        //FeatureUtils.register(context, FOSSIL_WASTELAND, Feature.FOSSIL, new FossilFeatureConfiguration(list, list1, holder, holdergetter1.getOrThrow(ProcessorLists.FOSSIL_COAL), 4));
     }
 
     /**
