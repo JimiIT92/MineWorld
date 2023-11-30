@@ -16,10 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.LeadItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.LecternBlock;
-import net.minecraft.world.level.block.RodBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -63,6 +60,24 @@ public final class RightClickBlockEventListener {
             final BlockState blockState = level.getBlockState(clickedPos);
             final ItemStack itemStack = event.getItemStack();
             final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
+            if(itemStack.isEmpty()) {
+                if(blockState.is(Blocks.TORCH)) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_TORCH.get());
+                    return;
+                }
+                if(blockState.is(Blocks.WALL_TORCH)) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_WALL_TORCH.get());
+                    return;
+                }
+                if(blockState.is(Blocks.SOUL_TORCH)) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SOUL_TORCH.get());
+                    return;
+                }
+                if(blockState.is(Blocks.SOUL_WALL_TORCH)) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SOUL_WALL_TORCH.get());
+                    return;
+                }
+            }
             if(itemStack.is(Items.BONE)) {
                 handleRodPlacement(event, level, clickedPos, player, itemStack, MWBlocks.BONE_ROD_BLOCK.get());
                 return;
@@ -159,7 +174,7 @@ public final class RightClickBlockEventListener {
                 event.setUseItem(Event.Result.DENY);
                 if(level.isClientSide()) {
                     player.swing(event.getHand());
-                    player.playSound(SoundEvents.AXE_STRIP, 1.0F, 1.0F);
+                    PlayerHelper.playSound(player, SoundEvents.AXE_STRIP);
                 }
             });
         }
@@ -188,7 +203,7 @@ public final class RightClickBlockEventListener {
                 event.setUseItem(Event.Result.DENY);
                 if(level.isClientSide()) {
                     player.swing(event.getHand());
-                    player.playSound(SoundEvents.LANTERN_PLACE, 1.0F, 1.0F);
+                    PlayerHelper.playSound(player, SoundEvents.LANTERN_PLACE);
                 }
             });
         }
@@ -268,14 +283,32 @@ public final class RightClickBlockEventListener {
     private static void handleRodPlacement(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final Block rodBlock) {
         if(player.isShiftKeyDown()) {
             final Direction face = event.getFace();
-            final BlockPos rodPos = clickedPos.offset(event.getFace().getNormal());
+            final BlockPos rodPos = clickedPos.offset(Objects.requireNonNull(event.getFace()).getNormal());
             if(level.getBlockState(rodPos).isAir()) {
-                final BlockState rodState = rodBlock.defaultBlockState().setValue(RodBlock.FACING, face.getOpposite());
+                final BlockState rodState = rodBlock.defaultBlockState().setValue(RodBlock.FACING, Objects.requireNonNull(face).getOpposite());
                 level.setBlock(rodPos, rodState, 2);
-                player.playSound(rodBlock.getSoundType(rodState, level, rodPos, player).getPlaceSound(), 0.75F, 0.75F);
+                player.playSound(rodBlock.getSoundType(rodState, level, rodPos, player).getPlaceSound());
                 event.setCanceled(true);
                 ItemHelper.hurt(event.getItemStack(), player);
             }
         }
     }
+
+    /**
+     * Handle interaction with a {@link TorchBlock torch block}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param itemStack {@link ItemStack The id stack used to interact with the block}
+     * @param torchState {@link BlockState The torch Block State}
+     * @param unlitTorchBlock {@link Block The rod block to place}
+     */
+    private static void handleUnlitTorchPlacement(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final BlockState torchState, final Block unlitTorchBlock) {
+        level.setBlock(clickedPos, unlitTorchBlock.withPropertiesOf(torchState), 2);
+        player.playSound(SoundEvents.CANDLE_EXTINGUISH);
+        event.setCanceled(true);
+    }
+
 }

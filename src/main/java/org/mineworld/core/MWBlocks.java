@@ -1485,6 +1485,10 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = RegisterHelper.registerBlock("ethereal_rune_delta", EtherealRuneBlock::new);
     public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = RegisterHelper.registerBlock("ethereal_rune_omega", EtherealRuneBlock::new);
     public static final RegistryObject<Block> ETHEREAL_PORTAL = RegisterHelper.registerBlockWithoutBlockItem("ethereal_portal", EtherealPortalBlock::new);
+    public static final RegistryObject<Block> UNLIT_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_torch", () -> new UnlitTorchBlock(false));
+    public static final RegistryObject<Block> UNLIT_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_wall_torch", () -> new UnlitWallTorchBlock(false));
+    public static final RegistryObject<Block> UNLIT_SOUL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_torch", () -> new UnlitTorchBlock(true));
+    public static final RegistryObject<Block> UNLIT_SOUL_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_wall_torch", () -> new UnlitWallTorchBlock(true));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

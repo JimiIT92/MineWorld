@@ -332,6 +332,8 @@ public final class MWItems {
     public static final RegistryObject<Item> ECHOING_CHARGE_FRAGMENT = RegisterHelper.registerRareItem("echoing_charge_fragment", Rarity.RARE);
     public static final RegistryObject<Item> ECHOING_CHARGE = RegisterHelper.registerItem("echoing_charge", EchoingChargeItem::new);
     public static final RegistryObject<Item> SCULK_HEART = RegisterHelper.registerRareItem("sculk_heart", Rarity.EPIC);
+    public static final RegistryObject<Item> UNLIT_TORCH = RegisterHelper.registerItem("unlit_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_TORCH.get(), MWBlocks.UNLIT_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
+    public static final RegistryObject<Item> UNLIT_SOUL_TORCH = RegisterHelper.registerItem("unlit_soul_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_SOUL_TORCH.get(), MWBlocks.UNLIT_SOUL_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

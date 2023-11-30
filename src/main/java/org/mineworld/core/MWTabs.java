@@ -1225,6 +1225,8 @@ public final class MWTabs {
      */
     private static void setFunctionalBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
+                MWItems.UNLIT_TORCH,
+                MWItems.UNLIT_SOUL_TORCH,
                 MWBlocks.GOLDEN_LANTERN,
                 MWBlocks.GOLDEN_SOUL_LANTERN,
                 MWBlocks.ALUMINUM_LANTERN,
@@ -2103,8 +2105,8 @@ public final class MWTabs {
                 MWItems.ALUMINUM_INGOT,
                 MWItems.SILVER_INGOT,
                 MWItems.BRONZE_INGOT,
-                MWItems.WARPED_WART,
-                MWItems.ECHOING_CHARGE_FRAGMENT
+                MWItems.ECHOING_CHARGE_FRAGMENT,
+                MWItems.WARPED_WART
         );
     }
 
