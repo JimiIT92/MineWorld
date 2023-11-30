@@ -1942,8 +1942,12 @@ public final class MWTabs {
                 MWItems.PIGLIN_CHESTPLATE,
                 MWItems.PIGLIN_LEGGINGS,
                 MWItems.PIGLIN_BOOTS,
+                MWItems.WITCH_CHESTPLATE,
+                MWItems.WITCH_LEGGINGS,
+                MWItems.WITCH_BOOTS,
                 MWItems.ECHOING_CHARGE,
-                MWItems.SCULK_HEART
+                MWItems.SCULK_HEART,
+                MWItems.MAGIC_MIRROR
         );
     }
 
@@ -1996,6 +2000,7 @@ public final class MWTabs {
                 MWItems.SAPPHIRE_CHESTPLATE,
                 MWItems.SAPPHIRE_LEGGINGS,
                 MWItems.SAPPHIRE_BOOTS,
+                MWItems.INVISIBILITY_CLOAK,
                 MWItems.ALUMINUM_HORSE_ARMOR,
                 MWItems.CHAINMAIL_HORSE_ARMOR,
                 MWItems.BRONZE_HORSE_ARMOR,
@@ -2080,7 +2085,8 @@ public final class MWTabs {
                 MWItems.BLUEBERRIES,
                 MWItems.CHERRY,
                 MWItems.COB,
-                MWItems.BAKED_COB
+                MWItems.BAKED_COB,
+                MWItems.CANDY_CANE
         );
     }
 

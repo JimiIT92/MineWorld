@@ -327,6 +327,12 @@
   "item.mineworld.sculk_heart": "Cuore di sculk",
   "item.mineworld.unlit_torch": "Torcia spenta",
   "item.mineworld.unlit_soul_torch": "Torcia delle anime spenta",
+  "item.mineworld.candy_cane": "Bastone di zucchero",
+  "item.mineworld.invisibility_cloak": "Mantello dell'invisibilità",
+  "item.mineworld.witch_chestplate": "Vestito da strega",
+  "item.mineworld.witch_leggings": "Pantaloni da strega",
+  "item.mineworld.witch_boots": "Stivali da strega",
+  "item.mineworld.magic_mirror": "Specchio magico",
   "block.mineworld.silver_ore": "Minerale di argento",
   "block.mineworld.deepslate_silver_ore": "Minerale di argento in ardesia profonda",
   "block.mineworld.aluminum_ore": "Minerale di alluminio",
@@ -1759,5 +1765,6 @@
   "advancements.story.mine_emerald.title": "Posso tenerlo?",
   "advancements.story.mine_emerald.description": "Ottieni degli smeraldi",
   "advancements.story.ruby_sapphire_and_emerald.title": "Nuzlocke!",
-  "advancements.story.ruby_sapphire_and_emerald.description": "Ottieni dei rubini, degli zaffiri e degli smeraldi"
+  "advancements.story.ruby_sapphire_and_emerald.description": "Ottieni dei rubini, degli zaffiri e degli smeraldi",
+  "message.mineworld.magic_mirror_invalid_spawn": "Impossibile trovare un punto di spawn valido!"
 }

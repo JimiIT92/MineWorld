@@ -37,7 +37,7 @@ public class GrenadeItem extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(final @NotNull Level level, final Player player, final @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-        ItemHelper.setCooldown(player, this, 40);
+        ItemHelper.setCooldown(player, this, 60);
         if (!level.isClientSide) {
             ThrownGrenade grenade = new ThrownGrenade(level, player);
             grenade.setItem(itemstack);

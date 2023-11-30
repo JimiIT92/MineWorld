@@ -420,6 +420,36 @@
         }
       },
       "trigger": "minecraft:consume_item"
+    },
+    "blueberries": {
+      "conditions": {
+        "item": {
+          "items": [
+            "mineworld:blueberries"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cherry": {
+      "conditions": {
+        "item": {
+          "items": [
+            "mineworld:cherry"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "candy_cane": {
+      "conditions": {
+        "item": {
+          "items": [
+            "mineworld:candy_cane"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
     }
   },
   "display": {
@@ -563,6 +593,15 @@
     ],
     [
       "baked_cob"
+    ],
+    [
+      "blueberries"
+    ],
+    [
+      "cherry"
+    ],
+    [
+      "candy_cane"
     ]
   ],
   "rewards": {

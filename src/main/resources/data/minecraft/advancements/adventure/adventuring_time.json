@@ -880,6 +880,22 @@
         ]
       },
       "trigger": "minecraft:location"
+    },
+    "mineworld:fossils_wasteland": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "mineworld:fossils_wasteland"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
     }
   },
   "display": {
@@ -1063,6 +1079,9 @@
     ],
     [
       "mineworld:volcanic_peak"
+    ],
+    [
+      "mineworld:fossils_wasteland"
     ]
   ],
   "rewards": {

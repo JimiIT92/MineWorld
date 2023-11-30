@@ -17,6 +17,8 @@
     "mineworld:chests/village/village_taiga_house",
     "mineworld:chests/village/village_toolsmith",
     "mineworld:chests/village/village_weaponsmith",
-    "mineworld:entities/warden"
+    "mineworld:entities/illusioner",
+    "mineworld:entities/warden",
+    "mineworld:entities/witch"
   ]
 }

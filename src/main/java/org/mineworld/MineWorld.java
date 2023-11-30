@@ -1,6 +1,8 @@
 package org.mineworld;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -84,6 +86,7 @@ public final class MineWorld {
         event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
         event.enqueueWork(RegisterHelper::registerCompostables);
         event.enqueueWork(MWBiomes::registerOverworldBiomes);
+        event.enqueueWork(() -> Raid.RaiderType.create("illusioner", EntityType.ILLUSIONER, new int[]{0, 0, 0, 0, 1, 1, 2, 2}));
     }
 
     /**

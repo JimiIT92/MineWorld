@@ -7,7 +7,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
-import org.mineworld.item.MWArmorMaterials;
+import org.mineworld.core.MWArmorMaterials;
 
 import java.util.List;
 

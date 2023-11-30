@@ -1,4 +1,4 @@
-package org.mineworld.item;
+package org.mineworld.core;
 
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
@@ -11,7 +11,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.core.MWItems;
 import org.mineworld.helper.KeyHelper;
 
 import java.util.EnumMap;
@@ -71,7 +70,9 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
     SKELETON("skeleton"),
     WITHER_SKELETON("wither_skeleton"),
     STRAY("stray"),
-    PIGLIN("piglin");
+    PIGLIN("piglin"),
+    WITCH("witch"),
+    INVISIBILITY_CLOAK("invisibility_cloak", SoundEvents.BELL_RESONATE);
 
     /**
      * {@link StringRepresentable.EnumCodec The enum codec for this enum}
@@ -131,12 +132,23 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param name {@link String The armor material name}
      */
     MWArmorMaterials(final String name) {
+        this(name, SoundEvents.ARMOR_EQUIP_LEATHER);
+    }
+
+    /**
+     * Cosmetic constructor. Set the armor material properties
+     * to be just a cosmetic item and don't provide any protection
+     *
+     * @param name {@link String The armor material name}
+     * @param equipSound {@link SoundEvent The equip sound}
+     */
+    MWArmorMaterials(final String name, final SoundEvent equipSound) {
         this(name, 0, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
             enumMap.put(ArmorItem.Type.BOOTS, 0);
             enumMap.put(ArmorItem.Type.LEGGINGS, 0);
             enumMap.put(ArmorItem.Type.CHESTPLATE, 0);
             enumMap.put(ArmorItem.Type.HELMET, 0);
-        }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
+        }), 0, equipSound, 0.0F, 0.0F, () -> Ingredient.EMPTY);
     }
 
     /**
