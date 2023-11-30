@@ -12,6 +12,7 @@ import org.mineworld.helper.RegisterHelper;
 public final class MWPoiTypes {
 
     public static final RegistryObject<PoiType> CARPENTER = RegisterHelper.registerPOIType("carpenter", MWBlocks.WOODCUTTER);
+    public static final RegistryObject<PoiType> ETHEREAL_PORTAL = RegisterHelper.registerPOIType("ethereal_portal", MWBlocks.ETHEREAL_PORTAL);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link PoiType villager poi types}

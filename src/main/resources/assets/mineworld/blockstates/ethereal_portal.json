@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "mineworld:block/ethereal_portal_ns"
+    },
+    "axis=z": {
+      "model": "mineworld:block/ethereal_portal_ew"
+    }
+  }
+}

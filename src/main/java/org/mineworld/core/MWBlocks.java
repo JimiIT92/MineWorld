@@ -1479,11 +1479,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BONE_ROD_BLOCK = RegisterHelper.registerBlockWithoutBlockItem("bone_rod_block", () -> new MWRodBlock(MapColor.TERRACOTTA_WHITE, SoundType.BONE_BLOCK));
     public static final RegistryObject<Block> BLAZE_ROD_BLOCK = RegisterHelper.registerBlockWithoutBlockItem("blaze_rod_block", () -> new MWRodBlock(MapColor.TERRACOTTA_ORANGE, SoundType.METAL));
     public static final RegistryObject<Block> STICK_ROD_BLOCK = RegisterHelper.registerBlockWithoutBlockItem("stick_rod_block", () -> new MWRodBlock(MapColor.WOOD, SoundType.WOOD));
-    public static final RegistryObject<Block> ETHEREAL_RUNE_ALPHA = RegisterHelper.registerBlock("ethereal_rune_alpha", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.ALPHA));
-    public static final RegistryObject<Block> ETHEREAL_RUNE_BETA = RegisterHelper.registerBlock("ethereal_rune_beta", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.BETA));
-    public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = RegisterHelper.registerBlock("ethereal_rune_gamma", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.GAMMA));
-    public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = RegisterHelper.registerBlock("ethereal_rune_delta", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.DELTA));
-    public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = RegisterHelper.registerBlock("ethereal_rune_omega", () -> new EtherealRuneBlock(EtherealRuneBlock.EtherealRuneType.OMEGA));
+    public static final RegistryObject<Block> ETHEREAL_RUNE_ALPHA = RegisterHelper.registerBlock("ethereal_rune_alpha", EtherealRuneBlock::new);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_BETA = RegisterHelper.registerBlock("ethereal_rune_beta", EtherealRuneBlock::new);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = RegisterHelper.registerBlock("ethereal_rune_gamma", EtherealRuneBlock::new);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = RegisterHelper.registerBlock("ethereal_rune_delta", EtherealRuneBlock::new);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = RegisterHelper.registerBlock("ethereal_rune_omega", EtherealRuneBlock::new);
+    public static final RegistryObject<Block> ETHEREAL_PORTAL = RegisterHelper.registerBlockWithoutBlockItem("ethereal_portal", EtherealPortalBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

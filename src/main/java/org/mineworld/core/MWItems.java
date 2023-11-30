@@ -329,6 +329,9 @@ public final class MWItems {
     public static final RegistryObject<Item> SCULK_CHEST_BOAT = RegisterHelper.registerItem("sculk_chest_boat", () -> new MWBoatItem(true, MWBoat.Type.SCULK));
     public static final RegistryObject<Item> SCULK_SIGN = RegisterHelper.registerItem("sculk_sign", () -> new SignItem(PropertyHelper.basicItemProperties().stacksTo(16), MWBlocks.SCULK_SIGN.get(), MWBlocks.SCULK_WALL_SIGN.get()));
     public static final RegistryObject<Item> SCULK_HANGING_SIGN = RegisterHelper.registerItem("sculk_hanging_sign", () -> new HangingSignItem(MWBlocks.SCULK_HANGING_SIGN.get(), MWBlocks.SCULK_WALL_HANGING_SIGN.get(), PropertyHelper.basicItemProperties().stacksTo(16)));
+    public static final RegistryObject<Item> ECHOING_CHARGE_FRAGMENT = RegisterHelper.registerRareItem("echoing_charge_fragment", Rarity.RARE);
+    public static final RegistryObject<Item> ECHOING_CHARGE = RegisterHelper.registerItem("echoing_charge", EchoingChargeItem::new);
+    public static final RegistryObject<Item> SCULK_HEART = RegisterHelper.registerRareItem("sculk_heart", Rarity.EPIC);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

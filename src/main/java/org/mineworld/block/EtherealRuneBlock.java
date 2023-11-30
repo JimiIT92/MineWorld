@@ -15,10 +15,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.core.MWItems;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
@@ -29,25 +30,18 @@ import org.mineworld.helper.PropertyHelper;
 public class EtherealRuneBlock extends Block {
 
     /**
-     * The {@link EnumProperty Ethereal Rune Type} property
-     */
-    private final EtherealRuneType TYPE;
-    /**
      * The {@link BooleanProperty Lit property}
      */
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     /**
      * Constructor. Set the block properties
-     *
-     * @param type The {@link EtherealRuneType Ethereal Rune Type}
      */
-    public EtherealRuneBlock(EtherealRuneType type) {
+    public EtherealRuneBlock() {
         super(PropertyHelper.basicBlockProperties(MapColor.COLOR_YELLOW, 55F, 1200F, true, SoundType.SCULK_SHRIEKER)
                 .noLootTable()
                 .lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 10 : 0));
         this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.FALSE));
-        TYPE = type;
     }
 
     /**
@@ -79,21 +73,22 @@ public class EtherealRuneBlock extends Block {
             level.setBlock(pos, state.setValue(LIT, Boolean.TRUE), 2);
             ItemHelper.hurt(itemstack, player);
             PlayerHelper.playSound(player, SoundEvents.SCULK_CLICKING_STOP);
-            //try drop sculk charge
+
+            final double searchRange = 5.0D;
+            final double searchYRange = searchRange * 2;
+
+            final AABB searchBox = new AABB(
+                    pos.getX() - searchRange, pos.getY() - searchYRange, pos.getZ() - searchRange,
+                    pos.getX() + searchRange, pos.getY() + searchYRange, pos.getZ() + searchRange);
+
+            final int litRunes = (int) level.getBlockStates(searchBox).filter(blockState -> blockState.is(this) && blockState.hasProperty(LIT) && blockState.getValue(LIT)).count();
+
+            if(litRunes >= 5) {
+                player.addItem(ItemHelper.getDefaultStack(MWItems.ECHOING_CHARGE_FRAGMENT));
+            }
             return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;
-    }
-
-    /**
-     * The Ethereal Rune types
-     */
-    public enum EtherealRuneType {
-        ALPHA,
-        BETA,
-        GAMMA,
-        DELTA,
-        OMEGA
     }
 }

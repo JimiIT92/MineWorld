@@ -1939,7 +1939,9 @@ public final class MWTabs {
         addToTab(event,
                 MWItems.PIGLIN_CHESTPLATE,
                 MWItems.PIGLIN_LEGGINGS,
-                MWItems.PIGLIN_BOOTS
+                MWItems.PIGLIN_BOOTS,
+                MWItems.ECHOING_CHARGE,
+                MWItems.SCULK_HEART
         );
     }
 
@@ -2101,7 +2103,8 @@ public final class MWTabs {
                 MWItems.ALUMINUM_INGOT,
                 MWItems.SILVER_INGOT,
                 MWItems.BRONZE_INGOT,
-                MWItems.WARPED_WART
+                MWItems.WARPED_WART,
+                MWItems.ECHOING_CHARGE_FRAGMENT
         );
     }
 
