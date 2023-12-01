@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:mangrove_swamp",
+  "features": [
+    "mineworld:fallen_mangrove_tree_placed"
+  ],
+  "step": "vegetal_decoration"
+}

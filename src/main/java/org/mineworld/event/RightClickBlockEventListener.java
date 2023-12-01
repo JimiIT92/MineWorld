@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -100,6 +101,14 @@ public final class RightClickBlockEventListener {
             }
             if(itemStack.is(Items.LANTERN) || itemStack.is(Items.SOUL_LANTERN) || itemStack.is(MWTags.Items.LANTERNS)) {
                 handleWallHangingLantern(event, level, clickedPos, player, itemStack);
+                return;
+            }
+            if(itemStack.is(Items.BROWN_MUSHROOM)) {
+                handleMushroomPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.BROWN_MUSHROOM_WALL_FAN.get());
+                return;
+            }
+            if(itemStack.is(Items.RED_MUSHROOM)) {
+                handleMushroomPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.RED_MUSHROOM_WALL_FAN.get());
             }
         }
     }
@@ -309,6 +318,35 @@ public final class RightClickBlockEventListener {
         level.setBlock(clickedPos, unlitTorchBlock.withPropertiesOf(torchState), 2);
         player.playSound(SoundEvents.CANDLE_EXTINGUISH);
         event.setCanceled(true);
+    }
+
+    /**
+     * Handle interaction with a {@link WallHangingLanternBlock wall hanging lantern block}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param itemStack {@link ItemStack The id stack used to interact with the block}
+     * @param clickedBlockState {@link BlockState The clicked BlockState}
+     * @param mushroomBlock {@link Block The mushroom block}
+     */
+    private static void handleMushroomPlacement(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final BlockState clickedBlockState, final Block mushroomBlock) {
+        final Direction face = event.getFace();
+        final BlockPos placePos = clickedPos.offset(face.getNormal());
+        boolean isValidFace = face != Direction.DOWN && face != Direction.UP && clickedBlockState.isFaceSturdy(level, placePos, face) && level.getBlockState(placePos).canBeReplaced();
+        if(isValidFace) {
+            if(!level.isClientSide()) {
+                level.setBlockAndUpdate(placePos, mushroomBlock.defaultBlockState()
+                        .setValue(BaseCoralPlantTypeBlock.WATERLOGGED, level.getFluidState(placePos).is(Fluids.WATER))
+                        .setValue(BaseCoralWallFanBlock.FACING, face)
+                );
+                ItemHelper.hurt(itemStack, player);
+            } else {
+                player.swing(event.getHand());
+                player.playSound(SoundEvents.GRASS_PLACE, 1.0F, 1.0F);
+            }
+        }
     }
 
 }

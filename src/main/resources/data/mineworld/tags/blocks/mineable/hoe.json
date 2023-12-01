@@ -13,6 +13,8 @@
     "mineworld:rooted_dirt_carpet",
     "mineworld:coarse_dirt_carpet",
     "mineworld:mud_carpet",
-    "mineworld:clay_carpet"
+    "mineworld:clay_carpet",
+    "mineworld:brown_mushroom_wall_fan",
+    "mineworld:red_mushroom_wall_fan"
   ]
 }

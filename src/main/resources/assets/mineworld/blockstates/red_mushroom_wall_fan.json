@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mineworld:block/red_mushroom_wall_fan",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mineworld:block/red_mushroom_wall_fan"
+    },
+    "facing=south": {
+      "model": "mineworld:block/red_mushroom_wall_fan",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mineworld:block/red_mushroom_wall_fan",
+      "y": 270
+    }
+  }
+}

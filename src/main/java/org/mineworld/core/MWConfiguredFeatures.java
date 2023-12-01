@@ -33,6 +33,7 @@ import org.mineworld.MineWorld;
 import org.mineworld.block.BlueberryBushBlock;
 import org.mineworld.helper.KeyHelper;
 import org.mineworld.helper.RegisterHelper;
+import org.mineworld.world.worldgen.feature.configuration.FallenTreeConfiguration;
 import org.mineworld.world.worldgen.tree.foliageplacers.PalmFoliagePlacer;
 import org.mineworld.world.worldgen.tree.trunkplacers.PalmTrunkPlacer;
 
@@ -73,6 +74,18 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fancy_dead_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SCULK_TREE = KeyHelper.registerConfiguredFeatureKey("sculk_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BONE_SPIKE = KeyHelper.registerConfiguredFeatureKey("bone_spike");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_oak_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE_SWAMP = KeyHelper.registerConfiguredFeatureKey("fallen_oak_tree_swamp");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_BIRCH_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_birch_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_spruce_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_JUNGLE_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_jungle_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_ACACIA_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_acacia_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_DARK_OAK_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_dark_oak_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_MANGROVE_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_mangrove_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_CHERRY_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_cherry_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_apple_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_PALM_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_palm_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_dead_tree");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -110,6 +123,18 @@ public final class MWConfiguredFeatures {
         FeatureUtils.register(context, FANCY_DEAD_TREE, Feature.TREE, deadTree(true));
         FeatureUtils.register(context, SCULK_TREE, Feature.TREE, sculkTree());
         FeatureUtils.register(context, BONE_SPIKE, MWFeatures.BONE_SPIKE.get());
+        FeatureUtils.register(context, FALLEN_OAK_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.OAK_LOG, MWBlocks.HOLLOW_OAK_LOG.get(), true));
+        FeatureUtils.register(context, FALLEN_OAK_TREE_SWAMP, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.OAK_LOG, MWBlocks.HOLLOW_OAK_LOG.get(), false));
+        FeatureUtils.register(context, FALLEN_BIRCH_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.BIRCH_LOG, MWBlocks.HOLLOW_BIRCH_LOG.get(), false));
+        FeatureUtils.register(context, FALLEN_SPRUCE_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.SPRUCE_LOG, MWBlocks.HOLLOW_SPRUCE_LOG.get(), true));
+        FeatureUtils.register(context, FALLEN_JUNGLE_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.JUNGLE_LOG, MWBlocks.HOLLOW_JUNGLE_LOG.get(), false));
+        FeatureUtils.register(context, FALLEN_ACACIA_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.ACACIA_LOG, MWBlocks.HOLLOW_ACACIA_LOG.get(), true));
+        FeatureUtils.register(context, FALLEN_DARK_OAK_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.DARK_OAK_LOG, MWBlocks.HOLLOW_DARK_OAK_LOG.get(), true));
+        FeatureUtils.register(context, FALLEN_MANGROVE_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.MANGROVE_LOG, MWBlocks.HOLLOW_MANGROVE_LOG.get(), false));
+        FeatureUtils.register(context, FALLEN_CHERRY_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(Blocks.CHERRY_LOG, MWBlocks.HOLLOW_CHERRY_LOG.get(), true));
+        FeatureUtils.register(context, FALLEN_APPLE_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(MWBlocks.APPLE_LOG.get(), MWBlocks.HOLLOW_APPLE_LOG.get(), true));
+        FeatureUtils.register(context, FALLEN_PALM_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(MWBlocks.PALM_LOG.get(), MWBlocks.HOLLOW_PALM_LOG.get(), true));
+        FeatureUtils.register(context, FALLEN_DEAD_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(MWBlocks.DEAD_LOG.get(), MWBlocks.HOLLOW_DEAD_LOG.get(), true));
     }
 
     /**
@@ -181,5 +206,17 @@ public final class MWConfiguredFeatures {
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
                 new TwoLayersFeatureSize(1, 0, 2)
         ).ignoreVines().build();
+    }
+
+    /**
+     * Get a {@link FallenTreeConfiguration Fallen Tree Configuration}
+     *
+     * @param logBlock {@link Block The Log Block}
+     * @param hollowLogBlock {@link Block The Hollow Log Block}
+     * @param ignoreMoss {@link Boolean If the Fallen Tree should not generate moss}
+     * @return {@link FallenTreeConfiguration The Fallen Tree Configuration}
+     */
+    private static FallenTreeConfiguration fallenTree(final Block logBlock, final Block hollowLogBlock, final boolean ignoreMoss) {
+        return new FallenTreeConfiguration(BlockStateProvider.simple(logBlock), BlockStateProvider.simple(hollowLogBlock), ignoreMoss);
     }
 }

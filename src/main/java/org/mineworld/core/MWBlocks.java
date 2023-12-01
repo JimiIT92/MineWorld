@@ -1489,6 +1489,10 @@ public final class MWBlocks {
     public static final RegistryObject<Block> UNLIT_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_wall_torch", () -> new UnlitWallTorchBlock(false));
     public static final RegistryObject<Block> UNLIT_SOUL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_torch", () -> new UnlitTorchBlock(true));
     public static final RegistryObject<Block> UNLIT_SOUL_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_wall_torch", () -> new UnlitWallTorchBlock(true));
+    public static final RegistryObject<Block> BROWN_MUSHROOM_WALL_FAN = RegisterHelper.registerBlockWithoutBlockItem("brown_mushroom_wall_fan",
+            () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_BROWN, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.BROWN_MUSHROOM)));
+    public static final RegistryObject<Block> RED_MUSHROOM_WALL_FAN = RegisterHelper.registerBlockWithoutBlockItem("red_mushroom_wall_fan",
+            () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_RED, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.RED_MUSHROOM)));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
