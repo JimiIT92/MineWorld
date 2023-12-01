@@ -1724,6 +1724,8 @@
   "block.mineworld.unlit_soul_wall_torch": "Torcia d'anime spenta a muro",
   "block.mineworld.brown_mushroom_wall_fan": "Fungo marrone",
   "block.mineworld.red_mushroom_wall_fan": "Fungo rosso",
+  "block.mineworld.cattail": "Tifa",
+  "block.mineworld.potted_cattail": "Tifa in vaso",
   "trim_material.mineworld.prismarine": "Di prismarino",
   "trim_material.mineworld.echo_shard": "Di echo shard",
   "trim_material.mineworld.ruby": "Di rubino",

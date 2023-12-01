@@ -1724,6 +1724,8 @@
   "block.mineworld.unlit_soul_wall_torch": "Unlit Soul Wall Torch",
   "block.mineworld.brown_mushroom_wall_fan": "Brown Mushroom",
   "block.mineworld.red_mushroom_wall_fan": "Red Mushroom",
+  "block.mineworld.cattail": "Cattail",
+  "block.mineworld.potted_cattail": "Potted Cattail",
   "trim_material.mineworld.prismarine": "Prismarine Material",
   "trim_material.mineworld.echo_shard": "Echo Shard Material",
   "trim_material.mineworld.ruby": "Ruby Material",

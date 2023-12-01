@@ -5,6 +5,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -13,17 +14,17 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.ReplaceSphereConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SpringConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
@@ -86,6 +87,7 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_APPLE_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_apple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_PALM_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_palm_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_dead_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CATTAIL = KeyHelper.registerConfiguredFeatureKey("cattail");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -135,6 +137,10 @@ public final class MWConfiguredFeatures {
         FeatureUtils.register(context, FALLEN_APPLE_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(MWBlocks.APPLE_LOG.get(), MWBlocks.HOLLOW_APPLE_LOG.get(), true));
         FeatureUtils.register(context, FALLEN_PALM_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(MWBlocks.PALM_LOG.get(), MWBlocks.HOLLOW_PALM_LOG.get(), true));
         FeatureUtils.register(context, FALLEN_DEAD_TREE, MWFeatures.FALLEN_TREE.get(), fallenTree(MWBlocks.DEAD_LOG.get(), MWBlocks.HOLLOW_DEAD_LOG.get(), true));
+        context.register(CATTAIL,
+                new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR,
+                        new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
+                                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(MWBlocks.CATTAIL.get().defaultBlockState(), 1))))))));
     }
 
     /**

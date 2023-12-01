@@ -18,6 +18,7 @@ public final class MWTags {
 
         public static final TagKey<Block> LECTERNS = RegisterHelper.registerBlockTag("lecterns");
         public static final TagKey<Block> ETHEREAL_PORTAL_FRAME_BLOCKS = RegisterHelper.registerBlockTag("ethereal_portal_frame_blocks");
+        public static final TagKey<Block> CATTAIL_PLACEABLE = RegisterHelper.registerBlockTag("cattail_placeable");
     }
 
     /**

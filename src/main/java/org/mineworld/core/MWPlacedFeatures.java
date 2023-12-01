@@ -66,6 +66,7 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> FALLEN_APPLE_TREE = KeyHelper.registerPlacedFeatureKey("fallen_apple_tree");
     public static final ResourceKey<PlacedFeature> FALLEN_PALM_TREE = KeyHelper.registerPlacedFeatureKey("fallen_palm_tree");
     public static final ResourceKey<PlacedFeature> FALLEN_DEAD_TREE = KeyHelper.registerPlacedFeatureKey("fallen_dead_tree");
+    public static final ResourceKey<PlacedFeature> CATTAIL = KeyHelper.registerPlacedFeatureKey("cattail");
 
     /**
      * Register the {@link PlacedFeature placed features}
@@ -151,6 +152,8 @@ public final class MWPlacedFeatures {
                 List.of(RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()));
         RegisterHelper.registerPlacedFeature(context, FALLEN_DEAD_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.FALLEN_DEAD_TREE),
                 List.of(RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()));
+        RegisterHelper.registerPlacedFeature(context, CATTAIL, configuredFeatures.getOrThrow(MWConfiguredFeatures.CATTAIL),
+                List.of(InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, CountPlacement.of(100), BiomeFilter.biome()));
     }
 
 }

@@ -2406,6 +2406,7 @@ public final class RegisterHelper {
         registerCompostable(MWBlocks.BLUE_ROSE_BUSH.get(), 0.65F);
         registerCompostable(MWBlocks.WHITE_ROSE.get(), 0.65F);
         registerCompostable(MWBlocks.WHITE_ROSE_BUSH.get(), 0.65F);
+        registerCompostable(MWBlocks.CATTAIL.get(), 0.65F);
         registerCompostable(MWItems.CORN_SEEDS.get(), 0.3F);
         registerCompostable(MWItems.BLUEBERRIES.get(), 0.3F);
         registerCompostable(MWItems.CHERRY.get(), 0.3F);

@@ -1212,6 +1212,7 @@ public final class MWTabs {
                 MWBlocks.WHITE_ROSE,
                 MWBlocks.BLUE_ROSE_BUSH,
                 MWBlocks.WHITE_ROSE_BUSH,
+                MWBlocks.CATTAIL,
                 MWItems.CORN_SEEDS,
                 MWItems.BLUEBERRIES,
                 MWItems.WARPED_WART

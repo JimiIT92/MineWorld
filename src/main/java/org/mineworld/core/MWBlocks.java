@@ -1493,6 +1493,8 @@ public final class MWBlocks {
             () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_BROWN, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.BROWN_MUSHROOM)));
     public static final RegistryObject<Block> RED_MUSHROOM_WALL_FAN = RegisterHelper.registerBlockWithoutBlockItem("red_mushroom_wall_fan",
             () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_RED, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.RED_MUSHROOM)));
+    public static final RegistryObject<Block> CATTAIL = RegisterHelper.registerBlock("cattail", CattailBlock::new);
+    public static final RegistryObject<Block> POTTED_CATTAIL = RegisterHelper.registerFlowerPot("potted_cattail", CATTAIL);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
