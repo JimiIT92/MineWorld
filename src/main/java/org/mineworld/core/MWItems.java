@@ -336,10 +336,12 @@ public final class MWItems {
     public static final RegistryObject<Item> UNLIT_SOUL_TORCH = RegisterHelper.registerItem("unlit_soul_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_SOUL_TORCH.get(), MWBlocks.UNLIT_SOUL_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> CANDY_CANE = RegisterHelper.registerFoodItem("candy_cane", MWFoods.CANDY_CANE);
     public static final RegistryObject<Item> INVISIBILITY_CLOAK = RegisterHelper.registerItem("invisibility_cloak", InvisibilityCloakItem::new);
+    public static final RegistryObject<Item> WITCH_HAT = RegisterHelper.registerItem("witch_hat", WitchHatItem::new);
     public static final RegistryObject<Item> WITCH_CHESTPLATE = RegisterHelper.registerCosmeticArmorItem("witch_chestplate", MWArmorMaterials.WITCH, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
     public static final RegistryObject<Item> WITCH_LEGGINGS = RegisterHelper.registerCosmeticArmorItem("witch_leggings", MWArmorMaterials.WITCH, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
     public static final RegistryObject<Item> WITCH_BOOTS = RegisterHelper.registerCosmeticArmorItem("witch_boots", MWArmorMaterials.WITCH, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
     public static final RegistryObject<Item> MAGIC_MIRROR = RegisterHelper.registerItem("magic_mirror", MagicMirrorItem::new);
+    public static final RegistryObject<Item> STRAW_HAT = RegisterHelper.registerItem("straw_hat", StrawHatItem::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

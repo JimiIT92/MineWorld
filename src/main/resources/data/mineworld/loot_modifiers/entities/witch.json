@@ -8,37 +8,20 @@
   ],
   "entries": [
     {
+      "item": "mineworld:witch_hat",
+      "chance": 0.05
+    },
+    {
       "item": "mineworld:witch_chestplate",
-      "chance": 0.1,
-      "functions": [
-        {
-          "add": false,
-          "count": 1.0,
-          "function": "minecraft:set_count"
-        }
-      ]
+      "chance": 0.1
     },
     {
       "item": "mineworld:witch_leggings",
-      "chance": 0.1,
-      "functions": [
-        {
-          "add": false,
-          "count": 1.0,
-          "function": "minecraft:set_count"
-        }
-      ]
+      "chance": 0.1
     },
     {
       "item": "mineworld:witch_boots",
-      "chance": 0.1,
-      "functions": [
-        {
-          "add": false,
-          "count": 1.0,
-          "function": "minecraft:set_count"
-        }
-      ]
+      "chance": 0.1
     }
   ]
 }

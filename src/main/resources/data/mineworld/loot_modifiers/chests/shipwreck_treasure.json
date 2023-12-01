@@ -14,6 +14,10 @@
     {
       "item": "mineworld:sapphire",
       "chance": 0.141
+    },
+    {
+      "item": "mineworld:straw_hat",
+      "chance": 0.05
     }
   ]
 }

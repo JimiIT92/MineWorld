@@ -9,14 +9,7 @@
   "entries": [
     {
       "item": "mineworld:sculk_heart",
-      "chance": 0.05,
-      "functions": [
-        {
-          "add": false,
-          "count": 1.0,
-          "function": "minecraft:set_count"
-        }
-      ]
+      "chance": 0.05
     }
   ]
 }

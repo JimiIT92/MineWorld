@@ -72,6 +72,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
     STRAY("stray"),
     PIGLIN("piglin"),
     WITCH("witch"),
+    STRAW("straw"),
     INVISIBILITY_CLOAK("invisibility_cloak", SoundEvents.BELL_RESONATE);
 
     /**

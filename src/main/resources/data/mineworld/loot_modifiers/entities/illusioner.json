@@ -9,14 +9,7 @@
   "entries": [
     {
       "item": "mineworld:invisibility_cloak",
-      "chance": 0.1,
-      "functions": [
-        {
-          "add": false,
-          "count": 1.0,
-          "function": "minecraft:set_count"
-        }
-      ]
+      "chance": 0.1
     }
   ]
 }

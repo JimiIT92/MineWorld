@@ -1942,9 +1942,11 @@ public final class MWTabs {
                 MWItems.PIGLIN_CHESTPLATE,
                 MWItems.PIGLIN_LEGGINGS,
                 MWItems.PIGLIN_BOOTS,
+                MWItems.WITCH_HAT,
                 MWItems.WITCH_CHESTPLATE,
                 MWItems.WITCH_LEGGINGS,
                 MWItems.WITCH_BOOTS,
+                MWItems.STRAW_HAT,
                 MWItems.ECHOING_CHARGE,
                 MWItems.SCULK_HEART,
                 MWItems.MAGIC_MIRROR
