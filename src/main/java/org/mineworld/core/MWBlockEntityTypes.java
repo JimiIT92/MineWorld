@@ -5,9 +5,11 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
+import org.mineworld.client.renderer.blockentity.GiftRenderer;
 import org.mineworld.client.renderer.blockentity.chest.*;
 import org.mineworld.entity.block.DaylightLampBlockEntity;
 import org.mineworld.entity.block.ForgingTableBlockEntity;
+import org.mineworld.entity.block.GiftBlockEntity;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegisterHelper;
 
@@ -72,7 +74,6 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<LecternBlockEntity>> SCULK_LECTERN = RegisterHelper.registerBlockEntity("sculk_lectern", LecternBlockEntity::new, MWBlocks.SCULK_LECTERN);
     public static final RegistryObject<BlockEntityType<SculkChestBlockEntity>> SCULK_CHEST = RegisterHelper.registerBlockEntity("sculk_chest", SculkChestBlockEntity::new, MWBlocks.SCULK_CHEST);
     public static final RegistryObject<BlockEntityType<SculkTrappedChestBlockEntity>> SCULK_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("sculk_trapped_chest", SculkTrappedChestBlockEntity::new, MWBlocks.SCULK_TRAPPED_CHEST);
-
     public static final RegistryObject<BlockEntityType<SkullBlockEntity>> SKULL = RegisterHelper.registerBlockEntity("skull", SkullBlockEntity::new,
             MWBlocks.STRAY_SKULL,
             MWBlocks.STRAY_WALL_SKULL,
@@ -80,6 +81,7 @@ public final class MWBlockEntityTypes {
             MWBlocks.HUSK_WALL_HEAD,
             MWBlocks.DROWNED_HEAD,
             MWBlocks.DROWNED_WALL_HEAD);
+    public static final RegistryObject<BlockEntityType<GiftBlockEntity>> GIFT = RegisterHelper.registerBlockEntity("gift", GiftBlockEntity::new, MWBlocks.GIFT);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link BlockEntityType block entity types}
@@ -141,5 +143,6 @@ public final class MWBlockEntityTypes {
         BlockEntityRenderers.register(SCULK_LECTERN.get(), LecternRenderer::new);
         BlockEntityRenderers.register(SCULK_CHEST.get(), SculkChestRenderer::new);
         BlockEntityRenderers.register(SCULK_TRAPPED_CHEST.get(), SculkTrappedChestRenderer::new);
+        BlockEntityRenderers.register(GIFT.get(), GiftRenderer::new);
     }
 }

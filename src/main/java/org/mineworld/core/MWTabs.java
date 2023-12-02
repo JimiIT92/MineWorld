@@ -1390,6 +1390,7 @@ public final class MWTabs {
                 MWItems.DEAD_CHEST,
                 MWItems.SCULK_CHEST,
                 MWItems.ICE_CHEST,
+                MWItems.GIFT,
                 MWBlocks.OAK_BARREL,
                 MWBlocks.BIRCH_BARREL,
                 MWBlocks.JUNGLE_BARREL,

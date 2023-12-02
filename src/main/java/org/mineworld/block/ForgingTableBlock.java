@@ -167,7 +167,6 @@ public class ForgingTableBlock extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         }
         if (level.getBlockEntity(blockPos) instanceof ForgingTableBlockEntity blockEntity) {
-            //player.openMenu(blockState.getMenuProvider(level, blockPos));
             player.openMenu(blockEntity);
             player.awardStat(MWStats.INTERACT_WITH_FORGING_TABLE.get());
         }

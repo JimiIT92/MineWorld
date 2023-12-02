@@ -342,6 +342,7 @@ public final class MWItems {
     public static final RegistryObject<Item> WITCH_BOOTS = RegisterHelper.registerCosmeticArmorItem("witch_boots", MWArmorMaterials.WITCH, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
     public static final RegistryObject<Item> MAGIC_MIRROR = RegisterHelper.registerItem("magic_mirror", MagicMirrorItem::new);
     public static final RegistryObject<Item> STRAW_HAT = RegisterHelper.registerItem("straw_hat", StrawHatItem::new);
+    public static final RegistryObject<Item> GIFT = RegisterHelper.registerSpecialRendererBlockItem("gift", MWBlocks.GIFT);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

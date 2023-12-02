@@ -1495,6 +1495,7 @@ public final class MWBlocks {
             () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_RED, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.RED_MUSHROOM)));
     public static final RegistryObject<Block> CATTAIL = RegisterHelper.registerBlock("cattail", CattailBlock::new);
     public static final RegistryObject<Block> POTTED_CATTAIL = RegisterHelper.registerFlowerPot("potted_cattail", CATTAIL);
+    public static final RegistryObject<Block> GIFT = RegisterHelper.registerBlockWithoutBlockItem("gift", GiftBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

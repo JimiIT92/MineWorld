@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWWoodTypes;
+import org.mineworld.entity.block.GiftBlockEntity;
 import org.mineworld.helper.PropertyHelper;
 
 /**
@@ -288,6 +289,9 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
             else if(blockState.is(MWBlocks.SCULK_TRAPPED_CHEST.get())) {
                 blockentity = this.trappedSculkChest;
+            }
+            else if(blockState.is(MWBlocks.GIFT.get())) {
+                blockentity = new GiftBlockEntity(BlockPos.ZERO, blockState);
             }
             if(blockentity != null) {
                 this.blockEntityRenderDispatcher.renderItem(blockentity, pose, buffer, packedLight, packedOverlay);
