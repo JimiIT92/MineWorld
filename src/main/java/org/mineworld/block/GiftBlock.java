@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -42,7 +44,7 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
      * Constructor. Set the block properties
      */
     public GiftBlock() {
-        super(PropertyHelper.basicBlockProperties(MapColor.COLOR_CYAN, 0.5F, 0.5F, false, SoundType.WOOL));
+        super(PropertyHelper.basicBlockProperties(MapColor.COLOR_CYAN, 0.5F, 0.5F, false, SoundType.WOOL).noLootTable());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -150,6 +152,35 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
         final Direction direction = context.getHorizontalDirection().getOpposite();
         final FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
         return this.defaultBlockState().setValue(FACING, direction).setValue(WATERLOGGED, fluidstate.is(Fluids.WATER));
+    }
+
+    /**
+     * Place the gift and set the content
+     *
+     * @param level {@link Level The level reference}
+     * @param pos {@link BlockPos The current BlockPos}
+     * @param state {@link BlockState The placed BlockPlace}
+     * @param entity {@link LivingEntity The entity that placed the gift}
+     * @param itemStack {@link ItemStack The gift item stack}
+     */
+    @Override
+    public void setPlacedBy(final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull BlockState state, final LivingEntity entity, final ItemStack itemStack) {
+        if(!itemStack.hasTag()) {
+            return;
+        }
+        /*final CompoundTag items = itemStack.getTag();
+        if(items != null && !items.isEmpty()) {
+            final NonNullList<ItemStack> content = NonNullList.create();
+            ContainerHelper.loadAllItems(items, content);
+            final BlockEntity blockentity = level.getBlockEntity(pos);
+            if (blockentity instanceof GiftBlockEntity gift) {
+                gift.setItems(content);
+            }
+        }*/
+        final BlockEntity blockentity = level.getBlockEntity(pos);
+        if (blockentity instanceof GiftBlockEntity gift) {
+            gift.load(itemStack.getTag());
+        }
     }
 
     /**

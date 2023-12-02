@@ -122,7 +122,7 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
      *
      * @param items {@link NonNullList<ItemStack> The gift items}
      */
-    protected void setItems(final @NotNull NonNullList<ItemStack> items) {
+    public void setItems(final @NotNull NonNullList<ItemStack> items) {
         this.items = items;
     }
 
