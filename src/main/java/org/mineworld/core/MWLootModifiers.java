@@ -7,6 +7,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.RegisterHelper;
 import org.mineworld.loot.AddItemsModifier;
+import org.mineworld.loot.FieryTouchModifier;
 
 /**
  * {@link MineWorld MineWorld} {@link IGlobalLootModifier loot modifiers}
@@ -14,6 +15,7 @@ import org.mineworld.loot.AddItemsModifier;
 public final class MWLootModifiers {
 
     public static final RegistryObject<Codec<AddItemsModifier>> ADD_ITEM = RegisterHelper.registerLootModifier("add_items", AddItemsModifier.CODEC);
+    public static final RegistryObject<Codec<FieryTouchModifier>> FIERY_TOUCH = RegisterHelper.registerLootModifier("fiery_touch", FieryTouchModifier.CODEC);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link IGlobalLootModifier loot modifiers}

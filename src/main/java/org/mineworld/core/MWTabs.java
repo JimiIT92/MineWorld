@@ -1,10 +1,14 @@
 package org.mineworld.core;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -17,9 +21,9 @@ import org.mineworld.MineWorld;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.RegisterHelper;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * {@link MineWorld MineWorld} {@link CreativeModeTab creative tabs}
@@ -46,6 +50,9 @@ public final class MWTabs {
     @SubscribeEvent
     public static void onTabBuildContents(final BuildCreativeModeTabContentsEvent event) {
         final ResourceKey<CreativeModeTab> tab = event.getTabKey();
+        if(tab.equals(CreativeModeTabs.INGREDIENTS)) {
+            removeMineWorldEnchantmentsFromVanillaIngredientsTab(event);
+        }
         if(isSameTab(tab, BUILDING_BLOCKS)) {
             setBuildingBlocksTab(event);
         }
@@ -87,6 +94,23 @@ public final class MWTabs {
      */
     private static boolean isSameTab(final ResourceKey<CreativeModeTab> tabKey, final RegistryObject<CreativeModeTab> tab) {
         return Objects.equals(tab.getKey(), tabKey);
+    }
+
+    /**
+     * Removes the {@link MineWorld MineWorld} {@link Enchantment enchantments} from the {@link CreativeModeTabs#INGREDIENTS Vanilla Ingredients Tab}
+     *
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
+     */
+    private static void removeMineWorldEnchantmentsFromVanillaIngredientsTab(final BuildCreativeModeTabContentsEvent event) {
+        final Iterator<Map.Entry<ItemStack, CreativeModeTab.TabVisibility>> iterator = event.getEntries().iterator();
+        final ArrayList<ItemStack> itemsToRemove = new ArrayList<>();
+        while (iterator.hasNext()) {
+            final ItemStack stack = iterator.next().getKey();
+            if(stack.is(Items.ENCHANTED_BOOK) && ResourceLocation.tryParse(EnchantedBookItem.getEnchantments(stack).getCompound(0).getString("id")).getNamespace().equals(MineWorld.MOD_ID)) {
+                itemsToRemove.add(stack);
+            }
+        }
+        itemsToRemove.forEach(stack -> event.getEntries().remove(stack));
     }
 
     /**
@@ -2118,6 +2142,68 @@ public final class MWTabs {
                 MWItems.ECHOING_CHARGE_FRAGMENT,
                 MWItems.WARPED_WART
         );
+        setIngredientsTabEnchantments(event);
+    }
+
+    /**
+     * Add the {@link MineWorld MineWorld} {@link Enchantment enchantments}
+     * to the {@link #INGREDIENTS Ingredients Tab}
+     *
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
+     */
+    private static void setIngredientsTabEnchantments(final BuildCreativeModeTabContentsEvent event) {
+        getEnchantmentRegistryLookup(event).ifPresent(enchantmentLookup -> {
+            generateEnchantmentBookTypesOnlyMaxLevel(event, enchantmentLookup);
+            generateEnchantmentBookTypesAllLevels(event, enchantmentLookup);
+        });
+    }
+
+    /**
+     * Get the {@link HolderLookup.RegistryLookup<Enchantment> enchantment registry lookup}
+     *
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
+     * @return {@link HolderLookup.RegistryLookup<Enchantment> The enchantment registry lookup}, if any
+     */
+    private static Optional<HolderLookup.RegistryLookup<Enchantment>> getEnchantmentRegistryLookup(final BuildCreativeModeTabContentsEvent event) {
+        return event.getParameters().holders().lookup(Registries.ENCHANTMENT);
+    }
+
+    /**
+     * Generate only the max level enchantment books for {@link MineWorld MineWorld} {@link Enchantment enchantments}
+     *
+     * @param tab {@link CreativeModeTab.Output The tab to add the books to}
+     * @param enchantmentHolderLookup {@link HolderLookup<Enchantment> The enchantments holder lookup}
+     */
+    public static void generateEnchantmentBookTypesOnlyMaxLevel(final CreativeModeTab.Output tab, final HolderLookup<Enchantment> enchantmentHolderLookup) {
+        getMineWorldEnchantments(enchantmentHolderLookup)
+                .map(enchantment -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, enchantment.getMaxLevel())))
+                .forEach(enchantedBook -> tab.accept(enchantedBook, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY));
+    }
+
+    /**
+     * Generate all enchantment books for {@link MineWorld MineWorld} {@link Enchantment enchantments}
+     *
+     * @param tab {@link CreativeModeTab.Output The tab to add the books to}
+     * @param enchantmentHolderLookup {@link HolderLookup<Enchantment> The enchantments holder lookup}
+     */
+    public static void generateEnchantmentBookTypesAllLevels(final CreativeModeTab.Output tab, final HolderLookup<Enchantment> enchantmentHolderLookup) {
+        getMineWorldEnchantments(enchantmentHolderLookup)
+                .flatMap(enchantment -> IntStream.rangeClosed(enchantment.getMinLevel(), enchantment.getMaxLevel())
+                        .mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, level))))
+                .forEach(enchantedBook -> tab.accept(enchantedBook, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY));
+    }
+
+    /**
+     * Get all {@link MineWorld MineWorld} {@link Enchantment Enchantments}
+     *
+     * @param enchantmentHolderLookup {@link HolderLookup<Enchantment> The enchantments holder lookup}
+     * @return The {@link MineWorld MineWorld} {@link Enchantment Enchantments}
+     */
+    private static Stream<Enchantment> getMineWorldEnchantments(final HolderLookup<Enchantment> enchantmentHolderLookup) {
+        return enchantmentHolderLookup.listElements()
+                .filter(enchantment -> enchantment.key().location().getNamespace().equals(MineWorld.MOD_ID))
+                .map(Holder::value)
+                .filter(enchantment -> enchantment.allowedInCreativeTab(Items.ENCHANTED_BOOK, EnumSet.allOf(EnchantmentCategory.class)));
     }
 
     /**

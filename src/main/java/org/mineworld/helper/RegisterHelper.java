@@ -39,6 +39,7 @@ import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -170,6 +171,10 @@ public final class RegisterHelper {
      * {@link DeferredRegister<StructureType> The structure type registry}
      */
     private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<Enchantment> The enchantments registry}
+     */
+    private static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(Registries.ENCHANTMENT, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -2364,6 +2369,17 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register an {@link Enchantment enchantment}
+     *
+     * @param name {@link String The enchantment name}
+     * @param enchantmentSupplier {@link Supplier<Enchantment> The enchantment supplier}
+     * @return {@link RegistryObject<Enchantment> The registered enchantment}
+     */
+    public static RegistryObject<Enchantment> registerEnchantment(final String name, final Supplier<Enchantment> enchantmentSupplier) {
+        return ENCHANTMENTS.register(name, enchantmentSupplier);
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -2604,6 +2620,15 @@ public final class RegisterHelper {
      */
     public static void registerStructureTypes(final IEventBus eventBus) {
         STRUCTURE_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link Enchantment enchantments}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerEnchantments(final IEventBus eventBus) {
+        ENCHANTMENTS.register(eventBus);
     }
 
 }

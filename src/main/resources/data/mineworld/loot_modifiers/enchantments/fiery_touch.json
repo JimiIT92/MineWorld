@@ -1,0 +1,15 @@
+{
+  "type": "mineworld:fiery_touch",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "enchantments": [
+          {
+            "enchantment": "mineworld:smelting"
+          }
+        ]
+      }
+    }
+  ]
+}
