@@ -19,6 +19,8 @@ public final class MWTags {
         public static final TagKey<Block> LECTERNS = RegisterHelper.registerBlockTag("lecterns");
         public static final TagKey<Block> ETHEREAL_PORTAL_FRAME_BLOCKS = RegisterHelper.registerBlockTag("ethereal_portal_frame_blocks");
         public static final TagKey<Block> CATTAIL_PLACEABLE = RegisterHelper.registerBlockTag("cattail_placeable");
+        public static final TagKey<Block> END_FIRE_BASE_BLOCKS = RegisterHelper.registerBlockTag("end_fire_base_blocks");
+        public static final TagKey<Block> SCULK_FIRE_BASE_BLOCKS = RegisterHelper.registerBlockTag("sculk_fire_base_blocks");
     }
 
     /**

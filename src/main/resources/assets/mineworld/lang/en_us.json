@@ -1728,6 +1728,8 @@
   "block.mineworld.cattail": "Cattail",
   "block.mineworld.potted_cattail": "Potted Cattail",
   "block.mineworld.gift": "Gift",
+  "block.mineworld.end_fire": "End Fire",
+  "block.mineworld.sculk_fire": "Sculk Fire",
   "trim_material.mineworld.prismarine": "Prismarine Material",
   "trim_material.mineworld.echo_shard": "Echo Shard Material",
   "trim_material.mineworld.ruby": "Ruby Material",

@@ -137,7 +137,7 @@ public class CattailBlock extends DoublePlantBlock implements SimpleWaterloggedB
     }
 
     /**
-     * Updated the {@link BlockState BlockState} if the
+     * Update the {@link BlockState BlockState} if the
      * {@link DoublePlantBlock Cattail} is waterlogged
      *
      * @param state {@link BlockState The current BlockState}

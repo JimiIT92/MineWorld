@@ -1496,6 +1496,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CATTAIL = RegisterHelper.registerBlock("cattail", CattailBlock::new);
     public static final RegistryObject<Block> POTTED_CATTAIL = RegisterHelper.registerFlowerPot("potted_cattail", CATTAIL);
     public static final RegistryObject<Block> GIFT = RegisterHelper.registerBlockWithoutBlockItem("gift", GiftBlock::new);
+    public static final RegistryObject<Block> END_FIRE = RegisterHelper.registerBlockWithoutBlockItem("end_fire", EndFireBlock::new);
+    public static final RegistryObject<Block> SCULK_FIRE = RegisterHelper.registerBlockWithoutBlockItem("sculk_fire", SculkFireBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
