@@ -40,9 +40,8 @@ public final class EntityInteractEventListener {
             if(target instanceof Shulker shulker) {
                 if(item instanceof DyeItem) {
                     handleShulkerRecolorInteraction(event, player, shulker, itemStack);
-                    return;
                 }
-                if(itemStack.is(Items.WATER_BUCKET)) {
+                else if(itemStack.is(Items.WATER_BUCKET)) {
                     handleShulkerDecolorInteraction(event, player, shulker, itemStack);
                 }
             }

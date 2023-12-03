@@ -11,10 +11,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.LeadItem;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -109,6 +107,10 @@ public final class RightClickBlockEventListener {
             }
             if(itemStack.is(Items.RED_MUSHROOM)) {
                 handleMushroomPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.RED_MUSHROOM_WALL_FAN.get());
+                return;
+            }
+            if(itemStack.getItem() instanceof SwordItem && blockState.getBlock() instanceof CampfireBlock) {
+                handleLitCampfirePlacement(event, level, clickedPos, player, itemStack, blockState);
             }
         }
     }
@@ -345,6 +347,28 @@ public final class RightClickBlockEventListener {
             } else {
                 player.swing(event.getHand());
                 player.playSound(SoundEvents.GRASS_PLACE, 1.0F, 1.0F);
+            }
+        }
+    }
+
+    /**
+     * Handle interaction with a {@link CampfireBlock campfire block}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param itemStack {@link ItemStack The id stack used to interact with the block}
+     * @param clickedBlockState {@link BlockState The clicked BlockState}
+     */
+    private static void handleLitCampfirePlacement(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final BlockState clickedBlockState) {
+        if(itemStack.isEnchanted() && itemStack.getAllEnchantments().containsKey(Enchantments.FIRE_ASPECT) && !clickedBlockState.getValue(CampfireBlock.LIT)) {
+            if(!level.isClientSide()) {
+                level.setBlockAndUpdate(clickedPos, clickedBlockState.setValue(CampfireBlock.LIT, true));
+                ItemHelper.hurt(itemStack, player);
+            } else {
+                player.swing(event.getHand());
+                player.playSound(SoundEvents.FLINTANDSTEEL_USE);
             }
         }
     }
