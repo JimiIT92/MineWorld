@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/bronze_sculk_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/bronze_sculk_lantern_hanging"
+    }
+  }
+}

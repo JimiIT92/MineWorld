@@ -343,6 +343,8 @@ public final class MWItems {
     public static final RegistryObject<Item> MAGIC_MIRROR = RegisterHelper.registerItem("magic_mirror", MagicMirrorItem::new);
     public static final RegistryObject<Item> STRAW_HAT = RegisterHelper.registerItem("straw_hat", StrawHatItem::new);
     public static final RegistryObject<Item> GIFT = RegisterHelper.registerSpecialRendererBlockItem("gift", MWBlocks.GIFT);
+    public static final RegistryObject<Item> UNLIT_END_TORCH = RegisterHelper.registerItem("unlit_end_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_END_TORCH.get(), MWBlocks.UNLIT_END_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
+    public static final RegistryObject<Item> UNLIT_SCULK_TORCH = RegisterHelper.registerItem("unlit_sculk_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_SCULK_TORCH.get(), MWBlocks.UNLIT_SCULK_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

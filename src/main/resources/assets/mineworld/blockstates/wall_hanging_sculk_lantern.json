@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mineworld:block/wall_hanging_sculk_lantern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mineworld:block/wall_hanging_sculk_lantern"
+    },
+    "facing=south": {
+      "model": "mineworld:block/wall_hanging_sculk_lantern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mineworld:block/wall_hanging_sculk_lantern",
+      "y": 270
+    }
+  }
+}

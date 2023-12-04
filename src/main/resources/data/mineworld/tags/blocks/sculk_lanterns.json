@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:sculk_lantern",
+    "mineworld:golden_sculk_lantern",
+    "mineworld:netherite_sculk_lantern",
+    "mineworld:aluminum_sculk_lantern",
+    "mineworld:bronze_sculk_lantern",
+    "mineworld:silver_sculk_lantern",
+    "mineworld:oxidized_copper_sculk_lantern",
+    "mineworld:weathered_copper_sculk_lantern",
+    "mineworld:exposed_copper_sculk_lantern",
+    "mineworld:copper_sculk_lantern",
+    "mineworld:waxed_oxidized_copper_sculk_lantern",
+    "mineworld:waxed_weathered_copper_sculk_lantern",
+    "mineworld:waxed_exposed_copper_sculk_lantern",
+    "mineworld:waxed_copper_sculk_lantern"
+  ]
+}

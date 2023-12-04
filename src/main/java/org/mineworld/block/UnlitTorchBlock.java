@@ -26,16 +26,17 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
 
+import java.util.function.Supplier;
+
 /**
  * Implementation class for an unlit {@link TorchBlock Torch Block}
  */
 public class UnlitTorchBlock extends Block {
 
     /**
-     * {@link Boolean If the torch is a soul torch}
+     * {@link Supplier<Block> The torch block supplier}
      */
-    protected final boolean isSoulTorch;
-
+    protected final Supplier<Block> torchBlockSupplier;
 
     /**
      * Constructor. Set the block properties
@@ -43,18 +44,27 @@ public class UnlitTorchBlock extends Block {
      * @param isSoulTorch {@link Boolean If the torch is a soul torch}
      */
     public UnlitTorchBlock(final boolean isSoulTorch) {
-        this(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), isSoulTorch);
+        this(() -> isSoulTorch ? Blocks.SOUL_TORCH : Blocks.TORCH);
+    }
+
+    /**
+     * Constructor. Set the block properties
+     *
+     * @param torchBlockSupplier {@link Supplier<Block> The torch block supplier}
+     */
+    public UnlitTorchBlock(final Supplier<Block> torchBlockSupplier) {
+        this(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), torchBlockSupplier);
     }
 
     /**
      * Constructor. Set the block properties
      *
      * @param properties {@link BlockBehaviour.Properties The block properties}
-     * @param isSoulTorch {@link Boolean If the torch is a soul torch}
+     * @param torchBlockSupplier {@link Supplier<Block> The torch block supplier}
      */
-    protected UnlitTorchBlock(final BlockBehaviour.Properties properties, final boolean isSoulTorch) {
+    protected UnlitTorchBlock(final BlockBehaviour.Properties properties, final Supplier<Block> torchBlockSupplier) {
         super(properties);
-        this.isSoulTorch = isSoulTorch;
+        this.torchBlockSupplier = torchBlockSupplier;
     }
 
     /**
@@ -106,7 +116,7 @@ public class UnlitTorchBlock extends Block {
      * @return {@link Block The Torch Block}
      */
     protected Block getTorchBlock() {
-        return isSoulTorch ? Blocks.SOUL_TORCH : Blocks.TORCH;
+        return torchBlockSupplier.get();
     }
 
     /**

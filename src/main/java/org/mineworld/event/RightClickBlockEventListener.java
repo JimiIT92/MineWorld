@@ -76,6 +76,22 @@ public final class RightClickBlockEventListener {
                     handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SOUL_WALL_TORCH.get());
                     return;
                 }
+                if(blockState.is(MWBlocks.END_TORCH.get())) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_END_TORCH.get());
+                    return;
+                }
+                if(blockState.is(MWBlocks.END_WALL_TORCH.get())) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_END_WALL_TORCH.get());
+                    return;
+                }
+                if(blockState.is(MWBlocks.SCULK_TORCH.get())) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SCULK_TORCH.get());
+                    return;
+                }
+                if(blockState.is(MWBlocks.SCULK_WALL_TORCH.get())) {
+                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SCULK_WALL_TORCH.get());
+                    return;
+                }
             }
             if(itemStack.is(Items.BONE)) {
                 handleRodPlacement(event, level, clickedPos, player, itemStack, MWBlocks.BONE_ROD_BLOCK.get());

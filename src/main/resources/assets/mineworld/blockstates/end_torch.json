@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mineworld:block/end_torch"
+    }
+  }
+}

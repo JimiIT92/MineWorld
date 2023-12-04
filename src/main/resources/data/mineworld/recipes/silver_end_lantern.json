@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:end_torch"
+    },
+    "X": {
+      "item": "mineworld:silver_nugget"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "result": {
+    "item": "mineworld:silver_end_lantern"
+  },
+  "show_notification": true
+}

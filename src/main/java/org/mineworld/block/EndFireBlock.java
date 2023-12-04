@@ -20,6 +20,11 @@ import org.mineworld.helper.PropertyHelper;
 public class EndFireBlock extends BaseFireBlock {
 
     /**
+     * {@link Integer The fire block light level}
+     */
+    public static final int LIGHT_LEVEL = 13;
+
+    /**
      * Constructor. Set the block properties
      */
     public EndFireBlock() {
@@ -27,7 +32,7 @@ public class EndFireBlock extends BaseFireBlock {
                 .replaceable()
                 .noCollission()
                 .instabreak()
-                .lightLevel(state -> 13)
+                .lightLevel(state -> LIGHT_LEVEL)
                 .pushReaction(PushReaction.DESTROY), 1.5F);
     }
 

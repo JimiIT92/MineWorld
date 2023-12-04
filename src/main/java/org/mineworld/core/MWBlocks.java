@@ -1,11 +1,14 @@
 package org.mineworld.core;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
@@ -1498,6 +1501,86 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GIFT = RegisterHelper.registerBlockWithoutBlockItem("gift", GiftBlock::new);
     public static final RegistryObject<Block> END_FIRE = RegisterHelper.registerBlockWithoutBlockItem("end_fire", EndFireBlock::new);
     public static final RegistryObject<Block> SCULK_FIRE = RegisterHelper.registerBlockWithoutBlockItem("sculk_fire", SculkFireBlock::new);
+    public static final RegistryObject<Block> END_LANTERN = RegisterHelper.registerLantern("end_lantern", EndFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> GOLDEN_END_LANTERN = RegisterHelper.registerLantern("golden_end_lantern", EndFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlock("oxidized_copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlock("weathered_copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlock("exposed_copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> COPPER_END_LANTERN = RegisterHelper.registerBlock("copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_copper_end_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> NETHERITE_END_LANTERN = RegisterHelper.registerLantern("netherite_end_lantern", EndFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> ALUMINUM_END_LANTERN = RegisterHelper.registerLantern("aluminum_end_lantern", EndFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> BRONZE_END_LANTERN = RegisterHelper.registerLantern("bronze_end_lantern", EndFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> SILVER_END_LANTERN = RegisterHelper.registerLantern("silver_end_lantern", EndFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> WALL_HANGING_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_golden_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(GOLDEN_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_netherite_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(NETHERITE_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_aluminum_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(ALUMINUM_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_silver_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SILVER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_bronze_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(BRONZE_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_exposed_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(EXPOSED_COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_weathered_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WEATHERED_COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_oxidized_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(OXIDIZED_COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(WAXED_COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_exposed_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_weathered_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_END_LANTERN.get())));
+    public static final RegistryObject<Block> SCULK_LANTERN = RegisterHelper.registerLantern("sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> GOLDEN_SCULK_LANTERN = RegisterHelper.registerLantern("golden_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("oxidized_copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("weathered_copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("exposed_copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> WAXED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_copper_sculk_lantern",
+            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> NETHERITE_SCULK_LANTERN = RegisterHelper.registerLantern("netherite_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> ALUMINUM_SCULK_LANTERN = RegisterHelper.registerLantern("aluminum_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> BRONZE_SCULK_LANTERN = RegisterHelper.registerLantern("bronze_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> SILVER_SCULK_LANTERN = RegisterHelper.registerLantern("silver_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
+    public static final RegistryObject<Block> WALL_HANGING_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_golden_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(GOLDEN_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_netherite_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(NETHERITE_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_aluminum_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(ALUMINUM_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_silver_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SILVER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_bronze_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(BRONZE_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_exposed_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(EXPOSED_COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_weathered_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WEATHERED_COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_oxidized_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(OXIDIZED_COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(WAXED_COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_exposed_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_weathered_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get())));
+    public static final RegistryObject<Block> END_TORCH = RegisterHelper.registerBlock("end_torch", () -> new TorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> EndFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> END_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("end_wall_torch", () -> new WallTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> EndFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).dropsLike(END_TORCH.get()).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> UNLIT_END_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_end_torch", () -> new UnlitTorchBlock(END_TORCH));
+    public static final RegistryObject<Block> UNLIT_END_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_end_wall_torch", () -> new UnlitWallTorchBlock(END_WALL_TORCH));
+    public static final RegistryObject<Block> SCULK_TORCH = RegisterHelper.registerBlock("sculk_torch", () -> new TorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> SculkFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("sculk_wall_torch", () -> new WallTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> SculkFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).dropsLike(SCULK_TORCH.get()).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> UNLIT_SCULK_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_torch", () -> new UnlitTorchBlock(SCULK_TORCH));
+    public static final RegistryObject<Block> UNLIT_SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_wall_torch", () -> new UnlitWallTorchBlock(SCULK_WALL_TORCH));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bedrock": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "mineworld:end_fire_base_blocks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:end_torch"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bedrock"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:end_torch"
+    ]
+  },
+  "sends_telemetry_event": false
+}

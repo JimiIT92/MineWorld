@@ -20,6 +20,11 @@ import org.mineworld.helper.PropertyHelper;
 public class SculkFireBlock extends BaseFireBlock {
 
     /**
+     * {@link Integer The fire block light level}
+     */
+    public static final int LIGHT_LEVEL = 7;
+
+    /**
      * Constructor. Set the block properties
      */
     public SculkFireBlock() {
@@ -27,7 +32,7 @@ public class SculkFireBlock extends BaseFireBlock {
                 .replaceable()
                 .noCollission()
                 .instabreak()
-                .lightLevel(state -> 7)
+                .lightLevel(state -> LIGHT_LEVEL)
                 .pushReaction(PushReaction.DESTROY), 2.5F);
     }
 

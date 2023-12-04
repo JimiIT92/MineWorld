@@ -76,7 +76,23 @@
                   "mineworld:wall_hanging_weathered_copper_lantern",
                   "mineworld:wall_hanging_weathered_copper_soul_lantern",
                   "mineworld:wall_hanging_oxidized_copper_lantern",
-                  "mineworld:wall_hanging_oxidized_copper_soul_lantern"
+                  "mineworld:wall_hanging_oxidized_copper_soul_lantern",
+                  "mineworld:oxidized_copper_end_lantern",
+                  "mineworld:weathered_copper_end_lantern",
+                  "mineworld:exposed_copper_end_lantern",
+                  "mineworld:copper_end_lantern",
+                  "mineworld:wall_hanging_copper_end_lantern",
+                  "mineworld:wall_hanging_exposed_copper_end_lantern",
+                  "mineworld:wall_hanging_weathered_copper_end_lantern",
+                  "mineworld:wall_hanging_oxidized_copper_end_lantern",
+                  "mineworld:oxidized_copper_sculk_lantern",
+                  "mineworld:weathered_copper_sculk_lantern",
+                  "mineworld:exposed_copper_sculk_lantern",
+                  "mineworld:copper_sculk_lantern",
+                  "mineworld:wall_hanging_copper_sculk_lantern",
+                  "mineworld:wall_hanging_exposed_copper_sculk_lantern",
+                  "mineworld:wall_hanging_weathered_copper_sculk_lantern",
+                  "mineworld:wall_hanging_oxidized_copper_sculk_lantern"
                 ]
               }
             }

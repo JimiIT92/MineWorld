@@ -21,6 +21,7 @@ import org.mineworld.core.MWBlocks;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Implementation class for an {@link UnlitTorchBlock unlit wall torch block}
@@ -40,6 +41,10 @@ public class UnlitWallTorchBlock extends UnlitTorchBlock {
             Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D),
             Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D))
     );
+    /**
+     * {@link Supplier<Block> The torch block supplier}
+     */
+    protected final Supplier<Block> torchBlockSupplier;
 
     /**
      * Constructor. Set the block properties
@@ -47,8 +52,18 @@ public class UnlitWallTorchBlock extends UnlitTorchBlock {
      * @param isSoulTorch {@link Boolean If the torch is a soul torch}
      */
     public UnlitWallTorchBlock(boolean isSoulTorch) {
-        super(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).dropsLike(isSoulTorch ? MWBlocks.UNLIT_SOUL_TORCH.get() : MWBlocks.UNLIT_TORCH.get()).pushReaction(PushReaction.DESTROY), isSoulTorch);
+        this(() -> isSoulTorch ? MWBlocks.UNLIT_SOUL_TORCH.get() : MWBlocks.UNLIT_TORCH.get());
+    }
+
+    /**
+     * Constructor. Set the block properties
+     *
+     * @param torchBlockSupplier {@link Supplier<Block> The torch block supplier}
+     */
+    public UnlitWallTorchBlock(final Supplier<Block> torchBlockSupplier) {
+        super(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).dropsLike(torchBlockSupplier.get()).pushReaction(PushReaction.DESTROY), torchBlockSupplier);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.torchBlockSupplier = torchBlockSupplier;
     }
 
     /**
@@ -184,7 +199,7 @@ public class UnlitWallTorchBlock extends UnlitTorchBlock {
      */
     @Override
     protected Block getTorchBlock() {
-        return isSoulTorch ? Blocks.SOUL_WALL_TORCH : Blocks.WALL_TORCH;
+        return this.torchBlockSupplier.get();
     }
 
 }

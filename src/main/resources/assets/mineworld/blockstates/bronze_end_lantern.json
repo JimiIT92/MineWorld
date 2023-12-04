@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/bronze_end_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/bronze_end_lantern_hanging"
+    }
+  }
+}

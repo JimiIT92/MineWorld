@@ -1257,6 +1257,18 @@ public final class RegisterHelper {
      * Register a {@link LanternBlock lantern block}
      *
      * @param name {@link String The block name}
+     * @param lightLevel {@link Integer The lantern light level}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerLantern(final String name, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new LanternBlock(PropertyHelper.lanternProperties(false, featureFlags).lightLevel(state -> lightLevel)));
+    }
+
+    /**
+     * Register a {@link LanternBlock lantern block}
+     *
+     * @param name {@link String The block name}
      * @param isSoulLantern {@link Boolean If the lantern is a soul lantern}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
