@@ -1,12 +1,15 @@
 package org.mineworld.item;
 
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWArmorMaterials;
+import org.mineworld.core.MWSounds;
 import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
 
@@ -20,6 +23,16 @@ public class InvisibilityCloakItem extends ArmorItem {
      */
     public InvisibilityCloakItem() {
         super(MWArmorMaterials.INVISIBILITY_CLOAK, Type.CHESTPLATE, PropertyHelper.basicItemProperties().rarity(Rarity.UNCOMMON));
+    }
+
+    /**
+     * Get the {@link SoundEvent equip sound}
+     *
+     * @return {@link MWSounds#INVISIBILITY_CLOAK_EQUIP The invisibility cloak equip sound}
+     */
+    @Override
+    public @NotNull SoundEvent getEquipSound() {
+        return MWSounds.INVISIBILITY_CLOAK_EQUIP.get();
     }
 
     /**

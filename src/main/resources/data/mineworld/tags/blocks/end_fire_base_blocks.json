@@ -1,5 +1,6 @@
 {
+  "replace": false,
   "values": [
-    "minecraft:bedrock"
+    "mineworld:end_soil"
   ]
 }

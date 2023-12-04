@@ -45,7 +45,8 @@ public final class PlayerHelper {
      * @param sound {@link SoundEvent The sound to play}
      */
     public static void playSound(final Player player, final SoundEvent sound) {
-        player.level().playSound(player, player.getOnPos(), sound, SoundSource.PLAYERS, 1.0F, 1.0F);
+        final BlockPos pos = player.getOnPos();
+        player.level().playSeededSound(null, pos.getX(), pos.getY(), pos.getZ(), sound, SoundSource.PLAYERS, 1.0F, 1.0F, 0L);
     }
 
     /**

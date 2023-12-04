@@ -23,8 +23,9 @@ public final class MWBlockSetTypes {
             SoundEvents.METAL_FALL, SoundEvents.METAL_STEP,
             SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON,
             SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON);
-    public static final BlockSetType SCULK = RegisterHelper.registerBlockSetType("sculk", true, SoundType.SCULK,
-            SoundEvents.SCULK_CATALYST_FALL, SoundEvents.SCULK_CATALYST_STEP,
-            SoundEvents.SCULK_CATALYST_HIT, SoundEvents.SCULK_CATALYST_BREAK,
-            SoundEvents.SCULK_BLOCK_HIT, SoundEvents.SCULK_BLOCK_BREAK);
+    public static final BlockSetType SCULK = RegisterHelper.registerBlockSetType("sculk", true, MWSoundTypes.SCULK_WOOD,
+            MWSounds.SCULK_DOOR_CLOSE.get(), MWSounds.SCULK_DOOR_OPEN.get(),
+            MWSounds.SCULK_CLICK_OFF.get(), MWSounds.SCULK_CLICK_ON.get(),
+            MWSounds.SCULK_CLICK_OFF.get(), MWSounds.SCULK_CLICK_ON.get());
+
 }

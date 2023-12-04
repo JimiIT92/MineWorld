@@ -9,6 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -89,7 +91,12 @@ import org.mineworld.block.CoralFlowerPotBlock;
 import org.mineworld.block.IcePointedDripstoneBlock;
 import org.mineworld.block.MWPointedDripstoneBlock;
 import org.mineworld.block.PebbleBlock;
-import org.mineworld.core.*;
+import org.mineworld.core.MWBlocks;
+import org.mineworld.core.MWColors;
+import org.mineworld.core.MWItems;
+import org.mineworld.core.MWWoodTypes;
+import org.mineworld.entity.block.MWHangingSignBlockEntity;
+import org.mineworld.entity.block.MWSignBlockEntity;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -175,6 +182,14 @@ public final class RegisterHelper {
      * {@link DeferredRegister<Enchantment> The enchantments registry}
      */
     private static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(Registries.ENCHANTMENT, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<ParticleType> The particle types registry}
+     */
+    private static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MineWorld.MOD_ID);
+    /**
+     * {@link DeferredRegister<SoundEvent> The sounds registry}
+     */
+    private static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MineWorld.MOD_ID);
     /**
      * {@link MineWorld MineWorld} flower pots. The key represents the {@link Block flower block}, the value is the {@link Block potted flower block}
      */
@@ -883,17 +898,7 @@ public final class RegisterHelper {
              */
             @Override
             public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
-                return new SignBlockEntity(blockPos, blockState) {
-
-                    /**
-                     * Get the {@link BlockEntityType sign block entity type}
-                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
-                     */
-                    @Override
-                    public @NotNull BlockEntityType<?> getType() {
-                        return MWBlockEntityTypes.SIGN.get();
-                    }
-                };
+                return new MWSignBlockEntity(blockPos, blockState);
             }
         });
     }
@@ -919,17 +924,7 @@ public final class RegisterHelper {
              */
             @Override
             public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
-                return new SignBlockEntity(blockPos, blockState) {
-
-                    /**
-                     * Get the {@link BlockEntityType sign block entity type}
-                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
-                     */
-                    @Override
-                    public @NotNull BlockEntityType<?> getType() {
-                        return MWBlockEntityTypes.SIGN.get();
-                    }
-                };
+                return new MWSignBlockEntity(blockPos, blockState);
             }
 
         });
@@ -955,17 +950,7 @@ public final class RegisterHelper {
              */
             @Override
             public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
-                return new HangingSignBlockEntity(blockPos, blockState) {
-
-                    /**
-                     * Get the {@link BlockEntityType sign block entity type}
-                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
-                     */
-                    @Override
-                    public @NotNull BlockEntityType<?> getType() {
-                        return MWBlockEntityTypes.HANGING_SIGN.get();
-                    }
-                };
+                return new MWHangingSignBlockEntity(blockPos, blockState);
             }
         });
     }
@@ -990,17 +975,7 @@ public final class RegisterHelper {
              */
             @Override
             public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
-                return new HangingSignBlockEntity(blockPos, blockState) {
-
-                    /**
-                     * Get the {@link BlockEntityType sign block entity type}
-                     * @return {@link MWBlockEntityTypes#SIGN The sign block entity type}
-                     */
-                    @Override
-                    public @NotNull BlockEntityType<?> getType() {
-                        return MWBlockEntityTypes.HANGING_SIGN.get();
-                    }
-                };
+                return new MWHangingSignBlockEntity(blockPos, blockState);
             }
         });
     }
@@ -1755,7 +1730,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerPlanks(final String name, final MapColor materialColor, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.OAK_PLANKS, featureFlags).mapColor(materialColor)) {
+        return registerPlanks(name, materialColor, SoundType.WOOD, featureFlags);
+    }
+
+    /**
+     * Register some {@link Block wood planks}
+     *
+     * @param name {@link String The block name}
+     * @param materialColor {@link MapColor The block color on maps}
+     * @param soundType {@link SoundType The block sound}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerPlanks(final String name, final MapColor materialColor, final SoundType soundType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.OAK_PLANKS, featureFlags).sound(soundType).mapColor(materialColor)) {
 
             /**
              * Makes the block able to catch fire
@@ -2392,6 +2380,37 @@ public final class RegisterHelper {
     }
 
     /**
+     * Register a simple {@link ParticleType particle type}
+     *
+     * @param name {@link String The particle type name}
+     * @return {@link RegistryObject<ParticleType> The registered particle type}
+     */
+    public static RegistryObject<SimpleParticleType> registerParticleType(final String name) {
+        return registerParticleType(name, () -> new SimpleParticleType(false));
+    }
+
+    /**
+     * Register a {@link ParticleType particle type}
+     *
+     * @param name {@link String The particle type name}
+     * @param particleTypeSupplier {@link Supplier<ParticleType> The particle type supplier}
+     * @return {@link RegistryObject<ParticleType> The registered particle type}
+     */
+    public static <T extends ParticleType<?>> RegistryObject<T> registerParticleType(final String name, final Supplier<T> particleTypeSupplier) {
+        return PARTICLE_TYPES.register(name, particleTypeSupplier);
+    }
+
+    /**
+     * Register a {@link SoundEvent sound}
+     *
+     * @param name {@link String The sound name}
+     * @return {@link RegistryObject<SoundEvent> The registered sound}
+     */
+    public static RegistryObject<SoundEvent> registerSound(final String name) {
+        return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(MineWorld.MOD_ID, name)));
+    }
+
+    /**
      * Register the {@link MineWorld MineWorld} compostables
      */
     public static void registerCompostables() {
@@ -2641,6 +2660,24 @@ public final class RegisterHelper {
      */
     public static void registerEnchantments(final IEventBus eventBus) {
         ENCHANTMENTS.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link ParticleType particle types}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerParticleTypes(final IEventBus eventBus) {
+        PARTICLE_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link SoundEvent sounds}
+     *
+     * @param eventBus {@link IEventBus The event bus}
+     */
+    public static void registerSounds(final IEventBus eventBus) {
+        SOUNDS.register(eventBus);
     }
 
 }

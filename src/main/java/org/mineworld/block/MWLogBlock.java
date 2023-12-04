@@ -56,13 +56,34 @@ public class MWLogBlock extends RotatedPillarBlock {
     /**
      * Constructor. Set the log properties
      *
+     * @param color {@link MapColor The log color on maps}
+     * @param soundType {@link SoundType The block sound}
+     */
+    public MWLogBlock(final MapColor color, final SoundType soundType) {
+        this(color, color, soundType);
+    }
+
+    /**
+     * Constructor. Set the log properties
+     *
      * @param topColor {@link MapColor The log top color on maps}
      * @param sideColor {@link MapColor The log side color on maps}
      */
     public MWLogBlock(final MapColor topColor, final MapColor sideColor) {
+        this(topColor, sideColor, SoundType.WOOD);
+    }
+
+    /**
+     * Constructor. Set the log properties
+     *
+     * @param topColor {@link MapColor The log top color on maps}
+     * @param sideColor {@link MapColor The log side color on maps}
+     * @param soundType {@link SoundType The block sound}
+     */
+    public MWLogBlock(final MapColor topColor, final MapColor sideColor, final SoundType soundType) {
         super(BlockBehaviour.Properties.of()
                 .mapColor(state -> Direction.Axis.Y.equals(state.getValue(RotatedPillarBlock.AXIS)) ? topColor : sideColor)
-                .strength(2.0F).sound(SoundType.WOOD)
+                .strength(2.0F).sound(soundType)
         );
     }
 

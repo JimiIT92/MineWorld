@@ -338,6 +338,8 @@
   "item.mineworld.magic_mirror": "Specchio magico",
   "item.mineworld.straw_hat": "Cappello di paglia",
   "item.mineworld.gift": "Regalo",
+  "item.mineworld.end_torch": "Torcia dell'End",
+  "item.mineworld.sculk_torch": "Torcia di sculk",
   "block.mineworld.silver_ore": "Minerale di argento",
   "block.mineworld.deepslate_silver_ore": "Minerale di argento in ardesia profonda",
   "block.mineworld.aluminum_ore": "Minerale di alluminio",
@@ -1775,6 +1777,8 @@
   "block.mineworld.ethereal_rune_delta": "Ruina eterea delta",
   "block.mineworld.ethereal_rune_omega": "Ruina eterea omega",
   "block.mineworld.ethereal_portal": "Portale etereo",
+  "block.mineworld.end_soil": "Terra dell'End",
+  "block.mineworld.sculk_soil": "Terra di sculk",
   "block.mineworld.end_torch": "Torcia dell'End",
   "block.mineworld.end_wall_torch": "Torcia dell'End a muro",
   "block.mineworld.sculk_torch": "Torcia di sculk",
@@ -1796,6 +1800,8 @@
   "block.mineworld.sculk_fire": "Fuoco di sculk",
   "block.mineworld.end_lantern": "End Lantern",
   "block.mineworld.sculk_lantern": "Sculk Lantern",
+  "block.mineworld.end_campfire": "Fuoco da campo dell'End",
+  "block.mineworld.sculk_campfire": "Fuoco da campo di sculk",
   "trim_material.mineworld.prismarine": "Di prismarino",
   "trim_material.mineworld.echo_shard": "Di echo shard",
   "trim_material.mineworld.ruby": "Di rubino",
@@ -1843,5 +1849,7 @@
   "advancements.story.mine_emerald.description": "Ottieni degli smeraldi",
   "advancements.story.ruby_sapphire_and_emerald.title": "Nuzlocke!",
   "advancements.story.ruby_sapphire_and_emerald.description": "Ottieni dei rubini, degli zaffiri e degli smeraldi",
-  "message.mineworld.magic_mirror_invalid_spawn": "Impossibile trovare un punto di spawn valido!"
+  "message.mineworld.magic_mirror_invalid_spawn": "Impossibile trovare un punto di spawn valido!",
+  "subtitles.mineworld.magic_mirror": "Specchio magico si aziona",
+  "subtitles.mineworld.invisibility_cloak_equip": "Giocatore scompare"
 }

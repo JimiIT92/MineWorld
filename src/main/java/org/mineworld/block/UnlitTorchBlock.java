@@ -1,5 +1,8 @@
 package org.mineworld.block;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -23,9 +26,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -34,37 +39,37 @@ import java.util.function.Supplier;
 public class UnlitTorchBlock extends Block {
 
     /**
-     * {@link Supplier<Block> The torch block supplier}
+     * {@link Supplier<Map> Unlit torches}
      */
-    protected final Supplier<Block> torchBlockSupplier;
+    public static final Supplier<BiMap<Block, Block>> UNLIT_TORCHES = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder()
+            .put(Blocks.TORCH, MWBlocks.UNLIT_TORCH.get())
+            .put(Blocks.WALL_TORCH, MWBlocks.UNLIT_WALL_TORCH.get())
+            .put(Blocks.SOUL_TORCH, MWBlocks.UNLIT_SOUL_TORCH.get())
+            .put(Blocks.SOUL_WALL_TORCH, MWBlocks.UNLIT_SOUL_WALL_TORCH.get())
+            .put(MWBlocks.END_TORCH.get(), MWBlocks.UNLIT_END_TORCH.get())
+            .put(MWBlocks.END_WALL_TORCH.get(), MWBlocks.UNLIT_END_WALL_TORCH.get())
+            .put(MWBlocks.SCULK_TORCH.get(), MWBlocks.UNLIT_SCULK_TORCH.get())
+            .put(MWBlocks.SCULK_WALL_TORCH.get(), MWBlocks.UNLIT_SCULK_WALL_TORCH.get())
+        .build());
+    /**
+     * {@link Supplier<BiMap> Torches by unlit torches}
+     */
+    public static final Supplier<BiMap<Block, Block>> TORCH_BY_UNLIT = Suppliers.memoize(() -> UNLIT_TORCHES.get().inverse());
 
     /**
      * Constructor. Set the block properties
-     *
-     * @param isSoulTorch {@link Boolean If the torch is a soul torch}
      */
-    public UnlitTorchBlock(final boolean isSoulTorch) {
-        this(() -> isSoulTorch ? Blocks.SOUL_TORCH : Blocks.TORCH);
-    }
-
-    /**
-     * Constructor. Set the block properties
-     *
-     * @param torchBlockSupplier {@link Supplier<Block> The torch block supplier}
-     */
-    public UnlitTorchBlock(final Supplier<Block> torchBlockSupplier) {
-        this(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), torchBlockSupplier);
+    public UnlitTorchBlock() {
+        this(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
     }
 
     /**
      * Constructor. Set the block properties
      *
      * @param properties {@link BlockBehaviour.Properties The block properties}
-     * @param torchBlockSupplier {@link Supplier<Block> The torch block supplier}
      */
-    protected UnlitTorchBlock(final BlockBehaviour.Properties properties, final Supplier<Block> torchBlockSupplier) {
+    protected UnlitTorchBlock(final BlockBehaviour.Properties properties) {
         super(properties);
-        this.torchBlockSupplier = torchBlockSupplier;
     }
 
     /**
@@ -116,7 +121,7 @@ public class UnlitTorchBlock extends Block {
      * @return {@link Block The Torch Block}
      */
     protected Block getTorchBlock() {
-        return torchBlockSupplier.get();
+        return TORCH_BY_UNLIT.get().getOrDefault(this, Blocks.TORCH);
     }
 
     /**

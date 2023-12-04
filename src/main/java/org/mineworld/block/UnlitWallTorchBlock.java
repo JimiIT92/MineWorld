@@ -41,10 +41,6 @@ public class UnlitWallTorchBlock extends UnlitTorchBlock {
             Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D),
             Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D))
     );
-    /**
-     * {@link Supplier<Block> The torch block supplier}
-     */
-    protected final Supplier<Block> torchBlockSupplier;
 
     /**
      * Constructor. Set the block properties
@@ -61,9 +57,8 @@ public class UnlitWallTorchBlock extends UnlitTorchBlock {
      * @param torchBlockSupplier {@link Supplier<Block> The torch block supplier}
      */
     public UnlitWallTorchBlock(final Supplier<Block> torchBlockSupplier) {
-        super(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).dropsLike(torchBlockSupplier.get()).pushReaction(PushReaction.DESTROY), torchBlockSupplier);
+        super(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).dropsLike(torchBlockSupplier.get()).pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-        this.torchBlockSupplier = torchBlockSupplier;
     }
 
     /**
@@ -190,16 +185,6 @@ public class UnlitWallTorchBlock extends UnlitTorchBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING);
-    }
-
-    /**
-     * Get the corresponding {@link Block Torch Block}
-     *
-     * @return {@link Block The Torch Block}
-     */
-    @Override
-    protected Block getTorchBlock() {
-        return this.torchBlockSupplier.get();
     }
 
 }

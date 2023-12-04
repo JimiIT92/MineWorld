@@ -27,6 +27,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.block.HollowBlock;
+import org.mineworld.block.UnlitTorchBlock;
 import org.mineworld.block.WallHangingLanternBlock;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
@@ -59,39 +60,9 @@ public final class RightClickBlockEventListener {
             final BlockState blockState = level.getBlockState(clickedPos);
             final ItemStack itemStack = event.getItemStack();
             final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
-            if(itemStack.isEmpty()) {
-                if(blockState.is(Blocks.TORCH)) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_TORCH.get());
-                    return;
-                }
-                if(blockState.is(Blocks.WALL_TORCH)) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_WALL_TORCH.get());
-                    return;
-                }
-                if(blockState.is(Blocks.SOUL_TORCH)) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SOUL_TORCH.get());
-                    return;
-                }
-                if(blockState.is(Blocks.SOUL_WALL_TORCH)) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SOUL_WALL_TORCH.get());
-                    return;
-                }
-                if(blockState.is(MWBlocks.END_TORCH.get())) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_END_TORCH.get());
-                    return;
-                }
-                if(blockState.is(MWBlocks.END_WALL_TORCH.get())) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_END_WALL_TORCH.get());
-                    return;
-                }
-                if(blockState.is(MWBlocks.SCULK_TORCH.get())) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SCULK_TORCH.get());
-                    return;
-                }
-                if(blockState.is(MWBlocks.SCULK_WALL_TORCH.get())) {
-                    handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.UNLIT_SCULK_WALL_TORCH.get());
-                    return;
-                }
+            if(itemStack.isEmpty() && blockState.getBlock() instanceof TorchBlock) {
+                handleUnlitTorchPlacement(event, level, clickedPos, player, itemStack, blockState);
+                return;
             }
             if(itemStack.is(Items.BONE)) {
                 handleRodPlacement(event, level, clickedPos, player, itemStack, MWBlocks.BONE_ROD_BLOCK.get());
@@ -330,12 +301,15 @@ public final class RightClickBlockEventListener {
      * @param player {@link Player The player interacting with the block}
      * @param itemStack {@link ItemStack The id stack used to interact with the block}
      * @param torchState {@link BlockState The torch Block State}
-     * @param unlitTorchBlock {@link Block The rod block to place}
      */
-    private static void handleUnlitTorchPlacement(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final BlockState torchState, final Block unlitTorchBlock) {
-        level.setBlock(clickedPos, unlitTorchBlock.withPropertiesOf(torchState), 2);
-        player.playSound(SoundEvents.CANDLE_EXTINGUISH);
-        event.setCanceled(true);
+    private static void handleUnlitTorchPlacement(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final BlockState torchState) {
+        final Block unlitTorchBlock = UnlitTorchBlock.UNLIT_TORCHES.get().get(torchState.getBlock());
+        if(unlitTorchBlock != null) {
+            level.setBlock(clickedPos, unlitTorchBlock.withPropertiesOf(torchState), 2);
+            player.playSound(SoundEvents.CANDLE_EXTINGUISH);
+            player.swing(event.getHand());
+            event.setCanceled(true);
+        }
     }
 
     /**

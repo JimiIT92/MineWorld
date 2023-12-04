@@ -1153,6 +1153,8 @@ public final class MWTabs {
                 MWBlocks.PERENNIAL_ICE_POINTED_DRIPSTONE,
                 MWBlocks.MARBLE_POINTED_DRIPSTONE,
                 MWBlocks.LAVA_ROCK,
+                MWBlocks.END_SOIL,
+                MWBlocks.SCULK_SOIL,
                 MWBlocks.MARBLE,
                 MWBlocks.ALUMINUM_ORE,
                 MWBlocks.DEEPSLATE_ALUMINUM_ORE,
@@ -1250,8 +1252,8 @@ public final class MWTabs {
      */
     private static void setFunctionalBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
-                MWBlocks.END_TORCH,
-                MWBlocks.SCULK_TORCH,
+                MWItems.END_TORCH,
+                MWItems.SCULK_TORCH,
                 MWItems.UNLIT_TORCH,
                 MWItems.UNLIT_SOUL_TORCH,
                 MWItems.UNLIT_END_TORCH,
@@ -1381,6 +1383,8 @@ public final class MWTabs {
                 MWBlocks.LAVA_ROCK,
                 MWBlocks.WOODCUTTER,
                 MWBlocks.FORGING_TABLE,
+                MWBlocks.END_CAMPFIRE,
+                MWBlocks.SCULK_CAMPFIRE,
                 MWBlocks.SPRUCE_BOOKSHELF,
                 MWBlocks.BIRCH_BOOKSHELF,
                 MWBlocks.JUNGLE_BOOKSHELF,

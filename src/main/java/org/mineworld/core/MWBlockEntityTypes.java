@@ -1,15 +1,15 @@
 package org.mineworld.core;
 
 import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.LecternBlockEntity;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.blockentity.GiftRenderer;
 import org.mineworld.client.renderer.blockentity.chest.*;
-import org.mineworld.entity.block.DaylightLampBlockEntity;
-import org.mineworld.entity.block.ForgingTableBlockEntity;
-import org.mineworld.entity.block.GiftBlockEntity;
+import org.mineworld.entity.block.*;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegisterHelper;
 
@@ -50,12 +50,12 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<WarpedChestBlockEntity>> WARPED_CHEST = RegisterHelper.registerBlockEntity("warped_chest", WarpedChestBlockEntity::new, MWBlocks.WARPED_CHEST);
     public static final RegistryObject<BlockEntityType<WarpedTrappedChestBlockEntity>> WARPED_TRAPPED_CHEST = RegisterHelper.registerBlockEntity("warped_trapped_chest", WarpedTrappedChestBlockEntity::new, MWBlocks.WARPED_TRAPPED_CHEST);
     public static final RegistryObject<BlockEntityType<ForgingTableBlockEntity>> FORGING_TABLE = RegisterHelper.registerBlockEntity("forging_table", ForgingTableBlockEntity::new, MWBlocks.FORGING_TABLE);
-    public static final RegistryObject<BlockEntityType<SignBlockEntity>> SIGN = RegisterHelper.registerBlockEntity("sign", SignBlockEntity::new,
+    public static final RegistryObject<BlockEntityType<MWSignBlockEntity>> SIGN = RegisterHelper.registerBlockEntity("sign", MWSignBlockEntity::new,
             MWBlocks.APPLE_SIGN, MWBlocks.APPLE_WALL_SIGN,
             MWBlocks.PALM_SIGN, MWBlocks.PALM_WALL_SIGN,
             MWBlocks.DEAD_SIGN, MWBlocks.DEAD_WALL_SIGN,
             MWBlocks.SCULK_SIGN, MWBlocks.SCULK_WALL_SIGN);
-    public static final RegistryObject<BlockEntityType<HangingSignBlockEntity>> HANGING_SIGN = RegisterHelper.registerBlockEntity("hanging_sign", HangingSignBlockEntity::new,
+    public static final RegistryObject<BlockEntityType<MWHangingSignBlockEntity>> HANGING_SIGN = RegisterHelper.registerBlockEntity("hanging_sign", MWHangingSignBlockEntity::new,
             MWBlocks.APPLE_HANGING_SIGN, MWBlocks.APPLE_WALL_HANGING_SIGN,
             MWBlocks.PALM_HANGING_SIGN, MWBlocks.PALM_WALL_HANGING_SIGN,
             MWBlocks.DEAD_HANGING_SIGN, MWBlocks.DEAD_WALL_HANGING_SIGN,
@@ -82,6 +82,7 @@ public final class MWBlockEntityTypes {
             MWBlocks.DROWNED_HEAD,
             MWBlocks.DROWNED_WALL_HEAD);
     public static final RegistryObject<BlockEntityType<GiftBlockEntity>> GIFT = RegisterHelper.registerBlockEntity("gift", GiftBlockEntity::new, MWBlocks.GIFT);
+    public static final RegistryObject<BlockEntityType<MWCampfireBlockEntity>> CAMPFIRE = RegisterHelper.registerBlockEntity("campfire", MWCampfireBlockEntity::new, MWBlocks.END_CAMPFIRE, MWBlocks.SCULK_CAMPFIRE);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link BlockEntityType block entity types}
@@ -144,5 +145,6 @@ public final class MWBlockEntityTypes {
         BlockEntityRenderers.register(SCULK_CHEST.get(), SculkChestRenderer::new);
         BlockEntityRenderers.register(SCULK_TRAPPED_CHEST.get(), SculkTrappedChestRenderer::new);
         BlockEntityRenderers.register(GIFT.get(), GiftRenderer::new);
+        BlockEntityRenderers.register(CAMPFIRE.get(), CampfireRenderer::new);
     }
 }

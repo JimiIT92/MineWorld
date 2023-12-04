@@ -1,0 +1,89 @@
+{
+  "magic_mirror": {
+    "subtitle": "subtitles.mineworld.magic_mirror",
+    "sounds": [
+      "mineworld:magic_mirror"
+    ]
+  },
+  "invisibility_cloak_equip": {
+    "subtitle": "subtitles.mineworld.invisibility_cloak_equip",
+    "sounds": [
+      "mineworld:invisibility_cloak_equip"
+    ]
+  },
+  "sculk_wood_break": {
+    "sounds": [
+      "mineworld:sculk_wood/break1",
+      "mineworld:sculk_wood/break2",
+      "mineworld:sculk_wood/break3",
+      "mineworld:sculk_wood/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "sculk_wood_step": {
+    "sounds": [
+      "mineworld:sculk_wood/step1",
+      "mineworld:sculk_wood/step2",
+      "mineworld:sculk_wood/step3",
+      "mineworld:sculk_wood/step4",
+      "mineworld:sculk_wood/step5",
+      "mineworld:sculk_wood/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "sculk_wood_place":  {
+    "sounds": [
+      "mineworld:sculk_wood/place1",
+      "mineworld:sculk_wood/place2",
+      "mineworld:sculk_wood/place3",
+      "mineworld:sculk_wood/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "sculk_wood_hit": {
+    "sounds": [
+      "mineworld:sculk_wood/break1",
+      "mineworld:sculk_wood/break2",
+      "mineworld:sculk_wood/break3",
+      "mineworld:sculk_wood/break4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "sculk_wood_fall": {
+    "sounds": [
+      "mineworld:sculk_wood/step1",
+      "mineworld:sculk_wood/step2",
+      "mineworld:sculk_wood/step3",
+      "mineworld:sculk_wood/step4",
+      "mineworld:sculk_wood/step5",
+      "mineworld:sculk_wood/step6"
+    ]
+  },
+  "sculk_door_close": {
+    "sounds": [
+      "mineworld:sculk_wood/close1",
+      "mineworld:sculk_wood/close2",
+      "mineworld:sculk_wood/close3"
+    ],
+    "subtitle": "subtitles.block.door.toggle"
+  },
+  "sculk_door_open": {
+    "sounds": [
+      "mineworld:sculk_wood/open1",
+      "mineworld:sculk_wood/open2"
+    ],
+    "subtitle": "subtitles.block.door.toggle"
+  },
+  "sculk_click_on": {
+    "sounds": [
+      "mineworld:sculk_wood/click_on"
+    ],
+    "subtitle": "random.wood_click"
+  },
+  "sculk_click_off": {
+    "sounds": [
+      "mineworld:sculk_wood/click_off"
+    ],
+    "subtitle": "random.wood_click"
+  }
+}

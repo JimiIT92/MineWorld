@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#mineworld:wall_hanging_lanterns",
     "#mineworld:soul_lanterns",
     "#mineworld:end_lanterns",
     "#mineworld:sculk_lanterns",

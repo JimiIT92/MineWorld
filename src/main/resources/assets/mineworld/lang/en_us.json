@@ -338,6 +338,8 @@
   "item.mineworld.magic_mirror": "Magic Mirror",
   "item.mineworld.straw_hat": "Straw Hat",
   "item.mineworld.gift": "Gift",
+  "item.mineworld.end_torch": "End Torch",
+  "item.mineworld.sculk_torch": "Sculk Torch",
   "block.mineworld.silver_ore": "Silver Ore",
   "block.mineworld.deepslate_silver_ore": "Deepslate Silver Ore",
   "block.mineworld.aluminum_ore": "Aluminum Ore",
@@ -1775,6 +1777,8 @@
   "block.mineworld.ethereal_rune_delta": "Delta Ethereal Rune",
   "block.mineworld.ethereal_rune_omega": "Omega Ethereal Rune",
   "block.mineworld.ethereal_portal": "Ethereal Portal",
+  "block.mineworld.end_soil": "End Soil",
+  "block.mineworld.sculk_soil": "Sculk Soil",
   "block.mineworld.end_torch": "End Torch",
   "block.mineworld.end_wall_torch": "End Wall Torch",
   "block.mineworld.sculk_torch": "Sculk Torch",
@@ -1796,6 +1800,8 @@
   "block.mineworld.sculk_fire": "Sculk Fire",
   "block.mineworld.end_lantern": "End Lantern",
   "block.mineworld.sculk_lantern": "Sculk Lantern",
+  "block.mineworld.end_campfire": "End Campfire",
+  "block.mineworld.sculk_campfire": "Sculk Campfire",
   "trim_material.mineworld.prismarine": "Prismarine Material",
   "trim_material.mineworld.echo_shard": "Echo Shard Material",
   "trim_material.mineworld.ruby": "Ruby Material",
@@ -1843,5 +1849,7 @@
   "advancements.story.mine_emerald.description": "Acquire emeralds",
   "advancements.story.ruby_sapphire_and_emerald.title": "Nuzlocke!",
   "advancements.story.ruby_sapphire_and_emerald.description": "Acquire rubies, sapphires and emeralds",
-  "message.mineworld.magic_mirror_invalid_spawn": "Cannot find a valid spawn location!"
+  "message.mineworld.magic_mirror_invalid_spawn": "Cannot find a valid spawn location!",
+  "subtitles.mineworld.magic_mirror": "Magic Mirror activates",
+  "subtitles.mineworld.invisibility_cloak_equip": "Player vanishes"
 }

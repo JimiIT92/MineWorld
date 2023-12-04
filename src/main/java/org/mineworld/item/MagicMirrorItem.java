@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.core.MWSounds;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
@@ -42,7 +42,6 @@ public class MagicMirrorItem extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(final @NotNull Level level, final Player player, final @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         ItemHelper.setCooldown(player, this, 100);
-        PlayerHelper.playSound(player, SoundEvents.BELL_RESONATE);
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             if(level.dimensionType().bedWorks() || level.dimensionType().respawnAnchorWorks()) {
                 final ResourceKey<Level> dimension = level.dimension();
@@ -59,6 +58,7 @@ public class MagicMirrorItem extends Item {
                         respawnPos = respawnPos.above();
                     }
                     PlayerHelper.teleport(player, respawnPos);
+                    PlayerHelper.playSound(player, MWSounds.MAGIC_MIRROR.get());
                 } else {
                     showInvalidSpawnMessage(player);
                 }

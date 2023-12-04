@@ -1,14 +1,11 @@
 package org.mineworld.core;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
@@ -1447,13 +1444,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DROWNED_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(1.0F, false).lootFrom(DROWNED_HEAD)));
     public static final RegistryObject<Block> ICE_CHEST = RegisterHelper.registerChest("ice_chest", () -> MWBlockEntityTypes.ICE_CHEST.get(), MWWoodTypes.ICE);
     public static final RegistryObject<Block> ICE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("ice_trapped_chest", () -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get(), MWWoodTypes.ICE);
-    public static final RegistryObject<Block> SCULK_LOG = RegisterHelper.registerBlock("sculk_log", () -> new MWLogBlock(MWColors.SCULK.toMapColor()));
+    public static final RegistryObject<Block> SCULK_LOG = RegisterHelper.registerBlock("sculk_log", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
     public static final RegistryObject<Block> HOLLOW_SCULK_LOG = RegisterHelper.registerBlock("hollow_sculk_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(SCULK_LOG.get())));
-    public static final RegistryObject<Block> SCULK_WOOD = RegisterHelper.registerBlock("sculk_wood", () -> new MWLogBlock(MWColors.SCULK.toMapColor()));
-    public static final RegistryObject<Block> STRIPPED_SCULK_LOG = RegisterHelper.registerBlock("stripped_sculk_log", () -> new MWLogBlock(MWColors.SCULK.toMapColor()));
+    public static final RegistryObject<Block> SCULK_WOOD = RegisterHelper.registerBlock("sculk_wood", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
+    public static final RegistryObject<Block> STRIPPED_SCULK_LOG = RegisterHelper.registerBlock("stripped_sculk_log", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
     public static final RegistryObject<Block> HOLLOW_STRIPPED_SCULK_LOG = RegisterHelper.registerBlock("hollow_stripped_sculk_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(STRIPPED_SCULK_LOG.get())));
-    public static final RegistryObject<Block> STRIPPED_SCULK_WOOD = RegisterHelper.registerBlock("stripped_sculk_wood", () -> new MWLogBlock(MWColors.SCULK.toMapColor()));
-    public static final RegistryObject<Block> SCULK_PLANKS = RegisterHelper.registerPlanks("sculk_planks", MWColors.SCULK.toMapColor());
+    public static final RegistryObject<Block> STRIPPED_SCULK_WOOD = RegisterHelper.registerBlock("stripped_sculk_wood", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
+    public static final RegistryObject<Block> SCULK_PLANKS = RegisterHelper.registerPlanks("sculk_planks", MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD);
     public static final RegistryObject<Block> SCULK_LEAVES = RegisterHelper.registerLeaves("sculk_leaves");
     public static final RegistryObject<Block> SCULK_SAPLING = RegisterHelper.registerBlock("sculk_sapling", SculkSaplingBlock::new);
     public static final RegistryObject<Block> POTTED_SCULK_SAPLING = RegisterHelper.registerFlowerPot("potted_sculk_sapling", SCULK_SAPLING);
@@ -1488,9 +1485,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = RegisterHelper.registerBlock("ethereal_rune_delta", EtherealRuneBlock::new);
     public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = RegisterHelper.registerBlock("ethereal_rune_omega", EtherealRuneBlock::new);
     public static final RegistryObject<Block> ETHEREAL_PORTAL = RegisterHelper.registerBlockWithoutBlockItem("ethereal_portal", EtherealPortalBlock::new);
-    public static final RegistryObject<Block> UNLIT_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_torch", () -> new UnlitTorchBlock(false));
+    public static final RegistryObject<Block> UNLIT_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_torch", UnlitTorchBlock::new);
     public static final RegistryObject<Block> UNLIT_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_wall_torch", () -> new UnlitWallTorchBlock(false));
-    public static final RegistryObject<Block> UNLIT_SOUL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_torch", () -> new UnlitTorchBlock(true));
+    public static final RegistryObject<Block> UNLIT_SOUL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_torch", UnlitTorchBlock::new);
     public static final RegistryObject<Block> UNLIT_SOUL_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_wall_torch", () -> new UnlitWallTorchBlock(true));
     public static final RegistryObject<Block> BROWN_MUSHROOM_WALL_FAN = RegisterHelper.registerBlockWithoutBlockItem("brown_mushroom_wall_fan",
             () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_BROWN, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.BROWN_MUSHROOM)));
@@ -1501,6 +1498,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GIFT = RegisterHelper.registerBlockWithoutBlockItem("gift", GiftBlock::new);
     public static final RegistryObject<Block> END_FIRE = RegisterHelper.registerBlockWithoutBlockItem("end_fire", EndFireBlock::new);
     public static final RegistryObject<Block> SCULK_FIRE = RegisterHelper.registerBlockWithoutBlockItem("sculk_fire", SculkFireBlock::new);
+    public static final RegistryObject<Block> END_SOIL = RegisterHelper.registerBlock("end_soil", () -> PropertyHelper.basicBlockProperties(MapColor.COLOR_GREEN, 0.5F, 0.5F, false, SoundType.SOUL_SOIL));
+    public static final RegistryObject<Block> SCULK_SOIL = RegisterHelper.registerBlock("sculk_soil", () -> PropertyHelper.basicBlockProperties(MapColor.COLOR_LIGHT_BLUE, 0.5F, 0.5F, false, SoundType.SOUL_SOIL));
     public static final RegistryObject<Block> END_LANTERN = RegisterHelper.registerLantern("end_lantern", EndFireBlock.LIGHT_LEVEL);
     public static final RegistryObject<Block> GOLDEN_END_LANTERN = RegisterHelper.registerLantern("golden_end_lantern", EndFireBlock.LIGHT_LEVEL);
     public static final RegistryObject<Block> OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlock("oxidized_copper_end_lantern",
@@ -1573,14 +1572,16 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_exposed_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_SCULK_LANTERN.get())));
     public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_weathered_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_SCULK_LANTERN.get())));
     public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> END_TORCH = RegisterHelper.registerBlock("end_torch", () -> new TorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> EndFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> END_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("end_wall_torch", () -> new WallTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> EndFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).dropsLike(END_TORCH.get()).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> UNLIT_END_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_end_torch", () -> new UnlitTorchBlock(END_TORCH));
+    public static final RegistryObject<Block> END_TORCH = RegisterHelper.registerBlockWithoutBlockItem("end_torch", () -> new MWTorchBlock(EndFireBlock.LIGHT_LEVEL, () -> MWParticleTypes.END_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> END_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("end_wall_torch", () -> new MWWallTorchBlock(EndFireBlock.LIGHT_LEVEL, END_TORCH.get(), () -> MWParticleTypes.END_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> UNLIT_END_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_end_torch", UnlitTorchBlock::new);
     public static final RegistryObject<Block> UNLIT_END_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_end_wall_torch", () -> new UnlitWallTorchBlock(END_WALL_TORCH));
-    public static final RegistryObject<Block> SCULK_TORCH = RegisterHelper.registerBlock("sculk_torch", () -> new TorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> SculkFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("sculk_wall_torch", () -> new WallTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> SculkFireBlock.LIGHT_LEVEL).sound(SoundType.WOOD).dropsLike(SCULK_TORCH.get()).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> UNLIT_SCULK_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_torch", () -> new UnlitTorchBlock(SCULK_TORCH));
+    public static final RegistryObject<Block> SCULK_TORCH = RegisterHelper.registerBlockWithoutBlockItem("sculk_torch", () -> new MWTorchBlock(EndFireBlock.LIGHT_LEVEL, () -> MWParticleTypes.SCULK_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("sculk_wall_torch", () -> new MWWallTorchBlock(SculkFireBlock.LIGHT_LEVEL, SCULK_TORCH.get(), () -> MWParticleTypes.SCULK_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> UNLIT_SCULK_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_torch", UnlitTorchBlock::new);
     public static final RegistryObject<Block> UNLIT_SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_wall_torch", () -> new UnlitWallTorchBlock(SCULK_WALL_TORCH));
+    public static final RegistryObject<Block> END_CAMPFIRE = RegisterHelper.registerBlock("end_campfire", () -> new MWCampfireBlock(1, EndFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> SCULK_CAMPFIRE = RegisterHelper.registerBlock("sculk_campfire", () -> new MWCampfireBlock(3, SculkFireBlock.LIGHT_LEVEL));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}
