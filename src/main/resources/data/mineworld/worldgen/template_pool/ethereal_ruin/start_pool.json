@@ -1,0 +1,51 @@
+{
+  "name": "mineworld:ethereal_ruin/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "mineworld:ethereal_ruin/alpha",
+        "processors": "mineworld:slightly_damaged",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "mineworld:ethereal_ruin/beta",
+        "processors": "mineworld:slightly_damaged",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "mineworld:ethereal_ruin/gamma",
+        "processors": "mineworld:slightly_damaged",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "mineworld:ethereal_ruin/delta",
+        "processors": "mineworld:slightly_damaged",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "mineworld:ethereal_ruin/omega",
+        "processors": "mineworld:slightly_damaged",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

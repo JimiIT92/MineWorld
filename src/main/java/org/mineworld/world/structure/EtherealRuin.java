@@ -13,9 +13,9 @@ import org.mineworld.core.MWStructures;
 import java.util.Optional;
 
 /**
- * {@link Structure Implementation class for an Ice Castle structure}
+ * {@link Structure Implementation class for an Ethereal Ruin structure}
  */
-public class IceCastle extends MWJigsawStructure {
+public class EtherealRuin extends MWJigsawStructure {
 
     /**
      * Constructor. Set the structure properties
@@ -28,7 +28,7 @@ public class IceCastle extends MWJigsawStructure {
      * @param projectStartToHeightmap {@link Heightmap.Types The structure generation heightmap types}
      * @param maxDistanceFromCenter   {@link Integer The max distance from the structure center} that branches can spawn
      */
-    protected IceCastle(StructureSettings config, Holder<StructureTemplatePool> startPool, Optional<ResourceLocation> startJigsawName, int size, HeightProvider startHeight, Optional<Heightmap.Types> projectStartToHeightmap, int maxDistanceFromCenter) {
+    protected EtherealRuin(StructureSettings config, Holder<StructureTemplatePool> startPool, Optional<ResourceLocation> startJigsawName, int size, HeightProvider startHeight, Optional<Heightmap.Types> projectStartToHeightmap, int maxDistanceFromCenter) {
         super(config, startPool, startJigsawName, size, startHeight, projectStartToHeightmap, maxDistanceFromCenter);
     }
 
@@ -39,6 +39,6 @@ public class IceCastle extends MWJigsawStructure {
      */
     @Override
     public @NotNull StructureType<?> type() {
-        return MWStructures.ICE_CASTLE.get();
+        return MWStructures.ETHEREAL_RUIN.get();
     }
 }
