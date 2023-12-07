@@ -172,7 +172,7 @@ public final class RightClickBlockEventListener {
                 event.setUseItem(Event.Result.DENY);
                 if(level.isClientSide()) {
                     player.swing(event.getHand());
-                    PlayerHelper.playSound(player, SoundEvents.AXE_STRIP);
+                    player.playSound(SoundEvents.AXE_STRIP);
                 }
             });
         }

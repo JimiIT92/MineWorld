@@ -109,7 +109,7 @@ public class MWMinecartItem extends Item {
             case PALM_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.PALM);
             case DEAD_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.DEAD);
             case ICE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.ICE);
-            case SCULK_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.SCULK);
+            case SCULK_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.SCULK.get());
         };
     }
 

@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWDimensions;
+import org.mineworld.core.MWSounds;
 import org.mineworld.core.MWTags;
 import org.mineworld.helper.RandomHelper;
 import org.mineworld.world.dimension.EtherealTeleporter;
@@ -55,6 +57,16 @@ public class EtherealPortalBlock extends MWPortalBlock {
     }
 
     /**
+     * Get the {@link SoundEvent portal opening sound}
+     *
+     * @return The {@link SoundEvent portal opening sound}
+     */
+    @Override
+    public SoundEvent getPortalSound() {
+        return MWSounds.ETHEREAL_PORTAL_OPEN.get();
+    }
+
+    /**
      * Get the {@link MWTeleporter dimension teleporter}
      *
      * @param level {@link ServerLevel The level reference}
@@ -75,7 +87,7 @@ public class EtherealPortalBlock extends MWPortalBlock {
      */
     @Override
     public void animateTick(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull RandomSource random) {
-        if (RandomHelper.choose(5)) {
+        if (RandomHelper.choose(20)) {
             level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.SCULK_BLOCK_CHARGE, SoundSource.BLOCKS, 0.5F, random.nextFloat() * 0.4F + 0.8F, false);
             double x = (double) pos.getX() + random.nextDouble();
             double y = (double) pos.getY() + random.nextDouble();

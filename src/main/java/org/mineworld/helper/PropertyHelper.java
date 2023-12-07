@@ -605,7 +605,7 @@ public final class PropertyHelper {
         else if(woodType.equals(MWWoodTypes.ICE)) {
             blockEntity = isTrappedChest ? new IceTrappedChestBlockEntity(blockPos, blockState) : new IceChestBlockEntity(blockPos, blockState);
         }
-        else if(woodType.equals(MWWoodTypes.SCULK)) {
+        else if(woodType.equals(MWWoodTypes.SCULK.get())) {
             blockEntity = isTrappedChest ? new SculkTrappedChestBlockEntity(blockPos, blockState) : new SculkChestBlockEntity(blockPos, blockState);
         }
         return blockEntity != null ? blockEntity : (isTrappedChest ? new TrappedChestBlockEntity(blockPos, blockState) : new ChestBlockEntity(blockPos, blockState));

@@ -38,7 +38,7 @@ public class EtherealTeleporter extends MWTeleporter {
     /**
      * Get the {@link ResourceKey<PoiType> PoiType key} this teleporter is referring to
      *
-     * @return {@link ResourceKey< PoiType > The PoiType key}
+     * @return {@link ResourceKey<PoiType> The PoiType key}
      */
     @Override
     public ResourceKey<PoiType> getPoiType() {

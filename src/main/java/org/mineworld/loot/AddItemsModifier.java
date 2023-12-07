@@ -38,7 +38,7 @@ public class AddItemsModifier extends LootModifier {
      * @param lootConditions {@index ILootCondition The conditions that need to be matched before the loot is modified}
      * @param entries {@link List<MWLootItem> The list of items to add to the loot}
      */
-    public AddItemsModifier(final LootItemCondition[] lootConditions, List<MWLootItem> entries) {
+    public AddItemsModifier(final LootItemCondition[] lootConditions, final List<MWLootItem> entries) {
         super(lootConditions);
         this.entries = entries;
     }

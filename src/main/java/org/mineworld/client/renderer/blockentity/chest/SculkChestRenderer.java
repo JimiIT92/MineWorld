@@ -29,7 +29,7 @@ public class SculkChestRenderer extends AbstractChestRenderer {
      */
     @Override
     protected WoodType getWoodType() {
-        return MWWoodTypes.SCULK;
+        return MWWoodTypes.SCULK.get();
     }
 
 }

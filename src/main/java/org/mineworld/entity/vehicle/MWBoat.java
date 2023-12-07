@@ -157,7 +157,7 @@ public class MWBoat extends Boat {
         APPLE(MWBlocks.APPLE_PLANKS.get(), MWWoodTypes.APPLE),
         PALM(MWBlocks.PALM_PLANKS.get(), MWWoodTypes.PALM),
         DEAD(MWBlocks.DEAD_PLANKS.get(), MWWoodTypes.DEAD),
-        SCULK(MWBlocks.SCULK_PLANKS.get(), MWWoodTypes.SCULK);
+        SCULK(MWBlocks.SCULK_PLANKS.get(), MWWoodTypes.SCULK.get());
 
         /**
          * {@link String The boat type name}

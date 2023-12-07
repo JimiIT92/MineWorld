@@ -4,8 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -53,8 +51,6 @@ public class EchoingChargeItem extends Item {
                 for (Direction direction : Direction.Plane.VERTICAL) {
                     final BlockPos framePos = clickedPos.relative(direction);
                     if(((MWPortalBlock) MWBlocks.ETHEREAL_PORTAL.get()).trySpawnPortal(level, clickedPos.relative(face))) {
-                        level.playSound(player, framePos, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 0.5F, 0.5F);
-                        level.playSound(player, clickedPos, SoundEvents.SCULK_BLOCK_CHARGE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                         if(player instanceof ServerPlayer) {
                             ItemHelper.hurt(context.getItemInHand(), player);
                         }

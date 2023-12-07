@@ -1851,5 +1851,6 @@
   "advancements.story.ruby_sapphire_and_emerald.description": "Ottieni dei rubini, degli zaffiri e degli smeraldi",
   "message.mineworld.magic_mirror_invalid_spawn": "Impossibile trovare un punto di spawn valido!",
   "subtitles.mineworld.magic_mirror": "Specchio magico si aziona",
-  "subtitles.mineworld.invisibility_cloak_equip": "Giocatore scompare"
+  "subtitles.mineworld.invisibility_cloak_equip": "Giocatore scompare",
+  "subtitles.mineworld.ethereal_portal.open": "Portale etereo aperto"
 }

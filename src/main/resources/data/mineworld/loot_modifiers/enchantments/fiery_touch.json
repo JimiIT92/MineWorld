@@ -6,7 +6,10 @@
       "predicate": {
         "enchantments": [
           {
-            "enchantment": "mineworld:smelting"
+            "enchantment": "mineworld:smelting",
+            "levels": {
+              "min": 1
+            }
           }
         ]
       }

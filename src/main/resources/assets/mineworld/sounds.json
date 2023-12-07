@@ -74,16 +74,208 @@
     ],
     "subtitle": "subtitles.block.door.toggle"
   },
-  "sculk_click_on": {
+  "sculk_trapdoor_close": {
+    "sounds": [
+      "mineworld:sculk_wood/trapdoor_close1",
+      "mineworld:sculk_wood/trapdoor_close2",
+      "mineworld:sculk_wood/trapdoor_close3"
+    ],
+    "subtitle": "subtitles.block.trapdoor.toggle"
+  },
+  "sculk_trapdoor_open": {
+    "sounds": [
+      "mineworld:sculk_wood/trapdoor_open1",
+      "mineworld:sculk_wood/trapdoor_open2",
+      "mineworld:sculk_wood/trapdoor_open3",
+      "mineworld:sculk_wood/trapdoor_open4",
+      "mineworld:sculk_wood/trapdoor_open5"
+    ],
+    "subtitle": "subtitles.block.trapdoor.toggle"
+  },
+  "sculk_button_on": {
     "sounds": [
       "mineworld:sculk_wood/click_on"
     ],
-    "subtitle": "random.wood_click"
+    "subtitle": "subtitles.block.button.click"
   },
-  "sculk_click_off": {
+  "sculk_button_off": {
     "sounds": [
       "mineworld:sculk_wood/click_off"
     ],
-    "subtitle": "random.wood_click"
+    "subtitle": "subtitles.block.button.click"
+  },
+  "sculk_pressure_plate_on": {
+    "sounds": [
+      "mineworld:sculk_wood/click_on"
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
+  "sculk_pressure_plate_off": {
+    "sounds": [
+      "mineworld:sculk_wood/click_off"
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
+  "sculk_fence_gate_close": {
+    "sounds": [
+      "mineworld:sculk_wood/fence_gate_close1",
+      "mineworld:sculk_wood/fence_gate_close2"
+    ],
+    "subtitle": "subtitles.block.fence_gate.toggle"
+  },
+  "sculk_fence_gate_open": {
+    "sounds": [
+      "mineworld:sculk_wood/fence_gate_open1",
+      "mineworld:sculk_wood/fence_gate_open2"
+    ],
+    "subtitle": "subtitles.block.fence_gate.toggle"
+  },
+  "sculk_wood_hanging_sign_break": {
+    "sounds": [
+      "mineworld:sculk_wood/hanging_sign_break1",
+      "mineworld:sculk_wood/hanging_sign_break2",
+      "mineworld:sculk_wood/hanging_sign_break3",
+      "mineworld:sculk_wood/hanging_sign_break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "sculk_wood_hanging_sign_step": {
+    "sounds": [
+      "mineworld:sculk_wood/hanging_sign_step1",
+      "mineworld:sculk_wood/hanging_sign_step2",
+      "mineworld:sculk_wood/hanging_sign_step3",
+      "mineworld:sculk_wood/hanging_sign_step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "sculk_wood_hanging_sign_place":  {
+    "sounds": [
+      "mineworld:sculk_wood/hanging_sign_place1",
+      "mineworld:sculk_wood/hanging_sign_place2",
+      "mineworld:sculk_wood/hanging_sign_place3",
+      "mineworld:sculk_wood/hanging_sign_place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "sculk_wood_hanging_sign_hit": {
+    "sounds": [
+      "mineworld:sculk_wood/hanging_sign_break1",
+      "mineworld:sculk_wood/hanging_sign_break2",
+      "mineworld:sculk_wood/hanging_sign_break3",
+      "mineworld:sculk_wood/hanging_sign_break4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "sculk_wood_hanging_sign_fall": {
+    "sounds": [
+      "mineworld:sculk_wood/hanging_sign_step1",
+      "mineworld:sculk_wood/hanging_sign_step2",
+      "mineworld:sculk_wood/hanging_sign_step3",
+      "mineworld:sculk_wood/hanging_sign_step4"
+    ]
+  },
+  "sculk_soil_break": {
+    "sounds": [
+      "mineworld:sculk_soil/break1",
+      "mineworld:sculk_soil/break2",
+      "mineworld:sculk_soil/break3",
+      "mineworld:sculk_soil/break4",
+      "mineworld:sculk_soil/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "sculk_soil_step": {
+    "sounds": [
+      "mineworld:sculk_soil/step1",
+      "mineworld:sculk_soil/step2",
+      "mineworld:sculk_soil/step3",
+      "mineworld:sculk_soil/step4",
+      "mineworld:sculk_soil/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "sculk_soil_place":  {
+    "sounds": [
+      "mineworld:sculk_soil/break1",
+      "mineworld:sculk_soil/break2",
+      "mineworld:sculk_soil/break3",
+      "mineworld:sculk_soil/break4",
+      "mineworld:sculk_soil/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "sculk_soil_hit": {
+    "sounds": [
+      "mineworld:sculk_soil/break1",
+      "mineworld:sculk_soil/break2",
+      "mineworld:sculk_soil/break3",
+      "mineworld:sculk_soil/break4",
+      "mineworld:sculk_soil/break5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "sculk_soil_fall": {
+    "sounds": [
+      "mineworld:sculk_soil/step1",
+      "mineworld:sculk_soil/step2",
+      "mineworld:sculk_soil/step3",
+      "mineworld:sculk_soil/step4",
+      "mineworld:sculk_soil/step5"
+    ]
+  },
+  "end_soil_break": {
+    "sounds": [
+      "mineworld:end_soil/break1",
+      "mineworld:end_soil/break2",
+      "mineworld:end_soil/break3",
+      "mineworld:end_soil/break4",
+      "mineworld:end_soil/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "end_soil_step": {
+    "sounds": [
+      "mineworld:end_soil/step1",
+      "mineworld:end_soil/step2",
+      "mineworld:end_soil/step3",
+      "mineworld:end_soil/step4",
+      "mineworld:end_soil/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "end_soil_place":  {
+    "sounds": [
+      "mineworld:end_soil/break1",
+      "mineworld:end_soil/break2",
+      "mineworld:end_soil/break3",
+      "mineworld:end_soil/break4",
+      "mineworld:end_soil/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "end_soil_hit": {
+    "sounds": [
+      "mineworld:end_soil/break1",
+      "mineworld:end_soil/break2",
+      "mineworld:end_soil/break3",
+      "mineworld:end_soil/break4",
+      "mineworld:end_soil/break5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "end_soil_fall": {
+    "sounds": [
+      "mineworld:end_soil/step1",
+      "mineworld:end_soil/step2",
+      "mineworld:end_soil/step3",
+      "mineworld:end_soil/step4",
+      "mineworld:end_soil/step5"
+    ]
+  },
+  "ethereal_portal_open": {
+    "sounds": [
+      "mineworld:ethereal_portal/open"
+    ],
+    "subtitle": "subtitles.mineworld.ethereal_portal.open"
   }
 }

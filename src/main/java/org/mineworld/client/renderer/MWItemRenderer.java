@@ -151,11 +151,11 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
     /**
      * {@link ChestBlockEntity The sculk chest block entity}
      */
-    private final ChestBlockEntity sculkChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.SCULK, BlockPos.ZERO, MWBlocks.SCULK_CHEST.get().defaultBlockState(), false);
+    private final ChestBlockEntity sculkChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.SCULK.get(), BlockPos.ZERO, MWBlocks.SCULK_CHEST.get().defaultBlockState(), false);
     /**
      * {@link ChestBlockEntity The sculk trapped chest block entity}
      */
-    private final ChestBlockEntity trappedSculkChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.SCULK, BlockPos.ZERO, MWBlocks.SCULK_TRAPPED_CHEST.get().defaultBlockState(), true);
+    private final ChestBlockEntity trappedSculkChest = PropertyHelper.getChestBlockEntity(MWWoodTypes.SCULK.get(), BlockPos.ZERO, MWBlocks.SCULK_TRAPPED_CHEST.get().defaultBlockState(), true);
 
     /**
      * Constructor. Set the {@link EntityModelSet entity model set}

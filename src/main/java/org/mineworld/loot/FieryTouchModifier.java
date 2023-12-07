@@ -29,8 +29,7 @@ public final class FieryTouchModifier extends LootModifier {
     /**
      * {@link Supplier<Codec> The loot codec supplier}
      */
-    public static final Supplier<Codec<FieryTouchModifier>> CODEC = Suppliers.memoize(()  ->
-            RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, FieryTouchModifier::new)));
+    public static final Supplier<Codec<FieryTouchModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, FieryTouchModifier::new)));
 
     /**
      * Constructor. Set the {@link LootItemCondition loot id conditions}
@@ -78,6 +77,16 @@ public final class FieryTouchModifier extends LootModifier {
 
         return loot;
     }
+
+    /*
+    private static ItemStack smelt(ItemStack stack, LootContext context) {
+            return context.getLevel().getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), context.getLevel())
+                    .map(smeltingRecipe -> smeltingRecipe.getResultItem(context.getLevel().registryAccess()))
+                    .filter(itemStack -> !itemStack.isEmpty())
+                    .map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount()))
+                    .orElse(stack);
+        }
+     */
 
     /**
      * Get the {@link Codec loot modifier codec}

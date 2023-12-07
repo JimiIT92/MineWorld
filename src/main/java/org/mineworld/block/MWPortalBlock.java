@@ -5,6 +5,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -63,6 +65,10 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
         final MWPortalShape size = this.isPortal(level, pos);
         if (size != null && !onTrySpawnPortal(level, pos, size)) {
             size.createPortalBlocks();
+            final SoundEvent portalSound = getPortalSound();
+            if(portalSound != null) {
+                level.playSound(null, pos, portalSound, SoundSource.HOSTILE);
+            }
             return true;
         }
         return false;
@@ -119,6 +125,13 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
      * @return {@link ResourceKey<Level> The dimension key}
      */
     public abstract ResourceKey<Level> getDimension();
+
+    /**
+     * Get the {@link SoundEvent portal opening sound}
+     *
+     * @return The {@link SoundEvent portal opening sound}
+     */
+    public abstract SoundEvent getPortalSound();
 
     /**
      * Get the {@link MWTeleporter dimension teleporter}

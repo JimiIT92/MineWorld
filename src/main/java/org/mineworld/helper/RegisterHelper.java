@@ -20,6 +20,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
@@ -94,7 +95,6 @@ import org.mineworld.block.PebbleBlock;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWColors;
 import org.mineworld.core.MWItems;
-import org.mineworld.core.MWWoodTypes;
 import org.mineworld.entity.block.MWHangingSignBlockEntity;
 import org.mineworld.entity.block.MWSignBlockEntity;
 
@@ -747,7 +747,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerFence(name, blockSupplier, true, featureFlags);
+        return registerFence(name, blockSupplier, true, SoundType.WOOD, featureFlags);
+    }
+
+    /**
+     * Register a {@link FenceBlock fence block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this fence is referring to}
+     * @param sound {@link SoundType The block sound}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerFence(name, blockSupplier, true, sound, featureFlags);
     }
 
     /**
@@ -756,11 +769,12 @@ public final class RegisterHelper {
      * @param name {@link String The block name}
      * @param blockSupplier {@link Supplier<Block> The supplier for the block this fence is referring to}
      * @param isFlammable {@link Boolean If the fence is flammable}
+     * @param sound {@link SoundType The block sound}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final boolean isFlammable, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new FenceBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)) {
+    public static RegistryObject<Block> registerFence(final String name, final Supplier<Block> blockSupplier, final boolean isFlammable, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new FenceBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F).sound(sound)) {
 
             /**
              * Determine if the {@link RotatedPillarBlock block} is flammable
@@ -817,7 +831,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
-        return registerFenceGate(name, blockSupplier, woodType,true, featureFlags);
+        return registerFenceGate(name, blockSupplier, () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link FenceBlock fence gate block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this fence gate is referring to}
+     * @param woodType {@link WoodType The fence gate wood type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final Supplier<WoodType> woodType, final FeatureFlag... featureFlags) {
+        return registerFenceGate(name, blockSupplier, woodType, true, featureFlags);
     }
 
     /**
@@ -830,8 +857,8 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final WoodType woodType, final boolean isFlammable,  final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new FenceGateBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F), woodType) {
+    public static RegistryObject<Block> registerFenceGate(final String name, final Supplier<Block> blockSupplier, final Supplier<WoodType> woodType, final boolean isFlammable, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new FenceGateBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).strength(2.0F, 3.0F), woodType.get()) {
 
             /**
              * Determine if the {@link RotatedPillarBlock block} is flammable
@@ -887,7 +914,19 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerStandingSign(final String name, final WoodType woodType, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(name, () -> new StandingSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_SIGN), woodType) {
+        return registerStandingSign(name, () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link SignBlock sign block}
+     *
+     * @param name {@link String The block name}
+     * @param woodType {@link WoodType The sign wood type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerStandingSign(final String name, final Supplier<WoodType> woodType, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new StandingSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_SIGN), woodType.get()) {
 
             /**
              * Get the {@link BlockEntity sign block entity}
@@ -913,7 +952,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWallSign(final String name, final WoodType woodType, final Supplier<Block> standingSignSupplier, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(name, () -> new WallSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_WALL_SIGN).dropsLike(standingSignSupplier.get()), woodType) {
+        return registerWallSign(name, () -> woodType, standingSignSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link SignBlock wall sign block}
+     *
+     * @param name {@link String The block name}
+     * @param woodType {@link WoodType The sign wood type}
+     * @param standingSignSupplier {@link Supplier<Block> The supplier for the standing sign block}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerWallSign(final String name, final Supplier<WoodType> woodType, final Supplier<Block> standingSignSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new WallSignBlock(PropertyHelper.copyFromBlock(Blocks.OAK_WALL_SIGN).dropsLike(standingSignSupplier.get()), woodType.get()) {
 
             /**
              * Get the {@link BlockEntity sign block entity}
@@ -939,7 +991,19 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerHangingSign(final String name, final Supplier<Block> blockSupplier, final WoodType woodType) {
-        return registerBlockWithoutBlockItem(name, () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).noCollission().strength(1.0F), woodType) {
+        return registerHangingSign(name, blockSupplier, () -> woodType);
+    }
+
+    /**
+     * Register an {@link SignBlock hanging sign block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this sign is referring to}
+     * @param woodType {@link WoodType The sign wood type}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerHangingSign(final String name, final Supplier<Block> blockSupplier, final Supplier<WoodType> woodType) {
+        return registerBlockWithoutBlockItem(name, () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).noCollission().strength(1.0F), woodType.get()) {
 
             /**
              * Get the {@link BlockEntity sign block entity}
@@ -964,7 +1028,19 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerWallHangingSign(final String name, final Supplier<Block> blockSupplier, final Supplier<Block> standingSignSupplier, final WoodType woodType) {
-        return registerBlockWithoutBlockItem(name, () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).noCollission().strength(1.0F).dropsLike(standingSignSupplier.get()), woodType) {
+        return registerWallHangingSign(name, blockSupplier, standingSignSupplier, () -> woodType);
+    }
+
+    /**
+     * Register an {@link SignBlock wall hanging sign block}
+     *
+     * @param name {@link String The block name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the block this sign is referring to}
+     * @param woodType {@link WoodType The sign wood type}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerWallHangingSign(final String name, final Supplier<Block> blockSupplier, final Supplier<Block> standingSignSupplier, final Supplier<WoodType> woodType) {
+        return registerBlockWithoutBlockItem(name, () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(blockSupplier.get().defaultMapColor()).noCollission().strength(1.0F).dropsLike(standingSignSupplier.get()), woodType.get()) {
 
             /**
              * Get the {@link BlockEntity sign block entity}
@@ -990,7 +1066,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerDoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new DoorBlock(PropertyHelper.copyFromBlock(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetType));
+        return registerDoor(name, requiresPower, () -> blockSetType, featureFlags);
+    }
+
+    /**
+     * Register a {@link DoorBlock door block}
+     *
+     * @param name {@link String The block name}
+     * @param requiresPower {@link Boolean If the door needs redstone to be activated}
+     * @param blockSetTypeSupplier {@link BlockSetType The door block set type supplier}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerDoor(final String name, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new DoorBlock(PropertyHelper.copyFromBlock(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetTypeSupplier.get()));
     }
 
     /**
@@ -1003,7 +1092,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerTrapdoor(final String name, final boolean requiresPower, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new TrapDoorBlock(PropertyHelper.copyFromBlock(requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags), blockSetType));
+        return registerTrapdoor(name, requiresPower, () -> blockSetType, featureFlags);
+    }
+
+    /**
+     * Register a {@link TrapDoorBlock trapdoor block}
+     *
+     * @param name {@link String The block name}
+     * @param requiresPower {@link Boolean If the trapdoor needs redstone to be activated}
+     * @param blockSetType {@link BlockSetType The trapdoor block set type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerTrapdoor(final String name, final boolean requiresPower, final Supplier<BlockSetType> blockSetType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new TrapDoorBlock(PropertyHelper.copyFromBlock(requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags), blockSetType.get()));
     }
 
     /**
@@ -1017,8 +1119,22 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerPressurePlate(final String name, final boolean isWooden, final MapColor materialColor, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        return registerPressurePlate(name, isWooden, materialColor, () -> blockSetType, featureFlags);
+    }
+
+    /**
+     * Register a {@link PressurePlateBlock pressure plate block}
+     *
+     * @param name {@link String The block name}
+     * @param isWooden {@link Boolean If the pressure plate is a wooden pressure plate}
+     * @param materialColor {@link MapColor The block color on maps}
+     * @param blockSetType {@link BlockSetType The pressure plate block set type}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerPressurePlate(final String name, final boolean isWooden, final MapColor materialColor, final Supplier<BlockSetType> blockSetType, final FeatureFlag... featureFlags) {
         final BlockBehaviour.Properties properties = PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).mapColor(materialColor);
-        return registerBlock(name, () -> new PressurePlateBlock(isWooden ? PressurePlateBlock.Sensitivity.EVERYTHING : PressurePlateBlock.Sensitivity.MOBS, properties, blockSetType));
+        return registerBlock(name, () -> new PressurePlateBlock(isWooden ? PressurePlateBlock.Sensitivity.EVERYTHING : PressurePlateBlock.Sensitivity.MOBS, properties, blockSetType.get()));
     }
 
     /**
@@ -1035,6 +1151,10 @@ public final class RegisterHelper {
         return registerBlock(name, () -> new WeightedPressurePlateBlock(maxWeight, PropertyHelper.copyFromBlock(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE), blockSetType));
     }
 
+    public static RegistryObject<Block> registerButton(final String name, final boolean isWooden, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
+        return registerButton(name, isWooden, () -> blockSetType, featureFlags);
+    }
+
     /**
      * Register a {@link ButtonBlock button block}
      *
@@ -1044,8 +1164,8 @@ public final class RegisterHelper {
      * @param featureFlags @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerButton(final String name, final boolean isWooden, final BlockSetType blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new ButtonBlock(PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_BUTTON : Blocks.STONE_BUTTON), blockSetType, isWooden ? 30 : 20, isWooden));
+    public static RegistryObject<Block> registerButton(final String name, final boolean isWooden, final Supplier<BlockSetType> blockSetType, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new ButtonBlock(PropertyHelper.copyFromBlock(isWooden ? Blocks.OAK_BUTTON : Blocks.STONE_BUTTON), blockSetType.get(), isWooden ? 30 : 20, isWooden));
     }
 
     /**
@@ -1452,12 +1572,25 @@ public final class RegisterHelper {
      * Register a {@link LecternBlock lectern block}
      *
      * @param name {@link String The block name}
-     * //@param lecternBlockEntityTypeSupplier {@link Supplier<BlockEntityType> The supplier for the lectern block entity type}
+     * @param lecternBlockEntityTypeSupplier {@link Supplier<BlockEntityType> The supplier for the lectern block entity type}
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerLectern(final String name, final Supplier<BlockEntityType<LecternBlockEntity>> lecternBlockEntityTypeSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new LecternBlock(PropertyHelper.copyFromBlock(Blocks.LECTERN, featureFlags)) {
+        return registerLectern(name, lecternBlockEntityTypeSupplier, SoundType.WOOD, featureFlags);
+    }
+
+    /**
+     * Register a {@link LecternBlock lectern block}
+     *
+     * @param name {@link String The block name}
+     * @param lecternBlockEntityTypeSupplier {@link Supplier<BlockEntityType> The supplier for the lectern block entity type}
+     * @param sound {@link SoundType The block sound}
+     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerLectern(final String name, final Supplier<BlockEntityType<LecternBlockEntity>> lecternBlockEntityTypeSupplier, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new LecternBlock(PropertyHelper.copyFromBlock(Blocks.LECTERN, featureFlags).sound(sound)) {
 
             /**
              * Get the {@link LecternBlockEntity lectern block entity}
@@ -1559,6 +1692,10 @@ public final class RegisterHelper {
         });
     }
 
+    public static RegistryObject<Block> registerChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerChest(name, chestBlockEntitySupplier, () -> woodType, featureFlags);
+    }
+
     /**
      * Register a {@link ChestBlock chest block}
      *
@@ -1568,8 +1705,8 @@ public final class RegisterHelper {
      * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
      * @return {@link RegistryObject<Block> The registered block}
      */
-    public static RegistryObject<Block> registerChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.CHEST, featureFlags).sound(woodType.equals(MWWoodTypes.ICE) ? SoundType.GLASS : SoundType.WOOD), chestBlockEntitySupplier) {
+    public static RegistryObject<Block> registerChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final Supplier<WoodType> woodType, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.CHEST, featureFlags).sound(woodType.get().soundType()), chestBlockEntitySupplier) {
 
             /**
              * Get the {@link BlockEntity chest block entity}
@@ -1579,7 +1716,7 @@ public final class RegisterHelper {
              * @return {@link ChestBlockEntity The chest block entity}
              */
             public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
-                return PropertyHelper.getChestBlockEntity(woodType, blockPos, blockState, false);
+                return PropertyHelper.getChestBlockEntity(woodType.get(), blockPos, blockState, false);
             }
         });
     }
@@ -1594,7 +1731,20 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerTrappedChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final WoodType woodType, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.TRAPPED_CHEST, featureFlags).sound(woodType.equals(MWWoodTypes.ICE) ? SoundType.GLASS : SoundType.WOOD), chestBlockEntitySupplier) {
+        return registerTrappedChest(name, chestBlockEntitySupplier, () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link TrappedChestBlock trapped chest block}
+     *
+     * @param name {@link String The block name}
+     * @param chestBlockEntitySupplier {@link Supplier<ChestBlockEntity> The supplier for the chest block entity type}
+     * @param woodType {@link WoodType The chest wood type}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerTrappedChest(final String name, Supplier<BlockEntityType<? extends ChestBlockEntity>> chestBlockEntitySupplier, final Supplier<WoodType> woodType, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(name, () -> new ChestBlock(PropertyHelper.copyFromBlock(Blocks.TRAPPED_CHEST, featureFlags).sound(woodType.get().soundType()), chestBlockEntitySupplier) {
 
             /**
              * Get the {@link TrappedChestBlockEntity trapped chest block entity}
@@ -1604,7 +1754,7 @@ public final class RegisterHelper {
              * @return {@link TrappedChestBlockEntity The trapped chest block entity}
              */
             public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
-                return PropertyHelper.getChestBlockEntity(woodType, blockPos, blockState, true);
+                return PropertyHelper.getChestBlockEntity(woodType.get(), blockPos, blockState, true);
             }
 
             /**
@@ -1662,7 +1812,19 @@ public final class RegisterHelper {
      * @return {@link RegistryObject<Block> The registered block}
      */
     public static RegistryObject<Block> registerBookshelf(final String name, final FeatureFlag... featureFlags) {
-        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.BOOKSHELF, featureFlags)) {
+        return registerBookshelf(name, SoundType.WOOD, featureFlags);
+    }
+
+    /**
+     * Register a {@link Block bookshelf block}
+     *
+     * @param name {@link String The block name}
+     * @param sound {@link SoundType The block sound}
+     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this block to be registered}
+     * @return {@link RegistryObject<Block> The registered block}
+     */
+    public static RegistryObject<Block> registerBookshelf(final String name, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new Block(PropertyHelper.copyFromBlock(Blocks.BOOKSHELF, featureFlags).sound(sound)) {
 
             /**
              * Get the {@link Float bookshelf enchantment power bonus}
@@ -2155,7 +2317,7 @@ public final class RegisterHelper {
      * @param buttonClickOnSound {@link SoundEvent The sound to play when a button is pressed}
      * @return {@link BlockSetType The registered block set type}
      */
-    private static BlockSetType registerBlockSetType(final String name, final boolean canOpenByHand, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
+    public static BlockSetType registerBlockSetType(final String name, final boolean canOpenByHand, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
         return BlockSetType.register(new BlockSetType(KeyHelper.location(name).toString(),
                 canOpenByHand,
                 defaultSound,
@@ -2307,7 +2469,22 @@ public final class RegisterHelper {
      * @return {@link WoodType The registered wood type}
      */
     public static WoodType registerWoodType(final String name) {
-        return WoodType.register(new WoodType(MineWorld.MOD_ID + ":" + name, BlockSetType.OAK));
+        return registerWoodType(name, BlockSetType.OAK, SoundType.WOOD, SoundType.HANGING_SIGN, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN);
+    }
+
+    /**
+     * Register a {@link WoodType wood type}
+     *
+     * @param name {@link String The wood type name}
+     * @param blockSetType {@link BlockSetType The wood sounds}
+     * @param sound {@link SoundType The block sound}
+     * @param hangingSignSound {@link SoundType The hanging sign sound}
+     * @param fenceGateCloseSound {@link SoundType The fence gate close sound}
+     * @param fenceGateOpenSound {@link SoundType The fence gate open sound}
+     * @return {@link WoodType The registered wood type}
+     */
+    public static WoodType registerWoodType(final String name, final BlockSetType blockSetType, final SoundType sound, final SoundType hangingSignSound, final SoundEvent fenceGateCloseSound, final SoundEvent fenceGateOpenSound) {
+        return WoodType.register(new WoodType(MineWorld.MOD_ID + ":" + name, blockSetType, sound, hangingSignSound, fenceGateCloseSound, fenceGateOpenSound));
     }
 
     /**

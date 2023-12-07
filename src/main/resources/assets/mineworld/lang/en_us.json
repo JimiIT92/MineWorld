@@ -1851,5 +1851,6 @@
   "advancements.story.ruby_sapphire_and_emerald.description": "Acquire rubies, sapphires and emeralds",
   "message.mineworld.magic_mirror_invalid_spawn": "Cannot find a valid spawn location!",
   "subtitles.mineworld.magic_mirror": "Magic Mirror activates",
-  "subtitles.mineworld.invisibility_cloak_equip": "Player vanishes"
+  "subtitles.mineworld.invisibility_cloak_equip": "Player vanishes",
+  "subtitles.mineworld.ethereal_portal.open": "Ethereal Portal opens"
 }
