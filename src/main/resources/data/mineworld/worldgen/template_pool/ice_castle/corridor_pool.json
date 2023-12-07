@@ -6,7 +6,7 @@
       "weight": 7,
       "element": {
         "location": "mineworld:ice_castle/corridor",
-        "processors": "mineworld:ice_castle",
+        "processors": "mineworld:slightly_damaged",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

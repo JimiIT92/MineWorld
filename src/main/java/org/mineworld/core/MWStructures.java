@@ -5,14 +5,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.RegisterHelper;
-import org.mineworld.world.structure.IceCastle;
+import org.mineworld.world.structure.MWJigsawStructure;
 
 /**
  * {@link MineWorld MineWorld} {@link StructureType structure types}
  */
 public final class MWStructures {
 
-    public static final RegistryObject<StructureType<IceCastle>> ICE_CASTLE = RegisterHelper.registerStructureType("ice_castle", IceCastle.CODEC);
+    public static final RegistryObject<StructureType<MWJigsawStructure>> ICE_CASTLE = RegisterHelper.registerStructureType("ice_castle", MWJigsawStructure.CODEC);
+    public static final RegistryObject<StructureType<MWJigsawStructure>> ETHEREAL_RUIN = RegisterHelper.registerStructureType("ethereal_ruin", MWJigsawStructure.CODEC);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link StructureType structure types}
