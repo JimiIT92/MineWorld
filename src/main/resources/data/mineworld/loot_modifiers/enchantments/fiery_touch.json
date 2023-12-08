@@ -6,7 +6,7 @@
       "predicate": {
         "enchantments": [
           {
-            "enchantment": "mineworld:smelting",
+            "enchantment": "mineworld:fiery_touch",
             "levels": {
               "min": 1
             }

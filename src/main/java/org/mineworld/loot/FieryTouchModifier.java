@@ -5,17 +5,22 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
+import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -50,43 +55,26 @@ public final class FieryTouchModifier extends LootModifier {
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(final ObjectArrayList<ItemStack> loot, final LootContext context) {
         if(context.hasParam(LootContextParams.BLOCK_STATE)) {
-            final RecipeManager recipeManager = context.getLevel().getRecipeManager();
-            final List<SmeltingRecipe> smeltingRecipes = recipeManager.getAllRecipesFor(RecipeType.SMELTING).stream().map(RecipeHolder::value).toList();
-            final List<SmithingRecipe> smithingRecipe = recipeManager.getAllRecipesFor(RecipeType.SMITHING).stream().map(RecipeHolder::value).toList();
-            final List<BlastingRecipe> blastingRecipes = recipeManager.getAllRecipesFor(RecipeType.BLASTING).stream().map(RecipeHolder::value).toList();
-            final List<SmokingRecipe> smokingRecipes = recipeManager.getAllRecipesFor(RecipeType.SMOKING).stream().map(RecipeHolder::value).toList();
-            final List<CampfireCookingRecipe> campfireRecipes = recipeManager.getAllRecipesFor(RecipeType.CAMPFIRE_COOKING).stream().map(RecipeHolder::value).toList();
+            final Level level = context.getLevel();
+            final RecipeManager recipeManager = level.getRecipeManager();
+            final RegistryAccess registryAccess = level.registryAccess();
 
             IntStream.range(0, loot.size()).forEach(index -> {
                 final ItemStack drop = loot.get(index);
-                if(trySetSmeltedDrop(loot, index, campfireRecipes, drop)) {
-                    return;
+                final ItemStack smeltedDrop = tryGetSmeltedDrop(recipeManager, RecipeType.SMELTING, level, registryAccess, drop)
+                        .orElse(tryGetSmeltedDrop(recipeManager, RecipeType.SMITHING, level, registryAccess, drop)
+                                .orElse(tryGetSmeltedDrop(recipeManager, RecipeType.BLASTING, level, registryAccess, drop)
+                                        .orElse(tryGetSmeltedDrop(recipeManager, RecipeType.SMOKING, level, registryAccess, drop)
+                                                .orElse(tryGetSmeltedDrop(recipeManager, RecipeType.CAMPFIRE_COOKING, level, registryAccess, drop)
+                                                        .orElse(ItemStack.EMPTY)))));
+                if(!smeltedDrop.isEmpty()) {
+                    loot.set(index, smeltedDrop);
                 }
-                if(trySetSmeltedDrop(loot, index, smokingRecipes, drop)) {
-                    return;
-                }
-                if(trySetSmeltedDrop(loot, index, blastingRecipes, drop)) {
-                    return;
-                }
-                if(trySetSmeltedDrop(loot, index, smithingRecipe, drop)) {
-                    return;
-                }
-                trySetSmeltedDrop(loot, index, smeltingRecipes, drop);
             });
         }
 
         return loot;
     }
-
-    /*
-    private static ItemStack smelt(ItemStack stack, LootContext context) {
-            return context.getLevel().getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), context.getLevel())
-                    .map(smeltingRecipe -> smeltingRecipe.getResultItem(context.getLevel().registryAccess()))
-                    .filter(itemStack -> !itemStack.isEmpty())
-                    .map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount()))
-                    .orElse(stack);
-        }
-     */
 
     /**
      * Get the {@link Codec loot modifier codec}
@@ -101,22 +89,18 @@ public final class FieryTouchModifier extends LootModifier {
     /**
      * Try to set the smelted drop to the {@link List<ItemStack> block drop list}
      *
-     * @param loot {@link ObjectArrayList<ItemStack> The block drops}
-     * @param index {@link Integer The drop list index}
-     * @param recipes {@link List<Recipe> The recipes to check into}
-     * @param drop {@link ItemStack The drop to smelt}
-     * @return {@link Boolean True if the smelted drop has been added}
+     * @param recipeManager {@link RecipeManager The recipe manager}
+     * @param recipeType {@link RecipeType The recipe type}
+     * @param level {@link Level The level reference}
+     * @param registryAccess {@link RegistryAccess The registry access}
+     * @param drop {@link ItemStack The dropped item}
+     * @return {@link ItemStack The smelted ItemStack}
      */
-    private static boolean trySetSmeltedDrop(final ObjectArrayList<ItemStack> loot, final int index, List<? extends Recipe<?>> recipes, final ItemStack drop) {
-        final Optional<? extends Recipe<?>> optionalRecipe = recipes.stream()
-                .filter(recipe -> recipe.getIngredients().stream()
-                        .map(ingredient -> ingredient.getItems())
-                        .anyMatch(itemStacks -> Arrays.stream(itemStacks).anyMatch(itemStack -> itemStack.is(drop.getItem()))))
-                .findFirst();
-        if(optionalRecipe.isEmpty()) {
-            return false;
-        }
-        loot.set(index, optionalRecipe.get().getResultItem(RegistryAccess.EMPTY));
-        return true;
+    private static <C extends Container, T extends Recipe<C>> Optional<ItemStack> tryGetSmeltedDrop(final RecipeManager recipeManager, final RecipeType<T> recipeType, final Level level, final RegistryAccess registryAccess, final ItemStack drop) {
+        return recipeManager.getRecipeFor(recipeType, (C) new SimpleContainer(drop), level)
+                .map(recipe -> recipe.value().getResultItem(registryAccess))
+                .filter(itemStack -> !itemStack.isEmpty())
+                .map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, drop.getCount() * itemStack.getCount()));
     }
+
 }
