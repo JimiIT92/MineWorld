@@ -1,0 +1,66 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0,
+  "has_precipitation": false,
+  "creature_spawn_probability": 0.07,
+  "effects": {
+    "particle": {
+      "options": {
+        "type": "sculk_soul"
+      },
+      "probability": 0.00118093334
+    },
+    "fog_color": 0,
+    "sky_color": 329011,
+    "water_color": 0,
+    "water_fog_color": 329011,
+    "foliage_color": 329011,
+    "grass_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:sculk_patch_deep_dark"
+    ],
+    [],
+    [],
+    []
+  ],
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:phantom",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 15
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

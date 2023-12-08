@@ -1,12 +1,15 @@
 package org.mineworld.core;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.mineworld.MineWorld;
@@ -67,6 +70,8 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> FALLEN_PALM_TREE = KeyHelper.registerPlacedFeatureKey("fallen_palm_tree");
     public static final ResourceKey<PlacedFeature> FALLEN_DEAD_TREE = KeyHelper.registerPlacedFeatureKey("fallen_dead_tree");
     public static final ResourceKey<PlacedFeature> CATTAIL = KeyHelper.registerPlacedFeatureKey("cattail");
+    public static final ResourceKey<PlacedFeature> PATCH_ETHEREAL_FIRE = KeyHelper.registerPlacedFeatureKey("patch_ethereal_fire");
+    public static final ResourceKey<PlacedFeature> SPRING_WATER_SCULK = KeyHelper.registerPlacedFeatureKey("spring_water_sculk");
 
     /**
      * Register the {@link PlacedFeature placed features}
@@ -125,7 +130,7 @@ public final class MWPlacedFeatures {
         RegisterHelper.registerPlacedFeature(context, FANCY_DEAD_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.FANCY_DEAD_TREE),
                 VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(1), Blocks.OAK_SAPLING));
         RegisterHelper.registerPlacedFeature(context, SCULK_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.SCULK_TREE),
-                VegetationPlacements.treePlacement(CountPlacement.of(1), MWBlocks.SCULK_SAPLING.get()));
+                List.of(CountOnEveryLayerPlacement.of(4), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive( MWBlocks.SCULK_SAPLING.get().defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()));
         RegisterHelper.registerPlacedFeature(context, BONE_SPIKE, configuredFeatures.getOrThrow(MWConfiguredFeatures.BONE_SPIKE),
                 List.of(RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()));
         RegisterHelper.registerPlacedFeature(context, FALLEN_OAK_TREE, configuredFeatures.getOrThrow(MWConfiguredFeatures.FALLEN_OAK_TREE),
@@ -154,6 +159,10 @@ public final class MWPlacedFeatures {
                 List.of(RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()));
         RegisterHelper.registerPlacedFeature(context, CATTAIL, configuredFeatures.getOrThrow(MWConfiguredFeatures.CATTAIL),
                 List.of(InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, CountPlacement.of(100), BiomeFilter.biome()));
+        RegisterHelper.registerPlacedFeature(context, PATCH_ETHEREAL_FIRE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_ETHEREAL_FIRE),
+                List.of(CountPlacement.of(UniformInt.of(0, 5)), InSquarePlacement.spread(), PlacementUtils.RANGE_4_4, BiomeFilter.biome()));
+        RegisterHelper.registerPlacedFeature(context, SPRING_WATER_SCULK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_WATER_SCULK),
+                List.of(CountPlacement.of(10), InSquarePlacement.spread(), PlacementUtils.FULL_RANGE, BiomeFilter.biome()));
     }
 
 }

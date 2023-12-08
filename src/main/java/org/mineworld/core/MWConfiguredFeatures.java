@@ -88,6 +88,8 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_PALM_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_palm_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_DEAD_TREE = KeyHelper.registerConfiguredFeatureKey("fallen_dead_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> CATTAIL = KeyHelper.registerConfiguredFeatureKey("cattail");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ETHEREAL_FIRE = KeyHelper.registerConfiguredFeatureKey("patch_ethereal_fire");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_WATER_SCULK = KeyHelper.registerConfiguredFeatureKey("spring_water_sculk");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -141,6 +143,9 @@ public final class MWConfiguredFeatures {
                 new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR,
                         new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
                                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(MWBlocks.CATTAIL.get().defaultBlockState(), 1))))))));
+        FeatureUtils.register(context, PATCH_ETHEREAL_FIRE, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(MWBlocks.SCULK_FIRE.get())), List.of(MWBlocks.SCULK_SOIL.get())));
+        FeatureUtils.register(context, SPRING_WATER_SCULK, Feature.SPRING, new SpringConfiguration(Fluids.WATER.defaultFluidState(), true, 4, 1,
+                HolderSet.direct(Block::builtInRegistryHolder, Blocks.SCULK, MWBlocks.SCULK_SOIL.get())));
     }
 
     /**

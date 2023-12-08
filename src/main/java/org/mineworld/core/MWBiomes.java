@@ -3,6 +3,7 @@ package org.mineworld.core;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
@@ -27,6 +28,9 @@ public final class MWBiomes {
     public static final ResourceKey<Biome> VOLCANIC_PEAK = KeyHelper.registerBiome("volcanic_peak");
     public static final ResourceKey<Biome> FOSSILS_WASTELAND = KeyHelper.registerBiome("fossils_wasteland");
 
+    public static final ResourceKey<Biome> ETHEREAL_FIELDS = KeyHelper.registerBiome("ethereal_fields");
+    public static final ResourceKey<Biome> ETHEREAL_DARK = KeyHelper.registerBiome("ethereal_dark");
+
     /**
      * Register the {@link MineWorld MineWorld} {@link Biome biomes}
      *
@@ -48,6 +52,9 @@ public final class MWBiomes {
         context.register(WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
         context.register(VOLCANIC_PEAK, BiomeHelper.volcanicPeak(placedFeatureHolder, carver));
         context.register(FOSSILS_WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
+
+        context.register(ETHEREAL_FIELDS, BiomeHelper.etherealFields(placedFeatureHolder, carver));
+        context.register(ETHEREAL_DARK, OverworldBiomes.deepDark(placedFeatureHolder, carver));
     }
 
     /**

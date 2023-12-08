@@ -4,6 +4,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.sounds.Musics;
@@ -143,6 +144,39 @@ public final class BiomeHelper {
                         .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_BASALT_DELTAS))
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build()
                 )
+                .generationSettings(biomeGenerationSettings.build())
+                .build();
+    }
+
+    /**
+     * Generate the {@link MWBiomes#ETHEREAL_FIELDS ethereal fields biome}
+     *
+     * @param placedFeatureHolder {@link HolderGetter<PlacedFeature> The placed feature holder}
+     * @param carver {@link HolderGetter<ConfiguredWorldCarver> The wolrd carver holder}
+     * @return {@link Biome The ethereal fields biome}
+     */
+    public static Biome etherealFields(final HolderGetter<PlacedFeature> placedFeatureHolder, final HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+        mobSpawnSettings.creatureGenerationProbability(0.07F);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.SCULK_PATCH_ANCIENT_CITY);
+        biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.SCULK_PATCH_DEEP_DARK);
+
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(false)
+                .temperature(1.0F)
+                .downfall(0F)
+                .specialEffects(new BiomeSpecialEffects.Builder()
+                        .waterColor(0)
+                        .waterFogColor(329011)
+                        .fogColor(0)
+                        .skyColor(329011)
+                        .foliageColorOverride(329011)
+                        .grassColorOverride(329011)
+                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.SCULK_SOUL, 0.00118093334F))
+                        .build()
+                )
+                .mobSpawnSettings(mobSpawnSettings.build())
                 .generationSettings(biomeGenerationSettings.build())
                 .build();
     }

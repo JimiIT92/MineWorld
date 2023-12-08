@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#mineworld:is_ethereal",
+  "features": "mineworld:spring_water_sculk_placed",
+  "step": "fluid_springs"
+}
