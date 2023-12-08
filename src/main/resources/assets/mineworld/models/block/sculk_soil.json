@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "all": "mineworld:block/sculk_soil"
+    "bottom": "minecraft:block/sculk",
+    "side": "mineworld:block/sculk_soil_side",
+    "top": "mineworld:block/sculk_soil_top"
   }
 }
