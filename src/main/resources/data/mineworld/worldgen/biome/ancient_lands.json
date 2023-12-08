@@ -18,7 +18,7 @@
     },
     "particle": {
       "options": {
-        "type": "minecraft:sculk_soul"
+        "type": "minecraft:white_ash"
       },
       "probability": 0.00118093334
     },

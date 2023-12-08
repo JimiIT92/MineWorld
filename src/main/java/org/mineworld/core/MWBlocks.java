@@ -1582,6 +1582,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> UNLIT_SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_wall_torch", () -> new UnlitWallTorchBlock(SCULK_WALL_TORCH));
     public static final RegistryObject<Block> END_CAMPFIRE = RegisterHelper.registerBlock("end_campfire", () -> new MWCampfireBlock(1, EndFireBlock.LIGHT_LEVEL));
     public static final RegistryObject<Block> SCULK_CAMPFIRE = RegisterHelper.registerBlock("sculk_campfire", () -> new MWCampfireBlock(3, SculkFireBlock.LIGHT_LEVEL));
+    public static final RegistryObject<Block> SCULK_ROOTS = RegisterHelper.registerBlock("sculk_roots", SculkRootBlock::new);
+    public static final RegistryObject<Block> POTTED_SCULK_ROOTS = RegisterHelper.registerFlowerPot("potted_sculk_roots", SCULK_ROOTS);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

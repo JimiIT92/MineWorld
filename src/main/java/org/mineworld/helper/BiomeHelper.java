@@ -7,6 +7,7 @@ import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -173,6 +174,7 @@ public final class BiomeHelper {
                         .skyColor(329011)
                         .foliageColorOverride(329011)
                         .grassColorOverride(329011)
+                        .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DEEP_DARK))
                         .ambientParticle(new AmbientParticleSettings(ParticleTypes.SCULK_SOUL, 0.00118093334F))
                         .build()
                 )
@@ -180,4 +182,51 @@ public final class BiomeHelper {
                 .generationSettings(biomeGenerationSettings.build())
                 .build();
     }
+
+    public static Biome echoingWoods(HolderGetter<PlacedFeature> placedFeatureHolder, HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(false)
+                .temperature(1.0F)
+                .downfall(0F)
+                .specialEffects(new BiomeSpecialEffects.Builder()
+                        .waterColor(0)
+                        .waterFogColor(329011)
+                        .fogColor(0)
+                        .skyColor(329011)
+                        .foliageColorOverride(329011)
+                        .grassColorOverride(329011)
+                        .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DEEP_DARK))
+                        .build()
+                )
+                .mobSpawnSettings(mobSpawnSettings.build())
+                .generationSettings(biomeGenerationSettings.build())
+                .build();
+    }
+
+    public static Biome ancientLands(HolderGetter<PlacedFeature> placedFeatureHolder, HolderGetter<ConfiguredWorldCarver<?>> carver) {
+        final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder();
+        final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver);
+        Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DEEP_DARK);
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(false)
+                .temperature(1.0F)
+                .downfall(0F)
+                .specialEffects(new BiomeSpecialEffects.Builder()
+                        .waterColor(329011)
+                        .waterFogColor(329011)
+                        .fogColor(0)
+                        .skyColor(0)
+                        .foliageColorOverride(329011)
+                        .grassColorOverride(329011)
+                        .backgroundMusic(music)
+                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.00118093334F))
+                        .build()
+                )
+                .mobSpawnSettings(mobSpawnSettings.build())
+                .generationSettings(biomeGenerationSettings.build())
+                .build();
+    }
+
 }

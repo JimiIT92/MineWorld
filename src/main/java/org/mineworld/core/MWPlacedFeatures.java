@@ -34,7 +34,7 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_SAPPHIRE = KeyHelper.registerPlacedFeatureKey("ore_sapphire");
     public static final ResourceKey<PlacedFeature> ORE_PYRITE = KeyHelper.registerPlacedFeatureKey("ore_pyrite");
     public static final ResourceKey<PlacedFeature> ORE_MARBLE = KeyHelper.registerPlacedFeatureKey("ore_marble");
-    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_BUSH_VILLAGE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_bush.json");
+    public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_BUSH_VILLAGE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_bush");
     public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_COMMON = KeyHelper.registerPlacedFeatureKey("patch_blueberry_common");
     public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_RARE = KeyHelper.registerPlacedFeatureKey("patch_blueberry_rare");
     public static final ResourceKey<PlacedFeature> SPRING_LAVA_VOLCANIC_PEAK = KeyHelper.registerPlacedFeatureKey("spring_lava_volcanic_peak");
@@ -72,6 +72,7 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> CATTAIL = KeyHelper.registerPlacedFeatureKey("cattail");
     public static final ResourceKey<PlacedFeature> PATCH_ETHEREAL_FIRE = KeyHelper.registerPlacedFeatureKey("patch_ethereal_fire");
     public static final ResourceKey<PlacedFeature> SPRING_WATER_SCULK = KeyHelper.registerPlacedFeatureKey("spring_water_sculk");
+    public static final ResourceKey<PlacedFeature> PATCH_SCULK_ROOTS = KeyHelper.registerPlacedFeatureKey("patch_sculk_roots");
 
     /**
      * Register the {@link PlacedFeature placed features}
@@ -163,6 +164,8 @@ public final class MWPlacedFeatures {
                 List.of(CountPlacement.of(UniformInt.of(0, 5)), InSquarePlacement.spread(), PlacementUtils.RANGE_4_4, BiomeFilter.biome()));
         RegisterHelper.registerPlacedFeature(context, SPRING_WATER_SCULK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_WATER_SCULK),
                 List.of(CountPlacement.of(10), InSquarePlacement.spread(), PlacementUtils.FULL_RANGE, BiomeFilter.biome()));
+        RegisterHelper.registerPlacedFeature(context, PATCH_SCULK_ROOTS, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_SCULK_ROOTS),
+                List.of(CountOnEveryLayerPlacement.of(4), BiomeFilter.biome()));
     }
 
 }

@@ -30,6 +30,8 @@ public final class MWBiomes {
 
     public static final ResourceKey<Biome> ETHEREAL_FIELDS = KeyHelper.registerBiome("ethereal_fields");
     public static final ResourceKey<Biome> ETHEREAL_DARK = KeyHelper.registerBiome("ethereal_dark");
+    public static final ResourceKey<Biome> ECHOING_WOODS = KeyHelper.registerBiome("echoing_woods");
+    public static final ResourceKey<Biome> ANCIENT_LANDS = KeyHelper.registerBiome("ancient_lands");
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Biome biomes}
@@ -55,6 +57,8 @@ public final class MWBiomes {
 
         context.register(ETHEREAL_FIELDS, BiomeHelper.etherealFields(placedFeatureHolder, carver));
         context.register(ETHEREAL_DARK, OverworldBiomes.deepDark(placedFeatureHolder, carver));
+        context.register(ECHOING_WOODS, BiomeHelper.echoingWoods(placedFeatureHolder, carver));
+        context.register(ANCIENT_LANDS, BiomeHelper.ancientLands(placedFeatureHolder, carver));
     }
 
     /**

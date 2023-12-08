@@ -1114,6 +1114,7 @@ public final class MWTabs {
      */
     private static void setNaturalBlocksTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
+                MWBlocks.SCULK_ROOTS,
                 MWBlocks.GRASS_CARPET,
                 MWBlocks.PODZOL_CARPET,
                 MWBlocks.MYCELIUM_CARPET,

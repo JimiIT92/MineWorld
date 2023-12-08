@@ -54,7 +54,7 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = KeyHelper.registerConfiguredFeatureKey("ore_sapphire");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_PYRITE = KeyHelper.registerConfiguredFeatureKey("ore_pyrite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MARBLE = KeyHelper.registerConfiguredFeatureKey("ore_marble");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_BUSH = KeyHelper.registerConfiguredFeatureKey("patch_blueberry_bush.json");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_BUSH = KeyHelper.registerConfiguredFeatureKey("patch_blueberry_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA_VOLCANIC_PEAK = KeyHelper.registerConfiguredFeatureKey("spring_lava_volcanic_peak");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_STONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("magma_stone_blobs");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_BLACKSTONE_BLOBS = KeyHelper.registerConfiguredFeatureKey("magma_blackstone_blobs");
@@ -90,6 +90,7 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> CATTAIL = KeyHelper.registerConfiguredFeatureKey("cattail");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ETHEREAL_FIRE = KeyHelper.registerConfiguredFeatureKey("patch_ethereal_fire");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_WATER_SCULK = KeyHelper.registerConfiguredFeatureKey("spring_water_sculk");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SCULK_ROOTS = KeyHelper.registerConfiguredFeatureKey("patch_sculk_roots");
 
     /**
      * Register the {@link ConfiguredFeature configured features}
@@ -146,6 +147,8 @@ public final class MWConfiguredFeatures {
         FeatureUtils.register(context, PATCH_ETHEREAL_FIRE, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(MWBlocks.SCULK_FIRE.get())), List.of(MWBlocks.SCULK_SOIL.get())));
         FeatureUtils.register(context, SPRING_WATER_SCULK, Feature.SPRING, new SpringConfiguration(Fluids.WATER.defaultFluidState(), true, 4, 1,
                 HolderSet.direct(Block::builtInRegistryHolder, Blocks.SCULK, MWBlocks.SCULK_SOIL.get())));
+
+        FeatureUtils.register(context, PATCH_SCULK_ROOTS, MWFeatures.ETHEREAL_FOREST_VEGETATION.get(), new NetherForestVegetationConfig(BlockStateProvider.simple(MWBlocks.SCULK_ROOTS.get()), 8, 4));
     }
 
     /**

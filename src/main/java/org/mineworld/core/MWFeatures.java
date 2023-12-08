@@ -1,12 +1,14 @@
 package org.mineworld.core;
 
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NetherForestVegetationConfig;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.RegisterHelper;
 import org.mineworld.world.worldgen.feature.BoneSpikeFeature;
+import org.mineworld.world.worldgen.feature.EtherealForestVegetationFeature;
 import org.mineworld.world.worldgen.feature.FallenTreeFeature;
 import org.mineworld.world.worldgen.feature.configuration.FallenTreeConfiguration;
 
@@ -17,6 +19,7 @@ public final class MWFeatures {
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> BONE_SPIKE = RegisterHelper.registerFeature("bone_spike", BoneSpikeFeature::new);
     public static final RegistryObject<Feature<FallenTreeConfiguration>> FALLEN_TREE = RegisterHelper.registerFeature("fallen_tree", () -> new FallenTreeFeature(FallenTreeConfiguration.CODEC));
+    public static final RegistryObject<Feature<NetherForestVegetationConfig>> ETHEREAL_FOREST_VEGETATION = RegisterHelper.registerFeature("ethereal_forest_vegetation", () -> new EtherealForestVegetationFeature(NetherForestVegetationConfig.CODEC));
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Feature features}
