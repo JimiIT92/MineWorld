@@ -1,5 +1,6 @@
 package org.mineworld.item;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -9,6 +10,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWArmorMaterials;
+import org.mineworld.core.MWCriteriaTriggers;
 import org.mineworld.core.MWSounds;
 import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
@@ -46,6 +48,7 @@ public class InvisibilityCloakItem extends ArmorItem {
     public void onArmorTick(final ItemStack stack, final Level level, final Player player) {
         if(!level.isClientSide() && PlayerHelper.getArmorSlotItem(player, EquipmentSlot.CHEST).is(this)) {
             player.setInvisible(true);
+            MWCriteriaTriggers.EQUIP_INVISIBILITY_CLOAK.trigger((ServerPlayer) player);
         }
         super.onArmorTick(stack, level, player);
     }

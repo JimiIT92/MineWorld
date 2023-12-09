@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.core.MWCriteriaTriggers;
 import org.mineworld.core.MWSounds;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
@@ -59,6 +60,7 @@ public class MagicMirrorItem extends Item {
                     }
                     PlayerHelper.teleport(player, respawnPos);
                     PlayerHelper.playSound(player, MWSounds.MAGIC_MIRROR.get());
+                    MWCriteriaTriggers.USE_MAGIC_MIRROR.trigger((ServerPlayer) player);
                 } else {
                     showInvalidSpawnMessage(player);
                 }

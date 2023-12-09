@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "use_magic_mirror": {
+      "trigger": "mineworld:use_magic_mirror"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.adventure.use_magic_mirror.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "mineworld:magic_mirror"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.adventure.use_magic_mirror.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_magic_mirror"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

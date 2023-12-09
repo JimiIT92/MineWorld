@@ -61,6 +61,7 @@ public final class MineWorld {
         MWStructures.register(eventBus);
         MWDimensions.register(eventBus);
         MWEnchantments.register(eventBus);
+        MWCriteriaTriggers.register(eventBus);
 
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::commonSetup);
