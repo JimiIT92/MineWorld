@@ -2250,7 +2250,7 @@ public final class MWTabs {
      */
     private static void setSpawnEggsTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
-                Blocks.STRUCTURE_VOID
+                MWItems.ILLUSIONER_SPAWN_EGG
         );
     }
 

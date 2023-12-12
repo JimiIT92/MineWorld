@@ -46,7 +46,7 @@
     "misc": [],
     "monster": [
       {
-        "type": "minecraft:phantom",
+        "type": "minecraft:vex",
         "maxCount": 2,
         "minCount": 1,
         "weight": 5

@@ -8,6 +8,7 @@ import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBiomes;
+import org.mineworld.helper.RandomHelper;
 import terrablender.api.ParameterUtils;
 
 import java.util.function.Consumer;
@@ -461,7 +462,7 @@ public class MWOverworldBiomeBuilder {
      */
     private ResourceKey<Biome> pickMiddleBiomeMW(final int temperatureIndex, final int humidityIndex, final Climate.Parameter weirdness) {
         ResourceKey<Biome> biome = weirdness.max() < 0 ? this.MIDDLE_BIOMES[temperatureIndex][humidityIndex] : this.MW_MIDDLE_BIOMES_VARIANT[temperatureIndex][humidityIndex];
-        if(biome != null && biome.equals(MWBiomes.WASTELAND) && weirdness.max() >= 0L) {
+        if(biome != null && biome.equals(MWBiomes.WASTELAND) && RandomHelper.choose()) {
             biome = MWBiomes.FOSSILS_WASTELAND;
         }
         return biome == null ? this.MIDDLE_BIOMES[temperatureIndex][humidityIndex] : biome;

@@ -1,6 +1,7 @@
 package org.mineworld.core;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
@@ -347,6 +348,7 @@ public final class MWItems {
     public static final RegistryObject<Item> SCULK_TORCH = RegisterHelper.registerItem("sculk_torch", () -> new StandingAndWallBlockItem(MWBlocks.SCULK_TORCH.get(), MWBlocks.SCULK_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> UNLIT_END_TORCH = RegisterHelper.registerItem("unlit_end_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_END_TORCH.get(), MWBlocks.UNLIT_END_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> UNLIT_SCULK_TORCH = RegisterHelper.registerItem("unlit_sculk_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_SCULK_TORCH.get(), MWBlocks.UNLIT_SCULK_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
+    public static final RegistryObject<Item> ILLUSIONER_SPAWN_EGG = RegisterHelper.registerSpawnEgg("illusioner_spawn_egg", EntityType.ILLUSIONER, 0x135793, 0x959B9B);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

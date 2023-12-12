@@ -31,6 +31,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.flag.FeatureFlag;
@@ -449,6 +450,19 @@ public final class RegisterHelper {
      */
     public static RegistryObject<Item> registerRareItem(final String name, final Rarity rarity, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.basicItemProperties(featureFlags).rarity(rarity)));
+    }
+
+    /**
+     * Register a {@link SpawnEggItem spawn egg item}
+     *
+     * @param name {@link String The item name}
+     * @param entityType {@link EntityType The entity type}
+     * @param primaryColor {@link Integer The spawn egg primary color}
+     * @param secondaryColor {@link Integer The spawn egg secondary color}
+     * @return {@link RegistryObject<Item> The registered spawn egg item}
+     */
+    public static RegistryObject<Item> registerSpawnEgg(final String name, final EntityType<? extends Mob> entityType, final int primaryColor, final int secondaryColor) {
+        return registerItem(name, () -> new SpawnEggItem(entityType, primaryColor, secondaryColor, PropertyHelper.basicItemProperties()));
     }
 
     /**

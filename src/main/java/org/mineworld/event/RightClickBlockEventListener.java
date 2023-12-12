@@ -199,10 +199,8 @@ public final class RightClickBlockEventListener {
                     CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, offsetPos, itemStack);
                 }
                 event.setUseItem(Event.Result.DENY);
-                if(level.isClientSide()) {
-                    player.swing(event.getHand());
-                    PlayerHelper.playSound(player, SoundEvents.LANTERN_PLACE);
-                }
+                player.swing(event.getHand());
+                PlayerHelper.playSound(player, SoundEvents.LANTERN_PLACE);
             });
         }
     }
@@ -288,6 +286,7 @@ public final class RightClickBlockEventListener {
                 player.playSound(rodBlock.getSoundType(rodState, level, rodPos, player).getPlaceSound());
                 event.setCanceled(true);
                 ItemHelper.hurt(event.getItemStack(), player);
+                player.swing(event.getHand());
             }
         }
     }

@@ -87,7 +87,6 @@ public final class BlockPlaceEventListener {
      */
     private static void handleFireBlockPlacement(final BlockEvent.EntityPlaceEvent event, final Player player, final Level level, final BlockPos pos, final TagKey<Block> baseFireBlocksTag, final RegistryObject<Block> fireBlock) {
         if(level.getBlockState(pos.below()).is(baseFireBlocksTag)) {
-            //event.setCanceled(true);
             level.setBlockAndUpdate(pos, fireBlock.get().defaultBlockState());
             ItemHelper.hurt(player.getMainHandItem());
         }
