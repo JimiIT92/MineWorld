@@ -1498,8 +1498,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GIFT = RegisterHelper.registerBlockWithoutBlockItem("gift", GiftBlock::new);
     public static final RegistryObject<Block> END_FIRE = RegisterHelper.registerBlockWithoutBlockItem("end_fire", EndFireBlock::new);
     public static final RegistryObject<Block> SCULK_FIRE = RegisterHelper.registerBlockWithoutBlockItem("sculk_fire", SculkFireBlock::new);
-    public static final RegistryObject<Block> END_SOIL = RegisterHelper.registerBlock("end_soil", () -> PropertyHelper.basicBlockProperties(MapColor.COLOR_GREEN, 0.5F, 0.5F, false, MWSoundTypes.END_SOIL));
-    public static final RegistryObject<Block> SCULK_SOIL = RegisterHelper.registerBlock("sculk_soil", () -> PropertyHelper.basicBlockProperties(MapColor.COLOR_LIGHT_BLUE, 0.5F, 0.5F, false, MWSoundTypes.SCULK_SOIL));
+    public static final RegistryObject<Block> END_SOIL = RegisterHelper.registerBlock("end_soil", EndSoilBlock::new);
+    public static final RegistryObject<Block> SCULK_SOIL = RegisterHelper.registerBlock("sculk_soil", SculkSoilBlock::new);
     public static final RegistryObject<Block> END_LANTERN = RegisterHelper.registerLantern("end_lantern", EndFireBlock.LIGHT_LEVEL);
     public static final RegistryObject<Block> GOLDEN_END_LANTERN = RegisterHelper.registerLantern("golden_end_lantern", EndFireBlock.LIGHT_LEVEL);
     public static final RegistryObject<Block> OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlock("oxidized_copper_end_lantern",
@@ -1584,6 +1584,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SCULK_CAMPFIRE = RegisterHelper.registerBlock("sculk_campfire", () -> new MWCampfireBlock(3, SculkFireBlock.LIGHT_LEVEL));
     public static final RegistryObject<Block> SCULK_ROOTS = RegisterHelper.registerBlock("sculk_roots", SculkRootBlock::new);
     public static final RegistryObject<Block> POTTED_SCULK_ROOTS = RegisterHelper.registerFlowerPot("potted_sculk_roots", SCULK_ROOTS);
+    public static final RegistryObject<Block> ANCIENT_ALTAR = RegisterHelper.registerBlock("ancient_altar", AncientAltarBlock::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Block blocks}

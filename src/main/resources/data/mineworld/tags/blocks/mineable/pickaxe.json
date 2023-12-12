@@ -85,6 +85,8 @@
     "mineworld:perennial_ice_pointed_dripstone",
     "mineworld:marble_pointed_dripstone",
     "mineworld:ice_chest",
-    "mineworld:ice_trapped_chest"
+    "mineworld:ice_trapped_chest",
+    "mineworld:end_soil",
+    "mineworld:sculk_soil"
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:ethereal_rune_alpha",
+    "mineworld:ethereal_rune_beta",
+    "mineworld:ethereal_rune_gamma",
+    "mineworld:ethereal_rune_delta",
+    "mineworld:ethereal_rune_omega"
+  ]
+}

@@ -3,11 +3,10 @@ package org.mineworld.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWItems;
 import org.mineworld.helper.PropertyHelper;
@@ -38,15 +37,14 @@ public class WarpedWartBlock extends NetherWartBlock {
     }
 
     /**
-     * Check if the {@link DoublePlantBlock Warped Wart} can be placed on a {@link Block Block}
+     * Get the {@link PlantType plant type}
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param level {@link BlockGetter The Level reference}
+     * @param level {@link BlockGetter The level reference}
      * @param pos {@link BlockPos The current BlockPos}
-     * @return {@link Boolean True} if the {@link DoublePlantBlock Warped Wart} can be placed on a {@link Block Block}
+     * @return {@link PlantType#NETHER The nether plant type}
      */
-    protected boolean mayPlaceOn(final BlockState state, final @NotNull BlockGetter level, final @NotNull BlockPos pos) {
-        return state.is(Blocks.SOUL_SAND);
+    @Override
+    public PlantType getPlantType(final BlockGetter level, final BlockPos pos) {
+        return PlantType.NETHER;
     }
-
 }

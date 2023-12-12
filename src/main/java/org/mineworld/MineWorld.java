@@ -77,6 +77,7 @@ public final class MineWorld {
         event.enqueueWork(MWEntityTypes::registerRenderers);
         event.enqueueWork(MWBlockEntityTypes::registerRenderers);
         event.enqueueWork(MWMenuTypes::registerScreens);
+        event.enqueueWork(MWItems::registerItemProperties);
     }
 
     /**

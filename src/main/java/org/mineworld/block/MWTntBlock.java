@@ -7,11 +7,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -22,12 +27,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWCriteriaTriggers;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.helper.PropertyHelper;
 
@@ -207,4 +214,23 @@ public class MWTntBlock extends TntBlock {
         return this.type.equals(MWPrimedTnt.Type.DISGUISED_CAKE) ? Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D): Shapes.block();
     }
 
+    /**
+     * Lit the Ethereal Rune when the {@link Player Player} right clicks
+     * it with the {@link Item Sculk Heart}
+     *
+     * @param state {@link BlockState The current Block State}
+     * @param level {@link Level The level reference}
+     * @param pos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player that interacted with the Block}
+     * @param hand {@link InteractionHand The hand used to interact with the Block}
+     * @param hitResult {@link BlockHitResult The Block hit result}
+     * @return {@link InteractionResult The interaction result}
+     */
+    @Override
+    public @NotNull InteractionResult use(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
+        if(this.type.equals(MWPrimedTnt.Type.DISGUISED_CAKE) && !level.isClientSide) {
+            MWCriteriaTriggers.IGNITE_CAKE_TNT.trigger((ServerPlayer) player);
+        }
+        return super.use(state, level, pos, player, hand, hitResult);
+    }
 }

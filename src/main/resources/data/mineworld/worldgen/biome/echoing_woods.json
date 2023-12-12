@@ -31,9 +31,7 @@
     [],
     [],
     [],
-    [
-      "minecraft:sculk_patch_deep_dark"
-    ],
+    [],
     [],
     [],
     []
@@ -47,15 +45,15 @@
     "monster": [
       {
         "type": "minecraft:vex",
-        "maxCount": 2,
+        "maxCount": 4,
         "minCount": 1,
-        "weight": 5
+        "weight": 50
       },
       {
         "type": "minecraft:enderman",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 10
+        "weight": 50
       }
     ],
     "underground_water_creature": [],

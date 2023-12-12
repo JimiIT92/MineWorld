@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseFireBlock;
@@ -18,8 +17,6 @@ import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.HorizontalPaneBlock;
 import org.mineworld.block.MWPointedDripstoneBlock;
-import org.mineworld.core.MWBlocks;
-import org.mineworld.core.MWTags;
 import org.mineworld.helper.ItemHelper;
 
 import java.util.Objects;
@@ -52,10 +49,10 @@ public final class BlockPlaceEventListener {
                 else if(placedBlock.is(Blocks.POINTED_DRIPSTONE) && !player.isShiftKeyDown()) {
                     level.setBlockAndUpdate(blockPos, MWPointedDripstoneBlock.getDripstoneFor(hitBlockState.getBlock()).withPropertiesOf(placedBlock));
                 }
-                else if(placedBlock.getBlock() instanceof BaseFireBlock && player.getMainHandItem().getItem() instanceof FlintAndSteelItem) {
+                /*else if(placedBlock.getBlock() instanceof BaseFireBlock && player.getMainHandItem().getItem() instanceof FlintAndSteelItem) {
                     handleFireBlockPlacement(event, player, level, blockPos, MWTags.Blocks.END_FIRE_BASE_BLOCKS, MWBlocks.END_FIRE);
                     handleFireBlockPlacement(event, player, level, blockPos, MWTags.Blocks.SCULK_FIRE_BASE_BLOCKS, MWBlocks.SCULK_FIRE);
-                }
+                }*/
             }
         }
     }

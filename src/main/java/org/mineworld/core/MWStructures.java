@@ -15,6 +15,7 @@ public final class MWStructures {
     public static final RegistryObject<StructureType<MWJigsawStructure>> ICE_CASTLE = RegisterHelper.registerStructureType("ice_castle", MWJigsawStructure.CODEC);
     public static final RegistryObject<StructureType<MWJigsawStructure>> ETHEREAL_RUIN = RegisterHelper.registerStructureType("ethereal_ruin", MWJigsawStructure.CODEC);
     public static final RegistryObject<StructureType<MWJigsawStructure>> RUINED_ETHEREAL_PORTAL = RegisterHelper.registerStructureType("ruined_ethereal_portal", MWJigsawStructure.CODEC);
+    public static final RegistryObject<StructureType<MWJigsawStructure>> ANCIENT_TEMPLE = RegisterHelper.registerStructureType("ancient_temple", MWJigsawStructure.CODEC);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link StructureType structure types}

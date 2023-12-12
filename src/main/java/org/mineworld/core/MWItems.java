@@ -1,6 +1,9 @@
 package org.mineworld.core;
 
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -333,6 +336,8 @@ public final class MWItems {
     public static final RegistryObject<Item> ECHOING_CHARGE_FRAGMENT = RegisterHelper.registerRareItem("echoing_charge_fragment", Rarity.RARE);
     public static final RegistryObject<Item> ECHOING_CHARGE = RegisterHelper.registerItem("echoing_charge", EchoingChargeItem::new);
     public static final RegistryObject<Item> SCULK_HEART = RegisterHelper.registerRareItem("sculk_heart", Rarity.EPIC);
+    public static final RegistryObject<Item> DARK_SOUL = RegisterHelper.registerRareItem("dark_soul", Rarity.EPIC);
+    public static final RegistryObject<Item> SOUL = RegisterHelper.registerItem("soul");
     public static final RegistryObject<Item> UNLIT_TORCH = RegisterHelper.registerItem("unlit_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_TORCH.get(), MWBlocks.UNLIT_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> UNLIT_SOUL_TORCH = RegisterHelper.registerItem("unlit_soul_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_SOUL_TORCH.get(), MWBlocks.UNLIT_SOUL_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> CANDY_CANE = RegisterHelper.registerFoodItem("candy_cane", MWFoods.CANDY_CANE);
@@ -349,6 +354,7 @@ public final class MWItems {
     public static final RegistryObject<Item> UNLIT_END_TORCH = RegisterHelper.registerItem("unlit_end_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_END_TORCH.get(), MWBlocks.UNLIT_END_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> UNLIT_SCULK_TORCH = RegisterHelper.registerItem("unlit_sculk_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_SCULK_TORCH.get(), MWBlocks.UNLIT_SCULK_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> ILLUSIONER_SPAWN_EGG = RegisterHelper.registerSpawnEgg("illusioner_spawn_egg", EntityType.ILLUSIONER, 0x135793, 0x959B9B);
+    public static final RegistryObject<Item> SCULK_HORN = RegisterHelper.registerItem("sculk_horn", SculkHornItem::new);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}
@@ -357,6 +363,26 @@ public final class MWItems {
      */
     public static void register(final IEventBus eventBus) {
         RegisterHelper.registerItems(eventBus);
+    }
+
+    /**
+     * Register some custom {@link Item Item} properties
+     */
+    public static void registerItemProperties() {
+        registerUseItemProperty(SCULK_HORN, "tooting");
+    }
+
+    /**
+     * Register a property for when an {@link Entity Entity} is
+     * using an {@link RegistryObject<Item> Item}
+     *
+     * @param item {@link RegistryObject<Item> Item}
+     * @param name {@link String Property name}
+     */
+    private static void registerUseItemProperty(final RegistryObject<Item> item, final String name) {
+        ItemProperties.register(item.get(), new ResourceLocation(name), (stack, level, entity, seed) ->
+                entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F
+        );
     }
 
 }

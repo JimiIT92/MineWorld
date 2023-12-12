@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "activated=false": {
+      "model": "mineworld:block/ancient_altar"
+    },
+    "activated=true": {
+      "model": "mineworld:block/ancient_altar_activated"
+    }
+  }
+}

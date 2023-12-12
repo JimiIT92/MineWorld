@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:story/obtain_armor",
+  "criteria": {
+    "ignite_cake_tnt": {
+      "trigger": "mineworld:ignite_cake_tnt"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.story.ignite_cake_tnt.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:cake"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.ignite_cake_tnt.title"
+    }
+  },
+  "requirements": [
+    [
+      "ignite_cake_tnt"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

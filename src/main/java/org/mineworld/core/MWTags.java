@@ -21,6 +21,7 @@ public final class MWTags {
         public static final TagKey<Block> CATTAIL_PLACEABLE = RegisterHelper.registerBlockTag("cattail_placeable");
         public static final TagKey<Block> END_FIRE_BASE_BLOCKS = RegisterHelper.registerBlockTag("end_fire_base_blocks");
         public static final TagKey<Block> SCULK_FIRE_BASE_BLOCKS = RegisterHelper.registerBlockTag("sculk_fire_base_blocks");
+        public static final TagKey<Block> ANCIENT_TEMPLE_CANNOT_REPLACE = RegisterHelper.registerBlockTag("ancient_temple_cannot_replace");
     }
 
     /**

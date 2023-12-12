@@ -1242,7 +1242,8 @@ public final class MWTabs {
                 MWBlocks.CATTAIL,
                 MWItems.CORN_SEEDS,
                 MWItems.BLUEBERRIES,
-                MWItems.WARPED_WART
+                MWItems.WARPED_WART,
+                MWBlocks.ANCIENT_ALTAR
         );
     }
 
@@ -2012,6 +2013,7 @@ public final class MWTabs {
                 MWItems.STRAW_HAT,
                 MWItems.ECHOING_CHARGE,
                 MWItems.SCULK_HEART,
+                MWItems.DARK_SOUL,
                 MWItems.MAGIC_MIRROR
         );
     }
@@ -2136,7 +2138,8 @@ public final class MWTabs {
                 MWItems.DRIPSTONE_PEBBLE,
                 MWItems.OBSIDIAN_PEBBLE,
                 MWItems.CRYING_OBSIDIAN_PEBBLE,
-                MWItems.GLOWING_OBSIDIAN_PEBBLE
+                MWItems.GLOWING_OBSIDIAN_PEBBLE,
+                MWItems.SCULK_HORN
         );
     }
 
@@ -2177,6 +2180,7 @@ public final class MWTabs {
                 MWItems.SILVER_INGOT,
                 MWItems.BRONZE_INGOT,
                 MWItems.ECHOING_CHARGE_FRAGMENT,
+                MWItems.SOUL,
                 MWItems.WARPED_WART
         );
         setIngredientsTabEnchantments(event);

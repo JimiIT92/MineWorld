@@ -1,8 +1,7 @@
 {
   "type": "forge:add_features",
   "biomes": [
-    "mineworld:echoing_woods",
-    "mineworld:ethereal_dark"
+    "mineworld:echoing_woods"
   ],
   "features": "mineworld:sculk_tree_placed",
   "step": "vegetal_decoration"

@@ -58,6 +58,7 @@ public final class RightClickBlockEventListener {
             final Level level = event.getLevel();
             final BlockPos clickedPos = event.getPos();
             final BlockState blockState = level.getBlockState(clickedPos);
+            final Block block = blockState.getBlock();
             final ItemStack itemStack = event.getItemStack();
             final boolean hasLeashedEntities = !PlayerHelper.getLeashedEntities(player, level, clickedPos).isEmpty();
             if(itemStack.isEmpty() && blockState.getBlock() instanceof TorchBlock) {
@@ -96,8 +97,14 @@ public final class RightClickBlockEventListener {
                 handleMushroomPlacement(event, level, clickedPos, player, itemStack, blockState, MWBlocks.RED_MUSHROOM_WALL_FAN.get());
                 return;
             }
-            if(itemStack.getItem() instanceof SwordItem && blockState.getBlock() instanceof CampfireBlock) {
-                handleLitCampfirePlacement(event, level, clickedPos, player, itemStack, blockState);
+            if(itemStack.getItem() instanceof SwordItem) {
+                if(block instanceof CampfireBlock) {
+                    handleLitCampfirePlacement(event, level, clickedPos, player, itemStack, blockState);
+                    return;
+                }
+                if(block instanceof TntBlock) {
+                    handleTntIgnite(event, level, clickedPos, player, itemStack, blockState);
+                }
             }
         }
     }
@@ -354,6 +361,29 @@ public final class RightClickBlockEventListener {
         if(itemStack.isEnchanted() && itemStack.getAllEnchantments().containsKey(Enchantments.FIRE_ASPECT) && !clickedBlockState.getValue(CampfireBlock.LIT)) {
             if(!level.isClientSide()) {
                 level.setBlockAndUpdate(clickedPos, clickedBlockState.setValue(CampfireBlock.LIT, true));
+                ItemHelper.hurt(itemStack, player);
+            } else {
+                player.swing(event.getHand());
+                player.playSound(SoundEvents.FLINTANDSTEEL_USE);
+            }
+        }
+    }
+
+    /**
+     * Handle interaction with a {@link TntBlock TNT block}
+     *
+     * @param event {@link PlayerInteractEvent.RightClickBlock The player right click block event}
+     * @param level {@link Level The level reference}
+     * @param clickedPos {@link BlockPos The clicked block pos}
+     * @param player {@link Player The player interacting with the block}
+     * @param itemStack {@link ItemStack The id stack used to interact with the block}
+     * @param clickedBlockState {@link BlockState The clicked BlockState}
+     */
+    private static void handleTntIgnite(final PlayerInteractEvent.RightClickBlock event, final Level level, final BlockPos clickedPos, final Player player, final ItemStack itemStack, final BlockState clickedBlockState) {
+        if(itemStack.isEnchanted() && itemStack.getAllEnchantments().containsKey(Enchantments.FIRE_ASPECT)) {
+            if(!level.isClientSide()) {
+                level.setBlockAndUpdate(clickedPos, Blocks.AIR.defaultBlockState());
+                clickedBlockState.getBlock().onCaughtFire(clickedBlockState, level, clickedPos, event.getFace(), player);
                 ItemHelper.hurt(itemStack, player);
             } else {
                 player.swing(event.getHand());

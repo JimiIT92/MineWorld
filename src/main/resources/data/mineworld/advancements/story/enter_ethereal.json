@@ -1,0 +1,32 @@
+{
+  "parent": "mineworld:story/activate_ethereal_rune",
+  "criteria": {
+    "entered_ethereal": {
+      "conditions": {
+        "to": "mineworld:ethereal"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.story.enter_ethereal.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:sculk"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.enter_ethereal.title"
+    }
+  },
+  "requirements": [
+    [
+      "entered_ethereal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

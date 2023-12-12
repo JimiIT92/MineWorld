@@ -1,0 +1,38 @@
+{
+  "parent": "mineworld:ethereal/activate_ancient_altar",
+  "criteria": {
+    "sculk_horn": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:sculk_horn"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ethereal.obtain_sculk_horn.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "mineworld:sculk_horn"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ethereal.obtain_sculk_horn.title"
+    }
+  },
+  "requirements": [
+    [
+      "sculk_horn"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

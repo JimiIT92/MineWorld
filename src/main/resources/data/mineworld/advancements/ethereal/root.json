@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "entered_ethereal": {
+      "conditions": {
+        "to": "mineworld:ethereal"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "mineworld:textures/gui/advancements/backgrounds/ethereal.png",
+    "description": {
+      "translate": "advancements.ethereal.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:sculk"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.ethereal.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "entered_ethereal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

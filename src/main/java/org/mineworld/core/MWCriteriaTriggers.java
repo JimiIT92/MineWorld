@@ -13,6 +13,7 @@ public final class MWCriteriaTriggers {
 
     public static PlayerTrigger USE_MAGIC_MIRROR = register("use_magic_mirror", new PlayerTrigger());
     public static PlayerTrigger EQUIP_INVISIBILITY_CLOAK = register("equip_invisibility_cloak", new PlayerTrigger());
+    public static PlayerTrigger IGNITE_CAKE_TNT = register("ignite_cake_tnt", new PlayerTrigger());
 
     /**
      * Register an advancement criteria
