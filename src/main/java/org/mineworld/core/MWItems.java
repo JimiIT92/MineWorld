@@ -353,8 +353,9 @@ public final class MWItems {
     public static final RegistryObject<Item> SCULK_TORCH = RegisterHelper.registerItem("sculk_torch", () -> new StandingAndWallBlockItem(MWBlocks.SCULK_TORCH.get(), MWBlocks.SCULK_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> UNLIT_END_TORCH = RegisterHelper.registerItem("unlit_end_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_END_TORCH.get(), MWBlocks.UNLIT_END_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
     public static final RegistryObject<Item> UNLIT_SCULK_TORCH = RegisterHelper.registerItem("unlit_sculk_torch", () -> new StandingAndWallBlockItem(MWBlocks.UNLIT_SCULK_TORCH.get(), MWBlocks.UNLIT_SCULK_WALL_TORCH.get(), PropertyHelper.basicItemProperties(), Direction.DOWN));
-    public static final RegistryObject<Item> ILLUSIONER_SPAWN_EGG = RegisterHelper.registerSpawnEgg("illusioner_spawn_egg", EntityType.ILLUSIONER, 0x135793, 0x959B9B);
     public static final RegistryObject<Item> SCULK_HORN = RegisterHelper.registerItem("sculk_horn", SculkHornItem::new);
+    public static final RegistryObject<Item> ILLUSIONER_SPAWN_EGG = RegisterHelper.registerSpawnEgg("illusioner_spawn_egg", () -> EntityType.ILLUSIONER, 0x135793, 0x959B9B);
+    public static final RegistryObject<Item> REAPER_SPAWN_EGG = RegisterHelper.registerSpawnEgg("reaper_spawn_egg", MWEntityTypes.REAPER, 0x01080A, 0x000000);
 
     /**
      * Register the {@link MineWorld MineWorld} {@link Item items}

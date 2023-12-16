@@ -78,6 +78,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
@@ -456,13 +457,13 @@ public final class RegisterHelper {
      * Register a {@link SpawnEggItem spawn egg item}
      *
      * @param name {@link String The item name}
-     * @param entityType {@link EntityType The entity type}
+     * @param entityTypeSupplier {@link EntityType The entity type}
      * @param primaryColor {@link Integer The spawn egg primary color}
      * @param secondaryColor {@link Integer The spawn egg secondary color}
      * @return {@link RegistryObject<Item> The registered spawn egg item}
      */
-    public static RegistryObject<Item> registerSpawnEgg(final String name, final EntityType<? extends Mob> entityType, final int primaryColor, final int secondaryColor) {
-        return registerItem(name, () -> new SpawnEggItem(entityType, primaryColor, secondaryColor, PropertyHelper.basicItemProperties()));
+    public static RegistryObject<Item> registerSpawnEgg(final String name, final Supplier<? extends EntityType<? extends Mob>> entityTypeSupplier, final int primaryColor, final int secondaryColor) {
+        return registerItem(name, () -> new ForgeSpawnEggItem(entityTypeSupplier, primaryColor, secondaryColor, PropertyHelper.basicItemProperties()));
     }
 
     /**

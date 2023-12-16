@@ -10,7 +10,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -40,7 +39,7 @@ public final class MWTabs {
     public static RegistryObject<CreativeModeTab> COMBAT = RegisterHelper.registerCreativeTab("combat", TOOLS.getKey(), () -> ItemHelper.getDefaultStack(MWItems.SAPPHIRE_SWORD));
     public static RegistryObject<CreativeModeTab> FOOD_AND_DRINK = RegisterHelper.registerCreativeTab("food_and_drink", COMBAT.getKey(), () -> ItemHelper.getDefaultStack(MWItems.COB));
     public static RegistryObject<CreativeModeTab> INGREDIENTS = RegisterHelper.registerCreativeTab("ingredients", FOOD_AND_DRINK.getKey(), () -> ItemHelper.getDefaultStack(MWItems.RUBY));
-    public static RegistryObject<CreativeModeTab> SPAWN_EGGS = RegisterHelper.registerCreativeTab("spawn_eggs", INGREDIENTS.getKey(), () -> ItemHelper.getDefaultStack(Blocks.BARRIER));
+    public static RegistryObject<CreativeModeTab> SPAWN_EGGS = RegisterHelper.registerCreativeTab("spawn_eggs", INGREDIENTS.getKey(), () -> ItemHelper.getDefaultStack(MWItems.REAPER_SPAWN_EGG));
 
     /**
      * Set the {@link CreativeModeTab creative tabs} content
@@ -2187,6 +2186,18 @@ public final class MWTabs {
     }
 
     /**
+     * Set the content of the {@link #SPAWN_EGGS spawn eggs tab}
+     *
+     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
+     */
+    private static void setSpawnEggsTab(final BuildCreativeModeTabContentsEvent event) {
+        addToTab(event,
+                MWItems.ILLUSIONER_SPAWN_EGG,
+                MWItems.REAPER_SPAWN_EGG
+        );
+    }
+
+    /**
      * Add the {@link MineWorld MineWorld} {@link Enchantment enchantments}
      * to the {@link #INGREDIENTS Ingredients Tab}
      *
@@ -2245,17 +2256,6 @@ public final class MWTabs {
                 .filter(enchantment -> enchantment.key().location().getNamespace().equals(MineWorld.MOD_ID))
                 .map(Holder::value)
                 .filter(enchantment -> enchantment.allowedInCreativeTab(Items.ENCHANTED_BOOK, EnumSet.allOf(EnchantmentCategory.class)));
-    }
-
-    /**
-     * Set the content of the {@link #SPAWN_EGGS spawn eggs tab}
-     *
-     * @param event {@link BuildCreativeModeTabContentsEvent Creative mode tab build contents event}
-     */
-    private static void setSpawnEggsTab(final BuildCreativeModeTabContentsEvent event) {
-        addToTab(event,
-                MWItems.ILLUSIONER_SPAWN_EGG
-        );
     }
 
     /**

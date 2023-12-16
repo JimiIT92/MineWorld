@@ -6,6 +6,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
+import org.mineworld.client.model.ReaperModel;
 import org.mineworld.client.model.StrawHatModel;
 import org.mineworld.client.model.WitchHatModel;
 
@@ -24,5 +25,7 @@ public final class LayerDefinitionsEvent {
     public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(WitchHatModel.LAYER_LOCATION, () -> WitchHatModel.createBodyLayer());
         event.registerLayerDefinition(StrawHatModel.LAYER_LOCATION, () -> StrawHatModel.createBodyLayer());
+        event.registerLayerDefinition(ReaperModel.LAYER_LOCATION, () -> ReaperModel.createBodyLayer());
     }
+
 }
