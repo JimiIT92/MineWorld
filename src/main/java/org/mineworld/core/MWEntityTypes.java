@@ -69,8 +69,8 @@ public final class MWEntityTypes {
                     .updateInterval(10));
     public static final  RegistryObject<EntityType<Reaper>> REAPER = RegisterHelper.registerEntityType("reaper",
             EntityType.Builder.<Reaper>of(Reaper::new, MobCategory.MONSTER)
-                    .sized(0.9F, 0.8F)
-                    .clientTrackingRange(10));
+                    .sized(0.8F, 1.6F)
+                    .clientTrackingRange(8));
 
     /**
      * Register the entity renderings

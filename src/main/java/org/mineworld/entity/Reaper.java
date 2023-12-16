@@ -5,15 +5,20 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +28,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 import org.mineworld.core.MWEntityTypes;
+import org.mineworld.core.MWParticleTypes;
 import org.mineworld.entity.goal.MWFlyingMobLookingGoal;
 
 import javax.annotation.Nullable;
@@ -67,7 +74,7 @@ public class Reaper extends Monster {
      */
     public Reaper(final EntityType<Reaper> entityType, final Level level) {
         super(entityType, level);
-        this.xpReward = 5;
+        this.xpReward = 10;
         this.moveControl = new Reaper.ReaperMoveControl(this);
         this.setNoGravity(true);
     }
@@ -82,36 +89,15 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Tick the entity
+     * Get the {@link Float entity eye height}
+     *
+     * @param pose {@link Pose The entity pose}
+     * @param size {@link EntityDimensions The entity size}
+     * @return {@link Float The entity eye height}
      */
-    public void tick() {
-        super.tick();
-        if(this.level().isClientSide()) {
-            setupAnimationStates();
-        }
-    }
-
-    /**
-     * Setup the entity {@link AnimationState animations}
-     */
-    private void setupAnimationStates() {
-        if(this.idleAnimationStateTimeout <= 0) {
-            this.idleAnimationStateTimeout = this.random.nextInt(40) + 80;
-            this.idleAnimationState.start(this.tickCount);
-        } else {
-            --this.idleAnimationStateTimeout;
-        }
-
-        if(this.isCharging() && chargeAnimationStateTimeout <= 0) {
-            this.chargeAnimationStateTimeout = 80; //animation ticks
-            this.chargeAnimationState.start(this.tickCount);
-        } else {
-            --this.chargeAnimationStateTimeout;
-        }
-
-        if(!this.isCharging()) {
-            this.chargeAnimationState.stop();
-        }
+    @Override
+    protected float getStandingEyeHeight(final @NotNull Pose pose, final EntityDimensions size) {
+        return size.height - 0.5625F;
     }
 
     /**
@@ -153,6 +139,18 @@ public class Reaper extends Monster {
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 1.5F)
                 .add(Attributes.FOLLOW_RANGE, 100F);
+    }
+
+    /**
+     * Show some smoke particles around the {@link Reaper Reaper}
+     */
+    @Override
+    public void aiStep() {
+        if (this.level().isClientSide) {
+            this.level().addParticle(MWParticleTypes.SCULK_FIRE_FLAME.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+        }
+
+        super.aiStep();
     }
 
     /**
@@ -249,6 +247,61 @@ public class Reaper extends Monster {
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return true;
+    }
+
+    /**
+     * Get the {@link Float entity riding offset}
+     *
+     * @param entity {@link Entity The vehicle entity}
+     * @return {@link Float 0.4F}
+     */
+    @Override
+    protected float ridingOffset(final @NotNull Entity entity) {
+        return 0.04F;
+    }
+
+    /**
+     * Get the passenger attachment point
+     *
+     * @param entity {@link Entity The entity riding the Reaper}
+     * @param size {@link EntityDimensions The entity size}
+     * @param scale {@link Float The entity scale}
+     * @return {@link Vector3f The passenger attachment point}
+     */
+    @Override
+    protected @NotNull Vector3f getPassengerAttachmentPoint(final @NotNull Entity entity, final EntityDimensions size, final float scale) {
+        return new Vector3f(0.0F, size.height - 0.0625F * scale, 0.0F);
+    }
+
+    /**
+     * Get the {@link SoundEvent Reaper ambient sound}
+     *
+     * @return {@link SoundEvents#VEX_AMBIENT The Reaper ambient sound}
+     */
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.VEX_AMBIENT;
+    }
+
+    /**
+     * Get the {@link SoundEvent Reaper death sound}
+     *
+     * @return {@link SoundEvents#VEX_DEATH The Reaper death sound}
+     */
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.VEX_DEATH;
+    }
+
+    /**
+     * Get the {@link SoundEvent Reaper hurt sound}
+     *
+     * @param damageSource {@link DamageSource The damage source}
+     * @return {@link SoundEvents#VEX_HURT The Reaper hurt sound}
+     */
+    @Override
+    protected SoundEvent getHurtSound(final @NotNull DamageSource damageSource) {
+        return SoundEvents.VEX_HURT;
     }
 
     /**

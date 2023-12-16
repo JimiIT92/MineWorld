@@ -1,5 +1,6 @@
 package org.mineworld.client.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
@@ -25,6 +26,19 @@ public class ReaperRenderer extends MobRenderer<Reaper, ReaperModel> {
     public ReaperRenderer(final EntityRendererProvider.Context context) {
         super(context, new ReaperModel(context.bakeLayer(ReaperModel.LAYER_LOCATION)), 0F);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+    }
+
+    /**
+     * Scale the {@link ReaperModel Reaper Model}
+     *
+     * @param reaper {@link Reaper The Reaper entity}
+     * @param poseStack {@link PoseStack The entity pose stack}
+     * @param par3 {@link Float Unused third parameter}
+     */
+    @Override
+    protected void scale(final @NotNull Reaper reaper, final PoseStack poseStack, final float par3) {
+        final float scale = 2F;
+        poseStack.scale(scale, scale, scale);
     }
 
     /**

@@ -1,259 +1,164 @@
 package org.mineworld.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.animation.AnimationChannel;
-import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.animation.Keyframe;
-import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.core.MWAnimations;
 import org.mineworld.entity.Reaper;
 
 /**
- * Model class for a {@link Reaper Shadow entity}
+ * Model class for a {@link Reaper Reaper} entity
  */
+@OnlyIn(Dist.CLIENT)
 public class ReaperModel extends HierarchicalModel<Reaper> implements ArmedModel {
 
-	/**
-	 * The {@link ModelLayerLocation Model Layer Location}
-	 */
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(MineWorld.MOD_ID, "reaper"), "main");
-	/**
-	 * The {@link ModelPart root entity model part}
-	 */
-	private final ModelPart root;
-	/**
-	 * The {@link ModelPart body entity model part}
-	 */
-	private final ModelPart body;
-	/**
-	 * The {@link ModelPart head entity model part}
-	 */
-	private final ModelPart head;
-	/**
-	 * The {@link ModelPart left arm entity model part}
-	 */
-	private final ModelPart leftArm;
-	/**
-	 * The {@link ModelPart right arm entity model part}
-	 */
-	private final ModelPart rightArm;
+    /**
+     * The {@link ModelLayerLocation Model Layer Location}
+     */
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(MineWorld.MOD_ID, "reaper"), "main");
+    /**
+     * The {@link ModelPart root model part}
+     */
+    private final ModelPart root;
+    /**
+     * The {@link ModelPart body model part}
+     */
+    private final ModelPart body;
+    /**
+     * The {@link ModelPart right arm model part}
+     */
+    private final ModelPart rightArm;
+    /**
+     * The {@link ModelPart left arm model part}
+     */
+    private final ModelPart leftArm;
+    /**
+     * The {@link ModelPart head model part}
+     */
+    private final ModelPart head;
 
-	/**
-	 * Constructor. Set the {@link ModelPart root entity model part}
-	 *
-	 * @param root {@link ModelPart The root model part}
-	 */
-	public ReaperModel(final ModelPart root) {
-		this.root = root.getChild("reaper");
-		this.head = this.root.getChild("head");
-		this.body = this.root.getChild("body");
-		this.leftArm = this.body.getChild("left_arm");
-		this.rightArm = this.body.getChild("right_arm");
-	}
+    /**
+     * Constructor. Set the entity {@link ModelPart model parts}
+     *
+     * @param modelPart {@link ModelPart The root model part}
+     */
+    public ReaperModel(final ModelPart modelPart) {
+        super(RenderType::entityTranslucent);
+        this.root = modelPart.getChild("root");
+        this.body = this.root.getChild("body");
+        this.rightArm = this.body.getChild("right_arm");
+        this.leftArm = this.body.getChild("left_arm");
+        this.head = this.root.getChild("head");
+    }
 
-	/**
-	 * Create the {@link LayerDefinition entity model layer definition}
-	 *
-	 * @return {@link LayerDefinition The entity model layer definition}
-	 */
-	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshdefinition = new MeshDefinition();
-		PartDefinition partdefinition = meshdefinition.getRoot();
-		PartDefinition reaperRoot = partdefinition.addOrReplaceChild("reaper", CubeListBuilder.create(),
-				PartPose.offset(0.0F, 24.0F, 0.0F));
-		PartDefinition head = reaperRoot.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 24)
-				.addBox(-2.0F, -26.75F, -4.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)),
-				PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition body = reaperRoot.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 0)
-				.addBox(-3.0F, -20.75F, -5.0F, 8.0F, 16.0F, 8.0F, new CubeDeformation(0.0F)),
-				PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 0)
-				.addBox(-5.0F, -20.75F, -2.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)),
-				PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 0)
-				.addBox(5.0F, -20.75F, -2.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)),
-				PartPose.offset(0.0F, 0.0F, 0.0F));
+    /**
+     * Create the entity body layer
+     *
+     * @return {@link LayerDefinition The entity layer definition}
+     */
+    public static LayerDefinition createBodyLayer() {
+        final MeshDefinition meshDefinition = new MeshDefinition();
+        final PartDefinition root = meshDefinition.getRoot().addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, -2.5F, 0.0F));
+        root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 0.0F));
+        final PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 10).addBox(-1.5F, 0.0F, -1.0F, 3.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)).texOffs(0, 16).addBox(-1.5F, 1.0F, -1.0F, 3.0F, 5.0F, 2.0F, new CubeDeformation(-0.2F)), PartPose.offset(0.0F, 20.0F, 0.0F));
+        body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(23, 0).addBox(-1.25F, -0.5F, -1.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offset(-1.75F, 0.25F, 0.0F));
+        body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(23, 6).addBox(-0.75F, -0.5F, -1.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offset(1.75F, 0.25F, 0.0F));
+        return LayerDefinition.create(meshDefinition, 32, 32);
+    }
 
-		return LayerDefinition.create(meshdefinition, 64, 64);
-	}
+    /**
+     * Setup the {@link Reaper Reper} animations
+     *
+     * @param reaper {@link Reaper The Reaper entity}
+     * @param limbSwing {@link Float The entity limb swing angle}
+     * @param limbSwingAmount {@link Float The entity limb swing amount}
+     * @param ageInTicks {@link Float The entity age in ticks}
+     * @param netHeadYaw {@link Float The entity head yaw value}
+     * @param headPitch {@link Float The entity head pitch value}
+     */
+    @Override
+    public void setupAnim(final Reaper reaper, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+        final float armAngle = Mth.cos(ageInTicks * 5.5F * ((float)Math.PI / 180F)) * 0.1F;
+        this.rightArm.zRot = ((float)Math.PI / 5F) + armAngle;
+        this.leftArm.zRot = -(((float)Math.PI / 5F) + armAngle);
+        if (reaper.isCharging()) {
+            this.body.xRot = 0.0F;
+            this.setArmsCharging(reaper.getMainHandItem(), reaper.getOffhandItem(), armAngle);
+        } else {
+            this.body.xRot = 0.15707964F;
+        }
+    }
 
-	/**
-	 * Setup the entity animations
-	 *
-	 * @param entity {@link Reaper The reaper entity}
-	 * @param limbSwing {@link Float The limb swing angle}
-	 * @param limbSwingAmount {@link Float The limb swing amount}
-	 * @param ageInTicks {@link Float The entity age in ticks}
-	 * @param netHeadYaw {@link Float The entity net head yaw value}
-	 * @param headPitch {@link Float The entity head pitch value}
-	 */
-	@Override
-	public void setupAnim(final @NotNull Reaper entity, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch) {
-		this.root.getAllParts().forEach(ModelPart::resetPose);
-		this.applyHeadRotation(netHeadYaw, headPitch);
+    /**
+     * Set the {@link Reaper Reaper} arms charging
+     *
+     * @param rightArmStack {@link ItemStack The right arm hold Item Stack}
+     * @param leftArmStack {@link ItemStack The left arm Item Stack}
+     * @param angle {@link Float The arm angle}
+     */
+    private void setArmsCharging(final ItemStack rightArmStack, final ItemStack leftArmStack, final float angle) {
+        if (rightArmStack.isEmpty() && leftArmStack.isEmpty()) {
+            this.rightArm.xRot = -1.2217305F;
+            this.rightArm.yRot = 0.2617994F;
+            this.rightArm.zRot = -0.47123888F - angle;
+            this.leftArm.xRot = -1.2217305F;
+            this.leftArm.yRot = -0.2617994F;
+            this.leftArm.zRot = 0.47123888F + angle;
+        } else {
+            if (!rightArmStack.isEmpty()) {
+                this.rightArm.xRot = 3.6651914F;
+                this.rightArm.yRot = 0.2617994F;
+                this.rightArm.zRot = -0.47123888F - angle;
+            }
 
-		this.animateWalk(MWAnimations.REAPER_IDLE, limbSwing, limbSwingAmount, 1F, 2F);
-		this.animate(entity.idleAnimationState, MWAnimations.REAPER_IDLE, ageInTicks, 1F);
-		this.animate(entity.chargeAnimationState, MWAnimations.REAPER_CHARGE, ageInTicks, 1F);
-	}
+            if (!leftArmStack.isEmpty()) {
+                this.leftArm.xRot = 3.6651914F;
+                this.leftArm.yRot = -0.2617994F;
+                this.leftArm.zRot = 0.47123888F + angle;
+            }
 
-	/**
-	 * Rotate the head towards the player when looking at it
-	 *
-	 * @param netHeadYaw {@link Float The entity net head yaw value}
-	 * @param headPitch {@link Float The entity head pitch value}
-	 */
-	private void applyHeadRotation(float netHeadYaw, float headPitch) {
-		netHeadYaw = Mth.clamp(netHeadYaw, -30F, 30F);
-		headPitch = Mth.clamp(headPitch, -25F, 45F);
-		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.head.xRot = headPitch * ((float)Math.PI / 180F);
-	}
+        }
+    }
 
-	/**
-	 * Render the entity model
-	 *
-	 * @param poseStack {@link PoseStack The entity pose stack}
-	 * @param vertexConsumer {@link VertexConsumer The vertex consumer reference}
-	 * @param packedLight {@link Integer The client light value}
-	 * @param packedOverlay {@link Integer The client light overlay value}
-	 * @param red {@link Float The rendering red value}
-	 * @param green {@link Float The rendering green value}
-	 * @param blue {@link Float The rendering blue value}
-	 * @param alpha {@link Float The rendering alpha value}
-	 */
-	@Override
-	public void renderToBuffer(final @NotNull PoseStack poseStack, final @NotNull VertexConsumer vertexConsumer, final int packedLight, final int packedOverlay, final float red, final float green, final float blue, final float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
+    /**
+     * Get the {@link ModelPart root Model Part}
+     *
+     * @return The {@link #root root Model Part}
+     */
+    @Override
+    public @NotNull ModelPart root() {
+        return this.root;
+    }
 
-	/**
-	 * Get the {@link ModelPart entity model root part}
-	 *
-	 * @return {@link #root The entity model root part}
-	 */
-	@Override
-	public @NotNull ModelPart root() {
-		return root;
-	}
-
-	/**
-	 * Render the equipped item
-	 *
-	 * @param arm {@link HumanoidArm The hand with the item}
-	 * @param poseStack {@link PoseStack The entity pose stack}
-	 */
-	@Override
-	public void translateToHand(final @NotNull HumanoidArm arm, final @NotNull PoseStack poseStack) {
-		final boolean useRightArm = arm == HumanoidArm.RIGHT;
-		final ModelPart armPart = useRightArm ? this.rightArm : this.leftArm;
-		this.root.translateAndRotate(poseStack);
-		this.body.translateAndRotate(poseStack);
-		armPart.translateAndRotate(poseStack);
-		poseStack.translate(0.176875D * (useRightArm ? -1 : 1), -1.35625D, 0.078125D);
-	}
-
-	/**
-	 * Get the {@link Reaper reaper} idle animation
-	 *
-	 * @return The {@link Reaper reaper} idle animation
-	 */
-	public static AnimationDefinition getIdleAnimation() {
-		return AnimationDefinition.Builder.withLength(3f).looping()
-				.addAnimation("reaper",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR),
-								new Keyframe(1.5f, KeyframeAnimations.posVec(0f, 2f, 0f),
-										AnimationChannel.Interpolations.LINEAR),
-								new Keyframe(3f, KeyframeAnimations.posVec(0f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("torso",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 4f),
-										AnimationChannel.Interpolations.LINEAR),
-								new Keyframe(1.5f, KeyframeAnimations.posVec(0f, 0f, 6f),
-										AnimationChannel.Interpolations.LINEAR),
-								new Keyframe(3f, KeyframeAnimations.posVec(0f, 0f, 4f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("torso",
-						new AnimationChannel(AnimationChannel.Targets.ROTATION,
-								new Keyframe(0f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR),
-								new Keyframe(1.5f, KeyframeAnimations.degreeVec(12.5f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR),
-								new Keyframe(3f, KeyframeAnimations.degreeVec(10f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("left_arm",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, -5f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("left_arm",
-						new AnimationChannel(AnimationChannel.Targets.ROTATION,
-								new Keyframe(0f, KeyframeAnimations.degreeVec(-17.5f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("right_arm",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, -5f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("right_arm",
-						new AnimationChannel(AnimationChannel.Targets.ROTATION,
-								new Keyframe(0f, KeyframeAnimations.degreeVec(-17.5f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR))).build();
-	}
-
-	/**
-	 * Get the {@link Reaper reaper} charge animation
-	 *
-	 * @return The {@link Reaper reaper} charge animation
-	 */
-	public static AnimationDefinition getChargeAnimation() {
-		return AnimationDefinition.Builder.withLength(0f)
-				.addAnimation("head",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 2f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("head",
-						new AnimationChannel(AnimationChannel.Targets.ROTATION,
-								new Keyframe(0f, KeyframeAnimations.degreeVec(12.5f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("torso",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 3f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("torso",
-						new AnimationChannel(AnimationChannel.Targets.ROTATION,
-								new Keyframe(0f, KeyframeAnimations.degreeVec(7.5f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("left_arm",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 27f, -19f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("left_arm",
-						new AnimationChannel(AnimationChannel.Targets.ROTATION,
-								new Keyframe(0f, KeyframeAnimations.degreeVec(-117.5f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("right_arm",
-						new AnimationChannel(AnimationChannel.Targets.POSITION,
-								new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 8f),
-										AnimationChannel.Interpolations.LINEAR)))
-				.addAnimation("right_arm",
-						new AnimationChannel(AnimationChannel.Targets.ROTATION,
-								new Keyframe(0f, KeyframeAnimations.degreeVec(22.5f, 0f, 0f),
-										AnimationChannel.Interpolations.LINEAR))).build();
-	}
+    /**
+     * Translate the hold {@link ItemStack Item Stack}
+     *
+     * @param arm {@link HumanoidArm The arm holding the Item}
+     * @param poseStack {@link PoseStack The entity pose stack}
+     */
+    @Override
+    public void translateToHand(final @NotNull HumanoidArm arm, final @NotNull PoseStack poseStack) {
+        boolean isRightArm = arm == HumanoidArm.RIGHT;
+        this.root.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        (isRightArm ? this.rightArm : this.leftArm).translateAndRotate(poseStack);
+        poseStack.scale(0.55F, 0.55F, 0.55F);
+        poseStack.translate(0.046875D * (isRightArm ? 1 : -1), -0.15625D, 0.078125D);
+    }
 
 }
