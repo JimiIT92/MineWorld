@@ -122,7 +122,7 @@ public class AncientGuardian extends Monster {
      */
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 500F)
+                .add(Attributes.MAX_HEALTH, 600F)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
