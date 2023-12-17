@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWItems;
+import org.mineworld.entity.AncientGuardian;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
@@ -135,9 +135,9 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
             ItemHelper.hurt(itemstack, player);
             if (!level.isClientSide) {
                 final Vec3 vec3 = Vec3.atLowerCornerWithOffset(pos, 0.5D, 1.01D, 0.5D).offsetRandom(level.random, 0.1F);
-                final ItemEntity echoingChargeFragment = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), ItemHelper.getDefaultStack(MWItems.ECHOING_CHARGE_FRAGMENT));
-                echoingChargeFragment.setDefaultPickUpDelay();
-                level.addFreshEntity(echoingChargeFragment);
+                final AncientGuardian ancientGuardian = new AncientGuardian(level);
+                ancientGuardian.setPos(vec3);
+                level.addFreshEntity(ancientGuardian);
             }
             PlayerHelper.playSound(player, SoundEvents.WARDEN_ROAR);
             return InteractionResult.SUCCESS;

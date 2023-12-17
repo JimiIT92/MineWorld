@@ -2193,7 +2193,8 @@ public final class MWTabs {
     private static void setSpawnEggsTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
                 MWItems.ILLUSIONER_SPAWN_EGG,
-                MWItems.REAPER_SPAWN_EGG
+                MWItems.REAPER_SPAWN_EGG,
+                MWItems.ANCIENT_GUARDIAN_SPAWN_EGG
         );
     }
 

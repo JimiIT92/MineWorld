@@ -9,16 +9,14 @@ import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
+import org.mineworld.client.renderer.AncientGuardianRenderer;
 import org.mineworld.client.renderer.MWPrimedTntRenderer;
 import org.mineworld.client.renderer.ReaperRenderer;
 import org.mineworld.client.renderer.vehicle.MWBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestMinecartRenderer;
 import org.mineworld.client.renderer.vehicle.MWTntMinecartRenderer;
-import org.mineworld.entity.MWPrimedTnt;
-import org.mineworld.entity.Reaper;
-import org.mineworld.entity.ThrownGrenade;
-import org.mineworld.entity.ThrownPebble;
+import org.mineworld.entity.*;
 import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWChestBoat;
 import org.mineworld.entity.vehicle.MWMinecartChest;
@@ -67,10 +65,15 @@ public final class MWEntityTypes {
                     .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
                     .updateInterval(10));
-    public static final  RegistryObject<EntityType<Reaper>> REAPER = RegisterHelper.registerEntityType("reaper",
+    public static final RegistryObject<EntityType<Reaper>> REAPER = RegisterHelper.registerEntityType("reaper",
             EntityType.Builder.<Reaper>of(Reaper::new, MobCategory.MONSTER)
                     .sized(0.8F, 1.6F)
                     .clientTrackingRange(8));
+    public static final RegistryObject<EntityType<AncientGuardian>> ANCIENT_GUARDIAN = RegisterHelper.registerEntityType("ancient_guardian",
+            EntityType.Builder.<AncientGuardian>of(AncientGuardian::new, MobCategory.MONSTER)
+                    .sized(1.8F, 3.8F)
+                    .clientTrackingRange(16)
+                    .fireImmune());
 
     /**
      * Register the entity renderings
@@ -85,6 +88,7 @@ public final class MWEntityTypes {
         EntityRenderers.register(CHEST_BOAT.get(), MWChestBoatRenderer::new);
         EntityRenderers.register(GRENADE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(REAPER.get(), ReaperRenderer::new);
+        EntityRenderers.register(ANCIENT_GUARDIAN.get(), AncientGuardianRenderer::new);
     }
 
     /**

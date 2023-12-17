@@ -69,7 +69,7 @@ public class Reaper extends Monster {
     /**
      * Constructor. Set the entity properties
      *
-     * @param entityType {@link EntityType<Reaper> The shadow entity type}
+     * @param entityType {@link EntityType<Reaper> The Reaper entity type}
      * @param level {@link Level The level reference}
      */
     public Reaper(final EntityType<Reaper> entityType, final Level level) {
@@ -228,7 +228,7 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Equip the shadow with a {@link Items#STONE_HOE Stone Hoe}
+     * Equip the Reaper with a {@link Items#STONE_HOE Stone Hoe}
      *
      * @param random {@link RandomSource The random reference}
      * @param difficulty {@link DifficultyInstance The difficulty reference}
