@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWParticleTypes;
+import org.mineworld.core.MWSounds;
 import org.mineworld.entity.goal.MWFlyingMobLookingGoal;
 
 import javax.annotation.Nullable;
@@ -137,7 +138,7 @@ public class Reaper extends Monster {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 10F)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 1.5F)
+                .add(Attributes.ATTACK_DAMAGE, 3.0F)
                 .add(Attributes.FOLLOW_RANGE, 100F);
     }
 
@@ -280,7 +281,7 @@ public class Reaper extends Monster {
      */
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.VEX_AMBIENT;
+        return MWSounds.REAPER_IDLE.get();
     }
 
     /**
@@ -290,7 +291,7 @@ public class Reaper extends Monster {
      */
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.VEX_DEATH;
+        return MWSounds.REAPER_DEATH.get();
     }
 
     /**
@@ -301,7 +302,7 @@ public class Reaper extends Monster {
      */
     @Override
     protected SoundEvent getHurtSound(final @NotNull DamageSource damageSource) {
-        return SoundEvents.VEX_HURT;
+        return MWSounds.REAPER_HURT.get();
     }
 
     /**
@@ -391,7 +392,7 @@ public class Reaper extends Monster {
                 charge(target);
             }
             Reaper.this.setCharging(true);
-            Reaper.this.playSound(SoundEvents.VEX_CHARGE, 1.0F, 1.0F);
+            Reaper.this.playSound(MWSounds.REAPER_CHARGE.get(), 1.0F, 1.0F);
         }
 
         /**

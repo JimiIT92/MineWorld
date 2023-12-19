@@ -44,6 +44,10 @@ public final class MWSounds {
     public static final RegistryObject<SoundEvent> END_SOIL_HIT = RegisterHelper.registerSound("end_soil_hit");
     public static final RegistryObject<SoundEvent> END_SOIL_FALL = RegisterHelper.registerSound("end_soil_fall");
     public static final RegistryObject<SoundEvent> ETHEREAL_PORTAL_OPEN = RegisterHelper.registerSound("ethereal_portal_open");
+    public static final RegistryObject<SoundEvent> REAPER_CHARGE = RegisterHelper.registerSound("reaper_charge");
+    public static final RegistryObject<SoundEvent> REAPER_HURT = RegisterHelper.registerSound("reaper_hurt");
+    public static final RegistryObject<SoundEvent> REAPER_DEATH = RegisterHelper.registerSound("reaper_death");
+    public static final RegistryObject<SoundEvent> REAPER_IDLE = RegisterHelper.registerSound("reaper_idle");
 
     /**
      * Register the {@link MineWorld MineWorld} {@link SoundEvent sounds}

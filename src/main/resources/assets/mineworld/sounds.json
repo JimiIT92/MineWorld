@@ -277,5 +277,36 @@
       "mineworld:ethereal_portal/open"
     ],
     "subtitle": "subtitles.mineworld.ethereal_portal.open"
+  },
+  "reaper_charge": {
+    "sounds": [
+      "mineworld:reaper/charge1",
+      "mineworld:reaper/charge2",
+      "mineworld:reaper/charge3"
+    ],
+    "subtitle": "subtitles.mineworld.reaper.charge"
+  },
+  "reaper_death": {
+    "sounds": [
+      "mineworld:reaper/death1",
+      "mineworld:reaper/death2"
+    ],
+    "subtitle": "subtitles.mineworld.reaper.death"
+  },
+  "reaper_hurt": {
+    "sounds": [
+      "mineworld:reaper/hurt1",
+      "mineworld:reaper/hurt2"
+    ],
+    "subtitle": "subtitles.mineworld.reaper.hurt"
+  },
+  "reaper_idle": {
+    "sounds": [
+      "mineworld:reaper/idle1",
+      "mineworld:reaper/idle2",
+      "mineworld:reaper/idle3",
+      "mineworld:reaper/idle4"
+    ],
+    "subtitle": "subtitles.mineworld.reaper.idle"
   }
 }

@@ -1886,13 +1886,13 @@
   "advancements.ethereal.find_ancient_temple.description": "Trova un tempio antico",
   "advancements.ethereal.obtain_dark_soul.title": "Steve no maiku",
   "advancements.ethereal.obtain_dark_soul.description": "Ottieni un'anima oscura",
-  "advancements.ethereal.activate_ancient_altar.title": "Il rituale",
-  "advancements.ethereal.activate_ancient_altar.description": "Questo non sarebbe dovuto accadere...",
-  "advancements.ethereal.obtain_sculk_horn.title": "Inno di battaglia",
-  "advancements.ethereal.obtain_sculk_horn.description": "Sconfiggi il guardiano antico e ottieni il corno di sculk",
   "message.mineworld.magic_mirror_invalid_spawn": "Impossibile trovare un punto di spawn valido!",
   "message.mineworld.ancient_altar_tease": "Una forza antica sta per risvegliarsi dall'oscurità...",
   "subtitles.mineworld.magic_mirror": "Specchio magico si aziona",
   "subtitles.mineworld.invisibility_cloak_equip": "Giocatore scompare",
-  "subtitles.mineworld.ethereal_portal.open": "Portale etereo aperto"
+  "subtitles.mineworld.ethereal_portal.open": "Portale etereo aperto",
+  "subtitles.mineworld.reaper.charge": "Mietitore strilla",
+  "subtitles.mineworld.reaper.hurt": "Mietitore ferito",
+  "subtitles.mineworld.reaper.death": "Mietitore muore",
+  "subtitles.mineworld.reaper.idle": "Mietitore miete"
 }

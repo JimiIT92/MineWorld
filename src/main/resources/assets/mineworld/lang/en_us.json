@@ -1886,13 +1886,13 @@
   "advancements.ethereal.explore_ethereal.description": "Explore all Ethereal biomes",
   "advancements.ethereal.obtain_dark_soul.title": "Steve no maiku",
   "advancements.ethereal.obtain_dark_soul.description": "Obtain a Dark Soul",
-  "advancements.ethereal.activate_ancient_altar.title": "The ritual",
-  "advancements.ethereal.activate_ancient_altar.description": "This shouldn't have happened...",
-  "advancements.ethereal.obtain_sculk_horn.title": "Battle Hymn",
-  "advancements.ethereal.obtain_sculk_horn.description": "Defeat the Ancient Guardian and obtain the Sculk Horn",
   "message.mineworld.magic_mirror_invalid_spawn": "Cannot find a valid spawn location!",
   "message.mineworld.ancient_altar_tease": "An ancient force is about to awaken from the darkness...",
   "subtitles.mineworld.magic_mirror": "Magic Mirror activates",
   "subtitles.mineworld.invisibility_cloak_equip": "Player vanishes",
-  "subtitles.mineworld.ethereal_portal.open": "Ethereal Portal opens"
+  "subtitles.mineworld.ethereal_portal.open": "Ethereal Portal opens",
+  "subtitles.mineworld.reaper.charge": "Reaper shrieks",
+  "subtitles.mineworld.reaper.hurt": "Reaper hurts",
+  "subtitles.mineworld.reaper.death": "Reaper dies",
+  "subtitles.mineworld.reaper.idle": "Reaper reaps"
 }
