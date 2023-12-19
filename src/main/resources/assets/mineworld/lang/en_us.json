@@ -345,7 +345,6 @@
   "item.mineworld.sculk_horn": "Sculk Horn",
   "item.mineworld.illusioner_spawn_egg": "Illusioner Spawn Egg",
   "item.mineworld.reaper_spawn_egg": "Reaper Spawn Egg",
-  "item.mineworld.ancient_guardian_spawn_egg": "Ancient Guardian Spawn Egg",
   "block.mineworld.silver_ore": "Silver Ore",
   "block.mineworld.deepslate_silver_ore": "Deepslate Silver Ore",
   "block.mineworld.aluminum_ore": "Aluminum Ore",
@@ -1827,7 +1826,6 @@
   "entity.mineworld.chest_boat": "Boat with Chest",
   "entity.mineworld.grenade": "Grenade",
   "entity.mineworld.reaper": "Reaper",
-  "entity.mineworld.ancient_guardian": "Ancient Guardian",
   "update.mineworld.outdated": "A new version of MineWorld (%s) is available!",
   "update.mineworld.download": "Click here to download",
   "splash.mineworld.blocks": "Now with even more blocks",
@@ -1893,6 +1891,7 @@
   "advancements.ethereal.obtain_sculk_horn.title": "Battle Hymn",
   "advancements.ethereal.obtain_sculk_horn.description": "Defeat the Ancient Guardian and obtain the Sculk Horn",
   "message.mineworld.magic_mirror_invalid_spawn": "Cannot find a valid spawn location!",
+  "message.mineworld.ancient_altar_tease": "An ancient force is about to awaken from the darkness...",
   "subtitles.mineworld.magic_mirror": "Magic Mirror activates",
   "subtitles.mineworld.invisibility_cloak_equip": "Player vanishes",
   "subtitles.mineworld.ethereal_portal.open": "Ethereal Portal opens"

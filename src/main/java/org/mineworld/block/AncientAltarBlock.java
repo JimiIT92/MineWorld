@@ -1,8 +1,10 @@
 package org.mineworld.block;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -25,11 +27,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWItems;
-import org.mineworld.entity.AncientGuardian;
-import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
 
@@ -130,15 +129,18 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
     public @NotNull InteractionResult use(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(itemstack.is(MWItems.DARK_SOUL.get()) && !state.getValue(ACTIVATED)) {
-            level.setBlock(pos, state.setValue(ACTIVATED, Boolean.TRUE), 2);
+            //level.setBlock(pos, state.setValue(ACTIVATED, Boolean.TRUE), 2);
             spawnParticles(level, pos);
-            ItemHelper.hurt(itemstack, player);
-            if (!level.isClientSide) {
+            //ItemHelper.hurt(itemstack, player);
+            /*if (!level.isClientSide) {
                 final Vec3 vec3 = Vec3.atLowerCornerWithOffset(pos, 0.5D, 1.01D, 0.5D).offsetRandom(level.random, 0.1F);
-                final AncientGuardian ancientGuardian = new AncientGuardian(level);
+                final AncientGuardian ancientGuardian = MWEntityTypes.ANCIENT_GUARDIAN.get().create(level);
                 ancientGuardian.setPos(vec3);
+                ancientGuardian.makeInvulnerable();
+                level.getEntitiesOfClass(ServerPlayer.class, ancientGuardian.getBoundingBox().inflate(50.0D)).forEach(p -> CriteriaTriggers.SUMMONED_ENTITY.trigger(p, ancientGuardian));
                 level.addFreshEntity(ancientGuardian);
-            }
+            }*/
+            player.displayClientMessage(Component.translatable("message.mineworld.ancient_altar_tease").withStyle(ChatFormatting.BLUE), true);
             PlayerHelper.playSound(player, SoundEvents.WARDEN_ROAR);
             return InteractionResult.SUCCESS;
         }
@@ -159,11 +161,13 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
         for(Direction direction : Direction.values()) {
             final BlockPos relativePos = pos.relative(direction);
             if (!level.getBlockState(relativePos).isSolidRender(level, relativePos)) {
-                final Direction.Axis axis = direction.getAxis();
-                final double x = axis.equals(Direction.Axis.X) ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)random.nextFloat();
-                final double y = axis.equals(Direction.Axis.Y) ? 0.5D + 0.5625D * (double)direction.getStepY() : (double)random.nextFloat();
-                final double z = axis.equals(Direction.Axis.Z) ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)random.nextFloat();
-                level.addParticle(ParticleTypes.WARPED_SPORE, (double)pos.getX() + x, (double)pos.getY() + y, (double)pos.getZ() + z, 0.0D, 0.0D, 0.0D);
+                for (int i = 0; i < 3; i++) {
+                    final Direction.Axis axis = direction.getAxis();
+                    final double x = axis.equals(Direction.Axis.X) ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)random.nextFloat();
+                    final double y = axis.equals(Direction.Axis.Y) ? 0.5D + 0.5625D * (double)direction.getStepY() : (double)random.nextFloat();
+                    final double z = axis.equals(Direction.Axis.Z) ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)random.nextFloat();
+                    level.addParticle(ParticleTypes.SCULK_SOUL, (double)pos.getX() + x, (double)pos.getY() + y, (double)pos.getZ() + z, 0.0D, 0.0D, 0.0D);
+                }
             }
         }
 

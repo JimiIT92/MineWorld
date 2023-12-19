@@ -9,7 +9,6 @@ import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
-import org.mineworld.client.renderer.AncientGuardianRenderer;
 import org.mineworld.client.renderer.MWPrimedTntRenderer;
 import org.mineworld.client.renderer.ReaperRenderer;
 import org.mineworld.client.renderer.vehicle.MWBoatRenderer;
@@ -69,11 +68,6 @@ public final class MWEntityTypes {
             EntityType.Builder.<Reaper>of(Reaper::new, MobCategory.MONSTER)
                     .sized(0.8F, 1.6F)
                     .clientTrackingRange(8));
-    public static final RegistryObject<EntityType<AncientGuardian>> ANCIENT_GUARDIAN = RegisterHelper.registerEntityType("ancient_guardian",
-            EntityType.Builder.<AncientGuardian>of(AncientGuardian::new, MobCategory.MONSTER)
-                    .sized(1.8F, 3.8F)
-                    .clientTrackingRange(16)
-                    .fireImmune());
 
     /**
      * Register the entity renderings
@@ -88,7 +82,6 @@ public final class MWEntityTypes {
         EntityRenderers.register(CHEST_BOAT.get(), MWChestBoatRenderer::new);
         EntityRenderers.register(GRENADE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(REAPER.get(), ReaperRenderer::new);
-        EntityRenderers.register(ANCIENT_GUARDIAN.get(), AncientGuardianRenderer::new);
     }
 
     /**
