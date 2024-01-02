@@ -49,8 +49,12 @@ public final class MineWorld {
     private void onModSetup(final IEventBus eventBus) {
         MWParticleTypes.register(eventBus);
         MWSounds.register(eventBus);
+        MWTabs.register(eventBus);
+
         MWStats.register(eventBus);
+
         MWLootModifiers.register(eventBus);
+
         MWEnchantments.register(eventBus);
     }
 

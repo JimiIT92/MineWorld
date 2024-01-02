@@ -29,4 +29,14 @@ public final class ResourceHelper {
         return resourceLocation(name).toString();
     }
 
+    /**
+     * Check if a {@link ResourceKey Resource Key} is from {@link MineWorld MineWorld}
+     *
+     * @param resourceKey {@link ResourceKey The Resource Key to check}
+     * @return {@link Boolean#TRUE True} if the namespace starts with the {@link MineWorld#MOD_ID MineWorld Mod ID}
+     */
+    public static boolean isFromMineWorld(final ResourceKey<?> resourceKey) {
+        return resourceKey.location().getNamespace().equals(MineWorld.MOD_ID);
+    }
+
 }
