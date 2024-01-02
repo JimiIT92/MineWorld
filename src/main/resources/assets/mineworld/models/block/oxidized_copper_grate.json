@@ -1,0 +1,6 @@
+{
+    "parent": "mineworld:block/horizontal_pane",
+    "textures": {
+        "texture": "mineworld:block/oxidized_copper_bars"
+    }
+}

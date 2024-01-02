@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/chain",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/aluminum_chain",
+        "all": "mineworld:block/aluminum_chain"
+    }
+}

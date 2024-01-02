@@ -1,0 +1,7 @@
+{
+    "parent": "mineworld:block/potted_block",
+    "textures": {
+        "top": "minecraft:block/pearlescent_froglight_top",
+        "side": "minecraft:block/pearlescent_froglight_side"
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/pointed_dripstone",
+  "textures": {
+    "cross": "mineworld:block/end_stone_pointed_dripstone_down_tip_merge"
+  }
+}

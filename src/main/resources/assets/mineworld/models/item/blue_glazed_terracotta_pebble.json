@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mineworld:item/blue_glazed_terracotta_pebble"
+  }
+}

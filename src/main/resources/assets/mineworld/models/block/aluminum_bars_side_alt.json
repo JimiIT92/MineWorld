@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/iron_bars_side_alt",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/aluminum_bars",
+        "bars": "mineworld:block/aluminum_bars",
+        "edge": "mineworld:block/aluminum_bars"
+    }
+}
