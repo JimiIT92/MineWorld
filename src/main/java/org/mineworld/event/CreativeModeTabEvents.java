@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWItems;
+import org.mineworld.core.MWPebbles;
 import org.mineworld.core.MWTabs;
 
 import java.util.*;
@@ -186,7 +188,7 @@ public final class CreativeModeTabEvents {
      */
     private static void setCombatTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
-                Blocks.STRUCTURE_VOID
+                MWPebbles.Items.STONE_PEBBLE
         );
     }
 
@@ -197,7 +199,8 @@ public final class CreativeModeTabEvents {
      */
     private static void setFoodAndDrinkTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
-                Blocks.STRUCTURE_VOID
+                MWItems.COB,
+                MWItems.BAKED_COB
         );
     }
 
@@ -207,6 +210,22 @@ public final class CreativeModeTabEvents {
      * @param event {@link BuildCreativeModeTabContentsEvent The Creative Mode Tab Build Contents event}
      */
     private static void setIngredientsTab(final BuildCreativeModeTabContentsEvent event) {
+        addToTab(event,
+                MWItems.PYRITE,
+                MWItems.RAW_ALUMINUM,
+                MWItems.RAW_SILVER,
+                MWItems.RAW_BRONZE,
+                MWItems.RUBY,
+                MWItems.SAPPHIRE,
+                MWItems.ALUMINUM_NUGGET,
+                MWItems.SILVER_NUGGET,
+                MWItems.NETHERITE_NUGGET,
+                MWItems.COPPER_NUGGET,
+                MWItems.BRONZE_NUGGET,
+                MWItems.ALUMINUM_INGOT,
+                MWItems.SILVER_INGOT,
+                MWItems.BRONZE_INGOT
+        );
         setIngredientsTabEnchantments(event);
     }
 

@@ -50,6 +50,9 @@ public final class MineWorld {
         MWParticleTypes.register(eventBus);
         MWSounds.register(eventBus);
         MWTabs.register(eventBus);
+        MWBlocks.register(eventBus);
+        MWItems.register(eventBus);
+        MWEntityTypes.register(eventBus);
 
         MWStats.register(eventBus);
 

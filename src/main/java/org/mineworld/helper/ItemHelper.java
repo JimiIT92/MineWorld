@@ -1,0 +1,60 @@
+package org.mineworld.helper;
+
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+
+/**
+ * Helper methods for {@link Item Items}
+ */
+public final class ItemHelper {
+
+    /**
+     * Damage an {@link ItemStack Item Stack} by 1
+     *
+     * @param itemStack {@link ItemStack The Item Stack to damage}
+     * @param player {@link Player The player using the Item Stack}
+     */
+    public static void hurt(final ItemStack itemStack, final Player player) {
+        hurt(itemStack, player, 1);
+    }
+
+    /**
+     * Damage an {@link ItemStack Item Stack} by 1
+     *
+     * @param itemStack {@link ItemStack The Item Stack to damage}
+     */
+    public static void hurt(final ItemStack itemStack) {
+        hurt(itemStack, null, 1);
+    }
+
+    /**
+     * Damage an {@link ItemStack Item Stack}
+     *
+     * @param itemStack {@link ItemStack The Item Stack to damage}
+     * @param player {@link Player The player using the Item Stack}
+     * @param amount {@link Integer The amount of damage to apply}
+     */
+    public static void hurt(final ItemStack itemStack, final Player player, final int amount) {
+        if(player != null && player.isCreative()) {
+            return;
+        }
+        if(itemStack.isDamageableItem() && player != null) {
+            itemStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(p.getUsedItemHand()));
+        } else if(player == null || !player.isCreative()) {
+            itemStack.shrink(amount);
+        }
+    }
+
+    /**
+     * Set a cooldown for an {@link Item item}
+     *
+     * @param player {@link Player The player using the Item}
+     * @param item {@link Item The Item to set the cooldown to}
+     * @param ticks {@link Integer How many ticks the Item should be set in cooldown}
+     */
+    public static void setCooldown(final Player player, final Item item, final int ticks) {
+        player.getCooldowns().addCooldown(item, ticks);
+    }
+
+}
