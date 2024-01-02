@@ -9,6 +9,12 @@ import org.mineworld.MineWorld;
  */
 public enum MWColors {
 
+    GRASS(0x00AA00, MapColor.GRASS),
+    DIRT(0x7B553D, MapColor.DIRT),
+    SAND(0xFFFF55, MapColor.SAND),
+    RED_SAND(0xB8602C, MapColor.COLOR_ORANGE),
+    STONE(0xAAAAAA, MapColor.STONE),
+    CAKE(0xF6E8CB, MapColor.TERRACOTTA_WHITE),
     PRISMARINE(0x49C4AF, MapColor.COLOR_CYAN),
     SCULK(0x0A2330, MapColor.COLOR_BLACK),
     RUBY(0x9F3535, MapColor.FIRE),

@@ -53,7 +53,7 @@ public final class MineWorld {
         MWBlocks.register(eventBus);
         MWItems.register(eventBus);
         MWEntityTypes.register(eventBus);
-
+        MWBlockEntityTypes.register(eventBus);
         MWStats.register(eventBus);
 
         MWLootModifiers.register(eventBus);

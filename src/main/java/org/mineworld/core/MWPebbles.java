@@ -1,5 +1,6 @@
 package org.mineworld.core;
 
+import com.google.common.base.Suppliers;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +19,7 @@ public final class MWPebbles {
 
         public static final RegistryObject<Block> STONE_PEBBLE = registerPebble("stone_pebble", () -> Blocks.STONE);
         public static final RegistryObject<Block> COBBLESTONE_PEBBLE = registerPebble("cobblestone_pebble", () -> Blocks.COBBLESTONE);
-        //public static final RegistryObject<Block> MOSSY_STONE_PEBBLE = registerPebble("mossy_stone_pebble", MOSSY_STONE);
+        public static final RegistryObject<Block> MOSSY_STONE_PEBBLE = registerPebble("mossy_stone_pebble", Suppliers.memoize(() -> MWBlocks.MOSSY_STONE.get()));
         public static final RegistryObject<Block> MOSSY_COBBLESTONE_PEBBLE = registerPebble("mossy_cobblestone_pebble", () -> Blocks.MOSSY_COBBLESTONE);
         public static final RegistryObject<Block> SMOOTH_STONE_PEBBLE = registerPebble("smooth_stone_pebble", () -> Blocks.SMOOTH_STONE);
         public static final RegistryObject<Block> STONE_BRICKS_PEBBLE = registerPebble("stone_bricks_pebble", () -> Blocks.STONE_BRICKS);
@@ -170,7 +171,7 @@ public final class MWPebbles {
 
         public static final RegistryObject<Item> STONE_PEBBLE = registerPebble("stone_pebble", PebbleBlocks.STONE_PEBBLE);
         public static final RegistryObject<Item> COBBLESTONE_PEBBLE = registerPebble("cobblestone_pebble", PebbleBlocks.COBBLESTONE_PEBBLE);
-        //public static final RegistryObject<Item> MOSSY_STONE_PEBBLE = registerPebble("mossy_stone_pebble", PebbleBlocks.MOSSY_STONE_PEBBLE);
+        public static final RegistryObject<Item> MOSSY_STONE_PEBBLE = registerPebble("mossy_stone_pebble", PebbleBlocks.MOSSY_STONE_PEBBLE);
         public static final RegistryObject<Item> MOSSY_COBBLESTONE_PEBBLE = registerPebble("mossy_cobblestone_pebble", PebbleBlocks.MOSSY_COBBLESTONE_PEBBLE);
         public static final RegistryObject<Item> SMOOTH_STONE_PEBBLE = registerPebble("smooth_stone_pebble", PebbleBlocks.SMOOTH_STONE_PEBBLE);
         public static final RegistryObject<Item> STONE_BRICKS_PEBBLE = registerPebble("stone_bricks_pebble", PebbleBlocks.STONE_BRICKS_PEBBLE);

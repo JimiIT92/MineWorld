@@ -1,18 +1,24 @@
 package org.mineworld.core;
 
+import com.google.common.base.Suppliers;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
+import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.vehicle.MWMinecartTnt;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;
 import org.mineworld.helper.TextureHelper;
 import org.mineworld.item.MWFuelItem;
+import org.mineworld.item.MWMinecartItem;
+import org.mineworld.item.MWTntMinecartItem;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -58,10 +64,11 @@ public final class MWItems {
 
     //#endregion
 
-    //#region Food
+    //#region Food, Plants and Seeds
 
     public static final RegistryObject<Item> COB = registerFood("cob", 2, 0.1F);
     public static final RegistryObject<Item> BAKED_COB = registerFood("baked_cob", 4, 0.2F);
+    public static final RegistryObject<Item> CORN_SEEDS = registerBlockItem("corn_seeds", Suppliers.memoize(() -> MWBlocks.CORN.get()));
 
     //#endregion
 
@@ -142,9 +149,19 @@ public final class MWItems {
 
     //#endregion
 
-    //#endregion
+    //#region TNT Minecarts
 
-    //#region Misc
+    public static final RegistryObject<Item> DISGUISED_GRASS_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.DISGUISED_GRASS_TNT, MWPrimedTnt.Type.DISGUISED_GRASS);
+    public static final RegistryObject<Item> DISGUISED_DIRT_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.DISGUISED_DIRT_TNT, MWPrimedTnt.Type.DISGUISED_DIRT);
+    public static final RegistryObject<Item> DISGUISED_SAND_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.DISGUISED_SAND_TNT, MWPrimedTnt.Type.DISGUISED_SAND);
+    public static final RegistryObject<Item> DISGUISED_RED_SAND_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.DISGUISED_RED_SAND_TNT, MWPrimedTnt.Type.DISGUISED_RED_SAND);
+    public static final RegistryObject<Item> DISGUISED_STONE_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.DISGUISED_STONE_TNT, MWPrimedTnt.Type.DISGUISED_STONE);
+    public static final RegistryObject<Item> DISGUISED_CAKE_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.DISGUISED_CAKE_TNT, MWPrimedTnt.Type.DISGUISED_CAKE);
+    public static final RegistryObject<Item> MEGA_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.MEGA_TNT, MWPrimedTnt.Type.MEGA);
+    public static final RegistryObject<Item> SUPER_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.SUPER_TNT, MWPrimedTnt.Type.SUPER);
+    public static final RegistryObject<Item> HYPER_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.HYPER_TNT, MWPrimedTnt.Type.HYPER);
+
+    //#endregion
 
     //#endregion
 
@@ -194,7 +211,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerHorseArmorItem(final ArmorMaterial armorMaterial, final int protection, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerHorseArmorItem(final ArmorMaterial armorMaterial, final int protection, final FeatureFlag... featureFlags) {
         return registerItem(ResourceHelper.armorMaterialName(armorMaterial) + "_horse_armor", () -> new HorseArmorItem(protection, TextureHelper.horseArmor(armorMaterial), PropertyHelper.item(featureFlags).stacksTo(1)));
     }
 
@@ -205,7 +222,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerSword(final Tier tier, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerSword(final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(ResourceHelper.tierName(tier) + "_sword", () -> new SwordItem(tier, 3, -2.4F, PropertyHelper.item(featureFlags)));
     }
 
@@ -216,7 +233,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerShovel(final Tier tier, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerShovel(final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(ResourceHelper.tierName(tier) + "_shovel", () -> new ShovelItem(tier, 1.5F, -3.0F, PropertyHelper.item(featureFlags)));
     }
 
@@ -227,7 +244,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerPickaxe(final Tier tier, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerPickaxe(final Tier tier, final FeatureFlag... featureFlags) {
         return registerItem(ResourceHelper.tierName(tier) + "_pickaxe", () -> new PickaxeItem(tier, 1, -2.8F, PropertyHelper.item(featureFlags)));
     }
 
@@ -240,7 +257,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerAxe(final Tier tier, final float attackDamageBonus, final float attackSpeed, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerAxe(final Tier tier, final float attackDamageBonus, final float attackSpeed, final FeatureFlag... featureFlags) {
         return registerItem(ResourceHelper.tierName(tier) + "_axe", () -> new AxeItem(tier, attackDamageBonus, attackSpeed, PropertyHelper.item(featureFlags)));
     }
 
@@ -252,7 +269,7 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerHoe(final Tier tier, final float attackSpeed, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerHoe(final Tier tier, final float attackSpeed, final FeatureFlag... featureFlags) {
         final ForgeTier hoeTier = new ForgeTier(tier.getLevel(), tier.getUses(), tier.getSpeed(), 0, tier.getEnchantmentValue(), Objects.requireNonNull(tier.getTag()), tier::getRepairIngredient);
         return registerItem(ResourceHelper.tierName(tier) + "_hoe", () -> new HoeItem(hoeTier, 0, attackSpeed, PropertyHelper.item(featureFlags)));
     }
@@ -265,8 +282,32 @@ public final class MWItems {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerArmorItem(final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Item> registerArmorItem(final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final FeatureFlag... featureFlags) {
         return registerItem(ResourceHelper.armorMaterialName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWMinecartTnt TNT Minecart}
+     *
+     * @param minecartType {@link MWMinecartItem.Type The Minecart Type}
+     * @param tntType {@link MWPrimedTnt.Type The TNT Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerTntMinecart(final MWMinecartItem.Type minecartType, final MWPrimedTnt.Type tntType, final FeatureFlag... featureFlags) {
+        return registerItem(tntType.name().toLowerCase(Locale.ROOT) + "_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
+    }
+
+    /**
+     * Register a {@link BlockItem Block Item}
+     *
+     * @param name {@link String The Block name}
+     * @param blockSupplier {@link Supplier The Block supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    static RegistryObject<Item> registerBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new BlockItem(blockSupplier.get(), PropertyHelper.item(featureFlags)));
     }
 
     /**
@@ -276,7 +317,7 @@ public final class MWItems {
      * @param itemSupplier {@link Supplier The Item supplier}
      * @return {@link RegistryObject<Item> The registered Item}
      */
-    public static RegistryObject<Item> registerItem(final String name, final Supplier<Item> itemSupplier) {
+    static RegistryObject<Item> registerItem(final String name, final Supplier<Item> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
     }
 

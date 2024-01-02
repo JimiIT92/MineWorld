@@ -130,6 +130,34 @@ public final class PropertyHelper {
     }
 
     /**
+     * Get the translucent properties equivalent for the provided {@link Block Block}
+     *
+     * @param block {@link Block The Block to make the translucent properties}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link BlockBehaviour.Properties The Block Properties}
+     */
+    public static BlockBehaviour.Properties makeTranslucent(final Block block, final FeatureFlag... featureFlags) {
+        return translucent(copy(block, featureFlags));
+    }
+
+    /**
+     * Set the translucent values to some {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param properties {@link BlockBehaviour.Properties The Block Properties}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link BlockBehaviour.Properties The Block Properties}
+     */
+    public static BlockBehaviour.Properties translucent(final BlockBehaviour.Properties properties, final FeatureFlag... featureFlags) {
+        return properties
+                .requiredFeatures(featureFlags)
+                .noOcclusion()
+                .isValidSpawn((state, level, blockPos, entityType) -> false)
+                .isRedstoneConductor((state, level, blockPos) -> false)
+                .isSuffocating((state, level, blockPos) -> false)
+                .isViewBlocking((state, level, blockPos) -> false);
+    }
+
+    /**
      * Copy the {@link BlockBehaviour.Properties Block Properties} from another {@link Block Block}
      * and apply some {@link FeatureFlag Feature Flags} if provided
      *
