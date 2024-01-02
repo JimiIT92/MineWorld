@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "minecraft:crimson_stems"
-  },
-  "result": "minecraft:crimson_stairs"
-}

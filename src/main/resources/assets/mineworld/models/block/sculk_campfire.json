@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/template_campfire",
-  "render_type": "cutout",
-  "textures": {
-    "fire": "mineworld:block/sculk_campfire_fire",
-    "lit_log": "mineworld:block/sculk_campfire_log_lit"
-  }
-}

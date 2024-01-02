@@ -1,6 +1,0 @@
-{
-	"parent": "mineworld:block/ancient_altar",
-	"textures": {
-		"inner": "mineworld:block/ancient_altar_inner_activated"
-	}
-}

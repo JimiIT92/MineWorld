@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:crying_obsidian"
-  },
-  "result": "mineworld:crying_obsidian_stairs"
-}

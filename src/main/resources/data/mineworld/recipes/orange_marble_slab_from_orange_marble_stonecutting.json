@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "mineworld:orange_marble"
-  },
-  "result": "mineworld:orange_marble_slab"
-}

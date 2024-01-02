@@ -1,9 +1,0 @@
-{
-  "multipart": [
-    {
-      "apply": {
-        "model": "mineworld:block/potted_brain_coral_block"
-      }
-    }
-  ]
-}

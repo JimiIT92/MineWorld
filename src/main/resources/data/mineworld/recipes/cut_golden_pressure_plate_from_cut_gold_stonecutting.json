@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "mineworld:cut_gold"
-  },
-  "result": "mineworld:cut_golden_pressure_plate"
-}

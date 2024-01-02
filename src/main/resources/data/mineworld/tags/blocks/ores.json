@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#mineworld:stone_ores",
-    "#mineworld:deepslate_ores",
-    "#mineworld:nether_ores"
-  ]
-}

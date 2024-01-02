@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#mineworld:stone_pressure_plates",
-    "#mineworld:wooden_pressure_plates",
-    "#mineworld:metal_pressure_plates"
-  ]
-}

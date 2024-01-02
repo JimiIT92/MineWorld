@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "mineworld:sculk_logs"
-  },
-  "result": "mineworld:sculk_stairs"
-}

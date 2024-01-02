@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:dark_prismarine"
-  },
-  "result": "mineworld:dark_prismarine_pebble"
-}

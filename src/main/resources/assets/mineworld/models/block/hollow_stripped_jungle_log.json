@@ -1,9 +1,0 @@
-{
-  "parent": "mineworld:block/hollow_cube",
-  "textures": {
-    "end": "minecraft:block/stripped_jungle_log_top",
-    "side": "minecraft:block/stripped_jungle_log",
-    "inner": "minecraft:block/stripped_jungle_log",
-    "particle": "minecraft:block/stripped_jungle_log"
-  }
-}

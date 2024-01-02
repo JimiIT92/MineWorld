@@ -1,8 +1,0 @@
-{
-    "parent": "mineworld:block/template_potted_bush",
-    "textures": {
-        "plant": "mineworld:block/sculk_sapling",
-        "side": "mineworld:block/sculk_leaves",
-        "top": "mineworld:block/sculk_leaves"
-    }
-}

@@ -1,9 +1,0 @@
-{
-  "parent": "mineworld:block/hollow_cube",
-  "textures": {
-    "end": "minecraft:block/stripped_bamboo_block_top",
-    "side": "minecraft:block/stripped_bamboo_block",
-    "inner": "minecraft:block/stripped_bamboo_block",
-    "particle": "minecraft:block/stripped_bamboo_block"
-  }
-}

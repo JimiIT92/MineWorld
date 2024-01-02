@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:smooth_basalt"
-  },
-  "result": "mineworld:smooth_basalt_pebble"
-}

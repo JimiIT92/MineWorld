@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:mangrove_bookshelf"
-  },
-  "result": "mineworld:mangrove_chiseled_bookshelf"
-}

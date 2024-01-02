@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "minecraft:acacia_logs"
-  },
-  "result": "minecraft:acacia_fence"
-}

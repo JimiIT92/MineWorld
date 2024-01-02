@@ -1,7 +1,0 @@
-{
-  "parent": "mineworld:block/potted_leaves",
-  "textures": {
-    "top": "#all",
-    "side": "#all"
-  }
-}

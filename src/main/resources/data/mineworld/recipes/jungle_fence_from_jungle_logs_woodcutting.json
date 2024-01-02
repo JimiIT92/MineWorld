@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "minecraft:jungle_logs"
-  },
-  "result": "minecraft:jungle_fence"
-}

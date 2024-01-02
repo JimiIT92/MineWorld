@@ -1,8 +1,0 @@
-{
-    "parent": "mineworld:block/template_potted_bush",
-    "textures": {
-        "plant": "minecraft:block/acacia_sapling",
-        "side": "minecraft:block/acacia_leaves",
-        "top": "minecraft:block/acacia_leaves"
-    }
-}

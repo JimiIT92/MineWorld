@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "mineworld:apple_logs"
-  },
-  "result": "mineworld:apple_stairs"
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_fire_side_alt",
-  "render_type": "cutout",
-  "textures": {
-    "fire": "mineworld:block/sculk_fire_0"
-  }
-}

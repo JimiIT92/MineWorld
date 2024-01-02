@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_forest",
-  "features": [
-    "mineworld:fallen_apple_tree_placed"
-  ],
-  "step": "vegetal_decoration"
-}

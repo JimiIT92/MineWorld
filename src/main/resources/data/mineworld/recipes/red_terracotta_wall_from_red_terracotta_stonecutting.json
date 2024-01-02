@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:red_terracotta"
-  },
-  "result": "mineworld:red_terracotta_wall"
-}

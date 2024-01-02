@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:mangrove_chest"
-  },
-  "result": "mineworld:mangrove_trapped_chest"
-}

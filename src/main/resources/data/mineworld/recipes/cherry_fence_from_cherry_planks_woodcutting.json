@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "minecraft:cherry_planks"
-  },
-  "result": "minecraft:cherry_fence"
-}

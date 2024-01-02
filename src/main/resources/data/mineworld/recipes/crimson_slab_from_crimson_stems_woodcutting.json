@@ -1,8 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "count": 8,
-  "ingredient": {
-    "tag": "minecraft:crimson_stems"
-  },
-  "result": "minecraft:crimson_slab"
-}

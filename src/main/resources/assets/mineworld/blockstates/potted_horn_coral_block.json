@@ -1,9 +1,0 @@
-{
-  "multipart": [
-    {
-      "apply": {
-        "model": "mineworld:block/potted_horn_coral_block"
-      }
-    }
-  ]
-}

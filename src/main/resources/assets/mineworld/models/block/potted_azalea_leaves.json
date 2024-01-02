@@ -1,6 +1,0 @@
-{
-    "parent": "mineworld:block/potted_leaves_all",
-    "textures": {
-        "all": "minecraft:block/azalea_leaves"
-    }
-}

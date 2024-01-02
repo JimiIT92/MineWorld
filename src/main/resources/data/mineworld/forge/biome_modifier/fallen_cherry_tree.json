@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "minecraft:cherry_grove",
-  "features": [
-    "mineworld:fallen_cherry_tree_placed"
-  ],
-  "step": "vegetal_decoration"
-}

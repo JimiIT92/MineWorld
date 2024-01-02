@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "mineworld:purple_marble"
-  },
-  "result": "mineworld:purple_marble_wall"
-}

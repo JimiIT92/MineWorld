@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/chain",
-    "render_type": "cutout",
-    "textures": {
-        "particle": "mineworld:block/copper_chain",
-        "all": "mineworld:block/copper_chain"
-    }
-}

@@ -1,9 +1,0 @@
-{
-  "asset_name": "aluminum",
-  "description": {
-    "color": "#666666",
-    "translate": "trim_material.mineworld.aluminum"
-  },
-  "ingredient": "mineworld:aluminum_ingot",
-  "item_model_index": 0.06
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:polished_diorite"
-  },
-  "result": "mineworld:polished_diorite_pebble"
-}

@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "minecraft:dark_forest",
-  "features": [
-    "mineworld:fallen_dark_oak_tree_placed"
-  ],
-  "step": "vegetal_decoration"
-}

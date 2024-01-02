@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "minecraft:crimson_planks"
-  },
-  "result": "minecraft:crimson_fence"
-}

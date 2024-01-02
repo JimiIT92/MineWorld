@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "mineworld:wasteland",
-  "features": [
-    "mineworld:fallen_dead_tree_placed"
-  ],
-  "step": "vegetal_decoration"
-}

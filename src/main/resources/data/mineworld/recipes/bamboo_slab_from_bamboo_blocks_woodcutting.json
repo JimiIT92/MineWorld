@@ -1,8 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "count": 8,
-  "ingredient": {
-    "tag": "minecraft:bamboo_blocks"
-  },
-  "result": "minecraft:bamboo_slab"
-}

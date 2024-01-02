@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:sculk_planks"
-  },
-  "result": "mineworld:sculk_fence"
-}

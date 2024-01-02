@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "mineworld:block/magenta_marble",
-    "side": "mineworld:block/magenta_marble",
-    "top": "mineworld:block/magenta_marble"
-  }
-}

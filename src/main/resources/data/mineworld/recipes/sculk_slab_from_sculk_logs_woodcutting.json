@@ -1,8 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "count": 8,
-  "ingredient": {
-    "tag": "mineworld:sculk_logs"
-  },
-  "result": "mineworld:sculk_slab"
-}

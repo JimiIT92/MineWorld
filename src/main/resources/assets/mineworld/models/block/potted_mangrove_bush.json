@@ -1,8 +1,0 @@
-{
-    "parent": "mineworld:block/template_potted_bush",
-    "textures": {
-        "plant": "minecraft:block/mangrove_propagule",
-        "side": "minecraft:block/mangrove_leaves",
-        "top": "minecraft:block/mangrove_leaves"
-    }
-}

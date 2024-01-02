@@ -1,6 +1,0 @@
-{
-  "parent": "mineworld:block/pebbles_4",
-  "textures": {
-    "pebble": "minecraft:block/lime_glazed_terracotta"
-  }
-}

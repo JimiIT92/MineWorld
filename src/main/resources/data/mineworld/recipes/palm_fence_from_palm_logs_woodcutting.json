@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "mineworld:palm_logs"
-  },
-  "result": "mineworld:palm_fence"
-}

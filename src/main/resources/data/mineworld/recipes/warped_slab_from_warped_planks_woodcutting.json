@@ -1,8 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "count": 2,
-  "ingredient": {
-    "item": "minecraft:warped_planks"
-  },
-  "result": "minecraft:warped_slab"
-}

@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:jungle_chest"
-  },
-  "result": "mineworld:jungle_trapped_chest"
-}

@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#mineworld:is_ethereal",
-  "features": [
-    "mineworld:patch_ethereal_fire_placed"
-  ],
-  "step": "underground_decoration"
-}

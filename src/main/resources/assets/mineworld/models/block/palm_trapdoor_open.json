@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_trapdoor_open",
-  "render_type": "cutout",
-  "textures": {
-    "texture": "mineworld:block/palm_trapdoor"
-  }
-}

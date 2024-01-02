@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:polished_blackstone"
-  },
-  "result": "mineworld:polished_blackstone_pebble"
-}

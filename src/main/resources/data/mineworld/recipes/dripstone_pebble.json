@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:dripstone_block"
-  },
-  "result": "mineworld:dripstone_pebble"
-}

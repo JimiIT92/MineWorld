@@ -1,8 +1,0 @@
-{
-    "parent": "mineworld:block/template_potted_bush",
-    "textures": {
-        "plant": "minecraft:block/jungle_sapling",
-        "side": "minecraft:block/jungle_leaves",
-        "top": "minecraft:block/jungle_leaves"
-    }
-}

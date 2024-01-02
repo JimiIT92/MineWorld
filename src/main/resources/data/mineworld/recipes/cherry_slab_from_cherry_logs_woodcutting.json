@@ -1,8 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "count": 8,
-  "ingredient": {
-    "tag": "minecraft:cherry_logs"
-  },
-  "result": "minecraft:cherry_slab"
-}

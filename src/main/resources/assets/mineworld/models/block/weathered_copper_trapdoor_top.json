@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_trapdoor_top",
-  "render_type": "cutout",
-  "textures": {
-    "texture": "mineworld:block/weathered_copper_trapdoor"
-  }
-}

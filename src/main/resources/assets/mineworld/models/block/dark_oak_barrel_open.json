@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "mineworld:block/dark_oak_barrel_bottom",
-    "side": "mineworld:block/dark_oak_barrel_side",
-    "top": "mineworld:block/dark_oak_barrel_top_open"
-  }
-}

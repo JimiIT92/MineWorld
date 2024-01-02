@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "minecraft:jungle",
-  "features": [
-    "mineworld:fallen_jungle_tree_placed"
-  ],
-  "step": "vegetal_decoration"
-}

@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:sculk_chest"
-  },
-  "result": "mineworld:sculk_trapped_chest"
-}

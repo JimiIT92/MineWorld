@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "mineworld:dead_logs"
-  },
-  "result": "mineworld:dead_stairs"
-}

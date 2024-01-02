@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "minecraft:pink_glazed_terracotta"
-  },
-  "result": "mineworld:pink_glazed_terracotta_slab"
-}

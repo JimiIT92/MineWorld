@@ -1,6 +1,0 @@
-{
-    "parent": "mineworld:block/rod_block",
-    "textures": {
-        "texture": "minecraft:block/bone_block_side"
-    }
-}

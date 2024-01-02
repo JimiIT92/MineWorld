@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/chiseled_bookshelf_inventory",
-    "textures": {
-        "top": "mineworld:block/dark_oak_chiseled_bookshelf_top",
-        "side": "mineworld:block/dark_oak_chiseled_bookshelf_side",
-        "front": "mineworld:block/dark_oak_chiseled_bookshelf_empty"
-    }
-}

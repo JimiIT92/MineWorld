@@ -1,8 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "count": 8,
-  "ingredient": {
-    "tag": "mineworld:apple_logs"
-  },
-  "result": "mineworld:apple_slab"
-}

@@ -1,17 +1,13 @@
 package org.mineworld;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.raid.Raid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.mineworld.client.renderer.MWItemRenderer;
-import org.mineworld.core.*;
-import org.mineworld.helper.RegisterHelper;
+import org.mineworld.core.MWParticleTypes;
+import org.mineworld.core.MWSounds;
 
 import java.util.logging.Logger;
 
@@ -22,15 +18,15 @@ import java.util.logging.Logger;
 public final class MineWorld {
 
     /**
-     * {@link MineWorld MineWorld} {@link String mod ID}
+     * The {@link MineWorld MineWorld} {@link String mod ID}
      */
     public static final String MOD_ID = "mineworld";
     /**
-     * {@link Logger Logger reference}
+     * The {@link Logger Logger reference}
      */
     public static final Logger LOGGER = Logger.getLogger(MOD_ID);
     /**
-     * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom id renderer}
+     * The {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom Item Renderer}
      */
     private static BlockEntityWithoutLevelRenderer ITEMS_RENDERER;
 
@@ -38,71 +34,41 @@ public final class MineWorld {
      * Constructor. Initialize the mod
      */
     public MineWorld() {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        MWParticleTypes.register(eventBus);
-        MWSounds.register(eventBus);
-        MWTabs.register(eventBus);
-        MWBlocks.register(eventBus);
-        MWItems.register(eventBus);
-        MWEntityTypes.register(eventBus);
-        MWBlockEntityTypes.register(eventBus);
-        MWStats.register(eventBus);
-        MWMenuTypes.register(eventBus);
-        MWRecipeSerializers.register(eventBus);
-        MWRecipeTypes.register(eventBus);
-        MWPoiTypes.register(eventBus);
-        MWVillagerProfessions.register(eventBus);
-        MWLootModifiers.register(eventBus);
-        MWFeatures.register(eventBus);
-        MWBiomes.register(eventBus);
-        MWTrunkPlacerTypes.register(eventBus);
-        MWFoliagePlacerTypes.register(eventBus);
-        MWStructures.register(eventBus);
-        MWDimensions.register(eventBus);
-        MWEnchantments.register(eventBus);
-        MWCriteriaTriggers.register(eventBus);
+        this.onModSetup(eventBus);
+        eventBus.addListener(this::onCommonSetup);
 
-        eventBus.addListener(this::clientSetup);
-        eventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     /**
-     * Set up the {@link MineWorld MineWorld} client stuffs, like entity renderings
+     * Set up the mod objects
      *
-     * @param event {@link FMLClientSetupEvent FML client setup event}
+     * @param eventBus {@link IEventBus The mod event bus}
      */
-    private void clientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(MWEntityTypes::registerRenderers);
-        event.enqueueWork(MWBlockEntityTypes::registerRenderers);
-        event.enqueueWork(MWMenuTypes::registerScreens);
-        event.enqueueWork(MWItems::registerItemProperties);
+    private void onModSetup(final IEventBus eventBus) {
+        MWParticleTypes.register(eventBus);
+        MWSounds.register(eventBus);
     }
 
     /**
      * Set up the {@link MineWorld MineWorld} common stuffs, like flower pots,
      * entity spawns and dispenser behaviors
      *
-     * @param event {@link FMLCommonSetupEvent FML common setup event}
+     * @param event {@link FMLCommonSetupEvent The FML common setup event}
      */
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(RegisterHelper::registerFlowerPots);
-        event.enqueueWork(MWDispenseBehaviors::registerDispenseBehaviors);
-        event.enqueueWork(RegisterHelper::registerCompostables);
-        event.enqueueWork(MWBiomes::registerOverworldBiomes);
-        event.enqueueWork(() -> Raid.RaiderType.create("illusioner", EntityType.ILLUSIONER, new int[]{0, 0, 0, 0, 1, 1, 2, 2}));
+    private void onCommonSetup(final FMLCommonSetupEvent event) {
+
     }
 
     /**
-     * Get the {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom items renderer}
+     * Get the {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom Item Renderer}
      *
-     * @return {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom items renderer}
+     * @return The {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom Item Renderer}
      */
     public static BlockEntityWithoutLevelRenderer getItemsRenderer() {
-        if(ITEMS_RENDERER == null) {
-            ITEMS_RENDERER = new MWItemRenderer();
-        }
-        return ITEMS_RENDERER;
+        return null;
     }
+
 }

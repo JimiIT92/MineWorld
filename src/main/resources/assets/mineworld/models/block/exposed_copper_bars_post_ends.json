@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/iron_bars_post_ends",
-    "render_type": "cutout",
-    "textures": {
-        "particle": "mineworld:block/exposed_copper_bars",
-        "edge": "mineworld:block/exposed_copper_bars"
-    }
-}

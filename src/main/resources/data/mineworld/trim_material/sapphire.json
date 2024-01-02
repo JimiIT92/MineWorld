@@ -1,9 +1,0 @@
-{
-  "asset_name": "sapphire",
-  "description": {
-    "color": "#35559F",
-    "translate": "trim_material.mineworld.sapphire"
-  },
-  "ingredient": "mineworld:sapphire",
-  "item_model_index": 0.04
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "mineworld:block/sculk_log",
-    "side": "mineworld:block/sculk_log"
-  }
-}

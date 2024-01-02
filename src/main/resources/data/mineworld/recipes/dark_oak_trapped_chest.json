@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:dark_oak_chest"
-  },
-  "result": "mineworld:dark_oak_trapped_chest"
-}

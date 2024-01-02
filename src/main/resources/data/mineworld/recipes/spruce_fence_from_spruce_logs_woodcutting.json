@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "tag": "minecraft:spruce_logs"
-  },
-  "result": "minecraft:spruce_fence"
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/carpet",
-  "render_type": "cutout",
-  "textures": {
-    "wool": "minecraft:block/muddy_mangrove_roots_top"
-  }
-}

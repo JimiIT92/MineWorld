@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "mineworld:item/disguised_sand_tnt_minecart"
-  }
-}

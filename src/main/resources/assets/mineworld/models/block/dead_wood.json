@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "mineworld:block/dead_log",
-    "side": "mineworld:block/dead_log"
-  }
-}

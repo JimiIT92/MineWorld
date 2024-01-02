@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "mineworld:mossy_stone"
-  },
-  "result": "mineworld:mossy_stone_pebble"
-}

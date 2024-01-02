@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:black_concrete"
-  },
-  "result": "mineworld:black_concrete_pebble"
-}

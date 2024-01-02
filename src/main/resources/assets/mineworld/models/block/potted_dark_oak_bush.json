@@ -1,8 +1,0 @@
-{
-    "parent": "mineworld:block/template_potted_bush",
-    "textures": {
-        "plant": "minecraft:block/dark_oak_sapling",
-        "side": "minecraft:block/dark_oak_leaves",
-        "top": "minecraft:block/dark_oak_leaves"
-    }
-}

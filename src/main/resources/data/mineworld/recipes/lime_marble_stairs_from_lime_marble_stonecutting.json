@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "mineworld:lime_marble"
-  },
-  "result": "mineworld:lime_marble_stairs"
-}

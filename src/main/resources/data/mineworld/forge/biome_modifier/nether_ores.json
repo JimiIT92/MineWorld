@@ -1,8 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_nether",
-  "features": [
-    "mineworld:ore_pyrite_placed"
-  ],
-  "step": "underground_ores"
-}

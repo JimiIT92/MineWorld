@@ -1,7 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:dark_oak_bookshelf"
-  },
-  "result": "mineworld:dark_oak_chiseled_bookshelf"
-}

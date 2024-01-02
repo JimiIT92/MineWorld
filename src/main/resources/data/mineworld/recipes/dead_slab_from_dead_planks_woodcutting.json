@@ -1,8 +1,0 @@
-{
-  "type": "mineworld:woodcutting",
-  "count": 2,
-  "ingredient": {
-    "item": "mineworld:dead_planks"
-  },
-  "result": "mineworld:dead_slab"
-}

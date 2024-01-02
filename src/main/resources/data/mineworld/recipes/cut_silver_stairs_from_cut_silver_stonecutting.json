@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "mineworld:cut_silver"
-  },
-  "result": "mineworld:cut_silver_stairs"
-}

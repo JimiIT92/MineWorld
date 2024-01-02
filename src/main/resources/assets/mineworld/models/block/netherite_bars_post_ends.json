@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/iron_bars_post_ends",
-    "render_type": "cutout",
-    "textures": {
-        "particle": "mineworld:block/netherite_bars",
-        "edge": "mineworld:block/netherite_bars"
-    }
-}

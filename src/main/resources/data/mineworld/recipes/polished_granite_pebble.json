@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 16,
-  "ingredient": {
-    "item": "minecraft:polished_granite"
-  },
-  "result": "mineworld:polished_granite_pebble"
-}
