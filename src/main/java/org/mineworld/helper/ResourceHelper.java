@@ -19,4 +19,14 @@ public final class ResourceHelper {
         return new ResourceLocation(MineWorld.MOD_ID, name);
     }
 
+    /**
+     * Get a {@link String string representation} of a {@link MineWorld MineWorld} {@link ResourceLocation Resource Location}
+     *
+     * @param name {@link String The resource name}
+     * @return {@link String The Resource Location string}
+     */
+    public static String stringLocation(final String name) {
+        return resourceLocation(name).toString();
+    }
+
 }
