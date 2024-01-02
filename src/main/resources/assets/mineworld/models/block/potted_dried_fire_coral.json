@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/dried_flower_pot",
+  "textures": {
+    "plant": "minecraft:block/fire_coral"
+  }
+}

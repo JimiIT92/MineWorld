@@ -1,0 +1,8 @@
+{
+    "parent": "mineworld:block/template_potted_bush",
+    "textures": {
+        "plant": "minecraft:block/cherry_sapling",
+        "side": "minecraft:block/cherry_leaves",
+        "top": "minecraft:block/cherry_leaves"
+    }
+}

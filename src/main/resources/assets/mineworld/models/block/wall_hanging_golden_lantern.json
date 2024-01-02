@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/template_wall_hanging_lantern",
+  "textures": {
+    "lantern": "mineworld:block/golden_lantern"
+  }
+}

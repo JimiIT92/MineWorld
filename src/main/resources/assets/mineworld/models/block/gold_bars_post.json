@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/iron_bars_post",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/gold_bars",
+        "bars": "mineworld:block/gold_bars"
+    }
+}

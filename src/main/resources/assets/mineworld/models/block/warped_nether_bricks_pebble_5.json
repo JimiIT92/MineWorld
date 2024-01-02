@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/pebbles_5",
+  "textures": {
+    "pebble": "mineworld:block/warped_nether_bricks"
+  }
+}

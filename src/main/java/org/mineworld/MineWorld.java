@@ -6,8 +6,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.mineworld.core.MWParticleTypes;
-import org.mineworld.core.MWSounds;
+import org.mineworld.core.*;
 
 import java.util.logging.Logger;
 
@@ -50,6 +49,9 @@ public final class MineWorld {
     private void onModSetup(final IEventBus eventBus) {
         MWParticleTypes.register(eventBus);
         MWSounds.register(eventBus);
+        MWStats.register(eventBus);
+        MWLootModifiers.register(eventBus);
+        MWEnchantments.register(eventBus);
     }
 
     /**

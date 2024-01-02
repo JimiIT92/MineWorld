@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "mineworld:block/dead_barrel_bottom",
+    "side": "mineworld:block/dead_barrel_side",
+    "top": "mineworld:block/dead_barrel_top_open"
+  }
+}

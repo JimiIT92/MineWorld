@@ -1,0 +1,7 @@
+{
+    "parent": "mineworld:block/potted_block",
+    "textures": {
+        "top": "minecraft:block/muddy_mangrove_roots_top",
+        "side": "minecraft:block/muddy_mangrove_roots_side"
+    }
+}

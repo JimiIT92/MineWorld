@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/mushroom_wall_fan",
+  "textures": {
+    "fan": "mineworld:block/brown_mushroom_fan"
+  }
+}

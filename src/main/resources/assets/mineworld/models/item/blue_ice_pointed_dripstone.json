@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:item/template_pointed_dripstone",
+  "textures": {
+    "layer0": "mineworld:item/blue_ice_pointed_dripstone"
+  }
+}

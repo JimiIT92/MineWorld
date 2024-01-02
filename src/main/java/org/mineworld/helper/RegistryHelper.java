@@ -1,5 +1,7 @@
 package org.mineworld.helper;
 
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -21,7 +23,18 @@ public final class RegistryHelper {
      * @param <T> {@link T The Deferred Register Type}
      */
     public static <T> DeferredRegister<T> registry(final IForgeRegistry<T> registryType) {
-        return DeferredRegister.create(registryType, MineWorld.MOD_ID);
+        return registry(registryType.getRegistryKey());
+    }
+
+    /**
+     * Create a {@link DeferredRegister<T> Deferred Register}
+     *
+     * @param registryKey {@link ResourceKey The registry resource key}
+     * @return {@link DeferredRegister<T> The Deferred Register}
+     * @param <T> {@link T The Deferred Register Type}
+     */
+    public static <T> DeferredRegister<T> registry(final ResourceKey<? extends Registry<T>> registryKey) {
+        return DeferredRegister.create(registryKey, MineWorld.MOD_ID);
     }
 
     /**

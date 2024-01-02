@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "mineworld:block/mossy_cracked_stone_bricks"
+  }
+}

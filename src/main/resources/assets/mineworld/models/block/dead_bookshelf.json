@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "mineworld:block/dead_planks",
+    "side": "mineworld:block/dead_bookshelf"
+  }
+}

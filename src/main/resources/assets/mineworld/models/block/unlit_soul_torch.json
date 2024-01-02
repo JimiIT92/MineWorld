@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "render_type": "cutout",
+  "textures": {
+    "torch": "mineworld:block/unlit_soul_torch"
+  }
+}

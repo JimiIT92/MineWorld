@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/iron_bars_side_alt",
+    "render_type": "cutout",
+    "textures": {
+        "particle": "mineworld:block/weathered_copper_bars",
+        "bars": "mineworld:block/weathered_copper_bars",
+        "edge": "mineworld:block/weathered_copper_bars"
+    }
+}

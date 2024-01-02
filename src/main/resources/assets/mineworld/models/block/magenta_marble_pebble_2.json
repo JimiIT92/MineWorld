@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:block/pebbles_2",
+  "textures": {
+    "pebble": "mineworld:block/magenta_marble"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_prismarine_trim",
+      "predicate": {
+        "trim_type": 0.01
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_echo_shard_trim",
+      "predicate": {
+        "trim_type": 0.02
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_ruby_trim",
+      "predicate": {
+        "trim_type": 0.03
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_sapphire_trim",
+      "predicate": {
+        "trim_type": 0.04
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_silver_trim",
+      "predicate": {
+        "trim_type": 0.05
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_aluminum_trim",
+      "predicate": {
+        "trim_type": 0.06
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_bronze_trim",
+      "predicate": {
+        "trim_type": 0.07
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_quartz_trim",
+      "predicate": {
+        "trim_type": 0.1
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_iron_trim",
+      "predicate": {
+        "trim_type": 0.2
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_netherite_trim",
+      "predicate": {
+        "trim_type": 0.3
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_redstone_trim",
+      "predicate": {
+        "trim_type": 0.4
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_copper_trim",
+      "predicate": {
+        "trim_type": 0.5
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_gold_trim",
+      "predicate": {
+        "trim_type": 0.6
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_ruby_trim",
+      "predicate": {
+        "trim_type": 0.7
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_diamond_trim",
+      "predicate": {
+        "trim_type": 0.8
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_lapis_trim",
+      "predicate": {
+        "trim_type": 0.9
+      }
+    },
+    {
+      "model": "mineworld:item/trimmed_armors/ruby_boots_amethyst_trim",
+      "predicate": {
+        "trim_type": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "mineworld:item/ruby_boots"
+  }
+}

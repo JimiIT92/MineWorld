@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:item/template_pointed_dripstone",
+  "textures": {
+    "layer0": "mineworld:item/crimson_nylium_pointed_dripstone"
+  }
+}

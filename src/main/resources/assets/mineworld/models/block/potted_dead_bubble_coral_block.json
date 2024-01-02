@@ -1,0 +1,6 @@
+{
+    "parent": "mineworld:block/potted_block_all",
+    "textures": {
+        "all": "minecraft:block/dead_bubble_coral_block"
+    }
+}
