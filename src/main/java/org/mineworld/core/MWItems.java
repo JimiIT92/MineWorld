@@ -69,6 +69,7 @@ public final class MWItems {
     public static final RegistryObject<Item> COB = registerFood("cob", 2, 0.1F);
     public static final RegistryObject<Item> BAKED_COB = registerFood("baked_cob", 4, 0.2F);
     public static final RegistryObject<Item> CORN_SEEDS = registerBlockItem("corn_seeds", Suppliers.memoize(() -> MWBlocks.CORN.get()));
+    public static final RegistryObject<Item> WARPED_WART = registerBlockItem("warped_wart", Suppliers.memoize(() -> MWBlocks.WARPED_WART.get()));
 
     //#endregion
 

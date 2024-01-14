@@ -119,6 +119,7 @@ public final class MWFlowerPots {
     public static final RegistryObject<Block> POTTED_SLIME_BLOCK = registerFlowerPot("potted_slime_block", Suppliers.memoize(() -> Blocks.SLIME_BLOCK));
     public static final RegistryObject<Block> POTTED_SCULK = registerFlowerPot("potted_sculk", Suppliers.memoize(() -> Blocks.SCULK));
     public static final RegistryObject<Block> POTTED_SNOW_BLOCK = registerFlowerPot("potted_snow_block", Suppliers.memoize(() -> Blocks.SNOW_BLOCK));
+    public static final RegistryObject<Block> POTTED_WARPED_WART = registerFlowerPot("potted_warped_wart", Suppliers.memoize(() -> MWBlocks.WARPED_WART.get()));
 
     //#endregion
 

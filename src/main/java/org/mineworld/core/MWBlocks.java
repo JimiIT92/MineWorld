@@ -360,8 +360,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BLUE_ROSE_BUSH = registerTallFlower("blue_rose_bush");
     public static final RegistryObject<Block> WHITE_ROSE = registerFlower("white_rose", () -> MobEffects.HEAL);
     public static final RegistryObject<Block> WHITE_ROSE_BUSH = registerTallFlower("white_rose_bush");
-
     public static final RegistryObject<Block> CORN = registerBlockWithoutBlockItem("corn", CornBlock::new);
+    public static final RegistryObject<Block> WARPED_WART = registerBlockWithoutBlockItem("warped_wart", WarpedWartBlock::new);
 
     //#endregion
 
@@ -383,6 +383,8 @@ public final class MWBlocks {
 
     public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", Suppliers.memoize(() -> new DaylightLampBlock()));
     public static final RegistryObject<Block> HORIZONTAL_GLASS_PANE = registerHorizontalPane("horizontal_glass_pane", Blocks.GLASS::defaultBlockState);
+    public static final RegistryObject<Block> ROPE = registerBlock("rope", Suppliers.memoize(() -> new RopeBlock()));
+    public static final RegistryObject<Block> ROPE_TAIL = registerBlockWithoutBlockItem("rope_tail", Suppliers.memoize(() -> new RopeTailBlock()));
 
     //#endregion
 
