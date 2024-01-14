@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -32,6 +33,14 @@ public final class MWBlockEntityTypes {
     //#region Block Entities
 
     public static final RegistryObject<BlockEntityType<DaylightLampBlockEntity>> DAYLIGHT_LAMP = registerBlockEntity("daylight_lamp", DaylightLampBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DAYLIGHT_LAMP.get()));
+    public static final RegistryObject<BlockEntityType<SkullBlockEntity>> SKULL = registerBlockEntity("skull", SkullBlockEntity::new,
+            Suppliers.memoize(() -> MWBlocks.STRAY_SKULL.get()),
+            Suppliers.memoize(() -> MWBlocks.STRAY_WALL_SKULL.get()),
+            Suppliers.memoize(() -> MWBlocks.HUSK_HEAD.get()),
+            Suppliers.memoize(() -> MWBlocks.HUSK_WALL_HEAD.get()),
+            Suppliers.memoize(() -> MWBlocks.DROWNED_HEAD.get()),
+            Suppliers.memoize(() -> MWBlocks.DROWNED_WALL_HEAD.get())
+    );
 
     //#endregion
 

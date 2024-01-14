@@ -73,7 +73,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> MARBLE_WALL = registerWall("marble", Suppliers.memoize(() -> MARBLE.get().defaultBlockState()));
     public static final RegistryObject<Block> MARBLE_PRESSURE_PLATE = registerPressurePlate("marble", false, MWColors.MARBLE.toMapColor(), Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> MARBLE_BUTTON = registerButton("marble", false, Suppliers.memoize(() -> BlockSetType.STONE));
-
     public static final RegistryObject<Block> STONE_WALL = registerWall("stone", Blocks.STONE::defaultBlockState);
     public static final RegistryObject<Block> COBBLESTONE_PRESSURE_PLATE = registerPressurePlate("cobblestone", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> COBBLESTONE_BUTTON = registerButton("cobblestone", false, Suppliers.memoize(() -> BlockSetType.STONE));
@@ -256,6 +255,14 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = registerWall("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("glowing_obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_BUTTON = registerButton("glowing_obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS = registerBlock("warped_nether_bricks", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.NETHER_BRICKS)));
+    public static final RegistryObject<Block> CRACKED_WARPED_NETHER_BRICKS = registerBlock("cracked_warped_nether_bricks",  Suppliers.memoize(() -> PropertyHelper.copy(WARPED_NETHER_BRICKS.get())));
+    public static final RegistryObject<Block> CHISELED_WARPED_NETHER_BRICKS = registerBlock("chiseled_warped_nether_bricks",  Suppliers.memoize(() -> PropertyHelper.copy(WARPED_NETHER_BRICKS.get())));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_STAIRS = registerStair("warped_nether_bricks",  Suppliers.memoize(() -> WARPED_NETHER_BRICKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_SLAB = registerSlab("warped_nether_bricks", Suppliers.memoize(() -> WARPED_NETHER_BRICKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_WALL = registerWall("warped_nether_bricks", Suppliers.memoize(() -> WARPED_NETHER_BRICKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PRESSURE_PLATE = registerPressurePlate("warped_nether_bricks", false, MapColor.WARPED_WART_BLOCK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_BUTTON = registerButton("warped_nether_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
 
     //#endregion
 
@@ -385,6 +392,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HORIZONTAL_GLASS_PANE = registerHorizontalPane("horizontal_glass_pane", Blocks.GLASS::defaultBlockState);
     public static final RegistryObject<Block> ROPE = registerBlock("rope", Suppliers.memoize(() -> new RopeBlock()));
     public static final RegistryObject<Block> ROPE_TAIL = registerBlockWithoutBlockItem("rope_tail", Suppliers.memoize(() -> new RopeTailBlock()));
+    public static final RegistryObject<Block> STRAY_SKULL = registerBlockWithoutBlockItem("stray_skull", Suppliers.memoize(() -> new MWSkullBlock(MWSkullBlock.Types.STRAY)));
+    public static final RegistryObject<Block> STRAY_WALL_SKULL = registerBlockWithoutBlockItem("stray_wall_skull", Suppliers.memoize(() -> new MWWallSkullBlock(MWSkullBlock.Types.STRAY, STRAY_SKULL)));
+    public static final RegistryObject<Block> HUSK_HEAD = registerBlockWithoutBlockItem("husk_head", Suppliers.memoize(() -> new MWSkullBlock(MWSkullBlock.Types.HUSK)));
+    public static final RegistryObject<Block> HUSK_WALL_HEAD = registerBlockWithoutBlockItem("husk_wall_head", Suppliers.memoize(() -> new MWWallSkullBlock(MWSkullBlock.Types.HUSK, HUSK_HEAD)));
+    public static final RegistryObject<Block> DROWNED_HEAD = registerBlockWithoutBlockItem("drowned_head", Suppliers.memoize(() -> new MWSkullBlock(MWSkullBlock.Types.DROWNED)));
+    public static final RegistryObject<Block> DROWNED_WALL_HEAD = registerBlockWithoutBlockItem("drowned_wall_head", Suppliers.memoize(() -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, DROWNED_HEAD)));
 
     //#endregion
 

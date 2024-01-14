@@ -1,6 +1,7 @@
 package org.mineworld.core;
 
 import com.google.common.base.Suppliers;
+import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -68,6 +69,8 @@ public final class MWItems {
 
     public static final RegistryObject<Item> COB = registerFood("cob", 2, 0.1F);
     public static final RegistryObject<Item> BAKED_COB = registerFood("baked_cob", 4, 0.2F);
+    public static final RegistryObject<Item> CHERRY = registerFood("cherry", 2, 0.1F);
+    public static final RegistryObject<Item> CANDY_CANE = registerFood("candy_cane", 6, 0.25F);
     public static final RegistryObject<Item> CORN_SEEDS = registerBlockItem("corn_seeds", Suppliers.memoize(() -> MWBlocks.CORN.get()));
     public static final RegistryObject<Item> WARPED_WART = registerBlockItem("warped_wart", Suppliers.memoize(() -> MWBlocks.WARPED_WART.get()));
 
@@ -147,6 +150,37 @@ public final class MWItems {
     public static final RegistryObject<Item> SAPPHIRE_LEGGINGS = registerArmorItem(MWArmorMaterials.SAPPHIRE, ArmorItem.Type.LEGGINGS);
     public static final RegistryObject<Item> SAPPHIRE_BOOTS = registerArmorItem(MWArmorMaterials.SAPPHIRE, ArmorItem.Type.BOOTS);
     public static final RegistryObject<Item> SAPPHIRE_HORSE_ARMOR = registerHorseArmorItem(MWArmorMaterials.SAPPHIRE, 13);
+    public static final RegistryObject<Item> SKELETON_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.SKELETON, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> SKELETON_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.SKELETON, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> SKELETON_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.SKELETON, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITHER_SKELETON_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.WITHER_SKELETON, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITHER_SKELETON_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.WITHER_SKELETON, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITHER_SKELETON_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.WITHER_SKELETON, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> STRAY_SKULL = registerSkull(MWArmorMaterials.STRAY, false, Suppliers.memoize(() -> MWBlocks.STRAY_SKULL.get()), Suppliers.memoize(() -> MWBlocks.STRAY_WALL_SKULL.get()));
+    public static final RegistryObject<Item> STRAY_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.STRAY, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> STRAY_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.STRAY, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> STRAY_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.STRAY, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> ZOMBIE_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.ZOMBIE, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> ZOMBIE_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.ZOMBIE, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> ZOMBIE_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.ZOMBIE, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> HUSK_HEAD = registerSkull(MWArmorMaterials.HUSK, true, Suppliers.memoize(() -> MWBlocks.HUSK_HEAD.get()), Suppliers.memoize(() -> MWBlocks.HUSK_WALL_HEAD.get()));
+    public static final RegistryObject<Item> HUSK_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.HUSK, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> HUSK_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.HUSK, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> HUSK_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.HUSK, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> DROWNED_HEAD = registerSkull(MWArmorMaterials.DROWNED, true, Suppliers.memoize(() -> MWBlocks.DROWNED_HEAD.get()), Suppliers.memoize(() -> MWBlocks.DROWNED_WALL_HEAD.get()));
+    public static final RegistryObject<Item> DROWNED_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.DROWNED, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> DROWNED_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.DROWNED, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> DROWNED_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.DROWNED, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> CREEPER_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.CREEPER, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> CREEPER_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.CREEPER, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> CREEPER_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.CREEPER, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> PIGLIN_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.PIGLIN, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> PIGLIN_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.PIGLIN, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> PIGLIN_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.PIGLIN, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    //public static final RegistryObject<Item> WITCH_HAT = RegisterHelper.registerItem("witch_hat", WitchHatItem::new);
+    public static final RegistryObject<Item> WITCH_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.WITCH, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITCH_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.WITCH, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> WITCH_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.WITCH, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
 
     //#endregion
 
@@ -288,6 +322,19 @@ public final class MWItems {
     }
 
     /**
+     * Register a Cosmetic {@link ArmorItem Armor Item}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor Material}
+     * @param slot {@link ArmorItem.Type The Armor Item slot}
+     * @param rarity {@link Rarity The Armor Item rarity value}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerCosmeticArmorItem(final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final Rarity rarity, final FeatureFlag... featureFlags) {
+        return registerItem(ResourceHelper.armorMaterialName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags).rarity(rarity)));
+    }
+
+    /**
      * Register a {@link MWMinecartTnt TNT Minecart}
      *
      * @param minecartType {@link MWMinecartItem.Type The Minecart Type}
@@ -297,6 +344,48 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerTntMinecart(final MWMinecartItem.Type minecartType, final MWPrimedTnt.Type tntType, final FeatureFlag... featureFlags) {
         return registerItem(tntType.name().toLowerCase(Locale.ROOT) + "_tnt_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
+    }
+
+    /**
+     * Register a {@link Item Skull Item}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor Material}
+     * @param isHead {@link Boolean If the Skull represents a mob head}
+     * @param standingBlockSupplier {@link Supplier<Block> The Supplier for the Standing Block}
+     * @param wallBlockSupplier {@link Supplier<Block> The Supplier for the Wall Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerSkull(final MWArmorMaterials armorMaterial, final boolean isHead, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final FeatureFlag... featureFlags) {
+        return registerStandingAndWallBlockItem(ResourceHelper.armorMaterialName(armorMaterial) + "_" + (isHead ? "head" : "skull"), standingBlockSupplier, wallBlockSupplier, PropertyHelper.item(featureFlags).rarity(Rarity.UNCOMMON));
+    }
+
+    /**
+     * Register a {@link StandingAndWallBlockItem Block Item} that can be placed both on the ground
+     * and on wall (like Signs, Torches, Skulls...)
+     *
+     * @param name {@link String The Item name}
+     * @param standingBlockSupplier {@link Supplier<Block> The Supplier for the Standing Block}
+     * @param wallBlockSupplier {@link Supplier<Block> The Supplier for the Wall Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerStandingAndWallBlockItem(final String name, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final FeatureFlag... featureFlags) {
+        return registerStandingAndWallBlockItem(name, standingBlockSupplier, wallBlockSupplier, PropertyHelper.item(featureFlags));
+    }
+
+    /**
+     * Register a {@link StandingAndWallBlockItem Block Item} that can be placed both on the ground
+     * and on wall (like Signs, Torches, Skulls...)
+     *
+     * @param name {@link String The Item name}
+     * @param standingBlockSupplier {@link Supplier<Block> The Supplier for the Standing Block}
+     * @param wallBlockSupplier {@link Supplier<Block> The Supplier for the Wall Block}
+     * @param properties {@link Item.Properties The Item Properties}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerStandingAndWallBlockItem(final String name, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final Item.Properties properties) {
+        return registerItem(name, Suppliers.memoize(() -> new StandingAndWallBlockItem(standingBlockSupplier.get(), wallBlockSupplier.get(), properties, Direction.DOWN)));
     }
 
     /**
