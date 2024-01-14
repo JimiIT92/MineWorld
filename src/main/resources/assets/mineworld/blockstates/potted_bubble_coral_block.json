@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "mineworld:block/potted_bubble_coral_block"
+      }
+    }
+  ]
+}

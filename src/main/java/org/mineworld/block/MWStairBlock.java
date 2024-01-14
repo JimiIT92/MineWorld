@@ -39,20 +39,20 @@ public class MWStairBlock extends StairBlock {
      * Get the {@link PushReaction push reaction} when this block is pushed by pistons
      *
      * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction The appropriate Push Reaction based on the Stair material}
+     * @return {@link PushReaction The Block push reaction based on the source Block}
      */
     public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
         return BlockHelper.getPushReaction(blockStateSupplier.get());
     }
 
     /**
-     * Determine if the {@link StairBlock Stair Block} is flammable
+     * Check if the Block can catch fire
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
-     * @param direction {@link Direction The update direction}
-     * @return {@link Boolean True if the block is flammable}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Boolean True if the source Block is flammable}
      */
     @Override
     public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
@@ -60,13 +60,13 @@ public class MWStairBlock extends StairBlock {
     }
 
     /**
-     * Get the {@link Integer block flammability value}
+     * Get the Block {@link Integer flammability value}
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
-     * @param direction {@link Direction The update direction}
-     * @return {@link Integer The block flammability value}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Integer 5}
      */
     @Override
     public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
@@ -74,13 +74,13 @@ public class MWStairBlock extends StairBlock {
     }
 
     /**
-     * Get the {@link Integer block fire spread chance value}
+     * Get the Block {@link Integer fire spread speed value}
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
-     * @param direction {@link Direction The update direction}
-     * @return {@link Integer The block fire spread chance value}
+     * @param direction {@link Direction The direction the fire is coming from}
+     * @return {@link Integer 20}
      */
     @Override
     public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {

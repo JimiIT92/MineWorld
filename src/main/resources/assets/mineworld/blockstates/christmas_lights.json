@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mineworld:block/christmas_lights",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "mineworld:block/christmas_lights"
+    },
+    "facing=west": {
+      "model": "mineworld:block/christmas_lights",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mineworld:block/christmas_lights",
+      "y": 180
+    }
+  }
+}

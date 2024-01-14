@@ -60,12 +60,12 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
     }
 
     /**
-     * Make the {@link CoralFlowerPotBlock Coral Pot} dried if interacted with a water bottle
+     * Interact with the Block
      *
      * @param blockState {@link BlockState The current Block State}
      * @param level {@link ServerLevel The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
-     * @param player {@link Player The player who interacted with the Pot}
+     * @param player {@link Player The player who interacted with the Block}
      * @param hand {@link InteractionHand The hand the player has interacted with}
      * @param hitResult {@link BlockHitResult The hit result for the block interaction}
      * @return {@link InteractionResult The interaction result based on the Player's held Item}
@@ -103,22 +103,22 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
     }
 
     /**
-     * Ticks randomly and to see if the Dead Coral Pot should be placed
+     * Ticks the Block
      *
      * @param blockState {@link BlockState The current Block State}
      * @param level {@link ServerLevel The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
-     * @param random {@link RandomSource The random reference}
+     * @param randomSource {@link RandomSource The random reference}
      */
     @Override
-    public void tick(final BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
+    public void tick(final BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
         if (!blockState.getValue(DRIED)) {
             level.setBlock(blockPos, this.deadCoralFlowerPotSupplier.get().defaultBlockState(), 2);
         }
     }
 
     /**
-     * Makes the block randomly ticking if is not dried
+     * Check if the Block should randomly ticking
      *
      * @param blockState {@link BlockState The current Block State}
      * @return {@link Boolean True if is not dried}

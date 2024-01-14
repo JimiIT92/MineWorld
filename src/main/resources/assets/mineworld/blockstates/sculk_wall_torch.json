@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mineworld:block/sculk_wall_torch"
+    },
+    "facing=north": {
+      "model": "mineworld:block/sculk_wall_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "mineworld:block/sculk_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "mineworld:block/sculk_wall_torch",
+      "y": 180
+    }
+  }
+}

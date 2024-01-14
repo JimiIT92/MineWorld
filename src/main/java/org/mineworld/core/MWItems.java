@@ -295,7 +295,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerTntMinecart(final MWMinecartItem.Type minecartType, final MWPrimedTnt.Type tntType, final FeatureFlag... featureFlags) {
-        return registerItem(tntType.name().toLowerCase(Locale.ROOT) + "_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
+        return registerItem(tntType.name().toLowerCase(Locale.ROOT) + "_tnt_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
     }
 
     /**

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/weathered_copper_end_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/weathered_copper_end_lantern_hanging"
+    }
+  }
+}

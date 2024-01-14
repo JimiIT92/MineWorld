@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "mineworld:block/stick_rod_block",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "mineworld:block/stick_rod_block",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mineworld:block/stick_rod_block",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "mineworld:block/stick_rod_block",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "mineworld:block/stick_rod_block"
+    },
+    "facing=west": {
+      "model": "mineworld:block/stick_rod_block",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

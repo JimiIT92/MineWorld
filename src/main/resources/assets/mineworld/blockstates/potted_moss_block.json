@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "mineworld:block/potted_moss_block"
+      }
+    }
+  ]
+}

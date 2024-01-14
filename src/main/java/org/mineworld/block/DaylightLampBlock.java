@@ -75,15 +75,15 @@ public class DaylightLampBlock extends BaseEntityBlock {
     }
 
     /**
-     * Change the mode on right click
+     * Interact with the Block
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param level {@link Level The level reference}
+     * @param level {@link ServerLevel The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
-     * @param player {@link Player The player who right clicked the block}
+     * @param player {@link Player The player who interacted with the Block}
      * @param hand {@link InteractionHand The hand the player has interacted with}
      * @param hitResult {@link BlockHitResult The hit result for the block interaction}
-     * @return {@link InteractionResult The interaction result based on the id in the player's hand}
+     * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
     @Override
     public @NotNull InteractionResult use(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
@@ -101,7 +101,7 @@ public class DaylightLampBlock extends BaseEntityBlock {
     }
 
     /**
-     * Tick the block to determine if it should be lit
+     * Ticks the Block
      *
      * @param blockState {@link BlockState The current Block State}
      * @param level {@link ServerLevel The level reference}

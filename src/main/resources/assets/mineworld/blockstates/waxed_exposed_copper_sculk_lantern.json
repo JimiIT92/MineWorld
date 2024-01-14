@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/exposed_copper_sculk_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/exposed_copper_sculk_lantern_hanging"
+    }
+  }
+}

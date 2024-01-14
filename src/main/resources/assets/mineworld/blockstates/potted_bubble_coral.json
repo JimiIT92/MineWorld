@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "dried=false": {
+      "model": "mineworld:block/potted_bubble_coral"
+    },
+    "dried=true": {
+      "model": "mineworld:block/potted_dried_bubble_coral"
+    }
+  }
+}

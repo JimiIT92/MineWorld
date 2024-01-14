@@ -38,7 +38,7 @@ public class GlassWallBlock extends WallBlock {
     }
 
     /**
-     * Get the {@link Float block shade brightness}
+     * Get the {@link Float Block shade brightness}
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}
@@ -50,7 +50,7 @@ public class GlassWallBlock extends WallBlock {
     }
 
     /**
-     * Check if the block can propagate the skylight
+     * Check if the Block can propagate the skylight
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}
@@ -62,15 +62,15 @@ public class GlassWallBlock extends WallBlock {
     }
 
     /**
-     * Determine if the face should be rendered based on the neighbor state
+     * Determine if a face should be rendered based on the {@link BlockState neighbor Block State}
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param neighborState {@link BlockState The neighbor Block State}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
      * @param direction {@link Direction The direction of the face to be rendered}
      * @return {@link Boolean True if the face should be rendered}
      */
-    public boolean skipRendering(final @NotNull BlockState blockState, final @NotNull BlockState neighborState, final @NotNull Direction direction) {
-        return neighborState.is(this) || super.skipRendering(blockState, neighborState, direction);
+    public boolean skipRendering(final @NotNull BlockState blockState, final @NotNull BlockState neighborBlockState, final @NotNull Direction direction) {
+        return neighborBlockState.is(this) || super.skipRendering(blockState, neighborBlockState, direction);
     }
 
 }

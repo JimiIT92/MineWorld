@@ -11,16 +11,16 @@ import org.mineworld.core.MWItems;
 public class CornBlock extends TallCropBlock {
 
     /**
-     * Constructor. Set the corn seeds
+     * Constructor. Set the {@link MWItems#CORN_SEEDS Corn Seeds}
      */
     public CornBlock() {
         super(MWItems.CORN_SEEDS);
     }
 
     /**
-     * Get the {@link VoxelShape corn shapes} by age
+     * Get the {@link VoxelShape Block Shapes}
      *
-     * @return {@link VoxelShape The corn shapes} by age
+     * @return {@link VoxelShape The Block Shapes}
      */
     @Override
     public VoxelShape[] getShapes() {

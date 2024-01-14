@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/lime_stained_glass_slab"
+    },
+    "type=double": {
+      "model": "mineworld:block/lime_stained_glass_double_slab"
+    },
+    "type=top": {
+      "model": "mineworld:block/lime_stained_glass_slab_top"
+    }
+  }
+}

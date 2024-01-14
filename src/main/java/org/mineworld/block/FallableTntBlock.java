@@ -3,6 +3,7 @@ package org.mineworld.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -54,10 +55,10 @@ public class FallableTntBlock extends MWTntBlock implements Fallable {
     }
 
     /**
-     * Schedule a delay after place
+     * Check if the TNT should fall after being placed
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param level {@link Level The level reference}
+     * @param level {@link ServerLevel The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param neighborBlockState {@link BlockState The neighbor Block State}
      * @param isClient {@link Boolean If the Block has been placed only on the Client}
@@ -68,10 +69,10 @@ public class FallableTntBlock extends MWTntBlock implements Fallable {
     }
 
     /**
-     * Update the Block State on neighbor change
+     * Update the {@link BlockState Block State} on neighbor changes
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param direction {@link Direction The direction of the neighbor update}
+     * @param direction {@link Direction The direction the changes are coming}
      * @param neighborBlockState {@link BlockState The neighbor Block State}
      * @param levelAccessor {@link LevelAccessor The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
@@ -85,7 +86,7 @@ public class FallableTntBlock extends MWTntBlock implements Fallable {
     }
 
     /**
-     * Tick the block to see if it should fall
+     * Ticks the Block
      *
      * @param blockState {@link BlockState The current Block State}
      * @param level {@link ServerLevel The level reference}
@@ -118,7 +119,7 @@ public class FallableTntBlock extends MWTntBlock implements Fallable {
     }
 
     /**
-     * Animate the falling block
+     * Display the {@link ParticleType Block Particles}
      *
      * @param blockState {@link BlockState The current Block State}
      * @param level {@link Level The level reference}

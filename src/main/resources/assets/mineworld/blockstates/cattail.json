@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "mineworld:block/cattail_bottom"
+    },
+    "half=upper": {
+      "model": "mineworld:block/cattail_top"
+    }
+  }
+}

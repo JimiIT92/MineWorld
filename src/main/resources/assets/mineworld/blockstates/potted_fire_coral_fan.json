@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "dried=false": {
+      "model": "mineworld:block/potted_fire_coral_fan"
+    },
+    "dried=true": {
+      "model": "mineworld:block/potted_dried_fire_coral_fan"
+    }
+  }
+}

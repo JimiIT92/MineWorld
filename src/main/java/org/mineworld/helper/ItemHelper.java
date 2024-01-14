@@ -1,8 +1,10 @@
 package org.mineworld.helper;
 
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * Helper methods for {@link Item Items}
@@ -16,7 +18,19 @@ public final class ItemHelper {
      * @param player {@link Player The player using the Item Stack}
      */
     public static void hurt(final ItemStack itemStack, final Player player) {
-        hurt(itemStack, player, 1);
+        hurt(itemStack, player, 1, null, null);
+    }
+
+    /**
+     * Damage an {@link ItemStack Item Stack} by 1
+     *
+     * @param itemStack {@link ItemStack The Item Stack to damage}
+     * @param player {@link Player The player using the Item Stack}
+     * @param level {@link Level The level reference}
+     * @param hand {@link InteractionHand The hand the Player used the Item with}
+     */
+    public static void hurt(final ItemStack itemStack, final Player player, final Level level, final InteractionHand hand) {
+        hurt(itemStack, player, 1, level, hand);
     }
 
     /**
@@ -25,7 +39,7 @@ public final class ItemHelper {
      * @param itemStack {@link ItemStack The Item Stack to damage}
      */
     public static void hurt(final ItemStack itemStack) {
-        hurt(itemStack, null, 1);
+        hurt(itemStack, null, 1, null, null);
     }
 
     /**
@@ -34,8 +48,10 @@ public final class ItemHelper {
      * @param itemStack {@link ItemStack The Item Stack to damage}
      * @param player {@link Player The player using the Item Stack}
      * @param amount {@link Integer The amount of damage to apply}
+     * @param level {@link Level The level reference}
+     * @param hand {@link InteractionHand The hand the Player used the Item with}
      */
-    public static void hurt(final ItemStack itemStack, final Player player, final int amount) {
+    public static void hurt(final ItemStack itemStack, final Player player, final int amount, final Level level, final InteractionHand hand) {
         if(player != null && player.isCreative()) {
             return;
         }
@@ -43,6 +59,9 @@ public final class ItemHelper {
             itemStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(p.getUsedItemHand()));
         } else if(player == null || !player.isCreative()) {
             itemStack.shrink(amount);
+        }
+        if(level != null && level.isClientSide() && hand != null) {
+            player.swing(hand);
         }
     }
 

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/sculk_slab"
+    },
+    "type=double": {
+      "model": "mineworld:block/sculk_planks"
+    },
+    "type=top": {
+      "model": "mineworld:block/sculk_slab_top"
+    }
+  }
+}

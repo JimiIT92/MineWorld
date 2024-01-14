@@ -25,7 +25,7 @@ public class MWTallFlowerBlock extends TallFlowerBlock {
     }
 
     /**
-     * Makes the block able to catch fire
+     * Check if the Block can catch fire
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}
@@ -39,7 +39,7 @@ public class MWTallFlowerBlock extends TallFlowerBlock {
     }
 
     /**
-     * Get the block {@link Integer flammability value}
+     * Get the Block {@link Integer flammability value}
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}
@@ -53,7 +53,7 @@ public class MWTallFlowerBlock extends TallFlowerBlock {
     }
 
     /**
-     * Get the block {@link Integer fire spread speed value}
+     * Get the Block {@link Integer fire spread speed value}
      *
      * @param blockState {@link BlockState The current Block State}
      * @param blockGetter {@link BlockGetter The level reference}

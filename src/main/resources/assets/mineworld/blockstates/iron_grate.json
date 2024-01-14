@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mineworld:block/iron_grate",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mineworld:block/iron_grate"
+    },
+    "facing=south": {
+      "model": "mineworld:block/iron_grate",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mineworld:block/iron_grate",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "mineworld:block/oxidized_copper_soul_lantern"
+    },
+    "hanging=true": {
+      "model": "mineworld:block/oxidized_copper_soul_lantern_hanging"
+    }
+  }
+}

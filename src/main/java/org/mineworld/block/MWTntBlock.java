@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -106,7 +107,7 @@ public class MWTntBlock extends TntBlock {
     }
 
     /**
-     * Add tooltips to a disguised TNT
+     * Add tooltips to the {@link ItemStack Block Item Stack}
      *
      * @param itemStack {@link ItemStack The current Item Stack}
      * @param blockGetter {@link BlockGetter The level reference}
@@ -132,10 +133,10 @@ public class MWTntBlock extends TntBlock {
     }
 
     /**
-     * Makes the block able to catch fire
+     * Check if the Block can catch fire
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param blockGetter {@link Level The level reference}
+     * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
      * @return {@link Boolean#TRUE True}
@@ -146,10 +147,10 @@ public class MWTntBlock extends TntBlock {
     }
 
     /**
-     * Get the block {@link Integer flammability value}
+     * Get the Block {@link Integer flammability value}
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param blockGetter {@link Level The level reference}
+     * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
      * @return {@link Integer 20}
@@ -160,10 +161,10 @@ public class MWTntBlock extends TntBlock {
     }
 
     /**
-     * Get the block {@link Integer fire spread speed value}
+     * Get the Block {@link Integer fire spread speed value}
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param blockGetter {@link Level The level reference}
+     * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
      * @return {@link Integer 5}
@@ -174,35 +175,35 @@ public class MWTntBlock extends TntBlock {
     }
 
     /**
-     * Get the {@link VoxelShape block shape}
+     * Get the {@link VoxelShape Block Shape}
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param blockGetter {@link Level The level reference}
+     * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param collisionContext {@link CollisionContext The collision context}
-     * @return {@link VoxelShape The block shape}
+     * @return {@link VoxelShape The Block Shape}
      */
     public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
         return this.type.equals(MWPrimedTnt.Type.DISGUISED_CAKE) ? Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D): Shapes.block();
     }
 
     /**
-     * Ignite the TNT Block
+     * Interact with the Block
      *
-     * @param state {@link BlockState The current Block State}
-     * @param level {@link Level The level reference}
-     * @param pos {@link BlockPos The current Block Pos}
-     * @param player {@link Player The player that interacted with the Block}
-     * @param hand {@link InteractionHand The hand used to interact with the Block}
-     * @param hitResult {@link BlockHitResult The Block hit result}
-     * @return {@link InteractionResult The interaction result}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player who interacted with the Block}
+     * @param hand {@link InteractionHand The hand the player has interacted with}
+     * @param hitResult {@link BlockHitResult The hit result for the block interaction}
+     * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
     @Override
-    public @NotNull InteractionResult use(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
+    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
         if(this.type.equals(MWPrimedTnt.Type.DISGUISED_CAKE) && !level.isClientSide) {
             MWCriteriaTriggers.IGNITE_CAKE_TNT.trigger((ServerPlayer) player);
         }
-        return super.use(state, level, pos, player, hand, hitResult);
+        return super.use(blockState, level, blockPos, player, hand, hitResult);
     }
 
 }

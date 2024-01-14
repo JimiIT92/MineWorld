@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mineworld:block/palm_slab"
+    },
+    "type=double": {
+      "model": "mineworld:block/palm_planks"
+    },
+    "type=top": {
+      "model": "mineworld:block/palm_slab_top"
+    }
+  }
+}

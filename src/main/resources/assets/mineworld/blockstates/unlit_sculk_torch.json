@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mineworld:block/unlit_sculk_torch"
+    }
+  }
+}

@@ -2,6 +2,7 @@ package org.mineworld.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -27,7 +28,7 @@ public class CryingObsidianWall extends WallBlock {
     }
 
     /**
-     * Display the {@link ParticleTypes#DRIPPING_OBSIDIAN_TEAR Crying Obsidian Particles}
+     * Display the {@link ParticleType Block Particles}
      *
      * @param blockState {@link BlockState The current Block State}
      * @param level {@link Level The level reference}
@@ -54,7 +55,7 @@ public class CryingObsidianWall extends WallBlock {
      * Get the {@link PushReaction push reaction} when this block is pushed by pistons
      *
      * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction#BLOCK BLock push reaction}
+     * @return {@link PushReaction#BLOCK Block push reaction}
      */
     public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
         return PushReaction.BLOCK;
