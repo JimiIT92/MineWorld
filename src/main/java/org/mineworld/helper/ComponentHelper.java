@@ -1,8 +1,11 @@
 package org.mineworld.helper;
 
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.armortrim.TrimMaterial;
 import org.mineworld.MineWorld;
 
 /**
@@ -41,6 +44,16 @@ public final class ComponentHelper {
      */
     public static MutableComponent get(final String key, final Object... args) {
         return Component.translatable(key, args);
+    }
+
+    /**
+     * Get the {@link MutableComponent Mutable Translatable Component} for a {@link TrimMaterial Trim Material}
+     *
+     * @param trimMaterialKey {@link ResourceKey<TrimMaterial> The Trim Material Resource Key}
+     * @return {@link MutableComponent The Trim Material Mutable Translatable Component}
+     */
+    public static MutableComponent trimMaterial(final ResourceKey<TrimMaterial> trimMaterialKey) {
+        return get(Util.makeDescriptionId("trim_material", trimMaterialKey.location()));
     }
 
 }

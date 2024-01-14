@@ -369,6 +369,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WHITE_ROSE_BUSH = registerTallFlower("white_rose_bush");
     public static final RegistryObject<Block> CORN = registerBlockWithoutBlockItem("corn", CornBlock::new);
     public static final RegistryObject<Block> WARPED_WART = registerBlockWithoutBlockItem("warped_wart", WarpedWartBlock::new);
+    public static final RegistryObject<Block> BLUEBERRY_BUSH = registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
 
     //#endregion
 

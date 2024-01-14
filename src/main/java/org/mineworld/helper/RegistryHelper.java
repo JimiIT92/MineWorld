@@ -51,6 +51,18 @@ public final class RegistryHelper {
     }
 
     /**
+     * Register a {@link ResourceKey Resource Key}
+     *
+     * @param registry {@link Registry<T> The Resource Key Registry}
+     * @param name {@link String The Resource Key Name}
+     * @return {@link ResourceKey<T> The Resource Key to register}
+     * @param <T> The Resource Key Type
+     */
+    public static <T> ResourceKey<T> register(final ResourceKey<Registry<T>> registry, final String name) {
+        return ResourceKey.create(registry, ResourceHelper.resourceLocation(name));
+    }
+
+    /**
      * Register the {@link DeferredRegister Registry}
      * @param registry {@link DeferredRegister The Registry}
      * @param eventBus {@link IEventBus The mod event bus}

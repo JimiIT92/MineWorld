@@ -71,6 +71,7 @@ public final class MWItems {
     public static final RegistryObject<Item> BAKED_COB = registerFood("baked_cob", 4, 0.2F);
     public static final RegistryObject<Item> CHERRY = registerFood("cherry", 2, 0.1F);
     public static final RegistryObject<Item> CANDY_CANE = registerFood("candy_cane", 6, 0.25F);
+    public static final RegistryObject<Item> BLUEBERRIES = registerFoodBlockItem("blueberries", Suppliers.memoize(() -> MWBlocks.BLUEBERRY_BUSH.get()), 2, 0.1F);
     public static final RegistryObject<Item> CORN_SEEDS = registerBlockItem("corn_seeds", Suppliers.memoize(() -> MWBlocks.CORN.get()));
     public static final RegistryObject<Item> WARPED_WART = registerBlockItem("warped_wart", Suppliers.memoize(() -> MWBlocks.WARPED_WART.get()));
 
@@ -236,6 +237,20 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerFood(final String name, final int nutrition, final float saturation, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.item(featureFlags).food(PropertyHelper.food(nutrition, saturation))));
+    }
+
+    /**
+     * Register a {@link Item Food Item}
+     *
+     * @param name {@link String The Item name}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this food is referring to}
+     * @param nutrition {@link Integer The Food nutrition value}
+     * @param saturation {@link Float The Food saturation value}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerFoodBlockItem(final String name, final Supplier<Block> blockSupplier, final int nutrition, final float saturation, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new ItemNameBlockItem(blockSupplier.get(), PropertyHelper.item(featureFlags).food(PropertyHelper.food(nutrition, saturation))));
     }
 
     /**
