@@ -144,6 +144,19 @@ public final class MWCopperBlocks {
 
     //#endregion
 
+    //#region Grates
+
+    public static final RegistryObject<Block> OXIDIZED_COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.OXIDIZED, Suppliers.memoize(() -> OXIDIZED_COPPER_BARS.get().defaultBlockState()), false);
+    public static final RegistryObject<Block> WEATHERED_COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.WEATHERED, Suppliers.memoize(() -> WEATHERED_COPPER_BARS.get().defaultBlockState()), false);
+    public static final RegistryObject<Block> EXPOSED_COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.EXPOSED, Suppliers.memoize(() -> EXPOSED_COPPER_BARS.get().defaultBlockState()), false);
+    public static final RegistryObject<Block> COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.UNAFFECTED, Suppliers.memoize(() -> COPPER_BARS.get().defaultBlockState()), false);
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.OXIDIZED, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_BARS.get().defaultBlockState()), true);
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.WEATHERED, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_BARS.get().defaultBlockState()), true);
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.EXPOSED, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_BARS.get().defaultBlockState()), true);
+    public static final RegistryObject<Block> WAXED_COPPER_GRATE = registerGrate("copper", WeatheringCopper.WeatherState.UNAFFECTED, Suppliers.memoize(() -> WAXED_COPPER_BARS.get().defaultBlockState()), true);
+
+    //#endregion
+
     //#endregion
 
     //#region Methods
@@ -251,6 +264,19 @@ public final class MWCopperBlocks {
      */
     private static RegistryObject<Block> registerCage(final String materialName, final WeatheringCopper.WeatherState weatherState, final boolean isWaxed, final FeatureFlag... featureFlags) {
         return registerCopperBlock(materialName, "cage", weatherState, isWaxed, Suppliers.memoize(() -> new WeatheringCopperCageBlock(weatherState, featureFlags)));
+    }
+
+    /**
+     * Register a {@link WeatheringHorizontalPaneBlock Copper Grate}
+     *
+     * @param materialName {@link String The Grate material name}
+     * @param weatherState {@link WeatheringCopper.WeatherState The Weather State}
+     * @param isWaxed {@link Boolean If the Block is waxed}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerGrate(final String materialName, final WeatheringCopper.WeatherState weatherState, final Supplier<BlockState> blockStateSupplier, final boolean isWaxed, final FeatureFlag... featureFlags) {
+        return MWBlocks.registerBlockWithoutBlockItem(getCopperBlockName(materialName, weatherState, isWaxed, "grate"), Suppliers.memoize(() -> new WeatheringHorizontalPaneBlock(WeatheringCopper.WeatherState.OXIDIZED, blockStateSupplier, featureFlags)));
     }
 
     /**

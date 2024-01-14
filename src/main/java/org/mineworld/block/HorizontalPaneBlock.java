@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWColoredBlocks;
+import org.mineworld.core.MWCopperBlocks;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.Optional;
@@ -64,18 +65,18 @@ public class HorizontalPaneBlock extends HorizontalDirectionalBlock implements S
             .put(Blocks.BLACK_STAINED_GLASS_PANE, MWColoredBlocks.BLACK_STAINED_GLASS_HORIZONTAL_PANE.get())
             .put(MWBlocks.GOLD_BARS.get(), MWBlocks.GOLD_GRATE.get())
             .put(Blocks.IRON_BARS, MWBlocks.IRON_GRATE.get())
-            /*.put(MWBlocks.OXIDIZED_COPPER_BARS.get(), MWBlocks.OXIDIZED_COPPER_GRATE.get())
-            .put(MWBlocks.WEATHERED_COPPER_BARS.get(), MWBlocks.WEATHERED_COPPER_GRATE.get())
-            .put(MWBlocks.EXPOSED_COPPER_BARS.get(), MWBlocks.EXPOSED_COPPER_GRATE.get())
-            .put(MWBlocks.COPPER_BARS.get(), MWBlocks.COPPER_GRATE.get())
-            .put(MWBlocks.WAXED_OXIDIZED_COPPER_BARS.get(), MWBlocks.WAXED_OXIDIZED_COPPER_GRATE.get())
-            .put(MWBlocks.WAXED_WEATHERED_COPPER_BARS.get(), MWBlocks.WAXED_WEATHERED_COPPER_GRATE.get())
-            .put(MWBlocks.WAXED_EXPOSED_COPPER_BARS.get(), MWBlocks.WAXED_EXPOSED_COPPER_GRATE.get())
-            .put(MWBlocks.WAXED_COPPER_BARS.get(), MWBlocks.WAXED_COPPER_GRATE.get())
+            .put(MWCopperBlocks.OXIDIZED_COPPER_BARS.get(), MWCopperBlocks.OXIDIZED_COPPER_GRATE.get())
+            .put(MWCopperBlocks.WEATHERED_COPPER_BARS.get(), MWCopperBlocks.WEATHERED_COPPER_GRATE.get())
+            .put(MWCopperBlocks.EXPOSED_COPPER_BARS.get(), MWCopperBlocks.EXPOSED_COPPER_GRATE.get())
+            .put(MWCopperBlocks.COPPER_BARS.get(), MWCopperBlocks.COPPER_GRATE.get())
+            .put(MWCopperBlocks.WAXED_OXIDIZED_COPPER_BARS.get(), MWCopperBlocks.WAXED_OXIDIZED_COPPER_GRATE.get())
+            .put(MWCopperBlocks.WAXED_WEATHERED_COPPER_BARS.get(), MWCopperBlocks.WAXED_WEATHERED_COPPER_GRATE.get())
+            .put(MWCopperBlocks.WAXED_EXPOSED_COPPER_BARS.get(), MWCopperBlocks.WAXED_EXPOSED_COPPER_GRATE.get())
+            .put(MWCopperBlocks.WAXED_COPPER_BARS.get(), MWCopperBlocks.WAXED_COPPER_GRATE.get())
             .put(MWBlocks.NETHERITE_BARS.get(), MWBlocks.NETHERITE_GRATE.get())
             .put(MWBlocks.SILVER_BARS.get(), MWBlocks.SILVER_GRATE.get())
             .put(MWBlocks.ALUMINUM_BARS.get(), MWBlocks.ALUMINUM_GRATE.get())
-            .put(MWBlocks.BRONZE_BARS.get(), MWBlocks.BRONZE_GRATE.get())*/
+            .put(MWBlocks.BRONZE_BARS.get(), MWBlocks.BRONZE_GRATE.get())
     .build());
 
     /**
