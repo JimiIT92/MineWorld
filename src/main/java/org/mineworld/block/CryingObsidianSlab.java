@@ -8,6 +8,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +21,7 @@ import org.mineworld.helper.PropertyHelper;
 public class CryingObsidianSlab extends SlabBlock {
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public CryingObsidianSlab() {
         super(PropertyHelper.copy(Blocks.CRYING_OBSIDIAN).requiresCorrectToolForDrops());

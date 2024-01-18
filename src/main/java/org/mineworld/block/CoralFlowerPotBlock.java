@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -47,7 +48,7 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
     private final Supplier<? extends Block> deadCoralFlowerPotSupplier;
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param deadCoralFlowerPotSupplier {@link Supplier<Block> The Supplier for the Dead Coral Pot variant}
      * @param coralSupplier {@link Supplier<Block> The Coral this Pot is referring to}

@@ -7,6 +7,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ import static net.minecraft.world.level.block.Blocks.CRYING_OBSIDIAN;
 public class CryingObsidianWall extends WallBlock {
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public CryingObsidianWall() {
         super(PropertyHelper.copy(CRYING_OBSIDIAN).requiresCorrectToolForDrops());

@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ import java.util.Optional;
 public abstract class RopeBodyBlock extends AbstractRopeBlock {
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param direction {@link Direction The Rope direction}
      * @param shape {@link VoxelShape The Rope shape}

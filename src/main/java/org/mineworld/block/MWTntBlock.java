@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
@@ -48,7 +49,7 @@ public class MWTntBlock extends TntBlock {
     private final MWPrimedTnt.Type type;
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param type {@link MWPrimedTnt.Type The TNT Type}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}

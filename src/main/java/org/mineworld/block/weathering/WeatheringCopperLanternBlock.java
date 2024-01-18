@@ -8,6 +8,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +27,7 @@ public class WeatheringCopperLanternBlock extends LanternBlock implements IMWWea
     private final WeatheringCopper.WeatherState weatherState;
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param weatherState {@link WeatheringCopper.WeatherState The Weather State}
      * @param light {@link Integer The lantern light value}
@@ -82,7 +83,7 @@ public class WeatheringCopperLanternBlock extends LanternBlock implements IMWWea
      * @param blockState {@link BlockState The current Block State}
      * @param context {@link UseOnContext The Item Use Context}
      * @param toolAction {@link ToolAction The tool action}
-     * @param isClient {@link Boolean If the scraping only happened on the Client}
+     * @param isClient {@link Boolean If the action only happened on the Client}
      * @return {@link BlockState The modified Block State}
      */
     @Override

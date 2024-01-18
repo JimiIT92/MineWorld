@@ -5,9 +5,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.MapColor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWColors;
 import org.mineworld.core.MWItemTiers;
+import org.mineworld.core.MWWoodTypes;
 
 import java.util.Locale;
 
@@ -55,6 +59,38 @@ public final class ResourceHelper {
     public static String armorMaterialName(final ArmorMaterial armorMaterial) {
         final ResourceLocation resourceLocation = ResourceLocation.tryParse(armorMaterial.getName());
         return resourceLocation.getPath().toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * Get the {@link String Wood name} based on the {@link WoodType Wood Type}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @return {@link String The Wood name}
+     */
+    public static String woodName(final WoodType woodType) {
+        return woodType.name().toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * Get the {@link MapColor Wood Color} based on the {@link WoodType Wood Type}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @return {@link String The Wood name}
+     */
+    public static MapColor woodColor(final WoodType woodType) {
+        if(woodType.equals(MWWoodTypes.APPLE.get())) {
+            return MWColors.APPLE.toMapColor();
+        }
+        if(woodType.equals(MWWoodTypes.PALM.get())) {
+            return MWColors.PALM.toMapColor();
+        }
+        if(woodType.equals(MWWoodTypes.DEAD.get())) {
+            return MWColors.DEAD.toMapColor();
+        }
+        if(woodType.equals(MWWoodTypes.SCULK.get())) {
+            return MWColors.SCULK.toMapColor();
+        }
+        return MapColor.WOOD;
     }
 
     /**

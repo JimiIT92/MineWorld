@@ -12,6 +12,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -54,7 +55,7 @@ public class TallCropBlock extends CropBlock {
     private final Supplier<Item> SEED_SUPPLIER;
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param seedSupplier {@link Supplier<Item> The Crop Seed supplier}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}

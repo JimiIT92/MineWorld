@@ -6,6 +6,7 @@ import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.PropertyHelper;
@@ -16,7 +17,7 @@ import org.mineworld.helper.PropertyHelper;
 public class MWTallFlowerBlock extends TallFlowerBlock {
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */

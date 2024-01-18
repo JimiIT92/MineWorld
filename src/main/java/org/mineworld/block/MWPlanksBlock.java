@@ -2,48 +2,32 @@ package org.mineworld.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.PushReaction;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.BlockHelper;
 import org.mineworld.helper.PropertyHelper;
+import org.mineworld.helper.ResourceHelper;
 
 import java.util.function.Supplier;
 
 /**
- * {@link MineWorld MineWorld} {@link StairBlock Stair Block}
+ * Implementation class for a {@link MineWorld MineWorld} {@link Block Planks Block}
  */
-public class MWStairBlock extends StairBlock {
-
-    /**
-     * {@link Supplier<BlockState> The Stair Block State Supplier}
-     */
-    private final Supplier<BlockState> blockStateSupplier;
+public class MWPlanksBlock extends Block {
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State this Stair is based on}
-     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
      */
-    public MWStairBlock(final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        super(blockStateSupplier, PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops());
-        this.blockStateSupplier = blockStateSupplier;
-    }
-
-    /**
-     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
-     *
-     * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction The Block push reaction based on the source Block}
-     */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return BlockHelper.getPushReaction(blockStateSupplier.get());
+    public MWPlanksBlock(final Supplier<WoodType> woodTypeSupplier) {
+        super(PropertyHelper.copy(Blocks.OAK_PLANKS)
+                .mapColor(ResourceHelper.woodColor(woodTypeSupplier.get()))
+                .sound(woodTypeSupplier.get().soundType()));
     }
 
     /**
@@ -53,11 +37,11 @@ public class MWStairBlock extends StairBlock {
      * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
-     * @return {@link Boolean True if the source Block is flammable}
+     * @return {@link Boolean#TRUE True}
      */
     @Override
     public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return blockStateSupplier.get().isFlammable(blockGetter, blockPos, direction);
+        return true;
     }
 
     /**

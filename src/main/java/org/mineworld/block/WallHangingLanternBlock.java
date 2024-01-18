@@ -122,7 +122,7 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
     );
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param properties {@link BlockBehaviour.Properties The properties this Block is based on}
      */

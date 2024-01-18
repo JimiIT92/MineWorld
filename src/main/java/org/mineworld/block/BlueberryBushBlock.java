@@ -16,6 +16,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
@@ -32,7 +33,7 @@ import org.mineworld.helper.PropertyHelper;
 public class BlueberryBushBlock extends SweetBerryBushBlock {
 
     /**
-     * Constructor. Set the Block Properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public BlueberryBushBlock() {
         super(PropertyHelper.copy(Blocks.SWEET_BERRY_BUSH));

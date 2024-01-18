@@ -22,8 +22,6 @@ public final class MWCopperBlocks {
 
     //#region Stairs
 
-    //#endregion
-
     public static final RegistryObject<Block> OXIDIZED_COPPER_STAIRS = registerStair("copper", WeatheringCopper.WeatherState.OXIDIZED, false);
     public static final RegistryObject<Block> WEATHERED_COPPER_STAIRS = registerStair("copper", WeatheringCopper.WeatherState.WEATHERED, false);
     public static final RegistryObject<Block> EXPOSED_COPPER_STAIRS = registerStair("copper", WeatheringCopper.WeatherState.EXPOSED, false);
@@ -100,21 +98,38 @@ public final class MWCopperBlocks {
     //#region Lanterns
 
     public static final RegistryObject<Block> OXIDIZED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, false, false);
-    public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, false, false);
-    public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, false, false);
-    public static final RegistryObject<Block> COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, false, false);
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, true, false);
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, true, false);
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, true, false);
-    public static final RegistryObject<Block> WAXED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, true, false);
     public static final RegistryObject<Block> OXIDIZED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, false, true);
-    public static final RegistryObject<Block> WEATHERED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, false, true);
-    public static final RegistryObject<Block> EXPOSED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, false, true);
-    public static final RegistryObject<Block> COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, false, true);
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, true, true);
+    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, false, false, Suppliers.memoize(() -> OXIDIZED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, false, true, Suppliers.memoize(() -> OXIDIZED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, true, false, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, true, true, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, false, false);
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, true, false);
+    public static final RegistryObject<Block> WEATHERED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, false, true);
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, true, true);
+    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, false, false, Suppliers.memoize(() -> WEATHERED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, false, true, Suppliers.memoize(() -> WEATHERED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, true, false, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, true, true, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, false, false);
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, true, false);
+    public static final RegistryObject<Block> EXPOSED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, false, true);
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, true, true);
+    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, false, false, Suppliers.memoize(() -> EXPOSED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, false, true, Suppliers.memoize(() -> EXPOSED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, true, false, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, true, true, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, false, false);
+    public static final RegistryObject<Block> WAXED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, true, false);
+    public static final RegistryObject<Block> COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, false, true);
     public static final RegistryObject<Block> WAXED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, true, true);
+    public static final RegistryObject<Block> WALL_HANGING_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, false, false, Suppliers.memoize(() -> COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, false, true, Suppliers.memoize(() -> COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, true, false, Suppliers.memoize(() -> WAXED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, true, true, Suppliers.memoize(() -> WAXED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+
 
     //#endregion
 
@@ -238,6 +253,20 @@ public final class MWCopperBlocks {
      */
     private static RegistryObject<Block> registerLantern(final String materialName, final WeatheringCopper.WeatherState weatherState, final boolean isWaxed, final boolean isSoulLantern, final FeatureFlag... featureFlags) {
         return registerCopperBlock(materialName, (isSoulLantern ? "soul_lantern" : "lantern"), weatherState, isWaxed, Suppliers.memoize(() -> new WeatheringCopperLanternBlock(weatherState, isSoulLantern ? 10 : 15, featureFlags)));
+    }
+
+    /**
+     * Register a {@link WeatheringCopperLanternBlock Copper Lantern}
+     *
+     * @param weatherState {@link WeatheringCopper.WeatherState The Weather State}
+     * @param isWaxed {@link Boolean If the Block is waxed}
+     * @param isSoulLantern {@link Boolean If the Lantern is a Soul Lantern}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State this Lantern is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallHangingLantern(final WeatheringCopper.WeatherState weatherState, final boolean isWaxed, final boolean isSoulLantern, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return MWBlocks.registerBlockWithoutBlockItem("wall_hanging_" + getCopperBlockName("copper", weatherState, isWaxed, (isSoulLantern ? "soul_lantern" : "lantern")), Suppliers.memoize(() -> new WeatheringWallHangingLanternBlock(weatherState, blockStateSupplier, featureFlags)));
     }
 
     /**

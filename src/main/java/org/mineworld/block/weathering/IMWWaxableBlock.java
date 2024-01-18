@@ -217,7 +217,7 @@ public interface IMWWaxableBlock extends IMWChangeOverTimeBlock {
      * @param blockState {@link BlockState The current Block State}
      * @param context {@link UseOnContext The Item Use Context}
      * @param toolAction {@link ToolAction The tool action}
-     * @param isClient {@link Boolean If the scraping only happened on the Client}
+     * @param isClient {@link Boolean If the action only happened on the Client}
      * @return {@link BlockState The modified Block State}
      */
     static BlockState getToolModifiedState(final BlockState blockState, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {

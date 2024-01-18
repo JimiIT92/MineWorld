@@ -13,7 +13,7 @@ import org.mineworld.MineWorld;
 public class UnmovableBlock extends Block {
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param properties {@link BlockBehaviour.Properties The Block properties}
      */

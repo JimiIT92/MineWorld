@@ -15,6 +15,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
@@ -31,7 +32,7 @@ public class FallableTntBlock extends MWTntBlock implements Fallable {
     private final int dustColor;
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param type {@link MWPrimedTnt.Type The TNT Type}
      * @param dustColor {@link Integer The falling block dust color}

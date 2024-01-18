@@ -7,6 +7,7 @@ import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.PropertyHelper;
@@ -19,7 +20,7 @@ import java.util.function.Supplier;
 public class MWFlowerBlock extends FlowerBlock {
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param effectSupplier {@link Supplier<MobEffect> The Supplier for the flower effect when used in suspicious stews}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}

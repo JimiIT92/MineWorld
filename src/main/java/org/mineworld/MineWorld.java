@@ -58,6 +58,9 @@ public final class MineWorld {
 
         MWLootModifiers.register(eventBus);
 
+        MWTrunkPlacerTypes.register(eventBus);
+        MWFoliagePlacerTypes.register(eventBus);
+
         MWEnchantments.register(eventBus);
     }
 

@@ -2,48 +2,53 @@ package org.mineworld.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.AzaleaBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.BlockHelper;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.Supplier;
 
 /**
- * {@link MineWorld MineWorld} {@link StairBlock Stair Block}
+ * Implementation class for a {@link MineWorld MineWorld} Bush Block
  */
-public class MWStairBlock extends StairBlock {
+public class TreeBushBlock extends AzaleaBlock {
 
     /**
-     * {@link Supplier<BlockState> The Stair Block State Supplier}
+     * {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
      */
-    private final Supplier<BlockState> blockStateSupplier;
+    private final Supplier<AbstractTreeGrower> treeGrowerSupplier;
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State this Stair is based on}
+     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public MWStairBlock(final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        super(blockStateSupplier, PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops());
-        this.blockStateSupplier = blockStateSupplier;
+    public TreeBushBlock(final Supplier<AbstractTreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
+        super(PropertyHelper.copy(Blocks.AZALEA, featureFlags));
+        this.treeGrowerSupplier = treeGrowerSupplier;
     }
 
     /**
-     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
+     * Grow a Tree when the Bush is bonemealed
      *
+     * @param level {@link ServerLevel The Level reference}
+     * @param random {@link RandomSource The Random reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction The Block push reaction based on the source Block}
      */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return BlockHelper.getPushReaction(blockStateSupplier.get());
+    @Override
+    public void performBonemeal(final @NotNull ServerLevel level, final @NotNull RandomSource random, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+        this.treeGrowerSupplier.get().growTree(level, level.getChunkSource().getGenerator(), blockPos, blockState, random);
     }
 
     /**
@@ -53,11 +58,11 @@ public class MWStairBlock extends StairBlock {
      * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
-     * @return {@link Boolean True if the source Block is flammable}
+     * @return {@link Boolean#TRUE True}
      */
     @Override
     public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return blockStateSupplier.get().isFlammable(blockGetter, blockPos, direction);
+        return true;
     }
 
     /**
@@ -67,11 +72,11 @@ public class MWStairBlock extends StairBlock {
      * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
-     * @return {@link Integer 5}
+     * @return {@link Integer 60}
      */
     @Override
     public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 5;
+        return 60;
     }
 
     /**
@@ -81,11 +86,11 @@ public class MWStairBlock extends StairBlock {
      * @param blockGetter {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
-     * @return {@link Integer 20}
+     * @return {@link Integer 30}
      */
     @Override
     public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 20;
+        return 30;
     }
 
 }

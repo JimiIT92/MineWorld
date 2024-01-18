@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +26,7 @@ public class MWSlabBlock extends SlabBlock {
     private final Supplier<BlockState> blockStateSupplier;
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
      * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State this Slab is based on}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}

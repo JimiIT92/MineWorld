@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherWartBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +16,7 @@ import org.mineworld.helper.PropertyHelper;
 public class WarpedWartBlock extends NetherWartBlock {
 
     /**
-     * Constructor. Set the Block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public WarpedWartBlock() {
         super(PropertyHelper.copy(Blocks.NETHER_WART));
