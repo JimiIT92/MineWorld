@@ -6,12 +6,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.CoralFlowerPotBlock;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -207,6 +209,14 @@ public final class MWFlowerPots {
      * Register all {@link FlowerPotBlock Flower Pots}
      */
     public static void register() { }
+
+    /**
+     * Register all {@link FlowerPotBlock Flower Pot} plants
+     */
+    public static void registerFlowerPotPlants() {
+        final FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        FLOWER_POTS.forEach((flower, pot) -> flowerPot.addPlant(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(flower.get())), pot));
+    }
 
     //#endregion
 

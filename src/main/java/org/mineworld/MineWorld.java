@@ -1,6 +1,8 @@
 package org.mineworld;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -71,7 +73,10 @@ public final class MineWorld {
      * @param event {@link FMLCommonSetupEvent The FML common setup event}
      */
     private void onCommonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(MWFlowerPots::registerFlowerPotPlants);
+        event.enqueueWork(MWDispenseBehaviors::register);
 
+        event.enqueueWork(() -> Raid.RaiderType.create("illusioner", EntityType.ILLUSIONER, new int[]{0, 0, 0, 0, 1, 1, 2, 2}));
     }
 
     /**

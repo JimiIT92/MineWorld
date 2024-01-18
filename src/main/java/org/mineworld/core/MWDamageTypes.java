@@ -39,7 +39,7 @@ public final class MWDamageTypes {
      *
      * @param context {@link BootstapContext<DamageType> The Bootstrap Context}
      */
-    public static void bootstrap(BootstapContext<DamageType> context) {
+    public static void bootstrap(final BootstapContext<DamageType> context) {
         context.register(BLUEBERRY_BUSH, new DamageType("blueberryBush", 0.1F));
     }
 
