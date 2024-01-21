@@ -3,22 +3,17 @@ package org.mineworld.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWTreeGrowers;
-import org.mineworld.helper.PropertyHelper;
 
-/**
- * Implementation class for a {@link SaplingBlock Sculk Sapling Block}
- */
-public class SculkSaplingBlock extends SaplingBlock {
+public class SculkBushBlock extends TreeBushBlock {
 
     /**
      * Constructor. Set the {@link Properties Block Properties}
      */
-    public SculkSaplingBlock() {
-        super(MWTreeGrowers.SCULK_TREE_GROWER.get(), PropertyHelper.copy(Blocks.OAK_SAPLING));
+    public SculkBushBlock() {
+        super(MWTreeGrowers.SCULK_TREE_GROWER);
     }
 
     /**
