@@ -7,7 +7,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,6 +20,7 @@ import org.mineworld.client.renderer.chest.MWTrappedChestRenderer;
 import org.mineworld.entity.block.DaylightLampBlockEntity;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegistryHelper;
+import org.mineworld.helper.ResourceHelper;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -47,39 +50,71 @@ public final class MWBlockEntityTypes {
             Suppliers.memoize(() -> MWBlocks.DROWNED_HEAD.get()),
             Suppliers.memoize(() -> MWBlocks.DROWNED_WALL_HEAD.get())
     );
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SPRUCE_CHEST = registerBlockEntity("spruce_chest", SpruceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SPRUCE_TRAPPED_CHEST = registerBlockEntity("spruce_trapped_chest", SpruceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> BIRCH_CHEST = registerBlockEntity("birch_chest", BirchChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BIRCH_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> BIRCH_TRAPPED_CHEST = registerBlockEntity("birch_trapped_chest", BirchTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BIRCH_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> JUNGLE_CHEST = registerBlockEntity("jungle_chest", JungleChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.JUNGLE_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> JUNGLE_TRAPPED_CHEST = registerBlockEntity("jungle_trapped_chest", JungleTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.JUNGLE_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> ACACIA_CHEST = registerBlockEntity("acacia_chest", AcaciaChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.ACACIA_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> ACACIA_TRAPPED_CHEST = registerBlockEntity("acacia_trapped_chest", AcaciaTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.ACACIA_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> DARK_OAK_CHEST = registerBlockEntity("dark_oak_chest", DarkOakChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DARK_OAK_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> DARK_OAK_TRAPPED_CHEST = registerBlockEntity("dark_oak_trapped_chest", DarkOakTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DARK_OAK_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> MANGROVE_CHEST = registerBlockEntity("mangrove_chest", MangroveChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.MANGROVE_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> MANGROVE_TRAPPED_CHEST = registerBlockEntity("mangrove_trapped_chest", MangroveTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.MANGROVE_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> CHERRY_CHEST = registerBlockEntity("cherry_chest", CherryChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CHERRY_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> CHERRY_TRAPPED_CHEST = registerBlockEntity("cherry_trapped_chest", CherryTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CHERRY_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> BAMBOO_CHEST = registerBlockEntity("bamboo_chest", BambooChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BAMBOO_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> BAMBOO_TRAPPED_CHEST = registerBlockEntity("bamboo_trapped_chest", BambooTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BAMBOO_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> CRIMSON_CHEST = registerBlockEntity("crimson_chest", CrimsonChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CRIMSON_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> CRIMSON_TRAPPED_CHEST = registerBlockEntity("crimson_trapped_chest", CrimsonTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CRIMSON_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> WARPED_CHEST = registerBlockEntity("warped_chest", WarpedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.WARPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> WARPED_TRAPPED_CHEST = registerBlockEntity("warped_trapped_chest", WarpedTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.WARPED_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> APPLE_CHEST = registerBlockEntity("apple_chest", AppleChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.APPLE_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> APPLE_TRAPPED_CHEST = registerBlockEntity("apple_trapped_chest", AppleTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.APPLE_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> PALM_CHEST = registerBlockEntity("palm_chest", PalmChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.PALM_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> PALM_TRAPPED_CHEST = registerBlockEntity("palm_trapped_chest", PalmTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.PALM_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> DEAD_CHEST = registerBlockEntity("dead_chest", DeadChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DEAD_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> DEAD_TRAPPED_CHEST = registerBlockEntity("dead_trapped_chest", DeadTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DEAD_TRAPPED_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SCULK_CHEST = registerBlockEntity("sculk_chest", SculkChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SCULK_CHEST.get()));
-    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SCULK_TRAPPED_CHEST = registerBlockEntity("sculk_trapped_chest", SculkTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SCULK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SPRUCE_CHEST = registerChest(WoodType.SPRUCE, false, SpruceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SPRUCE_TRAPPED_CHEST = registerChest(WoodType.SPRUCE, true, SpruceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> BIRCH_CHEST = registerChest(WoodType.BIRCH, false, BirchChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BIRCH_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> BIRCH_TRAPPED_CHEST = registerChest(WoodType.BIRCH, true, BirchTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BIRCH_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> JUNGLE_CHEST = registerChest(WoodType.JUNGLE, false, JungleChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.JUNGLE_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> JUNGLE_TRAPPED_CHEST = registerChest(WoodType.JUNGLE, true, JungleTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.JUNGLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> ACACIA_CHEST = registerChest(WoodType.ACACIA, false, AcaciaChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.ACACIA_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> ACACIA_TRAPPED_CHEST = registerChest(WoodType.ACACIA, true, AcaciaTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.ACACIA_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> DARK_OAK_CHEST = registerChest(WoodType.DARK_OAK, false, DarkOakChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DARK_OAK_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> DARK_OAK_TRAPPED_CHEST = registerChest(WoodType.DARK_OAK, true, DarkOakTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DARK_OAK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> MANGROVE_CHEST = registerChest(WoodType.MANGROVE, false, MangroveChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.MANGROVE_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> MANGROVE_TRAPPED_CHEST = registerChest(WoodType.MANGROVE, true, MangroveTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.MANGROVE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> CHERRY_CHEST = registerChest(WoodType.CHERRY, false, CherryChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CHERRY_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> CHERRY_TRAPPED_CHEST = registerChest(WoodType.CHERRY, true, CherryTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CHERRY_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> BAMBOO_CHEST = registerChest(WoodType.BAMBOO, false, BambooChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BAMBOO_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> BAMBOO_TRAPPED_CHEST = registerChest(WoodType.BAMBOO, true, BambooTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BAMBOO_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> CRIMSON_CHEST = registerChest(WoodType.CRIMSON, false, CrimsonChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CRIMSON_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> CRIMSON_TRAPPED_CHEST = registerChest(WoodType.CRIMSON, true, CrimsonTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.CRIMSON_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> WARPED_CHEST = registerChest(WoodType.WARPED, false, WarpedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.WARPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> WARPED_TRAPPED_CHEST = registerChest(WoodType.WARPED, true, WarpedTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.WARPED_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> APPLE_CHEST = registerChest("apple", false, AppleChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.APPLE_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> APPLE_TRAPPED_CHEST = registerChest("apple", true, AppleTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.APPLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> PALM_CHEST = registerChest("palm", false, PalmChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.PALM_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> PALM_TRAPPED_CHEST = registerChest("palm", true, PalmTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.PALM_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> DEAD_CHEST = registerChest("dead", false, DeadChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DEAD_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> DEAD_TRAPPED_CHEST = registerChest("dead", true, DeadTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.DEAD_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SCULK_CHEST = registerChest("sculk", false, SculkChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SCULK_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SCULK_TRAPPED_CHEST = registerChest("sculk", true, SculkTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SCULK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> ICE_CHEST = registerChest("ice", false, IceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.ICE_CHEST.get()));
+    public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> ICE_TRAPPED_CHEST = registerChest("ice", true, IceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.ICE_TRAPPED_CHEST.get()));
 
 
     //#endregion
 
     //#region Methods
+
+    /**
+     * Register a {@link ChestBlockEntity Chest Block Entity Type}
+     *
+     * @param woodType {@link WoodType The Chest Wood Type}
+     * @param isTrappedChest {@link Boolean If the Chest is a Trapped Chest}
+     * @param blockEntitySupplier {@link BlockEntityType.BlockEntitySupplier<T> The supplier for the Block Entity}
+     * @param blockSuppliers {@link Supplier<Block> The supplier for the blocks related to the Block Entity}
+     * @return {@link RegistryObject<BlockEntityType> The registered Block Entity}
+     * @param <T> {@link T The Block Entity type}
+     */
+    @SafeVarargs
+    private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerChest(final WoodType woodType, final boolean isTrappedChest, final BlockEntityType.BlockEntitySupplier<T> blockEntitySupplier, final Supplier<Block>... blockSuppliers) {
+        return registerChest(ResourceHelper.woodName(woodType), isTrappedChest, blockEntitySupplier, blockSuppliers);
+    }
+
+    /**
+     * Register a {@link ChestBlockEntity Chest Block Entity Type}
+     *
+     * @param woodName {@link String The Chest Wood name}
+     * @param isTrappedChest {@link Boolean If the Chest is a Trapped Chest}
+     * @param blockEntitySupplier {@link BlockEntityType.BlockEntitySupplier<T> The supplier for the Block Entity}
+     * @param blockSuppliers {@link Supplier<Block> The supplier for the blocks related to the Block Entity}
+     * @return {@link RegistryObject<BlockEntityType> The registered Block Entity}
+     * @param <T> {@link T The Block Entity type}
+     */
+    @SafeVarargs
+    private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerChest(final String woodName, final boolean isTrappedChest, final BlockEntityType.BlockEntitySupplier<T> blockEntitySupplier, final Supplier<Block>... blockSuppliers) {
+        return registerBlockEntity(woodName + "_" + (isTrappedChest ? "trapped_" : "") + "chest", blockEntitySupplier, blockSuppliers);
+    }
 
     /**
      * Register a {@link BlockEntityType Block Entity Type}
@@ -150,7 +185,8 @@ public final class MWBlockEntityTypes {
                 APPLE_CHEST,
                 PALM_CHEST,
                 DEAD_CHEST,
-                SCULK_CHEST
+                SCULK_CHEST,
+                ICE_CHEST
         );
         registerRenderer(MWTrappedChestRenderer::new,
                 SPRUCE_TRAPPED_CHEST,
@@ -166,7 +202,8 @@ public final class MWBlockEntityTypes {
                 APPLE_TRAPPED_CHEST,
                 PALM_TRAPPED_CHEST,
                 DEAD_TRAPPED_CHEST,
-                SCULK_TRAPPED_CHEST
+                SCULK_TRAPPED_CHEST,
+                ICE_TRAPPED_CHEST
         );
     }
 

@@ -231,6 +231,8 @@ public final class MWItems {
     public static final RegistryObject<Item> DEAD_TRAPPED_CHEST = registerChest("dead", true, Suppliers.memoize(() -> MWBlocks.DEAD_TRAPPED_CHEST.get()));
     public static final RegistryObject<Item> SCULK_CHEST = registerChest("sculk", false, Suppliers.memoize(() -> MWBlocks.SCULK_CHEST.get()));
     public static final RegistryObject<Item> SCULK_TRAPPED_CHEST = registerChest("sculk", true, Suppliers.memoize(() -> MWBlocks.SCULK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> ICE_CHEST = registerChest("ice", false, Suppliers.memoize(() -> MWBlocks.ICE_CHEST.get()));
+    public static final RegistryObject<Item> ICE_TRAPPED_CHEST = registerChest("ice", true, Suppliers.memoize(() -> MWBlocks.ICE_TRAPPED_CHEST.get()));
 
     //#endregion
 

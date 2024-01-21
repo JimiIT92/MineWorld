@@ -121,6 +121,9 @@ public class MWTrappedChestBlock extends ChestBlock {
         if(woodType.equals(MWWoodTypes.SCULK.get())) {
             return new SculkTrappedChestBlockEntity(blockPos, blockState);
         }
+        if(woodType.equals(MWWoodTypes.ICE.get())) {
+            return new IceTrappedChestBlockEntity(blockPos, blockState);
+        }
         return new TrappedChestBlockEntity(blockPos, blockState);
     }
 

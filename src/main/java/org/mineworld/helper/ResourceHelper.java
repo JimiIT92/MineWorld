@@ -32,6 +32,26 @@ public final class ResourceHelper {
     }
 
     /**
+     * Parse a {@link String Resource String} into a {@link ResourceLocation Resource Location}
+     *
+     * @param resourceLocation {@link String The Resource Location String}
+     * @return {@link ResourceLocation The Resource Location}
+     */
+    public static ResourceLocation parse(final String resourceLocation) {
+        return ResourceLocation.tryParse(resourceLocation);
+    }
+
+    /**
+     * Get the {@link String Resource Location Path}
+     *
+     * @param resourceLocation {@link ResourceLocation The Resource Location}
+     * @return {@link String The Resource Location Path}
+     */
+    public static String path(final ResourceLocation resourceLocation) {
+        return resourceLocation.getPath().toLowerCase(Locale.ROOT);
+    }
+
+    /**
      * Get a {@link String string representation} of a {@link MineWorld MineWorld} {@link ResourceLocation Resource Location}
      *
      * @param name {@link String The resource name}
@@ -58,8 +78,7 @@ public final class ResourceHelper {
      * @return {@link String The Armor Material name}
      */
     public static String armorMaterialName(final ArmorMaterial armorMaterial) {
-        final ResourceLocation resourceLocation = ResourceLocation.tryParse(armorMaterial.getName());
-        return resourceLocation.getPath().toLowerCase(Locale.ROOT);
+        return path(parse(armorMaterial.getName()));
     }
 
     /**
@@ -69,7 +88,7 @@ public final class ResourceHelper {
      * @return {@link String The Wood name}
      */
     public static String woodName(final WoodType woodType) {
-        return woodType.name().toLowerCase(Locale.ROOT);
+        return path(parse(woodType.name().toLowerCase(Locale.ROOT)));
     }
 
     /**

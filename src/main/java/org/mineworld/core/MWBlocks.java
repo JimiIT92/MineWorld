@@ -813,6 +813,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HORIZONTAL_GLASS_PANE = registerHorizontalPane("horizontal_glass_pane", Blocks.GLASS::defaultBlockState);
     public static final RegistryObject<Block> ROPE = registerBlock("rope", Suppliers.memoize(() -> new RopeBlock()));
     public static final RegistryObject<Block> ROPE_TAIL = registerBlockWithoutBlockItem("rope_tail", Suppliers.memoize(() -> new RopeTailBlock()));
+    public static final RegistryObject<Block> ICE_CHEST = registerChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_CHEST.get()));
+    public static final RegistryObject<Block> ICE_TRAPPED_CHEST = registerTrappedChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get()));
 
     //#endregion
 
