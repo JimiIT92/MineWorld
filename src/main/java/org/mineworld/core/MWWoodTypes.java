@@ -17,28 +17,28 @@ public final class MWWoodTypes {
 
     //#region Wood Types
 
-    public static final Supplier<WoodType> APPLE = Suppliers.memoize(() -> registerWoodType("apple"));
-    public static final Supplier<WoodType> PALM = Suppliers.memoize(() -> registerWoodType("palm",
+    public static final Supplier<WoodType> APPLE = Suppliers.memoize(() -> registerWoodType(MWWoodTypeNames.APPLE));
+    public static final Supplier<WoodType> PALM = Suppliers.memoize(() -> registerWoodType(MWWoodTypeNames.PALM,
             BlockSetType.BAMBOO,
             SoundType.BAMBOO_WOOD,
             SoundType.BAMBOO_WOOD_HANGING_SIGN,
             SoundEvents.BAMBOO_WOOD_FENCE_GATE_CLOSE,
             SoundEvents.BAMBOO_WOOD_FENCE_GATE_OPEN
     ));
-    public static final Supplier<WoodType> DEAD = Suppliers.memoize(() -> registerWoodType("dead"));
-    public static final Supplier<WoodType> ICE = Suppliers.memoize(() -> registerWoodType("ice",
-            MWBlockSetTypes.ICE.get(),
-            SoundType.GLASS,
-            SoundType.HANGING_SIGN,
-            SoundEvents.GLASS_HIT,
-            SoundEvents.GLASS_PLACE
-    ));
-    public static final Supplier<WoodType> SCULK = Suppliers.memoize(() -> registerWoodType("sculk",
+    public static final Supplier<WoodType> DEAD = Suppliers.memoize(() -> registerWoodType(MWWoodTypeNames.DEAD));
+    public static final Supplier<WoodType> SCULK = Suppliers.memoize(() -> registerWoodType(MWWoodTypeNames.SCULK,
             MWBlockSetTypes.SCULK.get(),
             MWSoundTypes.SCULK_WOOD,
             MWSoundTypes.SCULK_WOOD_HANGING_SIGN,
             MWSounds.SCULK_FENCE_GATE_CLOSE.get(),
             MWSounds.SCULK_FENCE_GATE_OPEN.get()
+    ));
+    public static final Supplier<WoodType> ICE = Suppliers.memoize(() -> registerWoodType(MWWoodTypeNames.ICE,
+            MWBlockSetTypes.ICE.get(),
+            SoundType.GLASS,
+            SoundType.HANGING_SIGN,
+            SoundEvents.GLASS_HIT,
+            SoundEvents.GLASS_PLACE
     ));
 
     //#endregion
@@ -68,6 +68,21 @@ public final class MWWoodTypes {
      */
     private static WoodType registerWoodType(final String name, final BlockSetType blockSetType, final SoundType sound, final SoundType hangingSignSound, final SoundEvent fenceGateCloseSound, final SoundEvent fenceGateOpenSound) {
         return WoodType.register(new WoodType(MineWorld.MOD_ID + ":" + name, blockSetType, sound, hangingSignSound, fenceGateCloseSound, fenceGateOpenSound));
+    }
+
+    //#endregion
+
+    //#region Names
+
+    /**
+     * The {@link MineWorld MineWorld} {@link WoodType Wood Type} {@link String names}
+     */
+    public static class MWWoodTypeNames {
+        public static final String APPLE = "apple";
+        public static final String PALM = "palm";
+        public static final String DEAD = "dead";
+        public static final String SCULK = "sculk";
+        public static final String ICE = "ice";
     }
 
     //#endregion

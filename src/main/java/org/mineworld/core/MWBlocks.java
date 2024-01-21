@@ -125,6 +125,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SPRUCE_BUSH = registerBush(WoodType.SPRUCE, SpruceTreeGrower::new);
     public static final RegistryObject<Block> SPRUCE_CHEST = registerChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_CHEST.get()));
     public static final RegistryObject<Block> SPRUCE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> SPRUCE_BOOKSHELF = registerBookshelf(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_LECTERN = registerLectern(WoodType.SPRUCE);
 
     //#endregion
 
@@ -137,6 +140,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BIRCH_BARREL = registerBarrel(WoodType.BIRCH);
     public static final RegistryObject<Block> BIRCH_CHEST = registerChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_CHEST.get()));
     public static final RegistryObject<Block> BIRCH_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> BIRCH_BOOKSHELF = registerBookshelf(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_LECTERN = registerLectern(WoodType.BIRCH);
 
     //#endregion
 
@@ -149,6 +155,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> JUNGLE_BARREL = registerBarrel(WoodType.JUNGLE);
     public static final RegistryObject<Block> JUNGLE_CHEST = registerChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_CHEST.get()));
     public static final RegistryObject<Block> JUNGLE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> JUNGLE_BOOKSHELF = registerBookshelf(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_LECTERN = registerLectern(WoodType.JUNGLE);
 
     //#endregion
 
@@ -161,6 +170,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ACACIA_BARREL = registerBarrel(WoodType.ACACIA);
     public static final RegistryObject<Block> ACACIA_CHEST = registerChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_CHEST.get()));
     public static final RegistryObject<Block> ACACIA_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> ACACIA_BOOKSHELF = registerBookshelf(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_LECTERN = registerLectern(WoodType.ACACIA);
 
     //#endregion
 
@@ -173,6 +185,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DARK_OAK_BARREL = registerBarrel(WoodType.DARK_OAK);
     public static final RegistryObject<Block> DARK_OAK_CHEST = registerChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_CHEST.get()));
     public static final RegistryObject<Block> DARK_OAK_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> DARK_OAK_BOOKSHELF = registerBookshelf(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_LECTERN = registerLectern(WoodType.DARK_OAK);
 
     //#endregion
 
@@ -187,6 +202,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> MANGROVE_BARREL = registerBarrel(WoodType.MANGROVE);
     public static final RegistryObject<Block> MANGROVE_CHEST = registerChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_CHEST.get()));
     public static final RegistryObject<Block> MANGROVE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> MANGROVE_BOOKSHELF = registerBookshelf(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_LECTERN = registerLectern(WoodType.MANGROVE);
 
     //#endregion
 
@@ -199,6 +217,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CHERRY_BARREL = registerBarrel(WoodType.CHERRY);
     public static final RegistryObject<Block> CHERRY_CHEST = registerChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_CHEST.get()));
     public static final RegistryObject<Block> CHERRY_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> CHERRY_BOOKSHELF = registerBookshelf(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_LECTERN = registerLectern(WoodType.CHERRY);
 
     //#endregion
 
@@ -209,6 +230,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BAMBOO_BARREL = registerBarrel(WoodType.BAMBOO);
     public static final RegistryObject<Block> BAMBOO_CHEST = registerChest(() -> WoodType.BAMBOO, Suppliers.memoize(() -> MWBlockEntityTypes.BAMBOO_CHEST.get()));
     public static final RegistryObject<Block> BAMBOO_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.BAMBOO, Suppliers.memoize(() -> MWBlockEntityTypes.BAMBOO_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> BAMBOO_BOOKSHELF = registerBookshelf(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_LECTERN = registerLectern(WoodType.BAMBOO);
 
     //#endregion
 
@@ -220,6 +244,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CRIMSON_BARREL = registerBarrel(WoodType.CRIMSON);
     public static final RegistryObject<Block> CRIMSON_CHEST = registerChest(() -> WoodType.CRIMSON, Suppliers.memoize(() -> MWBlockEntityTypes.CRIMSON_CHEST.get()));
     public static final RegistryObject<Block> CRIMSON_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.CRIMSON, Suppliers.memoize(() -> MWBlockEntityTypes.CRIMSON_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> CRIMSON_BOOKSHELF = registerBookshelf(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_LECTERN = registerLectern(WoodType.CRIMSON);
 
     //#endregion
 
@@ -231,6 +258,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WARPED_BARREL = registerBarrel(WoodType.WARPED);
     public static final RegistryObject<Block> WARPED_CHEST = registerChest(() -> WoodType.WARPED, Suppliers.memoize(() -> MWBlockEntityTypes.WARPED_CHEST.get()));
     public static final RegistryObject<Block> WARPED_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.WARPED, Suppliers.memoize(() -> MWBlockEntityTypes.WARPED_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> WARPED_BOOKSHELF = registerBookshelf(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_LECTERN = registerLectern(WoodType.WARPED);
 
     //#endregion
 
@@ -243,67 +273,79 @@ public final class MWBlocks {
 
     //#region Apple
 
-    public static final RegistryObject<Block> APPLE_LOG = registerLog("apple", false, MWWoodTypes.APPLE, true);
-    public static final RegistryObject<Block> HOLLOW_APPLE_LOG = registerHollowLog("apple", false,  Suppliers.memoize(() -> APPLE_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> STRIPPED_APPLE_LOG = registerLog("apple", true, MWWoodTypes.APPLE, true);
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_APPLE_LOG = registerHollowLog("apple", true,  Suppliers.memoize(() -> STRIPPED_APPLE_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> APPLE_WOOD = registerLog("apple", false, MWWoodTypes.APPLE, false);
-    public static final RegistryObject<Block> STRIPPED_APPLE_WOOD = registerLog("apple", true, MWWoodTypes.APPLE, false);
-    public static final RegistryObject<Block> APPLE_PLANKS = registerPlanks("apple", MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_LEAVES = registerLeaves("apple", MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_SAPLING = registerSapling("apple", Suppliers.memoize(AppleTreeGrower::new));
-    public static final RegistryObject<Block> APPLE_BARREL = registerBarrel("apple");
-    public static final RegistryObject<Block> APPLE_CHEST = registerChest("apple", MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_CHEST.get()));
-    public static final RegistryObject<Block> APPLE_TRAPPED_CHEST = registerTrappedChest("apple", MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> APPLE_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, false, MWWoodTypes.APPLE, true);
+    public static final RegistryObject<Block> HOLLOW_APPLE_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.APPLE, false,  Suppliers.memoize(() -> APPLE_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_APPLE_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, true, MWWoodTypes.APPLE, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_APPLE_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.APPLE, true,  Suppliers.memoize(() -> STRIPPED_APPLE_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> APPLE_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, false, MWWoodTypes.APPLE, false);
+    public static final RegistryObject<Block> STRIPPED_APPLE_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, true, MWWoodTypes.APPLE, false);
+    public static final RegistryObject<Block> APPLE_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_SAPLING = registerSapling(MWWoodTypes.MWWoodTypeNames.APPLE, Suppliers.memoize(AppleTreeGrower::new));
+    public static final RegistryObject<Block> APPLE_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.APPLE);
+    public static final RegistryObject<Block> APPLE_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_CHEST.get()));
+    public static final RegistryObject<Block> APPLE_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> APPLE_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
 
     //#endregion
 
     //#region Palm
 
-    public static final RegistryObject<Block> PALM_LOG = registerLog("palm", false, MWWoodTypes.PALM, true);
-    public static final RegistryObject<Block> HOLLOW_PALM_LOG = registerHollowLog("palm", false,  Suppliers.memoize(() -> PALM_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> STRIPPED_PALM_LOG = registerLog("palm", true, MWWoodTypes.PALM, true);
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_PALM_LOG = registerHollowLog("palm", true,  Suppliers.memoize(() -> STRIPPED_PALM_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> PALM_WOOD = registerLog("palm", false, MWWoodTypes.PALM, false);
-    public static final RegistryObject<Block> STRIPPED_PALM_WOOD = registerLog("palm", true, MWWoodTypes.PALM, false);
-    public static final RegistryObject<Block> PALM_PLANKS = registerPlanks("palm", MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_LEAVES = registerLeaves("palm", MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_SAPLING = registerBlock("palm_sapling", Suppliers.memoize(PalmSaplingBlock::new));
-    public static final RegistryObject<Block> PALM_BARREL = registerBarrel("palm");
-    public static final RegistryObject<Block> PALM_CHEST = registerChest("palm", MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_CHEST.get()));
-    public static final RegistryObject<Block> PALM_TRAPPED_CHEST = registerTrappedChest("palm", MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> PALM_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, false, MWWoodTypes.PALM, true);
+    public static final RegistryObject<Block> HOLLOW_PALM_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.PALM, false,  Suppliers.memoize(() -> PALM_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_PALM_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, true, MWWoodTypes.PALM, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_PALM_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.PALM, true,  Suppliers.memoize(() -> STRIPPED_PALM_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> PALM_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, false, MWWoodTypes.PALM, false);
+    public static final RegistryObject<Block> STRIPPED_PALM_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, true, MWWoodTypes.PALM, false);
+    public static final RegistryObject<Block> PALM_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_SAPLING = registerBlock(MWWoodTypes.MWWoodTypeNames.PALM + "_sapling", Suppliers.memoize(PalmSaplingBlock::new));
+    public static final RegistryObject<Block> PALM_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.PALM);
+    public static final RegistryObject<Block> PALM_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_CHEST.get()));
+    public static final RegistryObject<Block> PALM_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> PALM_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
 
     //#endregion
 
     //#region Dead
 
-    public static final RegistryObject<Block> DEAD_LOG = registerLog("dead", false,  MWWoodTypes.DEAD, true);
-    public static final RegistryObject<Block> HOLLOW_DEAD_LOG = registerHollowLog("dead", false,  Suppliers.memoize(() -> DEAD_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> STRIPPED_DEAD_LOG = registerLog("dead", true, MWWoodTypes.DEAD, true);
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_DEAD_LOG = registerHollowLog("dead", true,  Suppliers.memoize(() -> STRIPPED_DEAD_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> DEAD_WOOD = registerLog("dead", false, MWWoodTypes.DEAD, false);
-    public static final RegistryObject<Block> STRIPPED_DEAD_WOOD = registerLog("dead", true, MWWoodTypes.DEAD, false);
-    public static final RegistryObject<Block> DEAD_PLANKS = registerPlanks("dead", MWWoodTypes.DEAD);
-    public static final RegistryObject<Block> DEAD_BARREL = registerBarrel("dead");
-    public static final RegistryObject<Block> DEAD_CHEST = registerChest("dead", MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_CHEST.get()));
-    public static final RegistryObject<Block> DEAD_TRAPPED_CHEST = registerTrappedChest("dead", MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> DEAD_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, false,  MWWoodTypes.DEAD, true);
+    public static final RegistryObject<Block> HOLLOW_DEAD_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.DEAD, false,  Suppliers.memoize(() -> DEAD_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_DEAD_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, true, MWWoodTypes.DEAD, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_DEAD_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.DEAD, true,  Suppliers.memoize(() -> STRIPPED_DEAD_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> DEAD_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, false, MWWoodTypes.DEAD, false);
+    public static final RegistryObject<Block> STRIPPED_DEAD_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, true, MWWoodTypes.DEAD, false);
+    public static final RegistryObject<Block> DEAD_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.DEAD);
+    public static final RegistryObject<Block> DEAD_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_CHEST.get()));
+    public static final RegistryObject<Block> DEAD_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> DEAD_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
 
     //#endregion
 
     //#region Sculk
 
-    public static final RegistryObject<Block> SCULK_LOG = registerLog("sculk", false, MWWoodTypes.SCULK, true);
-    public static final RegistryObject<Block> HOLLOW_SCULK_LOG = registerHollowLog("sculk", false,  Suppliers.memoize(() -> SCULK_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> STRIPPED_SCULK_LOG = registerLog("sculk", true, MWWoodTypes.SCULK, true);
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_SCULK_LOG = registerHollowLog("sculk", true,  Suppliers.memoize(() -> STRIPPED_SCULK_LOG.get().defaultBlockState()));
-    public static final RegistryObject<Block> SCULK_WOOD = registerLog("sculk", false, MWWoodTypes.SCULK, false);
-    public static final RegistryObject<Block> STRIPPED_SCULK_WOOD = registerLog("sculk", true, MWWoodTypes.SCULK, false);
-    public static final RegistryObject<Block> SCULK_PLANKS = registerPlanks("sculk", MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_LEAVES = registerLeaves("sculk", MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_SAPLING = registerBlock("sculk_sapling", Suppliers.memoize(SculkSaplingBlock::new));
-    public static final RegistryObject<Block> SCULK_BARREL = registerBarrel("sculk");
-    public static final RegistryObject<Block> SCULK_CHEST = registerChest("sculk", MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_CHEST.get()));
-    public static final RegistryObject<Block> SCULK_TRAPPED_CHEST = registerTrappedChest("sculk", MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> SCULK_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, false, MWWoodTypes.SCULK, true);
+    public static final RegistryObject<Block> HOLLOW_SCULK_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.SCULK, false,  Suppliers.memoize(() -> SCULK_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_SCULK_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, true, MWWoodTypes.SCULK, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_SCULK_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.SCULK, true,  Suppliers.memoize(() -> STRIPPED_SCULK_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> SCULK_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, false, MWWoodTypes.SCULK, false);
+    public static final RegistryObject<Block> STRIPPED_SCULK_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, true, MWWoodTypes.SCULK, false);
+    public static final RegistryObject<Block> SCULK_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_SAPLING = registerBlock(MWWoodTypes.MWWoodTypeNames.SCULK + "_sapling", Suppliers.memoize(SculkSaplingBlock::new));
+    public static final RegistryObject<Block> SCULK_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.SCULK);
+    public static final RegistryObject<Block> SCULK_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_CHEST.get()));
+    public static final RegistryObject<Block> SCULK_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> SCULK_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
 
     //#endregion
 
@@ -1318,7 +1360,7 @@ public final class MWBlocks {
     /**
      * Register a {@link MWChestBlock Chest Block}
      *
-     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
      * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      * @return {@link RegistryObject<Block> The registered Block}
@@ -1343,7 +1385,7 @@ public final class MWBlocks {
     /**
      * Register a {@link MWTrappedChestBlock Trapped Chest Block}
      *
-     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
      * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      * @return {@link RegistryObject<Block> The registered Block}
@@ -1363,6 +1405,75 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerTrappedChest(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
         return registerBlockWithoutBlockItem(woodName + "_trapped_chest", Suppliers.memoize(() -> new MWTrappedChestBlock(woodTypeSupplier, blockEntityTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWBookshelfBlock Bookshelf Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBookshelf(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBookshelf(ResourceHelper.woodName(woodType), () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWBookshelfBlock Bookshelf Block}
+     *
+     * @param woodName {@link String The Bookshelf Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBookshelf(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_bookshelf", Suppliers.memoize(() -> new MWBookshelfBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link ChiseledBookShelfBlock Chiseled Bookshelf Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChiseledBookshelf(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerChiseledBookshelf(ResourceHelper.woodName(woodType), () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link ChiseledBookShelfBlock Chiseled Bookshelf Block}
+     *
+     * @param woodName {@link String The Bookshelf Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChiseledBookshelf(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_chiseled_bookshelf", Suppliers.memoize(() -> new ChiseledBookShelfBlock(PropertyHelper.copy(Blocks.CHISELED_BOOKSHELF, featureFlags).sound(woodTypeSupplier.get().soundType()))));
+    }
+
+    /**
+     * Register a {@link LecternBlock Lectern Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLectern(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerLectern(ResourceHelper.woodName(woodType), () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link LecternBlock Lectern Block}
+     *
+     * @param woodName {@link String The Bookshelf Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLectern(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_lectern", Suppliers.memoize(() -> new MWLecternBlock(woodTypeSupplier, featureFlags)));
     }
 
     /**

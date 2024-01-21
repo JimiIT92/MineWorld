@@ -46,7 +46,7 @@ public class MWChestBlock extends ChestBlock {
      *
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param blockState {@link BlockState The current Block State}
-     * @return {@link BlockEntity The Chest Block Entity}
+     * @return {@link ChestBlockEntity The Chest Block Entity}
      */
     @Override
     public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {

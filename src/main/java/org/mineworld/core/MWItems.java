@@ -223,16 +223,16 @@ public final class MWItems {
     public static final RegistryObject<Item> CRIMSON_TRAPPED_CHEST = registerChest(WoodType.CRIMSON, true, Suppliers.memoize(() -> MWBlocks.CRIMSON_TRAPPED_CHEST.get()));
     public static final RegistryObject<Item> WARPED_CHEST = registerChest(WoodType.WARPED, false, Suppliers.memoize(() -> MWBlocks.WARPED_CHEST.get()));
     public static final RegistryObject<Item> WARPED_TRAPPED_CHEST = registerChest(WoodType.WARPED, true, Suppliers.memoize(() -> MWBlocks.WARPED_TRAPPED_CHEST.get()));
-    public static final RegistryObject<Item> APPLE_CHEST = registerChest("apple", false, Suppliers.memoize(() -> MWBlocks.APPLE_CHEST.get()));
-    public static final RegistryObject<Item> APPLE_TRAPPED_CHEST = registerChest("apple", true, Suppliers.memoize(() -> MWBlocks.APPLE_TRAPPED_CHEST.get()));
-    public static final RegistryObject<Item> PALM_CHEST = registerChest("palm", false, Suppliers.memoize(() -> MWBlocks.PALM_CHEST.get()));
-    public static final RegistryObject<Item> PALM_TRAPPED_CHEST = registerChest("palm", true, Suppliers.memoize(() -> MWBlocks.PALM_TRAPPED_CHEST.get()));
-    public static final RegistryObject<Item> DEAD_CHEST = registerChest("dead", false, Suppliers.memoize(() -> MWBlocks.DEAD_CHEST.get()));
-    public static final RegistryObject<Item> DEAD_TRAPPED_CHEST = registerChest("dead", true, Suppliers.memoize(() -> MWBlocks.DEAD_TRAPPED_CHEST.get()));
-    public static final RegistryObject<Item> SCULK_CHEST = registerChest("sculk", false, Suppliers.memoize(() -> MWBlocks.SCULK_CHEST.get()));
-    public static final RegistryObject<Item> SCULK_TRAPPED_CHEST = registerChest("sculk", true, Suppliers.memoize(() -> MWBlocks.SCULK_TRAPPED_CHEST.get()));
-    public static final RegistryObject<Item> ICE_CHEST = registerChest("ice", false, Suppliers.memoize(() -> MWBlocks.ICE_CHEST.get()));
-    public static final RegistryObject<Item> ICE_TRAPPED_CHEST = registerChest("ice", true, Suppliers.memoize(() -> MWBlocks.ICE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> APPLE_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.APPLE, false, Suppliers.memoize(() -> MWBlocks.APPLE_CHEST.get()));
+    public static final RegistryObject<Item> APPLE_TRAPPED_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.APPLE, true, Suppliers.memoize(() -> MWBlocks.APPLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> PALM_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.PALM, false, Suppliers.memoize(() -> MWBlocks.PALM_CHEST.get()));
+    public static final RegistryObject<Item> PALM_TRAPPED_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.PALM, true, Suppliers.memoize(() -> MWBlocks.PALM_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> DEAD_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.DEAD, false, Suppliers.memoize(() -> MWBlocks.DEAD_CHEST.get()));
+    public static final RegistryObject<Item> DEAD_TRAPPED_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.DEAD, true, Suppliers.memoize(() -> MWBlocks.DEAD_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> SCULK_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.SCULK, false, Suppliers.memoize(() -> MWBlocks.SCULK_CHEST.get()));
+    public static final RegistryObject<Item> SCULK_TRAPPED_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.SCULK, true, Suppliers.memoize(() -> MWBlocks.SCULK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> ICE_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.ICE, false, Suppliers.memoize(() -> MWBlocks.ICE_CHEST.get()));
+    public static final RegistryObject<Item> ICE_TRAPPED_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.ICE, true, Suppliers.memoize(() -> MWBlocks.ICE_TRAPPED_CHEST.get()));
 
     //#endregion
 

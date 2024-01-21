@@ -49,7 +49,7 @@ public final class MWBlockSetTypes {
             SoundEvents.STONE_BUTTON_CLICK_OFF,
             SoundEvents.STONE_BUTTON_CLICK_ON)
     );
-    public static final Supplier<BlockSetType> ICE = Suppliers.memoize(() -> registerBlockSetType("ice", false,
+    public static final Supplier<BlockSetType> ICE = Suppliers.memoize(() -> registerBlockSetType(MWWoodTypes.MWWoodTypeNames.ICE, false,
             SoundType.GLASS,
             SoundEvents.GLASS_FALL,
             SoundEvents.GLASS_STEP,
@@ -60,7 +60,7 @@ public final class MWBlockSetTypes {
             SoundEvents.GLASS_HIT,
             SoundEvents.GLASS_PLACE)
     );
-    public static final Supplier<BlockSetType> SCULK = Suppliers.memoize(() -> registerBlockSetType("sculk", true,
+    public static final Supplier<BlockSetType> SCULK = Suppliers.memoize(() -> registerBlockSetType(MWWoodTypes.MWWoodTypeNames.SCULK, true,
             MWSoundTypes.SCULK_WOOD,
             MWSounds.SCULK_DOOR_CLOSE.get(),
             MWSounds.SCULK_DOOR_OPEN.get(),
