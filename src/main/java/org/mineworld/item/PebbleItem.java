@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 public class PebbleItem extends ItemNameBlockItem {
 
     /**
-     * Constructor. Set the Item properties
+     * Constructor. Set the {@link Properties Item Properties}
      *
      * @param pebbleBlockSupplier {@link Supplier<Block> The Pebble Block that will be placed from this Item}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}

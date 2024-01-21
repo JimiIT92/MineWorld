@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -18,6 +19,7 @@ import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;
 import org.mineworld.helper.TextureHelper;
 import org.mineworld.item.MWFuelItem;
+import org.mineworld.item.MWItemNameBlockItem;
 import org.mineworld.item.MWMinecartItem;
 import org.mineworld.item.MWTntMinecartItem;
 
@@ -196,6 +198,39 @@ public final class MWItems {
     public static final RegistryObject<Item> MEGA_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.MEGA_TNT, MWPrimedTnt.Type.MEGA);
     public static final RegistryObject<Item> SUPER_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.SUPER_TNT, MWPrimedTnt.Type.SUPER);
     public static final RegistryObject<Item> HYPER_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.HYPER_TNT, MWPrimedTnt.Type.HYPER);
+
+    //#endregion
+
+    //#region Chests and Trapped Chests
+
+    public static final RegistryObject<Item> SPRUCE_CHEST = registerChest(WoodType.SPRUCE, false, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
+    public static final RegistryObject<Item> SPRUCE_TRAPPED_CHEST = registerChest(WoodType.SPRUCE, true, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> BIRCH_CHEST = registerChest(WoodType.BIRCH, false, Suppliers.memoize(() -> MWBlocks.BIRCH_CHEST.get()));
+    public static final RegistryObject<Item> BIRCH_TRAPPED_CHEST = registerChest(WoodType.BIRCH, true, Suppliers.memoize(() -> MWBlocks.BIRCH_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> JUNGLE_CHEST = registerChest(WoodType.JUNGLE, false, Suppliers.memoize(() -> MWBlocks.JUNGLE_CHEST.get()));
+    public static final RegistryObject<Item> JUNGLE_TRAPPED_CHEST = registerChest(WoodType.JUNGLE, true, Suppliers.memoize(() -> MWBlocks.JUNGLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> ACACIA_CHEST = registerChest(WoodType.ACACIA, false, Suppliers.memoize(() -> MWBlocks.ACACIA_CHEST.get()));
+    public static final RegistryObject<Item> ACACIA_TRAPPED_CHEST = registerChest(WoodType.ACACIA, true, Suppliers.memoize(() -> MWBlocks.ACACIA_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> DARK_OAK_CHEST = registerChest(WoodType.DARK_OAK, false, Suppliers.memoize(() -> MWBlocks.DARK_OAK_CHEST.get()));
+    public static final RegistryObject<Item> DARK_OAK_TRAPPED_CHEST = registerChest(WoodType.DARK_OAK, true, Suppliers.memoize(() -> MWBlocks.DARK_OAK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> MANGROVE_CHEST = registerChest(WoodType.MANGROVE, false, Suppliers.memoize(() -> MWBlocks.MANGROVE_CHEST.get()));
+    public static final RegistryObject<Item> MANGROVE_TRAPPED_CHEST = registerChest(WoodType.MANGROVE, true, Suppliers.memoize(() -> MWBlocks.MANGROVE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> CHERRY_CHEST = registerChest(WoodType.CHERRY, false, Suppliers.memoize(() -> MWBlocks.CHERRY_CHEST.get()));
+    public static final RegistryObject<Item> CHERRY_TRAPPED_CHEST = registerChest(WoodType.CHERRY, true, Suppliers.memoize(() -> MWBlocks.CHERRY_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> BAMBOO_CHEST = registerChest(WoodType.BAMBOO, false, Suppliers.memoize(() -> MWBlocks.BAMBOO_CHEST.get()));
+    public static final RegistryObject<Item> BAMBOO_TRAPPED_CHEST = registerChest(WoodType.BAMBOO, true, Suppliers.memoize(() -> MWBlocks.BAMBOO_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> CRIMSON_CHEST = registerChest(WoodType.CRIMSON, false, Suppliers.memoize(() -> MWBlocks.CRIMSON_CHEST.get()));
+    public static final RegistryObject<Item> CRIMSON_TRAPPED_CHEST = registerChest(WoodType.CRIMSON, true, Suppliers.memoize(() -> MWBlocks.CRIMSON_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> WARPED_CHEST = registerChest(WoodType.WARPED, false, Suppliers.memoize(() -> MWBlocks.WARPED_CHEST.get()));
+    public static final RegistryObject<Item> WARPED_TRAPPED_CHEST = registerChest(WoodType.WARPED, true, Suppliers.memoize(() -> MWBlocks.WARPED_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> APPLE_CHEST = registerChest("apple", false, Suppliers.memoize(() -> MWBlocks.APPLE_CHEST.get()));
+    public static final RegistryObject<Item> APPLE_TRAPPED_CHEST = registerChest("apple", true, Suppliers.memoize(() -> MWBlocks.APPLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> PALM_CHEST = registerChest("palm", false, Suppliers.memoize(() -> MWBlocks.PALM_CHEST.get()));
+    public static final RegistryObject<Item> PALM_TRAPPED_CHEST = registerChest("palm", true, Suppliers.memoize(() -> MWBlocks.PALM_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> DEAD_CHEST = registerChest("dead", false, Suppliers.memoize(() -> MWBlocks.DEAD_CHEST.get()));
+    public static final RegistryObject<Item> DEAD_TRAPPED_CHEST = registerChest("dead", true, Suppliers.memoize(() -> MWBlocks.DEAD_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Item> SCULK_CHEST = registerChest("sculk", false, Suppliers.memoize(() -> MWBlocks.SCULK_CHEST.get()));
+    public static final RegistryObject<Item> SCULK_TRAPPED_CHEST = registerChest("sculk", true, Suppliers.memoize(() -> MWBlocks.SCULK_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -404,11 +439,49 @@ public final class MWItems {
     }
 
     /**
+     * Register a {@link MWItemNameBlockItem Block Item with a special rendering}
+     *
+     * @param woodType {@link WoodType The Chest Wood Type}
+     * @param isTrappedChest {@link Boolean If the Chest is a Trapped Chest}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block that will be placed by this Item}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerChest(final WoodType woodType, final boolean isTrappedChest, final Supplier<? extends Block> blockSupplier, final FeatureFlag...featureFlags) {
+        return registerChest(ResourceHelper.woodName(woodType), isTrappedChest, blockSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWItemNameBlockItem Block Item with a special rendering}
+     *
+     * @param woodName {@link String The Chest Wood Name}
+     * @param isTrappedChest {@link Boolean If the Chest is a Trapped Chest}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block that will be placed by this Item}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerChest(final String woodName, final boolean isTrappedChest, final Supplier<? extends Block> blockSupplier, final FeatureFlag...featureFlags) {
+        return registerSpecialRendererBlockItem(woodName + "_" + (isTrappedChest ? "trapped_": "") + "chest", blockSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWItemNameBlockItem Block Item with a special rendering}
+     *
+     * @param name {@link String The Item Name}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block that will be placed by this Item}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerSpecialRendererBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag...featureFlags) {
+        return registerItem(name, () -> new MWItemNameBlockItem(blockSupplier, featureFlags));
+    }
+
+    /**
      * Register a {@link BlockItem Block Item}
      *
-     * @param name {@link String The Block name}
-     * @param blockSupplier {@link Supplier The Block supplier}
-     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @param name {@link String The Item name}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block that will be placed by this Item}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      * @return {@link RegistryObject<Item> The registered Item}
      */
     static RegistryObject<Item> registerBlockItem(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {

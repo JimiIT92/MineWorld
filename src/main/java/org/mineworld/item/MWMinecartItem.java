@@ -32,7 +32,7 @@ public class MWMinecartItem extends Item {
     private final Type type;
 
     /**
-     * Constructor. Set the Item properties
+     * Constructor. Set the {@link Properties Item Properties}
      *
      * @param type {@link Type The minecart type}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}

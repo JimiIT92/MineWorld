@@ -1,8 +1,6 @@
 package org.mineworld.core;
 
-import com.mojang.serialization.Codec;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,10 +24,10 @@ public final class MWStructureTypes {
 
     //#region Structure Types
 
-    public static final RegistryObject<StructureType<MWJigsawStructure>> ICE_CASTLE = registerStructureType("ice_castle", MWJigsawStructure.CODEC);
-    public static final RegistryObject<StructureType<MWJigsawStructure>> ETHEREAL_RUIN = registerStructureType("ethereal_ruin", MWJigsawStructure.CODEC);
-    public static final RegistryObject<StructureType<MWJigsawStructure>> RUINED_ETHEREAL_PORTAL = registerStructureType("ruined_ethereal_portal", MWJigsawStructure.CODEC);
-    public static final RegistryObject<StructureType<MWJigsawStructure>> ANCIENT_TEMPLE = registerStructureType("ancient_temple", MWJigsawStructure.CODEC);
+    public static final RegistryObject<StructureType<MWJigsawStructure>> ICE_CASTLE = registerStructureType("ice_castle");
+    public static final RegistryObject<StructureType<MWJigsawStructure>> ETHEREAL_RUIN = registerStructureType("ethereal_ruin");
+    public static final RegistryObject<StructureType<MWJigsawStructure>> RUINED_ETHEREAL_PORTAL = registerStructureType("ruined_ethereal_portal");
+    public static final RegistryObject<StructureType<MWJigsawStructure>> ANCIENT_TEMPLE = registerStructureType("ancient_temple");
 
     //#endregion
 
@@ -39,12 +37,10 @@ public final class MWStructureTypes {
      * Register a {@link StructureType Structure Type}
      *
      * @param name {@link String The Structure Type name}
-     * @param codec {@link Codec<T> The Structure Type Codec}
      * @return {@link RegistryObject<StructureType> The registered Structure Type}
-     * @param <T> {@link T The Structure Type}
      */
-    private static <T extends Structure> RegistryObject<StructureType<T>> registerStructureType(final String name, final Codec<T> codec) {
-        return STRUCTURE_TYPES.register(name, () -> () -> codec);
+    private static RegistryObject<StructureType<MWJigsawStructure>> registerStructureType(final String name) {
+        return STRUCTURE_TYPES.register(name, () -> () -> MWJigsawStructure.CODEC);
     }
 
     //#endregion

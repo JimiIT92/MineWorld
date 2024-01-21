@@ -22,7 +22,7 @@ public class MWFuelBlockItem extends BlockItem {
     private final int burnTime;
 
     /**
-     * Constructor. Set the {@link Integer fuel burn time}
+     * Constructor. Set the {@link Properties Item Properties}
      *
      * @param blockSupplier {@link Supplier<Block> The block that will be placed from this Item}
      * @param burnTime {@link Integer The fuel burn time}

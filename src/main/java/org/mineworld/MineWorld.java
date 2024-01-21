@@ -3,11 +3,14 @@ package org.mineworld;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.mineworld.client.renderer.MWItemRenderer;
 import org.mineworld.core.*;
 
 import java.util.logging.Logger;
@@ -27,9 +30,9 @@ public final class MineWorld {
      */
     public static final Logger LOGGER = Logger.getLogger(MOD_ID);
     /**
-     * The {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom Item Renderer}
+     * The {@link MineWorld MineWorld} {@link MWItemRenderer custom Item Renderer}
      */
-    private static BlockEntityWithoutLevelRenderer ITEMS_RENDERER;
+    private static MWItemRenderer ITEMS_RENDERER;
 
     /**
      * Constructor. Initialize the mod
@@ -39,6 +42,7 @@ public final class MineWorld {
 
         this.onModSetup(eventBus);
         eventBus.addListener(this::onCommonSetup);
+        eventBus.addListener(this::onClientSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -81,12 +85,24 @@ public final class MineWorld {
     }
 
     /**
+     * Set up the {@link MineWorld MineWorld} client stuffs, like entity renderers and {@link Item Item} custom properties
+     *
+     * @param event {@link FMLClientSetupEvent The FML client setup event}
+     */
+    private void onClientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(MWBlockEntityTypes::registerRenderers);
+    }
+
+    /**
      * Get the {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom Item Renderer}
      *
      * @return The {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer custom Item Renderer}
      */
     public static BlockEntityWithoutLevelRenderer getItemsRenderer() {
-        return null;
+        if(ITEMS_RENDERER == null) {
+            ITEMS_RENDERER = new MWItemRenderer();
+        }
+        return ITEMS_RENDERER;
     }
 
 }

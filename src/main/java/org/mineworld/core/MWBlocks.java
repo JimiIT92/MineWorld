@@ -7,6 +7,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.grower.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -121,6 +123,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_STRIPPED_SPRUCE_LOG = registerHollowLog(WoodType.SPRUCE, true, Blocks.STRIPPED_SPRUCE_LOG::defaultBlockState);
     public static final RegistryObject<Block> SPRUCE_LEAVES_CARPET = registerLeaveCarpet(WoodType.SPRUCE, () -> Blocks.SPRUCE_LEAVES);
     public static final RegistryObject<Block> SPRUCE_BUSH = registerBush(WoodType.SPRUCE, SpruceTreeGrower::new);
+    public static final RegistryObject<Block> SPRUCE_CHEST = registerChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_CHEST.get()));
+    public static final RegistryObject<Block> SPRUCE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -131,6 +135,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BIRCH_LEAVES_CARPET = registerLeaveCarpet(WoodType.BIRCH, () -> Blocks.BIRCH_LEAVES);
     public static final RegistryObject<Block> BIRCH_BUSH = registerBush(WoodType.BIRCH, BirchTreeGrower::new);
     public static final RegistryObject<Block> BIRCH_BARREL = registerBarrel(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_CHEST = registerChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_CHEST.get()));
+    public static final RegistryObject<Block> BIRCH_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -141,6 +147,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> JUNGLE_LEAVES_CARPET = registerLeaveCarpet(WoodType.JUNGLE, () -> Blocks.JUNGLE_LEAVES);
     public static final RegistryObject<Block> JUNGLE_BUSH = registerBush(WoodType.JUNGLE, JungleTreeGrower::new);
     public static final RegistryObject<Block> JUNGLE_BARREL = registerBarrel(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_CHEST = registerChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_CHEST.get()));
+    public static final RegistryObject<Block> JUNGLE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -151,6 +159,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ACACIA_LEAVES_CARPET = registerLeaveCarpet(WoodType.ACACIA, () -> Blocks.ACACIA_LEAVES);
     public static final RegistryObject<Block> ACACIA_BUSH = registerBush(WoodType.ACACIA, AcaciaTreeGrower::new);
     public static final RegistryObject<Block> ACACIA_BARREL = registerBarrel(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_CHEST = registerChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_CHEST.get()));
+    public static final RegistryObject<Block> ACACIA_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -161,6 +171,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DARK_OAK_LEAVES_CARPET = registerLeaveCarpet(WoodType.DARK_OAK, () -> Blocks.DARK_OAK_LEAVES);
     public static final RegistryObject<Block> DARK_OAK_BUSH = registerBush(WoodType.DARK_OAK, DarkOakTreeGrower::new);
     public static final RegistryObject<Block> DARK_OAK_BARREL = registerBarrel(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_CHEST = registerChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_CHEST.get()));
+    public static final RegistryObject<Block> DARK_OAK_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -173,6 +185,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> MUDDY_MANGROVE_ROOTS_CARPET = registerCarpet("muddy_mangrove_roots", () -> Blocks.MANGROVE_LEAVES);
     public static final RegistryObject<Block> MANGROVE_BUSH = registerBush(WoodType.MANGROVE, () -> new MangroveTreeGrower(0.85F));
     public static final RegistryObject<Block> MANGROVE_BARREL = registerBarrel(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_CHEST = registerChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_CHEST.get()));
+    public static final RegistryObject<Block> MANGROVE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -183,6 +197,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CHERRY_LEAVES_CARPET = registerLeaveCarpet(WoodType.CHERRY, () -> Blocks.CHERRY_LEAVES);
     public static final RegistryObject<Block> CHERRY_BUSH = registerBush(WoodType.CHERRY, CherryTreeGrower::new);
     public static final RegistryObject<Block> CHERRY_BARREL = registerBarrel(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_CHEST = registerChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_CHEST.get()));
+    public static final RegistryObject<Block> CHERRY_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -191,6 +207,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_BAMBOO_BLOCK = registerHollowLog(WoodType.BAMBOO, false, "block", Blocks.BAMBOO_BLOCK::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_BAMBOO_BLOCK = registerHollowLog(WoodType.BAMBOO, true, "block", Blocks.STRIPPED_BAMBOO_BLOCK::defaultBlockState);
     public static final RegistryObject<Block> BAMBOO_BARREL = registerBarrel(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_CHEST = registerChest(() -> WoodType.BAMBOO, Suppliers.memoize(() -> MWBlockEntityTypes.BAMBOO_CHEST.get()));
+    public static final RegistryObject<Block> BAMBOO_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.BAMBOO, Suppliers.memoize(() -> MWBlockEntityTypes.BAMBOO_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -200,6 +218,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_STRIPPED_CRIMSON_STEM = registerHollowLog(WoodType.CRIMSON, true, "stem", Blocks.STRIPPED_CRIMSON_STEM::defaultBlockState);
     public static final RegistryObject<Block> NETHER_WART_CARPET = registerCarpet("nether_wart", () -> Blocks.NETHER_WART_BLOCK);
     public static final RegistryObject<Block> CRIMSON_BARREL = registerBarrel(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_CHEST = registerChest(() -> WoodType.CRIMSON, Suppliers.memoize(() -> MWBlockEntityTypes.CRIMSON_CHEST.get()));
+    public static final RegistryObject<Block> CRIMSON_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.CRIMSON, Suppliers.memoize(() -> MWBlockEntityTypes.CRIMSON_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -209,6 +229,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_STRIPPED_WARPED_STEM = registerHollowLog(WoodType.WARPED, true, "stem", Blocks.STRIPPED_WARPED_STEM::defaultBlockState);
     public static final RegistryObject<Block> WARPED_WART_CARPET = registerCarpet("warped_wart", () -> Blocks.WARPED_WART_BLOCK);
     public static final RegistryObject<Block> WARPED_BARREL = registerBarrel(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_CHEST = registerChest(() -> WoodType.WARPED, Suppliers.memoize(() -> MWBlockEntityTypes.WARPED_CHEST.get()));
+    public static final RegistryObject<Block> WARPED_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.WARPED, Suppliers.memoize(() -> MWBlockEntityTypes.WARPED_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -231,6 +253,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> APPLE_LEAVES = registerLeaves("apple", MWWoodTypes.APPLE);
     public static final RegistryObject<Block> APPLE_SAPLING = registerSapling("apple", Suppliers.memoize(AppleTreeGrower::new));
     public static final RegistryObject<Block> APPLE_BARREL = registerBarrel("apple");
+    public static final RegistryObject<Block> APPLE_CHEST = registerChest("apple", MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_CHEST.get()));
+    public static final RegistryObject<Block> APPLE_TRAPPED_CHEST = registerTrappedChest("apple", MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -246,6 +270,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PALM_LEAVES = registerLeaves("palm", MWWoodTypes.PALM);
     public static final RegistryObject<Block> PALM_SAPLING = registerBlock("palm_sapling", Suppliers.memoize(PalmSaplingBlock::new));
     public static final RegistryObject<Block> PALM_BARREL = registerBarrel("palm");
+    public static final RegistryObject<Block> PALM_CHEST = registerChest("palm", MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_CHEST.get()));
+    public static final RegistryObject<Block> PALM_TRAPPED_CHEST = registerTrappedChest("palm", MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -259,6 +285,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> STRIPPED_DEAD_WOOD = registerLog("dead", true, MWWoodTypes.DEAD, false);
     public static final RegistryObject<Block> DEAD_PLANKS = registerPlanks("dead", MWWoodTypes.DEAD);
     public static final RegistryObject<Block> DEAD_BARREL = registerBarrel("dead");
+    public static final RegistryObject<Block> DEAD_CHEST = registerChest("dead", MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_CHEST.get()));
+    public static final RegistryObject<Block> DEAD_TRAPPED_CHEST = registerTrappedChest("dead", MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -274,6 +302,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SCULK_LEAVES = registerLeaves("sculk", MWWoodTypes.SCULK);
     public static final RegistryObject<Block> SCULK_SAPLING = registerBlock("sculk_sapling", Suppliers.memoize(SculkSaplingBlock::new));
     public static final RegistryObject<Block> SCULK_BARREL = registerBarrel("sculk");
+    public static final RegistryObject<Block> SCULK_CHEST = registerChest("sculk", MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_CHEST.get()));
+    public static final RegistryObject<Block> SCULK_TRAPPED_CHEST = registerTrappedChest("sculk", MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_TRAPPED_CHEST.get()));
 
     //#endregion
 
@@ -1262,7 +1292,7 @@ public final class MWBlocks {
     }
 
     /**
-     * Register an {@link MWLogBlock Log Block}
+     * Register a {@link BarrelBlock Barrel Block}
      *
      * @param woodType {@link WoodType The Wood Type}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
@@ -1273,7 +1303,7 @@ public final class MWBlocks {
     }
 
     /**
-     * Register an {@link MWLogBlock Log Block}
+     * Register a {@link BarrelBlock Barrel Block}
      *
      * @param woodName {@link String The Wood name}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
@@ -1281,6 +1311,56 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerBarrel(final String woodName, final FeatureFlag... featureFlags) {
         return registerBlock(woodName + "_barrel", Suppliers.memoize(() -> new BarrelBlock(PropertyHelper.copy(Blocks.BARREL, featureFlags))));
+    }
+
+    /**
+     * Register a {@link MWChestBlock Chest Block}
+     *
+     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChest(final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerChest(ResourceHelper.woodName(woodTypeSupplier.get()), woodTypeSupplier, blockEntityTypeSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWChestBlock Chest Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChest(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_chest", Suppliers.memoize(() -> new MWChestBlock(woodTypeSupplier, blockEntityTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWTrappedChestBlock Trapped Chest Block}
+     *
+     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTrappedChest(final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerTrappedChest(ResourceHelper.woodName(woodTypeSupplier.get()), woodTypeSupplier, blockEntityTypeSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWTrappedChestBlock Trapped Chest Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTrappedChest(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_trapped_chest", Suppliers.memoize(() -> new MWTrappedChestBlock(woodTypeSupplier, blockEntityTypeSupplier, featureFlags)));
     }
 
     /**

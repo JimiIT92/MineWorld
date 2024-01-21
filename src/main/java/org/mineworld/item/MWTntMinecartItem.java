@@ -24,7 +24,7 @@ public class MWTntMinecartItem extends MWMinecartItem {
     private final MWPrimedTnt.Type tntType;
 
     /**
-     * Constructor. Set the Item properties
+     * Constructor. Set the {@link Properties Item Properties}
      *
      * @param minecartType {@link Type The Minecart Type}
      * @param tntType {@link MWPrimedTnt.Type The TNT type}

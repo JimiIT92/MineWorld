@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import org.apache.commons.lang3.NotImplementedException;
@@ -91,6 +92,20 @@ public final class ResourceHelper {
             return MWColors.SCULK.toMapColor();
         }
         return MapColor.WOOD;
+    }
+
+    /**
+     * Get the {@link ChestType Chest Type} name
+     *
+     * @param chestType {@link ChestType The Chest Type}
+     * @return  An empty string if the {@link ChestType Chest Type} is {@link ChestType#SINGLE Single},
+     *          the {@link String Chest Type Name} otherwise
+     */
+    public static String chestTypeName(final ChestType chestType) {
+        if(chestType.equals(ChestType.SINGLE)) {
+            return "";
+        }
+        return "_" + chestType.name().toLowerCase(Locale.ROOT);
     }
 
     /**

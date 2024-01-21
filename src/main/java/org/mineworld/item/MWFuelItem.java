@@ -19,7 +19,7 @@ public class MWFuelItem extends Item {
     private final int burnTime;
 
     /**
-     * Constructor. Set the {@link Integer fuel burn time}
+     * Constructor. Set the {@link Properties Item Properties}
      *
      * @param burnTime {@link Integer The fuel burn time}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
