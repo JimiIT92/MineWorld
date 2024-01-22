@@ -236,6 +236,19 @@ public final class MWItems {
 
     //#endregion
 
+    //#region Signs and Hanging Signs
+
+    public static final RegistryObject<Item> APPLE_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.APPLE, Suppliers.memoize(() -> MWBlocks.APPLE_SIGN.get()), Suppliers.memoize(() -> MWBlocks.APPLE_WALL_SIGN.get()));
+    public static final RegistryObject<Item> APPLE_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.APPLE, Suppliers.memoize(() -> MWBlocks.APPLE_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.APPLE_WALL_HANGING_SIGN.get()));
+    public static final RegistryObject<Item> PALM_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.PALM, Suppliers.memoize(() -> MWBlocks.PALM_SIGN.get()), Suppliers.memoize(() -> MWBlocks.PALM_WALL_SIGN.get()));
+    public static final RegistryObject<Item> PALM_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.PALM, Suppliers.memoize(() -> MWBlocks.PALM_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.PALM_WALL_HANGING_SIGN.get()));
+    public static final RegistryObject<Item> DEAD_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.DEAD, Suppliers.memoize(() -> MWBlocks.DEAD_SIGN.get()), Suppliers.memoize(() -> MWBlocks.DEAD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> DEAD_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, Suppliers.memoize(() -> MWBlocks.DEAD_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.DEAD_WALL_HANGING_SIGN.get()));
+    public static final RegistryObject<Item> SCULK_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> MWBlocks.SCULK_SIGN.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_SIGN.get()));
+    public static final RegistryObject<Item> SCULK_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> MWBlocks.SCULK_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_HANGING_SIGN.get()));
+
+    //#endregion
+
     //#endregion
 
     //#region Methods
@@ -396,6 +409,32 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerTntMinecart(final MWMinecartItem.Type minecartType, final MWPrimedTnt.Type tntType, final FeatureFlag... featureFlags) {
         return registerItem(tntType.name().toLowerCase(Locale.ROOT) + "_tnt_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
+    }
+
+    /**
+     * Register a {@link SignItem Sign}
+     *
+     * @param woodName {@link String The wood name}
+     * @param signSupplier {@link Supplier<Block> The Supplier for the Standing Sign this Sign will place}
+     * @param wallSignSupplier {@link Supplier<Block> The Supplier for the Wall Sign this Sign will place}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerSign(final String woodName, final Supplier<Block> signSupplier, final Supplier<Block> wallSignSupplier, final FeatureFlag... featureFlags) {
+        return registerItem(woodName + "_sign", Suppliers.memoize(() -> new SignItem(PropertyHelper.item(featureFlags).stacksTo(16), signSupplier.get(), wallSignSupplier.get())));
+    }
+
+    /**
+     * Register an {@link HangingSignItem Hanging Sign}
+     *
+     * @param woodName {@link String The wood name}
+     * @param signSupplier {@link Supplier<Block> The Supplier for the Ceiling Hanging Sign this Hanging Sign will place}
+     * @param wallSignSupplier {@link Supplier<Block> The Supplier for the Wall Hanging Sign this Hanging Sign will place}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerHangingSign(final String woodName, final Supplier<Block> signSupplier, final Supplier<Block> wallSignSupplier, final FeatureFlag... featureFlags) {
+        return registerItem(woodName + "_hanging_sign", Suppliers.memoize(() -> new HangingSignItem(signSupplier.get(), wallSignSupplier.get(), PropertyHelper.item(featureFlags).stacksTo(16))));
     }
 
     /**

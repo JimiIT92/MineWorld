@@ -295,6 +295,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> APPLE_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
     public static final RegistryObject<Block> APPLE_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
     public static final RegistryObject<Block> APPLE_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> APPLE_SIGN.get()));
+    public static final RegistryObject<Block> APPLE_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> APPLE_HANGING_SIGN.get()));
 
     //#endregion
 
@@ -323,6 +329,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PALM_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
     public static final RegistryObject<Block> PALM_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
     public static final RegistryObject<Block> PALM_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> PALM_SIGN.get()));
+    public static final RegistryObject<Block> PALM_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> PALM_HANGING_SIGN.get()));
 
     //#endregion
 
@@ -347,6 +359,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DEAD_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
     public static final RegistryObject<Block> DEAD_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
     public static final RegistryObject<Block> DEAD_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> DEAD_SIGN.get()));
+    public static final RegistryObject<Block> DEAD_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> DEAD_HANGING_SIGN.get()));
 
     //#endregion
 
@@ -375,6 +393,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SCULK_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
     public static final RegistryObject<Block> SCULK_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
     public static final RegistryObject<Block> SCULK_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> SCULK_SIGN.get()));
+    public static final RegistryObject<Block> SCULK_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> SCULK_HANGING_SIGN.get()));
 
     //#endregion
 
@@ -1348,7 +1372,7 @@ public final class MWBlocks {
      * Register a {@link MWPlanksBlock Planks Block}
      *
      * @param woodName {@link String The Wood name}
-     * @param woodTypeSupplier {@link Supplier The Wood Type Supplier}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerPlanks(final String woodName, final Supplier<WoodType> woodTypeSupplier) {
@@ -1359,7 +1383,7 @@ public final class MWBlocks {
      * Register a {@link SaplingBlock Sapling Block}
      *
      * @param woodName {@link String The Wood name}
-     * @param treeGrowerSupplier {@link Supplier The Tree Grower Supplier}
+     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Tree Grower Supplier}
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerSapling(final String woodName, final Supplier<AbstractTreeGrower> treeGrowerSupplier) {
@@ -1370,11 +1394,85 @@ public final class MWBlocks {
      * Register a {@link MWLeavesBlock Leaves Block}
      *
      * @param woodName {@link String The Wood name}
-     * @param woodTypeSupplier {@link Supplier The Wood Type Supplier}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerLeaves(final String woodName, final Supplier<WoodType> woodTypeSupplier) {
         return registerBlock(woodName + "_leaves", Suppliers.memoize(() -> new MWLeavesBlock(woodTypeSupplier)));
+    }
+
+    /**
+     * Register a {@link MWFenceBlock Fence Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFence(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_fence", Suppliers.memoize(() -> new MWFenceBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWFenceGateBlock Fence Gate Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFenceGate(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_fence_gate", Suppliers.memoize(() -> new MWFenceGateBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWStandingSignBlock Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_sign", Suppliers.memoize(() -> new MWStandingSignBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWWallSignBlock Wall Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param signSupplier {@link Supplier<Block> The Supplier for the Standing Sign this Wall Sign is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<Block> signSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_wall_sign", Suppliers.memoize(() -> new MWWallSignBlock(woodTypeSupplier, signSupplier, featureFlags)));
+    }
+
+    /**
+     * Register an {@link MWCeilingHangingSignBlock Hanging Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerHangingSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_hanging_sign", Suppliers.memoize(() -> new MWCeilingHangingSignBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWWallHangingSignBlock Wall Hanging Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param hangingSignSupplier {@link Supplier<Block> The Supplier for the Hanging Sign this Wall Hanging Sign is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallHangingSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<Block> hangingSignSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_wall_hanging_sign", Suppliers.memoize(() -> new MWWallHangingSignBlock(woodTypeSupplier, hangingSignSupplier, featureFlags)));
     }
 
     /**

@@ -1,10 +1,7 @@
 package org.mineworld.core;
 
 import com.google.common.base.Suppliers;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.LecternRenderer;
+import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -16,7 +13,9 @@ import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.chest.MWChestRenderer;
 import org.mineworld.client.renderer.chest.MWTrappedChestRenderer;
 import org.mineworld.entity.block.DaylightLampBlockEntity;
+import org.mineworld.entity.block.MWHangingSignBlockEntity;
 import org.mineworld.entity.block.MWLecternBlockEntity;
+import org.mineworld.entity.block.MWSignBlockEntity;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;
@@ -64,6 +63,18 @@ public final class MWBlockEntityTypes {
             Suppliers.memoize(() -> MWBlocks.PALM_LECTERN.get()),
             Suppliers.memoize(() -> MWBlocks.DEAD_LECTERN.get()),
             Suppliers.memoize(() -> MWBlocks.SCULK_LECTERN.get())
+    );
+    public static final RegistryObject<BlockEntityType<SignBlockEntity>> SIGN = registerBlockEntity("sign", MWSignBlockEntity::new,
+            Suppliers.memoize(() -> MWBlocks.APPLE_SIGN.get()), Suppliers.memoize(() -> MWBlocks.APPLE_WALL_SIGN.get()),
+            Suppliers.memoize(() -> MWBlocks.PALM_SIGN.get()), Suppliers.memoize(() -> MWBlocks.PALM_WALL_SIGN.get()),
+            Suppliers.memoize(() -> MWBlocks.DEAD_SIGN.get()), Suppliers.memoize(() -> MWBlocks.DEAD_WALL_SIGN.get()),
+            Suppliers.memoize(() -> MWBlocks.SCULK_SIGN.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_SIGN.get())
+    );
+    public static final RegistryObject<BlockEntityType<SignBlockEntity>> HANGING_SIGN = registerBlockEntity("hanging_sign", MWHangingSignBlockEntity::new,
+            Suppliers.memoize(() -> MWBlocks.APPLE_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.APPLE_WALL_HANGING_SIGN.get()),
+            Suppliers.memoize(() -> MWBlocks.PALM_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.PALM_WALL_HANGING_SIGN.get()),
+            Suppliers.memoize(() -> MWBlocks.DEAD_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.DEAD_WALL_HANGING_SIGN.get()),
+            Suppliers.memoize(() -> MWBlocks.SCULK_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_HANGING_SIGN.get())
     );
     public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SPRUCE_CHEST = registerChest(WoodType.SPRUCE, false, SpruceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
     public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SPRUCE_TRAPPED_CHEST = registerChest(WoodType.SPRUCE, true, SpruceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
@@ -186,6 +197,9 @@ public final class MWBlockEntityTypes {
      */
     public static void registerRenderers() {
         registerRenderer(LECTERN, LecternRenderer::new);
+        registerRenderer(SIGN, SignRenderer::new);
+        registerRenderer(HANGING_SIGN, HangingSignRenderer::new);
+        BlockEntityRenderers.register(SKULL.get(), SkullBlockRenderer::new);
         registerRenderer(MWChestRenderer::new,
                 SPRUCE_CHEST,
                 BIRCH_CHEST,
