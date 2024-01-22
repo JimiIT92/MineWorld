@@ -211,6 +211,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      *
      * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
+    @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(AXIS).add(WATERLOGGED);
     }

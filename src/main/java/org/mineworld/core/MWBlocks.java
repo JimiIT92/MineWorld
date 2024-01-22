@@ -1631,7 +1631,7 @@ public final class MWBlocks {
      * Register a {@link Block Block} without registering its {@link BlockItem Block Item}
      *
      * @param name {@link String The Block name}
-     * @param blockSupplier {@link Supplier The Block supplier}
+     * @param blockSupplier {@link Supplier The Block Supplier}
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerBlockWithoutBlockItem(final String name, final Supplier<? extends Block> blockSupplier) {
@@ -1642,7 +1642,7 @@ public final class MWBlocks {
      * Register a {@link Block Block}
      *
      * @param name {@link String The Block name}
-     * @param blockSupplier {@link Supplier The Block supplier}
+     * @param blockSupplier {@link Supplier The Block Supplier}
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerBlock(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
@@ -1663,6 +1663,7 @@ public final class MWBlocks {
     public static void register(final IEventBus eventBus) {
         MWColoredBlocks.register();
         MWCopperBlocks.register();
+        MWPointedDripstones.register();
         MWPebbles.PebbleBlocks.register();
         MWFlowerPots.register();
         BLOCKS.register(eventBus);

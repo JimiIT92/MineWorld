@@ -118,7 +118,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @return {@link BlockState The placed Block State}
      */
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext placeContext) {
+    public BlockState getStateForPlacement(final BlockPlaceContext placeContext) {
         final BlockState blockstate = placeContext.getLevel().getBlockState(placeContext.getClickedPos());
         if (blockstate.is(this)) {
             return blockstate.setValue(AMOUNT, Math.min(MAX_AMOUNT, blockstate.getValue(AMOUNT) + 1));
