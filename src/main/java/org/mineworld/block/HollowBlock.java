@@ -79,7 +79,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
             .put(Blocks.WARPED_STEM, MWBlocks.HOLLOW_WARPED_STEM.get())
             .put(Blocks.STRIPPED_WARPED_STEM, MWBlocks.HOLLOW_STRIPPED_WARPED_STEM.get())
             .put(MWBlocks.HOLLOW_WARPED_STEM.get(), MWBlocks.HOLLOW_STRIPPED_WARPED_STEM.get())
-            /*.put(MWBlocks.APPLE_LOG.get(), MWBlocks.HOLLOW_APPLE_LOG.get())
+            .put(MWBlocks.APPLE_LOG.get(), MWBlocks.HOLLOW_APPLE_LOG.get())
             .put(MWBlocks.STRIPPED_APPLE_LOG.get(), MWBlocks.HOLLOW_STRIPPED_APPLE_LOG.get())
             .put(MWBlocks.HOLLOW_APPLE_LOG.get(), MWBlocks.HOLLOW_STRIPPED_APPLE_LOG.get())
             .put(MWBlocks.PALM_LOG.get(), MWBlocks.HOLLOW_PALM_LOG.get())
@@ -90,8 +90,8 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
             .put(MWBlocks.HOLLOW_DEAD_LOG.get(), MWBlocks.HOLLOW_STRIPPED_DEAD_LOG.get())
             .put(MWBlocks.SCULK_LOG.get(), MWBlocks.HOLLOW_SCULK_LOG.get())
             .put(MWBlocks.STRIPPED_SCULK_LOG.get(), MWBlocks.HOLLOW_STRIPPED_SCULK_LOG.get())
-            .put(MWBlocks.HOLLOW_SCULK_LOG.get(), MWBlocks.HOLLOW_STRIPPED_SCULK_LOG.get())*/
-            .build());
+            .put(MWBlocks.HOLLOW_SCULK_LOG.get(), MWBlocks.HOLLOW_STRIPPED_SCULK_LOG.get())
+    .build());
 
     /**
      * {@link BooleanProperty The Block Waterlogged Property}

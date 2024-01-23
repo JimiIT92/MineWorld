@@ -62,6 +62,7 @@ public class BlueberryBushBlock extends SweetBerryBushBlock {
      * @param hitResult {@link BlockHitResult The hit result for the block interaction}
      * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
+    @Override
     public @NotNull InteractionResult use(final BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
         final int age = blockState.getValue(AGE);
         final boolean isMaxAge = age == 3;

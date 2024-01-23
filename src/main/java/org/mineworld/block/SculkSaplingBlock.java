@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWTreeGrowers;
 import org.mineworld.helper.PropertyHelper;
 
@@ -31,7 +32,7 @@ public class SculkSaplingBlock extends SaplingBlock {
      */
     @Override
     protected boolean mayPlaceOn(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
-        return blockState.is(Blocks.SCULK) /*|| blockState.is(MWBlocks.SCULK_SOIL.get())*/ || super.mayPlaceOn(blockState, blockGetter, blockPos);
+        return blockState.is(Blocks.SCULK) || blockState.is(MWBlocks.SCULK_SOIL.get()) || super.mayPlaceOn(blockState, blockGetter, blockPos);
     }
 
 }

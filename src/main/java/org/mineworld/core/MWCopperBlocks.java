@@ -8,7 +8,9 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
+import org.mineworld.block.MWFireBlock;
 import org.mineworld.block.weathering.*;
+import org.mineworld.helper.ResourceHelper;
 
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -70,7 +72,6 @@ public final class MWCopperBlocks {
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = registerPressurePlate("copper", WeatheringCopper.WeatherState.WEATHERED, true);
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = registerPressurePlate("copper", WeatheringCopper.WeatherState.EXPOSED, true);
     public static final RegistryObject<Block> WAXED_COPPER_PRESSURE_PLATE = registerPressurePlate("copper", WeatheringCopper.WeatherState.UNAFFECTED, true);
-
     public static final RegistryObject<Block> OXIDIZED_CUT_COPPER_PRESSURE_PLATE = registerPressurePlate("cut_copper", WeatheringCopper.WeatherState.OXIDIZED, false);
     public static final RegistryObject<Block> WEATHERED_CUT_COPPER_PRESSURE_PLATE = registerPressurePlate("cut_copper", WeatheringCopper.WeatherState.WEATHERED, false);
     public static final RegistryObject<Block> EXPOSED_CUT_COPPER_PRESSURE_PLATE = registerPressurePlate("cut_copper", WeatheringCopper.WeatherState.EXPOSED, false);
@@ -98,38 +99,72 @@ public final class MWCopperBlocks {
     //#region Lanterns
 
     public static final RegistryObject<Block> OXIDIZED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, false, false);
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, true, false);
-    public static final RegistryObject<Block> OXIDIZED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, false, true);
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, true, true);
     public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, false, false, Suppliers.memoize(() -> OXIDIZED_COPPER_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, false, true, Suppliers.memoize(() -> OXIDIZED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, true, false, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, true, true, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
     public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, false, false);
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, true, false);
-    public static final RegistryObject<Block> WEATHERED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, false, true);
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, true, true);
     public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, false, false, Suppliers.memoize(() -> WEATHERED_COPPER_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, false, true, Suppliers.memoize(() -> WEATHERED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, true, false, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, true, true, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
     public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, false, false);
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, true, false);
-    public static final RegistryObject<Block> EXPOSED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, false, true);
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, true, true);
     public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, false, false, Suppliers.memoize(() -> EXPOSED_COPPER_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, false, true, Suppliers.memoize(() -> EXPOSED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, true, false, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, true, true, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
     public static final RegistryObject<Block> COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, false, false);
-    public static final RegistryObject<Block> WAXED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, true, false);
-    public static final RegistryObject<Block> COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, false, true);
-    public static final RegistryObject<Block> WAXED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, true, true);
     public static final RegistryObject<Block> WALL_HANGING_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, false, false, Suppliers.memoize(() -> COPPER_LANTERN.get().defaultBlockState()));
-    public static final RegistryObject<Block> WALL_HANGING_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, false, true, Suppliers.memoize(() -> COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, true, false);
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, true, false, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, true, false);
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, true, false, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, true, false);
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, true, false, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_COPPER_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, true, false);
     public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, true, false, Suppliers.memoize(() -> WAXED_COPPER_LANTERN.get().defaultBlockState()));
+
+    public static final RegistryObject<Block> OXIDIZED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, false, true);
+    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, false, true, Suppliers.memoize(() -> OXIDIZED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WEATHERED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, false, true);
+    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, false, true, Suppliers.memoize(() -> WEATHERED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> EXPOSED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, false, true);
+    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, false, true, Suppliers.memoize(() -> EXPOSED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, false, true);
+    public static final RegistryObject<Block> WALL_HANGING_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, false, true, Suppliers.memoize(() -> COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.OXIDIZED, true, true);
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.OXIDIZED, true, true, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.WEATHERED, true, true);
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.WEATHERED, true, true, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.EXPOSED, true, true);
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.EXPOSED, true, true, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
+    public static final RegistryObject<Block> WAXED_COPPER_SOUL_LANTERN = registerLantern("copper", WeatheringCopper.WeatherState.UNAFFECTED, true, true);
     public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_SOUL_LANTERN = registerWallHangingLantern(WeatheringCopper.WeatherState.UNAFFECTED, true, true, Suppliers.memoize(() -> WAXED_COPPER_SOUL_LANTERN.get().defaultBlockState()));
 
+    public static final RegistryObject<Block> OXIDIZED_COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.OXIDIZED, false, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.OXIDIZED, false, false, Suppliers.memoize(() -> OXIDIZED_COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WEATHERED_COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.WEATHERED, false, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.WEATHERED, false, false, Suppliers.memoize(() -> WEATHERED_COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> EXPOSED_COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.EXPOSED, false, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.EXPOSED, false, false, Suppliers.memoize(() -> EXPOSED_COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.UNAFFECTED, false, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.UNAFFECTED, false, false, Suppliers.memoize(() -> COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.OXIDIZED, true, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.OXIDIZED, true, false, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.WEATHERED, true, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.WEATHERED, true, false, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.EXPOSED, true, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.EXPOSED, true, false, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WAXED_COPPER_END_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.UNAFFECTED, true, false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), WeatheringCopper.WeatherState.UNAFFECTED, true, false, Suppliers.memoize(() -> WAXED_COPPER_END_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.END.lightLevel());
+
+    public static final RegistryObject<Block> OXIDIZED_COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.OXIDIZED, false, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.OXIDIZED, false, false, Suppliers.memoize(() -> OXIDIZED_COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WEATHERED_COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.WEATHERED, false, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.WEATHERED, false, false, Suppliers.memoize(() -> WEATHERED_COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> EXPOSED_COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.EXPOSED, false, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.EXPOSED, false, false, Suppliers.memoize(() -> EXPOSED_COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.UNAFFECTED, false, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.UNAFFECTED, false, false, Suppliers.memoize(() -> COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.OXIDIZED, true, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.OXIDIZED, true, false, Suppliers.memoize(() -> WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.WEATHERED, true, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.WEATHERED, true, false, Suppliers.memoize(() -> WAXED_WEATHERED_COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.EXPOSED, true, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.EXPOSED, true, false, Suppliers.memoize(() -> WAXED_EXPOSED_COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WAXED_COPPER_SCULK_LANTERN = registerLantern("copper_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.UNAFFECTED, true, false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), WeatheringCopper.WeatherState.UNAFFECTED, true, false, Suppliers.memoize(() -> WAXED_COPPER_SCULK_LANTERN.get().defaultBlockState()), MWFireBlock.MWFireType.SCULK.lightLevel());
 
     //#endregion
 
@@ -252,7 +287,22 @@ public final class MWCopperBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerLantern(final String materialName, final WeatheringCopper.WeatherState weatherState, final boolean isWaxed, final boolean isSoulLantern, final FeatureFlag... featureFlags) {
-        return registerCopperBlock(materialName, (isSoulLantern ? "soul_lantern" : "lantern"), weatherState, isWaxed, Suppliers.memoize(() -> new WeatheringCopperLanternBlock(weatherState, isSoulLantern ? 10 : 15, featureFlags)));
+        return registerLantern(materialName, weatherState, isWaxed, isSoulLantern, isSoulLantern ? 10 : 15, featureFlags);
+    }
+
+    /**
+     * Register a {@link WeatheringCopperLanternBlock Copper Lantern}
+     *
+     * @param materialName {@link String The Lantern material name}
+     * @param weatherState {@link WeatheringCopper.WeatherState The Weather State}
+     * @param isWaxed {@link Boolean If the Block is waxed}
+     * @param isSoulLantern {@link Boolean If the Lantern is a Soul Lantern}
+     * @param lightLevel {@link Integer The Lantern light level}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLantern(final String materialName, final WeatheringCopper.WeatherState weatherState, final boolean isWaxed, final boolean isSoulLantern, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerCopperBlock(materialName, (isSoulLantern ? "soul_lantern" : "lantern"), weatherState, isWaxed, Suppliers.memoize(() -> new WeatheringCopperLanternBlock(weatherState, lightLevel, featureFlags)));
     }
 
     /**
@@ -266,7 +316,22 @@ public final class MWCopperBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerWallHangingLantern(final WeatheringCopper.WeatherState weatherState, final boolean isWaxed, final boolean isSoulLantern, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return MWBlocks.registerBlockWithoutBlockItem("wall_hanging_" + getCopperBlockName("copper", weatherState, isWaxed, (isSoulLantern ? "soul_lantern" : "lantern")), Suppliers.memoize(() -> new WeatheringWallHangingLanternBlock(weatherState, blockStateSupplier, featureFlags)));
+        return registerWallHangingLantern("", weatherState, isWaxed, isSoulLantern, blockStateSupplier, isSoulLantern ? 10 : 15, featureFlags);
+    }
+
+    /**
+     * Register a {@link WeatheringCopperLanternBlock Copper Lantern}
+     *
+     * @param weatherState {@link WeatheringCopper.WeatherState The Weather State}
+     * @param isWaxed {@link Boolean If the Block is waxed}
+     * @param isSoulLantern {@link Boolean If the Lantern is a Soul Lantern}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State this Lantern is based on}
+     * @param lightLevel {@link Integer The Lantern light level}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallHangingLantern(final String materialName, final WeatheringCopper.WeatherState weatherState, final boolean isWaxed, final boolean isSoulLantern, final Supplier<BlockState> blockStateSupplier, final int lightLevel, final FeatureFlag... featureFlags) {
+        return MWBlocks.registerBlockWithoutBlockItem("wall_hanging_" + getCopperBlockName("copper" + (materialName.isEmpty() ? "" : ("_" + materialName)), weatherState, isWaxed, (isSoulLantern ? "soul_lantern" : "lantern")), Suppliers.memoize(() -> new WeatheringWallHangingLanternBlock(weatherState, blockStateSupplier, featureFlags)));
     }
 
     /**

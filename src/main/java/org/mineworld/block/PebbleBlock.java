@@ -57,7 +57,7 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
     public PebbleBlock(final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(blockSupplier.get(), featureFlags).noCollission().requiresCorrectToolForDrops());
+        super(PropertyHelper.copy(blockSupplier.get(), featureFlags).noCollission().requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -191,15 +191,5 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
     public @NotNull FluidState getFluidState(final BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
-
-    /**
-     * Get the {@link PushReaction pistons push reaction}
-     *
-     * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction#DESTROY The Destroy push reaction}
-     */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return PushReaction.DESTROY;
-    }
-
+    
 }

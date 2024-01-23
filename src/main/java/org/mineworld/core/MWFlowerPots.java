@@ -141,6 +141,8 @@ public final class MWFlowerPots {
     public static final RegistryObject<Block> POTTED_SCULK_SAPLING = registerFlowerPot(MWWoodTypes.MWWoodTypeNames.SCULK + "_sapling", Suppliers.memoize(() -> MWBlocks.SCULK_SAPLING.get()));
     public static final RegistryObject<Block> POTTED_SCULK_LEAVES = registerFlowerPot(MWWoodTypes.MWWoodTypeNames.SCULK + "_leaves", Suppliers.memoize(() -> MWBlocks.SCULK_LEAVES.get()));
     public static final RegistryObject<Block> POTTED_SCULK_BUSH = registerFlowerPot(MWWoodTypes.MWWoodTypeNames.SCULK + "_bush", Suppliers.memoize(() -> MWBlocks.SCULK_BUSH.get()));
+    public static final RegistryObject<Block> POTTED_CATTAIL = registerFlowerPot("cattail", Suppliers.memoize(() -> MWBlocks.CATTAIL.get()));
+    public static final RegistryObject<Block> POTTED_SCULK_ROOTS = registerFlowerPot("sculk_roots", Suppliers.memoize(() -> MWBlocks.SCULK_ROOTS.get()));
 
     //#endregion
 

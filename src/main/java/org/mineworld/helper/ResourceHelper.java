@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.mineworld.MineWorld;
+import org.mineworld.block.MWFireBlock;
 import org.mineworld.core.MWColors;
 import org.mineworld.core.MWItemTiers;
 import org.mineworld.core.MWWoodTypes;
@@ -79,6 +80,16 @@ public final class ResourceHelper {
      */
     public static String armorMaterialName(final ArmorMaterial armorMaterial) {
         return path(parse(armorMaterial.getName()));
+    }
+
+    /**
+     * Get the {@link String Fire name} based on the {@link MWFireBlock.MWFireType Fire Type}
+     *
+     * @param fireType {@link MWFireBlock.MWFireType The Fire Type}
+     * @return {@link String The Fire name}
+     */
+    public static String fireName(final MWFireBlock.MWFireType fireType) {
+        return path(parse(fireType.name().toLowerCase(Locale.ROOT)));
     }
 
     /**

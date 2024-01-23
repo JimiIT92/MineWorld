@@ -7,24 +7,22 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.PropertyHelper;
 
 /**
- * {@link MineWorld MineWorld} {@link SlabBlock Crying Obsidian Slab}
+ * {@link MineWorld MineWorld} {@link MWSlabBlock Crying Obsidian Slab}
  */
-public class CryingObsidianSlab extends SlabBlock {
+public class CryingObsidianSlab extends MWSlabBlock {
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public CryingObsidianSlab() {
-        super(PropertyHelper.copy(Blocks.CRYING_OBSIDIAN).requiresCorrectToolForDrops());
+        super(Blocks.CRYING_OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
     }
 
     /**
@@ -49,16 +47,6 @@ public class CryingObsidianSlab extends SlabBlock {
                 }
             }
         }
-    }
-
-    /**
-     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
-     *
-     * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction#BLOCK Block push reaction}
-     */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return PushReaction.BLOCK;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.mineworld.core;
 
 import com.google.common.base.Suppliers;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -488,9 +490,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DEEPSLATE_BRICKS_BUTTON = registerButton("deepslate_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> DEEPSLATE_TILES_PRESSURE_PLATE = registerPressurePlate("deepslate_tiles", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> DEEPSLATE_TILES_BUTTON = registerButton("deepslate_tiles", false, Suppliers.memoize(() -> BlockSetType.STONE));
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_STAIRS = registerStair("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_SLAB = registerSlab("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_WALL = registerWall("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState);
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_STAIRS = registerStair("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_SLAB = registerSlab("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_WALL = registerWall("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState, PushReaction.BLOCK);
     public static final RegistryObject<Block> REINFORCED_DEEPSLATE_PRESSURE_PLATE = registerPressurePlate("reinforced_deepslate", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> REINFORCED_DEEPSLATE_BUTTON = registerButton("reinforced_deepslate", false, Suppliers.memoize(() -> BlockSetType.STONE));
 
@@ -581,7 +583,7 @@ public final class MWBlocks {
 
     //#endregion
 
-    //#region Blackstone, Polished Blackstone and Giled Blackstone
+    //#region Blackstone, Polished Blackstone and Gilded Blackstone
 
     public static final RegistryObject<Block> BLACKSTONE_PRESSURE_PLATE = registerPressurePlate("blackstone", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> BLACKSTONE_BUTTON = registerButton("blackstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
@@ -683,9 +685,9 @@ public final class MWBlocks {
 
     //#region Obsidian, Crying Obsidian and Glowing Obsidian
 
-    public static final RegistryObject<Block> OBSIDIAN_STAIRS = registerStair("obsidian", Blocks.OBSIDIAN::defaultBlockState);
-    public static final RegistryObject<Block> OBSIDIAN_SLAB = registerSlab("obsidian", Blocks.OBSIDIAN::defaultBlockState);
-    public static final RegistryObject<Block> OBSIDIAN_WALL = registerWall("obsidian", Blocks.OBSIDIAN::defaultBlockState);
+    public static final RegistryObject<Block> OBSIDIAN_STAIRS = registerStair("obsidian", Blocks.OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> OBSIDIAN_SLAB = registerSlab("obsidian", Blocks.OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> OBSIDIAN_WALL = registerWall("obsidian", Blocks.OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
     public static final RegistryObject<Block> OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> OBSIDIAN_BUTTON = registerButton("obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> CRYING_OBSIDIAN_STAIRS = registerBlock("crying_obsidian_stairs", CryingObsidianStairs::new);
@@ -693,7 +695,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CRYING_OBSIDIAN_WALL = registerBlock("crying_obsidian_wall", CryingObsidianWall::new);
     public static final RegistryObject<Block> CRYING_OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("crying_obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> CRYING_OBSIDIAN_BUTTON = registerButton("crying_obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN = registerBlock("glowing_obsidian", Suppliers.memoize(() -> new UnmovableBlock(PropertyHelper.copy(Blocks.OBSIDIAN).lightLevel(state -> 15))));
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN = registerBlock("glowing_obsidian", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.OBSIDIAN).lightLevel(state -> 15).pushReaction(PushReaction.BLOCK)));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_STAIRS = registerStair("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_SLAB = registerSlab("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = registerWall("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()));
@@ -706,6 +708,8 @@ public final class MWBlocks {
 
     public static final RegistryObject<Block> LAVA_ROCK = registerBlock("lava_rock", Suppliers.memoize(() -> new MagmaBlock(PropertyHelper.copy(Blocks.MAGMA_BLOCK).lightLevel(state -> 10).mapColor(MapColor.COLOR_BLACK))));
     public static final RegistryObject<Block> PERENNIAL_ICE = registerBlock("perennial_ice", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.BLUE_ICE).strength(3.5F).friction(0.99F)));
+    public static final RegistryObject<Block> END_SOIL = registerBlock("end_soil", Suppliers.memoize(() -> new MWSoilBlock(MapColor.COLOR_GREEN, MWSoundTypes.END_SOIL, Blocks.END_STONE::defaultBlockState)));
+    public static final RegistryObject<Block> SCULK_SOIL = registerBlock("sculk_soil", Suppliers.memoize(SculkSoilBlock::new));
 
     //#endregion
 
@@ -725,6 +729,10 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_IRON_PRESSURE_PLATE = registerWeightedPressurePlate("cut_iron", 15, MapColor.METAL, Suppliers.memoize(() -> BlockSetType.IRON));
     public static final RegistryObject<Block> WALL_HANGING_LANTERN = registerWallHangingLantern("", false, () -> Blocks.LANTERN);
     public static final RegistryObject<Block> WALL_HANGING_SOUL_LANTERN = registerWallHangingLantern("", true, () -> Blocks.SOUL_LANTERN);
+    public static final RegistryObject<Block> END_LANTERN = registerLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> SCULK_LANTERN = registerLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
 
     //#endregion
 
@@ -736,7 +744,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> GOLDEN_TRAPDOOR = registerTrapdoor("golden", true, Suppliers.memoize(() -> BlockSetType.GOLD));
     public static final RegistryObject<Block> GOLDEN_CHAIN = registerChain("golden");
     public static final RegistryObject<Block> GOLDEN_LANTERN = registerLantern("golden", false);
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_LANTERN = registerWallHangingLantern("golden", false, Suppliers.memoize(() -> GOLDEN_LANTERN.get()));
     public static final RegistryObject<Block> GOLDEN_SOUL_LANTERN = registerLantern("golden", true);
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SOUL_LANTERN = registerWallHangingLantern("golden", true, Suppliers.memoize(() -> GOLDEN_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> GOLDEN_END_LANTERN = registerLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_END_LANTERN = registerWallHangingLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> GOLDEN_SCULK_LANTERN = registerLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SCULK_LANTERN = registerWallHangingLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
     public static final RegistryObject<Block> GOLD_BARS = registerBars("gold");
     public static final RegistryObject<Block> GOLDEN_CAGE = registerCage("golden", Blocks.GOLD_BLOCK::defaultBlockState);
     public static final RegistryObject<Block> GOLD_GRATE = registerHorizontalPane("gold_grate", Suppliers.memoize(() -> GOLD_BARS.get().defaultBlockState()));
@@ -744,8 +758,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_GOLDEN_STAIRS = registerStair("cut_golden", Suppliers.memoize(() -> CUT_GOLD.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_GOLDEN_SLAB = registerSlab("cut_golden", Suppliers.memoize(() -> CUT_GOLD.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_GOLDEN_PRESSURE_PLATE = registerWeightedPressurePlate("cut_golden", 15, MapColor.GOLD, Suppliers.memoize(() -> BlockSetType.GOLD));
-    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_LANTERN = registerWallHangingLantern("golden", false, Suppliers.memoize(() -> GOLDEN_LANTERN.get()));
-    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SOUL_LANTERN = registerWallHangingLantern("golden", true, Suppliers.memoize(() -> GOLDEN_SOUL_LANTERN.get()));
 
     //#endregion
 
@@ -758,7 +770,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("netherite", 100, MapColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
     public static final RegistryObject<Block> NETHERITE_CHAIN = registerChain("netherite");
     public static final RegistryObject<Block> NETHERITE_LANTERN = registerLantern("netherite", false);
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_LANTERN = registerWallHangingLantern("netherite", false, Suppliers.memoize(() -> NETHERITE_LANTERN.get()));
     public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = registerLantern("netherite", true);
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SOUL_LANTERN = registerWallHangingLantern("netherite", true, Suppliers.memoize(() -> NETHERITE_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> NETHERITE_END_LANTERN = registerLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_END_LANTERN = registerWallHangingLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> NETHERITE_SCULK_LANTERN = registerLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SCULK_LANTERN = registerWallHangingLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
     public static final RegistryObject<Block> NETHERITE_BARS = registerBars("netherite");
     public static final RegistryObject<Block> NETHERITE_CAGE = registerCage("netherite", Blocks.NETHERITE_BLOCK::defaultBlockState);
     public static final RegistryObject<Block> NETHERITE_GRATE = registerHorizontalPane("netherite_grate", Suppliers.memoize(() -> NETHERITE_BARS.get().defaultBlockState()));
@@ -766,8 +784,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_NETHERITE_STAIRS = registerStair("cut_netherite", Suppliers.memoize(() -> CUT_NETHERITE.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_NETHERITE_SLAB = registerSlab("cut_netherite", Suppliers.memoize(() -> CUT_NETHERITE.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("cut_netherite", 100, MapColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_LANTERN = registerWallHangingLantern("netherite", false, Suppliers.memoize(() -> NETHERITE_LANTERN.get()));
-    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SOUL_LANTERN = registerWallHangingLantern("netherite", true, Suppliers.memoize(() -> NETHERITE_SOUL_LANTERN.get()));
 
     //#endregion
 
@@ -780,7 +796,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ALUMINUM_PRESSURE_PLATE = registerWeightedPressurePlate("aluminum", 15, MWColors.ALUMINUM.toMapColor(), MWBlockSetTypes.METAL);
     public static final RegistryObject<Block> ALUMINUM_CHAIN = registerChain("aluminum");
     public static final RegistryObject<Block> ALUMINUM_LANTERN = registerLantern("aluminum", false);
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_LANTERN = registerWallHangingLantern("aluminum", false, Suppliers.memoize(() -> ALUMINUM_LANTERN.get()));
     public static final RegistryObject<Block> ALUMINUM_SOUL_LANTERN = registerLantern("aluminum", true);
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SOUL_LANTERN = registerWallHangingLantern("aluminum", true, Suppliers.memoize(() -> ALUMINUM_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> ALUMINUM_END_LANTERN = registerLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_END_LANTERN = registerWallHangingLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> ALUMINUM_SCULK_LANTERN = registerLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SCULK_LANTERN = registerWallHangingLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
     public static final RegistryObject<Block> ALUMINUM_BARS = registerBars("aluminum");
     public static final RegistryObject<Block> ALUMINUM_CAGE = registerCage("aluminum", Suppliers.memoize(() -> ALUMINUM_BLOCK.get().defaultBlockState()));
     public static final RegistryObject<Block> ALUMINUM_GRATE = registerHorizontalPane("aluminum_grate", Suppliers.memoize(() -> ALUMINUM_BARS.get().defaultBlockState()));
@@ -788,8 +810,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_ALUMINUM_STAIRS = registerStair("cut_aluminum", Suppliers.memoize(() -> CUT_ALUMINUM.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_ALUMINUM_SLAB = registerSlab("cut_aluminum", Suppliers.memoize(() -> CUT_ALUMINUM.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_ALUMINUM_PRESSURE_PLATE = registerWeightedPressurePlate("cut_aluminum", 15, MWColors.ALUMINUM.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_LANTERN = registerWallHangingLantern("aluminum", false, Suppliers.memoize(() -> ALUMINUM_LANTERN.get()));
-    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SOUL_LANTERN = registerWallHangingLantern("aluminum", true, Suppliers.memoize(() -> ALUMINUM_SOUL_LANTERN.get()));
 
     //#endregion
 
@@ -802,7 +822,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SILVER_PRESSURE_PLATE = registerWeightedPressurePlate("silver", 50, MWColors.SILVER.toMapColor(), MWBlockSetTypes.METAL);
     public static final RegistryObject<Block> SILVER_CHAIN = registerChain("silver");
     public static final RegistryObject<Block> SILVER_LANTERN = registerLantern("silver", false);
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_LANTERN = registerWallHangingLantern("silver", false, Suppliers.memoize(() -> SILVER_LANTERN.get()));
     public static final RegistryObject<Block> SILVER_SOUL_LANTERN = registerLantern("silver", true);
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_SOUL_LANTERN = registerWallHangingLantern("silver", true, Suppliers.memoize(() -> SILVER_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> SILVER_END_LANTERN = registerLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_END_LANTERN = registerWallHangingLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> SILVER_SCULK_LANTERN = registerLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_SCULK_LANTERN = registerWallHangingLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
     public static final RegistryObject<Block> SILVER_BARS = registerBars("silver");
     public static final RegistryObject<Block> SILVER_CAGE = registerCage("silver", Suppliers.memoize(() -> SILVER_BLOCK.get().defaultBlockState()));
     public static final RegistryObject<Block> SILVER_GRATE = registerHorizontalPane("silver_grate", Suppliers.memoize(() -> SILVER_BARS.get().defaultBlockState()));
@@ -810,8 +836,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_SILVER_STAIRS = registerStair("cut_silver", Suppliers.memoize(() -> CUT_SILVER.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_SILVER_SLAB = registerSlab("cut_silver", Suppliers.memoize(() -> CUT_SILVER.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_SILVER_PRESSURE_PLATE = registerWeightedPressurePlate("cut_silver", 50, MWColors.SILVER.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> WALL_HANGING_SILVER_LANTERN = registerWallHangingLantern("silver", false, Suppliers.memoize(() -> SILVER_LANTERN.get()));
-    public static final RegistryObject<Block> WALL_HANGING_SILVER_SOUL_LANTERN = registerWallHangingLantern("silver", true, Suppliers.memoize(() -> SILVER_SOUL_LANTERN.get()));
 
     //#endregion
 
@@ -824,7 +848,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BRONZE_PRESSURE_PLATE = registerWeightedPressurePlate("bronze", 15, MWColors.BRONZE.toMapColor(), MWBlockSetTypes.METAL);
     public static final RegistryObject<Block> BRONZE_CHAIN = registerChain("bronze");
     public static final RegistryObject<Block> BRONZE_LANTERN = registerLantern("bronze", false);
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_LANTERN = registerWallHangingLantern("bronze", false, Suppliers.memoize(() -> BRONZE_LANTERN.get()));
     public static final RegistryObject<Block> BRONZE_SOUL_LANTERN = registerLantern("bronze", true);
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SOUL_LANTERN = registerWallHangingLantern("bronze", true, Suppliers.memoize(() -> BRONZE_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> BRONZE_END_LANTERN = registerLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_END_LANTERN = registerWallHangingLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> BRONZE_SCULK_LANTERN = registerLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SCULK_LANTERN = registerWallHangingLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
     public static final RegistryObject<Block> BRONZE_BARS = registerBars("bronze");
     public static final RegistryObject<Block> BRONZE_CAGE = registerCage("bronze", Suppliers.memoize(() -> BRONZE_BLOCK.get().defaultBlockState()));
     public static final RegistryObject<Block> BRONZE_GRATE = registerHorizontalPane("bronze_grate", Suppliers.memoize(() -> BRONZE_BARS.get().defaultBlockState()));
@@ -832,8 +862,6 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CUT_BRONZE_STAIRS = registerStair("cut_bronze", Suppliers.memoize(() -> CUT_BRONZE.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_BRONZE_SLAB = registerSlab("cut_bronze", Suppliers.memoize(() -> CUT_BRONZE.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_BRONZE_PRESSURE_PLATE = registerWeightedPressurePlate("cut_bronze", 15, MWColors.BRONZE.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> WALL_HANGING_BRONZE_LANTERN = registerWallHangingLantern("bronze", false, Suppliers.memoize(() -> BRONZE_LANTERN.get()));
-    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SOUL_LANTERN = registerWallHangingLantern("bronze", true, Suppliers.memoize(() -> BRONZE_SOUL_LANTERN.get()));
 
     //#endregion
 
@@ -858,6 +886,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BLUEBERRY_BUSH = registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
     public static final RegistryObject<Block> BROWN_MUSHROOM_WALL_FAN = registerWallFan("brown_mushroom", MapColor.COLOR_BROWN, () -> Blocks.BROWN_MUSHROOM);
     public static final RegistryObject<Block> RED_MUSHROOM_WALL_FAN = registerWallFan("red_mushroom", MapColor.COLOR_RED, () -> Blocks.RED_MUSHROOM);
+    public static final RegistryObject<Block> CATTAIL = registerBlock("cattail", CattailBlock::new);
+    public static final RegistryObject<Block> SCULK_ROOTS = registerBlock("sculk_roots", SculkRootBlock::new);
 
     //#endregion
 
@@ -909,6 +939,51 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BONE_ROD_BLOCK = registerRod("bone", MapColor.TERRACOTTA_WHITE, SoundType.BONE_BLOCK);
     public static final RegistryObject<Block> BLAZE_ROD_BLOCK = registerRod("blaze", MapColor.TERRACOTTA_ORANGE, SoundType.METAL);
     public static final RegistryObject<Block> STICK_ROD_BLOCK = registerRod("stick", MapColor.WOOD, SoundType.WOOD);
+
+    //#endregion
+
+    //#region Torches
+
+    //#region Regular
+
+    public static final RegistryObject<Block> UNLIT_TORCH = registerUnlitTorch("");
+    public static final RegistryObject<Block> UNLIT_WALL_TORCH = registerUnlitWallTorch("", Suppliers.memoize(() -> UNLIT_TORCH.get()));
+
+    //#endregion
+
+    //#region Soul
+
+    public static final RegistryObject<Block> UNLIT_SOUL_TORCH = registerUnlitTorch("soul");
+    public static final RegistryObject<Block> UNLIT_SOUL_WALL_TORCH = registerUnlitWallTorch("soul", Suppliers.memoize(() -> UNLIT_SOUL_TORCH.get()));
+
+    //#endregion
+
+    //#region End
+
+    public static final RegistryObject<Block> END_TORCH = registerTorch(MWFireBlock.MWFireType.END, Suppliers.memoize(() -> MWParticleTypes.END_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> END_WALL_TORCH = registerWallTorch(MWFireBlock.MWFireType.END, Suppliers.memoize(() -> MWParticleTypes.END_FIRE_FLAME.get()), Suppliers.memoize(() -> END_TORCH.get()));
+    public static final RegistryObject<Block> UNLIT_END_TORCH = registerUnlitTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.END));
+    public static final RegistryObject<Block> UNLIT_END_WALL_TORCH = registerUnlitWallTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.END), Suppliers.memoize(() -> UNLIT_END_TORCH.get()));
+
+    //#endregion
+
+    //#region Sculk
+
+    public static final RegistryObject<Block> SCULK_TORCH = registerTorch(MWFireBlock.MWFireType.SCULK, Suppliers.memoize(() -> MWParticleTypes.SCULK_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> SCULK_WALL_TORCH = registerWallTorch(MWFireBlock.MWFireType.SCULK, Suppliers.memoize(() -> MWParticleTypes.SCULK_FIRE_FLAME.get()), Suppliers.memoize(() -> SCULK_TORCH.get()));
+    public static final RegistryObject<Block> UNLIT_SCULK_TORCH = registerUnlitTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK));
+    public static final RegistryObject<Block> UNLIT_SCULK_WALL_TORCH = registerUnlitWallTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), Suppliers.memoize(() -> UNLIT_SCULK_TORCH.get()));
+
+    //#endregion
+
+    //#endregion
+
+    //#region Fires and Campfires
+
+    public static final RegistryObject<Block> END_FIRE = registerFireBlock(MWFireBlock.MWFireType.END);
+    public static final RegistryObject<Block> END_CAMPFIRE = registerCampfireBlock(MWFireBlock.MWFireType.END);
+    public static final RegistryObject<Block> SCULK_FIRE = registerFireBlock(MWFireBlock.MWFireType.SCULK);
+    public static final RegistryObject<Block> SCULK_CAMPFIRE = registerCampfireBlock(MWFireBlock.MWFireType.SCULK);
 
     //#endregion
 
@@ -1001,7 +1076,20 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerStair(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_stairs", () -> new MWStairBlock(blockStateSupplier, featureFlags));
+        return registerStair(materialName, blockStateSupplier, PushReaction.NORMAL, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWStairBlock Stair Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Stair is based on}
+     * @param pushReaction {@link PushReaction The Block Push Reaction when moved by Pistons}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerStair(final String materialName, final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_stairs", () -> new MWStairBlock(blockStateSupplier, pushReaction, featureFlags));
     }
 
     /**
@@ -1013,7 +1101,20 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerSlab(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_slab", () -> new MWSlabBlock(blockStateSupplier, featureFlags));
+        return registerSlab(materialName, blockStateSupplier, PushReaction.NORMAL, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWSlabBlock Slab Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Slab is based on}
+     * @param pushReaction {@link PushReaction The Block Push Reaction when moved by Pistons}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerSlab(final String materialName, final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_slab", () -> new MWSlabBlock(blockStateSupplier, pushReaction, featureFlags));
     }
 
     /**
@@ -1025,7 +1126,20 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerWall(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_wall", () -> new MWWallBlock(blockStateSupplier, featureFlags));
+        return registerWall(materialName, blockStateSupplier, PushReaction.NORMAL, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWWallBlock Wall Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Wall is based on}
+     * @param pushReaction {@link PushReaction The Block Push Reaction when moved by Pistons}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerWall(final String materialName, final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_wall", () -> new MWWallBlock(blockStateSupplier, pushReaction, featureFlags));
     }
 
     /**
@@ -1135,7 +1249,20 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerLantern(final String materialName, final boolean isSoulLantern, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + (isSoulLantern ? "_soul_lantern" : "_lantern"), () -> new LanternBlock(PropertyHelper.copy(isSoulLantern ? Blocks.SOUL_LANTERN : Blocks.LANTERN, featureFlags)));
+        return registerLantern(materialName, isSoulLantern, isSoulLantern ? 10 : 15, featureFlags);
+    }
+
+    /**
+     * Register a {@link LanternBlock Lantern Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isSoulLantern {@link Boolean If the Lantern is a soul lantern}
+     * @param lightLevel {@link Integer The Lantern light level}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerLantern(final String materialName, final boolean isSoulLantern, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + (isSoulLantern ? "_soul_lantern" : "_lantern"), () -> new LanternBlock(PropertyHelper.copy(isSoulLantern ? Blocks.SOUL_LANTERN : Blocks.LANTERN, featureFlags).lightLevel(blockState -> lightLevel)));
     }
 
     /**
@@ -1148,7 +1275,21 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerWallHangingLantern(final String materialName, final boolean isSoulLantern, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem("wall_hanging_" + materialName + (materialName.isEmpty() ? "" : "_") + (isSoulLantern ? "soul_lantern" : "lantern"), Suppliers.memoize(() -> new WallHangingLanternBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags))));
+        return registerWallHangingLantern(materialName, isSoulLantern, blockSupplier, isSoulLantern ? 10 : 15, featureFlags);
+    }
+
+    /**
+     * Register a {@link WallHangingLanternBlock Wall Hanging Lantern Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isSoulLantern {@link Boolean If the Lantern is a soul lantern}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this lantern is based on}
+     * @param lightLevel {@link Integer The Lantern light level}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallHangingLantern(final String materialName, final boolean isSoulLantern, final Supplier<Block> blockSupplier, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem("wall_hanging_" + materialName + (materialName.isEmpty() ? "" : "_") + (isSoulLantern ? "soul_lantern" : "lantern"), Suppliers.memoize(() -> new WallHangingLanternBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags).lightLevel(blockState -> lightLevel))));
     }
 
     /**
@@ -1651,6 +1792,76 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerWallFan(final String materialName, final MapColor color, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
         return registerBlockWithoutBlockItem(materialName + "_wall_fan", Suppliers.memoize(() -> new BaseCoralWallFanBlock(PropertyHelper.block(color, 0F, 0F, true, SoundType.GRASS, featureFlags).noCollission().instabreak().lootFrom(blockSupplier))));
+    }
+
+    /**
+     * Register a {@link MWTorchBlock Torch Block}
+     *
+     * @param fireType {@link MWFireBlock.MWFireType The Fire Type}
+     * @param particleSupplier {@link Supplier<ParticleOptions> The Torch Particle Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTorch(final MWFireBlock.MWFireType fireType, final Supplier<? extends ParticleOptions> particleSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(ResourceHelper.fireName(fireType) + "_torch", Suppliers.memoize(() -> new MWTorchBlock(fireType.lightLevel(), particleSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWWallTorchBlock Wall Torch Block}
+     *
+     * @param fireType {@link MWFireBlock.MWFireType The Fire Type}
+     * @param particleSupplier {@link Supplier<ParticleOptions> The Torch Particle Supplier}
+     * {@link Supplier<Block> The Supplier for the Torch Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallTorch(final MWFireBlock.MWFireType fireType, final Supplier<? extends ParticleOptions> particleSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(ResourceHelper.fireName(fireType) + "_wall_torch", Suppliers.memoize(() -> new MWWallTorchBlock(fireType.lightLevel(), particleSupplier, blockSupplier, featureFlags)));
+    }
+
+    /**
+     * Register an {@link UnlitTorchBlock Unlit Torch Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerUnlitTorch(final String materialName, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem("unlit_" + materialName + (materialName.isEmpty() ? "" : "_") + "torch", Suppliers.memoize(() -> new UnlitTorchBlock(featureFlags)));
+    }
+
+    /**
+     * Register a {@link UnlitWallTorchBlock Unlit Wall Torch Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Torch Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerUnlitWallTorch(final String materialName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem("unlit_" + materialName + (materialName.isEmpty() ? "" : "_") + "wall_torch", Suppliers.memoize(() -> new UnlitWallTorchBlock(blockSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWFireBlock Fire Block}
+     *
+     * @param type {@link MWFireBlock.MWFireType The Fire Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(type.name().toLowerCase(Locale.ROOT) + "_fire", Suppliers.memoize(() -> new MWFireBlock(type, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWCampfireBlock Campfire Block}
+     *
+     * @param type {@link MWFireBlock.MWFireType The Fire Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCampfireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
+        return registerBlock(type.name().toLowerCase(Locale.ROOT) + "_campfire", Suppliers.memoize(() -> new MWCampfireBlock(type, featureFlags)));
     }
 
     /**

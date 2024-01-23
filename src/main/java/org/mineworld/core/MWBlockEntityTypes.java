@@ -12,10 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.chest.MWChestRenderer;
 import org.mineworld.client.renderer.chest.MWTrappedChestRenderer;
-import org.mineworld.entity.block.DaylightLampBlockEntity;
-import org.mineworld.entity.block.MWHangingSignBlockEntity;
-import org.mineworld.entity.block.MWLecternBlockEntity;
-import org.mineworld.entity.block.MWSignBlockEntity;
+import org.mineworld.entity.block.*;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;
@@ -75,6 +72,10 @@ public final class MWBlockEntityTypes {
             Suppliers.memoize(() -> MWBlocks.PALM_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.PALM_WALL_HANGING_SIGN.get()),
             Suppliers.memoize(() -> MWBlocks.DEAD_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.DEAD_WALL_HANGING_SIGN.get()),
             Suppliers.memoize(() -> MWBlocks.SCULK_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_HANGING_SIGN.get())
+    );
+    public static final RegistryObject<BlockEntityType<CampfireBlockEntity>> CAMPFIRE = registerBlockEntity("campfire", MWCampfireBlockEntity::new,
+            Suppliers.memoize(() -> MWBlocks.END_CAMPFIRE.get()),
+            Suppliers.memoize(() -> MWBlocks.SCULK_CAMPFIRE.get())
     );
     public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SPRUCE_CHEST = registerChest(WoodType.SPRUCE, false, SpruceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
     public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SPRUCE_TRAPPED_CHEST = registerChest(WoodType.SPRUCE, true, SpruceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
@@ -199,7 +200,8 @@ public final class MWBlockEntityTypes {
         registerRenderer(LECTERN, LecternRenderer::new);
         registerRenderer(SIGN, SignRenderer::new);
         registerRenderer(HANGING_SIGN, HangingSignRenderer::new);
-        BlockEntityRenderers.register(SKULL.get(), SkullBlockRenderer::new);
+        registerRenderer(SKULL, SkullBlockRenderer::new);
+        registerRenderer(CAMPFIRE, CampfireRenderer::new);
         registerRenderer(MWChestRenderer::new,
                 SPRUCE_CHEST,
                 BIRCH_CHEST,

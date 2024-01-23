@@ -114,7 +114,7 @@ public class MWPointedDripstoneBlock extends Block implements Fallable, SimpleWa
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWPointedDripstoneBlock(final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(blockSupplier.get(), featureFlags).noOcclusion().randomTicks().strength(0.5F).dynamicShape().offsetType(OffsetType.XZ));
+        super(PropertyHelper.copy(blockSupplier.get(), featureFlags).noOcclusion().randomTicks().strength(0.5F).dynamicShape().offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.stateDefinition.any().setValue(TIP_DIRECTION, Direction.UP).setValue(THICKNESS, DripstoneThickness.TIP).setValue(WATERLOGGED, Boolean.FALSE));
         this.blockSupplier = blockSupplier;
     }
@@ -318,17 +318,6 @@ public class MWPointedDripstoneBlock extends Block implements Fallable, SimpleWa
 
             }
         }
-    }
-
-    /**
-     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
-     *
-     * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction#DESTROY Destroy push reaction}
-     */
-    @Override
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return PushReaction.DESTROY;
     }
 
     /**

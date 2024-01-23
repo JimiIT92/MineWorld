@@ -7,24 +7,22 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.PropertyHelper;
 
 /**
- * {@link MineWorld MineWorld} {@link StairBlock Crying Obsidian Stairs}
+ * {@link MineWorld MineWorld} {@link MWStairBlock Crying Obsidian Stairs}
  */
-public class CryingObsidianStairs extends StairBlock {
+public class CryingObsidianStairs extends MWStairBlock {
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public CryingObsidianStairs() {
-        super(Blocks.CRYING_OBSIDIAN::defaultBlockState, PropertyHelper.copy(Blocks.CRYING_OBSIDIAN).requiresCorrectToolForDrops());
+        super(Blocks.CRYING_OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
     }
 
     /**
@@ -49,16 +47,6 @@ public class CryingObsidianStairs extends StairBlock {
                 }
             }
         }
-    }
-
-    /**
-     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
-     *
-     * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction#BLOCK Block push reaction}
-     */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return PushReaction.BLOCK;
     }
 
 }

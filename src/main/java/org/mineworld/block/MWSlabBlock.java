@@ -8,9 +8,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
-import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.BlockHelper;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.Supplier;
@@ -32,18 +30,19 @@ public class MWSlabBlock extends SlabBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWSlabBlock(final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops());
-        this.blockStateSupplier = blockStateSupplier;
+        this(blockStateSupplier, blockStateSupplier.get().getPistonPushReaction(), featureFlags);
     }
 
     /**
-     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param blockState {@link BlockState The current Block State}
-     * @return {@link PushReaction The Block push reaction based on the source Block}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State this Slab is based on}
+     * @param pushReaction {@link PushReaction The Block Push Reaction when moved by Pistons}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return BlockHelper.getPushReaction(blockStateSupplier.get());
+    public MWSlabBlock(final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final  FeatureFlag... featureFlags) {
+        super(PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops().pushReaction(pushReaction));
+        this.blockStateSupplier = blockStateSupplier;
     }
 
     /**
