@@ -856,6 +856,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CORN = registerBlockWithoutBlockItem("corn", CornBlock::new);
     public static final RegistryObject<Block> WARPED_WART = registerBlockWithoutBlockItem("warped_wart", WarpedWartBlock::new);
     public static final RegistryObject<Block> BLUEBERRY_BUSH = registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
+    public static final RegistryObject<Block> BROWN_MUSHROOM_WALL_FAN = registerWallFan("brown_mushroom", MapColor.COLOR_BROWN, () -> Blocks.BROWN_MUSHROOM);
+    public static final RegistryObject<Block> RED_MUSHROOM_WALL_FAN = registerWallFan("red_mushroom", MapColor.COLOR_RED, () -> Blocks.RED_MUSHROOM);
 
     //#endregion
 
@@ -902,6 +904,14 @@ public final class MWBlocks {
 
     //#endregion
 
+    //#region Rods
+
+    public static final RegistryObject<Block> BONE_ROD_BLOCK = registerRod("bone", MapColor.TERRACOTTA_WHITE, SoundType.BONE_BLOCK);
+    public static final RegistryObject<Block> BLAZE_ROD_BLOCK = registerRod("blaze", MapColor.TERRACOTTA_ORANGE, SoundType.METAL);
+    public static final RegistryObject<Block> STICK_ROD_BLOCK = registerRod("stick", MapColor.WOOD, SoundType.WOOD);
+
+    //#endregion
+
     //#region Misc
 
     public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", Suppliers.memoize(() -> new DaylightLampBlock()));
@@ -910,6 +920,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ROPE_TAIL = registerBlockWithoutBlockItem("rope_tail", Suppliers.memoize(() -> new RopeTailBlock()));
     public static final RegistryObject<Block> ICE_CHEST = registerChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_CHEST.get()));
     public static final RegistryObject<Block> ICE_TRAPPED_CHEST = registerTrappedChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> CHRISTMAS_LIGHTS = registerBlock("christmas_lights", Suppliers.memoize(() -> new SidePanelBlock(PropertyHelper.block(0.15F, false).instabreak().sound(SoundType.GLASS))));
 
     //#endregion
 
@@ -1614,6 +1625,32 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerLectern(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(woodName + "_lectern", Suppliers.memoize(() -> new MWLecternBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWRodBlock Rod Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param color {@link MapColor The Block Color on maps}
+     * @param sound {@link SoundType The Block Sound}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerRod(final String materialName, final MapColor color, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(materialName + "_rod_block", Suppliers.memoize(() -> new MWRodBlock(color, sound, featureFlags)));
+    }
+
+    /**
+     * Register a {@link BaseCoralWallFanBlock Wall Fan Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param color {@link MapColor The Block Color on maps}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this Fan is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallFan(final String materialName, final MapColor color, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(materialName + "_wall_fan", Suppliers.memoize(() -> new BaseCoralWallFanBlock(PropertyHelper.block(color, 0F, 0F, true, SoundType.GRASS, featureFlags).noCollission().instabreak().lootFrom(blockSupplier))));
     }
 
     /**

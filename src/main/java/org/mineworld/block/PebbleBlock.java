@@ -65,12 +65,12 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * Set the Block rotation when placed
      *
      * @param blockState {@link BlockState The current Block State}
-     * @param direction {@link Rotation The direction to rotate}
+     * @param rotation {@link Rotation The direction to rotate}
      * @return {@link BlockState The rotated Block State}
      */
     @Override
-    public @NotNull BlockState rotate(final BlockState blockState, final Rotation direction) {
-        return blockState.setValue(FACING, direction.rotate(blockState.getValue(FACING)));
+    public @NotNull BlockState rotate(final BlockState blockState, final Rotation rotation) {
+        return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
     }
 
     /**
