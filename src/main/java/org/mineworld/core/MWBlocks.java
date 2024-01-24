@@ -996,6 +996,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ICE_CHEST = registerChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_CHEST.get()));
     public static final RegistryObject<Block> ICE_TRAPPED_CHEST = registerTrappedChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get()));
     public static final RegistryObject<Block> CHRISTMAS_LIGHTS = registerBlock("christmas_lights", Suppliers.memoize(() -> new SidePanelBlock(PropertyHelper.block(0.15F, false).instabreak().sound(SoundType.GLASS))));
+    public static final RegistryObject<Block> GIFT = registerBlockWithoutBlockItem("gift", Suppliers.memoize(() -> new GiftBlock()));
 
     //#endregion
 

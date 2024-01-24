@@ -32,7 +32,17 @@ public final class TextureHelper {
      * @return {@link ResourceLocation The Chest Texture location}
      */
     public static ResourceLocation chest(final WoodType woodType, final ChestType chestType, final boolean isTrappedChest) {
-        return ResourceHelper.resourceLocation("entity/chest/" + ResourceHelper.woodName(woodType) + "/" + (isTrappedChest ? "trapped" : "normal") + ResourceHelper.chestTypeName(chestType));
+        return chest(ResourceHelper.woodName(woodType) + "/" + (isTrappedChest ? "trapped" : "normal") + ResourceHelper.chestTypeName(chestType));
+    }
+
+    /**
+     * Get a {@link ChestBlockEntity Chest} {@link ResourceLocation Texture location}
+     *
+     * @param texturePath {@link String The Texture Path}
+     * @return {@link ResourceLocation The Chest Texture location}
+     */
+    public static ResourceLocation chest(final String texturePath) {
+        return ResourceHelper.resourceLocation("entity/chest/" + texturePath);
     }
 
     /**
@@ -41,7 +51,7 @@ public final class TextureHelper {
      * @param texturePath {@link String The Texture Path}
      * @return {@link ResourceLocation The Entity Texture location}
      */
-    private static ResourceLocation entity(final String texturePath) {
+    public static ResourceLocation entity(final String texturePath) {
         return texture("entity/" + texturePath);
     }
 

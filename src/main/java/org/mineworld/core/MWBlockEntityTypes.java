@@ -10,8 +10,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
-import org.mineworld.client.renderer.chest.MWChestRenderer;
-import org.mineworld.client.renderer.chest.MWTrappedChestRenderer;
+import org.mineworld.client.renderer.GiftRenderer;
+import org.mineworld.client.renderer.MWChestRenderer;
+import org.mineworld.client.renderer.MWTrappedChestRenderer;
 import org.mineworld.entity.block.*;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegistryHelper;
@@ -76,6 +77,9 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<CampfireBlockEntity>> CAMPFIRE = registerBlockEntity("campfire", MWCampfireBlockEntity::new,
             Suppliers.memoize(() -> MWBlocks.END_CAMPFIRE.get()),
             Suppliers.memoize(() -> MWBlocks.SCULK_CAMPFIRE.get())
+    );
+    public static final RegistryObject<BlockEntityType<GiftBlockEntity>> GIFT = registerBlockEntity("gift", GiftBlockEntity::new,
+            Suppliers.memoize(() -> MWBlocks.GIFT.get())
     );
     public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SPRUCE_CHEST = registerChest(WoodType.SPRUCE, false, SpruceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
     public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SPRUCE_TRAPPED_CHEST = registerChest(WoodType.SPRUCE, true, SpruceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
@@ -202,6 +206,7 @@ public final class MWBlockEntityTypes {
         registerRenderer(HANGING_SIGN, HangingSignRenderer::new);
         registerRenderer(SKULL, SkullBlockRenderer::new);
         registerRenderer(CAMPFIRE, CampfireRenderer::new);
+        registerRenderer(GIFT, GiftRenderer::new);
         registerRenderer(MWChestRenderer::new,
                 SPRUCE_CHEST,
                 BIRCH_CHEST,
