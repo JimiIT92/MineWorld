@@ -12,6 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
+import org.mineworld.block.MWFireBlock;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTnt;
@@ -267,6 +268,27 @@ public final class MWItems {
 
     //#endregion
 
+    //#region Torches
+
+    public static final RegistryObject<Item> UNLIT_TORCH = registerTorch("", true, Suppliers.memoize(() -> MWBlocks.UNLIT_TORCH.get()), Suppliers.memoize(() -> MWBlocks.UNLIT_WALL_TORCH.get()));
+    public static final RegistryObject<Item> UNLIT_SOUL_TORCH = registerTorch("soul", true, Suppliers.memoize(() -> MWBlocks.UNLIT_SOUL_TORCH.get()), Suppliers.memoize(() -> MWBlocks.UNLIT_SOUL_WALL_TORCH.get()));
+    public static final RegistryObject<Item> END_TORCH = registerTorch(MWFireBlock.MWFireType.END, false, Suppliers.memoize(() -> MWBlocks.END_TORCH.get()), Suppliers.memoize(() -> MWBlocks.END_WALL_TORCH.get()));
+    public static final RegistryObject<Item> UNLIT_END_TORCH = registerTorch(MWFireBlock.MWFireType.END, true, Suppliers.memoize(() -> MWBlocks.UNLIT_END_TORCH.get()), Suppliers.memoize(() -> MWBlocks.UNLIT_END_WALL_TORCH.get()));
+    public static final RegistryObject<Item> SCULK_TORCH = registerTorch(MWFireBlock.MWFireType.SCULK, false, Suppliers.memoize(() -> MWBlocks.SCULK_TORCH.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_TORCH.get()));
+    public static final RegistryObject<Item> UNLIT_SCULK_TORCH = registerTorch(MWFireBlock.MWFireType.SCULK, true, Suppliers.memoize(() -> MWBlocks.UNLIT_SCULK_TORCH.get()), Suppliers.memoize(() -> MWBlocks.UNLIT_SCULK_WALL_TORCH.get()));
+
+    //#endregion
+
+    //#region Misc
+
+    public static final RegistryObject<Item> GIFT = registerSpecialRendererBlockItem("gift", Suppliers.memoize(() -> MWBlocks.GIFT.get()));
+    public static final RegistryObject<Item> ECHOING_CHARGE_FRAGMENT = registerRareItem("echoing_charge_fragment", Rarity.RARE);
+    public static final RegistryObject<Item> SCULK_HEART = registerRareItem("sculk_heart", Rarity.EPIC);
+    public static final RegistryObject<Item> DARK_SOUL = registerRareItem("dark_soul", Rarity.EPIC);
+    public static final RegistryObject<Item> SOUL = registerSimpleItem("soul");
+
+    //#endregion
+
     //#endregion
 
     //#region Methods
@@ -280,6 +302,17 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerSimpleItem(final String name, final FeatureFlag... featureFlags) {
         return registerItem(name, () -> new Item(PropertyHelper.item(featureFlags)));
+    }
+
+    /**
+     * Register a simple {@link Item Item}
+     *
+     * @param name {@link String The Item name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerRareItem(final String name, final Rarity rarity, final FeatureFlag... featureFlags) {
+        return registerItem(name, () -> new Item(PropertyHelper.item(featureFlags).rarity(rarity)));
     }
 
     /**
@@ -491,6 +524,34 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerSkull(final MWArmorMaterials armorMaterial, final boolean isHead, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final FeatureFlag... featureFlags) {
         return registerStandingAndWallBlockItem(ResourceHelper.armorMaterialName(armorMaterial) + "_" + (isHead ? "head" : "skull"), standingBlockSupplier, wallBlockSupplier, PropertyHelper.item(featureFlags).rarity(Rarity.UNCOMMON));
+    }
+
+    /**
+     * Register a {@link Item Torch Item}
+     *
+     * @param fireType {@link MWFireBlock.MWFireType The Fire Type}
+     * @param isUnlit {@link Boolean If the Torch is unlit}
+     * @param standingBlockSupplier {@link Supplier<Block> The Supplier for the Standing Block}
+     * @param wallBlockSupplier {@link Supplier<Block> The Supplier for the Wall Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerTorch(final MWFireBlock.MWFireType fireType, final boolean isUnlit, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final FeatureFlag... featureFlags) {
+        return registerTorch(ResourceHelper.fireName(fireType), isUnlit, standingBlockSupplier, wallBlockSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link Item Torch Item}
+     *
+     * @param materialName {@link String The Item material name}
+     * @param isUnlit {@link Boolean If the Torch is unlit}
+     * @param standingBlockSupplier {@link Supplier<Block> The Supplier for the Standing Block}
+     * @param wallBlockSupplier {@link Supplier<Block> The Supplier for the Wall Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerTorch(final String materialName, final boolean isUnlit, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final FeatureFlag... featureFlags) {
+        return registerStandingAndWallBlockItem( (isUnlit ? "unlit_" : "") + materialName + (materialName.isEmpty() ? "" : "_") + "torch", standingBlockSupplier, wallBlockSupplier, PropertyHelper.item(featureFlags));
     }
 
     /**
