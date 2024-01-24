@@ -3,7 +3,6 @@ package org.mineworld;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.raid.Raid;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -85,11 +84,12 @@ public final class MineWorld {
     }
 
     /**
-     * Set up the {@link MineWorld MineWorld} client stuffs, like entity renderers and {@link Item Item} custom properties
+     * Set up the {@link MineWorld MineWorld} client stuffs, like entity renderers
      *
-     * @param event {@link FMLClientSetupEvent The FML client setup event}
+     * @param event {@link FMLClientSetupEvent FML client setup event}
      */
     private void onClientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(MWEntityTypes::registerRenderers);
         event.enqueueWork(MWBlockEntityTypes::registerRenderers);
     }
 

@@ -1,4 +1,4 @@
-package org.mineworld.client.renderer;
+package org.mineworld.client.renderer.block;
 
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -11,21 +11,21 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.entity.block.chest.MWChestBlockEntity;
+import org.mineworld.entity.block.chest.MWTrappedChestBlockEntity;
 import org.mineworld.helper.TextureHelper;
 
 /**
- * Renderer class for a {@link MineWorld MineWorld} {@link MWChestBlockEntity Chest Block Entity}
+ * Renderer class for a {@link MineWorld MineWorld} {@link MWTrappedChestBlockEntity Trapped Chest Block Entity}
  */
 @OnlyIn(Dist.CLIENT)
-public class MWChestRenderer extends ChestRenderer<MWChestBlockEntity> {
+public class MWTrappedChestRenderer extends ChestRenderer<MWTrappedChestBlockEntity> {
 
     /**
      * Constructor. Set the renderer properties
      *
      * @param context {@link EntityRendererProvider.Context The Render Context}
      */
-    public MWChestRenderer(final BlockEntityRendererProvider.Context context) {
+    public MWTrappedChestRenderer(final BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
@@ -37,8 +37,8 @@ public class MWChestRenderer extends ChestRenderer<MWChestBlockEntity> {
      * @return {@link Material The Chest Material}
      */
     @Override
-    protected @NotNull Material getMaterial(final @NotNull MWChestBlockEntity chest, final @NotNull ChestType chestType) {
-        return new Material(Sheets.CHEST_SHEET, TextureHelper.chest(chest.getWoodType(), chestType, false));
+    protected @NotNull Material getMaterial(final @NotNull MWTrappedChestBlockEntity chest, final @NotNull ChestType chestType) {
+        return new Material(Sheets.CHEST_SHEET, TextureHelper.chest(chest.getWoodType(), chestType, true));
     }
 
 }

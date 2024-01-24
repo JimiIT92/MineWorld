@@ -10,9 +10,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
-import org.mineworld.client.renderer.GiftRenderer;
-import org.mineworld.client.renderer.MWChestRenderer;
-import org.mineworld.client.renderer.MWTrappedChestRenderer;
+import org.mineworld.client.renderer.block.GiftRenderer;
+import org.mineworld.client.renderer.block.MWChestRenderer;
+import org.mineworld.client.renderer.block.MWTrappedChestRenderer;
 import org.mineworld.entity.block.*;
 import org.mineworld.entity.block.chest.*;
 import org.mineworld.helper.RegistryHelper;
@@ -175,7 +175,7 @@ public final class MWBlockEntityTypes {
      * Register a {@link BlockEntityRendererProvider Block Entity Renderer}
      * for some {@link BlockEntityType Block Entities}
      *
-     * @param rendererProvider {@link BlockEntityRendererProvider Block Entity Renderer}
+     * @param rendererProvider {@link BlockEntityRendererProvider The Block Entity Renderer}
      * @param blockEntities {@link BlockEntity The Block Entities}
      * @param <T> {@link T The Block Entity type}
      */

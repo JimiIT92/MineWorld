@@ -13,10 +13,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWWoodTypes;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTnt;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
@@ -93,7 +96,7 @@ public class MWMinecartItem extends Item {
             case DISGUISED_RED_SAND_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_RED_SAND);
             case DISGUISED_STONE_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_STONE);
             case DISGUISED_CAKE_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_CAKE);
-            /*case SPRUCE_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.SPRUCE);
+            case SPRUCE_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.SPRUCE);
             case BIRCH_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.BIRCH);
             case JUNGLE_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.JUNGLE);
             case ACACIA_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.ACACIA);
@@ -103,12 +106,11 @@ public class MWMinecartItem extends Item {
             case BAMBOO_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.BAMBOO);
             case CRIMSON_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.CRIMSON);
             case WARPED_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.WARPED);
-            case APPLE_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.APPLE);
-            case PALM_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.PALM);
-            case DEAD_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.DEAD);
-            case ICE_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.ICE);
-            case SCULK_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.SCULK.get());*/
-            default -> null;
+            case APPLE_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.APPLE.get());
+            case PALM_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.PALM.get());
+            case DEAD_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.DEAD.get());
+            case ICE_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.ICE.get());
+            case SCULK_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.SCULK.get());
         };
     }
 

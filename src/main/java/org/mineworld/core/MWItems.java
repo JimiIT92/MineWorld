@@ -13,15 +13,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTnt;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;
 import org.mineworld.helper.TextureHelper;
-import org.mineworld.item.MWFuelItem;
-import org.mineworld.item.MWItemNameBlockItem;
-import org.mineworld.item.MWMinecartItem;
-import org.mineworld.item.MWTntMinecartItem;
+import org.mineworld.item.*;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -198,6 +196,26 @@ public final class MWItems {
     public static final RegistryObject<Item> MEGA_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.MEGA_TNT, MWPrimedTnt.Type.MEGA);
     public static final RegistryObject<Item> SUPER_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.SUPER_TNT, MWPrimedTnt.Type.SUPER);
     public static final RegistryObject<Item> HYPER_TNT_MINECART = registerTntMinecart(MWMinecartItem.Type.HYPER_TNT, MWPrimedTnt.Type.HYPER);
+
+    //#endregion
+
+    //#region Chest Minecarts
+
+    public static final RegistryObject<Item> SPRUCE_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.SPRUCE_CHEST, WoodType.SPRUCE);
+    public static final RegistryObject<Item> BIRCH_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.BIRCH_CHEST, WoodType.BIRCH);
+    public static final RegistryObject<Item> JUNGLE_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.JUNGLE_CHEST, WoodType.JUNGLE);
+    public static final RegistryObject<Item> ACACIA_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.ACACIA_CHEST, WoodType.ACACIA);
+    public static final RegistryObject<Item> DARK_OAK_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.DARK_OAK_CHEST, WoodType.DARK_OAK);
+    public static final RegistryObject<Item> MANGROVE_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.MANGROVE_CHEST, WoodType.MANGROVE);
+    public static final RegistryObject<Item> CHERRY_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.CHERRY_CHEST, WoodType.CHERRY);
+    public static final RegistryObject<Item> BAMBOO_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.BAMBOO_CHEST, WoodType.BAMBOO);
+    public static final RegistryObject<Item> CRIMSON_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.CRIMSON_CHEST, WoodType.CRIMSON);
+    public static final RegistryObject<Item> WARPED_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.WARPED_CHEST, WoodType.WARPED);
+    public static final RegistryObject<Item> APPLE_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.APPLE_CHEST, MWWoodTypes.MWWoodTypeNames.APPLE);
+    public static final RegistryObject<Item> PALM_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.PALM_CHEST, MWWoodTypes.MWWoodTypeNames.PALM);
+    public static final RegistryObject<Item> DEAD_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.DEAD_CHEST, MWWoodTypes.MWWoodTypeNames.DEAD);
+    public static final RegistryObject<Item> SCULK_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.SCULK_CHEST, MWWoodTypes.MWWoodTypeNames.SCULK);
+    public static final RegistryObject<Item> ICE_CHEST_MINECART = registerChestMinecart(MWMinecartItem.Type.ICE_CHEST, MWWoodTypes.MWWoodTypeNames.ICE);
 
     //#endregion
 
@@ -409,6 +427,30 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerTntMinecart(final MWMinecartItem.Type minecartType, final MWPrimedTnt.Type tntType, final FeatureFlag... featureFlags) {
         return registerItem(tntType.name().toLowerCase(Locale.ROOT) + "_tnt_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
+    }
+
+    /**
+     * Register a {@link MWMinecartChest Chest Minecart}
+     *
+     * @param minecartType {@link MWMinecartItem.Type The Minecart Type}
+     * @param woodType {@link WoodType The Chest Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerChestMinecart(final MWMinecartItem.Type minecartType, final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerChestMinecart(minecartType, ResourceHelper.woodName(woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link MWMinecartChest Chest Minecart}
+     *
+     * @param minecartType {@link MWMinecartItem.Type The Minecart Type}
+     * @param woodName {@link String The Chest Wood name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerChestMinecart(final MWMinecartItem.Type minecartType, final String woodName, final FeatureFlag... featureFlags) {
+        return registerItem(woodName + "_chest_minecart", () -> new MWMinecartChestItem(minecartType, featureFlags));
     }
 
     /**

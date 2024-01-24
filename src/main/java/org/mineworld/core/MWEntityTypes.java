@@ -1,5 +1,6 @@
 package org.mineworld.core;
 
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -9,11 +10,17 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
+import org.mineworld.client.renderer.block.MWPrimedTntRenderer;
+import org.mineworld.client.renderer.vehicle.MWChestMinecartRenderer;
+import org.mineworld.client.renderer.vehicle.MWTntMinecartRenderer;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.projectile.ThrownPebble;
+import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTnt;
 import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;
+
+import java.util.Arrays;
 
 /**
  * {@link MineWorld MineWorld} {@link EntityType Entity Types}
@@ -36,21 +43,30 @@ public final class MWEntityTypes {
                     .fireImmune()
                     .sized(0.98F, 0.98F)
                     .clientTrackingRange(10)
-                    .updateInterval(10));
+                    .updateInterval(10)
+    );
     public static final RegistryObject<EntityType<ThrownPebble>> PEBBLE = registerEntityType("pebble",
             EntityType.Builder.<ThrownPebble>of(ThrownPebble::new, MobCategory.MISC)
                     .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
-                    .updateInterval(10));
+                    .updateInterval(10)
+    );
     public static final RegistryObject<EntityType<LeashFenceKnotEntity>> LEASH_KNOT = registerEntityType("leash_knot",
             EntityType.Builder.<LeashFenceKnotEntity>of(LeashFenceKnotEntity::new, MobCategory.MISC)
                     .sized(0.375F, 0.5F)
                     .clientTrackingRange(10)
-                    .updateInterval(Integer.MAX_VALUE));
+                    .updateInterval(Integer.MAX_VALUE)
+    );
     public static final RegistryObject<EntityType<MWMinecartTnt>> TNT_MINECART = registerEntityType("tnt_minecart",
             EntityType.Builder.<MWMinecartTnt>of(MWMinecartTnt::new, MobCategory.MISC)
                     .sized(0.98F, 0.7F)
-                    .clientTrackingRange(8));
+                    .clientTrackingRange(8)
+    );
+    public static final RegistryObject<EntityType<MWMinecartChest>> CHEST_MINECART = registerEntityType("chest_minecart",
+            EntityType.Builder.<MWMinecartChest>of(MWMinecartChest::new, MobCategory.MISC)
+                    .sized(0.98F, 0.7F)
+                    .clientTrackingRange(8)
+    );
 
     //#endregion
 
@@ -68,6 +84,29 @@ public final class MWEntityTypes {
         return ENTITY_TYPES.register(name, () -> entityTypeBuilder.build(ResourceHelper.stringLocation(name)));
     }
 
+    /**
+     * Register an {@link EntityRendererProvider Entity Renderer} for an {@link EntityType Entities}
+     *
+     * @param rendererProvider {@link EntityRendererProvider The Entity Renderer}
+     * @param entity {@link Entity The Entity}
+     * @param <T> {@link T The Entity type}
+     */
+    private static <T extends Entity> void registerRenderer(final RegistryObject<EntityType<T>> entity, final EntityRendererProvider<T> rendererProvider) {
+        EntityRenderers.register(entity.get(), rendererProvider);
+    }
+
+    /**
+     * Register an {@link EntityRendererProvider Entity Renderer} for some {@link EntityType Entities}
+     *
+     * @param rendererProvider {@link EntityRendererProvider The Entity Renderer}
+     * @param entities {@link Entity The Entities}
+     * @param <T> {@link T The Entity type}
+     */
+    @SafeVarargs
+    private static <T extends Entity> void registerRenderer(final EntityRendererProvider<T> rendererProvider, final RegistryObject<EntityType<T>>... entities) {
+        Arrays.stream(entities).forEach(entity -> registerRenderer(entity, rendererProvider));
+    }
+
     //#endregion
 
     //#region Bus register
@@ -79,6 +118,19 @@ public final class MWEntityTypes {
      */
     public static void register(final IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
+    }
+
+    /**
+     * Register all {@link EntityRenderer Entity Renderers}
+     */
+    public static void registerRenderers() {
+        registerRenderer(MW_PRIMED_TNT, MWPrimedTntRenderer::new);
+        registerRenderer(LEASH_KNOT, LeashKnotRenderer::new);
+        registerRenderer(TNT_MINECART, MWTntMinecartRenderer::new);
+        registerRenderer(CHEST_MINECART, MWChestMinecartRenderer::new);
+        registerRenderer(ThrownItemRenderer::new,
+                PEBBLE
+        );
     }
 
     //#endregion
