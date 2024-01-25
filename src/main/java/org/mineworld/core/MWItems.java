@@ -14,6 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.MWFireBlock;
 import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTnt;
 import org.mineworld.helper.PropertyHelper;
@@ -265,6 +266,23 @@ public final class MWItems {
     public static final RegistryObject<Item> DEAD_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, Suppliers.memoize(() -> MWBlocks.DEAD_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.DEAD_WALL_HANGING_SIGN.get()));
     public static final RegistryObject<Item> SCULK_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> MWBlocks.SCULK_SIGN.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_SIGN.get()));
     public static final RegistryObject<Item> SCULK_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> MWBlocks.SCULK_HANGING_SIGN.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_HANGING_SIGN.get()));
+
+    //#endregion
+
+    //#region Boats and Chest Boats
+
+    public static final RegistryObject<Item> CRIMSON_BOAT = registerBoat(WoodType.CRIMSON, false, false, MWBoat.Type.CRIMSON);
+    public static final RegistryObject<Item> CRIMSON_CHEST_BOAT = registerBoat(WoodType.CRIMSON, true, false, MWBoat.Type.CRIMSON);
+    public static final RegistryObject<Item> WARPED_BOAT = registerBoat(WoodType.WARPED, false, false, MWBoat.Type.WARPED);
+    public static final RegistryObject<Item> WARPED_CHEST_BOAT = registerBoat(WoodType.WARPED, true, false, MWBoat.Type.WARPED);
+    public static final RegistryObject<Item> APPLE_BOAT = registerBoat(MWWoodTypes.MWWoodTypeNames.APPLE, false, false, MWBoat.Type.APPLE);
+    public static final RegistryObject<Item> APPLE_CHEST_BOAT = registerBoat(MWWoodTypes.MWWoodTypeNames.APPLE, true, false, MWBoat.Type.APPLE);
+    public static final RegistryObject<Item> PALM_RAFT = registerBoat(MWWoodTypes.MWWoodTypeNames.PALM, false, true, MWBoat.Type.PALM);
+    public static final RegistryObject<Item> PALM_CHEST_RAFT = registerBoat(MWWoodTypes.MWWoodTypeNames.PALM, true, true, MWBoat.Type.PALM);
+    public static final RegistryObject<Item> DEAD_BOAT = registerBoat(MWWoodTypes.MWWoodTypeNames.DEAD, false, false, MWBoat.Type.DEAD);
+    public static final RegistryObject<Item> DEAD_CHEST_BOAT = registerBoat(MWWoodTypes.MWWoodTypeNames.DEAD, true, false, MWBoat.Type.DEAD);
+    public static final RegistryObject<Item> SCULK_BOAT = registerBoat(MWWoodTypes.MWWoodTypeNames.SCULK, false, false, MWBoat.Type.SCULK);
+    public static final RegistryObject<Item> SCULK_CHEST_BOAT = registerBoat(MWWoodTypes.MWWoodTypeNames.SCULK, true, false, MWBoat.Type.SCULK);
 
     //#endregion
 
@@ -552,6 +570,34 @@ public final class MWItems {
      */
     private static RegistryObject<Item> registerTorch(final String materialName, final boolean isUnlit, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final FeatureFlag... featureFlags) {
         return registerStandingAndWallBlockItem( (isUnlit ? "unlit_" : "") + materialName + (materialName.isEmpty() ? "" : "_") + "torch", standingBlockSupplier, wallBlockSupplier, PropertyHelper.item(featureFlags));
+    }
+
+    /**
+     * Register a {@link Item Boat Item}
+     *
+     * @param woodType {@link WoodType The Chest Boat Wood Type}
+     * @param isChestBoat {@link Boolean If the Boat is a Chest Boat}
+     * @param isRaft {@link Boolean If the Boat is a Raft}
+     * @param type {@link MWBoat.Type The Boat Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerBoat(final WoodType woodType, final boolean isChestBoat, final boolean isRaft,final MWBoat.Type type, final FeatureFlag... featureFlags) {
+        return registerBoat( ResourceHelper.woodName (woodType), isChestBoat, isRaft, type, featureFlags);
+    }
+
+    /**
+     * Register a {@link Item Boat Item}
+     *
+     * @param materialName {@link String The Item material name}
+     * @param isChestBoat {@link Boolean If the Boat is a Chest Boat}
+     * @param isRaft {@link Boolean If the Boat is a Raft}
+     * @param type {@link MWBoat.Type The Boat Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerBoat(final String materialName, final boolean isChestBoat, final boolean isRaft, final MWBoat.Type type, final FeatureFlag... featureFlags) {
+        return registerItem( materialName + (isChestBoat ? "_chest" : "") + "_" + (isRaft ? "raft" : "boat"), Suppliers.memoize(() -> new MWBoatItem(isChestBoat, type, featureFlags)));
     }
 
     /**

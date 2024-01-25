@@ -11,10 +11,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.block.MWPrimedTntRenderer;
+import org.mineworld.client.renderer.vehicle.MWBoatRenderer;
+import org.mineworld.client.renderer.vehicle.MWChestBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestMinecartRenderer;
 import org.mineworld.client.renderer.vehicle.MWTntMinecartRenderer;
 import org.mineworld.entity.MWPrimedTnt;
 import org.mineworld.entity.projectile.ThrownPebble;
+import org.mineworld.entity.vehicle.MWBoat;
+import org.mineworld.entity.vehicle.MWChestBoat;
 import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTnt;
 import org.mineworld.helper.RegistryHelper;
@@ -66,6 +70,16 @@ public final class MWEntityTypes {
             EntityType.Builder.<MWMinecartChest>of(MWMinecartChest::new, MobCategory.MISC)
                     .sized(0.98F, 0.7F)
                     .clientTrackingRange(8)
+    );
+    public static final RegistryObject<EntityType<MWBoat>> BOAT = registerEntityType("boat",
+            EntityType.Builder.<MWBoat>of(MWBoat::new, MobCategory.MISC)
+                    .sized(1.375F, 0.5625F)
+                    .clientTrackingRange(10)
+    );
+    public static final RegistryObject<EntityType<MWBoat>> CHEST_BOAT = registerEntityType("chest_boat",
+            EntityType.Builder.<MWBoat>of(MWChestBoat::new, MobCategory.MISC)
+                    .sized(1.375F, 0.5625F)
+                    .clientTrackingRange(10)
     );
 
     //#endregion
@@ -128,6 +142,8 @@ public final class MWEntityTypes {
         registerRenderer(LEASH_KNOT, LeashKnotRenderer::new);
         registerRenderer(TNT_MINECART, MWTntMinecartRenderer::new);
         registerRenderer(CHEST_MINECART, MWChestMinecartRenderer::new);
+        registerRenderer(BOAT, MWBoatRenderer::new);
+        registerRenderer(CHEST_BOAT, MWChestBoatRenderer::new);
         registerRenderer(ThrownItemRenderer::new,
                 PEBBLE
         );
