@@ -23,7 +23,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.*;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;

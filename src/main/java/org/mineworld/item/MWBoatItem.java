@@ -57,7 +57,7 @@ public class MWBoatItem extends Item {
     }
 
     /**
-     * Shoot the pebble on right click
+     * Place the {@link MWBoat Boat} on right click
      *
      * @param level {@link Level The level reference}
      * @param player {@link Player The player that is shooting the pebble}

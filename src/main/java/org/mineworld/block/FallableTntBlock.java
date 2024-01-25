@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 
 /**
  * {@link MineWorld MineWorld} {@link Fallable Fallable} {@link MWTntBlock TNT Block}

@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -15,7 +16,8 @@ import org.mineworld.client.renderer.vehicle.MWBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestMinecartRenderer;
 import org.mineworld.client.renderer.vehicle.MWTntMinecartRenderer;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
+import org.mineworld.entity.projectile.ThrownGrenade;
 import org.mineworld.entity.projectile.ThrownPebble;
 import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWChestBoat;
@@ -49,8 +51,14 @@ public final class MWEntityTypes {
                     .clientTrackingRange(10)
                     .updateInterval(10)
     );
-    public static final RegistryObject<EntityType<ThrownPebble>> PEBBLE = registerEntityType("pebble",
-            EntityType.Builder.<ThrownPebble>of(ThrownPebble::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<ThrowableItemProjectile>> GRENADE = registerEntityType("grenade",
+            EntityType.Builder.<ThrowableItemProjectile>of(ThrownGrenade::new, MobCategory.MISC)
+                    .sized(0.15F, 0.15F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+    );
+    public static final RegistryObject<EntityType<ThrowableItemProjectile>> PEBBLE = registerEntityType("pebble",
+            EntityType.Builder.<ThrowableItemProjectile>of(ThrownPebble::new, MobCategory.MISC)
                     .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
                     .updateInterval(10)
@@ -145,7 +153,8 @@ public final class MWEntityTypes {
         registerRenderer(BOAT, MWBoatRenderer::new);
         registerRenderer(CHEST_BOAT, MWChestBoatRenderer::new);
         registerRenderer(ThrownItemRenderer::new,
-                PEBBLE
+                PEBBLE,
+                GRENADE
         );
     }
 

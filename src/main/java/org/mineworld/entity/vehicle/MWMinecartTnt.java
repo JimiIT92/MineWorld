@@ -20,7 +20,7 @@ import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 
 import java.util.Locale;
 

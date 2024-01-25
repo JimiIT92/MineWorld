@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 
 /**
  * Renderer class for a {@link MineWorld MineWorld} {@link MWPrimedTnt Primed TNT}

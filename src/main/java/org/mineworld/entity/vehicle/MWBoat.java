@@ -23,7 +23,7 @@ import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
 import org.mineworld.core.MWWoodTypes;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.helper.ResourceHelper;
 
 import java.util.function.IntFunction;

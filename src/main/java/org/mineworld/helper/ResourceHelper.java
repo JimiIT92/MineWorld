@@ -2,6 +2,7 @@ package org.mineworld.helper;
 
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
@@ -78,8 +79,40 @@ public final class ResourceHelper {
      * @param armorMaterial {@link ArmorMaterial The Armor Material}
      * @return {@link String The Armor Material name}
      */
-    public static String armorMaterialName(final ArmorMaterial armorMaterial) {
+    public static String armorName(final ArmorMaterial armorMaterial) {
         return path(parse(armorMaterial.getName()));
+    }
+
+    /**
+     * Get the {@link String Armor Material name}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor Material}
+     * @param slot {@link EquipmentSlot The Armor Slot}
+     * @return {@link String The Armor Material name}
+     */
+    public static String armorName(final ArmorMaterial armorMaterial, final EquipmentSlot slot) {
+        return armorName(armorMaterial, slot.getName());
+    }
+
+    /**
+     * Get the {@link String Armor Material name}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor Material}
+     * @param slotName {@link String The Armor Slot name}
+     * @return {@link String The Armor Material name}
+     */
+    public static String armorName(final ArmorMaterial armorMaterial, final String slotName) {
+        return armorName(armorMaterial) + "_" + slotName;
+    }
+
+    /**
+     * Get the {@link String Hat name}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor Material}
+     * @return {@link String The Hat name}
+     */
+    public static String hat(final ArmorMaterial armorMaterial) {
+        return armorName(armorMaterial, "hat");
     }
 
     /**

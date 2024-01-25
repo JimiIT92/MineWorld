@@ -1,4 +1,4 @@
-package org.mineworld.entity;
+package org.mineworld.entity.block;
 
 import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;

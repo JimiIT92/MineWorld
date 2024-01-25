@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWCriteriaTriggers;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.List;

@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.MWFireBlock;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWMinecartChest;
 import org.mineworld.entity.vehicle.MWMinecartTnt;
@@ -79,7 +79,7 @@ public final class MWItems {
 
     //#endregion
 
-    //#region Armor, Tools and Horse Armors
+    //#region Armor, Tools, Weapons and Horse Armors
 
     public static final RegistryObject<Item> CHAINMAIL_HORSE_ARMOR = registerHorseArmorItem(ArmorMaterials.CHAIN, 5);
     public static final RegistryObject<Item> EMERALD_SWORD = registerSword(MWItemTiers.EMERALD_ITEM_TIER);
@@ -180,10 +180,14 @@ public final class MWItems {
     public static final RegistryObject<Item> PIGLIN_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.PIGLIN, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
     public static final RegistryObject<Item> PIGLIN_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.PIGLIN, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
     public static final RegistryObject<Item> PIGLIN_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.PIGLIN, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
-    //public static final RegistryObject<Item> WITCH_HAT = RegisterHelper.registerItem("witch_hat", WitchHatItem::new);
+    public static final RegistryObject<Item> WITCH_HAT = registerItem(ResourceHelper.hat(MWArmorMaterials.WITCH), Suppliers.memoize(() -> new WitchHatItem()));
     public static final RegistryObject<Item> WITCH_CHESTPLATE = registerCosmeticArmorItem(MWArmorMaterials.WITCH, ArmorItem.Type.CHESTPLATE, Rarity.UNCOMMON);
     public static final RegistryObject<Item> WITCH_LEGGINGS = registerCosmeticArmorItem(MWArmorMaterials.WITCH, ArmorItem.Type.LEGGINGS, Rarity.UNCOMMON);
     public static final RegistryObject<Item> WITCH_BOOTS = registerCosmeticArmorItem(MWArmorMaterials.WITCH, ArmorItem.Type.BOOTS, Rarity.UNCOMMON);
+    public static final RegistryObject<Item> STRAW_HAT = registerItem(ResourceHelper.hat(MWArmorMaterials.STRAW), Suppliers.memoize(() -> new StrawHatItem()));
+    public static final RegistryObject<Item> GRENADE = registerItem("grenade", Suppliers.memoize(() -> new GrenadeItem()));
+    public static final RegistryObject<Item> INVISIBILITY_CLOAK = registerItem("invisibility_cloak", Suppliers.memoize(() -> new InvisibilityCloakItem()));
+    public static final RegistryObject<Item> MAGIC_MIRROR = registerItem("magic_mirror", Suppliers.memoize(() -> new MagicMirrorItem()));
 
     //#endregion
 
@@ -381,7 +385,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerHorseArmorItem(final ArmorMaterial armorMaterial, final int protection, final FeatureFlag... featureFlags) {
-        return registerItem(ResourceHelper.armorMaterialName(armorMaterial) + "_horse_armor", () -> new HorseArmorItem(protection, TextureHelper.horseArmor(armorMaterial), PropertyHelper.item(featureFlags).stacksTo(1)));
+        return registerItem(ResourceHelper.armorName(armorMaterial) + "_horse_armor", () -> new HorseArmorItem(protection, TextureHelper.horseArmor(armorMaterial), PropertyHelper.item(featureFlags).stacksTo(1)));
     }
 
     /**
@@ -452,7 +456,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerArmorItem(final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final FeatureFlag... featureFlags) {
-        return registerItem(ResourceHelper.armorMaterialName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags)));
+        return registerItem(ResourceHelper.armorName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags)));
     }
 
     /**
@@ -465,7 +469,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerCosmeticArmorItem(final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final Rarity rarity, final FeatureFlag... featureFlags) {
-        return registerItem(ResourceHelper.armorMaterialName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags).rarity(rarity)));
+        return registerItem(ResourceHelper.armorName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags).rarity(rarity)));
     }
 
     /**
@@ -541,7 +545,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerSkull(final MWArmorMaterials armorMaterial, final boolean isHead, final Supplier<Block> standingBlockSupplier, final Supplier<Block> wallBlockSupplier, final FeatureFlag... featureFlags) {
-        return registerStandingAndWallBlockItem(ResourceHelper.armorMaterialName(armorMaterial) + "_" + (isHead ? "head" : "skull"), standingBlockSupplier, wallBlockSupplier, PropertyHelper.item(featureFlags).rarity(Rarity.UNCOMMON));
+        return registerStandingAndWallBlockItem(ResourceHelper.armorName(armorMaterial) + "_" + (isHead ? "head" : "skull"), standingBlockSupplier, wallBlockSupplier, PropertyHelper.item(featureFlags).rarity(Rarity.UNCOMMON));
     }
 
     /**

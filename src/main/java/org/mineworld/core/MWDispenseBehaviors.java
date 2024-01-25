@@ -27,7 +27,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.block.weathering.IMWWaxableBlock;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.entity.projectile.ThrownPebble;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.item.PebbleItem;

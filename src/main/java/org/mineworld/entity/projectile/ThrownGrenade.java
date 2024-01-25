@@ -12,16 +12,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
-import org.mineworld.core.MWPebbles;
-import org.mineworld.item.PebbleItem;
+import org.mineworld.core.MWItems;
+import org.mineworld.item.GrenadeItem;
 
 /**
- * {@link MineWorld MineWorld} class for a thrown {@link PebbleItem Pebble}
+ * {@link MineWorld MineWorld} class for a thrown {@link GrenadeItem Grenade}
  */
-public class ThrownPebble extends ThrowableItemProjectile {
+public class ThrownGrenade extends ThrowableItemProjectile {
 
     /**
      * Constructor. Set the {@link EntityType Entity Type}
@@ -29,7 +30,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      * @param entityType {@link EntityType The Entity Type}
      * @param level {@link Level The level reference}
      */
-    public ThrownPebble(final EntityType<? extends ThrowableItemProjectile> entityType, final Level level) {
+    public ThrownGrenade(final EntityType<? extends ThrowableItemProjectile> entityType, final Level level) {
         super(entityType, level);
     }
 
@@ -39,8 +40,8 @@ public class ThrownPebble extends ThrowableItemProjectile {
      * @param level {@link Level The level reference}
      * @param shooter {@link LivingEntity The entity that shoot the pebble}
      */
-    public ThrownPebble(final Level level, final LivingEntity shooter) {
-        super(MWEntityTypes.PEBBLE.get(), shooter, level);
+    public ThrownGrenade(final Level level, final LivingEntity shooter) {
+        super(MWEntityTypes.GRENADE.get(), shooter, level);
     }
 
     /**
@@ -51,18 +52,18 @@ public class ThrownPebble extends ThrowableItemProjectile {
      * @param y {@link Double The entity Y coordinate}
      * @param z {@link Double The entity Z coordinate}
      */
-    public ThrownPebble(final Level level, final double x, final double y, final double z) {
-        super(MWEntityTypes.PEBBLE.get(), x, y, z, level);
+    public ThrownGrenade(final Level level, final double x, final double y, final double z) {
+        super(MWEntityTypes.GRENADE.get(), x, y, z, level);
     }
 
     /**
      * Get the {@link Item default Item} if not set
      *
-     * @return {@link org.mineworld.core.MWPebbles.Items#STONE_PEBBLE The Stone Pebble Item}
+     * @return {@link MWItems#GRENADE The Grenade Item}
      */
     @Override
     protected @NotNull Item getDefaultItem() {
-        return MWPebbles.Items.STONE_PEBBLE.get();
+        return MWItems.GRENADE.get();
     }
 
     /**
@@ -96,7 +97,7 @@ public class ThrownPebble extends ThrowableItemProjectile {
      */
     protected void onHitEntity(final @NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
-        entityHitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 1.0F);
+        entityHitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 1.25F);
     }
 
     /**
@@ -109,6 +110,8 @@ public class ThrownPebble extends ThrowableItemProjectile {
         final Level level = this.level();
         if (!level.isClientSide) {
             level.broadcastEntityEvent(this, (byte)3);
+            final Vec3 pos = this.position();
+            level.explode(this, pos.x, pos.y, pos.z, 2.5F, Level.ExplosionInteraction.TNT);
             this.discard();
         }
     }

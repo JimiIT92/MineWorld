@@ -1,6 +1,7 @@
 package org.mineworld.helper;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -20,7 +21,7 @@ public final class TextureHelper {
      * @return {@link ResourceLocation The Horse Armor Texture location}
      */
     public static ResourceLocation horseArmor(final ArmorMaterial armorMaterial) {
-        return entity("horse/armor/horse_armor_" + ResourceHelper.armorMaterialName(armorMaterial));
+        return entity("horse/armor/horse_armor_" + ResourceHelper.armorName(armorMaterial));
     }
 
     /**
@@ -53,6 +54,38 @@ public final class TextureHelper {
      */
     public static ResourceLocation entity(final String texturePath) {
         return texture("entity/" + texturePath);
+    }
+
+    /**
+     * Get an {@link ResourceLocation Armor Texture location}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor material}
+     * @param slot {@link EquipmentSlot The Armor Slot}
+     * @return {@link ResourceLocation The Armor Texture location}
+     */
+    public static ResourceLocation armor(final ArmorMaterial armorMaterial, final EquipmentSlot slot) {
+        return armor(armorMaterial, slot.getName());
+    }
+
+    /**
+     * Get an {@link ResourceLocation Armor Texture location}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor material}
+     * @param slotName {@link String The Armor Slot name}
+     * @return {@link ResourceLocation The Armor Texture location}
+     */
+    public static ResourceLocation armor(final ArmorMaterial armorMaterial, final String slotName) {
+        return texture("models/armor/" + ResourceHelper.armorName(armorMaterial, slotName));
+    }
+
+    /**
+     * Get an {@link ResourceLocation Armor Texture location}
+     *
+     * @param armorMaterial {@link ArmorMaterial The Armor material}
+     * @return {@link ResourceLocation The Armor Texture location}
+     */
+    public static ResourceLocation hat(final ArmorMaterial armorMaterial) {
+        return armor(armorMaterial, "hat");
     }
 
     /**

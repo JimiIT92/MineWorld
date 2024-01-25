@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 
 /**
  * {@link MineWorld MineWorld} {@link ChestBoat Chest Boat Entity}
