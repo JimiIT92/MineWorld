@@ -47,6 +47,16 @@ public final class TextureHelper {
     }
 
     /**
+     * Get an {@link ResourceLocation Container Texture location}
+     *
+     * @param name {@link String The Container name}
+     * @return {@link ResourceLocation The Container Texture location}
+     */
+    public static ResourceLocation container(final String name) {
+        return texture("gui/container/" + name);
+    }
+
+    /**
      * Get an {@link ResourceLocation Entity Texture location}
      *
      * @param texturePath {@link String The Texture Path}

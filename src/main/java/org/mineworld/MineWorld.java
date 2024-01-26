@@ -60,7 +60,11 @@ public final class MineWorld {
         MWEntityTypes.register(eventBus);
         MWBlockEntityTypes.register(eventBus);
         MWStats.register(eventBus);
-
+        MWMenuTypes.register(eventBus);
+        MWRecipeSerializers.register(eventBus);
+        MWRecipeTypes.register(eventBus);
+        MWPoiTypes.register(eventBus);
+        MWVillagerProfessions.register(eventBus);
         MWLootModifiers.register(eventBus);
 
         MWTrunkPlacerTypes.register(eventBus);
@@ -79,6 +83,7 @@ public final class MineWorld {
     private void onCommonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(MWFlowerPots::registerFlowerPotPlants);
         event.enqueueWork(MWDispenseBehaviors::register);
+        event.enqueueWork(MWCompostables::registerCompostables);
 
         event.enqueueWork(() -> Raid.RaiderType.create("illusioner", EntityType.ILLUSIONER, new int[]{0, 0, 0, 0, 1, 1, 2, 2}));
     }
@@ -91,6 +96,8 @@ public final class MineWorld {
     private void onClientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(MWEntityTypes::registerRenderers);
         event.enqueueWork(MWBlockEntityTypes::registerRenderers);
+        event.enqueueWork(MWMenuTypes::registerScreens);
+        event.enqueueWork(MWItems::registerItemProperties);
     }
 
     /**

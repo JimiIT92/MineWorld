@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.mineworld.MineWorld;
+import org.mineworld.block.EtherealRuneBlock;
 import org.mineworld.block.MWFireBlock;
 import org.mineworld.core.MWColors;
 import org.mineworld.core.MWItemTiers;
@@ -123,6 +124,16 @@ public final class ResourceHelper {
      */
     public static String fireName(final MWFireBlock.MWFireType fireType) {
         return path(parse(fireType.name().toLowerCase(Locale.ROOT)));
+    }
+
+    /**
+     * Get the {@link String Ethereal Rune name} based on the {@link EtherealRuneBlock.Types Ethereal Rune Type}
+     *
+     * @param runeType {@link EtherealRuneBlock.Types The Ethereal Rune Type}
+     * @return {@link String The Ethereal Rune name}
+     */
+    public static String etherealRuneName(final EtherealRuneBlock.Types runeType) {
+        return "ethereal_rune_" + path(parse(runeType.name().toLowerCase(Locale.ROOT)));
     }
 
     /**

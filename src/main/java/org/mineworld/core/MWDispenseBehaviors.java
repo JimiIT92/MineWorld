@@ -2,8 +2,10 @@ package org.mineworld.core;
 
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.*;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
@@ -11,6 +13,7 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +32,8 @@ import org.mineworld.MineWorld;
 import org.mineworld.block.weathering.IMWWaxableBlock;
 import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.entity.projectile.ThrownPebble;
+import org.mineworld.entity.vehicle.MWBoat;
+import org.mineworld.entity.vehicle.MWChestBoat;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.item.PebbleItem;
 
@@ -187,6 +192,60 @@ public final class MWDispenseBehaviors {
         };
     }
 
+    /**
+     * Get the {@link DispenseItemBehavior Dispense Item Behavior} for a {@link MWBoat Boat}
+     *
+     * @param type {@link MWBoat.Type The Boat Type}
+     * @param isChestBoat {@link Boolean If the Boat is a Chest Boat}
+     * @return {@link DispenseItemBehavior The Boat Dispense Item Behavior}
+     */
+    private static DispenseItemBehavior boatDispenseBehavior(final MWBoat.Type type, final boolean isChestBoat) {
+        return new DefaultDispenseItemBehavior() {
+
+            /**
+             * Place a {@link Boat Boat} if there is water in front of the Dispenser
+             *
+             * @param blockSource {@link BlockSource The Block Source reference}
+             * @param itemStack   {@link ItemStack The Item Stack inside the dispenser}
+             * @return {@link ItemStack The modified Item Stack}
+             */
+            public @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
+                final Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
+                final Level level = blockSource.level();
+                final BlockPos pos = blockSource.pos();
+                final double x = pos.getX() + (double)((float)direction.getStepX() * 1.125F);
+                final double y = pos.getY() + (double)((float)direction.getStepY() * 1.125F);
+                final double z = pos.getZ() + (double)((float)direction.getStepZ() * 1.125F);
+                final BlockPos blockPos = blockSource.pos().relative(direction);
+                final MWBoat boat = isChestBoat ? new MWChestBoat(level, x, y, z) : new MWBoat(level, x, y, z);
+                boat.setBoatType(type);
+                boat.setYRot(direction.toYRot());
+                double offset;
+                if (boat.canBoatInFluid(level.getFluidState(blockPos))) {
+                    offset = 1.0D;
+                } else {
+                    if (!level.getBlockState(blockPos).isAir() || !boat.canBoatInFluid(level.getFluidState(blockPos.below()))) {
+                        return new DefaultDispenseItemBehavior().dispense(blockSource, itemStack);
+                    }
+                    offset = 0.0D;
+                }
+                boat.setPos(x, y + offset, z);
+                level.addFreshEntity(boat);
+                itemStack.shrink(1);
+                return itemStack;
+            }
+
+            /**
+             * Play a {@link SoundEvent Sound} when placing the {@link Boat Boat}
+             *
+             * @param blockSource {@link BlockSource The Block Source reference}
+             */
+            protected void playSound(final @NotNull BlockSource blockSource) {
+                blockSource.level().levelEvent(1000, blockSource.pos(), 0);
+            }
+        };
+    }
+
     //#endregion
 
     //#region Methods
@@ -239,6 +298,22 @@ public final class MWDispenseBehaviors {
                 tntDispenseItemBehavior(MWPrimedTnt.Type.MEGA), MWBlocks.MEGA_TNT,
                 tntDispenseItemBehavior(MWPrimedTnt.Type.SUPER), MWBlocks.SUPER_TNT,
                 tntDispenseItemBehavior(MWPrimedTnt.Type.HYPER), MWBlocks.HYPER_TNT
+        ));
+        registerDispenseBehaviors(Map.of(
+                boatDispenseBehavior(MWBoat.Type.CRIMSON, false), MWItems.CRIMSON_BOAT,
+                boatDispenseBehavior(MWBoat.Type.CRIMSON, true), MWItems.CRIMSON_CHEST_BOAT,
+                boatDispenseBehavior(MWBoat.Type.WARPED, false), MWItems.WARPED_BOAT,
+                boatDispenseBehavior(MWBoat.Type.WARPED, true), MWItems.WARPED_CHEST_BOAT,
+                boatDispenseBehavior(MWBoat.Type.APPLE, false), MWItems.APPLE_BOAT,
+                boatDispenseBehavior(MWBoat.Type.APPLE, true), MWItems.APPLE_CHEST_BOAT,
+                boatDispenseBehavior(MWBoat.Type.PALM, false), MWItems.PALM_RAFT,
+                boatDispenseBehavior(MWBoat.Type.PALM, true), MWItems.PALM_CHEST_RAFT,
+                boatDispenseBehavior(MWBoat.Type.DEAD, false), MWItems.DEAD_BOAT,
+                boatDispenseBehavior(MWBoat.Type.DEAD, true), MWItems.DEAD_CHEST_BOAT
+        ));
+        registerDispenseBehaviors(Map.of(
+                boatDispenseBehavior(MWBoat.Type.SCULK, false), MWItems.SCULK_BOAT,
+                boatDispenseBehavior(MWBoat.Type.SCULK, true), MWItems.SCULK_CHEST_BOAT
         ));
         registerDispenseBehaviors(horseArmorItemDispenseBehavior(),
                 MWItems.CHAINMAIL_HORSE_ARMOR,

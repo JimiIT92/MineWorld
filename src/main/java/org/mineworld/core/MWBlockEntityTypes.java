@@ -81,6 +81,9 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<GiftBlockEntity>> GIFT = registerBlockEntity("gift", GiftBlockEntity::new,
             Suppliers.memoize(() -> MWBlocks.GIFT.get())
     );
+    public static final RegistryObject<BlockEntityType<ForgingTableBlockEntity>> FORGING_TABLE = registerBlockEntity("forging_table", ForgingTableBlockEntity::new,
+            Suppliers.memoize((() -> MWBlocks.FORGING_TABLE.get()))
+    );
     public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SPRUCE_CHEST = registerChest(WoodType.SPRUCE, false, SpruceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
     public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SPRUCE_TRAPPED_CHEST = registerChest(WoodType.SPRUCE, true, SpruceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
     public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> BIRCH_CHEST = registerChest(WoodType.BIRCH, false, BirchChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BIRCH_CHEST.get()));

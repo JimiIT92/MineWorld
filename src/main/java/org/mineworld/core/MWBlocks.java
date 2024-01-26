@@ -987,6 +987,17 @@ public final class MWBlocks {
 
     //#endregion
 
+    //#region Ethereal Runes, Ethereal Portal and Ancient Altar
+
+    public static final RegistryObject<Block> ETHEREAL_RUNE_ALPHA = registerEtherealRune(EtherealRuneBlock.Types.ALPHA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_BETA = registerEtherealRune(EtherealRuneBlock.Types.BETA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = registerEtherealRune(EtherealRuneBlock.Types.GAMMA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = registerEtherealRune(EtherealRuneBlock.Types.DELTA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = registerEtherealRune(EtherealRuneBlock.Types.OMEGA);
+    public static final RegistryObject<Block> ANCIENT_ALTAR = registerBlock("ancient_altar", Suppliers.memoize(() -> new AncientAltarBlock()));
+
+    //#endregion
+
     //#region Misc
 
     public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", Suppliers.memoize(() -> new DaylightLampBlock()));
@@ -997,6 +1008,8 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ICE_TRAPPED_CHEST = registerTrappedChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get()));
     public static final RegistryObject<Block> CHRISTMAS_LIGHTS = registerBlock("christmas_lights", Suppliers.memoize(() -> new SidePanelBlock(PropertyHelper.block(0.15F, false).instabreak().sound(SoundType.GLASS))));
     public static final RegistryObject<Block> GIFT = registerBlockWithoutBlockItem("gift", Suppliers.memoize(() -> new GiftBlock()));
+    public static final RegistryObject<Block> WOODCUTTER = registerBlock("woodcutter", Suppliers.memoize(() -> new WoodcutterBlock()));
+    public static final RegistryObject<Block> FORGING_TABLE = registerBlock("forging_table", Suppliers.memoize(() -> new ForgingTableBlock()));
 
     //#endregion
 
@@ -1863,6 +1876,16 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerCampfireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
         return registerBlock(type.name().toLowerCase(Locale.ROOT) + "_campfire", Suppliers.memoize(() -> new MWCampfireBlock(type, featureFlags)));
+    }
+
+    /**
+     * Register an {@link EtherealRuneBlock Ethereal Rune}
+     *
+     * @param type {@link EtherealRuneBlock.Types The Ethereal Rune Type}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerEtherealRune(final EtherealRuneBlock.Types type) {
+        return registerBlock(ResourceHelper.etherealRuneName(type), Suppliers.memoize(() -> new EtherealRuneBlock()));
     }
 
     /**

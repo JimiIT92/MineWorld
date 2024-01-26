@@ -174,7 +174,7 @@ public class DaylightLampBlock extends BaseEntityBlock {
      */
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(LIT).add(INVERTED).add(POWER);
+        stateBuilder.add(LIT, INVERTED, POWER);
     }
 
     /**

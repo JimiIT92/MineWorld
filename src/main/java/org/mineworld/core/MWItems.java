@@ -1,11 +1,15 @@
 package org.mineworld.core;
 
 import com.google.common.base.Suppliers;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,6 +27,7 @@ import org.mineworld.helper.ResourceHelper;
 import org.mineworld.helper.TextureHelper;
 import org.mineworld.item.*;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -188,6 +193,7 @@ public final class MWItems {
     public static final RegistryObject<Item> GRENADE = registerItem("grenade", Suppliers.memoize(() -> new GrenadeItem()));
     public static final RegistryObject<Item> INVISIBILITY_CLOAK = registerItem("invisibility_cloak", Suppliers.memoize(() -> new InvisibilityCloakItem()));
     public static final RegistryObject<Item> MAGIC_MIRROR = registerItem("magic_mirror", Suppliers.memoize(() -> new MagicMirrorItem()));
+    public static final RegistryObject<Item> SCULK_HORN = registerItem("sculk_horn", Suppliers.memoize(() -> new SculkHornItem()));
 
     //#endregion
 
@@ -298,6 +304,12 @@ public final class MWItems {
     public static final RegistryObject<Item> UNLIT_END_TORCH = registerTorch(MWFireBlock.MWFireType.END, true, Suppliers.memoize(() -> MWBlocks.UNLIT_END_TORCH.get()), Suppliers.memoize(() -> MWBlocks.UNLIT_END_WALL_TORCH.get()));
     public static final RegistryObject<Item> SCULK_TORCH = registerTorch(MWFireBlock.MWFireType.SCULK, false, Suppliers.memoize(() -> MWBlocks.SCULK_TORCH.get()), Suppliers.memoize(() -> MWBlocks.SCULK_WALL_TORCH.get()));
     public static final RegistryObject<Item> UNLIT_SCULK_TORCH = registerTorch(MWFireBlock.MWFireType.SCULK, true, Suppliers.memoize(() -> MWBlocks.UNLIT_SCULK_TORCH.get()), Suppliers.memoize(() -> MWBlocks.UNLIT_SCULK_WALL_TORCH.get()));
+
+    //#endregion
+
+    //#region Spawn Eggs
+
+    public static final RegistryObject<Item> ILLUSIONER_SPAWN_EGG = registerSpawnEgg("illusioner", () -> EntityType.ILLUSIONER, 0x135793, 0x959B9B);
 
     //#endregion
 
@@ -659,6 +671,19 @@ public final class MWItems {
     }
 
     /**
+     * Register a {@link ForgeSpawnEggItem Spawn Egg}
+     *
+     * @param entityName {@link String The Entity name}
+     * @param entityTypeSupplier {@link Supplier<EntityType> The Supplier for the Entity Type spawned by this egg}
+     * @param primaryColor {@link Integer The primary Spawn Egg color}
+     * @param secondaryColor {@link Integer The secondary Spawn Egg color}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerSpawnEgg(final String entityName, final Supplier<EntityType<? extends Mob>> entityTypeSupplier, final int primaryColor, final int secondaryColor, final FeatureFlag...featureFlags) {
+        return registerItem(entityName + "_spawn_egg", Suppliers.memoize(() -> new ForgeSpawnEggItem(entityTypeSupplier, primaryColor, secondaryColor, PropertyHelper.item(featureFlags))));
+    }
+
+    /**
      * Register a {@link MWItemNameBlockItem Block Item with a special rendering}
      *
      * @param name {@link String The Item Name}
@@ -693,6 +718,17 @@ public final class MWItems {
         return ITEMS.register(name, itemSupplier);
     }
 
+    /**
+     * Register a {@link ItemProperties custom Item Property} for some {@link Item Items}
+     *
+     * @param name {@link String The Item Property name}
+     * @param itemSuppliers {@link Supplier<Item> The Item suppliers}
+     */
+    @SafeVarargs
+    private static void registerItemProperty(final String name, final Supplier<Item>... itemSuppliers) {
+        Arrays.stream(itemSuppliers).forEach(itemSupplier -> ItemProperties.register(itemSupplier.get(), ResourceHelper.resourceLocation(name), (stack, level, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem().is(stack.getItem()) ? 1.0F : 0.0F));
+    }
+
     //#endregion
 
     //#region Bus register
@@ -705,6 +741,13 @@ public final class MWItems {
     public static void register(final IEventBus eventBus) {
         MWPebbles.Items.register();
         ITEMS.register(eventBus);
+    }
+
+    /**
+     * Register the custom {@link ItemProperties Item Properties}
+     */
+    public static void registerItemProperties() {
+        registerItemProperty("tooting", SCULK_HORN);
     }
 
     //#endregion

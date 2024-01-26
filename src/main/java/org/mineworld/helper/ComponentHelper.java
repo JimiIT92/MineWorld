@@ -4,6 +4,7 @@ import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import org.mineworld.MineWorld;
@@ -16,11 +17,41 @@ public final class ComponentHelper {
     /**
      * Get the {@link MutableComponent Mutable Translatable Component} for a {@link CreativeModeTab Creative Mode Tab}
      *
-     * @param name {@link String The Creative Mode Tab Name}
+     * @param name {@link String The Creative Mode Tab name}
      * @return The {@link CreativeModeTab Creative Mode Tab} {@link MutableComponent Mutable Translatable Component}
      */
     public static MutableComponent tab(final String name) {
         return get("itemGroup", name);
+    }
+
+    /**
+     * Get the {@link MutableComponent Mutable Translatable Component} for a {@link Container Container}
+     *
+     * @param name {@link String The Container name}
+     * @return The {@link Container Container} {@link MutableComponent Mutable Translatable Component}
+     */
+    public static MutableComponent container(final String name) {
+        return get("container", name);
+    }
+
+    /**
+     * Get the {@link MutableComponent Mutable Translatable Component} for a Splash Text
+     *
+     * @param name {@link String The Splash Text}
+     * @return The Splash Text {@link MutableComponent Mutable Translatable Component}
+     */
+    public static MutableComponent splashText(final String name, final Object... args) {
+        return get("splash", name, args);
+    }
+
+    /**
+     * Get the {@link MutableComponent Mutable Translatable Component} for a {@link TrimMaterial Trim Material}
+     *
+     * @param trimMaterialKey {@link ResourceKey<TrimMaterial> The Trim Material Resource Key}
+     * @return {@link MutableComponent The Trim Material Mutable Translatable Component}
+     */
+    public static MutableComponent trimMaterial(final ResourceKey<TrimMaterial> trimMaterialKey) {
+        return get(Util.makeDescriptionId("trim_material", trimMaterialKey.location()));
     }
 
     /**
@@ -44,16 +75,6 @@ public final class ComponentHelper {
      */
     public static MutableComponent get(final String key, final Object... args) {
         return Component.translatable(key, args);
-    }
-
-    /**
-     * Get the {@link MutableComponent Mutable Translatable Component} for a {@link TrimMaterial Trim Material}
-     *
-     * @param trimMaterialKey {@link ResourceKey<TrimMaterial> The Trim Material Resource Key}
-     * @return {@link MutableComponent The Trim Material Mutable Translatable Component}
-     */
-    public static MutableComponent trimMaterial(final ResourceKey<TrimMaterial> trimMaterialKey) {
-        return get(Util.makeDescriptionId("trim_material", trimMaterialKey.location()));
     }
 
 }
