@@ -31,7 +31,7 @@ public final class LecternBlockEvents {
         final BlockPos clickedPos = event.getPos();
         final ItemStack itemStack = event.getItemStack();
         final BlockState clickedBlockState = level.getBlockState(clickedPos);
-        if(clickedBlockState.getBlock() instanceof MWLecternBlock && itemStack.is(ItemTags.LECTERN_BOOKS)) {
+        if(!event.isCanceled() && clickedBlockState.getBlock() instanceof MWLecternBlock && itemStack.is(ItemTags.LECTERN_BOOKS)) {
             event.setCanceled(true);
             final boolean bookPlaced = LecternBlock.tryPlaceBook(event.getEntity(), level, clickedPos, clickedBlockState, itemStack);
             event.setCancellationResult(bookPlaced ? InteractionResult.sidedSuccess(level.isClientSide()) : InteractionResult.PASS);

@@ -55,6 +55,17 @@ public final class ComponentHelper {
     }
 
     /**
+     * Get the {@link MutableComponent Mutable Translatable Component} for a mod update
+     *
+     * @param message {@link String The update message}
+     * @param args {@link String The update message arguments}
+     * @return {@link MutableComponent The mod update Mutable Translatable Component}
+     */
+    public static MutableComponent updateMessage(final String message, final Object... args) {
+        return get("update", message, args);
+    }
+
+    /**
      * Get a {@link MineWorld MineWorld} {@link MutableComponent Mutable Translatable Component}
      *
      * @param prefix {@link String The Component translation key prefix}

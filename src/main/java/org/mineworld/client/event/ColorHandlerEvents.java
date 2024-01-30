@@ -24,7 +24,7 @@ import java.util.function.Supplier;
  * Handle all events for {@link MineWorld MineWorld} client-side coloring
  */
 @Mod.EventBusSubscriber(modid = MineWorld.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class ColorHandleEvents {
+public final class ColorHandlerEvents {
 
     /**
      * Register all {@link Block Block} color handlers
