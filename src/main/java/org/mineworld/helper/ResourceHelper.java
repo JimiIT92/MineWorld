@@ -14,8 +14,10 @@ import org.mineworld.MineWorld;
 import org.mineworld.block.EtherealRuneBlock;
 import org.mineworld.block.MWFireBlock;
 import org.mineworld.core.MWColors;
+import org.mineworld.core.MWDimensions;
 import org.mineworld.core.MWItemTiers;
 import org.mineworld.core.MWWoodTypes;
+import org.mineworld.entity.block.MWPrimedTnt;
 
 import java.util.Locale;
 
@@ -51,7 +53,7 @@ public final class ResourceHelper {
      * @return {@link String The Resource Location Path}
      */
     public static String path(final ResourceLocation resourceLocation) {
-        return resourceLocation.getPath().toLowerCase(Locale.ROOT);
+        return lower(resourceLocation.getPath());
     }
 
     /**
@@ -72,6 +74,16 @@ public final class ResourceHelper {
      */
     public static boolean isFromMineWorld(final ResourceKey<?> resourceKey) {
         return resourceKey.location().getNamespace().equals(MineWorld.MOD_ID);
+    }
+
+    /**
+     * Get the {@link MWPrimedTnt.Type TNT Type} name
+     *
+     * @param type {@link MWPrimedTnt.Type The TNT Type}
+     * @return {@link String The TNT Type name}
+     */
+    public static String tntName(final MWPrimedTnt.Type type) {
+        return lower(type.name()) + "_tnt";
     }
 
     /**
@@ -123,7 +135,7 @@ public final class ResourceHelper {
      * @return {@link String The Fire name}
      */
     public static String fireName(final MWFireBlock.MWFireType fireType) {
-        return path(parse(fireType.name().toLowerCase(Locale.ROOT)));
+        return path(parse(lower(fireType.name())));
     }
 
     /**
@@ -133,7 +145,27 @@ public final class ResourceHelper {
      * @return {@link String The Ethereal Rune name}
      */
     public static String etherealRuneName(final EtherealRuneBlock.Types runeType) {
-        return "ethereal_rune_" + path(parse(runeType.name().toLowerCase(Locale.ROOT)));
+        return "ethereal_rune_" + path(parse(lower(runeType.name())));
+    }
+
+    /**
+     * Get the {@link MWDimensions.Dimensions Dimension} name
+     *
+     * @param dimension {@link MWDimensions.Dimensions The Dimension}
+     * @return {@link String The Dimension name}
+     */
+    public static String dimensionName(final MWDimensions.Dimensions dimension) {
+        return lower(dimension.name());
+    }
+
+    /**
+     * Get the {@link String portal name} based on the {@link MWDimensions.Dimensions Dimension}
+     *
+     * @param dimension {@link MWDimensions.Dimensions The Dimension}
+     * @return {@link String The Dimension portal name}
+     */
+    public static String portalName(final MWDimensions.Dimensions dimension) {
+        return dimensionName(dimension) + "_portal";
     }
 
     /**
@@ -143,7 +175,7 @@ public final class ResourceHelper {
      * @return {@link String The Wood name}
      */
     public static String woodName(final WoodType woodType) {
-        return path(parse(woodType.name().toLowerCase(Locale.ROOT)));
+        return path(parse(lower(woodType.name())));
     }
 
     /**
@@ -179,7 +211,7 @@ public final class ResourceHelper {
         if(chestType.equals(ChestType.SINGLE)) {
             return "";
         }
-        return "_" + chestType.name().toLowerCase(Locale.ROOT);
+        return "_" + lower(chestType.name());
     }
 
     /**
@@ -229,6 +261,16 @@ public final class ResourceHelper {
             return "sapphire";
         }
         throw new NotImplementedException("No name set for tier " + tier);
+    }
+
+    /**
+     * Make a {@link String string} lower case
+     *
+     * @param text {@link String The string}
+     * @return {@link String The lower case string}
+     */
+    public static String lower(final String text) {
+        return text.toLowerCase(Locale.ROOT);
     }
 
 }

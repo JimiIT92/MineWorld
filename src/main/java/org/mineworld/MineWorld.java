@@ -69,7 +69,7 @@ public final class MineWorld {
 
         MWTrunkPlacerTypes.register(eventBus);
         MWFoliagePlacerTypes.register(eventBus);
-
+        MWDimensions.register();
         MWEnchantments.register(eventBus);
         MWStructureTypes.register(eventBus);
     }

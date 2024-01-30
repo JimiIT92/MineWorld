@@ -10,6 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.RegistryHelper;
+import org.mineworld.helper.ResourceHelper;
 
 import java.util.function.Supplier;
 
@@ -30,6 +31,7 @@ public final class MWPoiTypes {
     //#region Poi Types
 
     public static final RegistryObject<PoiType> CARPENTER = registerPoiType("carpenter", Suppliers.memoize(() -> MWBlocks.WOODCUTTER.get()));
+    public static final RegistryObject<PoiType> ETHEREAL_PORTAL = registerPoiType(ResourceHelper.portalName(MWDimensions.Dimensions.ETHEREAL), Suppliers.memoize(() -> MWBlocks.ETHEREAL_PORTAL.get()));
 
     //#endregion
 

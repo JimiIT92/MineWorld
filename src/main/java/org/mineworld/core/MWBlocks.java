@@ -29,7 +29,6 @@ import org.mineworld.helper.RegistryHelper;
 import org.mineworld.helper.ResourceHelper;
 import org.mineworld.item.MWFuelBlockItem;
 
-import java.util.Locale;
 import java.util.function.Supplier;
 
 /**
@@ -994,6 +993,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = registerEtherealRune(EtherealRuneBlock.Types.GAMMA);
     public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = registerEtherealRune(EtherealRuneBlock.Types.DELTA);
     public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = registerEtherealRune(EtherealRuneBlock.Types.OMEGA);
+    public static final RegistryObject<Block> ETHEREAL_PORTAL = registerBlock("ethereal_portal", Suppliers.memoize(() -> new EtherealPortalBlock()));
     public static final RegistryObject<Block> ANCIENT_ALTAR = registerBlock("ancient_altar", Suppliers.memoize(() -> new AncientAltarBlock()));
 
     //#endregion
@@ -1360,7 +1360,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerTnt(final MWPrimedTnt.Type type, final FeatureFlag... featureFlags) {
-        return registerBlock(type.name().toLowerCase(Locale.ROOT) + "_tnt", () -> new MWTntBlock(type, featureFlags));
+        return registerBlock(ResourceHelper.tntName(type), () -> new MWTntBlock(type, featureFlags));
     }
 
     /**
@@ -1372,7 +1372,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerFallableTnt(final MWPrimedTnt.Type type, final int dustColor, final FeatureFlag... featureFlags) {
-        return registerBlock(type.name().toLowerCase(Locale.ROOT) + "_tnt", () -> new FallableTntBlock(type, dustColor, featureFlags));
+        return registerBlock(ResourceHelper.tntName(type), () -> new FallableTntBlock(type, dustColor, featureFlags));
     }
 
     /**
@@ -1517,7 +1517,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerHollowLog(final WoodType woodType, final boolean isStripped, final String suffix, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerHollowLog(woodType.name().toLowerCase(Locale.ROOT), isStripped, suffix, blockStateSupplier, featureFlags);
+        return registerHollowLog(ResourceHelper.woodName(woodType), isStripped, suffix, blockStateSupplier, featureFlags);
     }
 
     /**
@@ -1864,7 +1864,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerFireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(type.name().toLowerCase(Locale.ROOT) + "_fire", Suppliers.memoize(() -> new MWFireBlock(type, featureFlags)));
+        return registerBlockWithoutBlockItem(ResourceHelper.fireName(type) + "_fire", Suppliers.memoize(() -> new MWFireBlock(type, featureFlags)));
     }
 
     /**
@@ -1875,7 +1875,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerCampfireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
-        return registerBlock(type.name().toLowerCase(Locale.ROOT) + "_campfire", Suppliers.memoize(() -> new MWCampfireBlock(type, featureFlags)));
+        return registerBlock(ResourceHelper.fireName(type) + "_campfire", Suppliers.memoize(() -> new MWCampfireBlock(type, featureFlags)));
     }
 
     /**
@@ -1886,6 +1886,17 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerEtherealRune(final EtherealRuneBlock.Types type) {
         return registerBlock(ResourceHelper.etherealRuneName(type), Suppliers.memoize(() -> new EtherealRuneBlock()));
+    }
+
+    /**
+     * Register a {@link MWPortalBlock Portal Block}
+     *
+     * @param dimension {@link MWDimensions.Dimensions The Dimension this portal is referring to}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the portal block}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerPortalBlock(final MWDimensions.Dimensions dimension, final Supplier<Block> blockSupplier) {
+        return registerBlock(ResourceHelper.portalName(dimension), blockSupplier);
     }
 
     /**

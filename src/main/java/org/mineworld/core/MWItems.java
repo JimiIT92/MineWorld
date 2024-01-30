@@ -28,7 +28,6 @@ import org.mineworld.helper.TextureHelper;
 import org.mineworld.item.*;
 
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -468,7 +467,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerArmorItem(final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final FeatureFlag... featureFlags) {
-        return registerItem(ResourceHelper.armorName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags)));
+        return registerItem(ResourceHelper.armorName(armorMaterial, slot.getName()), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags)));
     }
 
     /**
@@ -481,7 +480,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerCosmeticArmorItem(final ArmorMaterial armorMaterial, final ArmorItem.Type slot, final Rarity rarity, final FeatureFlag... featureFlags) {
-        return registerItem(ResourceHelper.armorName(armorMaterial) + "_" + slot.getName().toLowerCase(Locale.ROOT), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags).rarity(rarity)));
+        return registerItem(ResourceHelper.armorName(armorMaterial, slot.getName()), () -> new ArmorItem(armorMaterial, slot, PropertyHelper.item(featureFlags).rarity(rarity)));
     }
 
     /**
@@ -493,7 +492,7 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerTntMinecart(final MWMinecartItem.Type minecartType, final MWPrimedTnt.Type tntType, final FeatureFlag... featureFlags) {
-        return registerItem(tntType.name().toLowerCase(Locale.ROOT) + "_tnt_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
+        return registerItem( ResourceHelper.tntName(tntType) + "_minecart", () -> new MWTntMinecartItem(minecartType, tntType, featureFlags));
     }
 
     /**

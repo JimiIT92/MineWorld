@@ -12,7 +12,6 @@ import org.mineworld.block.MWFireBlock;
 import org.mineworld.block.weathering.*;
 import org.mineworld.helper.ResourceHelper;
 
-import java.util.Locale;
 import java.util.function.Supplier;
 
 /**
@@ -394,7 +393,7 @@ public final class MWCopperBlocks {
      * @return {@link String The Weather State name}
      */
     private static String getWeatherStateName(final WeatheringCopper.WeatherState weatherState) {
-        return weatherState.equals(WeatheringCopper.WeatherState.UNAFFECTED) ? "" : weatherState.name().toLowerCase(Locale.ROOT) + "_";
+        return weatherState.equals(WeatheringCopper.WeatherState.UNAFFECTED) ? "" : ResourceHelper.lower(weatherState.name()) + "_";
     }
 
     /**
