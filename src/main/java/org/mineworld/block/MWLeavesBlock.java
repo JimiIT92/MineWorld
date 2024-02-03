@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -21,11 +22,12 @@ public class MWLeavesBlock extends LeavesBlock {
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param woodTypeSupplier {@link Supplier < WoodType > The Wood Type Supplier}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param soundTypeSupplier {@link Supplier<SoundType> The Supplier for the Sound Type}
      */
-    public MWLeavesBlock(final Supplier<WoodType> woodTypeSupplier) {
-        super(PropertyHelper.copy(Blocks.OAK_PLANKS)
-                .sound(woodTypeSupplier.get().soundType()));
+    public MWLeavesBlock(final Supplier<WoodType> woodTypeSupplier, final Supplier<SoundType> soundTypeSupplier) {
+        super(PropertyHelper.copy(Blocks.OAK_LEAVES)
+                .sound(soundTypeSupplier.get()));
     }
 
     /**

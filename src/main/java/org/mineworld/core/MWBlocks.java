@@ -280,7 +280,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> APPLE_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, false, MWWoodTypes.APPLE, false);
     public static final RegistryObject<Block> STRIPPED_APPLE_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, true, MWWoodTypes.APPLE, false);
     public static final RegistryObject<Block> APPLE_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, () -> SoundType.GRASS);
     public static final RegistryObject<Block> APPLE_LEAVES_CARPET = registerLeaveCarpet(MWWoodTypes.MWWoodTypeNames.APPLE, Suppliers.memoize(() -> APPLE_LEAVES.get()));
     public static final RegistryObject<Block> APPLE_SAPLING = registerSapling(MWWoodTypes.MWWoodTypeNames.APPLE, MWTreeGrowers.APPLE_TREE_GROWER);
     public static final RegistryObject<Block> APPLE_BUSH = registerBush(MWWoodTypes.MWWoodTypeNames.APPLE, MWTreeGrowers.APPLE_TREE_GROWER);
@@ -314,7 +314,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PALM_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, false, MWWoodTypes.PALM, false);
     public static final RegistryObject<Block> STRIPPED_PALM_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, true, MWWoodTypes.PALM, false);
     public static final RegistryObject<Block> PALM_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, () -> SoundType.GRASS);
     public static final RegistryObject<Block> PALM_LEAVES_CARPET = registerLeaveCarpet(MWWoodTypes.MWWoodTypeNames.PALM, Suppliers.memoize(() -> PALM_LEAVES.get()));
     public static final RegistryObject<Block> PALM_SAPLING = registerBlock(MWWoodTypes.MWWoodTypeNames.PALM + "_sapling", Suppliers.memoize(PalmSaplingBlock::new));
     public static final RegistryObject<Block> PALM_BUSH = registerBlock(MWWoodTypes.MWWoodTypeNames.PALM + "_bush", Suppliers.memoize(PalmBushBlock::new));
@@ -378,7 +378,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SCULK_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, false, MWWoodTypes.SCULK, false);
     public static final RegistryObject<Block> STRIPPED_SCULK_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, true, MWWoodTypes.SCULK, false);
     public static final RegistryObject<Block> SCULK_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, () -> SoundType.SCULK);
     public static final RegistryObject<Block> SCULK_LEAVES_CARPET = registerLeaveCarpet(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> SCULK_LEAVES.get()));
     public static final RegistryObject<Block> SCULK_SAPLING = registerBlock(MWWoodTypes.MWWoodTypeNames.SCULK + "_sapling", Suppliers.memoize(SculkSaplingBlock::new));
     public static final RegistryObject<Block> SCULK_BUSH = registerBlock(MWWoodTypes.MWWoodTypeNames.SCULK + "_bush", Suppliers.memoize(SculkBushBlock::new));
@@ -1561,10 +1561,11 @@ public final class MWBlocks {
      *
      * @param woodName {@link String The Wood name}
      * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param soundTypeSupplier {@link Supplier<SoundType> The Supplier for the Block Sound}
      * @return {@link RegistryObject<Block> The registered Block}
      */
-    private static RegistryObject<Block> registerLeaves(final String woodName, final Supplier<WoodType> woodTypeSupplier) {
-        return registerBlock(woodName + "_leaves", Suppliers.memoize(() -> new MWLeavesBlock(woodTypeSupplier)));
+    private static RegistryObject<Block> registerLeaves(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<SoundType> soundTypeSupplier) {
+        return registerBlock(woodName + "_leaves", Suppliers.memoize(() -> new MWLeavesBlock(woodTypeSupplier, soundTypeSupplier)));
     }
 
     /**
