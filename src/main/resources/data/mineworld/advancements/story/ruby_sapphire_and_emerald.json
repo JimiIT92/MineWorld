@@ -1,0 +1,70 @@
+{
+  "parent": "mineworld:story/mine_sapphire",
+  "criteria": {
+    "ruby": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:ruby"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "sapphire": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:sapphire"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "emerald": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:emerald"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.story.ruby_sapphire_and_emerald.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "mineworld:ruby"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.ruby_sapphire_and_emerald.title"
+    }
+  },
+  "requirements": [
+    [
+      "ruby"
+    ],
+    [
+      "sapphire"
+    ],
+    [
+      "emerald"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  }
+}

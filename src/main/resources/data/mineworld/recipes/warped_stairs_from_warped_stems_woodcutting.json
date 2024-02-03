@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "tag": "minecraft:warped_stems"
+  },
+  "result": "minecraft:warped_stairs"
+}

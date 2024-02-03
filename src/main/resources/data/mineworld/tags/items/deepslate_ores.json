@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:deepslate_silver_ore",
+    "mineworld:deepslate_aluminum_ore",
+    "mineworld:deepslate_ruby_ore",
+    "mineworld:deepslate_sapphire_ore"
+  ]
+}

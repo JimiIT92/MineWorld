@@ -1,6 +1,25 @@
 {
   "replace": false,
   "entries": [
-    "mineworld:enchantments/fiery_touch"
+    "mineworld:blocks/cherry_leaves",
+    "mineworld:chests/abandoned_mineshaft",
+    "mineworld:chests/ancient_city",
+    "mineworld:chests/buried_treasure",
+    "mineworld:chests/desert_pyramid",
+    "mineworld:chests/end_city_treasure",
+    "mineworld:chests/jungle_temple",
+    "mineworld:chests/shipwreck_treasure",
+    "mineworld:chests/simple_dungeon",
+    "mineworld:chests/stronghold_corridor",
+    "mineworld:chests/village/village_armorer",
+    "mineworld:chests/village/village_plains_house",
+    "mineworld:chests/village/village_snowy_house",
+    "mineworld:chests/village/village_taiga_house",
+    "mineworld:chests/village/village_toolsmith",
+    "mineworld:chests/village/village_weaponsmith",
+    "mineworld:entities/illusioner",
+    "mineworld:entities/warden",
+    "mineworld:entities/witch"
+    
   ]
 }

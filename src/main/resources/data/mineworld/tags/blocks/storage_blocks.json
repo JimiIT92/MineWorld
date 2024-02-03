@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:raw_silver_block",
+    "mineworld:raw_aluminum_block",
+    "mineworld:raw_bronze_block",
+    "mineworld:pyrite_block",
+    "mineworld:charcoal_block",
+    "mineworld:silver_block",
+    "mineworld:aluminum_block",
+    "mineworld:bronze_block",
+    "mineworld:ruby_block",
+    "mineworld:sapphire_block"
+  ]
+}

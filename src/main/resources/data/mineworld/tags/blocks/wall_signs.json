@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:apple_wall_sign",
+    "mineworld:palm_wall_sign",
+    "mineworld:dead_wall_sign",
+    "mineworld:sculk_wall_sign"
+  ]
+}

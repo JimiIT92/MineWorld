@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:swamp",
+  "features": [
+    "mineworld:fallen_oak_tree_swamp_placed"
+  ],
+  "step": "vegetal_decoration"
+}

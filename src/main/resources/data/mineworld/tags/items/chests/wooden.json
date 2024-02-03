@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:spruce_chest",
+    "mineworld:birch_chest",
+    "mineworld:jungle_chest",
+    "mineworld:acacia_chest",
+    "mineworld:dark_oak_chest",
+    "mineworld:mangrove_chest",
+    "mineworld:cherry_chest",
+    "mineworld:bamboo_chest",
+    "mineworld:crimson_chest",
+    "mineworld:warped_chest",
+    "mineworld:apple_chest",
+    "mineworld:palm_chest",
+    "mineworld:dead_chest",
+    "mineworld:sculk_chest"
+  ]
+}

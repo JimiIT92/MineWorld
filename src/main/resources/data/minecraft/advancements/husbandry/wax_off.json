@@ -1,0 +1,133 @@
+{
+  "parent": "minecraft:husbandry/wax_on",
+  "criteria": {
+    "wax_off": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "minecraft:waxed_copper_block",
+                  "minecraft:waxed_exposed_copper",
+                  "minecraft:waxed_weathered_copper",
+                  "minecraft:waxed_oxidized_copper",
+                  "minecraft:waxed_cut_copper",
+                  "minecraft:waxed_exposed_cut_copper",
+                  "minecraft:waxed_weathered_cut_copper",
+                  "minecraft:waxed_oxidized_cut_copper",
+                  "minecraft:waxed_cut_copper_slab",
+                  "minecraft:waxed_exposed_cut_copper_slab",
+                  "minecraft:waxed_weathered_cut_copper_slab",
+                  "minecraft:waxed_oxidized_cut_copper_slab",
+                  "minecraft:waxed_cut_copper_stairs",
+                  "minecraft:waxed_exposed_cut_copper_stairs",
+                  "minecraft:waxed_weathered_cut_copper_stairs",
+                  "minecraft:waxed_oxidized_cut_copper_stairs",
+                  "mineworld:waxed_oxidized_copper_stairs",
+                  "mineworld:waxed_weathered_copper_stairs",
+                  "mineworld:waxed_exposed_copper_stairs",
+                  "mineworld:waxed_copper_stairs",
+                  "mineworld:waxed_oxidized_copper_slab",
+                  "mineworld:waxed_weathered_copper_slab",
+                  "mineworld:waxed_exposed_copper_slab",
+                  "mineworld:waxed_copper_slab",
+                  "mineworld:waxed_oxidized_copper_trapdoor",
+                  "mineworld:waxed_weathered_copper_trapdoor",
+                  "mineworld:waxed_exposed_copper_trapdoor",
+                  "mineworld:waxed_copper_trapdoor",
+                  "mineworld:waxed_oxidized_copper_pressure_plate",
+                  "mineworld:waxed_weathered_copper_pressure_plate",
+                  "mineworld:waxed_exposed_copper_pressure_plate",
+                  "mineworld:waxed_copper_pressure_plate",
+                  "mineworld:waxed_oxidized_copper_chain",
+                  "mineworld:waxed_weathered_copper_chain",
+                  "mineworld:waxed_exposed_copper_chain",
+                  "mineworld:waxed_copper_chain",
+                  "mineworld:waxed_oxidized_copper_lantern",
+                  "mineworld:waxed_weathered_copper_lantern",
+                  "mineworld:waxed_exposed_copper_lantern",
+                  "mineworld:waxed_copper_lantern",
+                  "mineworld:waxed_oxidized_copper_soul_lantern",
+                  "mineworld:waxed_weathered_copper_soul_lantern",
+                  "mineworld:waxed_exposed_copper_soul_lantern",
+                  "mineworld:waxed_copper_soul_lantern",
+                  "mineworld:waxed_oxidized_copper_bars",
+                  "mineworld:waxed_weathered_copper_bars",
+                  "mineworld:waxed_exposed_copper_bars",
+                  "mineworld:waxed_copper_bars",
+                  "mineworld:waxed_oxidized_copper_cage",
+                  "mineworld:waxed_weathered_copper_cage",
+                  "mineworld:waxed_exposed_copper_cage",
+                  "mineworld:waxed_copper_cage",
+                  "mineworld:waxed_oxidized_cut_copper_pressure_plate",
+                  "mineworld:waxed_weathered_cut_copper_pressure_plate",
+                  "mineworld:waxed_exposed_cut_copper_pressure_plate",
+                  "mineworld:waxed_cut_copper_pressure_plate",
+                  "mineworld:waxed_oxidized_copper_grate",
+                  "mineworld:waxed_weathered_copper_grate",
+                  "mineworld:waxed_exposed_copper_grate",
+                  "mineworld:waxed_copper_grate",
+                  "mineworld:wall_hanging_waxed_copper_lantern",
+                  "mineworld:wall_hanging_waxed_copper_soul_lantern",
+                  "mineworld:wall_hanging_waxed_exposed_copper_lantern",
+                  "mineworld:wall_hanging_waxed_exposed_copper_soul_lantern",
+                  "mineworld:wall_hanging_waxed_weathered_copper_lantern",
+                  "mineworld:wall_hanging_waxed_weathered_copper_soul_lantern",
+                  "mineworld:wall_hanging_waxed_oxidized_copper_lantern",
+                  "mineworld:wall_hanging_waxed_oxidized_copper_soul_lantern",
+                  "mineworld:waxed_oxidized_copper_end_lantern",
+                  "mineworld:waxed_weathered_copper_end_lantern",
+                  "mineworld:waxed_exposed_copper_end_lantern",
+                  "mineworld:waxed_copper_end_lantern",
+                  "mineworld:wall_hanging_waxed_copper_end_lantern",
+                  "mineworld:wall_hanging_waxed_exposed_copper_end_lantern",
+                  "mineworld:wall_hanging_waxed_weathered_copper_end_lantern",
+                  "mineworld:wall_hanging_waxed_oxidized_copper_end_lantern",
+                  "mineworld:waxed_oxidized_copper_sculk_lantern",
+                  "mineworld:waxed_weathered_copper_sculk_lantern",
+                  "mineworld:waxed_exposed_copper_sculk_lantern",
+                  "mineworld:waxed_copper_sculk_lantern",
+                  "mineworld:wall_hanging_waxed_copper_sculk_lantern",
+                  "mineworld:wall_hanging_waxed_exposed_copper_sculk_lantern",
+                  "mineworld:wall_hanging_waxed_weathered_copper_sculk_lantern",
+                  "mineworld:wall_hanging_waxed_oxidized_copper_sculk_lantern"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tag": "minecraft:axes"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.husbandry.wax_off.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:stone_axe",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.husbandry.wax_off.title"
+    }
+  },
+  "requirements": [
+    [
+      "wax_off"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

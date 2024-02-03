@@ -66,7 +66,8 @@ public final class MineWorld {
         MWPoiTypes.register(eventBus);
         MWVillagerProfessions.register(eventBus);
         MWLootModifiers.register(eventBus);
-
+        MWFeatures.register(eventBus);
+        //MWBiomes.register(eventBus);
         MWTrunkPlacerTypes.register(eventBus);
         MWFoliagePlacerTypes.register(eventBus);
         MWDimensions.register();
@@ -81,10 +82,11 @@ public final class MineWorld {
      * @param event {@link FMLCommonSetupEvent The FML common setup event}
      */
     private void onCommonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(MWCriteriaTriggers::register);
         event.enqueueWork(MWFlowerPots::registerFlowerPotPlants);
         event.enqueueWork(MWDispenseBehaviors::register);
         event.enqueueWork(MWCompostables::registerCompostables);
-
+        event.enqueueWork(MWBiomes::registerOverworldBiomes);
         event.enqueueWork(() -> Raid.RaiderType.create("illusioner", EntityType.ILLUSIONER, new int[]{0, 0, 0, 0, 1, 1, 2, 2}));
     }
 

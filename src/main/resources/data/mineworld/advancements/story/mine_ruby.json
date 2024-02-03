@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:story/iron_tools",
+  "criteria": {
+    "ruby": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:ruby"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.story.mine_ruby.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "mineworld:ruby"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.mine_ruby.title"
+    }
+  },
+  "requirements": [
+    [
+      "ruby"
+    ]
+  ]
+}

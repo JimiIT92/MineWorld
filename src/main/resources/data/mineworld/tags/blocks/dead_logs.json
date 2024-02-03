@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:dead_log",
+    "mineworld:dead_wood",
+    "mineworld:stripped_dead_log",
+    "mineworld:stripped_dead_wood",
+    "#mineworld:hollow_dead_logs"
+  ]
+}

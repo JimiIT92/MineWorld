@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dead_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:dead_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:dead_barrel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_dead_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:dead_slab"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_dead_planks",
+      "has_dead_slab",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:dead_barrel"
+    ]
+  }
+}

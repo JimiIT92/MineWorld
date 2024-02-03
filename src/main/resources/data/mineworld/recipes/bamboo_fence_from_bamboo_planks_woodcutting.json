@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "minecraft:bamboo_planks"
+  },
+  "result": "minecraft:bamboo_fence"
+}

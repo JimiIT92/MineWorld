@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:apple_pressure_plate",
+    "mineworld:palm_pressure_plate",
+    "mineworld:dead_pressure_plate",
+    "mineworld:sculk_pressure_plate"
+  ]
+}

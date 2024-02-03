@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "minecraft:light_gray_concrete"
+    }
+  ],
+  "result": {
+    "item": "mineworld:light_gray_concrete_button"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "parent": "mineworld:ethereal/root",
+  "criteria": {
+    "ancient_temple": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "mineworld:ancient_temple"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ethereal.find_ancient_temple.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "mineworld:ancient_altar"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ethereal.find_ancient_temple.title"
+    }
+  },
+  "requirements": [
+    [
+      "ancient_temple"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

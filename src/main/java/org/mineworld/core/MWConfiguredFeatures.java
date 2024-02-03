@@ -5,6 +5,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePl
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
@@ -37,6 +39,7 @@ import net.minecraft.world.level.material.Fluids;
 import org.mineworld.MineWorld;
 import org.mineworld.block.BlueberryBushBlock;
 import org.mineworld.helper.RegistryHelper;
+import org.mineworld.world.worldgen.feature.configurations.FallenTreeConfiguration;
 import org.mineworld.world.worldgen.tree.foliageplacers.PalmFoliagePlacer;
 import org.mineworld.world.worldgen.tree.trunkplacers.PalmTrunkPlacer;
 
@@ -222,14 +225,37 @@ public final class MWConfiguredFeatures {
     }
 
     /**
-     * Register a {@link Feature#RANDOM_PATCH Random Patch Feature}
+     * Register a {@link Feature#RANDOM_PATCH Flower Random Patch Feature}
      *
      * @param context {@link BootstapContext<ConfiguredFeature> The bootstrap context}
      * @param key {@link ResourceKey<ConfiguredFeature> The Configured Feature Resource Key}
      * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the random patch should place}
      */
-    public static void registerRandomPatchConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<BlockState> blockStateSupplier) {
-        FeatureUtils.register(context, key, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(blockStateSupplier.get())), List.of(Blocks.GRASS_BLOCK)));
+    public static void registerFlowerRandomPatchConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<BlockState> blockStateSupplier) {
+        registerRandomPatchConfiguredFeature(context, key, blockStateSupplier, List.of(Blocks.GRASS_BLOCK));
+    }
+
+    /**
+     * Register a {@link Feature#RANDOM_PATCH Random Patch Feature}
+     *
+     * @param context {@link BootstapContext<ConfiguredFeature> The bootstrap context}
+     * @param key {@link ResourceKey<ConfiguredFeature> The Configured Feature Resource Key}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the random patch should place}
+     * @param soilBlocks {@link List<Block> The list of Soil Blocks}
+     */
+    public static void registerRandomPatchConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<BlockState> blockStateSupplier, final List<Block> soilBlocks) {
+        FeatureUtils.register(context, key, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(blockStateSupplier.get())), soilBlocks));
+    }
+
+    /**
+     * Register a {@link Feature#SIMPLE_RANDOM_SELECTOR Random Selector Feature}
+     *
+     * @param context {@link BootstapContext<ConfiguredFeature> The bootstrap context}
+     * @param key {@link ResourceKey<ConfiguredFeature> The Configured Feature Resource Key}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the random patch should place}
+     */
+    public static void registerRandomSelectorConfiguredFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Supplier<BlockState> blockStateSupplier) {
+        FeatureUtils.register(context, key, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(blockStateSupplier.get(), 1)))))));
     }
 
     /**
@@ -278,7 +304,20 @@ public final class MWConfiguredFeatures {
      * @param treeConfiguration {@link TreeConfiguration The Tree configuration}
      */
     public static void registerTreeFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final TreeConfiguration treeConfiguration) {
-        FeatureUtils.register(context, APPLE_TREE, Feature.TREE, treeConfiguration);
+        FeatureUtils.register(context, key, Feature.TREE, treeConfiguration);
+    }
+
+    /**
+     * Register a {@link MWFeatures#FALLEN_TREE Fallen Tree Feature}
+     *
+     * @param context {@link BootstapContext<ConfiguredFeature> The bootstrap context}
+     * @param key {@link ResourceKey<ConfiguredFeature> The Configured Feature Resource Key}
+     * @param logBlock {@link Block The Log Block}
+     * @param hollowLogBlock {@link Block The Hollow Log Block}
+     * @param ignoreMoss {@link Boolean If the Fallen Tree should not generate Moss}
+     */
+    public static void registerFallenTreeFeature(final BootstapContext<ConfiguredFeature<?, ?>> context, final ResourceKey<ConfiguredFeature<?, ?>> key, final Block logBlock, final Block hollowLogBlock, final boolean ignoreMoss) {
+        FeatureUtils.register(context, key, MWFeatures.FALLEN_TREE.get(), fallenTree(logBlock, hollowLogBlock, ignoreMoss));
     }
 
     //#region Tree Configurations
@@ -395,6 +434,22 @@ public final class MWConfiguredFeatures {
 
     //#endregion
 
+    //#region Fallen Tree Configurations
+
+    //#endregion
+
+    /**
+     * Get a {@link FallenTreeConfiguration Fallen Tree Configuration}
+     *
+     * @param logBlock {@link Block The Log Block}
+     * @param hollowLogBlock {@link Block The Hollow Log Block}
+     * @param ignoreMoss {@link Boolean If the Fallen Tree should not generate Moss}
+     * @return {@link FallenTreeConfiguration The Fallen Tree Configuration}
+     */
+    private static FallenTreeConfiguration fallenTree(final Block logBlock, final Block hollowLogBlock, final boolean ignoreMoss) {
+        return new FallenTreeConfiguration(BlockStateProvider.simple(logBlock), BlockStateProvider.simple(hollowLogBlock), ignoreMoss);
+    }
+
     //#endregion
 
     //#region Register
@@ -414,7 +469,8 @@ public final class MWConfiguredFeatures {
         registerOverworldOreConfiguredFeature(context, ORE_MARBLE, MWBlocks.MARBLE, 16);
         registerNetherOreConfiguredFeature(context, ORE_PYRITE, MWBlocks.PYRITE_ORE, 17);
 
-        registerRandomPatchConfiguredFeature(context, PATCH_BLUEBERRY_BUSH, Suppliers.memoize(() -> MWBlocks.BLUEBERRY_BUSH.get().defaultBlockState().setValue(BlueberryBushBlock.AGE, 3)));
+        registerFlowerRandomPatchConfiguredFeature(context, PATCH_BLUEBERRY_BUSH, Suppliers.memoize(() -> MWBlocks.BLUEBERRY_BUSH.get().defaultBlockState().setValue(BlueberryBushBlock.AGE, 3)));
+        registerRandomPatchConfiguredFeature(context, PATCH_BLUEBERRY_BUSH, Suppliers.memoize(() -> MWBlocks.BLUEBERRY_BUSH.get().defaultBlockState().setValue(BlueberryBushBlock.AGE, 3)), List.of(MWBlocks.SCULK_SOIL.get()));
 
         registerBlobFeature(context, MAGMA_STONE_BLOBS, Blocks.STONE::defaultBlockState, Blocks.MAGMA_BLOCK::defaultBlockState);
         registerBlobFeature(context, MAGMA_BLACKSTONE_BLOBS, Blocks.BLACKSTONE::defaultBlockState, Blocks.MAGMA_BLOCK::defaultBlockState);
@@ -442,8 +498,8 @@ public final class MWConfiguredFeatures {
                 () -> Blocks.MAGMA_BLOCK,
                 Suppliers.memoize(() -> MWBlocks.LAVA_ROCK.get()));
         registerSpringFeature(context, SPRING_WATER_SCULK, Fluids.WATER,
-                () -> Blocks.SCULK/*,
-                Suppliers.memoize(() -> MWBlocks.SCULK_SOIL.get())*/);
+                () -> Blocks.SCULK,
+                Suppliers.memoize(() -> MWBlocks.SCULK_SOIL.get()));
 
         registerTreeFeature(context, APPLE_TREE, appleTree(false, false));
         registerTreeFeature(context, APPLE_BEES_TREE, appleTree(false, true));
@@ -453,6 +509,22 @@ public final class MWConfiguredFeatures {
         registerTreeFeature(context, DEAD_TREE, deadTree(false));
         registerTreeFeature(context, FANCY_DEAD_TREE, deadTree(true));
         registerTreeFeature(context, SCULK_TREE, sculkTree());
+
+        registerFallenTreeFeature(context, FALLEN_OAK_TREE, Blocks.OAK_LOG, MWBlocks.HOLLOW_OAK_LOG.get(), true);
+        registerFallenTreeFeature(context, FALLEN_OAK_TREE_SWAMP, Blocks.OAK_LOG, MWBlocks.HOLLOW_OAK_LOG.get(), false);
+        registerFallenTreeFeature(context, FALLEN_BIRCH_TREE, Blocks.BIRCH_LOG, MWBlocks.HOLLOW_BIRCH_LOG.get(), false);
+        registerFallenTreeFeature(context, FALLEN_SPRUCE_TREE, Blocks.SPRUCE_LOG, MWBlocks.HOLLOW_SPRUCE_LOG.get(), true);
+        registerFallenTreeFeature(context, FALLEN_JUNGLE_TREE, Blocks.JUNGLE_LOG, MWBlocks.HOLLOW_JUNGLE_LOG.get(), false);
+        registerFallenTreeFeature(context, FALLEN_ACACIA_TREE, Blocks.ACACIA_LOG, MWBlocks.HOLLOW_ACACIA_LOG.get(), true);
+        registerFallenTreeFeature(context, FALLEN_DARK_OAK_TREE, Blocks.DARK_OAK_LOG, MWBlocks.HOLLOW_DARK_OAK_LOG.get(), true);
+        registerFallenTreeFeature(context, FALLEN_MANGROVE_TREE, Blocks.MANGROVE_LOG, MWBlocks.HOLLOW_MANGROVE_LOG.get(), false);
+        registerFallenTreeFeature(context, FALLEN_CHERRY_TREE, Blocks.CHERRY_LOG, MWBlocks.HOLLOW_CHERRY_LOG.get(), true);
+        registerFallenTreeFeature(context, FALLEN_APPLE_TREE, MWBlocks.APPLE_LOG.get(), MWBlocks.HOLLOW_APPLE_LOG.get(), true);
+        registerFallenTreeFeature(context, FALLEN_PALM_TREE, MWBlocks.PALM_LOG.get(), MWBlocks.HOLLOW_PALM_LOG.get(), true);
+        registerFallenTreeFeature(context, FALLEN_DEAD_TREE, MWBlocks.DEAD_LOG.get(), MWBlocks.HOLLOW_DEAD_LOG.get(), true);
+
+        FeatureUtils.register(context, BONE_SPIKE, MWFeatures.BONE_SPIKE.get());
+        FeatureUtils.register(context, PATCH_SCULK_ROOTS, MWFeatures.ETHEREAL_FOREST_VEGETATION.get(), new NetherForestVegetationConfig(BlockStateProvider.simple(MWBlocks.SCULK_ROOTS.get()), 8, 4));
     }
     
     //#endregion

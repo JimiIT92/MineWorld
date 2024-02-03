@@ -31,6 +31,7 @@ import org.mineworld.core.MWBlocks;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -105,6 +106,17 @@ public class UnlitTorchBlock extends TorchBlock {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
+    }
+
+    /**
+     * Get an {@link UnlitTorchBlock Unlit Torch Block} for the given {@link Block Block}
+     *
+     * @param block {@link Block The Block to get the Unlit Torch Block for}
+     * @return {@link UnlitTorchBlock The Unlit Torch Block}
+     */
+    public static Block getUnlitTorchBlockFor(final Block block) {
+        final Optional<Block> unlitTorch = Optional.ofNullable(UNLIT_TORCHES.get().get(block));
+        return unlitTorch.orElse(null);
     }
 
 }

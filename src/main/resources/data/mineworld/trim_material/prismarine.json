@@ -1,0 +1,12 @@
+{
+  "asset_name": "prismarine",
+  "description": {
+    "color": "#49C4AF",
+    "translate": "trim_material.mineworld.prismarine"
+  },
+  "ingredient": "minecraft:prismarine_shard",
+  "item_model_index": 0.01,
+  "override_armor_materials": {
+    "diamond": "prismarine_darker"
+  }
+}

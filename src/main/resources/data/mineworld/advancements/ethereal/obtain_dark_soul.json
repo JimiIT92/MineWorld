@@ -1,0 +1,38 @@
+{
+  "parent": "mineworld:ethereal/find_ancient_temple",
+  "criteria": {
+    "dark_soul": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:dark_soul"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ethereal.obtain_dark_soul.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "mineworld:dark_soul"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ethereal.obtain_dark_soul.title"
+    }
+  },
+  "requirements": [
+    [
+      "dark_soul"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

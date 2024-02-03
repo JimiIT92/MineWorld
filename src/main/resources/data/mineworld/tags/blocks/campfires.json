@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:end_campfire",
+    "mineworld:sculk_campfire"
+  ]
+}

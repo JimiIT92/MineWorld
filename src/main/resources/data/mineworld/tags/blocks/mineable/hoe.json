@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "#mineworld:leaves_carpets",
+    "#mineworld:bushes",
+    "mineworld:muddy_mangrove_roots_carpet",
+    "mineworld:nether_wart_carpet",
+    "mineworld:warped_wart_carpet",
+    "mineworld:grass_carpet",
+    "mineworld:podzol_carpet",
+    "mineworld:mycelium_carpet",
+    "mineworld:dirt_carpet",
+    "mineworld:rooted_dirt_carpet",
+    "mineworld:coarse_dirt_carpet",
+    "mineworld:mud_carpet",
+    "mineworld:clay_carpet",
+    "mineworld:brown_mushroom_wall_fan",
+    "mineworld:red_mushroom_wall_fan"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "mineworld:silver_ingot"
+    },
+    "N": {
+      "item": "mineworld:silver_nugget"
+    }
+  },
+  "pattern": [
+    "N",
+    "I",
+    "N"
+  ],
+  "result": {
+    "item": "mineworld:silver_chain"
+  },
+  "show_notification": true
+}

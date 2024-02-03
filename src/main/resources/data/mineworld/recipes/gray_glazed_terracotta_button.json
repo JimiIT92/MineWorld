@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "minecraft:gray_glazed_terracotta"
+    }
+  ],
+  "result": {
+    "item": "mineworld:gray_glazed_terracotta_button"
+  }
+}

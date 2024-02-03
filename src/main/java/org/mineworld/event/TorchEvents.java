@@ -35,7 +35,7 @@ public final class TorchEvents {
             final BlockPos clickedPos = event.getPos();
             final BlockState blockState = level.getBlockState(clickedPos);
             if(itemStack.isEmpty() && blockState.getBlock() instanceof TorchBlock) {
-                final Block unlitTorchBlock = UnlitTorchBlock.UNLIT_TORCHES.get().get(blockState.getBlock());
+                final Block unlitTorchBlock = UnlitTorchBlock.getUnlitTorchBlockFor(blockState.getBlock());
                 if(unlitTorchBlock != null) {
                     level.setBlock(clickedPos, unlitTorchBlock.withPropertiesOf(blockState), 2);
                     player.playSound(SoundEvents.CANDLE_EXTINGUISH);

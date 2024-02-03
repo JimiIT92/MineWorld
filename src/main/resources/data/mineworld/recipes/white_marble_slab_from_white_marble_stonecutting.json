@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "mineworld:white_marble"
+  },
+  "result": "mineworld:white_marble_slab"
+}

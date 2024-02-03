@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:aluminum_shovel",
+    "mineworld:copper_shovel",
+    "mineworld:bronze_shovel",
+    "mineworld:silver_shovel",
+    "mineworld:emerald_shovel",
+    "mineworld:ruby_shovel",
+    "mineworld:sapphire_shovel"
+  ]
+}

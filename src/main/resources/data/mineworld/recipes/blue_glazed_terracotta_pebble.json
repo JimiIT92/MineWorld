@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 16,
+  "ingredient": {
+    "item": "minecraft:blue_glazed_terracotta"
+  },
+  "result": "mineworld:blue_glazed_terracotta_pebble"
+}

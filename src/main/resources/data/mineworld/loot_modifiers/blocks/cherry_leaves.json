@@ -1,0 +1,26 @@
+{
+  "type": "mineworld:add_items",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:blocks/cherry_leaves"
+    }
+  ],
+  "entries": [
+    {
+      "item": "mineworld:cherry",
+      "chance": 0.05,
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ]
+    }
+  ]
+}

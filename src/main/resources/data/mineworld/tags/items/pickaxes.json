@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:aluminum_pickaxe",
+    "mineworld:copper_pickaxe",
+    "mineworld:bronze_pickaxe",
+    "mineworld:silver_pickaxe",
+    "mineworld:emerald_pickaxe",
+    "mineworld:ruby_pickaxe",
+    "mineworld:sapphire_pickaxe"
+  ]
+}

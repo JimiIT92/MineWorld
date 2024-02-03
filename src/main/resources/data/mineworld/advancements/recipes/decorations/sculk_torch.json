@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sculk_soil": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "mineworld:sculk_fire_base_blocks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:sculk_torch"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sculk_soil"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:sculk_torch"
+    ]
+  },
+  "sends_telemetry_event": false
+}

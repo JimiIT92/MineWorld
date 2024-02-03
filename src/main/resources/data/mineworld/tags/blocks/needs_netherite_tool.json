@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:reinforced_deepslate_stairs",
+    "mineworld:reinforced_deepslate_slab",
+    "mineworld:reinforced_deepslate_wall"
+  ]
+}

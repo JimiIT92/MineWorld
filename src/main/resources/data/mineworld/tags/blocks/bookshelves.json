@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:spruce_bookshelf",
+    "mineworld:birch_bookshelf",
+    "mineworld:jungle_bookshelf",
+    "mineworld:acacia_bookshelf",
+    "mineworld:dark_oak_bookshelf",
+    "mineworld:mangrove_bookshelf",
+    "mineworld:cherry_bookshelf",
+    "mineworld:bamboo_bookshelf",
+    "mineworld:crimson_bookshelf",
+    "mineworld:warped_bookshelf",
+    "mineworld:apple_bookshelf",
+    "mineworld:palm_bookshelf",
+    "mineworld:dead_bookshelf",
+    "mineworld:sculk_bookshelf"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:cherry_sapling"
+    },
+    "X": {
+      "item": "minecraft:cherry_leaves"
+    }
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "item": "mineworld:cherry_bush"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#mineworld:wool_stairs",
+    "#mineworld:wool_slabs",
+    "#mineworld:wool_walls"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "type": "mineworld:add_items",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/jungle_temple"
+    }
+  ],
+  "entries": [
+    {
+      "item": "mineworld:sapphire",
+      "chance": 0.129,
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 3.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "item": "mineworld:silver_ingot",
+      "chance": 0.374,
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 5.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ]
+    }
+  ]
+}

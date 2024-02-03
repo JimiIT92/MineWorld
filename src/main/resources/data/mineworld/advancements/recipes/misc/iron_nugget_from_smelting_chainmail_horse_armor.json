@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chainmail_horse_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:chainmail_horse_armor"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:iron_nugget_from_smelting_chainmail_horse_armor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_chainmail_horse_armor",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:iron_nugget_from_smelting_chainmail_horse_armor"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:birch_forest",
+  "features": [
+    "mineworld:fallen_birch_tree_placed"
+  ],
+  "step": "vegetal_decoration"
+}

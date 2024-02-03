@@ -33,4 +33,13 @@ public class MWCriteriaTriggers {
 
     //#endregion
 
+    //#region Register
+
+    /**
+     * Register all {@link MineWorld MineWorld} {@link CriterionTrigger Critera Triggers}
+     */
+    public static void register() { }
+
+    //#endregion
+
 }

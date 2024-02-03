@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "food",
+  "key": {
+    "#": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    "  #",
+    " # ",
+    "#  "
+  ],
+  "result": {
+    "item": "mineworld:candy_cane"
+  },
+  "show_notification": true
+}

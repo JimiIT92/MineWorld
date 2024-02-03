@@ -1,0 +1,8 @@
+{
+  "type": "mineworld:woodcutting",
+  "count": 2,
+  "ingredient": {
+    "item": "mineworld:palm_planks"
+  },
+  "result": "mineworld:palm_slab"
+}

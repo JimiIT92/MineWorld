@@ -1,0 +1,15 @@
+{
+  "name": "mineworld:ice_castle/center_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "mineworld:ice_castle/center",
+        "processors": "mineworld:slightly_damaged",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

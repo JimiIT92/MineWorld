@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "#mineworld:soul_lanterns",
+    "#mineworld:end_lanterns",
+    "#mineworld:sculk_lanterns",
+    "mineworld:golden_lantern",
+    "mineworld:netherite_lantern",
+    "mineworld:aluminum_lantern",
+    "mineworld:bronze_lantern",
+    "mineworld:silver_lantern",
+    "mineworld:oxidized_copper_lantern",
+    "mineworld:weathered_copper_lantern",
+    "mineworld:exposed_copper_lantern",
+    "mineworld:copper_lantern",
+    "mineworld:waxed_oxidized_copper_lantern",
+    "mineworld:waxed_weathered_copper_lantern",
+    "mineworld:waxed_exposed_copper_lantern",
+    "mineworld:waxed_copper_lantern"
+  ]
+}

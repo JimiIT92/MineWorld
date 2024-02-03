@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "carpet",
+  "key": {
+    "#": {
+      "item": "minecraft:rooted_dirt"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "item": "mineworld:rooted_dirt_carpet"
+  },
+  "show_notification": true
+}

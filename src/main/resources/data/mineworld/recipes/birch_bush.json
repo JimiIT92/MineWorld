@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:birch_sapling"
+    },
+    "X": {
+      "item": "minecraft:birch_leaves"
+    }
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "item": "mineworld:birch_bush"
+  },
+  "show_notification": true
+}

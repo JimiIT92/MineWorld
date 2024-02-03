@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:apple_stairs",
+    "mineworld:palm_stairs",
+    "mineworld:dead_stairs",
+    "mineworld:sculk_stairs"
+  ]
+}

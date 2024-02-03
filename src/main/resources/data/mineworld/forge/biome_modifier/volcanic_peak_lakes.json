@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_features",
+  "biomes": "mineworld:volcanic_peak",
+  "features": [
+    "mineworld:lake_lava_blackstone_placed",
+    "mineworld:lake_lava_coal_placed",
+    "mineworld:lake_lava_magma_placed",
+    "mineworld:lake_lava_volcanic_peak_placed"
+  ],
+  "step": "lakes"
+}

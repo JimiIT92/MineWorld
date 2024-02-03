@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:apple_planks",
+    "mineworld:palm_planks",
+    "mineworld:dead_planks",
+    "mineworld:sculk_planks"
+  ]
+}

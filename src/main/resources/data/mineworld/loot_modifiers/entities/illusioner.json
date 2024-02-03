@@ -1,0 +1,15 @@
+{
+  "type": "mineworld:add_items",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/illusioner"
+    }
+  ],
+  "entries": [
+    {
+      "item": "mineworld:invisibility_cloak",
+      "chance": 0.1
+    }
+  ]
+}

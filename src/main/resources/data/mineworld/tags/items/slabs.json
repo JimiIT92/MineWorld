@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#mineworld:stone_slabs",
+    "#mineworld:glass_slabs",
+    "#mineworld:wool_slabs",
+    "#mineworld:metal_slabs",
+    "#mineworld:wooden_slabs"
+  ]
+}

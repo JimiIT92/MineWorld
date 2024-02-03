@@ -1,0 +1,9 @@
+{
+  "asset_name": "ruby",
+  "description": {
+    "color": "#9F3535",
+    "translate": "trim_material.mineworld.ruby"
+  },
+  "ingredient": "mineworld:ruby",
+  "item_model_index": 0.03
+}

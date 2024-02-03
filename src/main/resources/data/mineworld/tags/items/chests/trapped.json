@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:spruce_trapped_chest",
+    "mineworld:birch_trapped_chest",
+    "mineworld:jungle_trapped_chest",
+    "mineworld:acacia_trapped_chest",
+    "mineworld:dark_oak_trapped_chest",
+    "mineworld:mangrove_trapped_chest",
+    "mineworld:cherry_trapped_chest",
+    "mineworld:bamboo_trapped_chest",
+    "mineworld:crimson_trapped_chest",
+    "mineworld:warped_trapped_chest",
+    "mineworld:apple_trapped_chest",
+    "mineworld:palm_trapped_chest",
+    "mineworld:dead_trapped_chest",
+    "mineworld:ice_trapped_chest",
+    "mineworld:sculk_trapped_chest"
+  ]
+}

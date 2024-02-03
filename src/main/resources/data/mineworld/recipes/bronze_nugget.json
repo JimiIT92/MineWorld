@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "mineworld:bronze_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "mineworld:bronze_nugget"
+  }
+}

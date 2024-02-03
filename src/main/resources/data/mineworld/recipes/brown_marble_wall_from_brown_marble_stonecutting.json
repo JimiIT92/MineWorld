@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "mineworld:brown_marble"
+  },
+  "result": "mineworld:brown_marble_wall"
+}

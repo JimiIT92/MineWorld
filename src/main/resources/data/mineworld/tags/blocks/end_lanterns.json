@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:end_lantern",
+    "mineworld:golden_end_lantern",
+    "mineworld:netherite_end_lantern",
+    "mineworld:aluminum_end_lantern",
+    "mineworld:bronze_end_lantern",
+    "mineworld:silver_end_lantern",
+    "mineworld:oxidized_copper_end_lantern",
+    "mineworld:weathered_copper_end_lantern",
+    "mineworld:exposed_copper_end_lantern",
+    "mineworld:copper_end_lantern",
+    "mineworld:waxed_oxidized_copper_end_lantern",
+    "mineworld:waxed_weathered_copper_end_lantern",
+    "mineworld:waxed_exposed_copper_end_lantern",
+    "mineworld:waxed_copper_end_lantern"
+  ]
+}

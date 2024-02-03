@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 567129832,
+    "separation": 6,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "mineworld:ancient_temple",
+      "weight": 1
+    }
+  ]
+}

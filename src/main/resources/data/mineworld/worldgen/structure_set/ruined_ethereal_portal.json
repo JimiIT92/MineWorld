@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 14935762,
+    "separation": 4,
+    "spacing": 12
+  },
+  "structures": [
+    {
+      "structure": "mineworld:ruined_ethereal_portal",
+      "weight": 1
+    }
+  ]
+}

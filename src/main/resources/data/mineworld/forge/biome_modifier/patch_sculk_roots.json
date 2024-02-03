@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#mineworld:is_ethereal",
+  "features": [
+    "mineworld:patch_sculk_roots_placed"
+  ],
+  "step": "vegetal_decoration"
+}

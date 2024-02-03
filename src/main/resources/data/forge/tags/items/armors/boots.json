@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:copper_boots",
+    "mineworld:silver_boots",
+    "mineworld:bronze_boots",
+    "mineworld:aluminum_boots",
+    "mineworld:emerald_boots",
+    "mineworld:ruby_boots",
+    "mineworld:sapphire_boots"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "mineworld:black_marble"
+    }
+  ],
+  "result": {
+    "item": "mineworld:black_marble_button"
+  }
+}

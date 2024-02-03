@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "mineworld:silver_pickaxe"
+    },
+    {
+      "item": "mineworld:silver_shovel"
+    },
+    {
+      "item": "mineworld:silver_axe"
+    },
+    {
+      "item": "mineworld:silver_hoe"
+    },
+    {
+      "item": "mineworld:silver_sword"
+    },
+    {
+      "item": "mineworld:silver_helmet"
+    },
+    {
+      "item": "mineworld:silver_chestplate"
+    },
+    {
+      "item": "mineworld:silver_leggings"
+    },
+    {
+      "item": "mineworld:silver_boots"
+    },
+    {
+      "item": "mineworld:silver_horse_armor"
+    }
+  ],
+  "result": "mineworld:silver_nugget"
+}

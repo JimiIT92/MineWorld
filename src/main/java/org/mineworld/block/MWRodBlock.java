@@ -1,8 +1,13 @@
 package org.mineworld.block;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -18,12 +23,30 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWBlocks;
 import org.mineworld.helper.PropertyHelper;
+
+import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * {@link MineWorld MineWorld} {@link RodBlock Rod Block}
  */
 public class MWRodBlock extends RodBlock {
+
+    /**
+     * {@link Supplier<BiMap> Rod Blocks by Item}
+     */
+    private static final Supplier<BiMap<Item, Block>> RODS = Suppliers.memoize(() -> ImmutableBiMap.<Item, Block>builder()
+            .put(Items.STICK, MWBlocks.STICK_ROD_BLOCK.get())
+            .put(Items.BONE, MWBlocks.BONE_ROD_BLOCK.get())
+            .put(Items.BLAZE_ROD, MWBlocks.BLAZE_ROD_BLOCK.get())
+    .build());
+
+    /**
+     * {@link Supplier<BiMap> Items by Rod Blocks}
+     */
+    Supplier<BiMap<Block, Item>> ITEM_BY_DRIPSTONE = Suppliers.memoize(() -> RODS.get().inverse());
 
     /**
      * {@link BooleanProperty The Block Waterlogged property}
@@ -92,6 +115,17 @@ public class MWRodBlock extends RodBlock {
      */
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, WATERLOGGED);
+    }
+
+    /**
+     * Get a {@link MWRodBlock Rod Block} for the given {@link Item Item}
+     *
+     * @param item {@link Item The Item to get the Rod Block for}
+     * @return {@link MWRodBlock The Rod Block}
+     */
+    public static Block getRodBlockFor(final Item item) {
+        final Optional<Block> rod = Optional.ofNullable(RODS.get().get(item));
+        return rod.orElse(null);
     }
 
 }

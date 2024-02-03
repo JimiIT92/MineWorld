@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:white_wool_stairs",
+    "mineworld:orange_wool_stairs",
+    "mineworld:magenta_wool_stairs",
+    "mineworld:light_blue_wool_stairs",
+    "mineworld:yellow_wool_stairs",
+    "mineworld:lime_wool_stairs",
+    "mineworld:pink_wool_stairs",
+    "mineworld:gray_wool_stairs",
+    "mineworld:light_gray_wool_stairs",
+    "mineworld:cyan_wool_stairs",
+    "mineworld:purple_wool_stairs",
+    "mineworld:blue_wool_stairs",
+    "mineworld:brown_wool_stairs",
+    "mineworld:green_wool_stairs",
+    "mineworld:red_wool_stairs",
+    "mineworld:black_wool_stairs"
+  ]
+}

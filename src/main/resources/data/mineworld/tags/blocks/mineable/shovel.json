@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:gravel_carpet",
+    "mineworld:sand_carpet",
+    "mineworld:red_sand_carpet",
+    "mineworld:end_soil",
+    "mineworld:sculk_soil"
+  ]
+}

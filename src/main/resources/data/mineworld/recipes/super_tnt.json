@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": [
+      {
+        "item": "mineworld:mega_tnt"
+      }
+    ],
+    "X": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "pattern": [
+    "X#X",
+    "#X#",
+    "X#X"
+  ],
+  "result": {
+    "item": "mineworld:super_tnt"
+  },
+  "show_notification": true
+}

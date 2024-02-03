@@ -118,7 +118,7 @@ public final class MWPebbles {
         public static final RegistryObject<Block> OBSIDIAN_PEBBLE = registerPebble("obsidian", () -> Blocks.OBSIDIAN);
         public static final RegistryObject<Block> CRYING_OBSIDIAN_PEBBLE = registerPebble("crying_obsidian", () -> Blocks.CRYING_OBSIDIAN);
         public static final RegistryObject<Block> GLOWING_OBSIDIAN_PEBBLE = registerPebble("glowing_obsidian", MWBlocks.GLOWING_OBSIDIAN);
-        //public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PEBBLE = registerPebble("warped_nether_bricks", MWBlocks.WARPED_NETHER_BRICKS);
+        public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PEBBLE = registerPebble("warped_nether_bricks", MWBlocks.WARPED_NETHER_BRICKS);
         public static final RegistryObject<Block> MARBLE_PEBBLE = registerPebble("marble", MWBlocks.MARBLE);
         public static final RegistryObject<Block> WHITE_MARBLE_PEBBLE = registerPebble("white_marble", MWColoredBlocks.WHITE_MARBLE);
         public static final RegistryObject<Block> ORANGE_MARBLE_PEBBLE = registerPebble("orange_marble", MWColoredBlocks.ORANGE_MARBLE);
@@ -270,7 +270,7 @@ public final class MWPebbles {
         public static final RegistryObject<Item> OBSIDIAN_PEBBLE = registerPebble("obsidian", PebbleBlocks.OBSIDIAN_PEBBLE);
         public static final RegistryObject<Item> CRYING_OBSIDIAN_PEBBLE = registerPebble("crying_obsidian", PebbleBlocks.CRYING_OBSIDIAN_PEBBLE);
         public static final RegistryObject<Item> GLOWING_OBSIDIAN_PEBBLE = registerPebble("glowing_obsidian", PebbleBlocks.GLOWING_OBSIDIAN_PEBBLE);
-        //public static final RegistryObject<Item> WARPED_NETHER_BRICKS_PEBBLE = registerPebble("warped_nether_bricks", PebbleBlocks.WARPED_NETHER_BRICKS_PEBBLE);
+        public static final RegistryObject<Item> WARPED_NETHER_BRICKS_PEBBLE = registerPebble("warped_nether_bricks", PebbleBlocks.WARPED_NETHER_BRICKS_PEBBLE);
         public static final RegistryObject<Item> MARBLE_PEBBLE = registerPebble("marble", PebbleBlocks.MARBLE_PEBBLE);
         public static final RegistryObject<Item> WHITE_MARBLE_PEBBLE = registerPebble("white_marble", PebbleBlocks.WHITE_MARBLE_PEBBLE);
         public static final RegistryObject<Item> ORANGE_MARBLE_PEBBLE = registerPebble("orange_marble", PebbleBlocks.ORANGE_MARBLE_PEBBLE);

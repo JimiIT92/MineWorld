@@ -993,7 +993,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = registerEtherealRune(EtherealRuneBlock.Types.GAMMA);
     public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = registerEtherealRune(EtherealRuneBlock.Types.DELTA);
     public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = registerEtherealRune(EtherealRuneBlock.Types.OMEGA);
-    public static final RegistryObject<Block> ETHEREAL_PORTAL = registerBlock("ethereal_portal", Suppliers.memoize(() -> new EtherealPortalBlock()));
+    public static final RegistryObject<Block> ETHEREAL_PORTAL = registerBlockWithoutBlockItem("ethereal_portal", Suppliers.memoize(() -> new EtherealPortalBlock()));
     public static final RegistryObject<Block> ANCIENT_ALTAR = registerBlock("ancient_altar", Suppliers.memoize(() -> new AncientAltarBlock()));
 
     //#endregion

@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:white_wool_wall",
+    "mineworld:orange_wool_wall",
+    "mineworld:magenta_wool_wall",
+    "mineworld:light_blue_wool_wall",
+    "mineworld:yellow_wool_wall",
+    "mineworld:lime_wool_wall",
+    "mineworld:pink_wool_wall",
+    "mineworld:gray_wool_wall",
+    "mineworld:light_gray_wool_wall",
+    "mineworld:cyan_wool_wall",
+    "mineworld:purple_wool_wall",
+    "mineworld:blue_wool_wall",
+    "mineworld:brown_wool_wall",
+    "mineworld:green_wool_wall",
+    "mineworld:red_wool_wall",
+    "mineworld:black_wool_wall"
+  ]
+}

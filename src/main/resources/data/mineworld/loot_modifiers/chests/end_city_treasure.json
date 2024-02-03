@@ -1,0 +1,326 @@
+{
+  "type": "mineworld:add_items",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/end_city_treasure"
+    }
+  ],
+  "entries": [
+    {
+      "item": "mineworld:emerald_sword",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:ruby_sword",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire_sword",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:emerald_pickaxe",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:ruby_pickaxe",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire_pickaxe",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:emerald_shovel",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:ruby_shovel",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire_shovel",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:emerald_helmet",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:ruby_helmet",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire_helmet",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:emerald_chestplate",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:ruby_chestplate",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire_chestplate",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:emerald_leggings",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:ruby_leggings",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire_leggings",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:emerald_boots",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:ruby_boots",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    },
+    {
+      "item": "mineworld:sapphire_boots",
+      "chance": 0.133,
+      "functions": [
+        {
+          "function": "minecraft:enchant_with_levels",
+          "levels": {
+            "type": "minecraft:uniform",
+            "max": 39.0,
+            "min": 20.0
+          },
+          "treasure": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:golden_chain",
+    "mineworld:netherite_chain",
+    "mineworld:aluminum_chain",
+    "mineworld:bronze_chain",
+    "mineworld:silver_chain",
+    "mineworld:oxidized_copper_chain",
+    "mineworld:weathered_copper_chain",
+    "mineworld:exposed_copper_chain",
+    "mineworld:copper_chain",
+    "mineworld:waxed_oxidized_copper_chain",
+    "mineworld:waxed_weathered_copper_chain",
+    "mineworld:waxed_exposed_copper_chain",
+    "mineworld:waxed_copper_chain"
+  ]
+}

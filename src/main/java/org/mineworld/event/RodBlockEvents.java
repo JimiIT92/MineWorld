@@ -3,8 +3,6 @@ package org.mineworld.event;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RodBlock;
@@ -13,11 +11,10 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
-import org.mineworld.core.MWBlocks;
+import org.mineworld.block.MWRodBlock;
 import org.mineworld.helper.ItemHelper;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Handle all events for a {@link RodBlock Rod Block}
@@ -34,20 +31,10 @@ public final class RodBlockEvents {
     public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
         if(!event.isCanceled()) {
             final Player player = event.getEntity();
-            final ItemStack itemStack = event.getItemStack();
             final Level level = event.getLevel();
             final BlockPos clickedPos = event.getPos();
-            Optional<Block> optionalRodBlock = Optional.empty();
-            if(itemStack.is(Items.BONE)) {
-                optionalRodBlock = Optional.of(MWBlocks.BONE_ROD_BLOCK.get());
-            }
-            else if(itemStack.is(Items.STICK)) {
-                optionalRodBlock = Optional.of(MWBlocks.STICK_ROD_BLOCK.get());
-            }
-            else if(itemStack.is(Items.BLAZE_ROD)) {
-                optionalRodBlock = Optional.of(MWBlocks.BLAZE_ROD_BLOCK.get());
-            }
-            optionalRodBlock.ifPresent(rodBlock -> {
+            final Block rodBlock = MWRodBlock.getRodBlockFor(event.getItemStack().getItem());
+            if(rodBlock != null) {
                 if(player.isShiftKeyDown()) {
                     final Direction face = event.getFace();
                     final BlockPos rodPos = clickedPos.offset(Objects.requireNonNull(event.getFace()).getNormal());
@@ -59,7 +46,7 @@ public final class RodBlockEvents {
                         ItemHelper.hurt(event.getItemStack(), player, level, event.getHand());
                     }
                 }
-            });
+            }
         }
     }
 

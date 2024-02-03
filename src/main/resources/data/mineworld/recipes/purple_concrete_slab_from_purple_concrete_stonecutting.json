@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:purple_concrete"
+  },
+  "result": "mineworld:purple_concrete_slab"
+}

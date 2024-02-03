@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "mineworld:warped_nether_bricks"
+    }
+  ],
+  "result": {
+    "item": "mineworld:warped_nether_bricks_button"
+  }
+}

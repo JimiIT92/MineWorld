@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "tag": "mineworld:end_fire_base_blocks"
+    },
+    "X": [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
+    ]
+  },
+  "pattern": [
+    "X",
+    "#",
+    "S"
+  ],
+  "result": {
+    "count": 4,
+    "item": "mineworld:end_torch"
+  },
+  "show_notification": true
+}
