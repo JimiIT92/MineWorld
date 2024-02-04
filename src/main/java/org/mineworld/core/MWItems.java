@@ -309,7 +309,7 @@ public final class MWItems {
     //#region Spawn Eggs
 
     public static final RegistryObject<Item> ILLUSIONER_SPAWN_EGG = registerSpawnEgg("illusioner", () -> EntityType.ILLUSIONER, 0x135793, 0x959B9B);
-    //public static final RegistryObject<Item> REAPER_SPAWN_EGG = registerSpawnEgg("reaper", Suppliers.memoize(() -> MWEntityTypes.REAPER.get()),  0x0C4144, 0x010C0F);
+    public static final RegistryObject<Item> REAPER_SPAWN_EGG = registerSpawnEgg("reaper", Suppliers.memoize(() -> MWEntityTypes.REAPER.get()),  0x0C4144, 0x010C0F);
 
     //#endregion
 

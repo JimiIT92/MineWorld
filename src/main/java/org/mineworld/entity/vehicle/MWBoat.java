@@ -70,7 +70,7 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Define the TNT minecart data
+     * Define the {@link Entity Entity} Data
      */
     @Override
     protected void defineSynchedData() {

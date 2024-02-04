@@ -2192,8 +2192,8 @@ public final class CreativeModeTabEvents {
      */
     private static void setSpawnEggsTab(final BuildCreativeModeTabContentsEvent event) {
         addToTab(event,
-                MWItems.ILLUSIONER_SPAWN_EGG//,
-                //MWItems.REAPER_SPAWN_EGG
+                MWItems.ILLUSIONER_SPAWN_EGG,
+                MWItems.REAPER_SPAWN_EGG
         );
     }
 

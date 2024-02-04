@@ -12,10 +12,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.block.MWPrimedTntRenderer;
+import org.mineworld.client.renderer.entity.ReaperRenderer;
 import org.mineworld.client.renderer.vehicle.MWBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestMinecartRenderer;
 import org.mineworld.client.renderer.vehicle.MWTntMinecartRenderer;
+import org.mineworld.entity.Reaper;
 import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.entity.projectile.ThrownGrenade;
 import org.mineworld.entity.projectile.ThrownPebble;
@@ -89,6 +91,11 @@ public final class MWEntityTypes {
                     .sized(1.375F, 0.5625F)
                     .clientTrackingRange(10)
     );
+    public static final RegistryObject<EntityType<Reaper>> REAPER = registerEntityType("reaper",
+            EntityType.Builder.<Reaper>of(Reaper::new, MobCategory.MONSTER)
+                    .sized(0.8F, 1.6F)
+                    .clientTrackingRange(8)
+    );
 
     //#endregion
 
@@ -152,6 +159,7 @@ public final class MWEntityTypes {
         registerRenderer(CHEST_MINECART, MWChestMinecartRenderer::new);
         registerRenderer(BOAT, MWBoatRenderer::new);
         registerRenderer(CHEST_BOAT, MWChestBoatRenderer::new);
+        registerRenderer(REAPER, ReaperRenderer::new);
         registerRenderer(ThrownItemRenderer::new,
                 PEBBLE,
                 GRENADE

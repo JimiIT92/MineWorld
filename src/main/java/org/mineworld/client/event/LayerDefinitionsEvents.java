@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.client.model.StrawHatModel;
 import org.mineworld.client.model.WitchHatModel;
+import org.mineworld.client.model.entity.ReaperModel;
 
 /**
  * Handle all events for {@link MineWorld MineWorld} {@link LayerDefinition Layer Definitions}
@@ -25,6 +26,7 @@ public final class LayerDefinitionsEvents {
     public static void onRegisterLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(WitchHatModel.LAYER_LOCATION, Suppliers.memoize(() -> WitchHatModel.createBodyLayer()));
         event.registerLayerDefinition(StrawHatModel.LAYER_LOCATION, Suppliers.memoize(() -> StrawHatModel.createBodyLayer()));
+        event.registerLayerDefinition(ReaperModel.LAYER_LOCATION, Suppliers.memoize(() -> ReaperModel.createBodyLayer()));
     }
 
 }

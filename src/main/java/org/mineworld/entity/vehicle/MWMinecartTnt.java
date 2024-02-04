@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.MinecartTNT;
@@ -164,7 +165,7 @@ public class MWMinecartTnt extends MinecartTNT {
     }
 
     /**
-     * Define the TNT minecart data
+     * Define the {@link Entity Entity} Data
      */
     @Override
     protected void defineSynchedData() {
