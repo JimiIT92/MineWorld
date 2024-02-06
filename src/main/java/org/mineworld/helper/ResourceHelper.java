@@ -33,7 +33,18 @@ public final class ResourceHelper {
      * @return {@link ResourceLocation The Resource Location}
      */
     public static ResourceLocation resourceLocation(final String name) {
-        return new ResourceLocation(MineWorld.MOD_ID, name);
+        return resourceLocation(MineWorld.MOD_ID, name);
+    }
+
+    /**
+     * Get a {@link MineWorld MineWorld} {@link ResourceLocation Resource Location}
+     *
+     * @param modId {@link String The Mod Id}
+     * @param name {@link String The resource name}
+     * @return {@link ResourceLocation The Resource Location}
+     */
+    public static ResourceLocation resourceLocation(final String modId, final String name) {
+        return new ResourceLocation(modId, name);
     }
 
     /**

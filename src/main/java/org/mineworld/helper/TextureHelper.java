@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.TrappedChestBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import org.mineworld.MineWorld;
 
 /**
  * Helper methods for Textures
@@ -101,11 +102,22 @@ public final class TextureHelper {
     /**
      * Get a {@link ResourceLocation Texture location}
      *
+     * @param modId {@link String The Mod Id}
+     * @param path {@link String The Texture path}
+     * @return {@link ResourceLocation The Texture location}
+     */
+    public static ResourceLocation texture(final String modId, final String path) {
+        return ResourceHelper.resourceLocation(modId, "textures/" + path + ".png");
+    }
+
+    /**
+     * Get a {@link ResourceLocation Texture location}
+     *
      * @param path {@link String The Texture path}
      * @return {@link ResourceLocation The Texture location}
      */
     private static ResourceLocation texture(final String path) {
-        return ResourceHelper.resourceLocation("textures/" + path + ".png");
+        return texture(MineWorld.MOD_ID, path);
     }
 
 }

@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -31,16 +30,16 @@ public final class MWTabs {
 
     //#region Creative Tabs
 
-    public static RegistryObject<CreativeModeTab> BUILDING_BLOCKS = registerCreativeTab("building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> COLORED_BLOCKS = registerCreativeTab("colored_blocks", BUILDING_BLOCKS, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> NATURAL = registerCreativeTab("natural", COLORED_BLOCKS, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> FUNCTIONAL = registerCreativeTab("functional", NATURAL, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> REDSTONE = registerCreativeTab("redstone", FUNCTIONAL, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> TOOLS = registerCreativeTab("tools", REDSTONE, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> COMBAT = registerCreativeTab("combat", TOOLS, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> FOOD_AND_DRINK = registerCreativeTab("food_and_drink", COMBAT, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> INGREDIENTS = registerCreativeTab("ingredients", FOOD_AND_DRINK, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
-    public static RegistryObject<CreativeModeTab> SPAWN_EGGS = registerCreativeTab("spawn_eggs", INGREDIENTS, () -> Blocks.OBSIDIAN.asItem().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> BUILDING_BLOCKS = registerCreativeTab("building_blocks", CreativeModeTabs.SPAWN_EGGS, () -> MWBlocks.GLOWING_OBSIDIAN.get().asItem().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> COLORED_BLOCKS = registerCreativeTab("colored_blocks", BUILDING_BLOCKS, () -> MWColoredBlocks.PINK_MARBLE.get().asItem().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> NATURAL = registerCreativeTab("natural", COLORED_BLOCKS, () -> MWBlocks.HOLLOW_BIRCH_LOG.get().asItem().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> FUNCTIONAL = registerCreativeTab("functional", NATURAL, () -> MWBlocks.NETHERITE_CHAIN.get().asItem().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> REDSTONE = registerCreativeTab("redstone", FUNCTIONAL, () -> MWBlocks.DAYLIGHT_LAMP.get().asItem().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> TOOLS = registerCreativeTab("tools", REDSTONE, () -> MWItems.EMERALD_PICKAXE.get().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> COMBAT = registerCreativeTab("combat", TOOLS, () -> MWItems.SAPPHIRE_SWORD.get().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> FOOD_AND_DRINK = registerCreativeTab("food_and_drink", COMBAT, () -> MWItems.COB.get().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> INGREDIENTS = registerCreativeTab("ingredients", FOOD_AND_DRINK, () -> MWItems.RUBY.get().getDefaultInstance());
+    public static RegistryObject<CreativeModeTab> SPAWN_EGGS = registerCreativeTab("spawn_eggs", INGREDIENTS, () -> MWItems.REAPER_SPAWN_EGG.get().getDefaultInstance());
 
     //#endregion
 
