@@ -31,5 +31,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/potted_dead_fire_coral_block"
 }

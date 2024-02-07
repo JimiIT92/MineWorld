@@ -57,5 +57,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "mineworld:chests/ice_castle_tower"
 }

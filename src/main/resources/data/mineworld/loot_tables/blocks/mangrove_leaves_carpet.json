@@ -40,5 +40,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/mangrove_leaves_carpet"
 }

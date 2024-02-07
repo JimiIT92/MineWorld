@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/end_stone_bricks_pressure_plate"
 }

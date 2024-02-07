@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/mossy_chiseled_stone_bricks"
 }

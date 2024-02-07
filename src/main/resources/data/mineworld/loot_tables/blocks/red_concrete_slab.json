@@ -30,5 +30,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/red_concrete_slab"
 }

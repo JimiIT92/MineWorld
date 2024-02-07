@@ -67,5 +67,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "mineworld:chests/ruined_ethereal_portal"
 }
