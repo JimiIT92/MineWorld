@@ -80,7 +80,7 @@ public final class MWTrimMaterials {
      *
      * @param context {@link BootstapContext<TrimMaterial> The bootstrap context}
      */
-    public static void nextUpdate(final BootstapContext<TrimMaterial> context) {
+    public static void bootstrap(final BootstapContext<TrimMaterial> context) {
         registerTrimMaterial(context, PRISMARINE, Items.PRISMARINE_SHARD, MWColors.PRISMARINE, 0.01F, ArmorMaterials.DIAMOND);
         registerTrimMaterial(context, ECHO_SHARD, Items.ECHO_SHARD, MWColors.SCULK, 0.02F);
         registerTrimMaterial(context, RUBY, MWItems.RUBY.get(), MWColors.RUBY, 0.03F);
