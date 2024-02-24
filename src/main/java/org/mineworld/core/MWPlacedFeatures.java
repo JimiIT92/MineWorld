@@ -128,12 +128,12 @@ public final class MWPlacedFeatures {
      * @param context {@link BootstapContext<PlacedFeature> The Bootstrap Context}
      * @param key {@link ResourceKey<PlacedFeature> The Placed Feature Resource Key}
      * @param oreConfiguredFeature {@link Holder<ConfiguredFeature> The Ore Configured Feature that this Placed Feature will place}
-     * @param chance {@link Integer The chance for the Ore to generate}
+     * @param count {@link Integer How many ores per chunk should be generated}
      * @param minHeight {@link Integer The minimum height that the ore can spawn}
      * @param maxHeight {@link Integer The maximum height that the ore can spawn}
      */
-    private static void registerRareOrePlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, final int chance, final int minHeight, final int maxHeight) {
-        registerPlacedFeature(context, key, oreConfiguredFeature, rareOrePlacement(chance, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(minHeight), VerticalAnchor.belowTop(maxHeight))));
+    private static void registerRareOrePlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> oreConfiguredFeature, final int count, final int minHeight, final int maxHeight) {
+        registerPlacedFeature(context, key, oreConfiguredFeature, rareOrePlacement(count, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(minHeight), VerticalAnchor.aboveBottom(maxHeight))));
     }
 
     /**
@@ -264,12 +264,12 @@ public final class MWPlacedFeatures {
     /**
      * Get the {@link List<PlacementModifier> Ore Placement Modifier} for a Rare Ore
      *
-     * @param chance {@link Integer The chance for the Ore to generate}
+     * @param count {@link Integer How many ores per chunk should be generated}
      * @param heightPlacementModifier {@link PlacementModifier The height placement modifier. Affects the levels at which the ore can spawn}
      * @return {@link List<PlacementModifier> The Common Ore Placement Modifier}
      */
-    private static List<PlacementModifier> rareOrePlacement(final int chance, final PlacementModifier heightPlacementModifier) {
-        return orePlacement(RarityFilter.onAverageOnceEvery(chance), heightPlacementModifier);
+    private static List<PlacementModifier> rareOrePlacement(final int count, final PlacementModifier heightPlacementModifier) {
+        return orePlacement(CountPlacement.of(count), heightPlacementModifier);
     }
 
     /**
@@ -303,8 +303,8 @@ public final class MWPlacedFeatures {
         registerCommonOrePlacedFeature(context, ORE_ALUMINUM_UPPER, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_ALUMINUM), 90, 80, 384);
         registerCommonOrePlacedFeature(context, ORE_ALUMINUM_MIDDLE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_ALUMINUM), 10, -24, 56);
         registerCommonOrePlacedFeature(context, ORE_ALUMINUM_SMALL, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_ALUMINUM_SMALL), 10, 72);
-        registerCommonOrePlacedFeature(context, ORE_RUBY, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_RUBY), 100, -16, 480);
-        registerCommonOrePlacedFeature(context, ORE_SAPPHIRE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_SAPPHIRE), 100, -16, 480);
+        registerRareOrePlacedFeature(context, ORE_RUBY, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_RUBY), 100, -80, 80);
+        registerRareOrePlacedFeature(context, ORE_SAPPHIRE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_SAPPHIRE), 100, -80, 80);
         registerCommonOrePlacedFeature(context, ORE_MARBLE, configuredFeatures.getOrThrow(MWConfiguredFeatures.ORE_MARBLE), 2, -16);
 
         registerPatchPlacedFeature(context, PATCH_BLUEBERRY_COMMON, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH), 32);
