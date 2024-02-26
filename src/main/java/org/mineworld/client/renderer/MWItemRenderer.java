@@ -16,8 +16,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
+import org.mineworld.block.GiftBlock;
 import org.mineworld.block.MWChestBlock;
 import org.mineworld.block.MWTrappedChestBlock;
+import org.mineworld.entity.block.GiftBlockEntity;
 
 /**
  * {@link MineWorld MineWorld} {@link BlockEntityWithoutLevelRenderer Custom Item Renderer}
@@ -54,6 +56,9 @@ public final class MWItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
             if(block instanceof MWTrappedChestBlock trappedChestBlock) {
                 renderBlockEntity(MWTrappedChestBlock.getBlockEntity(trappedChestBlock.getWoodType(), BlockPos.ZERO, blockState), poseStack, buffer, packedLight, packedOverlay);
+            }
+            if(block instanceof GiftBlock giftBlock) {
+                renderBlockEntity(new GiftBlockEntity(BlockPos.ZERO, blockState), poseStack, buffer, packedLight, packedOverlay);
             }
         }
     }
