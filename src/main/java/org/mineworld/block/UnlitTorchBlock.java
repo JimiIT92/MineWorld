@@ -116,7 +116,7 @@ public class UnlitTorchBlock extends TorchBlock {
      */
     public static Block getUnlitTorchBlockFor(final Block block) {
         final Optional<Block> unlitTorch = Optional.ofNullable(UNLIT_TORCHES.get().get(block));
-        return unlitTorch.orElse(null);
+        return unlitTorch.orElse(UnlitWallTorchBlock.getUnlitTorchBlockFor(block));
     }
 
 }
