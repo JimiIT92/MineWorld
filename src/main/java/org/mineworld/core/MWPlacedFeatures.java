@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.heightproviders.VeryBiasedToBottomHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.RegistryHelper;
@@ -154,9 +155,10 @@ public final class MWPlacedFeatures {
      * @param context {@link BootstapContext<PlacedFeature> The Bootstrap Context}
      * @param key {@link ResourceKey<PlacedFeature> The Placed Feature Resource Key}
      * @param configuredFeatureHolder {@link Holder<ConfiguredFeature> The Configured Feature that this Placed Feature will place}
+     * {@link Integer How many springs to generate}
      */
-    private static void registerSpringPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder) {
-        registerBlobPlacedFeature(context, key, configuredFeatureHolder, 10);
+    private static void registerSpringPlacedFeature(final BootstapContext<PlacedFeature> context, final ResourceKey<PlacedFeature> key, final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder, final int count) {
+        registerPlacedFeature(context, key, configuredFeatureHolder, CountPlacement.of(count), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.bottom(), VerticalAnchor.belowTop(8), 8)));
     }
 
     /**
@@ -310,8 +312,8 @@ public final class MWPlacedFeatures {
         registerPatchPlacedFeature(context, PATCH_BLUEBERRY_COMMON, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH), 32);
         registerPatchPlacedFeature(context, PATCH_BLUEBERRY_RARE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH), 384);
 
-        registerSpringPlacedFeature(context, SPRING_LAVA_VOLCANIC_PEAK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_LAVA_VOLCANIC_PEAK));
-        registerSpringPlacedFeature(context, SPRING_WATER_SCULK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_WATER_SCULK));
+        registerSpringPlacedFeature(context, SPRING_LAVA_VOLCANIC_PEAK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_LAVA_VOLCANIC_PEAK), 40);
+        registerSpringPlacedFeature(context, SPRING_WATER_SCULK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_WATER_SCULK), 20);
 
         registerBlobPlacedFeature(context, MAGMA_STONE_BLOBS, configuredFeatures.getOrThrow(MWConfiguredFeatures.MAGMA_STONE_BLOBS), 10);
         registerBlobPlacedFeature(context, MAGMA_BLACKSTONE_BLOBS, configuredFeatures.getOrThrow(MWConfiguredFeatures.MAGMA_BLACKSTONE_BLOBS), 10);
