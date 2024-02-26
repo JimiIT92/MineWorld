@@ -695,9 +695,9 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CRYING_OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("crying_obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> CRYING_OBSIDIAN_BUTTON = registerButton("crying_obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN = registerBlock("glowing_obsidian", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.OBSIDIAN).lightLevel(state -> 15).pushReaction(PushReaction.BLOCK)));
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_STAIRS = registerStair("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()));
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_SLAB = registerSlab("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()));
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = registerWall("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()));
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_STAIRS = registerStair("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()), PushReaction.BLOCK);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_SLAB = registerSlab("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()), PushReaction.BLOCK);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = registerWall("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()), PushReaction.BLOCK);
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("glowing_obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
     public static final RegistryObject<Block> GLOWING_OBSIDIAN_BUTTON = registerButton("glowing_obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
 
