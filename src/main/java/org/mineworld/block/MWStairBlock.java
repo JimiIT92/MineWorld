@@ -41,7 +41,7 @@ public class MWStairBlock extends StairBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWStairBlock(final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final  FeatureFlag... featureFlags) {
-        super(blockStateSupplier, PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops().pushReaction(pushReaction));
+        super(blockStateSupplier, PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).pushReaction(pushReaction));
         this.blockStateSupplier = blockStateSupplier;
     }
 

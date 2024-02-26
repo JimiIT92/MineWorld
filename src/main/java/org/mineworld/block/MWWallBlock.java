@@ -41,7 +41,7 @@ public class MWWallBlock extends WallBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWWallBlock(final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final  FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops().pushReaction(pushReaction));
+        super(PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags).pushReaction(pushReaction));
         this.blockStateSupplier = blockStateSupplier;
     }
 
