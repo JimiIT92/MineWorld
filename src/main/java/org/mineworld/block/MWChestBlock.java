@@ -36,7 +36,7 @@ public class MWChestBlock extends ChestBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWChestBlock(final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.CHEST, featureFlags), blockEntityTypeSupplier);
+        super(PropertyHelper.copy(Blocks.CHEST, featureFlags).sound(woodTypeSupplier.get().soundType()), blockEntityTypeSupplier);
         this.woodTypeSupplier = woodTypeSupplier;
     }
 
