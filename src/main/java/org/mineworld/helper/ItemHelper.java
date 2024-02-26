@@ -52,16 +52,19 @@ public final class ItemHelper {
      * @param hand {@link InteractionHand The hand the Player used the Item with}
      */
     public static void hurt(final ItemStack itemStack, final Player player, final int amount, final Level level, final InteractionHand hand) {
-        if(player != null && player.isCreative()) {
+        if(player == null) {
             return;
-        }
-        if(itemStack.isDamageableItem() && player != null) {
-            itemStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(p.getUsedItemHand()));
-        } else if(player == null || !player.isCreative()) {
-            itemStack.shrink(amount);
         }
         if(level != null && level.isClientSide() && hand != null) {
             player.swing(hand);
+        }
+        if(player.isCreative()) {
+            return;
+        }
+        if(itemStack.isDamageableItem()) {
+            itemStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(p.getUsedItemHand()));
+        } else if(!player.isCreative()) {
+            itemStack.shrink(amount);
         }
     }
 
