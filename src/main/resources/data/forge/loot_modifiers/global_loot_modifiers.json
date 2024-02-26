@@ -19,7 +19,7 @@
     "mineworld:chests/village/village_weaponsmith",
     "mineworld:entities/illusioner",
     "mineworld:entities/warden",
-    "mineworld:entities/witch"
-    
+    "mineworld:entities/witch",
+    "mineworld:enchantments/fiery_touch"
   ]
 }
