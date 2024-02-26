@@ -9,7 +9,7 @@
   "entries": [
     {
       "item": "mineworld:cherry",
-      "chance": 0.05,
+      "chance": 0.25,
       "functions": [
         {
           "add": false,
