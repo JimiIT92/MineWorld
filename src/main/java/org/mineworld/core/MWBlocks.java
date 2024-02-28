@@ -764,10 +764,10 @@ public final class MWBlocks {
 
     public static final RegistryObject<Block> NETHERITE_STAIRS = registerStair("netherite", Blocks.NETHERITE_BLOCK::defaultBlockState);
     public static final RegistryObject<Block> NETHERITE_SLAB = registerSlab("netherite", Blocks.NETHERITE_BLOCK::defaultBlockState);
-    public static final RegistryObject<Block> NETHERITE_DOOR = registerDoor("netherite", true, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_TRAPDOOR = registerTrapdoor("netherite", true, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_DOOR = registerDoor("netherite", true, MWBlockSetTypes.NETHERITE, () -> Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> NETHERITE_TRAPDOOR = registerTrapdoor("netherite", true, MWBlockSetTypes.NETHERITE, () -> Blocks.NETHERITE_BLOCK);
     public static final RegistryObject<Block> NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("netherite", 100, MapColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_CHAIN = registerChain("netherite");
+    public static final RegistryObject<Block> NETHERITE_CHAIN = registerChain("netherite", () -> Blocks.NETHERITE_BLOCK);
     public static final RegistryObject<Block> NETHERITE_LANTERN = registerLantern("netherite", false);
     public static final RegistryObject<Block> WALL_HANGING_NETHERITE_LANTERN = registerWallHangingLantern("netherite", false, Suppliers.memoize(() -> NETHERITE_LANTERN.get()));
     public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = registerLantern("netherite", true);
@@ -776,7 +776,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WALL_HANGING_NETHERITE_END_LANTERN = registerWallHangingLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
     public static final RegistryObject<Block> NETHERITE_SCULK_LANTERN = registerLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
     public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SCULK_LANTERN = registerWallHangingLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
-    public static final RegistryObject<Block> NETHERITE_BARS = registerBars("netherite");
+    public static final RegistryObject<Block> NETHERITE_BARS = registerBars("netherite", () -> Blocks.NETHERITE_BLOCK);
     public static final RegistryObject<Block> NETHERITE_CAGE = registerCage("netherite", Blocks.NETHERITE_BLOCK::defaultBlockState);
     public static final RegistryObject<Block> NETHERITE_GRATE = registerHorizontalPane("netherite_grate", Suppliers.memoize(() -> NETHERITE_BARS.get().defaultBlockState()));
     public static final RegistryObject<Block> CUT_NETHERITE = registerBlock("cut_netherite", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.NETHERITE_BLOCK)));
@@ -1227,7 +1227,21 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerDoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_door", () -> new DoorBlock(PropertyHelper.copy(requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags), blockSetTypeSupplier.get()));
+        return registerDoor(materialName, requiresPower, blockSetTypeSupplier, () -> requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags);
+    }
+
+    /**
+     * Register a {@link DoorBlock Door Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param requiresPower {@link Boolean If the Door needs redstone to be activated}
+     * @param blockSetTypeSupplier {@link BlockSetType The Door Block set type supplier}
+     * @param blockSupplier {@link Supplier<Block> The Suppliers for the Block this door is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerDoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_door", () -> new DoorBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags), blockSetTypeSupplier.get()));
     }
 
     /**
@@ -1235,12 +1249,26 @@ public final class MWBlocks {
      *
      * @param materialName {@link String The Block material name}
      * @param requiresPower {@link Boolean If the Trapdoor needs redstone to be activated}
-     * @param blockSetType {@link BlockSetType The Trapdoor Block Set Type}
+     * @param blockSetTypeSupplier {@link BlockSetType The Trapdoor Block Set Type}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      * @return {@link RegistryObject<Block> The registered Block}
      */
-    static RegistryObject<Block> registerTrapdoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetType, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_trapdoor", () -> new TrapDoorBlock(PropertyHelper.copy(requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags), blockSetType.get()));
+    static RegistryObject<Block> registerTrapdoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerTrapdoor(materialName, requiresPower, blockSetTypeSupplier, () -> requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags);
+    }
+
+    /**
+     * Register a {@link TrapDoorBlock Trapdoor Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param requiresPower {@link Boolean If the Trapdoor needs redstone to be activated}
+     * @param blockSetTypeSupplier {@link BlockSetType The Trapdoor Block Set Type}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this trapdoor is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerTrapdoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_trapdoor", () -> new TrapDoorBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags), blockSetTypeSupplier.get()));
     }
 
     /**
@@ -1251,7 +1279,19 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerChain(final String materialName, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_chain", () -> new ChainBlock(PropertyHelper.copy(Blocks.CHAIN, featureFlags)));
+        return registerChain(materialName, () -> Blocks.CHAIN, featureFlags);
+    }
+
+    /**
+     * Register a {@link ChainBlock Chain block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this chain is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerChain(final String materialName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_chain", () -> new ChainBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags)));
     }
 
     /**
@@ -1314,7 +1354,19 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerBars(final String materialName, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_bars", () -> new IronBarsBlock(PropertyHelper.copy(Blocks.IRON_BARS, featureFlags)));
+        return registerBars(materialName, () ->Blocks.IRON_BARS, featureFlags);
+    }
+
+    /**
+     * Register a {@link IronBarsBlock Bar Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the Block these Bars are based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerBars(final String materialName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_bars", () -> new IronBarsBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags)));
     }
 
     /**
