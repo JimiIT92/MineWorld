@@ -14,16 +14,14 @@ import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.item.HoneycombItem;
-import net.minecraft.world.item.HorseArmorItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -31,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.block.weathering.IMWWaxableBlock;
 import org.mineworld.entity.block.MWPrimedTnt;
+import org.mineworld.entity.projectile.ThrownGrenade;
 import org.mineworld.entity.projectile.ThrownPebble;
 import org.mineworld.entity.vehicle.MWBoat;
 import org.mineworld.entity.vehicle.MWChestBoat;
@@ -127,6 +126,28 @@ public final class MWDispenseBehaviors {
              */
             protected @NotNull Projectile getProjectile(final @NotNull Level level, final @NotNull Position position, final @NotNull ItemStack itemStack) {
                 return Util.make(new ThrownPebble(level, position.x(), position.y(), position.z()), pebble -> pebble.setItem(itemStack));
+            }
+        };
+    }
+
+    /**
+     * Get the {@link DispenseItemBehavior Dispense Item Behavior} for a {@link ThrownGrenade Grenade}
+     *
+     * @return {@link DispenseItemBehavior The Grenade Dispense Item Behavior}
+     */
+    private static DispenseItemBehavior grenadeDispenseBehavior() {
+        return new AbstractProjectileDispenseBehavior() {
+
+            /**
+             * Get the {@link Projectile Projectile} fired by the dispenser
+             *
+             * @param level {@link Level The level reference}
+             * @param position {@link Position The dispenser position}
+             * @param itemStack {@link ItemStack The Item Stack inside the dispenser}
+             * @return {@link Projectile The fired projectile}
+             */
+            protected @NotNull Projectile getProjectile(final @NotNull Level level, final @NotNull Position position, final @NotNull ItemStack itemStack) {
+                return Util.make(new ThrownGrenade(level, position.x(), position.y(), position.z()), grenade -> grenade.setItem(itemStack));
             }
         };
     }
@@ -246,6 +267,28 @@ public final class MWDispenseBehaviors {
         };
     }
 
+    /**
+     * Get the {@link DispenseItemBehavior Dispense Item Behavior} for a {@link SkullBlockEntity Skull}
+     *
+     * @return {@link DispenseItemBehavior The Skull Dispense Item Behavior}
+     */
+    private static DispenseItemBehavior skullDispenseBehavior() {
+        return new OptionalDispenseItemBehavior() {
+
+            /**
+             * Equip the {@link SkullBlockEntity Skull} if there's a Player in front of the dispenser
+             *
+             * @param blockSource {@link BlockSource The Block Source reference}
+             * @param itemStack   {@link ItemStack The Item Stack inside the dispenser}
+             * @return {@link ItemStack The modified Item Stack}
+             */
+            protected @NotNull ItemStack execute(final @NotNull BlockSource blockSource, final @NotNull ItemStack itemStack) {
+                this.setSuccess(ArmorItem.dispenseArmor(blockSource, itemStack));
+                return itemStack;
+            }
+        };
+    }
+
     //#endregion
 
     //#region Methods
@@ -326,6 +369,19 @@ public final class MWDispenseBehaviors {
                 MWItems.COPPER_HORSE_ARMOR,
                 MWItems.SILVER_HORSE_ARMOR
         );
+        registerDispenseBehaviors(honeycombDispenseBehavior(),
+                () -> Items.HONEYCOMB
+        );
+        registerDispenseBehaviors(grenadeDispenseBehavior(),
+                MWItems.GRENADE
+        );
+        registerDispenseBehaviors(skullDispenseBehavior(),
+                MWItems.STRAY_SKULL,
+                MWItems.HUSK_HEAD,
+                MWItems.DROWNED_HEAD,
+                MWItems.WITCH_HAT,
+                MWItems.STRAW_HAT
+        );
         registerDispenseBehaviors(pebbleDispenseBehavior(),
                 MWPebbles.Items.STONE_PEBBLE,
                 MWPebbles.Items.COBBLESTONE_PEBBLE,
@@ -358,6 +414,7 @@ public final class MWDispenseBehaviors {
                 MWPebbles.Items.NETHERRACK_PEBBLE,
                 MWPebbles.Items.NETHER_BRICKS_PEBBLE,
                 MWPebbles.Items.RED_NETHER_BRICKS_PEBBLE,
+                MWPebbles.Items.WARPED_NETHER_BRICKS_PEBBLE,
                 MWPebbles.Items.BASALT_PEBBLE,
                 MWPebbles.Items.SMOOTH_BASALT_PEBBLE,
                 MWPebbles.Items.POLISHED_BASALT_PEBBLE,
@@ -427,6 +484,7 @@ public final class MWDispenseBehaviors {
                 MWPebbles.Items.DRIPSTONE_PEBBLE,
                 MWPebbles.Items.OBSIDIAN_PEBBLE,
                 MWPebbles.Items.CRYING_OBSIDIAN_PEBBLE,
+                MWPebbles.Items.GLOWING_OBSIDIAN_PEBBLE,
                 MWPebbles.Items.MARBLE_PEBBLE,
                 MWPebbles.Items.WHITE_MARBLE_PEBBLE,
                 MWPebbles.Items.ORANGE_MARBLE_PEBBLE,
@@ -444,9 +502,6 @@ public final class MWDispenseBehaviors {
                 MWPebbles.Items.GREEN_MARBLE_PEBBLE,
                 MWPebbles.Items.RED_MARBLE_PEBBLE,
                 MWPebbles.Items.BLACK_MARBLE_PEBBLE
-        );
-        registerDispenseBehaviors(honeycombDispenseBehavior(),
-                () -> Items.HONEYCOMB
         );
     }
 

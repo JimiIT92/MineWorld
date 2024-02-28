@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 public class GlassWallBlock extends WallBlock {
 
     public GlassWallBlock(final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.makeTranslucent(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops());
+        super(PropertyHelper.makeTranslucent(blockStateSupplier.get().getBlock(), featureFlags));
     }
 
     /**
