@@ -100,7 +100,7 @@ public final class BiomeHelper {
     }
 
     /**
-     * Configure the {@link MWBiomes#VOLCANIC_PEAK Volcanic Peak Biome}
+     * Configure the {@link MWBiomes#VOLCANIC_PEAKS Volcanic Peak Biome}
      *
      * @param placedFeatureHolder {@link HolderGetter<PlacedFeature> The placed feature holder}
      * @param carver {@link HolderGetter<ConfiguredWorldCarver> The world carver holder}

@@ -25,7 +25,7 @@ public final class MWBiomes {
 
     public static final ResourceKey<Biome> FROZEN_PLAINS = registerBiomeKey("frozen_plains");
     public static final ResourceKey<Biome> WASTELAND = registerBiomeKey("wasteland");
-    public static final ResourceKey<Biome> VOLCANIC_PEAK = registerBiomeKey("volcanic_peak");
+    public static final ResourceKey<Biome> VOLCANIC_PEAKS = registerBiomeKey("volcanic_peaks");
     public static final ResourceKey<Biome> FOSSILS_WASTELAND = registerBiomeKey("fossils_wasteland");
     public static final ResourceKey<Biome> ETHEREAL_FIELDS = registerBiomeKey("ethereal_fields");
     public static final ResourceKey<Biome> ETHEREAL_DARK = registerBiomeKey("ethereal_dark");
@@ -71,7 +71,7 @@ public final class MWBiomes {
         final HolderGetter<ConfiguredWorldCarver<?>> carver = context.lookup(Registries.CONFIGURED_CARVER);
         registerBiome(context, FROZEN_PLAINS, BiomeHelper.frozenPlains(placedFeatureHolder, carver));
         registerBiome(context, WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
-        registerBiome(context, VOLCANIC_PEAK, BiomeHelper.volcanicPeak(placedFeatureHolder, carver));
+        registerBiome(context, VOLCANIC_PEAKS, BiomeHelper.volcanicPeak(placedFeatureHolder, carver));
         registerBiome(context, FOSSILS_WASTELAND, BiomeHelper.wasteland(placedFeatureHolder, carver));
         registerBiome(context, ETHEREAL_FIELDS, BiomeHelper.etherealFields(placedFeatureHolder, carver));
         registerBiome(context, ETHEREAL_DARK, OverworldBiomes.deepDark(placedFeatureHolder, carver));

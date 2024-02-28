@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "mineworld:volcanic_peak",
+  "biomes": "mineworld:volcanic_peaks",
   "features": "mineworld:spring_lava_volcanic_peak_placed",
   "step": "fluid_springs"
 }

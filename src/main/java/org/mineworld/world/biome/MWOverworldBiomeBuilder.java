@@ -578,7 +578,7 @@ public final class MWOverworldBiomeBuilder {
      * @return {@link ResourceKey<Biome> The Peak Biome Resource Key}
      */
     private ResourceKey<Biome> pickPeakBiomeMW(final int temperatureIndex, final int humidityIndex, final Climate.Parameter weirdness) {
-        return temperatureIndex == 3 && humidityIndex >= 3 ? MWBiomes.VOLCANIC_PEAK : this.pickPeakBiome(temperatureIndex, humidityIndex, weirdness);
+        return temperatureIndex == 3 && humidityIndex >= 3 ? MWBiomes.VOLCANIC_PEAKS : this.pickPeakBiome(temperatureIndex, humidityIndex, weirdness);
     }
 
     /**

@@ -865,7 +865,7 @@
       },
       "trigger": "minecraft:location"
     },
-    "mineworld:volcanic_peak": {
+    "mineworld:volcanic_peaks": {
       "conditions": {
         "player": [
           {
@@ -873,7 +873,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "mineworld:volcanic_peak"
+                "biome": "mineworld:volcanic_peaks"
               }
             }
           }
@@ -1078,7 +1078,7 @@
       "mineworld:wasteland"
     ],
     [
-      "mineworld:volcanic_peak"
+      "mineworld:volcanic_peaks"
     ],
     [
       "mineworld:fossils_wasteland"

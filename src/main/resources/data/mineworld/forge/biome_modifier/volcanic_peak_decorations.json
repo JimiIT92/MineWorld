@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "mineworld:volcanic_peak",
+  "biomes": "mineworld:volcanic_peaks",
   "features": [
     "mineworld:coal_blackstone_blobs_placed",
     "mineworld:coal_stone_blobs_placed",

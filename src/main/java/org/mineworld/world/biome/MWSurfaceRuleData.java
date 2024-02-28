@@ -54,7 +54,7 @@ public final class MWSurfaceRuleData {
                                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.WASTELAND),
                                                         SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE), SurfaceRules.sequence(SurfaceRules.ifTrue(surfaceNoise(), coarseDirtSurface), STONE))),
                                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.FOSSILS_WASTELAND), SurfaceRuleData.overworld()),
-                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.VOLCANIC_PEAK),
+                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(MWBiomes.VOLCANIC_PEAKS),
                                                         SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, DEEPSLATE), SurfaceRules.ifTrue(surfaceNoise(), BLACKSTONE)))
                                         )
                                 ),
@@ -86,7 +86,7 @@ public final class MWSurfaceRuleData {
                         )
                 ),
                 SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(MWBiomes.VOLCANIC_PEAK),
+                        SurfaceRules.isBiome(MWBiomes.VOLCANIC_PEAKS),
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(surfaceNoiseAbove(2.8D), DEEPSLATE),
                                 SurfaceRules.ifTrue(surfaceNoise(), BLACKSTONE),
