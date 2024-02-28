@@ -1,7 +1,21 @@
 {
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:sculk_bookshelf"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "mineworld:sculk_planks"
+    },
+    "X": {
+      "item": "mineworld:sculk_slab"
+    }
   },
-  "result": "mineworld:sculk_chiseled_bookshelf"
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "item": "mineworld:sculk_chiseled_bookshelf"
+  },
+  "show_notification": true
 }

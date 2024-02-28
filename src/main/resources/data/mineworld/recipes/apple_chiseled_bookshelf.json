@@ -1,7 +1,21 @@
 {
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:apple_bookshelf"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "mineworld:apple_planks"
+    },
+    "X": {
+      "item": "mineworld:apple_slab"
+    }
   },
-  "result": "mineworld:apple_chiseled_bookshelf"
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "item": "mineworld:apple_chiseled_bookshelf"
+  },
+  "show_notification": true
 }

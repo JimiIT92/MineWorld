@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bamboo_bookshelf": {
+    "has_bamboo_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:bamboo_bookshelf"
+              "mineworld:bamboo_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_bamboo_bookshelf",
+      "has_bamboo_planks",
       "has_the_recipe"
     ]
   ],

@@ -3,10 +3,10 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "minecraft:spruce_planks"
+      "item": "minecraft:oak_planks"
     },
     "X": {
-      "item": "minecraft:spruce_slab"
+      "item": "minecraft:oak_slab"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "###"
   ],
   "result": {
-    "item": "mineworld:spruce_chiseled_bookshelf"
+    "item": "minecraft:chiseled_bookshelf"
   },
   "show_notification": true
 }

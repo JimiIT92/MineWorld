@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sculk_bookshelf": {
+    "has_sculk_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:sculk_bookshelf"
+              "mineworld:sculk_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_sculk_bookshelf",
+      "has_sculk_planks",
       "has_the_recipe"
     ]
   ],

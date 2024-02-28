@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:chiseled_bookshelf_from_bookshelf_woodcutting"
+        "recipe": "mineworld:chiseled_bookshelf_woodcutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "mineworld:chiseled_bookshelf_from_bookshelf_woodcutting"
+      "mineworld:chiseled_bookshelf_woodcutting"
     ]
   }
 }

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dark_oak_bookshelf": {
+    "has_dark_oak_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:dark_oak_bookshelf"
+              "mineworld:dark_oak_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_dark_oak_bookshelf",
+      "has_dark_oak_planks",
       "has_the_recipe"
     ]
   ],

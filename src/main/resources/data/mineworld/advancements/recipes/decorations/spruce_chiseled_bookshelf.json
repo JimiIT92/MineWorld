@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_spruce_bookshelf": {
+    "has_spruce_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:spruce_bookshelf"
+              "mineworld:spruce_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_spruce_bookshelf",
+      "has_spruce_planks",
       "has_the_recipe"
     ]
   ],

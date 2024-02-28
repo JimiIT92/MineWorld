@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dead_bookshelf": {
+    "has_dead_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:dead_bookshelf"
+              "mineworld:dead_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_dead_bookshelf",
+      "has_dead_planks",
       "has_the_recipe"
     ]
   ],

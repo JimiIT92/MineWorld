@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_warped_bookshelf": {
+    "has_warped_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:warped_bookshelf"
+              "mineworld:warped_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_warped_bookshelf",
+      "has_warped_planks",
       "has_the_recipe"
     ]
   ],

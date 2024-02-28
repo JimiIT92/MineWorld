@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cherry_bookshelf": {
+    "has_cherry_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:cherry_bookshelf"
+              "mineworld:cherry_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_cherry_bookshelf",
+      "has_cherry_planks",
       "has_the_recipe"
     ]
   ],

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_palm_planks": {
+    "has_dark_oak_bookshelf": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:palm_planks"
+              "mineworld:dark_oak_bookshelf"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineworld:palm_chiseled_bookshelf"
+        "recipe": "mineworld:dark_oak_chiseled_bookshelf_woodcutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_palm_planks",
+      "has_dark_oak_bookshelf",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "mineworld:palm_chiseled_bookshelf"
+      "mineworld:dark_oak_chiseled_bookshelf_woodcutting"
     ]
   }
 }

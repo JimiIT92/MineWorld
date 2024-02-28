@@ -1,7 +1,21 @@
 {
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:palm_bookshelf"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "mineworld:palm_planks"
+    },
+    "X": {
+      "item": "mineworld:palm_slab"
+    }
   },
-  "result": "mineworld:palm_chiseled_bookshelf"
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "item": "mineworld:palm_chiseled_bookshelf"
+  },
+  "show_notification": true
 }

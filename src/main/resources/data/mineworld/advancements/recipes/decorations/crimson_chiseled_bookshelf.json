@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_crimson_bookshelf": {
+    "has_crimson_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:crimson_bookshelf"
+              "mineworld:crimson_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_crimson_bookshelf",
+      "has_crimson_planks",
       "has_the_recipe"
     ]
   ],

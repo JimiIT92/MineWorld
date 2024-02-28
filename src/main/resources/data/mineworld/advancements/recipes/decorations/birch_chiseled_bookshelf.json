@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_birch_bookshelf": {
+    "has_birch_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:birch_bookshelf"
+              "mineworld:birch_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_birch_bookshelf",
+      "has_birch_planks",
       "has_the_recipe"
     ]
   ],
