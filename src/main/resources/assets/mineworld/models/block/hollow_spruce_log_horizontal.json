@@ -1,0 +1,9 @@
+{
+  "parent": "mineworld:block/hollow_cube_horizontal",
+  "textures": {
+    "end": "minecraft:block/spruce_log_top",
+    "side": "minecraft:block/spruce_log",
+    "inner": "minecraft:block/stripped_spruce_log",
+    "particle": "minecraft:block/spruce_log"
+  }
+}
