@@ -61,14 +61,4 @@ public final class PlayerHelper {
         player.getInventory().add(slot, itemStack);
     }
 
-    /**
-     * Take an {@link ItemStack Item Stack} from the {@link Player Player} {@link Inventory Inventory}
-     *
-     * @param player {@link Player The Player}
-     * @param itemStack {@link ItemStack The Item Stack to add}
-     */
-    public static void removeItem(final Player player, final ItemStack itemStack) {
-        player.getInventory().removeItem(itemStack);
-    }
-
 }
