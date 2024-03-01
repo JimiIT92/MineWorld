@@ -3,6 +3,7 @@ package org.mineworld.event;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -13,6 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.block.MWLecternBlock;
+import org.mineworld.helper.PlayerHelper;
 
 /**
  * Handle all events for {@link MineWorld MineWorld} {@link MWLecternBlock Lectern Blocks}
@@ -31,10 +33,14 @@ public final class LecternBlockEvents {
         final BlockPos clickedPos = event.getPos();
         final ItemStack itemStack = event.getItemStack();
         final BlockState clickedBlockState = level.getBlockState(clickedPos);
-        if(!event.isCanceled() && clickedBlockState.getBlock() instanceof MWLecternBlock && itemStack.is(ItemTags.LECTERN_BOOKS)) {
+        if(!event.isCanceled() && clickedBlockState.getBlock() instanceof MWLecternBlock && !clickedBlockState.getValue(LecternBlock.HAS_BOOK) && itemStack.is(ItemTags.LECTERN_BOOKS)) {
+            final Player player = event.getEntity();
+            final boolean bookPlaced = LecternBlock.tryPlaceBook(player, level, clickedPos, clickedBlockState, itemStack);
             event.setCanceled(true);
-            final boolean bookPlaced = LecternBlock.tryPlaceBook(event.getEntity(), level, clickedPos, clickedBlockState, itemStack);
             event.setCancellationResult(bookPlaced ? InteractionResult.sidedSuccess(level.isClientSide()) : InteractionResult.PASS);
+            if(player.isCreative()) {
+                PlayerHelper.addItem(player, itemStack);
+            }
         }
     }
 
