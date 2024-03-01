@@ -1895,5 +1895,12 @@
   "subtitles.mineworld.reaper.charge": "Reaper shrieks",
   "subtitles.mineworld.reaper.hurt": "Reaper hurts",
   "subtitles.mineworld.reaper.death": "Reaper dies",
-  "subtitles.mineworld.reaper.idle": "Reaper reaps"
+  "subtitles.mineworld.reaper.idle": "Reaper reaps",
+  "subtitles.mineworld.item.armor.equip_copper": "Copper armor clanks",
+  "subtitles.mineworld.item.armor.equip_silver": "Silver armor clinks",
+  "subtitles.mineworld.item.armor.equip_bronze": "Bronze armor clanks",
+  "subtitles.mineworld.item.armor.equip_aluminum": "Aluminum armor clanks",
+  "subtitles.mineworld.item.armor.equip_emerald": "Emerald armor clangs",
+  "subtitles.mineworld.item.armor.equip_ruby": "Ruby armor clangs",
+  "subtitles.mineworld.item.armor.equip_sapphire": "Sapphire armor clangs"
 }

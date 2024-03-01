@@ -62,6 +62,13 @@ public final class MWSounds {
     public static final RegistryObject<SoundEvent> REAPER_HURT = registerSound("reaper_hurt");
     public static final RegistryObject<SoundEvent> REAPER_DEATH = registerSound("reaper_death");
     public static final RegistryObject<SoundEvent> REAPER_IDLE = registerSound("reaper_idle");
+    public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COPPER = registerSound("equip_copper");
+    public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SILVER = registerSound("equip_silver");
+    public static final RegistryObject<SoundEvent> ARMOR_EQUIP_BRONZE = registerSound("equip_bronze");
+    public static final RegistryObject<SoundEvent> ARMOR_EQUIP_ALUMINUM = registerSound("equip_aluminum");
+    public static final RegistryObject<SoundEvent> ARMOR_EQUIP_EMERALD = registerSound("equip_emerald");
+    public static final RegistryObject<SoundEvent> ARMOR_EQUIP_RUBY = registerSound("equip_ruby");
+    public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SAPPHIRE = registerSound("equip_sapphire");
 
     //#endregion
 

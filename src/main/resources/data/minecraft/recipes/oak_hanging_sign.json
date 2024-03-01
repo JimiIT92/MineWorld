@@ -4,7 +4,7 @@
   "group": "hanging_sign",
   "key": {
     "#": {
-      "item": "mineworld:stripped_dead_log"
+      "item": "minecraft:stripped_oak_log"
     },
     "X": {
       "tag": "mineworld:chains"
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "mineworld:dead_hanging_sign"
+    "item": "minecraft:oak_hanging_sign"
   },
   "show_notification": true
 }

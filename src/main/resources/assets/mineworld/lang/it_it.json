@@ -1895,5 +1895,12 @@
   "subtitles.mineworld.reaper.charge": "Mietitore strilla",
   "subtitles.mineworld.reaper.hurt": "Mietitore ferito",
   "subtitles.mineworld.reaper.death": "Mietitore muore",
-  "subtitles.mineworld.reaper.idle": "Mietitore miete"
+  "subtitles.mineworld.reaper.idle": "Mietitore miete",
+  "subtitles.mineworld.item.armor.equip_copper": "Armatura di rame sferraglia",
+  "subtitles.mineworld.item.armor.equip_silver": "Armatura d'argento sferraglia",
+  "subtitles.mineworld.item.armor.equip_bronze": "Armatura di bronzo sferraglia",
+  "subtitles.mineworld.item.armor.equip_aluminum": "Armatura d'alluminio sferraglia",
+  "subtitles.mineworld.item.armor.equip_emerald": "Armatura di smeraldo tintinna",
+  "subtitles.mineworld.item.armor.equip_ruby": "Armatura di rubino tintinna",
+  "subtitles.mineworld.item.armor.equip_sapphire": "Armatura di zaffiro tintinna"
 }

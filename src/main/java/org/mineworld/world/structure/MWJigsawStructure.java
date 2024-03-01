@@ -88,7 +88,7 @@ public class MWJigsawStructure extends Structure {
      * @param context {@link GenerationContext The Structure generation context}
      * @return {@link Boolean True if the Structure can spawn}
      */
-    private static boolean extraSpawningChecks(final Structure.GenerationContext context) {
+    protected boolean extraSpawningChecks(final Structure.GenerationContext context) {
         final ChunkPos chunkPos = context.chunkPos();
         return context.chunkGenerator().getFirstOccupiedHeight(
                 chunkPos.getMinBlockX(),

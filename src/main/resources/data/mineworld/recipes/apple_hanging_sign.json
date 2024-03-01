@@ -7,7 +7,7 @@
       "item": "mineworld:stripped_apple_log"
     },
     "X": {
-      "item": "minecraft:chain"
+      "tag": "mineworld:chains"
     }
   },
   "pattern": [
