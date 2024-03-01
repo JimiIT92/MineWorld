@@ -1378,7 +1378,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerCage(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_cage", () -> new Block(PropertyHelper.makeTranslucent(blockStateSupplier.get().getBlock(), featureFlags).requiresCorrectToolForDrops()));
+        return registerBlock(materialName + "_cage", () -> new CageBlock(blockStateSupplier, featureFlags));
     }
 
     /**

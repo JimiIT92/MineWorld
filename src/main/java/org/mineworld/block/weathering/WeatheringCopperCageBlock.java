@@ -5,7 +5,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -14,12 +13,12 @@ import net.minecraftforge.common.ToolAction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.PropertyHelper;
+import org.mineworld.block.CageBlock;
 
 /**
  * {@link MineWorld MineWorld} {@link IMWWeatheringBlock Weathering} {@link BlockState Cage Block}
  */
-public class WeatheringCopperCageBlock extends Block implements IMWWeatheringBlock, IMWWaxableBlock {
+public class WeatheringCopperCageBlock extends CageBlock implements IMWWeatheringBlock, IMWWaxableBlock {
 
     /**
      * {@link WeatheringCopper.WeatherState The Cage Weather State}
@@ -33,7 +32,7 @@ public class WeatheringCopperCageBlock extends Block implements IMWWeatheringBlo
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public WeatheringCopperCageBlock(final WeatheringCopper.WeatherState weatherState, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.makeTranslucent(Blocks.COPPER_BLOCK, featureFlags));
+        super(Blocks.COPPER_BLOCK::defaultBlockState, featureFlags);
         this.weatherState = weatherState;
     }
 
