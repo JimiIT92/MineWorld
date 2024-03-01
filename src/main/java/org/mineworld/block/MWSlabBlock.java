@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.mineworld.MineWorld;
+import org.mineworld.helper.BlockHelper;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.Supplier;
@@ -56,7 +57,7 @@ public class MWSlabBlock extends SlabBlock {
      */
     @Override
     public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return blockStateSupplier.get().isFlammable(blockGetter, blockPos, direction);
+        return BlockHelper.isFlammable(blockStateSupplier.get(), blockGetter, blockPos, direction);
     }
 
     /**
@@ -70,7 +71,7 @@ public class MWSlabBlock extends SlabBlock {
      */
     @Override
     public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 5;
+        return isFlammable(blockState, blockGetter, blockPos, direction) ? 5 : 0;
     }
 
     /**
@@ -84,7 +85,7 @@ public class MWSlabBlock extends SlabBlock {
      */
     @Override
     public int getFireSpreadSpeed(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 20;
+        return isFlammable(blockState, blockGetter, blockPos, direction) ? 20 : 0;
     }
 
 }

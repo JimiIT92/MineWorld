@@ -1076,7 +1076,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerFuel(final String name, final MapColor mapColor, final int burnTime, final FeatureFlag...featureFlags) {
-        final RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new Block(PropertyHelper.oreStorage(mapColor, SoundType.STONE, featureFlags)));
+        final RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new MWFlammableBlock(5, 5, PropertyHelper.oreStorage(mapColor, SoundType.STONE, featureFlags)));
         MWItems.registerItem(name, () -> new MWFuelBlockItem(block, burnTime, featureFlags));
         return block;
     }

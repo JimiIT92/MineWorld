@@ -40,7 +40,7 @@ public final class ItemFrameEvents {
                 final boolean invisible = !itemFrame.isInvisible();
                 itemFrame.setInvisible(invisible);
                 player.playSound(invisible ? SoundEvents.ITEM_FRAME_REMOVE_ITEM : SoundEvents.ITEM_FRAME_ADD_ITEM, 0.75F, 1.0F);
-                ItemHelper.hurt(itemStack, player);
+                ItemHelper.hurt(itemStack, player, event.getLevel(), event.getHand());
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.CONSUME);
             }

@@ -45,18 +45,17 @@ public final class LanternEvents {
             final Level level = event.getLevel();
             if(itemStack.is(Items.LANTERN) || itemStack.is(Items.SOUL_LANTERN) || itemStack.is(MWTags.Items.LANTERNS)) {
                 final Direction direction = event.getFace();
-                if(Objects.requireNonNull(direction).getAxis().isHorizontal() && LevelHelper.isFaceSolid(level, clickedPos, direction)) {
-                    WallHangingLanternBlock.getWallHangingLantern(itemStack, direction).ifPresent(hangingLantern -> {
-                        final BlockPos offsetPos = LevelHelper.offset(clickedPos, direction);
-                        final BlockState blockState = hangingLantern.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, offsetPos));
-                        level.setBlockAndUpdate(offsetPos, blockState);
+                if(Objects.requireNonNull(direction).getAxis().isHorizontal()) {
+                    LevelHelper.getReplacingBlockPos(level, clickedPos, direction).ifPresent(lanternPos -> WallHangingLanternBlock.getWallHangingLantern(itemStack, direction).ifPresent(hangingLantern -> {
+                        final BlockState blockState = hangingLantern.setValue(HollowBlock.WATERLOGGED, LevelHelper.isUnderwater(level, lanternPos));
+                        level.setBlockAndUpdate(lanternPos, blockState);
                         ItemHelper.hurt(itemStack, player, level, event.getHand());
                         if(player instanceof ServerPlayer) {
-                            CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, offsetPos, itemStack);
+                            CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, lanternPos, itemStack);
                         }
                         event.setUseItem(Event.Result.DENY);
                         player.playSound(SoundEvents.LANTERN_PLACE);
-                    });
+                    }));
                 }
             }
         }

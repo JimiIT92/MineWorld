@@ -30,6 +30,7 @@ import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.helper.BlockHelper;
 import org.mineworld.helper.PropertyHelper;
 
 import javax.annotation.Nullable;
@@ -125,7 +126,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      */
     @Override
     public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return blockStateSupplier.get().isFlammable(blockGetter, blockPos, direction);
+        return true;
     }
 
     /**
@@ -139,7 +140,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      */
     @Override
     public int getFlammability(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return  5;
+        return BlockHelper.isFlammable(blockStateSupplier.get(), blockGetter, blockPos, direction) ? 5 : 0;
     }
 
     /**
@@ -153,7 +154,7 @@ public class HollowBlock extends RotatedPillarBlock implements SimpleWaterlogged
      */
     @Override
     public int getFireSpreadSpeed(final BlockState blockState,final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
-        return 5;
+        return BlockHelper.isFlammable(blockStateSupplier.get(), blockGetter, blockPos, direction) ? 5 : 0;
     }
 
     /**

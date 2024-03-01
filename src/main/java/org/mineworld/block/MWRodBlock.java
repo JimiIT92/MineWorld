@@ -5,10 +5,13 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RodBlock;
@@ -46,7 +49,7 @@ public class MWRodBlock extends RodBlock {
     /**
      * {@link Supplier<BiMap> Items by Rod Blocks}
      */
-    Supplier<BiMap<Block, Item>> ITEM_BY_DRIPSTONE = Suppliers.memoize(() -> RODS.get().inverse());
+    private static final Supplier<BiMap<Block, Item>> ITEM_BY_ROD = Suppliers.memoize(() -> RODS.get().inverse());
 
     /**
      * {@link BooleanProperty The Block Waterlogged property}
@@ -126,6 +129,30 @@ public class MWRodBlock extends RodBlock {
     public static Block getRodBlockFor(final Item item) {
         final Optional<Block> rod = Optional.ofNullable(RODS.get().get(item));
         return rod.orElse(null);
+    }
+
+    /**
+     * Get an {@link Item Item} for the given {@link Block Rod Block}
+     *
+     * @param block {@link BlockPos The Rod Block to get the Item for}
+     * @return {@link Item The Item}
+     */
+    public static Item getItemForRod(final Block block) {
+        final Optional<Item> rod = Optional.ofNullable(ITEM_BY_ROD.get().get(block));
+        return rod.orElse(null);
+    }
+
+    /**
+     * Get the {@link ItemStack Item Stack} for the inventory when the {@link Player player} middle mouse click the block
+     *
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link ItemStack The Block Item Stack}
+     */
+    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+        final Item item = getItemForRod(this);
+        return item == null ? ItemStack.EMPTY : item.getDefaultInstance();
     }
 
 }
