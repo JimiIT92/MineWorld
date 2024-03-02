@@ -40,7 +40,7 @@ public final class RodBlockEvents {
                 if(player.isShiftKeyDown()) {
                     final Direction direction = event.getFace();
                     getRodPos(level, clickedPos, direction).ifPresent(rodPos -> {
-                        final BlockState rodState = rodBlock.defaultBlockState().setValue(RodBlock.FACING, Objects.requireNonNull(direction).getOpposite());
+                        final BlockState rodState = rodBlock.defaultBlockState().setValue(RodBlock.FACING, Objects.requireNonNull(direction));
                         level.setBlock(rodPos, rodState, 2);
                         player.playSound(rodBlock.getSoundType(rodState, level, rodPos, player).getPlaceSound());
                         event.setCanceled(true);
@@ -63,7 +63,7 @@ public final class RodBlockEvents {
         return Optional.ofNullable(LevelHelper.getReplacingBlockPos(level, blockPos, direction).orElseGet(() -> {
             final BlockPos offsetPos = LevelHelper.offset(blockPos, direction);
             final BlockState clickedBlockState = level.getBlockState(blockPos);
-            if (clickedBlockState.getBlock() instanceof MWRodBlock rodBlock && clickedBlockState.getValue(RodBlock.FACING).equals(direction.getOpposite())) {
+            if (clickedBlockState.getBlock() instanceof MWRodBlock rodBlock && (clickedBlockState.getValue(RodBlock.FACING).equals(direction) || clickedBlockState.getValue(RodBlock.FACING).equals(direction.getOpposite()))) {
                 return LevelHelper.getReplacingBlockPos(level, offsetPos, direction).orElse(null);
             }
             return null;

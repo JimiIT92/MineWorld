@@ -936,7 +936,7 @@ public final class MWBlocks {
     //#region Rods
 
     public static final RegistryObject<Block> BONE_ROD_BLOCK = registerRod("bone", MapColor.TERRACOTTA_WHITE, SoundType.BONE_BLOCK);
-    public static final RegistryObject<Block> BLAZE_ROD_BLOCK = registerRod("blaze", MapColor.TERRACOTTA_ORANGE, SoundType.METAL);
+    public static final RegistryObject<Block> BLAZE_ROD_BLOCK = registerRod("blaze", MapColor.TERRACOTTA_ORANGE, SoundType.COPPER);
     public static final RegistryObject<Block> STICK_ROD_BLOCK = registerRod("stick", MapColor.WOOD, SoundType.WOOD);
 
     //#endregion
