@@ -110,7 +110,7 @@ public final class BiomeHelper {
         final MobSpawnSettings.Builder mobSpawnSettings = new MobSpawnSettings.Builder()
                 .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 5, 1, 3));
         final BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder(placedFeatureHolder, carver)
-                .addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_VOLCANIC_PEAK)
+                .addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_VOLCANIC_PEAKS)
                 .addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_MAGMA)
                 .addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_COAL)
                 .addFeature(GenerationStep.Decoration.LAKES, MWPlacedFeatures.LAKE_LAVA_BLACKSTONE)
@@ -120,7 +120,7 @@ public final class BiomeHelper {
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.COAL_BLACKSTONE_BLOBS)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.LAVA_ROCK_STONE_BLOBS)
                 .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MWPlacedFeatures.LAVA_ROCK_BLACKSTONE_BLOBS)
-                .addFeature(GenerationStep.Decoration.FLUID_SPRINGS, MWPlacedFeatures.SPRING_LAVA_VOLCANIC_PEAK);
+                .addFeature(GenerationStep.Decoration.FLUID_SPRINGS, MWPlacedFeatures.SPRING_LAVA_VOLCANIC_PEAKS);
         BiomeDefaultFeatures.commonSpawns(mobSpawnSettings);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(biomeGenerationSettings);
         BiomeDefaultFeatures.addDefaultCrystalFormations(biomeGenerationSettings);

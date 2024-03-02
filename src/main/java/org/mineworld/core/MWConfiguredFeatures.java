@@ -65,14 +65,14 @@ public final class MWConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_PYRITE = registerConfiguredFeatureKey("ore_pyrite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MARBLE = registerConfiguredFeatureKey("ore_marble");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BLUEBERRY_BUSH = registerConfiguredFeatureKey("patch_blueberry_bush");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA_VOLCANIC_PEAK = registerConfiguredFeatureKey("spring_lava_volcanic_peak");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA_VOLCANIC_PEAKS = registerConfiguredFeatureKey("spring_lava_volcanic_peaks");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_STONE_BLOBS = registerConfiguredFeatureKey("magma_stone_blobs");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_BLACKSTONE_BLOBS = registerConfiguredFeatureKey("magma_blackstone_blobs");
     public static final ResourceKey<ConfiguredFeature<?, ?>> COAL_STONE_BLOBS = registerConfiguredFeatureKey("coal_stone_blobs");
     public static final ResourceKey<ConfiguredFeature<?, ?>> COAL_BLACKSTONE_BLOBS = registerConfiguredFeatureKey("coal_blackstone_blobs");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_ROCK_STONE_BLOBS = registerConfiguredFeatureKey("lava_rock_stone_blobs");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_ROCK_BLACKSTONE_BLOBS = registerConfiguredFeatureKey("lava_rock_blackstone_blobs");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_VOLCANIC_PEAK = registerConfiguredFeatureKey("lake_lava_volcanic_peak");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_VOLCANIC_PEAKS = registerConfiguredFeatureKey("lake_lava_volcanic_peaks");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_MAGMA = registerConfiguredFeatureKey("lake_lava_magma");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_BLACKSTONE = registerConfiguredFeatureKey("lake_lava_blackstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_LAVA_COAL = registerConfiguredFeatureKey("lake_lava_coal");
@@ -479,12 +479,12 @@ public final class MWConfiguredFeatures {
         registerBlobFeature(context, LAVA_ROCK_STONE_BLOBS, Blocks.STONE::defaultBlockState, Suppliers.memoize(() -> MWBlocks.LAVA_ROCK.get().defaultBlockState()));
         registerBlobFeature(context, LAVA_ROCK_BLACKSTONE_BLOBS, Blocks.BLACKSTONE::defaultBlockState, Suppliers.memoize(() -> MWBlocks.LAVA_ROCK.get().defaultBlockState()));
 
-        registerLakeFeature(context, LAKE_LAVA_VOLCANIC_PEAK, Blocks.LAVA::defaultBlockState, Suppliers.memoize(() -> MWBlocks.LAVA_ROCK.get().defaultBlockState()));
+        registerLakeFeature(context, LAKE_LAVA_VOLCANIC_PEAKS, Blocks.LAVA::defaultBlockState, Suppliers.memoize(() -> MWBlocks.LAVA_ROCK.get().defaultBlockState()));
         registerLakeFeature(context, LAKE_LAVA_MAGMA, Blocks.LAVA::defaultBlockState, Blocks.MAGMA_BLOCK::defaultBlockState);
         registerLakeFeature(context, LAKE_LAVA_BLACKSTONE, Blocks.LAVA::defaultBlockState, Blocks.BLACKSTONE::defaultBlockState);
         registerLakeFeature(context, LAKE_LAVA_COAL, Blocks.LAVA::defaultBlockState, Blocks.COAL_BLOCK::defaultBlockState);
 
-        registerSpringFeature(context, SPRING_LAVA_VOLCANIC_PEAK, Fluids.LAVA,
+        registerSpringFeature(context, SPRING_LAVA_VOLCANIC_PEAKS, Fluids.LAVA,
                 () -> Blocks.STONE,
                 () -> Blocks.GRANITE,
                 () -> Blocks.DIORITE,

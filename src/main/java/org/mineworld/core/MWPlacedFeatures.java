@@ -42,14 +42,14 @@ public final class MWPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_BUSH_VILLAGE = registerPlacedFeatureKey("patch_blueberry_bush");
     public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_COMMON = registerPlacedFeatureKey("patch_blueberry_common");
     public static final ResourceKey<PlacedFeature> PATCH_BLUEBERRY_RARE = registerPlacedFeatureKey("patch_blueberry_rare");
-    public static final ResourceKey<PlacedFeature> SPRING_LAVA_VOLCANIC_PEAK = registerPlacedFeatureKey("spring_lava_volcanic_peak");
+    public static final ResourceKey<PlacedFeature> SPRING_LAVA_VOLCANIC_PEAKS = registerPlacedFeatureKey("spring_lava_volcanic_peaks");
     public static final ResourceKey<PlacedFeature> MAGMA_STONE_BLOBS = registerPlacedFeatureKey("magma_stone_blobs");
     public static final ResourceKey<PlacedFeature> MAGMA_BLACKSTONE_BLOBS = registerPlacedFeatureKey("magma_blackstone_blobs");
     public static final ResourceKey<PlacedFeature> COAL_STONE_BLOBS = registerPlacedFeatureKey("coal_stone_blobs");
     public static final ResourceKey<PlacedFeature> COAL_BLACKSTONE_BLOBS = registerPlacedFeatureKey("coal_blackstone_blobs");
     public static final ResourceKey<PlacedFeature> LAVA_ROCK_STONE_BLOBS = registerPlacedFeatureKey("lava_rock_stone_blobs");
     public static final ResourceKey<PlacedFeature> LAVA_ROCK_BLACKSTONE_BLOBS = registerPlacedFeatureKey("lava_rock_blackstone_blobs");
-    public static final ResourceKey<PlacedFeature> LAKE_LAVA_VOLCANIC_PEAK = registerPlacedFeatureKey("lake_lava_volcanic_peak");
+    public static final ResourceKey<PlacedFeature> LAKE_LAVA_VOLCANIC_PEAKS = registerPlacedFeatureKey("lake_lava_volcanic_peaks");
     public static final ResourceKey<PlacedFeature> LAKE_LAVA_MAGMA = registerPlacedFeatureKey("lake_lava_magma");
     public static final ResourceKey<PlacedFeature> LAKE_LAVA_BLACKSTONE = registerPlacedFeatureKey("lake_lava_blackstone");
     public static final ResourceKey<PlacedFeature> LAKE_LAVA_COAL = registerPlacedFeatureKey("lake_lava_coal");
@@ -312,7 +312,7 @@ public final class MWPlacedFeatures {
         registerPatchPlacedFeature(context, PATCH_BLUEBERRY_COMMON, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH), 32);
         registerPatchPlacedFeature(context, PATCH_BLUEBERRY_RARE, configuredFeatures.getOrThrow(MWConfiguredFeatures.PATCH_BLUEBERRY_BUSH), 384);
 
-        registerSpringPlacedFeature(context, SPRING_LAVA_VOLCANIC_PEAK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_LAVA_VOLCANIC_PEAK), 40);
+        registerSpringPlacedFeature(context, SPRING_LAVA_VOLCANIC_PEAKS, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_LAVA_VOLCANIC_PEAKS), 40);
         registerSpringPlacedFeature(context, SPRING_WATER_SCULK, configuredFeatures.getOrThrow(MWConfiguredFeatures.SPRING_WATER_SCULK), 20);
 
         registerBlobPlacedFeature(context, MAGMA_STONE_BLOBS, configuredFeatures.getOrThrow(MWConfiguredFeatures.MAGMA_STONE_BLOBS), 10);
@@ -322,7 +322,7 @@ public final class MWPlacedFeatures {
         registerBlobPlacedFeature(context, LAVA_ROCK_STONE_BLOBS, configuredFeatures.getOrThrow(MWConfiguredFeatures.LAVA_ROCK_STONE_BLOBS), 10);
         registerBlobPlacedFeature(context, LAVA_ROCK_BLACKSTONE_BLOBS, configuredFeatures.getOrThrow(MWConfiguredFeatures.LAVA_ROCK_BLACKSTONE_BLOBS), 10);
 
-        registerLakePlacedFeature(context, LAKE_LAVA_VOLCANIC_PEAK, configuredFeatures.getOrThrow(MWConfiguredFeatures.LAKE_LAVA_VOLCANIC_PEAK));
+        registerLakePlacedFeature(context, LAKE_LAVA_VOLCANIC_PEAKS, configuredFeatures.getOrThrow(MWConfiguredFeatures.LAKE_LAVA_VOLCANIC_PEAKS));
         registerLakePlacedFeature(context, LAKE_LAVA_MAGMA, configuredFeatures.getOrThrow(MWConfiguredFeatures.LAKE_LAVA_MAGMA));
         registerLakePlacedFeature(context, LAKE_LAVA_BLACKSTONE, configuredFeatures.getOrThrow(MWConfiguredFeatures.LAKE_LAVA_BLACKSTONE));
         registerLakePlacedFeature(context, LAKE_LAVA_COAL, configuredFeatures.getOrThrow(MWConfiguredFeatures.LAKE_LAVA_COAL));
