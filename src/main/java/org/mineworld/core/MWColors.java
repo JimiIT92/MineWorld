@@ -5,10 +5,16 @@ import net.minecraft.world.level.material.MapColor;
 import org.mineworld.MineWorld;
 
 /**
- * {@link MineWorld MineWorld} colors
+ * {@link MineWorld MineWorld} {@link MapColor colors}
  */
 public enum MWColors {
 
+    GRASS(0x00AA00, MapColor.GRASS),
+    DIRT(0x7B553D, MapColor.DIRT),
+    SAND(0xFFFF55, MapColor.SAND),
+    RED_SAND(0xB8602C, MapColor.COLOR_ORANGE),
+    STONE(0xAAAAAA, MapColor.STONE),
+    CAKE(0xF6E8CB, MapColor.TERRACOTTA_WHITE),
     PRISMARINE(0x49C4AF, MapColor.COLOR_CYAN),
     SCULK(0x0A2330, MapColor.COLOR_BLACK),
     RUBY(0x9F3535, MapColor.FIRE),
@@ -23,24 +29,25 @@ public enum MWColors {
     CHARCOAL(0x755848, MapColor.COLOR_BLACK),
     MARBLE(0x9E9A86, MapColor.TERRACOTTA_GRAY),
     WHITE_MARBLE(0xF0F0EB, MapColor.TERRACOTTA_WHITE),
-    APPLE(0x0000, MapColor.TERRACOTTA_RED),
-    PALM(0x000, MapColor.TERRACOTTA_YELLOW),
-    DEAD(0x000, MapColor.COLOR_GRAY);
+    APPLE(0xBE7D67, MapColor.TERRACOTTA_RED),
+    PALM(0xBF8F40, MapColor.TERRACOTTA_YELLOW),
+    DEAD(0x747474, MapColor.COLOR_GRAY);
 
     /**
-     * {@link Integer RGB color}
+     * {@link Integer The RGB color}
      */
     private final int color;
     /**
-     * {@link MapColor The map color}
+     * {@link MapColor The Map color}
      */
     private final MapColor mapColor;
 
     /**
      * Constructor. Set the {@link Integer RGB color}
+     * and the {@link MapColor Map color}
      *
      * @param color {@link Integer The RGB color}
-     * @param mapColor {@link MapColor The map color}
+     * @param mapColor {@link MapColor The Map color}
      */
     MWColors(final int color, final MapColor mapColor) {
         this.color = color;

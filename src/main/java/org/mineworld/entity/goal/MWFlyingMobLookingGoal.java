@@ -10,19 +10,19 @@ import org.mineworld.MineWorld;
 import java.util.EnumSet;
 
 /**
- * {@link MineWorld MineWorld} goal for a flying mob looking
+ * {@link MineWorld MineWorld} {@link Goal Flying Mob Looking Goal}
  */
 public class MWFlyingMobLookingGoal extends Goal {
 
     /**
-     * {@link Mob The flying mob}
+     * {@link Mob The Flying Mob}
      */
     private final Mob mob;
 
     /**
-     * Constructor. Set the {@link Mob flying mob}
+     * Constructor. Set the Goal properties
      *
-     * @param mob {@link Mob The flying mob}
+     * @param mob {@link Mob The Flying Mob}
      */
     public MWFlyingMobLookingGoal(final Mob mob) {
         this.mob = mob;
@@ -30,7 +30,7 @@ public class MWFlyingMobLookingGoal extends Goal {
     }
 
     /**
-     * Check if the mob can look around
+     * Check if the {@link #mob Flying Mob} can look around
      *
      * @return {@link Boolean#TRUE True}
      */
@@ -40,7 +40,7 @@ public class MWFlyingMobLookingGoal extends Goal {
     }
 
     /**
-     * Check if this goal should run every tick
+     * Check if this Goal should run every tick
      *
      * @return {@link Boolean#TRUE True}
      */
@@ -49,7 +49,7 @@ public class MWFlyingMobLookingGoal extends Goal {
     }
 
     /**
-     * Make the mob look around
+     * Make the {@link #mob Flying Mob} look around
      */
     public void tick() {
         if (this.mob.getTarget() == null) {

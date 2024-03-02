@@ -12,20 +12,21 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 
 /**
- * Model class for a Hat
+ * {@link MineWorld MineWorld} {@link HumanoidModel Hat Model}
  */
 @OnlyIn(Dist.CLIENT)
 public abstract class HatModel extends HumanoidModel<LivingEntity> {
 
     /**
-     * Constructor. Set the {@link ModelPart root model part}
+     * Constructor. Set the {@link ModelPart Root Model Part}
      *
-     * @param modelPart {@link ModelPart The root model part}
+     * @param root {@link ModelPart The Root Model Part}
      */
-    public HatModel(final ModelPart modelPart) {
-        super(modelPart);
+    public HatModel(final ModelPart root) {
+        super(root);
     }
 
     /**
@@ -47,16 +48,16 @@ public abstract class HatModel extends HumanoidModel<LivingEntity> {
     }
 
     /**
-     * Render the model
+     * Render the {@link HumanoidModel Model}
      *
-     * @param poseStack {@link PoseStack The model pose stack}
-     * @param vertexConsumer {@link VertexConsumer The model vertex consumer}
-     * @param packedLight {@link Integer The model packed light}
-     * @param packedOverlay {@link Integer The model packed overlay}
-     * @param red {@link Float The model red channel value}
-     * @param green {@link Float The model green channel value}
-     * @param blue {@link Float The model blue channel value}
-     * @param alpha {@link Float The model alpha channel value}
+     * @param poseStack {@link PoseStack The Model Pose Stack}
+     * @param vertexConsumer {@link VertexConsumer The Vertex Consumer reference}
+     * @param packedLight {@link Integer The Model Packed light}
+     * @param packedOverlay {@link Integer The Model Packed overlay}
+     * @param red {@link Float The Model red channel value}
+     * @param green {@link Float The Model green channel value}
+     * @param blue {@link Float The Model blue channel value}
+     * @param alpha {@link Float The Model alpha channel value}
      */
     @Override
     public void renderToBuffer(final @NotNull PoseStack poseStack, final @NotNull VertexConsumer vertexConsumer, final int packedLight, final int packedOverlay, final float red, final float green, final float blue, final float alpha) {
@@ -64,18 +65,18 @@ public abstract class HatModel extends HumanoidModel<LivingEntity> {
     }
 
     /**
-     * Setup the model animations
+     * Setup the {@link HumanoidModel Model} Animations
      *
-     * @param entity {@link LivingEntity The entity wearing the armor}
-     * @param limbSwing {@link Float The entity limb swing}
-     * @param limbSwingAmount {@link Float The entity limb swing amount}
-     * @param ageInTicks {@link Float The model age in ticks}
-     * @param netHeadYaw {@link Float The model head yaw}
-     * @param headPitch {@link Float The model head pitch}
+     * @param entity {@link LivingEntity The Entity}
+     * @param limbSwing {@link Float The Entity Limb Swing}
+     * @param limbSwingAmount {@link Float The Entity Limb Swing amount}
+     * @param ageInTicks {@link Float The Entity age in ticks}
+     * @param headYaw {@link Float The Entity head yaw}
+     * @param headPitch {@link Float The Entity head pitch}
      */
     @Override
-    public void setupAnim(final @NotNull LivingEntity entity, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch) {
-        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    public void setupAnim(final @NotNull LivingEntity entity, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float headYaw, final float headPitch) {
+        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw, headPitch);
     }
 
 }

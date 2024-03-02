@@ -128,5 +128,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/lime_glazed_terracotta_pebble"
 }

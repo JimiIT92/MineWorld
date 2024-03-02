@@ -10,41 +10,24 @@ import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlockEntityTypes;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link HangingSignBlockEntity hanging sign block entity}
+ * {@link MineWorld MineWorld} {@link SignBlockEntity Hanging Sign Block Entity}
  */
-public class MWHangingSignBlockEntity extends SignBlockEntity {
+public class MWHangingSignBlockEntity extends HangingSignBlockEntity {
 
     /**
-     * Constructor. Set the block entity properties
+     * Constructor. Set the Block Entity properties
      *
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param state {@link BlockState The current BlockState}
+     * @param blockPos {@link BlockPos The Block Entity Block POs}
+     * @param blockState {@link BlockState The Block State for the Block Entity}
      */
-    public MWHangingSignBlockEntity(final BlockPos pos, final BlockState state) {
-        super(MWBlockEntityTypes.HANGING_SIGN.get(), pos, state);
+    public MWHangingSignBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+        super(blockPos, blockState);
     }
 
     /**
-     * Get the {@link Integer sign text line height}
+     * Get the {@link BlockEntityType Block Entity Type}
      *
-     * @return {@link Integer 9}
-     */
-    public int getTextLineHeight() {
-        return 9;
-    }
-
-    /**
-     * Get the {@link Integer max sign text line width}
-     *
-     * @return {@link Integer 60}
-     */
-    public int getMaxTextLineWidth() {
-        return 60;
-    }
-
-    /**
-     * Get the {@link BlockEntityType hanging sign block entity type}
-     * @return {@link MWBlockEntityTypes#HANGING_SIGN The hanging sign block entity type}
+     * @return {@link MWBlockEntityTypes#HANGING_SIGN The Hanging Sign Block Entity Type}
      */
     @Override
     public @NotNull BlockEntityType<?> getType() {

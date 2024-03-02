@@ -25,150 +25,143 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWTags;
 import org.mineworld.helper.PropertyHelper;
 
-import javax.annotation.Nullable;
-
 /**
- * Implementation class for a {@link DoublePlantBlock Cattail Block}
+ * {@link MineWorld MineWorld} {@link CattailBlock Cattail Block}
  */
 public class CattailBlock extends DoublePlantBlock implements SimpleWaterloggedBlock {
 
     /**
-     * {@link BooleanProperty The Block Waterlogged Property}
+     * {@link BooleanProperty The Block Waterlogged property}
      */
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     /**
-     * Constructor. Sets the {@link BlockBehaviour.Properties Block Properties}
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public CattailBlock() {
-        super(PropertyHelper.basicBlockProperties(0F, false).noCollission().noOcclusion().instabreak().sound(SoundType.SMALL_DRIPLEAF).offsetType(BlockBehaviour.OffsetType.XZ));
-        this.registerDefaultState(this.stateDefinition.any()
-                .setValue(HALF, DoubleBlockHalf.LOWER)
-                .setValue(WATERLOGGED, Boolean.FALSE)
-        );
+        super(PropertyHelper.block(0F, false).noCollission().noOcclusion().instabreak().sound(SoundType.SMALL_DRIPLEAF).offsetType(BlockBehaviour.OffsetType.XZ));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     /**
      * Get the {@link VoxelShape Block Shape}
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param level {@link BlockGetter The Level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param context {@link CollisionContext The Collision Context}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link VoxelShape The Block Shape}
      */
-    public @NotNull VoxelShape getShape(final @NotNull BlockState state, final @NotNull BlockGetter level, final @NotNull BlockPos pos, final @NotNull CollisionContext context) {
-        Vec3 offset = state.getOffset(level, pos);
+    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
+        final Vec3 offset = blockState.getOffset(blockGetter, blockPos);
         return Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D).move(offset.x, offset.y, offset.z);
     }
 
     /**
-     * Check if the {@link DoublePlantBlock Cattail} can be placed on a {@link Block Block}
+     * Check if the Block can be placed at the given {@link BlockPos location}
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param level {@link BlockGetter The Level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @return {@link Boolean True} if the {@link DoublePlantBlock Cattail} can be placed on a {@link Block Block}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if the Block can be placed}
      */
-    protected boolean mayPlaceOn(final BlockState state, final @NotNull BlockGetter level, final @NotNull BlockPos pos) {
-        return state.is(MWTags.Blocks.CATTAIL_PLACEABLE) && level.getFluidState(pos.above()).isSourceOfType(Fluids.WATER);
+    protected boolean mayPlaceOn(final BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+        return blockState.is(MWTags.Blocks.CATTAIL_PLACEABLE) && blockGetter.getFluidState(blockPos.above()).isSourceOfType(Fluids.WATER);
     }
 
     /**
-     * Get the {@link BlockState BlockState} when the
-     * {@link DoublePlantBlock Cattail} is placed
+     * Get the {@link BlockState Block State} after the block has been placed
      *
-     * @param context {@link BlockPlaceContext The Place Context}
-     * @return Placed {@link BlockState The placed BlockState}
+     * @param placeContext {@link BlockPlaceContext The block place context}
+     * @return {@link BlockState The placed Block State}
      */
     @Nullable
-    public BlockState getStateForPlacement(final @NotNull BlockPlaceContext context) {
-        BlockState blockstate = super.getStateForPlacement(context);
-        return blockstate != null ? copyWaterloggedFrom(context.getLevel(), context.getClickedPos(), blockstate) : null;
+    public BlockState getStateForPlacement(final @NotNull BlockPlaceContext placeContext) {
+        BlockState blockstate = super.getStateForPlacement(placeContext);
+        return blockstate != null ? copyWaterloggedFrom(placeContext.getLevel(), placeContext.getClickedPos(), blockstate) : null;
     }
 
     /**
-     * Place the {@link DoubleBlockHalf#UPPER Upper variant} on {@link DoublePlantBlock Cattail} placed
+     * Place the {@link DoubleBlockHalf#UPPER Upper variant} when a {@link DoublePlantBlock Cattail} is placed
      *
      * @param level {@link Level The Level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param state {@link BlockState The current BlockState}
+     * @param blockPos {@link BlockPos The current BlockPos}
+     * @param blockState {@link BlockState The current BlockState}
      * @param entity {@link LivingEntity The Entity} who placed the {@link DoublePlantBlock Cattail}
-     * @param stack {@link ItemStack The ItemStack}
+     * @param itemStack {@link ItemStack The ItemStack}
      */
-    public void setPlacedBy(final Level level, final @NotNull BlockPos pos, final @NotNull BlockState state, final @NotNull LivingEntity entity, final @NotNull ItemStack stack) {
+    public void setPlacedBy(final Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final @NotNull LivingEntity entity, final @NotNull ItemStack itemStack) {
         if (!level.isClientSide()) {
-            BlockPos blockpos = pos.above();
-            BlockState blockstate = DoublePlantBlock.copyWaterloggedFrom(level, blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER));
-            level.setBlock(blockpos, blockstate, 3);
+            final BlockPos aboveBlockPos = blockPos.above();
+            final BlockState aboveBlockState = DoublePlantBlock.copyWaterloggedFrom(level, aboveBlockPos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER));
+            level.setBlock(aboveBlockPos, aboveBlockState, 3);
         }
     }
 
     /**
-     * Get the {@link FluidState Fluid State}
+     * Get the {@link FluidState Block Fluid State}
      *
-     * @param state {@link BlockState The current BlockState}
-     * @return {@link FluidState The Fluid State}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Fluids#WATER Water if is Waterlogged}
      */
-    public @NotNull FluidState getFluidState(final BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    public @NotNull FluidState getFluidState(final BlockState blockState) {
+        return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     /**
-     * Checks if the {@link DoublePlantBlock Cattail} should break
-     * if one {@link #HALF Half} is broken
+     * Check if the Block can stay at the given {@link BlockPos location}
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param level {@link LevelReader The Level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @return {@link Boolean True} if the {@link CattailBlock} should not break if one {@link #HALF Half} is broken
+     * @param blockState {@link BlockState The current Block State}
+     * @param levelReader {@link LevelReader The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if the block can survive}
      */
-    public boolean canSurvive(final BlockState state, final @NotNull LevelReader level, final @NotNull BlockPos pos) {
-        if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-            return super.canSurvive(state, level, pos);
+    public boolean canSurvive(final BlockState blockState, final @NotNull LevelReader levelReader, final @NotNull BlockPos blockPos) {
+        if (blockState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            return super.canSurvive(blockState, levelReader, blockPos);
         } else {
-            BlockPos blockpos = pos.below();
-            BlockState blockstate = level.getBlockState(blockpos);
-            return this.mayPlaceOn(blockstate, level, blockpos);
+            final BlockPos belowBlockPos = blockPos.below();
+            final BlockState belowBlockState = levelReader.getBlockState(belowBlockPos);
+            return this.mayPlaceOn(belowBlockState, levelReader, belowBlockPos);
         }
     }
 
     /**
-     * Update the {@link BlockState BlockState} if the
-     * {@link DoublePlantBlock Cattail} is waterlogged
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param facing {@link Direction The update Direction}
-     * @param neighborState {@link BlockState The neighbor BlockState}
-     * @param level {@link LevelAccessor The Level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param neighborPos {@link BlockPos The neighbor BlockPos}
-     * @return Placed {@link BlockState The updated BlockState}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
-    public @NotNull BlockState updateShape(final BlockState state, final @NotNull Direction facing, final @NotNull BlockState neighborState, final @NotNull LevelAccessor level, final @NotNull BlockPos pos, final @NotNull BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
+        if (blockState.getValue(WATERLOGGED)) {
+            levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
-
-        return super.updateShape(state, facing, neighborState, level, pos, neighborPos);
+        return super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
 
     /**
-     * Create the {@link StateDefinition BlockState Definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The BlockState Builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(HALF, WATERLOGGED);
     }
 
     /**
-     * Get the {@link Float Block Vertical Offset}
+     * Get the {@link Float Block Maximum Horizontal Offset}
      *
-     * @return {@link Float The Block Vertical Offset}
+     * @return {@link Float 0.1F}
      */
     public float getMaxVerticalOffset() {
         return 0.1F;

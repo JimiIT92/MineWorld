@@ -9,68 +9,60 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWConfiguredFeatures;
 import org.mineworld.core.MWSoundTypes;
 
 /**
- * Implementation class for a Sculk Soil block
+ * {@link MineWorld MineWorld} {@link MWSoilBlock Sculk Soil Block}
  */
 public class SculkSoilBlock extends MWSoilBlock implements BonemealableBlock {
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public SculkSoilBlock() {
-        super(MapColor.COLOR_LIGHT_BLUE, MWSoundTypes.SCULK_SOIL);
+        super(MapColor.COLOR_LIGHT_BLUE, MWSoundTypes.SCULK_SOIL, () -> Blocks.SCULK.defaultBlockState());
     }
 
     /**
-     * Get the decayed block
+     * Check if the Block can be bonemealed
      *
-     * @return {@link Blocks#SCULK The sculk block}
+     * @param levelReader {@link LevelReader The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Boolean True if the Block can be bonemealed}
      */
     @Override
-    public Block getDecayedBlock() {
-        return Blocks.SCULK;
+    public boolean isValidBonemealTarget(final LevelReader levelReader, final BlockPos blockPos, final @NotNull BlockState blockState) {
+        return levelReader.getBlockState(blockPos.above()).isAir();
     }
 
     /**
-     * Check if the block can be bonemealed
-     *
-     * @param level {@link LevelReader The level reference}
-     * @param blockPos {@link BlockPos The current BlockPos}
-     * @param blockState {@link BlockState The current BlockState}
-     * @return {@link Boolean True if there is no block above}
-     */
-    @Override
-    public boolean isValidBonemealTarget(final LevelReader level, final BlockPos blockPos, final @NotNull BlockState blockState) {
-        return level.getBlockState(blockPos.above()).isAir();
-    }
-
-    /**
-     * Check if the block has been successfully bonemealed
+     * Check if the {@link Block Block} has been successfully bonemealed
      *
      * @param level {@link Level The level reference}
-     * @param random {@link RandomSource The random reference}
+     * @param randomSource {@link RandomSource The random reference}
      * @param blockPos {@link BlockPos The current BlockPos}
      * @param blockState {@link BlockState The current BlockState}
-     * @return {@link Boolean True}
+     * @return {@link Boolean#TRUE True}
      */
     @Override
-    public boolean isBonemealSuccess(final @NotNull Level level, final @NotNull RandomSource random, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public boolean isBonemealSuccess(final @NotNull Level level, final @NotNull RandomSource randomSource, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         return true;
     }
 
     /**
-     * Place some {@link MWConfiguredFeatures#PATCH_SCULK_ROOTS sculk roots} when bonemealing the block
+     * Grow some vegetation when the {@link Block Block} is bonemealed
      *
-     * @param level {@link ServerLevel The level reference}
-     * @param random {@link RandomSource The random reference}
-     * @param blockPos {@link BlockPos The current BlockPos}
-     * @param blockState {@link BlockState The current BlockState}
+     * @param level {@link ServerLevel The Level reference}
+     * @param random {@link RandomSource The Random reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
      */
     @Override
     public void performBonemeal(final ServerLevel level, final @NotNull RandomSource random, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
@@ -78,4 +70,5 @@ public class SculkSoilBlock extends MWSoilBlock implements BonemealableBlock {
                 .getHolder(MWConfiguredFeatures.PATCH_SCULK_ROOTS)
                 .ifPresent(feature -> feature.value().place(level, level.getChunkSource().getGenerator(), random, blockPos.above()));
     }
+
 }

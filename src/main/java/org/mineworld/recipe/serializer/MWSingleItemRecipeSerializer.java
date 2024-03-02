@@ -8,27 +8,28 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 
 /**
- * {@link MineWorld MineWorld} {@link SingleItemRecipe single id recipe} serializer
- * @param <T> {@link T The recipe type}
+ * {@link MineWorld MineWorld} {@link RecipeSerializer Single Item Recipe Serializer}
+ * @param <T>
  */
 public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements RecipeSerializer<T> {
 
     /**
-     * {@link IMWSingleItemMaker<T> The recipe maker factory}
+     * {@link IMWSingleItemMaker<T> The Recipe Item Maker Factory}
      */
     private final IMWSingleItemMaker<T> factory;
     /**
-     * {@link Codec<T> The codec instance}
+     * {@link Codec<T> The Recipe Codec}
      */
     private final Codec<T> codec;
     /**
-     * {@link MapCodec<ItemStack> The result codec instance}
+     * {@link MapCodec<ItemStack> The Recipe Result Codec}
      */
     private static final MapCodec<ItemStack> RESULT_CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
             BuiltInRegistries.ITEM.byNameCodec().fieldOf("result").forGetter(ItemStack::getItem),
@@ -36,9 +37,9 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
     ).apply(builder, ItemStack::new));
 
     /**
-     * Constructor. Set the serializer properties
+     * Constructor. Set the {@link RecipeSerializer Recipe Serializer Properties}
      *
-     * @param factory {@link IMWSingleItemMaker<T> The recipe maker factory}
+     * @param factory {@link IMWSingleItemMaker<T> The Recipe Item Maker Factory}
      */
     public MWSingleItemRecipeSerializer(final IMWSingleItemMaker<T> factory) {
         this.factory = factory;
@@ -50,9 +51,9 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
     }
 
     /**
-     * Get the {@link Codec<T> Codec Instance}
+     * Get the {@link Codec<T> Codec instance}
      *
-     * @return The {@link Codec<T> Codec Instance}
+     * @return {@link Codec<T> The Codec instance}
      */
     @Override
     public @NotNull Codec<T> codec() {
@@ -60,20 +61,20 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
     }
 
     /**
-     * Deserialize a recipe from the network
+     * Deserialize a {@link Recipe Recipe} from the {@link FriendlyByteBuf Buffer}
      *
-     * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
-     * @return {@link T The deserialized recipe}
+     * @param byteBuffer {@link FriendlyByteBuf The Network Buffer}
+     * @return {@link T The deserialized Recipe}
      */
     public T fromNetwork(final @NotNull FriendlyByteBuf byteBuffer) {
         return this.factory.create(byteBuffer.readUtf(), Ingredient.fromNetwork(byteBuffer), byteBuffer.readItem());
     }
 
     /**
-     * Serialize a recipe to the network
+     * Serialize a {@link Recipe Recipe} to the {@link FriendlyByteBuf Buffer}
      *
-     * @param byteBuffer {@link FriendlyByteBuf The network byte buffer}
-     * @param recipe {@link T The recipe to serialize}
+     * @param byteBuffer {@link FriendlyByteBuf The Network Buffer}
+     * @param recipe {@link T The Recipe to serialize}
      */
     public void toNetwork(final FriendlyByteBuf byteBuffer, final T recipe) {
         byteBuffer.writeUtf(recipe.group);
@@ -82,21 +83,22 @@ public class MWSingleItemRecipeSerializer<T extends SingleItemRecipe> implements
     }
 
     /**
-     * Interface for a {@link SingleItemRecipe single id recipe maker}
+     * Interface for a {@link SingleItemRecipe Single Item Recipe Maker}
      *
-     * @param <T> {@link T The recipe type}
+     * @param <T> {@link T The Recipe Type}
      */
     public interface IMWSingleItemMaker<T extends SingleItemRecipe> {
 
         /**
-         * Create a recipe
+         * Create a {@link Recipe Recipe}
          *
-         * @param group {@link String The recipe group}
-         * @param ingredient {@link Ingredient The recipe ingredient}
-         * @param result {@link ItemStack The recipe result}
-         * @return {@link T The created recipe}
+         * @param group {@link String The Recipe Group}
+         * @param ingredient {@link Ingredient The Recipe Ingredient}
+         * @param result {@link ItemStack The Recipe Result}
+         * @return {@link T The Recipe}
          */
         T create(final String group, final Ingredient ingredient, final ItemStack result);
+
     }
 
 }

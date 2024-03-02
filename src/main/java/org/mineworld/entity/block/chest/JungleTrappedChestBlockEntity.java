@@ -1,23 +1,35 @@
 package org.mineworld.entity.block.chest;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.TrappedChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlockEntityTypes;
 
 /**
- * Implementation class for a {@link ChestBlockEntity jungle trapped chest block entity}
+ * {@link MineWorld MineWorld} {@link TrappedChestBlockEntity Jungle Trapped Chest Block Entity}
  */
-public class JungleTrappedChestBlockEntity extends AbstractTrappedChestBlockEntity {
+public class JungleTrappedChestBlockEntity extends MWTrappedChestBlockEntity {
 
     /**
-     * Constructor. Set the chest properties
+     * Constructor. Set the Entity properties
      *
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
      */
     public JungleTrappedChestBlockEntity(final BlockPos blockPos, final BlockState blockState) {
         super(MWBlockEntityTypes.JUNGLE_TRAPPED_CHEST.get(), blockPos, blockState);
+    }
+
+    /**
+     * Get the {@link WoodType Chest Wood Type}
+     *
+     * @return {@link WoodType#JUNGLE The Jungle Wood Type}
+     */
+    @Override
+    public WoodType getWoodType() {
+        return WoodType.JUNGLE;
     }
 
 }

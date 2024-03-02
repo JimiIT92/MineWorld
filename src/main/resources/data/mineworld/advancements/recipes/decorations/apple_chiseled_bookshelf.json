@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_apple_bookshelf": {
+    "has_apple_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "mineworld:apple_bookshelf"
+              "mineworld:apple_planks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_apple_bookshelf",
+      "has_apple_planks",
       "has_the_recipe"
     ]
   ],

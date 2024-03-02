@@ -7,10 +7,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -19,13 +21,15 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.Supplier;
 
 /**
- * Implementation class for a {@link CropBlock double block crop}
+ * {@link MineWorld MineWorld} {@link CropBlock Two Blocks Tall Crop}
  */
 public class TallCropBlock extends CropBlock {
 
@@ -38,7 +42,7 @@ public class TallCropBlock extends CropBlock {
      */
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     /**
-     * {@link EnumProperty<DoubleBlockHalf> The block half property}
+     * {@link EnumProperty <DoubleBlockHalf> The block half property}
      */
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     /**
@@ -46,27 +50,27 @@ public class TallCropBlock extends CropBlock {
      */
     private final VoxelShape[] SHAPE_BY_AGE;
     /**
-     * {@link Supplier<ItemLike> The seed supplier}
+     * {@link Supplier<ItemLike> The Crop Seed supplier}
      */
     private final Supplier<Item> SEED_SUPPLIER;
 
     /**
-     * Constructor. Set the {@link Integer crop max age}
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param seedSupplier {@link Supplier<Item> The seed id supplier}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @param seedSupplier {@link Supplier<Item> The Crop Seed supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public TallCropBlock(final Supplier<Item> seedSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copyFromBlock(Blocks.WHEAT, featureFlags));
+        super(PropertyHelper.copy(Blocks.WHEAT, featureFlags));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
         SHAPE_BY_AGE = getShapes();
         SEED_SUPPLIER = seedSupplier;
     }
 
     /**
-     * Get the {@link Integer crop max age}
+     * Get the {@link Integer Crop max age}
      *
-     * @return {@link Integer The crop max age}
+     * @return {@link #MAX_AGE The crop max age}
      */
     @Override
     public int getMaxAge() {
@@ -74,9 +78,9 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Get the {@link #AGE age property}
+     * Get the {@link #AGE Crop age property}
      *
-     * @return {@link #AGE The age property}
+     * @return {@link #AGE The Crop age property}
      */
     @Override
     public @NotNull IntegerProperty getAgeProperty() {
@@ -84,12 +88,12 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Check if the crop can be bonemealed
+     * Check if the Block can be bonemealed
      *
-     * @param levelReader {@link LevelReader The world reference}
-     * @param blockPos {@link BlockPos The block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link Boolean True if the crop can be bonemealed}
+     * @param levelReader {@link LevelReader The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Boolean True if the Block can be bonemealed}
      */
     @Override
     public boolean isValidBonemealTarget(final @NotNull LevelReader levelReader, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
@@ -101,31 +105,31 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Break the crop if one of the two half is broken
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param direction {@link Direction The update direction}
-     * @param neighborState {@link BlockState The neighbor block state}
-     * @param levelAccessor {@link LevelAccessor The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param neighborPos {@link BlockPos The neighbor block pos}
-     * @return {@link BlockState The updated block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
     @Override
-    public @NotNull BlockState updateShape(final @NotNull BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(final @NotNull BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
         final boolean isLower = isLower(blockState);
-        if (direction.getAxis() != Direction.Axis.Y || isLower != (direction == Direction.UP) || neighborState.is(this) && neighborState.getValue(HALF) != blockState.getValue(HALF)) {
-            return isLower && direction == Direction.DOWN && !blockState.canSurvive(levelAccessor, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighborState, levelAccessor, blockPos, neighborPos);
+        if (direction.getAxis() != Direction.Axis.Y || isLower != (direction == Direction.UP) || neighborBlockState.is(this) && neighborBlockState.getValue(HALF) != blockState.getValue(HALF)) {
+            return isLower && direction == Direction.DOWN && !blockState.canSurvive(levelAccessor, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
         }
         return Blocks.AIR.defaultBlockState();
     }
 
     /**
-     * Try to grow the crop from bonemeal
+     * Try to grow the Crop from {@link Items#BONE_MEAL Bone Meal}
      *
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
      */
     @Override
     public void growCrops(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
@@ -145,11 +149,11 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Try to grow the other half of the crop when one reaches the max age
+     * Try to grow the other half of the Crop when one reaches the max age
      *
-     * @param level {@link Level The world reference}
-     * @param blockState {@link BlockState The current block state}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param level {@link Level The level reference}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param age {@link Integer The age to grow the other half}
      */
     private void tryGrowOtherHalf(final Level level, final BlockState blockState, final BlockPos blockPos, final int age) {
@@ -160,11 +164,11 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Check if the crop can grow at the given location
+     * Check if the Crop can grow at the given location
      *
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @return {@link Boolean True if there is air or the same crop at the given location}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if there is air or the same Crop at the given location}
      */
     private boolean canGrowAt(final Level level, final BlockPos blockPos) {
         final BlockState blockState = level.getBlockState(blockPos);
@@ -172,12 +176,12 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Check if crop should drop something wehn broken
+     * Check if Crop should drop something when broken
      *
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @param player {@link Player The player who broke the crop}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param player {@link Player The player who broke the Crop}
      */
     @Override
     public void playerWillDestroy(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final @NotNull Player player) {
@@ -192,12 +196,12 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Prevent the drops from the bottom part when the crop is broken from the creative mode
+     * Prevent the drops from the bottom part when the Crop is broken in Creative Mode
      *
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @param player {@link Player The player who broke the crop}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param player {@link Player The player who broke the Crop}
      */
     private void preventCreativeDropsFromBottomPart(final Level level, final BlockPos blockPos, final BlockState blockState, final Player player) {
         if (isLower(blockState)) {
@@ -211,12 +215,12 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Check if the crop can survive at the current location
+     * Check if the Block can stay at the given {@link BlockPos location}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param levelReader {@link LevelReader The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @return {@link Boolean True if the crop can survive}
+     * @param blockState {@link BlockState The current Block State}
+     * @param levelReader {@link LevelReader The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if the block can survive}
      */
     @Override
     public boolean canSurvive(final @NotNull BlockState blockState, final @NotNull LevelReader levelReader, final @NotNull BlockPos blockPos) {
@@ -228,29 +232,29 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Check if a crop part is fully grown
+     * Check if a Crop part is fully grown
      *
-     * @param state {@link BlockState The block state to check}
+     * @param blockState {@link BlockState The current Block State}
      * @return {@link Boolean True if the provided state reached the maximum age}
      */
-    private boolean isFullyGrown(final BlockState state) {
-        return state.getValue(AGE) >= MAX_AGE;
+    private boolean isFullyGrown(final BlockState blockState) {
+        return blockState.getValue(AGE) >= MAX_AGE;
     }
 
     /**
-     * Check if a block is part of the same crop
+     * Check if a block is part of the same Crop
      *
-     * @param state {@link BlockState The block state to check}
-     * @return {@link Boolean True if is the same crop}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Boolean True if is the same Crop}
      */
-    private boolean isSameCrop(final BlockState state) {
-        return state.is(this);
+    private boolean isSameCrop(final BlockState blockState) {
+        return blockState.is(this);
     }
 
     /**
-     * Check if the crop part is the lower one
+     * Check if the Crop part is the lower one
      *
-     * @param blockState {@link BlockState The crop block state to check}
+     * @param blockState {@link BlockState The current Block State}
      * @return {@link Boolean True if is the lower part}
      */
     private boolean isLower(final BlockState blockState) {
@@ -258,10 +262,10 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Check if the block should randomly tick
+     * Check if the Block should randomly ticking
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link Boolean True if the crop hasn't fully grow}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Boolean True if is the Crop hasn't fully grown}
      */
     @Override
     public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
@@ -269,12 +273,11 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Grow the crop naturally. If the lower part reaches the max age,
-     * the initial stage of the upper part is placed
+     * Randomly ticks the Block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link ServerLevel The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param randomSource {@link RandomSource The random reference}
      */
     @Override
@@ -286,7 +289,7 @@ public class TallCropBlock extends CropBlock {
             if (!isFullyGrown(blockState)) {
                 final int age = this.getAge(blockState);
                 final float growthSpeed = getGrowthSpeed(this, level, blockPos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, blockPos, blockState, randomSource.nextInt((int)(25.0F / growthSpeed) + 1) == 0)) {
+                if (ForgeHooks.onCropsGrowPre(level, blockPos, blockState, randomSource.nextInt((int)(25.0F / growthSpeed) + 1) == 0)) {
                     level.setBlock(blockPos, blockState.setValue(getAgeProperty(), age + 1), 2);
                     if(isLower(blockState)) {
                         final BlockPos aboveBlockPos = blockPos.above();
@@ -294,26 +297,26 @@ public class TallCropBlock extends CropBlock {
                             tryGrowOtherHalf(level, blockState, blockPos, 0);
                         }
                     }
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, blockPos, blockState);
+                    ForgeHooks.onCropsGrowPost(level, blockPos, blockState);
                 }
             }
         }
     }
 
     /**
-     * Create the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(AGE).add(HALF);
     }
 
     /**
-     * Get the crop shapes
+     * Get the {@link VoxelShape Block Shapes}
      *
-     * @return {@link VoxelShape The crop shapes}
+     * @return {@link VoxelShape The Block Shapes}
      */
     public VoxelShape[] getShapes() {
         return new VoxelShape[]{
@@ -325,13 +328,13 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Get the crop shape based on its age
+     * Get the {@link VoxelShape Block Shape}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link BlockGetter The block getter}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param collisionContext {@link CollisionContext The collision context}
-     * @return {@link VoxelShape The crop shape}
+     * @return {@link VoxelShape The Block Shape}
      */
     @Override
     public @NotNull VoxelShape getShape(final BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
@@ -339,9 +342,9 @@ public class TallCropBlock extends CropBlock {
     }
 
     /**
-     * Get the crop seed id
+     * Get the {@link ItemLike Crop Seed}
      *
-     * @return {@link ItemLike The crop seed id}
+     * @return {@link #SEED_SUPPLIER The Crop Seed}
      */
     @Override
     protected @NotNull ItemLike getBaseSeedId() {

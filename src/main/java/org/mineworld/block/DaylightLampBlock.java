@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -25,44 +26,46 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlockEntityTypes;
 import org.mineworld.entity.block.DaylightLampBlockEntity;
 import org.mineworld.helper.PropertyHelper;
 
+import javax.annotation.Nullable;
+
 /**
- * Implementation class for a day/night light lamp
+ * {@link MineWorld MineWorld} Daylight Lamp Block
  */
 public class DaylightLampBlock extends BaseEntityBlock {
 
     /**
-     * {@link Boolean Lit property}
+     * {@link Boolean The lamp Lit property}
      */
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
     /**
-     * {@link Boolean Inverted property}
+     * {@link Boolean The lamp Inverted property}
      */
     public static final BooleanProperty INVERTED = BlockStateProperties.INVERTED;
     /**
-     * {@link IntegerProperty Power property}
+     * {@link IntegerProperty THe lamp Power property}
      */
     public static final IntegerProperty POWER = BlockStateProperties.POWER;
 
     /**
-     * Constructor. Set the {@link Block block properties}
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public DaylightLampBlock(final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copyFromBlock(Blocks.REDSTONE_LAMP, featureFlags));
+        super(PropertyHelper.copy(Blocks.REDSTONE_LAMP, featureFlags));
         this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.FALSE).setValue(INVERTED, Boolean.FALSE).setValue(POWER, 0));
     }
 
     /**
-     * Get the {@link BlockState block state} after the block has been placed
+     * Get the {@link BlockState Block State} after the block has been placed
      *
      * @param placeContext {@link BlockPlaceContext The block place context}
-     * @return {@link BlockState The placed block state}
+     * @return {@link BlockState The placed Block State}
      */
     @Nullable
     @Override
@@ -73,25 +76,25 @@ public class DaylightLampBlock extends BaseEntityBlock {
     }
 
     /**
-     * Change the mode on right click
+     * Interact with the Block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param player {@link Player The player who right clicked the block}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player who interacted with the Block}
      * @param hand {@link InteractionHand The hand the player has interacted with}
      * @param hitResult {@link BlockHitResult The hit result for the block interaction}
-     * @return {@link InteractionResult The interaction result based on the id in the player's hand}
+     * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
+    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
         if (player.mayBuild()) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             } else {
-                BlockState blockstate = blockState.cycle(INVERTED);
-                level.setBlock(blockPos, blockstate, 4);
-                level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, blockstate));
+                final BlockState invertedState = blockState.cycle(INVERTED);
+                level.setBlock(blockPos, invertedState, 4);
+                level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, invertedState));
                 return InteractionResult.CONSUME;
             }
         }
@@ -99,11 +102,11 @@ public class DaylightLampBlock extends BaseEntityBlock {
     }
 
     /**
-     * Tick the block to determine if it should be lit
+     * Ticks the Block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link ServerLevel The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param randomSource {@link RandomSource The random reference}
      */
     @Override
@@ -114,9 +117,9 @@ public class DaylightLampBlock extends BaseEntityBlock {
     /**
      * Cycle the lamp status based on time of the day
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param randomSource {@link RandomSource The random reference}
      */
     private static void updateStatus(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
@@ -129,7 +132,7 @@ public class DaylightLampBlock extends BaseEntityBlock {
     /**
      * Check if the daylight lamp is inverted
      *
-     * @param blockState {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @return {@link Boolean True if the lamp is inverted}
      */
     private static boolean isNightlightLamp(final BlockState blockState) {
@@ -140,8 +143,8 @@ public class DaylightLampBlock extends BaseEntityBlock {
      * Check if the daylight lamp should be turned on or off
      * based on time of the day and if is already turned on or off
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link Level The world reference}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link Level The level reference}
      * @return {@link Boolean True if is day and is turned off or is night and is turned on}
      */
     private static boolean shouldToggleDaylightLamp(final BlockState blockState, final Level level) {
@@ -154,8 +157,8 @@ public class DaylightLampBlock extends BaseEntityBlock {
      * Check if the nightlight lamp should be turned on or off
      * based on time of the day and if is already turned on or off
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link Level The world reference}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link Level The level reference}
      * @return {@link Boolean True if is night and is turned off or is day and is turned on}
      */
     private static boolean shouldToggleNightlightLamp(final BlockState blockState, final Level level) {
@@ -165,21 +168,21 @@ public class DaylightLampBlock extends BaseEntityBlock {
     }
 
     /**
-     * Create the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(LIT).add(INVERTED).add(POWER);
+        stateBuilder.add(LIT, INVERTED, POWER);
     }
 
     /**
      * Get the lamp signal strength based on time of the day
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the block is outputting power}
      * @return {@link Integer The block signal strength}
      */
@@ -191,8 +194,8 @@ public class DaylightLampBlock extends BaseEntityBlock {
     /**
      * Make the block output a comparator signal
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link Boolean True}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Boolean#TRUE True}
      */
     @Override
     public boolean isSignalSource(final @NotNull BlockState blockState) {
@@ -202,9 +205,9 @@ public class DaylightLampBlock extends BaseEntityBlock {
     /**
      * Get the {@link Integer comparator signal} based on the daylight lamp status
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      */
     private static void updateSignalStrength(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos) {
         int power = level.getBrightness(LightLayer.SKY, blockPos.above()) - level.getSkyDarken();
@@ -224,11 +227,11 @@ public class DaylightLampBlock extends BaseEntityBlock {
     }
 
     /**
-     * Create the {@link DaylightLampBlockEntity daylight lamp block entity}
+     * Create the {@link DaylightLampBlockEntity Daylight Lamp Block Entity}
      *
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link BlockEntity The daylight lamp block entity}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link BlockEntity The Daylight Lamp Block Entity}
      */
     @Override
     public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
@@ -238,11 +241,11 @@ public class DaylightLampBlock extends BaseEntityBlock {
     /**
      * Get the related ticker for this block
      *
-     * @param level {@link Level The world reference}
-     * @param blockState {@link BlockState The current block state}
-     * @param blockEntityType {@link BlockEntityType The block entity type}
-     * @return {@link BlockEntityTicker The block entity ticker}
-     * @param <T> {@link T The block entity type}
+     * @param level {@link Level The level reference}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockEntityType {@link BlockEntityType The Block Entity Type}
+     * @return {@link BlockEntityTicker The Block Entity Ticker}
+     * @param <T> {@link T The Block Entity Type}
      */
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(final Level level, final @NotNull BlockState blockState, final @NotNull BlockEntityType<T> blockEntityType) {
@@ -252,10 +255,10 @@ public class DaylightLampBlock extends BaseEntityBlock {
     /**
      * Tick the daylight lamp
      *
-     * @param level {@link Level The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @param blockEntity {@link DaylightLampBlockEntity The daylight lamp block entity}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockEntity {@link DaylightLampBlockEntity The Daylight Lamp Block Entity}
      */
     private static void tickEntity(final Level level, final BlockPos blockPos, final BlockState blockState, final DaylightLampBlockEntity blockEntity) {
         if (level.getGameTime() % 20L == 0L) {
@@ -266,7 +269,7 @@ public class DaylightLampBlock extends BaseEntityBlock {
     /**
      * Get the {@link RenderShape render shape} for this block
      *
-     * @param blockState {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @return {@link RenderShape#MODEL Model render shape}
      */
     @Override

@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.warden.SonicBoom;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,38 +20,38 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.helper.ItemHelper;
-import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.HashSet;
 
 /**
- * Implementation class for a sculk horn item
+ * {@link MineWorld MineWorld} {@link Item Sculk Horn Item}
  */
 public class SculkHornItem extends Item {
 
     /**
-     * Constructor. Set the item properties
+     * Constructor. Set the {@link Properties Item Properties}
      */
     public SculkHornItem() {
-        super(PropertyHelper.basicItemProperties().stacksTo(1).durability(64).rarity(Rarity.EPIC));
+        super(PropertyHelper.item().stacksTo(1).durability(64).rarity(Rarity.EPIC));
     }
 
     /**
-     * Get the item {@link UseAnim use animation}
+     * Get the {@link UseAnim Item Use Animation}
      *
-     * @param itemStack {@link ItemStack The current ItemStack}
-     * @return {@link UseAnim#TOOT_HORN The toot horn animation}
+     * @param itemStack {@link ItemStack The current Item Stack}
+     * @return {@link UseAnim#TOOT_HORN The Toot Horn Animation}
      */
     public @NotNull UseAnim getUseAnimation(final @NotNull ItemStack itemStack) {
         return UseAnim.TOOT_HORN;
     }
 
     /**
-     * Get the item use duration
+     * Get the {@link Integer Item Use Duration}
      *
-     * @param itemStack {@link ItemStack The current ItemStack}
+     * @param itemStack {@link ItemStack The current Item Stack}
      * @return {@link Integer 100}
      */
     public int getUseDuration(final @NotNull ItemStack itemStack) {
@@ -58,29 +59,29 @@ public class SculkHornItem extends Item {
     }
 
     /**
-     * Use the sculk horn
+     * Use the {@link Item Sculk Horn}
      *
      * @param level {@link Level The level reference}
-     * @param player {@link Player The player reference}
-     * @param hand {@link InteractionHand The hand used by the player}
+     * @param player {@link Player The player that is shooting the grenade}
+     * @param hand {@link InteractionHand The hand the player is shooting with}
      * @return {@link InteractionResultHolder<ItemStack> The interaction result}
      */
     public @NotNull InteractionResultHolder<ItemStack> use(final @NotNull Level level, final Player player, final @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
+        final ItemStack itemStack = player.getItemInHand(hand);
         player.startUsingItem(hand);
         sonicBoom(level, player);
-        PlayerHelper.playSound(player, SoundEvents.WARDEN_SONIC_BOOM);
-        ItemHelper.hurt(itemstack, player);
-        player.getCooldowns().addCooldown(this, getUseDuration(itemstack));
+        player.playSound(SoundEvents.WARDEN_SONIC_BOOM);
+        ItemHelper.hurt(itemStack, player);
+        ItemHelper.setCooldown(player, this, getUseDuration(itemStack));
         player.awardStat(Stats.ITEM_USED.get(this));
-        return InteractionResultHolder.consume(itemstack);
+        return InteractionResultHolder.consume(itemStack);
     }
 
     /**
-     * Spawn the sonic boom attack
+     * Make the {@link Player Player} use the {@link SonicBoom Sonic Boom attack}
      *
      * @param level {@link ServerLevel The level reference}
-     * @param player {@link Player The player using the horn}
+     * @param player {@link Player The player using the Sculk Horn}
      */
     private void sonicBoom(final Level level, final Player player) {
         if(!level.isClientSide) {
@@ -101,7 +102,8 @@ public class SculkHornItem extends Item {
                         final double knockbackResistanceY = 0.5D * (1.0D - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                         final double knockbackResistanceXZ = 2.5D * (1.0D - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                         entity.push(normalizedOffset.x() * knockbackResistanceXZ, normalizedOffset.y() * knockbackResistanceY, normalizedOffset.z() * knockbackResistanceXZ);
-                    });
+                    }
+            );
         }
     }
 

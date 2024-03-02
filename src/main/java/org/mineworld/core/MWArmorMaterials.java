@@ -1,5 +1,6 @@
 package org.mineworld.core;
 
+import com.google.common.base.Suppliers;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -11,58 +12,60 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.helper.KeyHelper;
+import org.mineworld.helper.ResourceHelper;
 
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
 /**
- * {@link MineWorld MineWorld} {@link ArmorMaterial armor materials}
+ * {@link MineWorld MineWorld} {@link ArmorMaterial Armor Materials}
  */
 public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
+
+    //#region Armor Materials
 
     COPPER("copper", 24, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 2);
         enumMap.put(ArmorItem.Type.LEGGINGS, 5);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 7);
         enumMap.put(ArmorItem.Type.HELMET, 3);
-    }), 9, SoundEvents.COPPER_HIT,1.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT)),
+    }), 9, MWSounds.ARMOR_EQUIP_COPPER,1.0F, 0.0F, Suppliers.memoize(() -> Ingredient.of(Items.COPPER_INGOT))),
     SILVER("silver", 24, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 2);
         enumMap.put(ArmorItem.Type.LEGGINGS, 5);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 7);
         enumMap.put(ArmorItem.Type.HELMET, 3);
-    }), 9, SoundEvents.ARMOR_EQUIP_GOLD,1.0F, 0.0F, () -> Ingredient.of(MWItems.SILVER_INGOT.get())),
+    }), 9, MWSounds.ARMOR_EQUIP_SILVER,1.0F, 0.0F, Suppliers.memoize(() -> Ingredient.of(MWItems.SILVER_INGOT.get()))),
     BRONZE("bronze", 11, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 1);
         enumMap.put(ArmorItem.Type.LEGGINGS, 4);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 5);
         enumMap.put(ArmorItem.Type.HELMET, 2);
-    }), 11, SoundEvents.ARMOR_EQUIP_IRON,0.0F, 0.0F, () -> Ingredient.of(MWItems.BRONZE_INGOT.get())),
+    }), 11, MWSounds.ARMOR_EQUIP_BRONZE,0.0F, 0.0F, Suppliers.memoize(() -> Ingredient.of(MWItems.BRONZE_INGOT.get()))),
     ALUMINUM("aluminum", 6, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 1);
         enumMap.put(ArmorItem.Type.LEGGINGS, 3);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 5);
         enumMap.put(ArmorItem.Type.HELMET, 2);
-    }), 11, SoundEvents.ARMOR_EQUIP_GENERIC,0.0F, 0.0F, () -> Ingredient.of(MWItems.ALUMINUM_INGOT.get())),
+    }), 11, MWSounds.ARMOR_EQUIP_ALUMINUM,0.0F, 0.0F, Suppliers.memoize(() -> Ingredient.of(MWItems.ALUMINUM_INGOT.get()))),
     EMERALD("emerald", 35, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 3);
         enumMap.put(ArmorItem.Type.LEGGINGS, 6);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 8);
         enumMap.put(ArmorItem.Type.HELMET, 3);
-    }), 13, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.5F, 0.05F, () -> Ingredient.of(Items.EMERALD)),
+    }), 13, MWSounds.ARMOR_EQUIP_EMERALD, 2.5F, 0.05F, Suppliers.memoize(() -> Ingredient.of(Items.EMERALD))),
     RUBY("ruby", 35, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 3);
         enumMap.put(ArmorItem.Type.LEGGINGS, 6);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 8);
         enumMap.put(ArmorItem.Type.HELMET, 3);
-    }), 13, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.5F, 0.05F, () -> Ingredient.of(MWItems.RUBY.get())),
+    }), 13, MWSounds.ARMOR_EQUIP_RUBY, 2.5F, 0.05F, Suppliers.memoize(() -> Ingredient.of(MWItems.RUBY.get()))),
     SAPPHIRE("sapphire", 35, Util.make(new EnumMap<>(ArmorItem.Type.class), (enumMap) -> {
         enumMap.put(ArmorItem.Type.BOOTS, 3);
         enumMap.put(ArmorItem.Type.LEGGINGS, 6);
         enumMap.put(ArmorItem.Type.CHESTPLATE, 8);
         enumMap.put(ArmorItem.Type.HELMET, 3);
-    }), 13, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.5F, 0.05F, () -> Ingredient.of(MWItems.SAPPHIRE.get())),
+    }), 13, MWSounds.ARMOR_EQUIP_SAPPHIRE, 2.5F, 0.05F, Suppliers.memoize(() -> Ingredient.of(MWItems.SAPPHIRE.get()))),
     CREEPER("creeper"),
     ZOMBIE("zombie"),
     HUSK("husk"),
@@ -74,6 +77,8 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
     WITCH("witch"),
     STRAW("straw"),
     INVISIBILITY_CLOAK("invisibility_cloak");
+
+    //#endregion
 
     /**
      * {@link StringRepresentable.EnumCodec The enum codec for this enum}
@@ -106,9 +111,9 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      */
     private final int enchantmentValue;
     /**
-     * {@link SoundEvent The armor equip sound}
+     * {@link Supplier<SoundEvent> The Supplier for the armor equip sound}
      */
-    private final SoundEvent sound;
+    private final Supplier<SoundEvent> soundSupplier;
     /**
      * {@link Float The armor thoughness}
      */
@@ -133,7 +138,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param name {@link String The armor material name}
      */
     MWArmorMaterials(final String name) {
-        this(name, SoundEvents.ARMOR_EQUIP_LEATHER);
+        this(name, SoundEvents.ARMOR_EQUIP_GENERIC);
     }
 
     /**
@@ -149,7 +154,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
             enumMap.put(ArmorItem.Type.LEGGINGS, 0);
             enumMap.put(ArmorItem.Type.CHESTPLATE, 0);
             enumMap.put(ArmorItem.Type.HELMET, 0);
-        }), 0, equipSound, 0.0F, 0.0F, () -> Ingredient.EMPTY);
+        }), 0, Suppliers.memoize(() -> equipSound), 0.0F, 0.0F, () -> Ingredient.EMPTY);
     }
 
     /**
@@ -159,17 +164,17 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @param durabilityMultiplier {@link Integer The armor material durability multiplier}
      * @param protectionFunctionForType {@link EnumMap The armor id protection values}
      * @param enchantmentValue {@link Integer The armor enchantment value}
-     * @param sound {@link SoundEvent The armor equip sound}
+     * @param soundSupplier {@link Supplier<SoundEvent> The Supplier for the armor equip sound}
      * @param thoughness {@link Float The armor thoughness}
      * @param knockbackResistance {@link Float The armor knockback resistance}
      * @param ingredient {@link LazyLoadedValue<Ingredient> The armor repair ingredient}
      */
-    MWArmorMaterials(final String name, final int durabilityMultiplier, final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, final int enchantmentValue, final SoundEvent sound, final float thoughness, final float knockbackResistance, final Supplier<Ingredient> ingredient) {
-        this.name = KeyHelper.location(name).toString();
+    MWArmorMaterials(final String name, final int durabilityMultiplier, final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, final int enchantmentValue, final Supplier<SoundEvent> soundSupplier, final float thoughness, final float knockbackResistance, final Supplier<Ingredient> ingredient) {
+        this.name = ResourceHelper.resourceLocation(name).toString();
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionFunctionForType = protectionFunctionForType;
         this.enchantmentValue = enchantmentValue;
-        this.sound = sound;
+        this.soundSupplier = soundSupplier;
         this.toughness = thoughness;
         this.knockbackResistance = knockbackResistance;
         this.repairIngredient = new LazyLoadedValue<>(ingredient);
@@ -211,7 +216,7 @@ public enum MWArmorMaterials implements StringRepresentable, ArmorMaterial {
      * @return {@link SoundEvent The armor equip sound}
      */
     public @NotNull SoundEvent getEquipSound() {
-        return this.sound;
+        return this.soundSupplier.get();
     }
 
     /**

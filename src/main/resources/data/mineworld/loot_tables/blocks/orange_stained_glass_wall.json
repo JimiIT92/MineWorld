@@ -29,5 +29,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/orange_stained_glass_wall"
 }

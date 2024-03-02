@@ -4,10 +4,10 @@
   "group": "hanging_sign",
   "key": {
     "#": {
-      "item": "minecraft:stripped_oak_log"
+      "item": "mineworld:stripped_palm_log"
     },
     "X": {
-      "item": "minecraft:chain"
+      "tag": "mineworld:chains"
     }
   },
   "pattern": [

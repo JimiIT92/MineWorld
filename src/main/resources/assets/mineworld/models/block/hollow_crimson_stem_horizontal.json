@@ -1,0 +1,9 @@
+{
+  "parent": "mineworld:block/hollow_cube_horizontal",
+  "textures": {
+    "end": "minecraft:block/crimson_stem_top",
+    "side": "minecraft:block/crimson_stem",
+    "inner": "minecraft:block/stripped_crimson_stem",
+    "particle": "minecraft:block/crimson_stem"
+  }
+}

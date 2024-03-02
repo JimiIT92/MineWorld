@@ -3,57 +3,60 @@ package org.mineworld.block.weathering;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
-import net.minecraft.world.level.block.WeatheringCopperSlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mineworld.MineWorld;
+import org.mineworld.helper.PropertyHelper;
+
+import java.util.function.Supplier;
 
 /**
- * Implementation class for a {@link WeatheringCopperSlabBlock weathering copper slab}
+ * {@link MineWorld MineWorld} {@link IMWWeatheringBlock Weathering} {@link SlabBlock Slab Block}
  */
 public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeatheringBlock, IMWWaxableBlock {
 
     /**
-     * {@link WeatheringCopper.WeatherState The stair weather state}
+     * {@link WeatheringCopper.WeatherState The Slab Weather State}
      */
     private final WeatheringCopper.WeatherState weatherState;
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param weatherState {@link WeatheringCopper.WeatherState The weather state}
-     * @param properties {@link BlockState The block properties}
+     * @param weatherState {@link WeatheringCopper.WeatherState The Weather State}
+     * @param blockStateSupplier {@link Supplier <BlockState> The Supplier for the Block State this Stair is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public MWWeatheringCopperSlabBlock(final WeatheringCopper.WeatherState weatherState, final BlockBehaviour.Properties properties) {
-        super(properties);
+    public MWWeatheringCopperSlabBlock(final WeatheringCopper.WeatherState weatherState, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        super(PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags));
         this.weatherState = weatherState;
     }
 
     /**
-     * Change the {@link WeatheringCopper.WeatherState weather state}
-     * on random tick
+     * Randomly ticks the Block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link ServerLevel The world reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param random {@link RandomSource The random reference}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param randomSource {@link RandomSource The random reference}
      */
     @Override
-    public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource random) {
-        IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, random);
+    public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
+        IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, randomSource);
     }
 
     /**
-     * Check if the block should randomly ticking
+     * Check if the Block should randomly ticking
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link Boolean True if there is another state}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Boolean True if the Block is not waxed and fully oxidized}
      */
     @Override
     public boolean isRandomlyTicking(final @NotNull BlockState blockState) {
@@ -61,9 +64,9 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
     }
 
     /**
-     * Get the block {@link WeatheringCopper.WeatherState weather state}
+     * Get the Block {@link WeatheringCopper.WeatherState Weather State}
      *
-     * @return {@link WeatheringCopper.WeatherState The block weather state}
+     * @return {@link #weatherState The Block Weather State}
      */
     @Override
     public @NotNull WeatheringCopper.WeatherState getAge() {
@@ -71,19 +74,18 @@ public class MWWeatheringCopperSlabBlock extends SlabBlock implements IMWWeather
     }
 
     /**
-     * Sets the previous {@link WeatheringCopper.WeatherState weather state}
-     * on right click with an {@link AxeItem axe}
+     * Get the {@link BlockState modified Block State} after interacting with a tool
      *
-     * @param state {@link BlockState The current block state}
-     * @param context {@link UseOnContext The id use context}
+     * @param blockState {@link BlockState The current Block State}
+     * @param context {@link UseOnContext The Item Use Context}
      * @param toolAction {@link ToolAction The tool action}
-     * @param isClient {@link Boolean If the code is executed client side}
-     * @return {@link BlockState The modified block state}
+     * @param isClient {@link Boolean If the action only happened on the Client}
+     * @return {@link BlockState The modified Block State}
      */
     @Override
-    public @Nullable BlockState getToolModifiedState(final BlockState state, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
-        final BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(state, context, toolAction, isClient);
-        return modifiedState != null ? modifiedState : super.getToolModifiedState(state, context, toolAction, isClient);
+    public @Nullable BlockState getToolModifiedState(final BlockState blockState, final UseOnContext context, final ToolAction toolAction, final boolean isClient) {
+        final BlockState modifiedState = IMWWeatheringBlock.getToolModifiedState(blockState, context, toolAction, isClient);
+        return modifiedState != null ? modifiedState : super.getToolModifiedState(blockState, context, toolAction, isClient);
     }
 
 }

@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,52 +24,50 @@ import net.minecraft.world.level.portal.PortalShape;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.level.BlockEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.world.dimension.MWTeleporter;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
- * Base class for a {@link MineWorld MineWorld} portal block
+ * {@link MineWorld MineWorld} {@link NetherPortalBlock Portal Block}
  */
 public abstract class MWPortalBlock extends NetherPortalBlock {
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public MWPortalBlock() {
-        super(PropertyHelper.copyFromBlock(Blocks.NETHER_PORTAL));
+        super(PropertyHelper.copy(Blocks.NETHER_PORTAL));
     }
 
     /**
-     * Get the {@link ItemStack block item stack}
+     * Get the {@link ItemStack Item Stack} for the inventory when the {@link Player player} middle mouse click the block
      *
-     * @param level {@link BlockGetter The block getter reference}
-     * @param pos {@link BlockPos The current block pos}
-     * @param state {@link BlockState The current block state}
-     * @return {@link ItemStack#EMPTY An empty item stack}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link ItemStack#EMPTY Empty Item Stack}
      */
     @Override
-    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter level, final @NotNull BlockPos pos, final @NotNull BlockState state) {
+    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         return ItemStack.EMPTY;
     }
 
     /**
      * Try to spawn a portal
      *
-     * @param level {@link LevelAccessor The level reference}
-     * @param pos {@link BlockPos The current block pos}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @return {@link Boolean True if a portal has been spawned}
      */
-    public boolean trySpawnPortal(final LevelAccessor level, final BlockPos pos) {
-        final MWPortalShape size = this.isPortal(level, pos);
-        if (size != null && !onTrySpawnPortal(level, pos, size)) {
+    public boolean trySpawnPortal(final LevelAccessor levelAccessor, final BlockPos blockPos) {
+        final MWPortalShape size = this.isPortal(levelAccessor, blockPos);
+        if (size != null && !onTrySpawnPortal(levelAccessor, blockPos, size)) {
             size.createPortalBlocks();
-            final SoundEvent portalSound = getPortalSound();
-            if(portalSound != null) {
-                level.playSound(null, pos, portalSound, SoundSource.HOSTILE);
-            }
+            getPortalSound().ifPresent(portalSound -> levelAccessor.playSound(null, blockPos, portalSound, SoundSource.BLOCKS));
             return true;
         }
         return false;
@@ -77,38 +76,38 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
     /**
      * Fire an event before trying to spawn a portal
      *
-     * @param level {@link LevelAccessor The level reference}
-     * @param pos {@link BlockPos The current block pos}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param shape {@link MWPortalShape The portal shape}
      * @return {@link Boolean True if the event has not been canceled}
      */
-    public static boolean onTrySpawnPortal(final LevelAccessor level, final BlockPos pos, final MWPortalShape shape) {
-        return MinecraftForge.EVENT_BUS.post(new BlockEvent.PortalSpawnEvent(level, pos, level.getBlockState(pos), shape));
+    public static boolean onTrySpawnPortal(final LevelAccessor levelAccessor, final BlockPos blockPos, final MWPortalShape shape) {
+        return MinecraftForge.EVENT_BUS.post(new BlockEvent.PortalSpawnEvent(levelAccessor, blockPos, levelAccessor.getBlockState(blockPos), shape));
     }
 
     /**
      * Check if there is a {@link MWPortalShape portal shape} at the current location
      *
-     * @param level {@link LevelAccessor The level reference}
-     * @param pos {@link BlockPos The current block pos}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @return {@link MWPortalShape The portal shape}
      */
     @Nullable
-    public MWPortalShape isPortal(final LevelAccessor level, final BlockPos pos) {
+    public MWPortalShape isPortal(final LevelAccessor levelAccessor, final BlockPos blockPos) {
         final TagKey<Block> portalBlocks = getPortalBlocks();
         final BlockState defaultPortalFrameState = getPortalFrameState();
-        final MWPortalShape shape = new MWPortalShape(level, pos, Direction.Axis.X, portalBlocks, defaultPortalFrameState);
+        final MWPortalShape shape = new MWPortalShape(levelAccessor, blockPos, Direction.Axis.X, portalBlocks, defaultPortalFrameState);
         if (shape.isValid() && shape.numPortalBlocks == 0) {
             return shape;
         }
-        final MWPortalShape zAxisShape = new MWPortalShape(level, pos, Direction.Axis.Z, portalBlocks, defaultPortalFrameState);
+        final MWPortalShape zAxisShape = new MWPortalShape(levelAccessor, blockPos, Direction.Axis.Z, portalBlocks, defaultPortalFrameState);
         return zAxisShape.isValid() && zAxisShape.numPortalBlocks == 0 ? zAxisShape : null;
     }
 
     /**
-     * Get the {@link TagKey<Block> portal block tags}
+     * Get the {@link TagKey<Block> portal blocks tag}
      *
-     * @return {@link TagKey<Block> The portal block tags}
+     * @return {@link TagKey<Block> The portal blocks tag}
      */
     public abstract TagKey<Block> getPortalBlocks();
 
@@ -129,9 +128,9 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
     /**
      * Get the {@link SoundEvent portal opening sound}
      *
-     * @return The {@link SoundEvent portal opening sound}
+     * @return {@link SoundEvent The portal opening sound}
      */
-    public abstract SoundEvent getPortalSound();
+    public abstract Optional<SoundEvent> getPortalSound();
 
     /**
      * Get the {@link MWTeleporter dimension teleporter}
@@ -142,47 +141,47 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
     public abstract MWTeleporter getTeleporter(final ServerLevel level);
 
     /**
-     * Update the {@link BlockState block state} based on neighbor updates
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param state {@link BlockState The current block state}
-     * @param direction {@link Direction The direction the update is coming from}
-     * @param neighborState {@link BlockState The neighbor block state}
-     * @param level {@link LevelAccessor The level reference}
-     * @param pos {@link BlockPos The current block pos}
-     * @param neighborPos {@link BlockPos The neighbor block pos}
-     * @return {@link BlockState The updated block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
     @Override
-    public @NotNull BlockState updateShape(final BlockState state, final Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor level, final @NotNull BlockPos pos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(final BlockState blockState, final Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
         final Direction.Axis axis = direction.getAxis();
-        final Direction.Axis stateAxis = state.getValue(AXIS);
-        return (stateAxis.equals(axis) || !axis.isHorizontal()) && neighborState.getBlock() != this && !(new MWPortalShape(level, pos, stateAxis, getPortalBlocks(), getPortalFrameState())).isComplete() ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        final Direction.Axis stateAxis = blockState.getValue(AXIS);
+        return (stateAxis.equals(axis) || !axis.isHorizontal()) && neighborBlockState.getBlock() != this && !(new MWPortalShape(levelAccessor, blockPos, stateAxis, getPortalBlocks(), getPortalFrameState())).isComplete() ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
 
     /**
-     * Teleport an entity when is inside the portal
+     * Teleport an {@link Entity Entity} if is inside the Block
      *
-     * @param state {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param level {@link Level The level reference}
-     * @param pos {@link BlockPos The current block pos}
-     * @param entity {@link Entity The entity that is inside the portal}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param entity {@link Entity The Entity inside the Block}
      */
     @Override
-    public void entityInside(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final Entity entity) {
+    public void entityInside(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final Entity entity) {
         if (!entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions()) {
             if (entity.isOnPortalCooldown()) {
                 entity.setPortalCooldown();
             } else {
                 final Level entityLevel = entity.level();
-                if (!entityLevel.isClientSide() && !pos.equals(entity.portalEntrancePos)) {
-                    entity.portalEntrancePos = pos.immutable();
+                if (!entityLevel.isClientSide() && !blockPos.equals(entity.portalEntrancePos)) {
+                    entity.portalEntrancePos = blockPos.immutable();
                 }
                 final MinecraftServer server = entityLevel.getServer();
                 final ResourceKey<Level> dimension = getDimension();
                 final ResourceKey<Level> destination = entityLevel.dimension().equals(dimension) ? Level.OVERWORLD : dimension;
                 if (server != null) {
-                    ServerLevel destinationLevel = server.getLevel(destination);
-                    if (destinationLevel != null && server.isNetherEnabled() && !entity.isPassenger()) {
+                    final ServerLevel destinationLevel = server.getLevel(destination);
+                    if (destinationLevel != null && !entity.isPassenger()) {
                         entityLevel.getProfiler().push(dimension.location().getPath() + "_portal");
                         entity.setPortalCooldown();
                         entity.changeDimension(destinationLevel, getTeleporter(destinationLevel));
@@ -231,7 +230,7 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
          */
         private int numPortalBlocks;
         /**
-         * {@link BlockPos The portal bottom left corner}
+         * {@link BlockPos The portal bottom left corner location}
          */
         private BlockPos bottomLeft;
         /**
@@ -247,14 +246,23 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
          */
         private final BlockBehaviour.StatePredicate FRAME;
         /**
-         * {@link TagKey<Block> The portal frame blocks}
+         * {@link TagKey<Block> The portal frame blocks tag}
          */
         private final TagKey<Block> PORTAL_BLOCKS;
         /**
-         * {@link BlockState The portal block state}
+         * {@link BlockState The portal frame Block State}
          */
         private final BlockState PORTAL_STATE;
 
+        /**
+         * Constructor. Set the {@link PortalShape portal shape} properties
+         *
+         * @param level {@link LevelAccessor The level reference}
+         * @param pos {@link BlockPos The current Block Pos}
+         * @param axis {@link Direction.Axis The portal axis}
+         * @param portalBlocks {@link TagKey<Block> The portal blocks tag}
+         * @param defaultFrameState {@link BlockState The portal frame Block State}
+         */
         public MWPortalShape(final LevelAccessor level, final BlockPos pos, final Direction.Axis axis, final TagKey<Block> portalBlocks, final BlockState defaultFrameState) {
             super(level, pos, axis);
             this.level = level;
@@ -279,19 +287,22 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
         /**
          * Get the {@link BlockPos portal bottom left corner}
          *
-         * @param pos {@link BlockPos The current block pos}
+         * @param blockPos {@link BlockPos The current Block Pos}
          * @return {@link BlockPos The portal bottom left corner}
          */
         @Nullable
-        private BlockPos calculateBottomLeft(BlockPos pos) {
-            for(int i = Math.max(this.level.getMinBuildHeight(), pos.getY() - MAX_HEIGHT); pos.getY() > i && isEmpty(this.level.getBlockState(pos.below())); pos = pos.below()) { }
+        private BlockPos calculateBottomLeft(BlockPos blockPos) {
+            int i = Math.max(this.level.getMinBuildHeight(), blockPos.getY() - MAX_HEIGHT);
+            while (blockPos.getY() > i && isEmpty(this.level.getBlockState(blockPos.below()))) {
+                blockPos = blockPos.below();
+            }
             final Direction direction = this.rightDirection.getOpposite();
-            final int distance = this.getDistanceUntilEdgeAboveFrame(pos, direction) - 1;
-            return distance < 0 ? null : pos.relative(direction, distance);
+            final int distance = this.getDistanceUntilEdgeAboveFrame(blockPos, direction) - 1;
+            return distance < 0 ? null : blockPos.relative(direction, distance);
         }
 
         /**
-         * Get the {@link Integer portal width}
+         * Calculate the {@link Integer portal width}
          *
          * @return {@link Integer The portal width}
          */
@@ -301,7 +312,7 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
         }
 
         /**
-         * Get the {@link Integer portal height}
+         * Calculate the {@link Integer portal height}
          *
          * @return {@link Integer The portal height}
          */
@@ -314,71 +325,67 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
         /**
          * Get the distance from the opposite portal frame
          *
-         * @param pos {@link BlockPos The current block pos}
+         * @param blockPos {@link BlockPos The current Block Pos}
          * @param direction {@link Direction The portal direction}
          * @return {@link Integer The distance from the opposite portal frame}
          */
-        private int getDistanceUntilEdgeAboveFrame(final BlockPos pos, final Direction direction) {
+        private int getDistanceUntilEdgeAboveFrame(final BlockPos blockPos, final Direction direction) {
             final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-
             for (int i = 0; i <= MAX_WIDTH; ++i) {
-                mutablePos.set(pos).move(direction, i);
-                final BlockState blockstate = this.level.getBlockState(mutablePos);
-                if (!isEmpty(blockstate)) {
-                    if (FRAME.test(blockstate, this.level, mutablePos)) {
+                mutablePos.set(blockPos).move(direction, i);
+                final BlockState blockState = this.level.getBlockState(mutablePos);
+                if (!isEmpty(blockState)) {
+                    if (FRAME.test(blockState, this.level, mutablePos)) {
                         return i;
                     }
                     break;
                 }
-
                 final BlockState belowBlockState = this.level.getBlockState(mutablePos.move(Direction.DOWN));
                 if (!FRAME.test(belowBlockState, this.level, mutablePos)) {
                     break;
                 }
             }
-
             return 0;
         }
 
         /**
          * Check if the portal has the top frame
          *
-         * @param pos {@link BlockPos The current block pos}
+         * @param blockPos {@link BlockPos The current Block Pos}
          * @param height {@link Integer The portal height}
          * @return {@link Boolean True if the portal has the top frame}
          */
-        private boolean hasTopFrame(final BlockPos.MutableBlockPos pos, final int height) {
+        private boolean hasTopFrame(final BlockPos.MutableBlockPos blockPos, final int height) {
             for (int i = 0; i < this.width; ++i) {
-                final BlockPos.MutableBlockPos mutablePos = pos.set(this.bottomLeft).move(Direction.UP, height).move(this.rightDirection, i);
+                final BlockPos.MutableBlockPos mutablePos = blockPos.set(this.bottomLeft).move(Direction.UP, height).move(this.rightDirection, i);
                 if (!FRAME.test(this.level.getBlockState(mutablePos), this.level, mutablePos)) {
                     return false;
                 }
             }
-
             return true;
         }
 
         /**
          * Get the distance until the top of the portal
          *
-         * @param pos {@link BlockPos The current block pos}
+         * @param blockPos {@link BlockPos The current Block Pos}
          * @return {@link Integer The distance until the top of the portal}
          */
-        private int getDistanceUntilTop(final BlockPos.MutableBlockPos pos) {
+        private int getDistanceUntilTop(final BlockPos.MutableBlockPos blockPos) {
             for (int i = 0; i < MAX_HEIGHT; ++i) {
-                pos.set(this.bottomLeft).move(Direction.UP, i).move(this.rightDirection, -1);
-                if (!FRAME.test(this.level.getBlockState(pos), this.level, pos)) {
+                blockPos.set(this.bottomLeft).move(Direction.UP, i).move(this.rightDirection, -1);
+                if (!FRAME.test(this.level.getBlockState(blockPos), this.level, blockPos)) {
                     return i;
                 }
 
-                pos.set(this.bottomLeft).move(Direction.UP, i).move(this.rightDirection, this.width);
-                if (!FRAME.test(this.level.getBlockState(pos), this.level, pos)) {
+                blockPos.set(this.bottomLeft).move(Direction.UP, i).move(this.rightDirection, this.width);
+                if (!FRAME.test(this.level.getBlockState(blockPos), this.level, blockPos)) {
                     return i;
                 }
 
                 for (int j = 0; j < this.width; ++j) {
-                    pos.set(this.bottomLeft).move(Direction.UP, i).move(this.rightDirection, j);
-                    final BlockState aboveBlockState = this.level.getBlockState(pos);
+                    blockPos.set(this.bottomLeft).move(Direction.UP, i).move(this.rightDirection, j);
+                    final BlockState aboveBlockState = this.level.getBlockState(blockPos);
                     if (!isEmpty(aboveBlockState)) {
                         return i;
                     }
@@ -393,13 +400,13 @@ public abstract class MWPortalBlock extends NetherPortalBlock {
         }
 
         /**
-         * Check if a {@link BlockState block state} is air, fire or a portal block
+         * Check if a {@link BlockState Block State} is {@link Blocks#AIR Air}, {@link Blocks#FIRE Fire} or a {@link #PORTAL_STATE portal frame block}
          *
-         * @param state {@link BlockState The block state to check}
-         * @return {@link Boolean True if is air, fire or a portal block}
+         * @param blockState {@link BlockState The current Block State}
+         * @return {@link Boolean True if is Air, Fire or a portal frame block}
          */
-        private boolean isEmpty(final BlockState state) {
-            return state.isAir() || state.is(BlockTags.FIRE) || state.is(PORTAL_STATE.getBlock());
+        private boolean isEmpty(final BlockState blockState) {
+            return blockState.isAir() || blockState.is(BlockTags.FIRE) || blockState.is(PORTAL_STATE.getBlock());
         }
 
         /**

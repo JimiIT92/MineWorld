@@ -4,10 +4,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmithingRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
@@ -19,16 +16,16 @@ import org.mineworld.core.MWRecipeTypes;
 import java.util.stream.Stream;
 
 /**
- * Record class for a {@link MineWorld MineWorld} forging recipe
+ * {@link MineWorld MineWorld} {@link SmithingRecipe Forging Recipe}
  */
 public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack result, int forgingTime, float experience) implements SmithingRecipe {
 
     /**
-     * Check if some ingredients matches a recipe
+     * Check if the {@link Container Container} {@link Ingredient Ingredients} matches a {@link Recipe Recipe}
      *
-     * @param container {@link Container The container with the ingredients}
+     * @param container {@link Container The Recipe Container}
      * @param level {@link Level The level reference}
-     * @return {@link Boolean True if the ingredients matches some recipe}
+     * @return {@link Boolean True if the Ingredients matches a Recipe}
      */
     @Override
     public boolean matches(final Container container, final @NotNull Level level) {
@@ -36,20 +33,20 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Get the {@link ItemStack recipe result} based on the matched recipe
+     * Get the {@link ItemStack Recipe result} based on the matched Recipe
      *
-     * @param container {@link Container The container for the recipe}
-     * @param registryAccess {@link RegistryAccess The registry access}
-     * @return {@link ItemStack The recipe result}
+     * @param container {@link Container The container for the Recipe}
+     * @param registryAccess {@link RegistryAccess The Registry access}
+     * @return {@link ItemStack The Recipe result}
      */
     @Override
     public @NotNull ItemStack assemble(final Container container, final @NotNull RegistryAccess registryAccess) {
-        ItemStack itemstack = this.result.copy();
-        CompoundTag compoundtag = container.getItem(0).getTag();
-        if (compoundtag != null) {
-            itemstack.setTag(compoundtag.copy());
+        final ItemStack itemStack = this.result.copy();
+        final CompoundTag nbt = container.getItem(0).getTag();
+        if (nbt != null) {
+            itemStack.setTag(nbt.copy());
         }
-        return itemstack;
+        return itemStack;
     }
 
     /**
@@ -57,7 +54,7 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
      *
      * @param width {@link Integer The crafting container width}
      * @param height {@link Integer The crafting container height}
-     * @return {@link Boolean True if the crafting container is consistent of 2 slots}
+     * @return {@link Boolean True if the crafting container is of the correct size}
      */
     @Override
     public boolean canCraftInDimensions(final int width, final int height) {
@@ -65,10 +62,10 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Get the {@link ItemStack recipe result}
+     * Get the {@link ItemStack Recipe result}
      *
-     * @param registryAccess {@link RegistryAccess The registry access}
-     * @return {@link ItemStack The recipe result}
+     * @param registryAccess {@link RegistryAccess The Registry access}
+     * @return {@link ItemStack The Recipe result}
      */
     @Override
     public @NotNull ItemStack getResultItem(final @NotNull RegistryAccess registryAccess) {
@@ -76,10 +73,10 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Check if an ingredient is a smithing template
+     * Check if an {@link Ingredient Ingredient} is a Smithing Template
      *
-     * @param itemStack {@link ItemStack The ingredient item stack}
-     * @return {@link Boolean False}
+     * @param itemStack {@link ItemStack The current Ingredient}
+     * @return {@link Boolean#FALSE False}
      */
     @Override
     public boolean isTemplateIngredient(final @NotNull ItemStack itemStack) {
@@ -87,10 +84,10 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Check if an {@link ItemStack ingredient} corresponds to a base ingredient
+     * Check if an {@link ItemStack Ingredient} corresponds to a {@link Ingredient Recipe Base Ingredient}
      *
-     * @param itemStack {@link ItemStack The ingredient}
-     * @return {@link Boolean True if the item stack corresponds to a base or addition ingredient}
+     * @param itemStack {@link ItemStack The current Ingredient}
+     * @return {@link Boolean True if the Item is a Recipe Base Ingredient}
      */
     @Override
     public boolean isBaseIngredient(final @NotNull ItemStack itemStack) {
@@ -98,10 +95,10 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Check if an {@link ItemStack ingredient} corresponds to an addition ingredient
+     * Check if an {@link ItemStack Ingredient} corresponds to a {@link Ingredient Recipe Addition Ingredient}
      *
-     * @param itemStack {@link ItemStack The ingredient}
-     * @return {@link Boolean True if the item stack corresponds to a base or addition ingredient}
+     * @param itemStack {@link ItemStack The current Ingredient}
+     * @return {@link Boolean True if the Item is a Recipe Addition Ingredient}
      */
     @Override
     public boolean isAdditionIngredient(final @NotNull ItemStack itemStack) {
@@ -109,19 +106,19 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Check if an {@link ItemStack ingredient} corresponds to an ingredient
+     * Check if an {@link ItemStack Ingredient} corresponds to a {@link Ingredient Recipe Ingredient}
      *
-     * @param itemStack {@link ItemStack The ingredient}
-     * @return {@link Boolean True if the item stack corresponds to a base or addition ingredient}
+     * @param itemStack {@link ItemStack The current Ingredient}
+     * @return {@link Boolean True if the Item is a Recipe Ingredient}
      */
     private boolean isIngredient(final ItemStack itemStack) {
         return this.base.test(itemStack) || this.addition.test(itemStack);
     }
 
     /**
-     * Get the {@link RecipeSerializer recipe serializer}
+     * Get the {@link RecipeSerializer Recipe Serializer}
      *
-     * @return {@link RecipeSerializer The recipe serializer}
+     * @return {@link RecipeSerializer The Recipe Serializer}
      */
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
@@ -129,9 +126,9 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Get the {@link ItemStack item stack to show on recipe unlocks}
+     * Get the {@link ItemStack Item Stack} to display on Recipe Toasts Notifications
      *
-     * @return {@link MWBlocks#FORGING_TABLE The forging table item stack}
+     * @return {@link MWBlocks#FORGING_TABLE The Forging Table Item Stack}
      */
     @Override
     public @NotNull ItemStack getToastSymbol() {
@@ -139,9 +136,9 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Check if the recipe is incomplete
+     * Check if the {@link Recipe Recipe} is incomplete
      *
-     * @return {@link Boolean True if there is a missing ingredient}
+     * @return {@link Boolean True if there is a missing Ingredient}
      */
     @Override
     public boolean isIncomplete() {
@@ -149,9 +146,9 @@ public record ForgingRecipe(Ingredient base, Ingredient addition, ItemStack resu
     }
 
     /**
-     * Get the {@link RecipeType recipe type}
+     * Get the {@link RecipeType Recipe Type}
      *
-     * @return {@link MWRecipeTypes#FORGING The forging table recipe type}
+     * @return {@link MWRecipeTypes#FORGING The Forging Table Recipe Type}
      */
     @Override
     public @NotNull RecipeType<?> getType() {

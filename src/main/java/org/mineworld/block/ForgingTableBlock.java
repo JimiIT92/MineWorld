@@ -14,15 +14,18 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlockEntityTypes;
 import org.mineworld.core.MWStats;
 import org.mineworld.entity.block.ForgingTableBlockEntity;
@@ -30,49 +33,51 @@ import org.mineworld.helper.ComponentHelper;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.inventory.ForgingTableMenu;
 
+import static net.minecraft.world.level.block.Blocks.SMITHING_TABLE;
+
 /**
- * Implementation class for a {@link BaseEntityBlock forging table block}
+ * {@link MineWorld MineWorld} {@link Block Forging Table Block}
  */
 public class ForgingTableBlock extends BaseEntityBlock {
 
     /**
-     * {@link Component The forging table screen title}
+     * {@link Component The Container Title}
      */
     public static final Component CONTAINER_TITLE = ComponentHelper.container("forging_table");
     /**
-     * {@link DirectionProperty The facing property}
+     * {@link DirectionProperty The facing direction property}
      */
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     /**
-     * {@link BooleanProperty The lit property}
+     * {@link Boolean The Block Lit property}
      */
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public ForgingTableBlock() {
-        super(PropertyHelper.copyFromBlock(Blocks.SMITHING_TABLE));
+        super(PropertyHelper.copy(SMITHING_TABLE));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.FALSE));
     }
 
     /**
-     * Get the {@link BlockState block state} for when the block is placed
+     * Get the {@link BlockState Block State} after the block has been placed
      *
-     * @param context {@link BlockPlaceContext The block place context}
-     * @return {@link BlockState The placed block state}
+     * @param placeContext {@link BlockPlaceContext The block place context}
+     * @return {@link BlockState The placed Block State}
      */
     @Override
-    public BlockState getStateForPlacement(final BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    public BlockState getStateForPlacement(final BlockPlaceContext placeContext) {
+        return this.defaultBlockState().setValue(FACING, placeContext.getHorizontalDirection().getOpposite());
     }
 
     /**
-     * Rotate the {@link BlockState block state} based on the {@link Rotation current rotation}
+     * Set the Block rotation when placed
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param rotation {@link Rotation The current rotation}
-     * @return {@link Rotation The rotated block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param rotation {@link Rotation The direction to rotate}
+     * @return {@link BlockState The rotated Block State}
      */
     @Override
     public @NotNull BlockState rotate(final BlockState blockState, final Rotation rotation) {
@@ -80,11 +85,11 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Mirror the {@link BlockState block state}
+     * Mirror the Block when placed
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param mirror {@link Mirror The current mirroring}
-     * @return {@link BlockState The mirrored block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param mirror {@link Mirror The mirror direction}
+     * @return {@link BlockState The mirrored Block State}
      */
     @Override
     public @NotNull BlockState mirror(final BlockState blockState, final Mirror mirror) {
@@ -92,9 +97,9 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Get the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state definition builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
@@ -102,10 +107,10 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Get the {@link RenderShape block render shape}
+     * Get the {@link RenderShape render shape} for this block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link RenderShape The block render shape}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link RenderShape#MODEL Model render shape}
      */
     @Override
     public @NotNull RenderShape getRenderShape(final @NotNull BlockState blockState) {
@@ -113,17 +118,17 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Drop the forging table contents on block removed
+     * Drop the {@link Block Block} content when its destroyed
      *
-     * @param blockState {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param newState {@link BlockState The updated block state}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param newBlockState {@link BlockState The updated Block State}
      * @param isMoving {@link Boolean If the block entity is moving}
      */
     @Override
-    public void onRemove(final BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final BlockState newState, final boolean isMoving) {
-        if (!blockState.is(newState.getBlock())) {
+    public void onRemove(final BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final BlockState newBlockState, final boolean isMoving) {
+        if (!blockState.is(newBlockState.getBlock())) {
             if (level.getBlockEntity(blockPos) instanceof ForgingTableBlockEntity blockEntity) {
                 if (level instanceof ServerLevel) {
                     Containers.dropContents(level, blockPos, blockEntity);
@@ -131,18 +136,16 @@ public class ForgingTableBlock extends BaseEntityBlock {
                 }
                 level.updateNeighbourForOutputSignal(blockPos, this);
             }
-
-            super.onRemove(blockState, level, blockPos, newState, isMoving);
+            super.onRemove(blockState, level, blockPos, newBlockState, isMoving);
         }
     }
 
-
     /**
-     * Get the {@link BlockEntity forging table block entity}
+     * Create the {@link ForgingTableBlockEntity Forging Table Block Entity}
      *
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link ForgingTableBlockEntity The forging table block entity}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link BlockEntity The Forging Table Block Entity}
      */
     @Nullable
     @Override
@@ -151,18 +154,18 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Open the forging table screen on right click
+     * Interact with the Block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param player {@link Player The player reference}
-     * @param hand {@link InteractionHand The hand the player is interacting with}
-     * @param blockHitResult {@link BlockHitResult The block hit result}
-     * @return {@link InteractionResult The interaction result}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player who interacted with the Block}
+     * @param hand {@link InteractionHand The hand the player has interacted with}
+     * @param hitResult {@link BlockHitResult The hit result for the block interaction}
+     * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
     @Override
-    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -174,15 +177,15 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Set the container custom name when the block is placed
+     * Place the {@link DoubleBlockHalf#UPPER Upper variant} when a {@link DoublePlantBlock Cattail} is placed
      *
-     * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @param placer {@link LivingEntity The entity that is placing the block}
-     * @param itemStack {@link ItemStack The block item stack}
+     * @param level {@link Level The Level reference}
+     * @param blockPos {@link BlockPos The current BlockPos}
+     * @param blockState {@link BlockState The current BlockState}
+     * @param entity {@link LivingEntity The Entity} who placed the {@link DoublePlantBlock Cattail}
+     * @param itemStack {@link ItemStack The ItemStack}
      */
-    public void setPlacedBy(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final LivingEntity placer, final ItemStack itemStack) {
+    public void setPlacedBy(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final LivingEntity entity, final ItemStack itemStack) {
         if (itemStack.hasCustomHoverName()) {
             BlockEntity blockentity = level.getBlockEntity(blockPos);
             if (blockentity instanceof ForgingTableBlockEntity blockEntity) {
@@ -192,13 +195,13 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Get the forging table ticker
+     * Get the related ticker for this block
      *
      * @param level {@link Level The level reference}
-     * @param blockState {@link BlockState The current block state}
-     * @param blockEntityType {@link BlockEntityType The block entity type}
-     * @return {@link BlockEntityTicker The block entity ticker}
-     * @param <T> {@link T The block entity ticker type}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockEntityType {@link BlockEntityType The Block Entity Type}
+     * @return {@link BlockEntityTicker The Block Entity Ticker}
+     * @param <T> {@link T The Block Entity Type}
      */
     @Nullable
     @Override
@@ -207,12 +210,12 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Get the {@link MenuProvider forging table menu provider}
+     * Get the {@link MenuProvider Block Menu Provider}
      *
-     * @param blockState {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @return {@link MenuProvider The forging table menu provider}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link MenuProvider The Woodcutter Menu Provider}
      */
     @Nullable
     @Override
@@ -221,22 +224,22 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     /**
-     * Check if the block has a comparator signal
+     * Check if the {@link Block Block} has a Comparator Signal
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link Boolean True}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Boolean#TRUE True}
      */
     public boolean hasAnalogOutputSignal(final @NotNull BlockState blockState) {
         return true;
     }
 
     /**
-     * Get the {@link Integer comparator signal}
+     * Get the {@link Integer Comparator Signal}
      *
-     * @param blockState {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @return {@link Integer The comparator signal}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Integer The Comparator Signal}
      */
     public int getAnalogOutputSignal(final @NotNull BlockState blockState, final Level level, final @NotNull BlockPos blockPos) {
         return ForgingTableMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(blockPos));

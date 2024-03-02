@@ -19,64 +19,64 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CoralBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.function.Supplier;
 
 /**
- * Implementation class for a {@link CoralBlock coral block} {@link FlowerPotBlock flower pot}.
+ * {@link MineWorld MineWorld} {@link FlowerPotBlock Coral Flower Pot}.
  * The coral inside the pot needs water to survive, otherwise it will turn into the dead variant
  */
 public class CoralFlowerPotBlock extends FlowerPotBlock {
 
     /**
-     * {@link BooleanProperty Whether this coral flower pot is dried}
+     * {@link BooleanProperty Whether this Coral Pot is dried}
      */
     public static final BooleanProperty DRIED = BooleanProperty.create("dried");
     /**
-     * {@link Supplier<Block> The dead coral flower pot variant}
+     * {@link Supplier<Block> The Supplier for the Dead Coral Pot variant}
      */
-    private final Supplier<? extends Block> deadCoralFlowerPot;
+    private final Supplier<? extends Block> deadCoralFlowerPotSupplier;
 
     /**
-     * Constructor. Set the {@link Supplier<Block> dead coral variant}
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param deadCoralFlowerPot {@link Supplier<Block> The dead coral flower pot variant}
-     * @param coral {@link Supplier<Block> The coral for this flower pot}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @param deadCoralFlowerPotSupplier {@link Supplier<Block> The Supplier for the Dead Coral Pot variant}
+     * @param coralSupplier {@link Supplier<Block> The Coral this Pot is referring to}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public CoralFlowerPotBlock(final Supplier<? extends Block> deadCoralFlowerPot, final Supplier<? extends Block> coral, final FeatureFlag... featureFlags) {
-        super(() -> (FlowerPotBlock) Blocks.FLOWER_POT, coral, PropertyHelper.copyFromBlock(Blocks.FLOWER_POT, featureFlags));
+    public CoralFlowerPotBlock(final Supplier<? extends Block> deadCoralFlowerPotSupplier, final Supplier<? extends Block> coralSupplier, final FeatureFlag... featureFlags) {
+        super(() -> (FlowerPotBlock) Blocks.FLOWER_POT, coralSupplier, PropertyHelper.copy(Blocks.FLOWER_POT, featureFlags));
         this.registerDefaultState(this.stateDefinition.any().setValue(DRIED, Boolean.FALSE));
-        this.deadCoralFlowerPot = deadCoralFlowerPot;
+        this.deadCoralFlowerPotSupplier = deadCoralFlowerPotSupplier;
     }
 
     /**
-     * Make the {@link CoralFlowerPotBlock coral flower pot} dried if interacted
-     * with a water bottle
+     * Interact with the Block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link ServerLevel The world reference}
-     * @param blockPos {@link BlockPos The flower pot block pos}
-     * @param player {@link Player The player who interacted with the flower pot}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player who interacted with the Block}
      * @param hand {@link InteractionHand The hand the player has interacted with}
      * @param hitResult {@link BlockHitResult The hit result for the block interaction}
-     * @return {@link InteractionResult The interaction result based on the id in the player's hand}
+     * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if(itemstack.is(Items.POTION) && PotionUtils.getPotion(itemstack).equals(Potions.WATER) && !blockState.getValue(DRIED)) {
-            final Item item = itemstack.getItem();
-            player.setItemInHand(hand, ItemUtils.createFilledResult(itemstack, player, new ItemStack(Items.GLASS_BOTTLE)));
+    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
+        final ItemStack heldItem = player.getItemInHand(hand);
+        if(heldItem.is(Items.POTION) && PotionUtils.getPotion(heldItem).equals(Potions.WATER) && !blockState.getValue(DRIED)) {
+            final Item item = heldItem.getItem();
+            player.setItemInHand(hand, ItemUtils.createFilledResult(heldItem, player, new ItemStack(Items.GLASS_BOTTLE)));
             player.awardStat(Stats.ITEM_USED.get(item));
             level.setBlockAndUpdate(blockPos, blockState.setValue(DRIED, Boolean.TRUE));
             level.playSound(null, blockPos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -87,56 +87,55 @@ public class CoralFlowerPotBlock extends FlowerPotBlock {
     }
 
     /**
-     * Checks if the flower pot is dried. If not schedule the next tick to see
-     * if the dead coral flwoer pot should be placed
+     * Checks if the Pot is dried. If not schedule the next tick to see
+     * if the Dead Coral Pot should be placed
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link ServerLevel The world reference}
-     * @param blockPos {@link BlockPos The flower pot block pos}
-     * @param neighborBlockState {@link BlockState The neighbor block state}
-     * @param par5 {@link Boolean Unused boolean value}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param isClient {@link Boolean If the Block has been placed only on the Client}
      */
     @Override
-    public void onPlace(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState neighborBlockState, boolean par5) {
+    public void onPlace(final BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState neighborBlockState, final boolean isClient) {
         if (!blockState.getValue(DRIED)) {
             level.scheduleTick(blockPos, this, 60 + level.getRandom().nextInt(40));
         }
     }
 
     /**
-     * Ticks randomly and if the {@link CoralFlowerPotBlock coral flower pot}
-     * isn't dried, the dead coral flower pot gets placed
+     * Ticks the Block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param level {@link ServerLevel The world reference}
-     * @param blockPos {@link BlockPos The flower pot block pos}
-     * @param random {@link RandomSource The random source reference}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param randomSource {@link RandomSource The random reference}
      */
     @Override
-    public void tick(BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
+    public void tick(final BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
         if (!blockState.getValue(DRIED)) {
-            level.setBlock(blockPos, this.deadCoralFlowerPot.get().defaultBlockState(), 2);
+            level.setBlock(blockPos, this.deadCoralFlowerPotSupplier.get().defaultBlockState(), 2);
         }
     }
 
     /**
-     * Makes the block randomly ticking if is not dried
+     * Check if the Block should randomly ticking
      *
-     * @param blockState {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @return {@link Boolean True if is not dried}
      */
     @Override
-    public boolean isRandomlyTicking(BlockState blockState) {
+    public boolean isRandomlyTicking(final BlockState blockState) {
         return !blockState.getValue(DRIED);
     }
 
     /**
-     * Create the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(DRIED);
     }
 

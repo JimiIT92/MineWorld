@@ -13,36 +13,30 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.helper.PropertyHelper;
 
 /**
- * Implementation class for a sculk root block
+ * {@link MineWorld MineWorld} {@link BushBlock Sculk Root Block}
  */
 public class SculkRootBlock extends BushBlock {
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public SculkRootBlock() {
-        super(BlockBehaviour.Properties.of()
-                .mapColor(MapColor.COLOR_CYAN)
-                .replaceable()
-                .noCollission()
-                .instabreak()
-                .sound(SoundType.SCULK)
-                .offsetType(BlockBehaviour.OffsetType.XZ)
-                .pushReaction(PushReaction.DESTROY)
-        );
+        super(PropertyHelper.block(MapColor.COLOR_CYAN, 0F, 0F, false, SoundType.SCULK).replaceable().noCollission().ignitedByLava().offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY));
     }
 
     /**
-     * Get the {@link VoxelShape block shape}
+     * Get the {@link VoxelShape Block Shape}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param collisionContext {@link CollisionContext The collision context}
-     * @return {@link VoxelShape The block shape}
+     * @return {@link VoxelShape The Block Shape}
      */
     @Override
     public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
@@ -50,15 +44,16 @@ public class SculkRootBlock extends BushBlock {
     }
 
     /**
-     * Check if the bush can be placed on a certain block
+     * Check if the Block can be placed at the given {@link BlockPos location}
      *
-     * @param state {@link BlockState The block state where the bush is being placed on}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @return {@link Boolean True if the bush can be placed on top of the provided block}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if the Block can be placed}
      */
     @Override
-    protected boolean mayPlaceOn(final @NotNull BlockState state, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
-        return state.is(Blocks.SCULK) || state.is(MWBlocks.SCULK_SOIL.get()) || super.mayPlaceOn(state, blockGetter, blockPos);
+    protected boolean mayPlaceOn(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
+        return blockState.is(Blocks.SCULK) || blockState.is(MWBlocks.SCULK_SOIL.get()) || super.mayPlaceOn(blockState, blockGetter, blockPos);
     }
+
 }

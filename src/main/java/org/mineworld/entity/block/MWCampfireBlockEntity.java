@@ -5,26 +5,32 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlockEntityTypes;
 
+/**
+ * {@link MineWorld MineWorld} {@link CampfireBlockEntity Campfire Block Entity}
+ */
 public class MWCampfireBlockEntity extends CampfireBlockEntity {
 
     /**
-     * Constructor. Set the block entity properties
+     * Constructor. Set the Block Entity properties
      *
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param state {@link BlockState The current BlockState}
+     * @param blockPos {@link BlockPos The Block Entity Block POs}
+     * @param blockState {@link BlockState The Block State for the Block Entity}
      */
-    public MWCampfireBlockEntity(final BlockPos pos, final BlockState state) {
-        super(pos, state);
+    public MWCampfireBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+        super(blockPos, blockState);
     }
 
     /**
-     * Get the {@link BlockEntityType campfire block entity type}
-     * @return {@link MWBlockEntityTypes#CAMPFIRE The campfire block entity type}
+     * Get the {@link BlockEntityType Block Entity Type}
+     *
+     * @return {@link MWBlockEntityTypes#CAMPFIRE The Campfire Block Entity Type}
      */
     @Override
     public @NotNull BlockEntityType<?> getType() {
         return MWBlockEntityTypes.CAMPFIRE.get();
     }
+
 }

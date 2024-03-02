@@ -4,35 +4,33 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.common.PlantType;
+import org.mineworld.core.MWTreeGrowers;
 import org.mineworld.helper.PropertyHelper;
-import org.mineworld.world.worldgen.tree.PalmTreeGrower;
 
 /**
- * Implementation class for a {@link SaplingBlock palm sapling block}
+ * Implementation class for a {@link SaplingBlock Palm Sapling Block}
  */
 public class PalmSaplingBlock extends SaplingBlock {
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public PalmSaplingBlock() {
-        super(new PalmTreeGrower(), PropertyHelper.copyFromBlock(Blocks.JUNGLE_SAPLING));
+        super(MWTreeGrowers.PALM_TREE_GROWER.get(), PropertyHelper.copy(Blocks.JUNGLE_SAPLING));
     }
 
     /**
-     * Check if the bush can be placed on a certain block
+     * Get the {@link PlantType plant type}
      *
-     * @param state {@link BlockState The block state where the bush is being placed on}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @return {@link Boolean True if the bush can be placed on top of the provided block}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link PlantType#NETHER The Nether plant type}
      */
     @Override
-    protected boolean mayPlaceOn(final @NotNull BlockState state, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
-        return state.is(Tags.Blocks.SAND) || super.mayPlaceOn(state, blockGetter, blockPos);
+    public PlantType getPlantType(final BlockGetter blockGetter, final BlockPos blockPos) {
+        return PlantType.DESERT;
     }
 
 }

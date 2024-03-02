@@ -11,39 +11,40 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mineworld.MineWorld;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
- * Implementation class for an id for emerald trades based on the {@link VillagerType villager type}
+ * {@link MineWorld MineWorld} {@link Item Item} for Emerald Villager Trade
  */
 public class MWItemsForVillagerTypeEmerald implements VillagerTrades.ItemListing {
 
     /**
-     * {@link Map The villager trades}
+     * {@link Map The Villager trades}
      */
     private final Map<VillagerType, Item> trades;
     /**
-     * {@link Integer The amount of items to get}
+     * {@link Integer The amount of Items to get}
      */
     private final int amount;
     /**
-     * {@link Integer The maximum amount of times the recipe can be traded}
+     * {@link Integer The maximum amount of Times the Item can be traded}
      */
     private final int maxUses;
     /**
-     * {@link Integer The amount of xp the villager will get from this trade}
+     * {@link Integer The amount of experience the villager will get from the Trade}
      */
     private final int villagerXp;
 
     /**
-     * Constructor. Set the trade properties
+     * Constructor. Set the Trade Properties
      *
-     * @param amount {@link Integer The amount of items to get}
-     * @param maxUses {@link Integer The maximum amount of times the recipe can be traded}
-     * @param villagerXp {@link Integer The amount of xp the villager will get from this trade}
-     * @param trades {@link Map The villager trades}
+     * @param amount {@link Integer The amount of Items to get}
+     * @param maxUses {@link Integer The maximum amount of Times the Item can be traded}
+     * @param villagerXp {@link Integer The amount of experience the villager will get from the Trade}
+     * @param trades {@link Map The Villager trades}
      */
     public MWItemsForVillagerTypeEmerald(final int amount, final int maxUses, final int villagerXp, final Map<VillagerType, Item> trades) {
         BuiltInRegistries.VILLAGER_TYPE.stream().filter((p_35680_) -> !trades.containsKey(p_35680_)).findAny().ifPresent((p_258962_) -> {
@@ -56,11 +57,11 @@ public class MWItemsForVillagerTypeEmerald implements VillagerTrades.ItemListing
     }
 
     /**
-     * Get the {@link MerchantOffer trade merchant offer}
+     * Get the {@link MerchantOffer Trade Merchant Offer}
      *
-     * @param trader {@link Entity The entity trading}
-     * @param random {@link RandomSource The random reference}
-     * @return {@link MerchantOffer The merchant trade}
+     * @param trader {@link Entity The Entity Trading}
+     * @param random {@link RandomSource The Random reference}
+     * @return {@link MerchantOffer The Merchant Trade Offer}
      */
     @Nullable
     public MerchantOffer getOffer(final @NotNull Entity trader, final @NotNull RandomSource random) {

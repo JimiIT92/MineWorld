@@ -26,5 +26,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/packed_ice_pointed_dripstone"
 }

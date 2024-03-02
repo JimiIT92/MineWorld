@@ -16,38 +16,39 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWWoodTypes;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.entity.vehicle.MWMinecartChest;
-import org.mineworld.entity.vehicle.MWMinecartTNT;
+import org.mineworld.entity.vehicle.MWMinecartTnt;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
 /**
- * Implementation class for a {@link MinecartItem minecart id}
+ * {@link MineWorld MineWorld} class for {@link MinecartItem Minecart Item}
  */
 public class MWMinecartItem extends Item {
 
     /**
-     * {@link Type The minecart type}
+     * {@link Type The Minecart Type}
      */
     private final Type type;
 
     /**
-     * Constructor. Set the {@link Type minecart type}
+     * Constructor. Set the {@link Properties Item Properties}
      *
      * @param type {@link Type The minecart type}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      */
     public MWMinecartItem(final Type type, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.basicItemProperties(featureFlags).stacksTo(1));
+        super(PropertyHelper.item(featureFlags).stacksTo(1));
         this.type = type;
     }
 
     /**
      * Place the minecart
      *
-     * @param context {@link UseOnContext The id use on context}
+     * @param context {@link UseOnContext The Use On Context}
      * @return {@link InteractionResult Interaction result}
      */
     public @NotNull InteractionResult useOn(final UseOnContext context) {
@@ -60,12 +61,12 @@ public class MWMinecartItem extends Item {
             final ItemStack itemstack = context.getItemInHand();
             if (!level.isClientSide) {
                 final RailShape railshape = blockstate.getBlock() instanceof BaseRailBlock ? ((BaseRailBlock)blockstate.getBlock()).getRailDirection(blockstate, level, blockpos, null) : RailShape.NORTH_SOUTH;
-                AbstractMinecart abstractminecart = createMinecart(level, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.0625D + (railshape.isAscending() ? 0.5D : 0), (double)blockpos.getZ() + 0.5D, this.type);
+                final AbstractMinecart minecart = createMinecart(level, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.0625D + (railshape.isAscending() ? 0.5D : 0), (double)blockpos.getZ() + 0.5D, this.type);
                 if (itemstack.hasCustomHoverName()) {
-                    abstractminecart.setCustomName(itemstack.getHoverName());
+                    minecart.setCustomName(itemstack.getHoverName());
                 }
 
-                level.addFreshEntity(abstractminecart);
+                level.addFreshEntity(minecart);
                 level.gameEvent(GameEvent.ENTITY_PLACE, blockpos, GameEvent.Context.of(context.getPlayer(), level.getBlockState(blockpos.below())));
             }
 
@@ -75,41 +76,41 @@ public class MWMinecartItem extends Item {
     }
 
     /**
-     * Create a {@link AbstractMinecart minecart} based on the {@link Type type}
+     * Create a {@link AbstractMinecart Minecart} based on the {@link Type type}
      *
      * @param level {@link Level The level reference}
-     * @param posX {@link Double The entity X coordinate}
-     * @param posY {@link Double The entity Y coordinate}
-     * @param posZ {@link Double The entity Z coordinate}
+     * @param x {@link Double The minecart X coordinate}
+     * @param y {@link Double The minecart Y coordinate}
+     * @param z {@link Double The minecart Z coordinate}
      * @param type {@link Type The minecart type}
      * @return {@link AbstractMinecart The minecart entity}
      */
-    private static AbstractMinecart createMinecart(final Level level, final double posX, final double posY, final double posZ, final Type type) {
+    private static AbstractMinecart createMinecart(final Level level, final double x, final double y, final double z, final Type type) {
         return switch (type) {
-            case MEGA_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.MEGA);
-            case SUPER_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.SUPER);
-            case HYPER_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.HYPER);
-            case DISGUISED_GRASS_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_GRASS);
-            case DISGUISED_DIRT_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_DIRT);
-            case DISGUISED_SAND_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_SAND);
-            case DISGUISED_RED_SAND_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_RED_SAND);
-            case DISGUISED_STONE_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_STONE);
-            case DISGUISED_CAKE_TNT -> new MWMinecartTNT(level, posX, posY, posZ, MWPrimedTnt.Type.DISGUISED_CAKE);
-            case SPRUCE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.SPRUCE);
-            case BIRCH_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.BIRCH);
-            case JUNGLE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.JUNGLE);
-            case ACACIA_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.ACACIA);
-            case DARK_OAK_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.DARK_OAK);
-            case MANGROVE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.MANGROVE);
-            case CHERRY_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.CHERRY);
-            case BAMBOO_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.BAMBOO);
-            case CRIMSON_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.CRIMSON);
-            case WARPED_CHEST -> new MWMinecartChest(level, posX, posY, posZ, WoodType.WARPED);
-            case APPLE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.APPLE);
-            case PALM_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.PALM);
-            case DEAD_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.DEAD);
-            case ICE_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.ICE);
-            case SCULK_CHEST -> new MWMinecartChest(level, posX, posY, posZ, MWWoodTypes.SCULK.get());
+            case MEGA_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.MEGA);
+            case SUPER_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.SUPER);
+            case HYPER_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.HYPER);
+            case DISGUISED_GRASS_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_GRASS);
+            case DISGUISED_DIRT_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_DIRT);
+            case DISGUISED_SAND_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_SAND);
+            case DISGUISED_RED_SAND_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_RED_SAND);
+            case DISGUISED_STONE_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_STONE);
+            case DISGUISED_CAKE_TNT -> new MWMinecartTnt(level, x, y, z, MWPrimedTnt.Type.DISGUISED_CAKE);
+            case SPRUCE_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.SPRUCE);
+            case BIRCH_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.BIRCH);
+            case JUNGLE_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.JUNGLE);
+            case ACACIA_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.ACACIA);
+            case DARK_OAK_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.DARK_OAK);
+            case MANGROVE_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.MANGROVE);
+            case CHERRY_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.CHERRY);
+            case BAMBOO_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.BAMBOO);
+            case CRIMSON_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.CRIMSON);
+            case WARPED_CHEST -> new MWMinecartChest(level, x, y, z, WoodType.WARPED);
+            case APPLE_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.APPLE.get());
+            case PALM_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.PALM.get());
+            case DEAD_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.DEAD.get());
+            case ICE_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.ICE.get());
+            case SCULK_CHEST -> new MWMinecartChest(level, x, y, z, MWWoodTypes.SCULK.get());
         };
     }
 

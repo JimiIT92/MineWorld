@@ -20,27 +20,27 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Map;
 
 /**
- * {@link MineWorld MineWorld} class for a side panel block
+ * {@link MineWorld MineWorld} {@link Block Side Panel Block}
  */
 public class SidePanelBlock extends Block {
 
     /**
-     * {@link DirectionProperty The block facing property}
+     * {@link DirectionProperty The facing direction property}
      */
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     /**
-     * {@link BooleanProperty The block waterlogged property}
+     * {@link BooleanProperty The Block Waterlogged property}
      */
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /**
-     * {@link VoxelShape The block shape based on direction}
+     * {@link VoxelShape The Block Shape based on direction}
      */
     private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(
             ImmutableMap.of(
@@ -52,9 +52,9 @@ public class SidePanelBlock extends Block {
     );
 
     /**
-     * Constructor. Set the {@link BlockBehaviour.Properties block properties}
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param properties {@link BlockBehaviour.Properties The block properties}
+     * @param properties {@link BlockBehaviour.Properties The Block Properties}
      */
     public SidePanelBlock(final Properties properties) {
         super(properties);
@@ -62,13 +62,13 @@ public class SidePanelBlock extends Block {
     }
 
     /**
-     * Get the {@link VoxelShape block shape}
+     * Get the {@link VoxelShape Block Shape}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param collisionContext {@link CollisionContext The collision context}
-     * @return {@link VoxelShape The block shape}
+     * @return {@link VoxelShape The Block Shape}
      */
     @Override
     public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
@@ -76,33 +76,33 @@ public class SidePanelBlock extends Block {
     }
 
     /**
-     * Check if the block can survive at the current location
+     * Check if the Block can stay at the given {@link BlockPos location}
      *
-     * @param state {@link BlockState The current block state}
-     * @param level {@link LevelReader The level reader reference}
-     * @param pos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param levelReader {@link LevelReader The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @return {@link Boolean True if the block can survive}
      */
     @Override
-    public boolean canSurvive(final BlockState state, final LevelReader level, final BlockPos pos) {
-        return level.getBlockState(pos.relative(state.getValue(FACING).getOpposite())).isSolid();
+    public boolean canSurvive(final BlockState blockState, final LevelReader levelReader, final BlockPos blockPos) {
+        return levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING).getOpposite())).isSolid();
     }
 
     /**
-     * Get the {@link BlockState placed state} based on neighbors
+     * Get the {@link BlockState Block State} after the block has been placed
      *
-     * @param context {@link BlockPlaceContext The block place context}
-     * @return {@link BlockState The placed state}
+     * @param placeContext {@link BlockPlaceContext The block place context}
+     * @return {@link BlockState The placed Block State}
      */
     @Override
     @Nullable
-    public BlockState getStateForPlacement(final BlockPlaceContext context) {
+    public BlockState getStateForPlacement(final BlockPlaceContext placeContext) {
         BlockState blockState = this.defaultBlockState();
-        final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        final LevelReader level = context.getLevel();
-        final BlockPos pos = context.getClickedPos();
+        final FluidState fluidState = placeContext.getLevel().getFluidState(placeContext.getClickedPos());
+        final LevelReader level = placeContext.getLevel();
+        final BlockPos pos = placeContext.getClickedPos();
 
-        for(Direction direction : Arrays.stream(context.getNearestLookingDirections()).filter(direction -> direction.getAxis().isHorizontal()).toList()) {
+        for(Direction direction : Arrays.stream(placeContext.getNearestLookingDirections()).filter(direction -> direction.getAxis().isHorizontal()).toList()) {
             blockState = blockState.setValue(FACING, direction.getOpposite());
             if (blockState.canSurvive(level, pos)) {
                 return blockState.setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
@@ -113,49 +113,49 @@ public class SidePanelBlock extends Block {
     }
 
     /**
-     * Update the block based on neighbor updates
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param state {@link BlockState The current block state}
-     * @param direction {@link Direction The update direction}
-     * @param neighborState {@link BlockState The neighbor block state}
-     * @param level {@link LevelAccessor The world reference}
-     * @param pos {@link BlockPos The current block pos}
-     * @param neighborPos {@link BlockPos The neighbor block pos}
-     * @return {@link BlockState The updated block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
     @Override
-    public @NotNull BlockState updateShape(final BlockState state, final Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor level, final @NotNull BlockPos pos, final @NotNull BlockPos neighborPos) {
-        return direction.getOpposite().equals(state.getValue(FACING)) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    public @NotNull BlockState updateShape(final BlockState blockState, final Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
+        return direction.getOpposite().equals(blockState.getValue(FACING)) && !blockState.canSurvive(levelAccessor, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
 
     /**
-     * Set the panel rotation when placed
+     * Set the Block rotation when placed
      *
-     * @param state {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param rotation {@link Rotation The direction to rotate}
-     * @return {@link BlockState The rotated block state}
+     * @return {@link BlockState The rotated Block State}
      */
     @Override
-    public @NotNull BlockState rotate(final BlockState state, final Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    public @NotNull BlockState rotate(final BlockState blockState, final Rotation rotation) {
+        return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
     }
 
     /**
-     * Mirror the panel when placed
+     * Mirror the Block when placed
      *
-     * @param state {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param mirror {@link Mirror The mirror direction}
-     * @return {@link BlockState The mirrored block state}
+     * @return {@link BlockState The mirrored Block State}
      */
     @Override
-    public @NotNull BlockState mirror(final BlockState state, final Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    public @NotNull BlockState mirror(final BlockState blockState, final Mirror mirror) {
+        return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
     }
 
     /**
-     * Create the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {

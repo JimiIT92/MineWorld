@@ -6,7 +6,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -28,26 +27,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWParticleTypes;
 import org.mineworld.core.MWSounds;
 import org.mineworld.entity.goal.MWFlyingMobLookingGoal;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 /**
- * Implementation class for a Reaper Entity
+ * {@link MineWorld MineWorld} {@link Reaper Reaper}
  */
 public class Reaper extends Monster {
 
     /**
-     * The {@link EntityDataAccessor<Byte> Reaper data accessor flags}
+     * {@link EntityDataAccessor<Byte> The Reaper Flags data value}
      */
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Reaper.class, EntityDataSerializers.BYTE);
     /**
-     * {@link Boolean The charging flag value}
+     * The {@link Boolean Charging Flag value}
      */
     private static final int FLAG_IS_CHARGING = 1;
     /**
@@ -68,9 +68,9 @@ public class Reaper extends Monster {
     public int chargeAnimationStateTimeout = 0;
 
     /**
-     * Constructor. Set the entity properties
+     * Constructor. Set the {@link EntityType Entity Type}
      *
-     * @param entityType {@link EntityType<Reaper> The Reaper entity type}
+     * @param entityType {@link EntityType The Entity Type}
      * @param level {@link Level The level reference}
      */
     public Reaper(final EntityType<Reaper> entityType, final Level level) {
@@ -81,7 +81,7 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Constructor. Set the entity properties
+     * Constructor. Set the {@link EntityType Entity Type}
      *
      * @param level {@link Level The level reference}
      */
@@ -90,11 +90,11 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Get the {@link Float entity eye height}
+     * Get the {@link Float Entity Standing Eye height}
      *
-     * @param pose {@link Pose The entity pose}
-     * @param size {@link EntityDimensions The entity size}
-     * @return {@link Float The entity eye height}
+     * @param pose {@link Pose The Entity Pose}
+     * @param size {@link EntityDimensions The Entity dimensions}
+     * @return {@link Float The Entity Standing Eye height}
      */
     @Override
     protected float getStandingEyeHeight(final @NotNull Pose pose, final EntityDimensions size) {
@@ -102,7 +102,7 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Register the entity goals
+     * Register the {@link Goal Entity Goals}
      */
     @Override
     protected void registerGoals() {
@@ -118,21 +118,21 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Make the entity immune to fall damage
+     * Calculate the {@link Entity Entity} {@link Integer fall damage}
      *
-     * @param par1 {@link Float Unused first parameter}
-     * @param par2 {@link Float Unused second parameter}
+     * @param distance {@link Float The fall distance}
+     * @param damageMultiplier {@link Float The damage multiplier}
      * @return {@link Integer 0}
      */
     @Override
-    protected int calculateFallDamage(final float par1, final float par2) {
+    protected int calculateFallDamage(final float distance, final float damageMultiplier) {
         return 0;
     }
 
     /**
-     * Get the {@link AttributeSupplier.Builder attributes builder}
+     * Get the {@link AttributeSupplier.Builder Entity Attributes Builder}
      *
-     * @return The {@link AttributeSupplier.Builder attributes builder}
+     * @return {@link AttributeSupplier.Builder The Entity Attributes Builder}
      */
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
@@ -143,7 +143,7 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Show some smoke particles around the {@link Reaper Reaper}
+     * Make the {@link Goal Entity Goals} tick
      */
     @Override
     public void aiStep() {
@@ -155,7 +155,7 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Check if the entity is charging
+     * Check if the {@link Reaper Reaper} is charging
      *
      * @return {@link Boolean True if is charging}
      */
@@ -164,16 +164,16 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Set the entity charging value
+     * Set the {@link Reaper Reaper} charging value
      *
-     * @param isCharging {@link Boolean If the entity is charging}
+     * @param isCharging {@link Boolean If the Reaper is charging}
      */
     public void setCharging(final boolean isCharging) {
         this.setReaperFlag(FLAG_IS_CHARGING, isCharging);
     }
 
     /**
-     * Define the entity data
+     * Define the {@link Entity Entity} Data
      */
     @Override
     protected void defineSynchedData() {
@@ -182,10 +182,10 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Check if a {@link Reaper Reaper flag} is active
+     * Get a {@link Reaper Reaper} Flag value
      *
-     * @param flag {@link Integer The flag value}
-     * @return {@link Boolean True if the flag is active}
+     * @param flag {@link Integer The Flag Id}
+     * @return {@link Boolean True if the Flag is active}
      */
     private boolean getReaperFlag(final int flag) {
         final int value = this.entityData.get(DATA_FLAGS_ID);
@@ -193,10 +193,10 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Set a {@link Reaper Reaper flag}
+     * Set a {@link Reaper Reaper} Flag
      *
-     * @param flag {@link Integer The flag value}
-     * @param isActive {@link Boolean If the flag is active}
+     * @param flag {@link Integer The Flag Id}
+     * @param isActive {@link Boolean If the Flag is active}
      */
     private void setReaperFlag(final int flag, final boolean isActive) {
         int value = this.entityData.get(DATA_FLAGS_ID);
@@ -210,26 +210,26 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Finalize the entity spawn
+     * Finalize the {@link Entity Entity} spawn
      *
-     * @param level {@link ServerLevelAccessor The level reference}
+     * @param levelAccessor {@link ServerLevelAccessor The level reference}
      * @param difficulty {@link DifficultyInstance The difficulty reference}
      * @param spawnType {@link MobSpawnType The spawn type}
      * @param spawnGroupData {@link SpawnGroupData The spawn group data}
-     * @param nbt {@link CompoundTag The entity nbt tag}
+     * @param nbt {@link CompoundTag The Entity NBT Data}
      * @return {@link SpawnGroupData The spawn group data}
      */
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(final ServerLevelAccessor level, final @NotNull DifficultyInstance difficulty, final @NotNull MobSpawnType spawnType, final @Nullable SpawnGroupData spawnGroupData, final @Nullable CompoundTag nbt) {
-        RandomSource randomsource = level.getRandom();
+    public SpawnGroupData finalizeSpawn(final ServerLevelAccessor levelAccessor, final @NotNull DifficultyInstance difficulty, final @NotNull MobSpawnType spawnType, final @Nullable SpawnGroupData spawnGroupData, final @Nullable CompoundTag nbt) {
+        RandomSource randomsource = levelAccessor.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, difficulty);
         this.populateDefaultEquipmentEnchantments(randomsource, difficulty);
         return spawnGroupData;
     }
 
     /**
-     * Equip the Reaper with a {@link Items#STONE_HOE Stone Hoe}
+     * Equip the {@link Entity Entity} with some items
      *
      * @param random {@link RandomSource The random reference}
      * @param difficulty {@link DifficultyInstance The difficulty reference}
@@ -241,7 +241,7 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Check if the entity should despawn in peaceful mode
+     * Check if the {@link Entity Entity} should respawn in peaceful mode
      *
      * @return {@link Boolean#TRUE True}
      */
@@ -251,9 +251,9 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Get the {@link Float entity riding offset}
+     * Get the {@link Float Entity Riding Offset}
      *
-     * @param entity {@link Entity The vehicle entity}
+     * @param entity {@link Entity The Vehicle Entity}
      * @return {@link Float 0.4F}
      */
     @Override
@@ -262,12 +262,12 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Get the passenger attachment point
+     * Get the {@link Entity Passenger} Attachment Point
      *
-     * @param entity {@link Entity The entity riding the Reaper}
-     * @param size {@link EntityDimensions The entity size}
-     * @param scale {@link Float The entity scale}
-     * @return {@link Vector3f The passenger attachment point}
+     * @param entity {@link Entity The Passenger Entity}
+     * @param size {@link EntityDimensions The Entity dimensions}
+     * @param scale {@link Float The Entity scale}
+     * @return {@link Vector3f The Passenger Attachment Point}
      */
     @Override
     protected @NotNull Vector3f getPassengerAttachmentPoint(final @NotNull Entity entity, final EntityDimensions size, final float scale) {
@@ -275,9 +275,9 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Get the {@link SoundEvent Reaper ambient sound}
+     * Get the {@link SoundEvent Entity Ambient Sound}
      *
-     * @return {@link SoundEvents#VEX_AMBIENT The Reaper ambient sound}
+     * @return {@link MWSounds#REAPER_IDLE The Reaper Ambient Sound}
      */
     @Override
     protected SoundEvent getAmbientSound() {
@@ -285,9 +285,9 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Get the {@link SoundEvent Reaper death sound}
+     * Get the {@link SoundEvent Entity Ambient Sound}
      *
-     * @return {@link SoundEvents#VEX_DEATH The Reaper death sound}
+     * @return {@link MWSounds#REAPER_DEATH The Reaper Death Sound}
      */
     @Override
     protected SoundEvent getDeathSound() {
@@ -295,10 +295,9 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Get the {@link SoundEvent Reaper hurt sound}
+     * Get the {@link SoundEvent Entity Ambient Sound}
      *
-     * @param damageSource {@link DamageSource The damage source}
-     * @return {@link SoundEvents#VEX_HURT The Reaper hurt sound}
+     * @return {@link MWSounds#REAPER_HURT The Reaper Hurt Sound}
      */
     @Override
     protected SoundEvent getHurtSound(final @NotNull DamageSource damageSource) {
@@ -306,21 +305,21 @@ public class Reaper extends Monster {
     }
 
     /**
-     * The {@link Reaper Reaper move control}
+     * {@link MineWorld MineWorld} {@link Reaper Reaper} {@link MoveControl Move Control}
      */
     class ReaperMoveControl extends MoveControl {
 
         /**
-         * Constructor. Set the {@link Reaper Reaper entity}
+         * Constructor. Set the Goal properties
          *
-         * @param reaper {@link Reaper The Reaper entity}
+         * @param reaper {@link Reaper The Reaper}
          */
         public ReaperMoveControl(final Reaper reaper) {
             super(reaper);
         }
 
         /**
-         * Make the entity move
+         * Make the {@link Reaper Reaper} move
          */
         public void tick() {
             if (this.operation.equals(MoveControl.Operation.MOVE_TO)) {
@@ -347,25 +346,27 @@ public class Reaper extends Monster {
 
             }
         }
+
     }
 
     /**
-     * The {@link Reaper Reaper} charge goal
+     * {@link MineWorld MineWorld} {@link Reaper Reaper} {@link Goal Charge Control}
      */
     class ReaperChargeAttackGoal extends Goal {
 
         /**
-         * Constructor. Set the entity flags
+         * Constructor. Set the Goal properties
          */
         public ReaperChargeAttackGoal() {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
         /**
-         * Check if the entity can charge
+         * Check if the {@link Reaper Reaper} can charge
          *
-         * @return {@link Boolean True if the entity can charge}
+         * @return {@link Boolean True if the Reaper can charge}
          */
+        @Override
         public boolean canUse() {
             final LivingEntity target = Reaper.this.getTarget();
             if (target != null && target.isAlive() && !Reaper.this.getMoveControl().hasWanted() && Reaper.this.random.nextInt(reducedTickDelay(7)) == 0) {
@@ -375,17 +376,19 @@ public class Reaper extends Monster {
         }
 
         /**
-         * Check if the entity can continue to charge
+         * Check if the {@link Reaper Reaper} can continue to charge
          *
-         * @return {@link Boolean True if the entity can continue to charge}
+         * @return {@link Boolean True if the Reaper can continue to charge}
          */
+        @Override
         public boolean canContinueToUse() {
             return Reaper.this.getMoveControl().hasWanted() && Reaper.this.isCharging() && Reaper.this.getTarget() != null && Reaper.this.getTarget().isAlive();
         }
 
         /**
-         * Make the entity start charging
+         * Make the {@link Reaper Reaper} start charging
          */
+        @Override
         public void start() {
             final LivingEntity target = Reaper.this.getTarget();
             if (target != null) {
@@ -396,23 +399,25 @@ public class Reaper extends Monster {
         }
 
         /**
-         * Make the entity stop charging
+         * Make the {@link Reaper Reaper} stop charging
          */
+        @Override
         public void stop() {
             Reaper.this.setCharging(false);
         }
 
         /**
-         * Check if the goal should run every tick
+         * Check if this Goal should run every tick
          *
          * @return {@link Boolean#TRUE True}
          */
+        @Override
         public boolean requiresUpdateEveryTick() {
             return true;
         }
 
         /**
-         * Make the entity charge
+         * Make the {@link Reaper Reaper} charge
          */
         public void tick() {
             final LivingEntity target = Reaper.this.getTarget();
@@ -429,9 +434,9 @@ public class Reaper extends Monster {
         }
 
         /**
-         * Make the entity charge its {@link LivingEntity target}
+         * Make the {@link Reaper Reaper} charge
          *
-         * @param target {@link LivingEntity The entity target}
+         * @param target {@link LivingEntity The charge target}
          */
         private void charge(final LivingEntity target) {
             final Vec3 eyePosition = target.getEyePosition();
@@ -440,37 +445,39 @@ public class Reaper extends Monster {
     }
 
     /**
-     * Make the {@link Reaper Reaper} randomly move
+     * {@link MineWorld MineWorld} {@link Reaper Reaper} {@link Goal Random Move Control}
      */
     class ReaperRandomMoveGoal extends Goal {
 
         /**
-         * Constructor. Set the goal flags
+         * Constructor. Set the Goal properties
          */
         public ReaperRandomMoveGoal() {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
         /**
-         * Check if the {@link Reaper Reaper} can move
+         * Check if the {@link Reaper Reaper} can randomly move
          *
-         * @return {@link Boolean True if the entity can move}
+         * @return {@link Boolean True if the Reaper can randomly move}
          */
+        @Override
         public boolean canUse() {
             return !Reaper.this.getMoveControl().hasWanted() && Reaper.this.random.nextInt(reducedTickDelay(7)) == 0;
         }
 
         /**
-         * Check if the {@link Reaper Reaper} can still move
+         * Check if the {@link Reaper Reaper} can continue to randomly move
          *
-         * @return {@link Boolean#FALSE False}
+         * @return {@link Boolean True if the Reaper can continue to randomly move}
          */
+        @Override
         public boolean canContinueToUse() {
             return false;
         }
 
         /**
-         * Make the {@link Reaper Reaper} move
+         * Make the {@link Reaper Reaper} randomly move
          */
         public void tick() {
             for(int i = 0; i < 3; ++i) {

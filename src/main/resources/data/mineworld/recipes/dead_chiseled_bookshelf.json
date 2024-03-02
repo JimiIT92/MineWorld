@@ -1,7 +1,21 @@
 {
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:dead_bookshelf"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "mineworld:dead_planks"
+    },
+    "X": {
+      "item": "mineworld:dead_slab"
+    }
   },
-  "result": "mineworld:dead_chiseled_bookshelf"
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "item": "mineworld:dead_chiseled_bookshelf"
+  },
+  "show_notification": true
 }

@@ -22,22 +22,23 @@ import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
 /**
- * Base class for a {@link MineWorld MineWorld} flint and steel item
+ * {@link MineWorld MineWorld} {@link Item Echoing Charge Item}
  */
 public class EchoingChargeItem extends Item {
 
     /**
-     * Constructor. Set the item properties
+     * Constructor. Set the {@link Properties Item Properties}
      */
     public EchoingChargeItem() {
-        super(PropertyHelper.basicItemProperties().rarity(Rarity.EPIC));
+        super(PropertyHelper.item().rarity(Rarity.EPIC));
     }
 
     /**
-     * Place the fire or light a portal on block right click
+     * Open the {@link MWDimensions#ETHEREAL Ethereal Dimension} portal when right clicking
+     * on the Deep Dark portal
      *
-     * @param context {@link UseOnContext The item use context}
-     * @return {@link InteractionResult The item use interaction result}
+     * @param context {@link UseOnContext The Item Use On Context}
+     * @return {@link InteractionResult The Item Use Interaction Result}
      */
     public @NotNull InteractionResult useOn(final UseOnContext context) {
         final Player player = context.getPlayer();
@@ -59,15 +60,14 @@ public class EchoingChargeItem extends Item {
                 }
             }
         }
-
         return super.useOn(context);
     }
 
     /**
-     * Makes the item looks like is enchanted
+     * Make the Item glint
      *
-     * @param itemStack {@link ItemStack The ItemStack}
-     * @return {@link Boolean True}
+     * @param itemStack {@link ItemStack The current Item Stack}
+     * @return {@link Boolean#TRUE True}
      */
     @Override
     public boolean isFoil(@NotNull ItemStack itemStack) {

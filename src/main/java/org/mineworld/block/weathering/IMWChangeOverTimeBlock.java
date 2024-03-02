@@ -7,16 +7,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.mineworld.MineWorld;
 
 /**
- * {@link MineWorld MineWorld} interface for an {@link ChangeOverTimeBlock oxidizable and waxable block}
+ * {@link MineWorld MineWorld} interface for an {@link ChangeOverTimeBlock oxidizable and waxable Block}
  */
 public interface IMWChangeOverTimeBlock extends ChangeOverTimeBlock<WeatheringCopper.WeatherState> {
 
     /**
-     * Get the {@link BlockState block state} for the next state with
-     * the adjusted properties
+     * Get the {@link BlockState Block State} for the next state with the adjusted properties
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link BlockState The adjusted block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link BlockState The adjusted Block State}
      */
     static BlockState getAdjustedBlockState(BlockState blockState) {
         if(blockState.hasProperty(BlockStateProperties.POWER)) {
@@ -27,9 +26,9 @@ public interface IMWChangeOverTimeBlock extends ChangeOverTimeBlock<WeatheringCo
 
     /**
      * Get the {@link Float oxidization chance}
-     * based on the current {@link WeatheringCopper.WeatherState weather state}
+     * based on the current {@link WeatheringCopper.WeatherState Weather State}
      *
-     * @return {@link Float The oxidization chance}
+     * @return {@link Float The Oxidization Chance}
      */
     default float getChanceModifier() {
         return this.getAge().equals(WeatheringCopper.WeatherState.UNAFFECTED) ? 0.75F : 1.0F;

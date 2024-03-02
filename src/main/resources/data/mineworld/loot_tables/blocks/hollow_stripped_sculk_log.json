@@ -16,5 +16,6 @@
       ],
       "rolls": 1
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/hollow_stripped_sculk_log"
 }

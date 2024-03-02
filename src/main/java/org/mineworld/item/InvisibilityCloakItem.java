@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWArmorMaterials;
 import org.mineworld.core.MWCriteriaTriggers;
 import org.mineworld.core.MWSounds;
@@ -16,21 +17,21 @@ import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
 
 /**
- * Implementation class for the Invisibility Cloak {@link ArmorItem armor item}
+ * {@link MineWorld MineWorld} {@link ArmorItem Invisibility Cloak Item}
  */
 public class InvisibilityCloakItem extends ArmorItem {
 
     /**
-     * Constructor. Set the item properties
+     * Constructor. Set the {@link Properties Item Properties}
      */
     public InvisibilityCloakItem() {
-        super(MWArmorMaterials.INVISIBILITY_CLOAK, Type.CHESTPLATE, PropertyHelper.basicItemProperties().rarity(Rarity.UNCOMMON));
+        super(MWArmorMaterials.INVISIBILITY_CLOAK, Type.CHESTPLATE, PropertyHelper.item().rarity(Rarity.UNCOMMON));
     }
 
     /**
-     * Get the {@link SoundEvent equip sound}
+     * Get the {@link SoundEvent Armor Equip Sound}
      *
-     * @return {@link MWSounds#INVISIBILITY_CLOAK_EQUIP The invisibility cloak equip sound}
+     * @return {@link MWSounds#INVISIBILITY_CLOAK_EQUIP The Invisibility Cloak Equip Sound}
      */
     @Override
     public @NotNull SoundEvent getEquipSound() {
@@ -38,11 +39,11 @@ public class InvisibilityCloakItem extends ArmorItem {
     }
 
     /**
-     * Makes the {@link Player player} invisible
+     * Tick the Armor
      *
      * @param stack {@link ItemStack The current Item Stack}
      * @param level {@link Level The level reference}
-     * @param player {@link Player The player}
+     * @param player {@link Player The Player}
      */
     @Override
     public void onArmorTick(final ItemStack stack, final Level level, final Player player) {
@@ -52,4 +53,5 @@ public class InvisibilityCloakItem extends ArmorItem {
         }
         super.onArmorTick(stack, level, player);
     }
+
 }

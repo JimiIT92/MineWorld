@@ -10,8 +10,8 @@
     }
   },
   "pattern": [
-    "#X",
-    "X#"
+    "X#",
+    "#X"
   ],
   "result": {
     "item": "mineworld:warped_nether_bricks"

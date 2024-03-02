@@ -26,46 +26,46 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link BoatItem boat id}
+ * {@link MineWorld MineWorld} {@link BoatItem Boat Item}
  */
 public class MWBoatItem extends Item {
 
     /**
-     * {@link Predicate<Entity> The boat entity predicate}
+     * {@link Predicate<Entity> The Boat Entity Predicate}
      */
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     /**
-     * {@link MWBoat.Type The boat type}
+     * {@link MWBoat.Type The Boat Type}
      */
     private final MWBoat.Type type;
     /**
-     * {@link Boolean If the boas has a chest}
+     * {@link Boolean If the Boat is a Chest Boat}
      */
     private final boolean hasChest;
 
     /**
-     * Constructor. Set the boat properties
+     * Constructor. Set the {@link Properties Item Properties}
      *
-     * @param hasChest {@link Boolean If the boat has a chest}
-     * @param type {@link MWBoat.Type The boat type}
-     * @param featureFlags {@link FeatureFlag The feature flags that needs to be enabled for this id to be registered}
+     * @param hasChest {@link Boolean If the Boat is a Chest Boat}
+     * @param type {@link MWBoat.Type The Boat Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      */
     public MWBoatItem(final boolean hasChest, final MWBoat.Type type, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.basicItemProperties(featureFlags).stacksTo(1));
+        super(PropertyHelper.item(featureFlags).stacksTo(1));
         this.hasChest = hasChest;
         this.type = type;
     }
 
     /**
-     * Place the boat
+     * Place the {@link MWBoat Boat} on right click
      *
      * @param level {@link Level The level reference}
-     * @param player {@link Player The player placing the boat}
-     * @param interactionHand {@link InteractionHand The hand the player is interacting with}
+     * @param player {@link Player The player that is shooting the pebble}
+     * @param hand {@link InteractionHand The hand the player is shooting with}
      * @return {@link InteractionResultHolder<ItemStack> The interaction result}
      */
-    public @NotNull InteractionResultHolder<ItemStack> use(final @NotNull Level level, final Player player, final @NotNull InteractionHand interactionHand) {
-        final ItemStack itemstack = player.getItemInHand(interactionHand);
+    public @NotNull InteractionResultHolder<ItemStack> use(final @NotNull Level level, final Player player, final @NotNull InteractionHand hand) {
+        final ItemStack itemstack = player.getItemInHand(hand);
         final HitResult hitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
         if (hitresult.getType().equals(HitResult.Type.MISS)) {
             return InteractionResultHolder.pass(itemstack);
@@ -100,11 +100,11 @@ public class MWBoatItem extends Item {
     }
 
     /**
-     * Get the {@link MWBoat boat entity}
+     * Get the {@link MWBoat Boat Entity}
      *
      * @param level {@link Level The level reference}
      * @param hitResult {@link HitResult The hit result}
-     * @return {@link MWBoat The boat entity}
+     * @return {@link MWBoat The Boat Entity}
      */
     private MWBoat getBoat(final Level level, final HitResult hitResult) {
         return this.hasChest ? new MWChestBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z) :

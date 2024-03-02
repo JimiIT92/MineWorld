@@ -1,7 +1,21 @@
 {
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:dark_oak_bookshelf"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "X": {
+      "item": "minecraft:dark_oak_slab"
+    }
   },
-  "result": "mineworld:dark_oak_chiseled_bookshelf"
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "item": "mineworld:dark_oak_chiseled_bookshelf"
+  },
+  "show_notification": true
 }

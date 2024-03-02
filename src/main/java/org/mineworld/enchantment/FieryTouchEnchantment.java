@@ -7,7 +7,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Implementation class for a {@link Enchantment fiery touch enchantment}
+ * Smelt a drop when a block is broken with a tool with this enchantment
  */
 public class FieryTouchEnchantment extends Enchantment {
 

@@ -2,25 +2,25 @@ package org.mineworld.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.mineworld.core.MWBlocks;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWItems;
 
 /**
- * Implementation class for the {@link MWBlocks#CORN corn crop block}
+ * {@link MineWorld MineWorld} Corn Crop
  */
 public class CornBlock extends TallCropBlock {
 
     /**
-     * Constructor. Set the corn seeds
+     * Constructor. Set the {@link MWItems#CORN_SEEDS Corn Seeds}
      */
     public CornBlock() {
         super(MWItems.CORN_SEEDS);
     }
 
     /**
-     * Get the {@link VoxelShape corn shapes} by age
+     * Get the {@link VoxelShape Block Shapes}
      *
-     * @return {@link VoxelShape The corn shapes} by age
+     * @return {@link VoxelShape The Block Shapes}
      */
     @Override
     public VoxelShape[] getShapes() {

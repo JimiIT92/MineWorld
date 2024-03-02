@@ -12,11 +12,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
@@ -25,35 +27,38 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mineworld.entity.block.ForgingTableBlockEntity;
+import org.mineworld.MineWorld;
 import org.mineworld.entity.block.GiftBlockEntity;
 import org.mineworld.helper.PropertyHelper;
 
+/**
+ * {@link MineWorld MineWorld} {@link BaseEntityBlock Gift Block}
+ */
 public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
     /**
-     * {@link DirectionProperty The facing property}
+     * {@link DirectionProperty The facing direction property}
      */
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     /**
-     * {@link BooleanProperty The waterlogged property}
+     * {@link BooleanProperty The Block Waterlogged property}
      */
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public GiftBlock() {
-        super(PropertyHelper.basicBlockProperties(MapColor.COLOR_CYAN, 0.5F, 0.5F, false, SoundType.WOOL).noLootTable());
+        super(PropertyHelper.block(MapColor.COLOR_CYAN, 0.5F, 0.5F, false, SoundType.WOOL).noLootTable());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     /**
-     * Rotate the {@link BlockState block state} based on the {@link Rotation current rotation}
+     * Set the Block rotation when placed
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param rotation {@link Rotation The current rotation}
-     * @return {@link Rotation The rotated block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param rotation {@link Rotation The direction to rotate}
+     * @return {@link BlockState The rotated Block State}
      */
     @Override
     public @NotNull BlockState rotate(final BlockState blockState, final Rotation rotation) {
@@ -61,11 +66,11 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     }
 
     /**
-     * Mirror the {@link BlockState block state}
+     * Mirror the Block when placed
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param mirror {@link Mirror The current mirroring}
-     * @return {@link BlockState The mirrored block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param mirror {@link Mirror The mirror direction}
+     * @return {@link BlockState The mirrored Block State}
      */
     @Override
     public @NotNull BlockState mirror(final BlockState blockState, final Mirror mirror) {
@@ -73,9 +78,9 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     }
 
     /**
-     * Get the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state definition builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
@@ -83,10 +88,10 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     }
 
     /**
-     * Get the {@link RenderShape block render shape}
+     * Get the {@link RenderShape render shape} for this block
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link RenderShape The block render shape}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link RenderShape#MODEL Model render shape}
      */
     @Override
     public @NotNull RenderShape getRenderShape(final @NotNull BlockState blockState) {
@@ -94,136 +99,124 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     }
 
     /**
-     * Updated the {@link BlockState BlockState} if the
-     * {@link DoublePlantBlock Cattail} is waterlogged
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param facing {@link Direction The update Direction}
-     * @param neighborState {@link BlockState The neighbor BlockState}
-     * @param level {@link LevelAccessor The Level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param neighborPos {@link BlockPos The neighbor BlockPos}
-     * @return Placed {@link BlockState The updated BlockState}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
     @Override
-    public @NotNull BlockState updateShape(final BlockState state, final @NotNull Direction facing, final @NotNull BlockState neighborState, final @NotNull LevelAccessor level, final @NotNull BlockPos pos, final @NotNull BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
+        if (blockState.getValue(WATERLOGGED)) {
+            levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
-
-        return super.updateShape(state, facing, neighborState, level, pos, neighborPos);
+        return super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
 
     /**
      * Get the {@link VoxelShape Block Shape}
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param level {@link BlockGetter The Level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param context {@link CollisionContext The Collision Context}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param collisionContext {@link CollisionContext The collision context}
      * @return {@link VoxelShape The Block Shape}
      */
     @Override
-    public @NotNull VoxelShape getShape(final @NotNull BlockState state, final @NotNull BlockGetter level, final @NotNull BlockPos pos, final @NotNull CollisionContext context) {
+    public @NotNull VoxelShape getShape(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
         return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
     }
 
     /**
-     * Get the {@link FluidState Fluid State}
+     * Get the {@link FluidState Block Fluid State}
      *
-     * @param state {@link BlockState The current BlockState}
-     * @return {@link FluidState The Fluid State}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Fluids#WATER Water if is Waterlogged}
      */
     @Override
-    public @NotNull FluidState getFluidState(final BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    public @NotNull FluidState getFluidState(final BlockState blockState) {
+        return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     /**
-     * Get the {@link BlockState BlockState} when the
-     * {@link DoublePlantBlock Cattail} is placed
+     * Get the {@link BlockState Block State} after the block has been placed
      *
-     * @param context {@link BlockPlaceContext The Place Context}
-     * @return Placed {@link BlockState The placed BlockState}
+     * @param placeContext {@link BlockPlaceContext The block place context}
+     * @return {@link BlockState The placed Block State}
      */
     @Nullable
     @Override
-    public BlockState getStateForPlacement(final @NotNull BlockPlaceContext context) {
-        final Direction direction = context.getHorizontalDirection().getOpposite();
-        final FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
+    public BlockState getStateForPlacement(final @NotNull BlockPlaceContext placeContext) {
+        final Direction direction = placeContext.getHorizontalDirection().getOpposite();
+        final FluidState fluidstate = placeContext.getLevel().getFluidState(placeContext.getClickedPos());
         return this.defaultBlockState().setValue(FACING, direction).setValue(WATERLOGGED, fluidstate.is(Fluids.WATER));
     }
 
     /**
-     * Place the gift and set the content
+     * Place the {@link DoubleBlockHalf#UPPER Upper variant} when a {@link DoublePlantBlock Cattail} is placed
      *
-     * @param level {@link Level The level reference}
-     * @param pos {@link BlockPos The current BlockPos}
-     * @param state {@link BlockState The placed BlockPlace}
-     * @param entity {@link LivingEntity The entity that placed the gift}
-     * @param itemStack {@link ItemStack The gift item stack}
+     * @param level {@link Level The Level reference}
+     * @param blockPos {@link BlockPos The current BlockPos}
+     * @param blockState {@link BlockState The current BlockState}
+     * @param entity {@link LivingEntity The Entity} who placed the {@link DoublePlantBlock Cattail}
+     * @param itemStack {@link ItemStack The ItemStack}
      */
     @Override
-    public void setPlacedBy(final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull BlockState state, final LivingEntity entity, final ItemStack itemStack) {
+    public void setPlacedBy(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final LivingEntity entity, final ItemStack itemStack) {
         if(!itemStack.hasTag()) {
             return;
         }
-        /*final CompoundTag items = itemStack.getTag();
-        if(items != null && !items.isEmpty()) {
-            final NonNullList<ItemStack> content = NonNullList.create();
-            ContainerHelper.loadAllItems(items, content);
-            final BlockEntity blockentity = level.getBlockEntity(pos);
-            if (blockentity instanceof GiftBlockEntity gift) {
-                gift.setItems(content);
-            }
-        }*/
-        final BlockEntity blockentity = level.getBlockEntity(pos);
+        final BlockEntity blockentity = level.getBlockEntity(blockPos);
         if (blockentity instanceof GiftBlockEntity gift) {
             gift.load(itemStack.getTag());
         }
     }
 
     /**
-     * Drop the gift contents on block removed
+     * Drop the {@link Block Block} content when its destroyed
      *
-     * @param state {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param level {@link Level The level reference}
-     * @param pos {@link BlockPos The current block pos}
-     * @param newState {@link BlockState The updated block state}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param newBlockState {@link BlockState The updated Block State}
      * @param isMoving {@link Boolean If the block entity is moving}
      */
     @Override
-    public void onRemove(final BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final BlockState newState, final boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity blockentity = level.getBlockEntity(pos);
+    public void onRemove(final BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final BlockState newBlockState, final boolean isMoving) {
+        if (!blockState.is(newBlockState.getBlock())) {
+            BlockEntity blockentity = level.getBlockEntity(blockPos);
             if (blockentity instanceof Container) {
-                Containers.dropContents(level, pos, (Container)blockentity);
-                level.updateNeighbourForOutputSignal(pos, this);
+                Containers.dropContents(level, blockPos, (Container)blockentity);
+                level.updateNeighbourForOutputSignal(blockPos, this);
             }
 
-            super.onRemove(state, level, pos, newState, isMoving);
+            super.onRemove(blockState, level, blockPos, newBlockState, isMoving);
         }
     }
 
     /**
-     * Check if the block is pathfindable
+     * Check if the Block is pathfindable
      *
-     * @param state {@link BlockState The current BlockState}
-     * @param level {@link BlockGetter The level reference}
-     * @param pos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param pathComputationType {@link PathComputationType The path computation type}
-     * @return {@link Boolean False}
+     * @return {@link Boolean#FALSE False}
      */
-    public boolean isPathfindable(final @NotNull BlockState state, final @NotNull BlockGetter level, final @NotNull BlockPos pos, final @NotNull PathComputationType pathComputationType) {
+    public boolean isPathfindable(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull PathComputationType pathComputationType) {
         return false;
     }
 
     /**
-     * Get the {@link BlockEntity forging table block entity}
+     * Create the {@link GiftBlockEntity Gift Block Entity}
      *
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link ForgingTableBlockEntity The forging table block entity}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link BlockEntity The Gift Block Entity}
      */
     @Nullable
     @Override

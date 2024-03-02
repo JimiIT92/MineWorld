@@ -1,1598 +1,2010 @@
 package org.mineworld.core;
 
+import com.google.common.base.Suppliers;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.grower.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.*;
-import org.mineworld.block.weathering.*;
-import org.mineworld.entity.MWPrimedTnt;
+import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.helper.PropertyHelper;
-import org.mineworld.helper.RegisterHelper;
-import org.mineworld.world.worldgen.tree.AppleTreeGrower;
+import org.mineworld.helper.RegistryHelper;
+import org.mineworld.helper.ResourceHelper;
+import org.mineworld.item.MWFuelBlockItem;
+
+import java.util.function.Supplier;
 
 /**
- * {@link MineWorld MineWorld} {@link Block blocks}
+ * {@link MineWorld MineWorld} {@link Block Blocks}
  */
 public final class MWBlocks {
 
-    public static final RegistryObject<Block> SILVER_ORE = RegisterHelper.registerOverworldOreBlock("silver_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_silver_ore", true);
-    public static final RegistryObject<Block> ALUMINUM_ORE = RegisterHelper.registerOverworldOreBlock("aluminum_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_ALUMINUM_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_aluminum_ore", true);
-    public static final RegistryObject<Block> RUBY_ORE = RegisterHelper.registerOverworldOreBlock("ruby_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_RUBY_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_ruby_ore", true);
-    public static final RegistryObject<Block> SAPPHIRE_ORE = RegisterHelper.registerOverworldOreBlock("sapphire_ore", false);
-    public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = RegisterHelper.registerOverworldOreBlock("deepslate_sapphire_ore", true);
-    public static final RegistryObject<Block> PYRITE_ORE = RegisterHelper.registerNetherOreBlock("pyrite_ore");
-    public static final RegistryObject<Block> RAW_SILVER_BLOCK = RegisterHelper.registerRawOreBlock("raw_silver_block", MWColors.RAW_SILVER.toMapColor());
-    public static final RegistryObject<Block> RAW_ALUMINUM_BLOCK = RegisterHelper.registerRawOreBlock("raw_aluminum_block", MWColors.RAW_ALUMINUM.toMapColor());
-    public static final RegistryObject<Block> RAW_BRONZE_BLOCK = RegisterHelper.registerRawOreBlock("raw_bronze_block", MWColors.RAW_BRONZE.toMapColor());
-    public static final RegistryObject<Block> SILVER_BLOCK = RegisterHelper.registerMetalOreStorageBlock("silver_block", MWColors.SILVER.toMapColor());
-    public static final RegistryObject<Block> ALUMINUM_BLOCK = RegisterHelper.registerMetalOreStorageBlock("aluminum_block", MWColors.ALUMINUM.toMapColor());
-    public static final RegistryObject<Block> BRONZE_BLOCK = RegisterHelper.registerBlock("bronze_block", () -> PropertyHelper.basicBlockProperties(MWColors.BRONZE.toMapColor(),3.0F, 6.0F, true, SoundType.COPPER));
-    public static final RegistryObject<Block> RUBY_BLOCK = RegisterHelper.registerMetalOreStorageBlock("ruby_block", MWColors.RUBY.toMapColor());
-    public static final RegistryObject<Block> SAPPHIRE_BLOCK = RegisterHelper.registerMetalOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMapColor());
-    public static final RegistryObject<Block> PYRITE_BLOCK = RegisterHelper.registerFuelBlock("pyrite_block", MWColors.PYRITE.toMapColor(), 1200);
-    public static final RegistryObject<Block> MARBLE = RegisterHelper.registerBlock("marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MWColors.MARBLE.toMapColor()));
-    public static final RegistryObject<Block> MARBLE_STAIRS = RegisterHelper.registerStair("marble_stairs", () -> MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> MARBLE_SLAB = RegisterHelper.registerSlab("marble_slab", MARBLE, false);
-    public static final RegistryObject<Block> MARBLE_WALL = RegisterHelper.registerWall("marble_wall", MARBLE);
-    public static final RegistryObject<Block> MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("marble_pressure_plate", false, MapColor.COLOR_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> MARBLE_BUTTON = RegisterHelper.registerButton("marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MARBLE_PEBBLE = RegisterHelper.registerPebble("marble_pebble", MARBLE);
-    public static final RegistryObject<Block> WHITE_MARBLE = RegisterHelper.registerBlock("white_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_WHITE));
-    public static final RegistryObject<Block> WHITE_MARBLE_STAIRS = RegisterHelper.registerStair("white_marble_stairs", () -> WHITE_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> WHITE_MARBLE_SLAB = RegisterHelper.registerSlab("white_marble_slab", WHITE_MARBLE, false);
-    public static final RegistryObject<Block> WHITE_MARBLE_WALL = RegisterHelper.registerWall("white_marble_wall", WHITE_MARBLE);
-    public static final RegistryObject<Block> WHITE_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("white_marble_pressure_plate", false, MapColor.TERRACOTTA_WHITE, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_MARBLE_BUTTON = RegisterHelper.registerButton("white_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_MARBLE_PEBBLE = RegisterHelper.registerPebble("white_marble_pebble", WHITE_MARBLE);
-    public static final RegistryObject<Block> ORANGE_MARBLE = RegisterHelper.registerBlock("orange_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_ORANGE));
-    public static final RegistryObject<Block> ORANGE_MARBLE_STAIRS = RegisterHelper.registerStair("orange_marble_stairs", () -> ORANGE_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> ORANGE_MARBLE_SLAB = RegisterHelper.registerSlab("orange_marble_slab", ORANGE_MARBLE, false);
-    public static final RegistryObject<Block> ORANGE_MARBLE_WALL = RegisterHelper.registerWall("orange_marble_wall", ORANGE_MARBLE);
-    public static final RegistryObject<Block> ORANGE_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("orange_marble_pressure_plate", false, MapColor.TERRACOTTA_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_MARBLE_BUTTON = RegisterHelper.registerButton("orange_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_MARBLE_PEBBLE = RegisterHelper.registerPebble("orange_marble_pebble", ORANGE_MARBLE);
-    public static final RegistryObject<Block> MAGENTA_MARBLE = RegisterHelper.registerBlock("magenta_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_MAGENTA));
-    public static final RegistryObject<Block> MAGENTA_MARBLE_STAIRS = RegisterHelper.registerStair("magenta_marble_stairs", () -> MAGENTA_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> MAGENTA_MARBLE_SLAB = RegisterHelper.registerSlab("magenta_marble_slab", MAGENTA_MARBLE, false);
-    public static final RegistryObject<Block> MAGENTA_MARBLE_WALL = RegisterHelper.registerWall("magenta_marble_wall", MAGENTA_MARBLE);
-    public static final RegistryObject<Block> MAGENTA_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("magenta_marble_pressure_plate", false, MapColor.TERRACOTTA_MAGENTA, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_MARBLE_BUTTON = RegisterHelper.registerButton("magenta_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_MARBLE_PEBBLE = RegisterHelper.registerPebble("magenta_marble_pebble", MAGENTA_MARBLE);
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE = RegisterHelper.registerBlock("light_blue_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE_STAIRS = RegisterHelper.registerStair("light_blue_marble_stairs", () -> LIGHT_BLUE_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE_SLAB = RegisterHelper.registerSlab("light_blue_marble_slab", LIGHT_BLUE_MARBLE, false);
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE_WALL = RegisterHelper.registerWall("light_blue_marble_wall", LIGHT_BLUE_MARBLE);
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_blue_marble_pressure_plate", false, MapColor.TERRACOTTA_LIGHT_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE_BUTTON = RegisterHelper.registerButton("light_blue_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_MARBLE_PEBBLE = RegisterHelper.registerPebble("light_blue_marble_pebble", LIGHT_BLUE_MARBLE);
-    public static final RegistryObject<Block> YELLOW_MARBLE = RegisterHelper.registerBlock("yellow_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_YELLOW));
-    public static final RegistryObject<Block> YELLOW_MARBLE_STAIRS = RegisterHelper.registerStair("yellow_marble_stairs", () -> YELLOW_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> YELLOW_MARBLE_SLAB = RegisterHelper.registerSlab("yellow_marble_slab", YELLOW_MARBLE, false);
-    public static final RegistryObject<Block> YELLOW_MARBLE_WALL = RegisterHelper.registerWall("yellow_marble_wall", YELLOW_MARBLE);
-    public static final RegistryObject<Block> YELLOW_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("yellow_marble_pressure_plate", false, MapColor.TERRACOTTA_YELLOW, BlockSetType.STONE);
-    public static final RegistryObject<Block> YELLOW_MARBLE_BUTTON = RegisterHelper.registerButton("yellow_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_MARBLE = RegisterHelper.registerBlock("lime_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_LIGHT_GREEN));
-    public static final RegistryObject<Block> YELLOW_MARBLE_PEBBLE = RegisterHelper.registerPebble("yellow_marble_pebble", YELLOW_MARBLE);
-    public static final RegistryObject<Block> LIME_MARBLE_STAIRS = RegisterHelper.registerStair("lime_marble_stairs", () -> LIME_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> LIME_MARBLE_SLAB = RegisterHelper.registerSlab("lime_marble_slab", LIME_MARBLE, false);
-    public static final RegistryObject<Block> LIME_MARBLE_WALL = RegisterHelper.registerWall("lime_marble_wall", LIME_MARBLE);
-    public static final RegistryObject<Block> LIME_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("lime_marble_pressure_plate", false, MapColor.TERRACOTTA_LIGHT_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_MARBLE_BUTTON = RegisterHelper.registerButton("lime_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_MARBLE_PEBBLE = RegisterHelper.registerPebble("lime_marble_pebble", LIME_MARBLE);
-    public static final RegistryObject<Block> PINK_MARBLE = RegisterHelper.registerBlock("pink_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_PINK));
-    public static final RegistryObject<Block> PINK_MARBLE_STAIRS = RegisterHelper.registerStair("pink_marble_stairs", () -> PINK_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> PINK_MARBLE_SLAB = RegisterHelper.registerSlab("pink_marble_slab", PINK_MARBLE, false);
-    public static final RegistryObject<Block> PINK_MARBLE_WALL = RegisterHelper.registerWall("pink_marble_wall", PINK_MARBLE);
-    public static final RegistryObject<Block> PINK_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("pink_marble_pressure_plate", false, MapColor.TERRACOTTA_PINK, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_MARBLE_BUTTON = RegisterHelper.registerButton("pink_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_MARBLE_PEBBLE = RegisterHelper.registerPebble("pink_marble_pebble", PINK_MARBLE);
-    public static final RegistryObject<Block> GRAY_MARBLE = RegisterHelper.registerBlock("gray_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_GRAY));
-    public static final RegistryObject<Block> GRAY_MARBLE_STAIRS = RegisterHelper.registerStair("gray_marble_stairs", () -> GRAY_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> GRAY_MARBLE_SLAB = RegisterHelper.registerSlab("gray_marble_slab", GRAY_MARBLE, false);
-    public static final RegistryObject<Block> GRAY_MARBLE_WALL = RegisterHelper.registerWall("gray_marble_wall", GRAY_MARBLE);
-    public static final RegistryObject<Block> GRAY_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("gray_marble_pressure_plate", false, MapColor.TERRACOTTA_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_MARBLE_BUTTON = RegisterHelper.registerButton("gray_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_MARBLE_PEBBLE = RegisterHelper.registerPebble("gray_marble_pebble", GRAY_MARBLE);
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE = RegisterHelper.registerBlock("light_gray_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE_STAIRS = RegisterHelper.registerStair("light_gray_marble_stairs", () -> LIGHT_GRAY_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE_SLAB = RegisterHelper.registerSlab("light_gray_marble_slab", LIGHT_GRAY_MARBLE, false);
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE_WALL = RegisterHelper.registerWall("light_gray_marble_wall", LIGHT_GRAY_MARBLE);
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_gray_marble_pressure_plate", false, MapColor.TERRACOTTA_LIGHT_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE_BUTTON = RegisterHelper.registerButton("light_gray_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_MARBLE_PEBBLE = RegisterHelper.registerPebble("light_gray_marble_pebble", LIGHT_GRAY_MARBLE);
-    public static final RegistryObject<Block> CYAN_MARBLE = RegisterHelper.registerBlock("cyan_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_CYAN));
-    public static final RegistryObject<Block> CYAN_MARBLE_STAIRS = RegisterHelper.registerStair("cyan_marble_stairs", () -> CYAN_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> CYAN_MARBLE_SLAB = RegisterHelper.registerSlab("cyan_marble_slab", CYAN_MARBLE, false);
-    public static final RegistryObject<Block> CYAN_MARBLE_WALL = RegisterHelper.registerWall("cyan_marble_wall", CYAN_MARBLE);
-    public static final RegistryObject<Block> CYAN_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("cyan_marble_pressure_plate", false, MapColor.TERRACOTTA_CYAN, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_MARBLE_BUTTON = RegisterHelper.registerButton("cyan_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_MARBLE_PEBBLE = RegisterHelper.registerPebble("cyan_marble_pebble", CYAN_MARBLE);
-    public static final RegistryObject<Block> PURPLE_MARBLE = RegisterHelper.registerBlock("purple_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_PURPLE));
-    public static final RegistryObject<Block> PURPLE_MARBLE_STAIRS = RegisterHelper.registerStair("purple_marble_stairs", () -> PURPLE_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> PURPLE_MARBLE_SLAB = RegisterHelper.registerSlab("purple_marble_slab", PURPLE_MARBLE, false);
-    public static final RegistryObject<Block> PURPLE_MARBLE_WALL = RegisterHelper.registerWall("purple_marble_wall", PURPLE_MARBLE);
-    public static final RegistryObject<Block> PURPLE_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("purple_marble_pressure_plate", false, MapColor.TERRACOTTA_PURPLE, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_MARBLE_BUTTON = RegisterHelper.registerButton("purple_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_MARBLE_PEBBLE = RegisterHelper.registerPebble("purple_marble_pebble", PURPLE_MARBLE);
-    public static final RegistryObject<Block> BLUE_MARBLE = RegisterHelper.registerBlock("blue_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_BLUE));
-    public static final RegistryObject<Block> BLUE_MARBLE_STAIRS = RegisterHelper.registerStair("blue_marble_stairs", () -> BLUE_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> BLUE_MARBLE_SLAB = RegisterHelper.registerSlab("blue_marble_slab", BLUE_MARBLE, false);
-    public static final RegistryObject<Block> BLUE_MARBLE_WALL = RegisterHelper.registerWall("blue_marble_wall", BLUE_MARBLE);
-    public static final RegistryObject<Block> BLUE_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blue_marble_pressure_plate", false, MapColor.TERRACOTTA_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_MARBLE_BUTTON = RegisterHelper.registerButton("blue_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_MARBLE_PEBBLE = RegisterHelper.registerPebble("blue_marble_pebble", BLUE_MARBLE);
-    public static final RegistryObject<Block> BROWN_MARBLE = RegisterHelper.registerBlock("brown_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_BROWN));
-    public static final RegistryObject<Block> BROWN_MARBLE_STAIRS = RegisterHelper.registerStair("brown_marble_stairs", () -> BROWN_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> BROWN_MARBLE_SLAB = RegisterHelper.registerSlab("brown_marble_slab", BROWN_MARBLE, false);
-    public static final RegistryObject<Block> BROWN_MARBLE_WALL = RegisterHelper.registerWall("brown_marble_wall", BROWN_MARBLE);
-    public static final RegistryObject<Block> BROWN_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("brown_marble_pressure_plate", false, MapColor.TERRACOTTA_BROWN, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_MARBLE_BUTTON = RegisterHelper.registerButton("brown_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_MARBLE_PEBBLE = RegisterHelper.registerPebble("brown_marble_pebble", BROWN_MARBLE);
-    public static final RegistryObject<Block> GREEN_MARBLE = RegisterHelper.registerBlock("green_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_GREEN));
-    public static final RegistryObject<Block> GREEN_MARBLE_STAIRS = RegisterHelper.registerStair("green_marble_stairs", () -> GREEN_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> GREEN_MARBLE_SLAB = RegisterHelper.registerSlab("green_marble_slab", GREEN_MARBLE, false);
-    public static final RegistryObject<Block> GREEN_MARBLE_WALL = RegisterHelper.registerWall("green_marble_wall", GREEN_MARBLE);
-    public static final RegistryObject<Block> GREEN_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("green_marble_pressure_plate", false, MapColor.TERRACOTTA_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_MARBLE_BUTTON = RegisterHelper.registerButton("green_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_MARBLE_PEBBLE = RegisterHelper.registerPebble("green_marble_pebble", GREEN_MARBLE);
-    public static final RegistryObject<Block> RED_MARBLE = RegisterHelper.registerBlock("red_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_RED));
-    public static final RegistryObject<Block> RED_MARBLE_STAIRS = RegisterHelper.registerStair("red_marble_stairs", () -> RED_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> RED_MARBLE_SLAB = RegisterHelper.registerSlab("red_marble_slab", RED_MARBLE, false);
-    public static final RegistryObject<Block> RED_MARBLE_WALL = RegisterHelper.registerWall("red_marble_wall", RED_MARBLE);
-    public static final RegistryObject<Block> RED_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("red_marble_pressure_plate", false, MapColor.TERRACOTTA_RED, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_MARBLE_BUTTON = RegisterHelper.registerButton("red_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_MARBLE_PEBBLE = RegisterHelper.registerPebble("red_marble_pebble", RED_MARBLE);
-    public static final RegistryObject<Block> BLACK_MARBLE = RegisterHelper.registerBlock("black_marble", () -> PropertyHelper.copyFromBlock(Blocks.TUFF).mapColor(MapColor.TERRACOTTA_BLACK));
-    public static final RegistryObject<Block> BLACK_MARBLE_STAIRS = RegisterHelper.registerStair("black_marble_stairs", () -> BLACK_MARBLE.get().defaultBlockState());
-    public static final RegistryObject<Block> BLACK_MARBLE_SLAB = RegisterHelper.registerSlab("black_marble_slab", BLACK_MARBLE, false);
-    public static final RegistryObject<Block> BLACK_MARBLE_WALL = RegisterHelper.registerWall("black_marble_wall", BLACK_MARBLE);
-    public static final RegistryObject<Block> BLACK_MARBLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("black_marble_pressure_plate", false, MapColor.TERRACOTTA_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_MARBLE_BUTTON = RegisterHelper.registerButton("black_marble_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_MARBLE_PEBBLE = RegisterHelper.registerPebble("black_marble_pebble", BLACK_MARBLE);
-    public static final RegistryObject<Block> BLUE_ROSE = RegisterHelper.registerFlower("blue_rose", () -> MobEffects.SATURATION);
-    public static final RegistryObject<Block> POTTED_BLUE_ROSE = RegisterHelper.registerFlowerPot("potted_blue_rose", BLUE_ROSE);
-    public static final RegistryObject<Block> BLUE_ROSE_BUSH = RegisterHelper.registerTallFlower("blue_rose_bush");
-    public static final RegistryObject<Block> POTTED_BLUE_ROSE_BUSH = RegisterHelper.registerFlowerPot("potted_blue_rose_bush", BLUE_ROSE_BUSH);
-    public static final RegistryObject<Block> WHITE_ROSE = RegisterHelper.registerFlower("white_rose", () -> MobEffects.HEAL);
-    public static final RegistryObject<Block> POTTED_WHITE_ROSE = RegisterHelper.registerFlowerPot("potted_white_rose", WHITE_ROSE);
-    public static final RegistryObject<Block> WHITE_ROSE_BUSH = RegisterHelper.registerTallFlower("white_rose_bush");
-    public static final RegistryObject<Block> POTTED_WHITE_ROSE_BUSH = RegisterHelper.registerFlowerPot("potted_white_rose_bush", WHITE_ROSE_BUSH);
-    public static final RegistryObject<Block> POTTED_MOSS_BLOCK = RegisterHelper.registerFlowerPot("potted_moss_block", () -> Blocks.MOSS_BLOCK);
-    public static final RegistryObject<Block> POTTED_OAK_LEAVES = RegisterHelper.registerFlowerPot("potted_oak_leaves", () -> Blocks.OAK_LEAVES);
-    public static final RegistryObject<Block> POTTED_SPRUCE_LEAVES = RegisterHelper.registerFlowerPot("potted_spruce_leaves", () -> Blocks.SPRUCE_LEAVES);
-    public static final RegistryObject<Block> POTTED_BIRCH_LEAVES = RegisterHelper.registerFlowerPot("potted_birch_leaves", () -> Blocks.BIRCH_LEAVES);
-    public static final RegistryObject<Block> POTTED_JUNGLE_LEAVES = RegisterHelper.registerFlowerPot("potted_jungle_leaves", () -> Blocks.JUNGLE_LEAVES);
-    public static final RegistryObject<Block> POTTED_ACACIA_LEAVES = RegisterHelper.registerFlowerPot("potted_acacia_leaves", () -> Blocks.ACACIA_LEAVES);
-    public static final RegistryObject<Block> POTTED_CHERRY_LEAVES = RegisterHelper.registerFlowerPot("potted_cherry_leaves", () -> Blocks.CHERRY_LEAVES);
-    public static final RegistryObject<Block> POTTED_DARK_OAK_LEAVES = RegisterHelper.registerFlowerPot("potted_dark_oak_leaves", () -> Blocks.DARK_OAK_LEAVES);
-    public static final RegistryObject<Block> POTTED_MANGROVE_LEAVES = RegisterHelper.registerFlowerPot("potted_mangrove_leaves", () -> Blocks.MANGROVE_LEAVES);
-    public static final RegistryObject<Block> POTTED_AZALEA_LEAVES = RegisterHelper.registerFlowerPot("potted_azalea_leaves", () -> Blocks.AZALEA_LEAVES);
-    public static final RegistryObject<Block> POTTED_FLOWERING_AZALEA_LEAVES = RegisterHelper.registerFlowerPot("potted_flowering_azalea_leaves", () -> Blocks.FLOWERING_AZALEA_LEAVES);
-    public static final RegistryObject<Block> POTTED_MANGROVE_ROOTS = RegisterHelper.registerFlowerPot("potted_mangrove_roots", () -> Blocks.MANGROVE_ROOTS);
-    public static final RegistryObject<Block> POTTED_MUDDY_MANGROVE_ROOTS = RegisterHelper.registerFlowerPot("potted_muddy_mangrove_roots", () -> Blocks.MUDDY_MANGROVE_ROOTS);
-    public static final RegistryObject<Block> POTTED_MUSHROOM_STEM = RegisterHelper.registerFlowerPot("potted_mushroom_stem", () -> Blocks.MUSHROOM_STEM);
-    public static final RegistryObject<Block> POTTED_BROWN_MUSHROOM_BLOCK = RegisterHelper.registerFlowerPot("potted_brown_mushroom_block", () -> Blocks.BROWN_MUSHROOM_BLOCK);
-    public static final RegistryObject<Block> POTTED_RED_MUSHROOM_BLOCK = RegisterHelper.registerFlowerPot("potted_red_mushroom_block", () -> Blocks.RED_MUSHROOM_BLOCK);
-    public static final RegistryObject<Block> POTTED_NETHER_WART_BLOCK = RegisterHelper.registerFlowerPot("potted_nether_wart_block", () -> Blocks.NETHER_WART_BLOCK);
-    public static final RegistryObject<Block> POTTED_WARPED_WART_BLOCK = RegisterHelper.registerFlowerPot("potted_warped_wart_block", () -> Blocks.WARPED_WART_BLOCK);
-    public static final RegistryObject<Block> POTTED_SHROOMLIGHT = RegisterHelper.registerLitFlowerPot("potted_shroomlight", () -> Blocks.SHROOMLIGHT, 5);
-    public static final RegistryObject<Block> POTTED_GRASS = RegisterHelper.registerFlowerPot("potted_grass", () -> Blocks.GRASS);
-    public static final RegistryObject<Block> POTTED_SUGAR_CANE = RegisterHelper.registerFlowerPot("potted_sugar_cane", () -> Blocks.SUGAR_CANE);
-    public static final RegistryObject<Block> POTTED_SEAGRASS = RegisterHelper.registerFlowerPot("potted_seagrass", () -> Blocks.SEAGRASS);
-    public static final RegistryObject<Block> POTTED_TALL_GRASS = RegisterHelper.registerFlowerPot("potted_tall_grass", () -> Blocks.TALL_GRASS);
-    public static final RegistryObject<Block> POTTED_LARGE_FERN = RegisterHelper.registerFlowerPot("potted_large_fern", () -> Blocks.LARGE_FERN);
-    public static final RegistryObject<Block> POTTED_SUNFLOWER = RegisterHelper.registerFlowerPot("potted_sunflower", () -> Blocks.SUNFLOWER);
-    public static final RegistryObject<Block> POTTED_LILAC = RegisterHelper.registerFlowerPot("potted_lilac", () -> Blocks.LILAC);
-    public static final RegistryObject<Block> POTTED_ROSE_BUSH = RegisterHelper.registerFlowerPot("potted_rose_bush", () -> Blocks.ROSE_BUSH);
-    public static final RegistryObject<Block> POTTED_PEONY = RegisterHelper.registerFlowerPot("potted_peony", () -> Blocks.PEONY);
-    public static final RegistryObject<Block> POTTED_KELP = RegisterHelper.registerFlowerPot("potted_kelp", () -> Blocks.KELP);
-    public static final RegistryObject<Block> POTTED_BIG_DRIPLEAF = RegisterHelper.registerFlowerPot("potted_big_dripleaf", () -> Blocks.BIG_DRIPLEAF);
-    public static final RegistryObject<Block> POTTED_SMALL_DRIPLEAF = RegisterHelper.registerFlowerPot("potted_small_dripleaf", () -> Blocks.SMALL_DRIPLEAF);
-    public static final RegistryObject<Block> POTTED_CHORUS_PLANT = RegisterHelper.registerFlowerPot("potted_chorus_plant", () -> Blocks.CHORUS_PLANT);
-    public static final RegistryObject<Block> POTTED_CHORUS_FLOWER = RegisterHelper.registerFlowerPot("potted_chorus_flower", () -> Blocks.CHORUS_FLOWER);
-    public static final RegistryObject<Block> POTTED_SWEET_BERRY_BUSH = RegisterHelper.registerFlowerPot("potted_sweet_berry_bush", () -> Blocks.SWEET_BERRY_BUSH);
-    public static final RegistryObject<Block> POTTED_CAVE_VINES = RegisterHelper.registerLitFlowerPot("potted_cave_vines", () -> Blocks.CAVE_VINES, 4);
-    public static final RegistryObject<Block> POTTED_OCHRE_FROGLIGHT = RegisterHelper.registerLitFlowerPot("potted_ochre_froglight", () -> Blocks.OCHRE_FROGLIGHT, 5);
-    public static final RegistryObject<Block> POTTED_VERDANT_FROGLIGHT = RegisterHelper.registerLitFlowerPot("potted_verdant_froglight", () -> Blocks.VERDANT_FROGLIGHT, 5);
-    public static final RegistryObject<Block> POTTED_PEARLESCENT_FROGLIGHT = RegisterHelper.registerLitFlowerPot("potted_pearlescent_froglight", () -> Blocks.PEARLESCENT_FROGLIGHT, 5);
-    public static final RegistryObject<Block> POTTED_DEAD_TUBE_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_tube_coral_block", () -> Blocks.DEAD_TUBE_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_TUBE_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_tube_coral_block", POTTED_DEAD_TUBE_CORAL_BLOCK, () -> Blocks.TUBE_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_DEAD_BRAIN_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_brain_coral_block", () -> Blocks.DEAD_BRAIN_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_BRAIN_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_brain_coral_block", POTTED_DEAD_BRAIN_CORAL_BLOCK, () -> Blocks.BRAIN_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_DEAD_BUBBLE_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_bubble_coral_block", () -> Blocks.DEAD_BUBBLE_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_BUBBLE_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_bubble_coral_block", POTTED_DEAD_BUBBLE_CORAL_BLOCK, () -> Blocks.BUBBLE_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_DEAD_FIRE_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_fire_coral_block", () -> Blocks.DEAD_FIRE_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_FIRE_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_fire_coral_block", POTTED_DEAD_FIRE_CORAL_BLOCK, () -> Blocks.FIRE_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_DEAD_HORN_CORAL_BLOCK = RegisterHelper.registerFlowerPot("potted_dead_horn_coral_block", () -> Blocks.DEAD_HORN_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_HORN_CORAL_BLOCK = RegisterHelper.registerCoralFlowerPot("potted_horn_coral_block", POTTED_DEAD_HORN_CORAL_BLOCK, () -> Blocks.HORN_CORAL_BLOCK);
-    public static final RegistryObject<Block> POTTED_DEAD_TUBE_CORAL = RegisterHelper.registerFlowerPot("potted_dead_tube_coral", () -> Blocks.DEAD_TUBE_CORAL);
-    public static final RegistryObject<Block> POTTED_TUBE_CORAL = RegisterHelper.registerCoralFlowerPot("potted_tube_coral", POTTED_DEAD_TUBE_CORAL, () -> Blocks.TUBE_CORAL);
-    public static final RegistryObject<Block> POTTED_DEAD_BRAIN_CORAL = RegisterHelper.registerFlowerPot("potted_dead_brain_coral", () -> Blocks.DEAD_BRAIN_CORAL);
-    public static final RegistryObject<Block> POTTED_BRAIN_CORAL = RegisterHelper.registerCoralFlowerPot("potted_brain_coral", POTTED_DEAD_BRAIN_CORAL, () -> Blocks.BRAIN_CORAL);
-    public static final RegistryObject<Block> POTTED_DEAD_BUBBLE_CORAL = RegisterHelper.registerFlowerPot("potted_dead_bubble_coral", () -> Blocks.DEAD_BUBBLE_CORAL);
-    public static final RegistryObject<Block> POTTED_BUBBLE_CORAL = RegisterHelper.registerCoralFlowerPot("potted_bubble_coral", POTTED_DEAD_BUBBLE_CORAL, () -> Blocks.BUBBLE_CORAL);
-    public static final RegistryObject<Block> POTTED_DEAD_FIRE_CORAL = RegisterHelper.registerFlowerPot("potted_dead_fire_coral", () -> Blocks.DEAD_FIRE_CORAL);
-    public static final RegistryObject<Block> POTTED_FIRE_CORAL = RegisterHelper.registerCoralFlowerPot("potted_fire_coral", POTTED_DEAD_FIRE_CORAL, () -> Blocks.FIRE_CORAL);
-    public static final RegistryObject<Block> POTTED_DEAD_HORN_CORAL = RegisterHelper.registerFlowerPot("potted_dead_horn_coral", () -> Blocks.DEAD_HORN_CORAL);
-    public static final RegistryObject<Block> POTTED_HORN_CORAL = RegisterHelper.registerCoralFlowerPot("potted_horn_coral", POTTED_DEAD_HORN_CORAL, () -> Blocks.HORN_CORAL);
-    public static final RegistryObject<Block> POTTED_DEAD_TUBE_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_tube_coral_fan", () -> Blocks.DEAD_TUBE_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_TUBE_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_tube_coral_fan", POTTED_DEAD_TUBE_CORAL_FAN, () -> Blocks.TUBE_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_DEAD_BRAIN_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_brain_coral_fan", () -> Blocks.DEAD_BRAIN_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_BRAIN_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_brain_coral_fan", POTTED_DEAD_BRAIN_CORAL_FAN, () -> Blocks.BRAIN_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_DEAD_BUBBLE_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_bubble_coral_fan", () -> Blocks.DEAD_BUBBLE_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_BUBBLE_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_bubble_coral_fan", POTTED_DEAD_BUBBLE_CORAL_FAN, () -> Blocks.BUBBLE_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_DEAD_FIRE_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_fire_coral_fan", () -> Blocks.DEAD_FIRE_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_FIRE_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_fire_coral_fan", POTTED_DEAD_FIRE_CORAL_FAN, () -> Blocks.FIRE_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_DEAD_HORN_CORAL_FAN = RegisterHelper.registerFlowerPot("potted_dead_horn_coral_fan", () -> Blocks.DEAD_HORN_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_HORN_CORAL_FAN = RegisterHelper.registerCoralFlowerPot("potted_horn_coral_fan", POTTED_DEAD_HORN_CORAL_FAN, () -> Blocks.HORN_CORAL_FAN);
-    public static final RegistryObject<Block> POTTED_BAMBOO_BLOCK = RegisterHelper.registerFlowerPot("potted_bamboo_block", () -> Blocks.BAMBOO_BLOCK);
-    public static final RegistryObject<Block> POTTED_STRIPPED_BAMBOO_BLOCK = RegisterHelper.registerFlowerPot("potted_stripped_bamboo_block", () -> Blocks.STRIPPED_BAMBOO_BLOCK);
-    public static final RegistryObject<Block> POTTED_MUD = RegisterHelper.registerFlowerPot("potted_mud", () -> Blocks.MUD);
-    public static final RegistryObject<Block> POTTED_CLAY = RegisterHelper.registerFlowerPot("potted_clay", () -> Blocks.CLAY);
-    public static final RegistryObject<Block> POTTED_NETHER_WART = RegisterHelper.registerFlowerPot("potted_nether_wart", () -> Blocks.NETHER_WART);
-    public static final RegistryObject<Block> POTTED_SEA_PICKLE = RegisterHelper.registerLitFlowerPot("potted_sea_pickle", () -> Blocks.SEA_PICKLE, 1);
-    public static final RegistryObject<Block> POTTED_DRIED_KELP_BLOCK = RegisterHelper.registerFlowerPot("potted_dried_kelp_block", () -> Blocks.DRIED_KELP_BLOCK);
-    public static final RegistryObject<Block> POTTED_SPONGE = RegisterHelper.registerFlowerPot("potted_sponge", () -> Blocks.SPONGE);
-    public static final RegistryObject<Block> POTTED_WET_SPONGE = RegisterHelper.registerFlowerPot("potted_wet_sponge", () -> Blocks.WET_SPONGE);
-    public static final RegistryObject<Block> POTTED_MELON = RegisterHelper.registerFlowerPot("potted_melon", () -> Blocks.MELON);
-    public static final RegistryObject<Block> POTTED_PUMPKIN = RegisterHelper.registerFlowerPot("potted_pumpkin", () -> Blocks.PUMPKIN);
-    public static final RegistryObject<Block> POTTED_HAY_BLOCK = RegisterHelper.registerFlowerPot("potted_hay_block", () -> Blocks.HAY_BLOCK);
-    public static final RegistryObject<Block> POTTED_HONEYCOMB_BLOCK = RegisterHelper.registerFlowerPot("potted_honeycomb_block", () -> Blocks.HONEYCOMB_BLOCK);
-    public static final RegistryObject<Block> POTTED_HONEY_BLOCK = RegisterHelper.registerFlowerPot("potted_honey_block", () -> Blocks.HONEY_BLOCK);
-    public static final RegistryObject<Block> POTTED_SLIME_BLOCK = RegisterHelper.registerFlowerPot("potted_slime_block", () -> Blocks.SLIME_BLOCK);
-    public static final RegistryObject<Block> POTTED_SCULK = RegisterHelper.registerFlowerPot("potted_sculk", () -> Blocks.SCULK);
-    public static final RegistryObject<Block> POTTED_SNOW_BLOCK = RegisterHelper.registerFlowerPot("potted_snow_block", () -> Blocks.SNOW_BLOCK);
-    public static final RegistryObject<Block> CORN = RegisterHelper.registerBlockWithoutBlockItem("corn", CornBlock::new);
-    public static final RegistryObject<Block> DISGUISED_GRASS_TNT = RegisterHelper.registerBlock("disguised_grass_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_GRASS));
-    public static final RegistryObject<Block> DISGUISED_DIRT_TNT = RegisterHelper.registerBlock("disguised_dirt_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_DIRT));
-    public static final RegistryObject<Block> DISGUISED_SAND_TNT = RegisterHelper.registerBlock("disguised_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_SAND, 14406560));
-    public static final RegistryObject<Block> DISGUISED_RED_SAND_TNT = RegisterHelper.registerBlock("disguised_red_sand_tnt", () -> new MWFallableTntBlock(MWPrimedTnt.Type.DISGUISED_RED_SAND, 11098145));
-    public static final RegistryObject<Block> DISGUISED_STONE_TNT = RegisterHelper.registerBlock("disguised_stone_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_STONE));
-    public static final RegistryObject<Block> DISGUISED_CAKE_TNT = RegisterHelper.registerBlock("disguised_cake_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.DISGUISED_CAKE));
-    public static final RegistryObject<Block> MEGA_TNT = RegisterHelper.registerBlock("mega_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.MEGA));
-    public static final RegistryObject<Block> SUPER_TNT = RegisterHelper.registerBlock("super_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.SUPER));
-    public static final RegistryObject<Block> HYPER_TNT = RegisterHelper.registerBlock("hyper_tnt", () -> new MWTntBlock(MWPrimedTnt.Type.HYPER));
-    public static final RegistryObject<Block> DAYLIGHT_LAMP = RegisterHelper.registerBlock("daylight_lamp", () -> new DaylightLampBlock());
-    public static final RegistryObject<Block> CHARCOAL_BLOCK = RegisterHelper.registerFuelBlock("charcoal_block", MWColors.CHARCOAL.toMapColor(), 800);
-    public static final RegistryObject<Block> IRON_STAIRS = RegisterHelper.registerStair("iron_stairs", Blocks.IRON_BLOCK::defaultBlockState);
-    public static final RegistryObject<Block> IRON_SLAB = RegisterHelper.registerSlab("iron_slab", () -> Blocks.IRON_BLOCK, false);
-    public static final RegistryObject<Block> IRON_CAGE = RegisterHelper.registerCage("iron_cage", () -> Blocks.IRON_BLOCK);
-    public static final RegistryObject<Block> CUT_IRON = RegisterHelper.registerBlock("cut_iron", () -> PropertyHelper.copyFromBlock(Blocks.IRON_BLOCK));
-    public static final RegistryObject<Block> CUT_IRON_STAIRS = RegisterHelper.registerStair("cut_iron_stairs", () -> CUT_IRON.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_IRON_SLAB = RegisterHelper.registerSlab("cut_iron_slab", CUT_IRON, false);
-    public static final RegistryObject<Block> CUT_IRON_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_iron_pressure_plate", 15, MapColor.METAL, BlockSetType.IRON);
-    public static final RegistryObject<Block> GOLDEN_STAIRS = RegisterHelper.registerStair("golden_stairs", Blocks.GOLD_BLOCK::defaultBlockState);
-    public static final RegistryObject<Block> GOLDEN_SLAB = RegisterHelper.registerSlab("golden_slab", () -> Blocks.GOLD_BLOCK, false);
-    public static final RegistryObject<Block> GOLDEN_DOOR = RegisterHelper.registerDoor("golden_door", true, BlockSetType.GOLD);
-    public static final RegistryObject<Block> GOLDEN_TRAPDOOR = RegisterHelper.registerTrapdoor("golden_trapdoor", true, BlockSetType.GOLD);
-    public static final RegistryObject<Block> GOLDEN_CHAIN = RegisterHelper.registerChain("golden_chain");
-    public static final RegistryObject<Block> GOLDEN_LANTERN = RegisterHelper.registerLantern("golden_lantern", false);
-    public static final RegistryObject<Block> GOLDEN_SOUL_LANTERN = RegisterHelper.registerLantern("golden_soul_lantern", true);
-    public static final RegistryObject<Block> GOLD_BARS = RegisterHelper.registerBars("gold_bars");
-    public static final RegistryObject<Block> GOLDEN_CAGE = RegisterHelper.registerCage("golden_cage", () -> Blocks.GOLD_BLOCK);
-    public static final RegistryObject<Block> CUT_GOLD = RegisterHelper.registerBlock("cut_gold", () -> PropertyHelper.copyFromBlock(Blocks.GOLD_BLOCK));
-    public static final RegistryObject<Block> CUT_GOLDEN_STAIRS = RegisterHelper.registerStair("cut_golden_stairs", () -> CUT_GOLD.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_GOLDEN_SLAB = RegisterHelper.registerSlab("cut_golden_slab", CUT_GOLD, false);
-    public static final RegistryObject<Block> CUT_GOLDEN_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_golden_pressure_plate", 15, MapColor.GOLD, BlockSetType.GOLD);
-    public static final RegistryObject<Block> OXIDIZED_COPPER_STAIRS = RegisterHelper.registerBlock("oxidized_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.OXIDIZED, Blocks.OXIDIZED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WEATHERED_COPPER_STAIRS = RegisterHelper.registerBlock("weathered_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.WEATHERED, Blocks.WEATHERED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> EXPOSED_COPPER_STAIRS = RegisterHelper.registerBlock("exposed_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.EXPOSED, Blocks.EXPOSED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> COPPER_STAIRS = RegisterHelper.registerBlock("copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.UNAFFECTED, Blocks.COPPER_BLOCK.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_oxidized_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.OXIDIZED, Blocks.WAXED_OXIDIZED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_weathered_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.WEATHERED, Blocks.WAXED_WEATHERED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_exposed_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.EXPOSED, Blocks.WAXED_EXPOSED_COPPER.defaultBlockState()));
-    public static final RegistryObject<Block> WAXED_COPPER_STAIRS = RegisterHelper.registerBlock("waxed_copper_stairs",
-            () -> new MWWeatheringCopperStairBlock(WeatheringCopper.WeatherState.UNAFFECTED, Blocks.WAXED_COPPER_BLOCK.defaultBlockState()));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_SLAB = RegisterHelper.registerBlock("oxidized_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, PropertyHelper.copyFromBlock(Blocks.OXIDIZED_CUT_COPPER)));
-    public static final RegistryObject<Block> WEATHERED_COPPER_SLAB = RegisterHelper.registerBlock("weathered_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, PropertyHelper.copyFromBlock(Blocks.WEATHERED_CUT_COPPER)));
-    public static final RegistryObject<Block> EXPOSED_COPPER_SLAB = RegisterHelper.registerBlock("exposed_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, PropertyHelper.copyFromBlock(Blocks.EXPOSED_CUT_COPPER)));
-    public static final RegistryObject<Block> COPPER_SLAB = RegisterHelper.registerBlock("copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, PropertyHelper.copyFromBlock(Blocks.CUT_COPPER_SLAB)));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_oxidized_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.OXIDIZED, PropertyHelper.copyFromBlock(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_weathered_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.WEATHERED, PropertyHelper.copyFromBlock(Blocks.WAXED_WEATHERED_CUT_COPPER)));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_exposed_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.EXPOSED, PropertyHelper.copyFromBlock(Blocks.WAXED_EXPOSED_CUT_COPPER)));
-    public static final RegistryObject<Block> WAXED_COPPER_SLAB = RegisterHelper.registerBlock("waxed_copper_slab",
-            () -> new MWWeatheringCopperSlabBlock(WeatheringCopper.WeatherState.UNAFFECTED, PropertyHelper.copyFromBlock(Blocks.WAXED_CUT_COPPER_SLAB)));
-    public static final RegistryObject<Block> COPPER_DOOR = RegisterHelper.registerDoor("copper_door", true, MWBlockSetTypes.COPPER);
-    public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("oxidized_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("weathered_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("exposed_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_TRAPDOOR = RegisterHelper.registerBlock("copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_oxidized_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_weathered_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_exposed_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_TRAPDOOR = RegisterHelper.registerBlock("waxed_copper_trapdoor",
-            () -> new WeatheringCopperTrapdoorBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("oxidized_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("weathered_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("exposed_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_oxidized_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_weathered_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_exposed_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_CHAIN = RegisterHelper.registerBlock("oxidized_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_CHAIN = RegisterHelper.registerBlock("weathered_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_CHAIN = RegisterHelper.registerBlock("exposed_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_CHAIN = RegisterHelper.registerBlock("copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_oxidized_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_weathered_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_exposed_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_CHAIN = RegisterHelper.registerBlock("waxed_copper_chain",
-            () -> new WeatheringCopperChainBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_LANTERN = RegisterHelper.registerBlock("oxidized_copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, false));
-    public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = RegisterHelper.registerBlock("weathered_copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, false));
-    public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = RegisterHelper.registerBlock("exposed_copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, false));
-    public static final RegistryObject<Block> COPPER_LANTERN = RegisterHelper.registerBlock("copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, false));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, false));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, false));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, false));
-    public static final RegistryObject<Block> WAXED_COPPER_LANTERN = RegisterHelper.registerBlock("waxed_copper_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, false));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("oxidized_copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, true));
-    public static final RegistryObject<Block> WEATHERED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("weathered_copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, true));
-    public static final RegistryObject<Block> EXPOSED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("exposed_copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, true));
-    public static final RegistryObject<Block> COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, true));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, true));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, true));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, true));
-    public static final RegistryObject<Block> WAXED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlock("waxed_copper_soul_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, true));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_BARS = RegisterHelper.registerBlock("oxidized_copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_BARS = RegisterHelper.registerBlock("weathered_copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_BARS = RegisterHelper.registerBlock("exposed_copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_BARS = RegisterHelper.registerBlock("copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BARS = RegisterHelper.registerBlock("waxed_oxidized_copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BARS = RegisterHelper.registerBlock("waxed_weathered_copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BARS = RegisterHelper.registerBlock("waxed_exposed_copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_BARS = RegisterHelper.registerBlock("waxed_copper_bars",
-            () -> new WeatheringCopperBarsBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_CAGE = RegisterHelper.registerBlock("oxidized_copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_CAGE = RegisterHelper.registerBlock("weathered_copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_CAGE = RegisterHelper.registerBlock("exposed_copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_CAGE = RegisterHelper.registerBlock("copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_oxidized_copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_weathered_copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_exposed_copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_CAGE = RegisterHelper.registerBlock("waxed_copper_cage",
-            () -> new WeatheringCopperCageBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> OXIDIZED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("oxidized_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("weathered_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("exposed_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_oxidized_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_weathered_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_exposed_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_CUT_COPPER_PRESSURE_PLATE = RegisterHelper.registerBlock("waxed_cut_copper_pressure_plate",
-            () -> new WeatheringCopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> NETHERITE_STAIRS = RegisterHelper.registerStair("netherite_stairs", Blocks.NETHERITE_BLOCK::defaultBlockState);
-    public static final RegistryObject<Block> NETHERITE_SLAB = RegisterHelper.registerSlab("netherite_slab", () -> Blocks.NETHERITE_BLOCK, false);
-    public static final RegistryObject<Block> NETHERITE_DOOR = RegisterHelper.registerDoor("netherite_door", true, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_TRAPDOOR = RegisterHelper.registerTrapdoor("netherite_trapdoor", true, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("netherite_pressure_plate", 100, MapColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> NETHERITE_CHAIN = RegisterHelper.registerChain("netherite_chain");
-    public static final RegistryObject<Block> NETHERITE_LANTERN = RegisterHelper.registerLantern("netherite_lantern", false);
-    public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = RegisterHelper.registerLantern("netherite_soul_lantern", true);
-    public static final RegistryObject<Block> NETHERITE_BARS = RegisterHelper.registerBars("netherite_bars");
-    public static final RegistryObject<Block> NETHERITE_CAGE = RegisterHelper.registerCage("netherite_cage", () -> Blocks.NETHERITE_BLOCK);
-    public static final RegistryObject<Block> CUT_NETHERITE = RegisterHelper.registerBlock("cut_netherite", () -> PropertyHelper.copyFromBlock(Blocks.NETHERITE_BLOCK));
-    public static final RegistryObject<Block> CUT_NETHERITE_STAIRS = RegisterHelper.registerStair("cut_netherite_stairs", () -> CUT_NETHERITE.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_NETHERITE_SLAB = RegisterHelper.registerSlab("cut_netherite_slab", CUT_NETHERITE, false);
-    public static final RegistryObject<Block> CUT_NETHERITE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_netherite_pressure_plate", 100, MapColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
-    public static final RegistryObject<Block> ALUMINUM_STAIRS = RegisterHelper.registerStair("aluminum_stairs", () -> ALUMINUM_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> ALUMINUM_SLAB = RegisterHelper.registerSlab("aluminum_slab", ALUMINUM_BLOCK, false);
-    public static final RegistryObject<Block> ALUMINUM_DOOR = RegisterHelper.registerDoor("aluminum_door", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> ALUMINUM_TRAPDOOR = RegisterHelper.registerTrapdoor("aluminum_trapdoor", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> ALUMINUM_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("aluminum_pressure_plate", 15, MWColors.ALUMINUM.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> ALUMINUM_CHAIN = RegisterHelper.registerChain("aluminum_chain");
-    public static final RegistryObject<Block> ALUMINUM_LANTERN = RegisterHelper.registerLantern("aluminum_lantern", false);
-    public static final RegistryObject<Block> ALUMINUM_SOUL_LANTERN = RegisterHelper.registerLantern("aluminum_soul_lantern", true);
-    public static final RegistryObject<Block> ALUMINUM_BARS = RegisterHelper.registerBars("aluminum_bars");
-    public static final RegistryObject<Block> ALUMINUM_CAGE = RegisterHelper.registerCage("aluminum_cage", ALUMINUM_BLOCK);
-    public static final RegistryObject<Block> CUT_ALUMINUM = RegisterHelper.registerBlock("cut_aluminum", () -> PropertyHelper.copyFromBlock(ALUMINUM_BLOCK.get()));
-    public static final RegistryObject<Block> CUT_ALUMINUM_STAIRS = RegisterHelper.registerStair("cut_aluminum_stairs", () -> CUT_ALUMINUM.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_ALUMINUM_SLAB = RegisterHelper.registerSlab("cut_aluminum_slab", CUT_ALUMINUM, false);
-    public static final RegistryObject<Block> CUT_ALUMINUM_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_aluminum_pressure_plate", 15, MWColors.ALUMINUM.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> BRONZE_STAIRS = RegisterHelper.registerStair("bronze_stairs", () -> BRONZE_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> BRONZE_SLAB = RegisterHelper.registerSlab("bronze_slab", BRONZE_BLOCK, false);
-    public static final RegistryObject<Block> BRONZE_DOOR = RegisterHelper.registerDoor("bronze_door", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> BRONZE_TRAPDOOR = RegisterHelper.registerTrapdoor("bronze_trapdoor", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> BRONZE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("bronze_pressure_plate", 15, MWColors.BRONZE.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> BRONZE_CHAIN = RegisterHelper.registerChain("bronze_chain");
-    public static final RegistryObject<Block> BRONZE_LANTERN = RegisterHelper.registerLantern("bronze_lantern", false);
-    public static final RegistryObject<Block> BRONZE_SOUL_LANTERN = RegisterHelper.registerLantern("bronze_soul_lantern", true);
-    public static final RegistryObject<Block> BRONZE_BARS = RegisterHelper.registerBars("bronze_bars");
-    public static final RegistryObject<Block> BRONZE_CAGE = RegisterHelper.registerCage("bronze_cage", BRONZE_BLOCK);
-    public static final RegistryObject<Block> CUT_BRONZE = RegisterHelper.registerBlock("cut_bronze", () -> PropertyHelper.copyFromBlock(BRONZE_BLOCK.get()));
-    public static final RegistryObject<Block> CUT_BRONZE_STAIRS = RegisterHelper.registerStair("cut_bronze_stairs", () -> CUT_BRONZE.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_BRONZE_SLAB = RegisterHelper.registerSlab("cut_bronze_slab", CUT_BRONZE, false);
-    public static final RegistryObject<Block> CUT_BRONZE_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_bronze_pressure_plate", 15, MWColors.BRONZE.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> SILVER_STAIRS = RegisterHelper.registerStair("silver_stairs", () -> SILVER_BLOCK.get().defaultBlockState());
-    public static final RegistryObject<Block> SILVER_SLAB = RegisterHelper.registerSlab("silver_slab", SILVER_BLOCK, false);
-    public static final RegistryObject<Block> SILVER_DOOR = RegisterHelper.registerDoor("silver_door", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> SILVER_TRAPDOOR = RegisterHelper.registerTrapdoor("silver_trapdoor", true, MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> SILVER_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("silver_pressure_plate", 50, MWColors.SILVER.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> SILVER_CHAIN = RegisterHelper.registerChain("silver_chain");
-    public static final RegistryObject<Block> SILVER_LANTERN = RegisterHelper.registerLantern("silver_lantern", false);
-    public static final RegistryObject<Block> SILVER_SOUL_LANTERN = RegisterHelper.registerLantern("silver_soul_lantern", true);
-    public static final RegistryObject<Block> SILVER_BARS = RegisterHelper.registerBars("silver_bars");
-    public static final RegistryObject<Block> SILVER_CAGE = RegisterHelper.registerCage("silver_cage", SILVER_BLOCK);
-    public static final RegistryObject<Block> CUT_SILVER = RegisterHelper.registerBlock("cut_silver", () -> PropertyHelper.copyFromBlock(SILVER_BLOCK.get()));
-    public static final RegistryObject<Block> CUT_SILVER_STAIRS = RegisterHelper.registerStair("cut_silver_stairs", () -> CUT_SILVER.get().defaultBlockState());
-    public static final RegistryObject<Block> CUT_SILVER_SLAB = RegisterHelper.registerSlab("cut_silver_slab", CUT_SILVER, false);
-    public static final RegistryObject<Block> CUT_SILVER_PRESSURE_PLATE = RegisterHelper.registerWeightedPressurePlate("cut_silver_pressure_plate", 50, MWColors.SILVER.toMapColor(), MWBlockSetTypes.METAL);
-    public static final RegistryObject<Block> STONE_WALL = RegisterHelper.registerWall("stone_wall", () -> Blocks.STONE);
-    public static final RegistryObject<Block> STONE_PEBBLE = RegisterHelper.registerPebble("stone_pebble", () -> Blocks.STONE);
-    public static final RegistryObject<Block> COBBLESTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("cobblestone_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> COBBLESTONE_BUTTON = RegisterHelper.registerButton("cobblestone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> COBBLESTONE_PEBBLE = RegisterHelper.registerPebble("cobblestone_pebble", () -> Blocks.COBBLESTONE);
-    public static final RegistryObject<Block> MOSSY_STONE = RegisterHelper.registerBlock("mossy_stone", () -> PropertyHelper.copyFromBlock(Blocks.STONE));
-    public static final RegistryObject<Block> MOSSY_STONE_STAIRS = RegisterHelper.registerStair("mossy_stone_stairs", () -> MOSSY_STONE.get().defaultBlockState());
-    public static final RegistryObject<Block> MOSSY_STONE_SLAB = RegisterHelper.registerSlab("mossy_stone_slab", MOSSY_STONE, false);
-    public static final RegistryObject<Block> MOSSY_STONE_WALL = RegisterHelper.registerWall("mossy_stone_wall", MOSSY_STONE);
-    public static final RegistryObject<Block> MOSSY_STONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("mossy_stone_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> MOSSY_STONE_BUTTON = RegisterHelper.registerButton("mossy_stone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MOSSY_STONE_PEBBLE = RegisterHelper.registerPebble("mossy_stone_pebble", MOSSY_STONE);
-    public static final RegistryObject<Block> MOSSY_COBBLESTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("mossy_cobblestone_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> MOSSY_COBBLESTONE_BUTTON = RegisterHelper.registerButton("mossy_cobblestone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MOSSY_COBBLESTONE_PEBBLE = RegisterHelper.registerPebble("mossy_cobblestone_pebble", () -> Blocks.MOSSY_COBBLESTONE);
-    public static final RegistryObject<Block> SMOOTH_STONE_STAIRS = RegisterHelper.registerStair("smooth_stone_stairs", Blocks.SMOOTH_STONE::defaultBlockState);
-    public static final RegistryObject<Block> SMOOTH_STONE_WALL = RegisterHelper.registerWall("smooth_stone_wall", () -> Blocks.SMOOTH_STONE);
-    public static final RegistryObject<Block> SMOOTH_STONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("smooth_stone_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_STONE_BUTTON = RegisterHelper.registerButton("smooth_stone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_STONE_PEBBLE = RegisterHelper.registerPebble("smooth_stone_pebble", () -> Blocks.SMOOTH_STONE);
-    public static final RegistryObject<Block> STONE_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("stone_bricks_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> STONE_BRICKS_BUTTON = RegisterHelper.registerButton("stone_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> STONE_BRICKS_PEBBLE = RegisterHelper.registerPebble("stone_bricks_pebble", () -> Blocks.STONE_BRICKS);
-    public static final RegistryObject<Block> MOSSY_STONE_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("mossy_stone_bricks_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> MOSSY_STONE_BRICKS_BUTTON = RegisterHelper.registerButton("mossy_stone_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MOSSY_STONE_BRICKS_PEBBLE = RegisterHelper.registerPebble("mossy_stone_bricks_pebble", () -> Blocks.MOSSY_STONE_BRICKS);
-    public static final RegistryObject<Block> MOSSY_CHISELED_STONE_BRICKS = RegisterHelper.registerBlock("mossy_chiseled_stone_bricks", () -> PropertyHelper.copyFromBlock(Blocks.CHISELED_STONE_BRICKS));
-    public static final RegistryObject<Block> MOSSY_CRACKED_STONE_BRICKS = RegisterHelper.registerBlock("mossy_cracked_stone_bricks", () -> PropertyHelper.copyFromBlock(Blocks.CRACKED_STONE_BRICKS));
-    public static final RegistryObject<Block> GRANITE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("granite_pressure_plate", false, MapColor.DIRT, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRANITE_BUTTON = RegisterHelper.registerButton("granite_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRANITE_PEBBLE = RegisterHelper.registerPebble("granite_pebble", () -> Blocks.GRANITE);
-    public static final RegistryObject<Block> POLISHED_GRANITE_WALL = RegisterHelper.registerWall("polished_granite_wall", () -> Blocks.POLISHED_GRANITE);
-    public static final RegistryObject<Block> POLISHED_GRANITE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("polished_granite_pressure_plate", false, MapColor.DIRT, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_GRANITE_BUTTON = RegisterHelper.registerButton("polished_granite_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_GRANITE_PEBBLE = RegisterHelper.registerPebble("polished_granite_pebble", () -> Blocks.POLISHED_GRANITE);
-    public static final RegistryObject<Block> DIORITE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("diorite_pressure_plate", false, MapColor.QUARTZ, BlockSetType.STONE);
-    public static final RegistryObject<Block> DIORITE_BUTTON = RegisterHelper.registerButton("diorite_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> DIORITE_PEBBLE = RegisterHelper.registerPebble("diorite_pebble", () -> Blocks.DIORITE);
-    public static final RegistryObject<Block> POLISHED_DIORITE_WALL = RegisterHelper.registerWall("polished_diorite_wall", () -> Blocks.POLISHED_DIORITE);
-    public static final RegistryObject<Block> POLISHED_DIORITE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("polished_diorite_pressure_plate", false, MapColor.QUARTZ, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_DIORITE_BUTTON = RegisterHelper.registerButton("polished_diorite_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_DIORITE_PEBBLE = RegisterHelper.registerPebble("polished_diorite_pebble", () -> Blocks.POLISHED_DIORITE);
-    public static final RegistryObject<Block> ANDESITE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("andesite_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> ANDESITE_BUTTON = RegisterHelper.registerButton("andesite_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> ANDESITE_PEBBLE = RegisterHelper.registerPebble("andesite_pebble", () -> Blocks.ANDESITE);
-    public static final RegistryObject<Block> POLISHED_ANDESITE_WALL = RegisterHelper.registerWall("polished_andesite_wall", () -> Blocks.POLISHED_ANDESITE);
-    public static final RegistryObject<Block> POLISHED_ANDESITE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("polished_andesite_pressure_plate", false, MapColor.STONE, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_ANDESITE_BUTTON = RegisterHelper.registerButton("polished_andesite_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_ANDESITE_PEBBLE = RegisterHelper.registerPebble("polished_andesite_pebble", () -> Blocks.POLISHED_ANDESITE);
-    public static final RegistryObject<Block> DEEPSLATE_STAIRS = RegisterHelper.registerStair("deepslate_stairs", Blocks.DEEPSLATE::defaultBlockState);
-    public static final RegistryObject<Block> DEEPSLATE_SLAB = RegisterHelper.registerSlab("deepslate_slab", () -> Blocks.DEEPSLATE, false);
-    public static final RegistryObject<Block> DEEPSLATE_WALL = RegisterHelper.registerWall("deepslate_wall", () -> Blocks.DEEPSLATE);
-    public static final RegistryObject<Block> DEEPSLATE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("deepslate_pressure_plate", false, MapColor.DEEPSLATE, BlockSetType.STONE);
-    public static final RegistryObject<Block> DEEPSLATE_BUTTON = RegisterHelper.registerButton("deepslate_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> DEEPSLATE_PEBBLE = RegisterHelper.registerPebble("deepslate_pebble", () -> Blocks.DEEPSLATE);
-    public static final RegistryObject<Block> COBBLED_DEEPSLATE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("cobbled_deepslate_pressure_plate", false, MapColor.DEEPSLATE, BlockSetType.STONE);
-    public static final RegistryObject<Block> COBBLED_DEEPSLATE_BUTTON = RegisterHelper.registerButton("cobbled_deepslate_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> COBBLED_DEEPSLATE_PEBBLE = RegisterHelper.registerPebble("cobbled_deepslate_pebble", () -> Blocks.COBBLED_DEEPSLATE);
-    public static final RegistryObject<Block> POLISHED_DEEPSLATE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("polished_deepslate_pressure_plate", false, MapColor.DEEPSLATE, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_DEEPSLATE_BUTTON = RegisterHelper.registerButton("polished_deepslate_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_DEEPSLATE_PEBBLE = RegisterHelper.registerPebble("polished_deepslate_pebble", () -> Blocks.POLISHED_DEEPSLATE);
-    public static final RegistryObject<Block> DEEPSLATE_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("deepslate_bricks_pressure_plate", false, MapColor.DEEPSLATE, BlockSetType.STONE);
-    public static final RegistryObject<Block> DEEPSLATE_BRICKS_BUTTON = RegisterHelper.registerButton("deepslate_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> DEEPSLATE_BRICKS_PEBBLE = RegisterHelper.registerPebble("deepslate_bricks_pebble", () -> Blocks.DEEPSLATE_BRICKS);
-    public static final RegistryObject<Block> DEEPSLATE_TILES_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("deepslate_tiles_pressure_plate", false, MapColor.DEEPSLATE, BlockSetType.STONE);
-    public static final RegistryObject<Block> DEEPSLATE_TILES_BUTTON = RegisterHelper.registerButton("deepslate_tiles_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> DEEPSLATE_TILES_PEBBLE = RegisterHelper.registerPebble("deepslate_tiles_pebble", () -> Blocks.DEEPSLATE_TILES);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_STAIRS = RegisterHelper.registerStair("reinforced_deepslate_stairs", Blocks.REINFORCED_DEEPSLATE::defaultBlockState);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_SLAB = RegisterHelper.registerSlab("reinforced_deepslate_slab", () -> Blocks.REINFORCED_DEEPSLATE, false);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_WALL = RegisterHelper.registerWall("reinforced_deepslate_wall", () -> Blocks.REINFORCED_DEEPSLATE);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("reinforced_deepslate_pressure_plate", false, MapColor.DEEPSLATE, BlockSetType.STONE);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_BUTTON = RegisterHelper.registerButton("reinforced_deepslate_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_PEBBLE = RegisterHelper.registerPebble("reinforced_deepslate_pebble", () -> Blocks.REINFORCED_DEEPSLATE);
-    public static final RegistryObject<Block> BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("bricks_pressure_plate", false, MapColor.COLOR_RED, BlockSetType.STONE);
-    public static final RegistryObject<Block> BRICKS_BUTTON = RegisterHelper.registerButton("bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BRICKS_PEBBLE = RegisterHelper.registerPebble("bricks_pebble", () -> Blocks.BRICKS);
-    public static final RegistryObject<Block> MUD_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("mud_bricks_pressure_plate", false, MapColor.TERRACOTTA_LIGHT_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> MUD_BRICKS_BUTTON = RegisterHelper.registerButton("mud_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MUD_BRICKS_PEBBLE = RegisterHelper.registerPebble("mud_bricks_pebble", () -> Blocks.MUD_BRICKS);
-    public static final RegistryObject<Block> SANDSTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("sandstone_pressure_plate", false, MapColor.SAND, BlockSetType.STONE);
-    public static final RegistryObject<Block> SANDSTONE_BUTTON = RegisterHelper.registerButton("sandstone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> SANDSTONE_PEBBLE = RegisterHelper.registerPebble("sandstone_pebble", () -> Blocks.SANDSTONE);
-    public static final RegistryObject<Block> SMOOTH_SANDSTONE_WALL = RegisterHelper.registerWall("smooth_sandstone_wall", () -> Blocks.SANDSTONE);
-    public static final RegistryObject<Block> SMOOTH_SANDSTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("smooth_sandstone_pressure_plate", false, MapColor.SAND, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_SANDSTONE_BUTTON = RegisterHelper.registerButton("smooth_sandstone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_SANDSTONE_PEBBLE = RegisterHelper.registerPebble("smooth_sandstone_pebble", () -> Blocks.SMOOTH_SANDSTONE);
-    public static final RegistryObject<Block> CUT_SANDSTONE_STAIRS = RegisterHelper.registerStair("cut_sandstone_stairs", Blocks.CUT_SANDSTONE::defaultBlockState);
-    public static final RegistryObject<Block> CUT_SANDSTONE_WALL = RegisterHelper.registerWall("cut_sandstone_wall", () -> Blocks.CUT_SANDSTONE);
-    public static final RegistryObject<Block> RED_SANDSTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("red_sandstone_pressure_plate", false, MapColor.COLOR_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_SANDSTONE_BUTTON = RegisterHelper.registerButton("red_sandstone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_SANDSTONE_PEBBLE = RegisterHelper.registerPebble("red_sandstone_pebble", () -> Blocks.RED_SANDSTONE);
-    public static final RegistryObject<Block> SMOOTH_RED_SANDSTONE_WALL = RegisterHelper.registerWall("smooth_red_sandstone_wall", () -> Blocks.RED_SANDSTONE);
-    public static final RegistryObject<Block> SMOOTH_RED_SANDSTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("smooth_red_sandstone_pressure_plate", false, MapColor.COLOR_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_RED_SANDSTONE_BUTTON = RegisterHelper.registerButton("smooth_red_sandstone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_RED_SANDSTONE_PEBBLE = RegisterHelper.registerPebble("smooth_red_sandstone_pebble", () -> Blocks.SMOOTH_RED_SANDSTONE);
-    public static final RegistryObject<Block> CUT_RED_SANDSTONE_STAIRS = RegisterHelper.registerStair("cut_red_sandstone_stairs", Blocks.CUT_RED_SANDSTONE::defaultBlockState);
-    public static final RegistryObject<Block> CUT_RED_SANDSTONE_WALL = RegisterHelper.registerWall("cut_red_sandstone_wall", () -> Blocks.CUT_RED_SANDSTONE);
-    public static final RegistryObject<Block> PRISMARINE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("prismarine_pressure_plate", false, MapColor.COLOR_CYAN, BlockSetType.STONE);
-    public static final RegistryObject<Block> PRISMARINE_BUTTON = RegisterHelper.registerButton("prismarine_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PRISMARINE_PEBBLE = RegisterHelper.registerPebble("prismarine_pebble", () -> Blocks.PRISMARINE);
-    public static final RegistryObject<Block> PRISMARINE_BRICKS_WALL = RegisterHelper.registerWall("prismarine_bricks_wall", () -> Blocks.PRISMARINE_BRICKS);
-    public static final RegistryObject<Block> PRISMARINE_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("prismarine_bricks_pressure_plate", false, MapColor.DIAMOND, BlockSetType.STONE);
-    public static final RegistryObject<Block> PRISMARINE_BRICKS_BUTTON = RegisterHelper.registerButton("prismarine_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PRISMARINE_BRICKS_PEBBLE = RegisterHelper.registerPebble("prismarine_bricks_pebble", () -> Blocks.PRISMARINE_BRICKS);
-    public static final RegistryObject<Block> DARK_PRISMARINE_WALL = RegisterHelper.registerWall("dark_prismarine_wall", () -> Blocks.DARK_PRISMARINE);
-    public static final RegistryObject<Block> DARK_PRISMARINE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("dark_prismarine_pressure_plate", false, MapColor.DIAMOND, BlockSetType.STONE);
-    public static final RegistryObject<Block> DARK_PRISMARINE_BUTTON = RegisterHelper.registerButton("dark_prismarine_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> DARK_PRISMARINE_PEBBLE = RegisterHelper.registerPebble("dark_prismarine_pebble", () -> Blocks.DARK_PRISMARINE);
-    public static final RegistryObject<Block> NETHERRACK_STAIRS = RegisterHelper.registerStair("netherrack_stairs", Blocks.NETHERRACK::defaultBlockState);
-    public static final RegistryObject<Block> NETHERRACK_SLAB = RegisterHelper.registerSlab("netherrack_slab", () -> Blocks.NETHERRACK, false);
-    public static final RegistryObject<Block> NETHERRACK_WALL = RegisterHelper.registerWall("netherrack_wall", () -> Blocks.NETHERRACK);
-    public static final RegistryObject<Block> NETHERRACK_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("netherrack_pressure_plate", false, MapColor.NETHER, BlockSetType.STONE);
-    public static final RegistryObject<Block> NETHERRACK_BUTTON = RegisterHelper.registerButton("netherrack_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> NETHERRACK_PEBBLE = RegisterHelper.registerPebble("netherrack_pebble", () -> Blocks.NETHERRACK);
-    public static final RegistryObject<Block> NETHER_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("nether_bricks_pressure_plate", false, MapColor.NETHER, BlockSetType.STONE);
-    public static final RegistryObject<Block> NETHER_BRICKS_BUTTON = RegisterHelper.registerButton("nether_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> NETHER_BRICKS_PEBBLE = RegisterHelper.registerPebble("nether_bricks_pebble", () -> Blocks.NETHER_BRICKS);
-    public static final RegistryObject<Block> RED_NETHER_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("red_nether_bricks_pressure_plate", false, MapColor.NETHER, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_NETHER_BRICKS_BUTTON = RegisterHelper.registerButton("red_nether_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_NETHER_BRICKS_PEBBLE = RegisterHelper.registerPebble("red_nether_bricks_pebble", () -> Blocks.RED_NETHER_BRICKS);
-    public static final RegistryObject<Block> CRACKED_RED_NETHER_BRICKS = RegisterHelper.registerBlock("cracked_red_nether_bricks", () -> PropertyHelper.copyFromBlock(Blocks.RED_NETHER_BRICKS));
-    public static final RegistryObject<Block> CHISELED_RED_NETHER_BRICKS = RegisterHelper.registerBlock("chiseled_red_nether_bricks", () -> PropertyHelper.copyFromBlock(Blocks.RED_NETHER_BRICKS));
-    public static final RegistryObject<Block> BASALT_STAIRS = RegisterHelper.registerStair("basalt_stairs", Blocks.BASALT::defaultBlockState);
-    public static final RegistryObject<Block> BASALT_SLAB = RegisterHelper.registerSlab("basalt_slab", () -> Blocks.BASALT, false);
-    public static final RegistryObject<Block> BASALT_WALL = RegisterHelper.registerWall("basalt_wall", () -> Blocks.BASALT);
-    public static final RegistryObject<Block> BASALT_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("basalt_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> BASALT_BUTTON = RegisterHelper.registerButton("basalt_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BASALT_PEBBLE = RegisterHelper.registerPebble("basalt_pebble", () -> Blocks.BASALT);
-    public static final RegistryObject<Block> SMOOTH_BASALT_STAIRS = RegisterHelper.registerStair("smooth_basalt_stairs", Blocks.SMOOTH_BASALT::defaultBlockState);
-    public static final RegistryObject<Block> SMOOTH_BASALT_SLAB = RegisterHelper.registerSlab("smooth_basalt_slab", () -> Blocks.SMOOTH_BASALT, false);
-    public static final RegistryObject<Block> SMOOTH_BASALT_WALL = RegisterHelper.registerWall("smooth_basalt_wall", () -> Blocks.SMOOTH_BASALT);
-    public static final RegistryObject<Block> SMOOTH_BASALT_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("smooth_basalt_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_BASALT_BUTTON = RegisterHelper.registerButton("smooth_basalt_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_BASALT_PEBBLE = RegisterHelper.registerPebble("smooth_basalt_pebble", () -> Blocks.SMOOTH_BASALT);
-    public static final RegistryObject<Block> POLISHED_BASALT_STAIRS = RegisterHelper.registerStair("polished_basalt_stairs", Blocks.POLISHED_BASALT::defaultBlockState);
-    public static final RegistryObject<Block> POLISHED_BASALT_SLAB = RegisterHelper.registerSlab("polished_basalt_slab", () -> Blocks.POLISHED_BASALT, false);
-    public static final RegistryObject<Block> POLISHED_BASALT_WALL = RegisterHelper.registerWall("polished_basalt_wall", () -> Blocks.POLISHED_BASALT);
-    public static final RegistryObject<Block> POLISHED_BASALT_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("polished_basalt_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_BASALT_BUTTON = RegisterHelper.registerButton("polished_basalt_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_BASALT_PEBBLE = RegisterHelper.registerPebble("polished_basalt_pebble", () -> Blocks.POLISHED_BASALT);
-    public static final RegistryObject<Block> BLACKSTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blackstone_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACKSTONE_BUTTON = RegisterHelper.registerButton("blackstone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACKSTONE_PEBBLE = RegisterHelper.registerPebble("blackstone_pebble", () -> Blocks.BLACKSTONE);
-    public static final RegistryObject<Block> POLISHED_BLACKSTONE_PEBBLE = RegisterHelper.registerPebble("polished_blackstone_pebble", () -> Blocks.POLISHED_BLACKSTONE);
-    public static final RegistryObject<Block> POLISHED_BLACKSTONE_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("polished_blackstone_bricks_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_BLACKSTONE_BRICKS_BUTTON = RegisterHelper.registerButton("polished_blackstone_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> POLISHED_BLACKSTONE_BRICKS_PEBBLE = RegisterHelper.registerPebble("polished_blackstone_bricks_pebble", () -> Blocks.POLISHED_BLACKSTONE_BRICKS);
-    public static final RegistryObject<Block> GILDED_BLACKSTONE_STAIRS = RegisterHelper.registerStair("gilded_blackstone_stairs", Blocks.GILDED_BLACKSTONE::defaultBlockState);
-    public static final RegistryObject<Block> GILDED_BLACKSTONE_SLAB = RegisterHelper.registerSlab("gilded_blackstone_slab", () -> Blocks.GILDED_BLACKSTONE, false);
-    public static final RegistryObject<Block> GILDED_BLACKSTONE_WALL = RegisterHelper.registerWall("gilded_blackstone_wall", () -> Blocks.GILDED_BLACKSTONE);
-    public static final RegistryObject<Block> GILDED_BLACKSTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("gilded_blackstone_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> GILDED_BLACKSTONE_BUTTON = RegisterHelper.registerButton("gilded_blackstone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GILDED_BLACKSTONE_PEBBLE = RegisterHelper.registerPebble("gilded_blackstone_pebble", () -> Blocks.GILDED_BLACKSTONE);
-    public static final RegistryObject<Block> END_STONE_STAIRS = RegisterHelper.registerStair("end_stone_stairs", Blocks.END_STONE::defaultBlockState);
-    public static final RegistryObject<Block> END_STONE_SLAB = RegisterHelper.registerSlab("end_stone_slab", () -> Blocks.END_STONE, false);
-    public static final RegistryObject<Block> END_STONE_WALL = RegisterHelper.registerWall("end_stone_wall", () -> Blocks.END_STONE);
-    public static final RegistryObject<Block> END_STONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("end_stone_pressure_plate", false, MapColor.SAND, BlockSetType.STONE);
-    public static final RegistryObject<Block> END_STONE_BUTTON = RegisterHelper.registerButton("end_stone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> END_STONE_PEBBLE = RegisterHelper.registerPebble("end_stone_pebble", () -> Blocks.END_STONE);
-    public static final RegistryObject<Block> END_STONE_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("end_stone_bricks_pressure_plate", false, MapColor.SAND, BlockSetType.STONE);
-    public static final RegistryObject<Block> END_STONE_BRICKS_BUTTON = RegisterHelper.registerButton("end_stone_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> END_STONE_BRICKS_PEBBLE = RegisterHelper.registerPebble("end_stone_bricks_pebble", () -> Blocks.END_STONE_BRICKS);
-    public static final RegistryObject<Block> PURPUR_WALL = RegisterHelper.registerWall("purpur_wall", () -> Blocks.PURPUR_BLOCK);
-    public static final RegistryObject<Block> PURPUR_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("purpur_pressure_plate", false, MapColor.COLOR_MAGENTA, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPUR_BUTTON = RegisterHelper.registerButton("purpur_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPUR_PEBBLE = RegisterHelper.registerPebble("purpur_pebble", () -> Blocks.PURPUR_BLOCK);
-    public static final RegistryObject<Block> PURPUR_PILLAR_STAIRS = RegisterHelper.registerStair("purpur_pillar_stairs", Blocks.PURPUR_PILLAR::defaultBlockState);
-    public static final RegistryObject<Block> PURPUR_PILLAR_SLAB = RegisterHelper.registerSlab("purpur_pillar_slab", () -> Blocks.PURPUR_PILLAR, false);
-    public static final RegistryObject<Block> PURPUR_PILLAR_WALL = RegisterHelper.registerWall("purpur_pillar_wall", () -> Blocks.PURPUR_PILLAR);
-    public static final RegistryObject<Block> PURPUR_PILLAR_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("purpur_pillar_pressure_plate", false, MapColor.COLOR_MAGENTA, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPUR_PILLAR_BUTTON = RegisterHelper.registerButton("purpur_pillar_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPUR_PILLAR_PEBBLE = RegisterHelper.registerPebble("purpur_pillar_pebble", () -> Blocks.PURPUR_PILLAR);
-    public static final RegistryObject<Block> QUARTZ_WALL = RegisterHelper.registerWall("quartz_wall", () -> Blocks.QUARTZ_BLOCK);
-    public static final RegistryObject<Block> QUARTZ_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("quartz_pressure_plate", false, MapColor.QUARTZ, BlockSetType.STONE);
-    public static final RegistryObject<Block> QUARTZ_BUTTON = RegisterHelper.registerButton("quartz_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> QUARTZ_PEBBLE = RegisterHelper.registerPebble("quartz_pebble", () -> Blocks.QUARTZ_BLOCK);
-    public static final RegistryObject<Block> SMOOTH_QUARTZ_WALL = RegisterHelper.registerWall("smooth_quartz_wall", () -> Blocks.SMOOTH_QUARTZ);
-    public static final RegistryObject<Block> SMOOTH_QUARTZ_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("smooth_quartz_pressure_plate", false, MapColor.QUARTZ, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_QUARTZ_BUTTON = RegisterHelper.registerButton("smooth_quartz_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> SMOOTH_QUARTZ_PEBBLE = RegisterHelper.registerPebble("smooth_quartz_pebble", () -> Blocks.SMOOTH_QUARTZ);
-    public static final RegistryObject<Block> QUARTZ_BRICKS_STAIRS = RegisterHelper.registerStair("quartz_bricks_stairs", Blocks.QUARTZ_BRICKS::defaultBlockState);
-    public static final RegistryObject<Block> QUARTZ_BRICKS_SLAB = RegisterHelper.registerSlab("quartz_bricks_slab", () -> Blocks.QUARTZ_BRICKS, false);
-    public static final RegistryObject<Block> QUARTZ_BRICKS_WALL = RegisterHelper.registerWall("quartz_bricks_wall", () -> Blocks.QUARTZ_BRICKS);
-    public static final RegistryObject<Block> QUARTZ_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("quartz_bricks_pressure_plate", false, MapColor.QUARTZ, BlockSetType.STONE);
-    public static final RegistryObject<Block> QUARTZ_BRICKS_BUTTON = RegisterHelper.registerButton("quartz_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> QUARTZ_BRICKS_PEBBLE = RegisterHelper.registerPebble("quartz_bricks_pebble", () -> Blocks.QUARTZ_BRICKS);
-    public static final RegistryObject<Block> QUARTZ_PILLAR_STAIRS = RegisterHelper.registerStair("quartz_pillar_stairs", Blocks.QUARTZ_PILLAR::defaultBlockState);
-    public static final RegistryObject<Block> QUARTZ_PILLAR_SLAB = RegisterHelper.registerSlab("quartz_pillar_slab", () -> Blocks.QUARTZ_PILLAR, false);
-    public static final RegistryObject<Block> QUARTZ_PILLAR_WALL = RegisterHelper.registerWall("quartz_pillar_wall", () -> Blocks.QUARTZ_PILLAR);
-    public static final RegistryObject<Block> QUARTZ_PILLAR_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("quartz_pillar_pressure_plate", false, MapColor.QUARTZ, BlockSetType.STONE);
-    public static final RegistryObject<Block> QUARTZ_PILLAR_BUTTON = RegisterHelper.registerButton("quartz_pillar_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> QUARTZ_PILLAR_PEBBLE = RegisterHelper.registerPebble("quartz_pillar_pebble", () -> Blocks.QUARTZ_PILLAR);
-    public static final RegistryObject<Block> TERRACOTTA_STAIRS = RegisterHelper.registerStair("terracotta_stairs", Blocks.TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> TERRACOTTA_SLAB = RegisterHelper.registerSlab("terracotta_slab", () -> Blocks.TERRACOTTA, false);
-    public static final RegistryObject<Block> TERRACOTTA_WALL = RegisterHelper.registerWall("terracotta_wall", () -> Blocks.TERRACOTTA);
-    public static final RegistryObject<Block> TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("terracotta_pressure_plate", false, MapColor.COLOR_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> TERRACOTTA_BUTTON = RegisterHelper.registerButton("terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("terracotta_pebble", () -> Blocks.TERRACOTTA);
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_STAIRS = RegisterHelper.registerStair("white_terracotta_stairs", Blocks.WHITE_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_SLAB = RegisterHelper.registerSlab("white_terracotta_slab", () -> Blocks.WHITE_TERRACOTTA, false);
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_WALL = RegisterHelper.registerWall("white_terracotta_wall", () -> Blocks.WHITE_TERRACOTTA);
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("white_terracotta_pressure_plate", false, MapColor.TERRACOTTA_WHITE, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_BUTTON = RegisterHelper.registerButton("white_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("white_terracotta_pebble", () -> Blocks.WHITE_TERRACOTTA);
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_STAIRS = RegisterHelper.registerStair("orange_terracotta_stairs", Blocks.ORANGE_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_SLAB = RegisterHelper.registerSlab("orange_terracotta_slab", () -> Blocks.ORANGE_TERRACOTTA, false);
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_WALL = RegisterHelper.registerWall("orange_terracotta_wall", () -> Blocks.ORANGE_TERRACOTTA);
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("orange_terracotta_pressure_plate", false, MapColor.TERRACOTTA_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_BUTTON = RegisterHelper.registerButton("orange_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("orange_terracotta_pebble", () -> Blocks.ORANGE_TERRACOTTA);
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_STAIRS = RegisterHelper.registerStair("magenta_terracotta_stairs", Blocks.MAGENTA_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_SLAB = RegisterHelper.registerSlab("magenta_terracotta_slab", () -> Blocks.MAGENTA_TERRACOTTA, false);
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_WALL = RegisterHelper.registerWall("magenta_terracotta_wall", () -> Blocks.MAGENTA_TERRACOTTA);
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("magenta_terracotta_pressure_plate", false, MapColor.TERRACOTTA_MAGENTA, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_BUTTON = RegisterHelper.registerButton("magenta_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("magenta_terracotta_pebble", () -> Blocks.MAGENTA_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_STAIRS = RegisterHelper.registerStair("light_blue_terracotta_stairs", Blocks.LIGHT_BLUE_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_SLAB = RegisterHelper.registerSlab("light_blue_terracotta_slab", () -> Blocks.LIGHT_BLUE_TERRACOTTA, false);
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_WALL = RegisterHelper.registerWall("light_blue_terracotta_wall", () -> Blocks.LIGHT_BLUE_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_blue_terracotta_pressure_plate", false, MapColor.TERRACOTTA_LIGHT_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_BUTTON = RegisterHelper.registerButton("light_blue_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("light_blue_terracotta_pebble", () -> Blocks.LIGHT_BLUE_TERRACOTTA);
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_STAIRS = RegisterHelper.registerStair("yellow_terracotta_stairs", Blocks.YELLOW_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_SLAB = RegisterHelper.registerSlab("yellow_terracotta_slab", () -> Blocks.YELLOW_TERRACOTTA, false);
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_WALL = RegisterHelper.registerWall("yellow_terracotta_wall", () -> Blocks.YELLOW_TERRACOTTA);
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("yellow_terracotta_pressure_plate", false, MapColor.TERRACOTTA_YELLOW, BlockSetType.STONE);
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_BUTTON = RegisterHelper.registerButton("yellow_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("yellow_terracotta_pebble", () -> Blocks.YELLOW_TERRACOTTA);
-    public static final RegistryObject<Block> LIME_TERRACOTTA_STAIRS = RegisterHelper.registerStair("lime_terracotta_stairs", Blocks.LIME_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> LIME_TERRACOTTA_SLAB = RegisterHelper.registerSlab("lime_terracotta_slab", () -> Blocks.LIME_TERRACOTTA, false);
-    public static final RegistryObject<Block> LIME_TERRACOTTA_WALL = RegisterHelper.registerWall("lime_terracotta_wall", () -> Blocks.LIME_TERRACOTTA);
-    public static final RegistryObject<Block> LIME_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("lime_terracotta_pressure_plate", false, MapColor.TERRACOTTA_LIGHT_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_TERRACOTTA_BUTTON = RegisterHelper.registerButton("lime_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("lime_terracotta_pebble", () -> Blocks.LIME_TERRACOTTA);
-    public static final RegistryObject<Block> PINK_TERRACOTTA_STAIRS = RegisterHelper.registerStair("pink_terracotta_stairs", Blocks.PINK_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> PINK_TERRACOTTA_SLAB = RegisterHelper.registerSlab("pink_terracotta_slab", () -> Blocks.PINK_TERRACOTTA, false);
-    public static final RegistryObject<Block> PINK_TERRACOTTA_WALL = RegisterHelper.registerWall("pink_terracotta_wall", () -> Blocks.PINK_TERRACOTTA);
-    public static final RegistryObject<Block> PINK_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("pink_terracotta_pressure_plate", false, MapColor.TERRACOTTA_PINK, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_TERRACOTTA_BUTTON = RegisterHelper.registerButton("pink_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("pink_terracotta_pebble", () -> Blocks.PINK_TERRACOTTA);
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_STAIRS = RegisterHelper.registerStair("gray_terracotta_stairs", Blocks.GRAY_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_SLAB = RegisterHelper.registerSlab("gray_terracotta_slab", () -> Blocks.GRAY_TERRACOTTA, false);
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_WALL = RegisterHelper.registerWall("gray_terracotta_wall", () -> Blocks.GRAY_TERRACOTTA);
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("gray_terracotta_pressure_plate", false, MapColor.TERRACOTTA_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_BUTTON = RegisterHelper.registerButton("gray_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("gray_terracotta_pebble", () -> Blocks.GRAY_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_STAIRS = RegisterHelper.registerStair("light_gray_terracotta_stairs", Blocks.LIGHT_GRAY_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_SLAB = RegisterHelper.registerSlab("light_gray_terracotta_slab", () -> Blocks.LIGHT_GRAY_TERRACOTTA, false);
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_WALL = RegisterHelper.registerWall("light_gray_terracotta_wall", () -> Blocks.LIGHT_GRAY_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_gray_terracotta_pressure_plate", false, MapColor.TERRACOTTA_LIGHT_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_BUTTON = RegisterHelper.registerButton("light_gray_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("light_gray_terracotta_pebble", () -> Blocks.LIGHT_GRAY_TERRACOTTA);
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_STAIRS = RegisterHelper.registerStair("cyan_terracotta_stairs", Blocks.CYAN_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_SLAB = RegisterHelper.registerSlab("cyan_terracotta_slab", () -> Blocks.CYAN_TERRACOTTA, false);
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_WALL = RegisterHelper.registerWall("cyan_terracotta_wall", () -> Blocks.CYAN_TERRACOTTA);
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("cyan_terracotta_pressure_plate", false, MapColor.TERRACOTTA_CYAN, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_BUTTON = RegisterHelper.registerButton("cyan_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("cyan_terracotta_pebble", () -> Blocks.CYAN_TERRACOTTA);
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_STAIRS = RegisterHelper.registerStair("purple_terracotta_stairs", Blocks.PURPLE_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_SLAB = RegisterHelper.registerSlab("purple_terracotta_slab", () -> Blocks.PURPLE_TERRACOTTA, false);
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_WALL = RegisterHelper.registerWall("purple_terracotta_wall", () -> Blocks.PURPLE_TERRACOTTA);
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("purple_terracotta_pressure_plate", false, MapColor.TERRACOTTA_PURPLE, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_BUTTON = RegisterHelper.registerButton("purple_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("purple_terracotta_pebble", () -> Blocks.PURPLE_TERRACOTTA);
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_STAIRS = RegisterHelper.registerStair("blue_terracotta_stairs", Blocks.BLUE_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_SLAB = RegisterHelper.registerSlab("blue_terracotta_slab", () -> Blocks.BLUE_TERRACOTTA, false);
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_WALL = RegisterHelper.registerWall("blue_terracotta_wall", () -> Blocks.BLUE_TERRACOTTA);
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blue_terracotta_pressure_plate", false, MapColor.TERRACOTTA_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_BUTTON = RegisterHelper.registerButton("blue_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("blue_terracotta_pebble", () -> Blocks.BLUE_TERRACOTTA);
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_STAIRS = RegisterHelper.registerStair("brown_terracotta_stairs", Blocks.BROWN_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_SLAB = RegisterHelper.registerSlab("brown_terracotta_slab", () -> Blocks.BROWN_TERRACOTTA, false);
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_WALL = RegisterHelper.registerWall("brown_terracotta_wall", () -> Blocks.BROWN_TERRACOTTA);
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("brown_terracotta_pressure_plate", false, MapColor.TERRACOTTA_BROWN, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_BUTTON = RegisterHelper.registerButton("brown_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("brown_terracotta_pebble", () -> Blocks.BROWN_TERRACOTTA);
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_STAIRS = RegisterHelper.registerStair("green_terracotta_stairs", Blocks.GREEN_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_SLAB = RegisterHelper.registerSlab("green_terracotta_slab", () -> Blocks.GREEN_TERRACOTTA, false);
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_WALL = RegisterHelper.registerWall("green_terracotta_wall", () -> Blocks.GREEN_TERRACOTTA);
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("green_terracotta_pressure_plate", false, MapColor.TERRACOTTA_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_BUTTON = RegisterHelper.registerButton("green_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("green_terracotta_pebble", () -> Blocks.GREEN_TERRACOTTA);
-    public static final RegistryObject<Block> RED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("red_terracotta_stairs", Blocks.RED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> RED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("red_terracotta_slab", () -> Blocks.RED_TERRACOTTA, false);
-    public static final RegistryObject<Block> RED_TERRACOTTA_WALL = RegisterHelper.registerWall("red_terracotta_wall", () -> Blocks.RED_TERRACOTTA);
-    public static final RegistryObject<Block> RED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("red_terracotta_pressure_plate", false, MapColor.TERRACOTTA_RED, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("red_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("red_terracotta_pebble", () -> Blocks.RED_TERRACOTTA);
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_STAIRS = RegisterHelper.registerStair("black_terracotta_stairs", Blocks.BLACK_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_SLAB = RegisterHelper.registerSlab("black_terracotta_slab", () -> Blocks.BLACK_TERRACOTTA, false);
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_WALL = RegisterHelper.registerWall("black_terracotta_wall", () -> Blocks.BLACK_TERRACOTTA);
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("black_terracotta_pressure_plate", false, MapColor.TERRACOTTA_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_BUTTON = RegisterHelper.registerButton("black_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("black_terracotta_pebble", () -> Blocks.BLACK_TERRACOTTA);
-    public static final RegistryObject<Block> WHITE_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("white_glazed_terracotta_stairs", Blocks.WHITE_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> WHITE_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("white_glazed_terracotta_slab", () -> Blocks.WHITE_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> WHITE_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("white_glazed_terracotta_wall", () -> Blocks.WHITE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> WHITE_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("white_glazed_terracotta_pressure_plate", false, MapColor.SNOW, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("white_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("white_glazed_terracotta_pebble", () -> Blocks.WHITE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> ORANGE_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("orange_glazed_terracotta_stairs", Blocks.ORANGE_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> ORANGE_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("orange_glazed_terracotta_slab", () -> Blocks.ORANGE_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> ORANGE_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("orange_glazed_terracotta_wall", () -> Blocks.ORANGE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> ORANGE_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("orange_glazed_terracotta_pressure_plate", false, MapColor.COLOR_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("orange_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("orange_glazed_terracotta_pebble", () -> Blocks.ORANGE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> MAGENTA_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("magenta_glazed_terracotta_stairs", Blocks.MAGENTA_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> MAGENTA_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("magenta_glazed_terracotta_slab", () -> Blocks.MAGENTA_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> MAGENTA_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("magenta_glazed_terracotta_wall", () -> Blocks.MAGENTA_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> MAGENTA_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("magenta_glazed_terracotta_pressure_plate", false, MapColor.COLOR_MAGENTA, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("magenta_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("magenta_glazed_terracotta_pebble", () -> Blocks.MAGENTA_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_BLUE_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("light_blue_glazed_terracotta_stairs", Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_BLUE_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("light_blue_glazed_terracotta_slab", () -> Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> LIGHT_BLUE_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("light_blue_glazed_terracotta_wall", () -> Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_BLUE_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_blue_glazed_terracotta_pressure_plate", false, MapColor.COLOR_LIGHT_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("light_blue_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("light_blue_glazed_terracotta_pebble", () -> Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> YELLOW_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("yellow_glazed_terracotta_stairs", Blocks.YELLOW_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> YELLOW_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("yellow_glazed_terracotta_slab", () -> Blocks.YELLOW_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> YELLOW_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("yellow_glazed_terracotta_wall", () -> Blocks.YELLOW_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> YELLOW_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("yellow_glazed_terracotta_pressure_plate", false, MapColor.COLOR_YELLOW, BlockSetType.STONE);
-    public static final RegistryObject<Block> YELLOW_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("yellow_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> YELLOW_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("yellow_glazed_terracotta_pebble", () -> Blocks.YELLOW_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> LIME_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("lime_glazed_terracotta_stairs", Blocks.LIME_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> LIME_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("lime_glazed_terracotta_slab", () -> Blocks.LIME_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> LIME_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("lime_glazed_terracotta_wall", () -> Blocks.LIME_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> LIME_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("lime_glazed_terracotta_pressure_plate", false, MapColor.COLOR_LIGHT_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("lime_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("lime_glazed_terracotta_pebble", () -> Blocks.LIME_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> PINK_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("pink_glazed_terracotta_stairs", Blocks.PINK_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> PINK_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("pink_glazed_terracotta_slab", () -> Blocks.PINK_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> PINK_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("pink_glazed_terracotta_wall", () -> Blocks.PINK_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> PINK_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("pink_glazed_terracotta_pressure_plate", false, MapColor.COLOR_PINK, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("pink_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("pink_glazed_terracotta_pebble", () -> Blocks.PINK_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> GRAY_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("gray_glazed_terracotta_stairs", Blocks.GRAY_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> GRAY_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("gray_glazed_terracotta_slab", () -> Blocks.GRAY_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> GRAY_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("gray_glazed_terracotta_wall", () -> Blocks.GRAY_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> GRAY_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("gray_glazed_terracotta_pressure_plate", false, MapColor.COLOR_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("gray_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("gray_glazed_terracotta_pebble", () -> Blocks.GRAY_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_GRAY_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("light_gray_glazed_terracotta_stairs", Blocks.LIGHT_GRAY_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_GRAY_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("light_gray_glazed_terracotta_slab", () -> Blocks.LIGHT_GRAY_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> LIGHT_GRAY_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("light_gray_glazed_terracotta_wall", () -> Blocks.LIGHT_GRAY_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> LIGHT_GRAY_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_gray_glazed_terracotta_pressure_plate", false, MapColor.COLOR_LIGHT_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("light_gray_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("light_gray_glazed_terracotta_pebble", () -> Blocks.LIGHT_GRAY_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> CYAN_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("cyan_glazed_terracotta_stairs", Blocks.CYAN_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> CYAN_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("cyan_glazed_terracotta_slab", () -> Blocks.CYAN_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> CYAN_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("cyan_glazed_terracotta_wall", () -> Blocks.CYAN_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> CYAN_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("cyan_glazed_terracotta_pressure_plate", false, MapColor.COLOR_CYAN, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("cyan_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("cyan_glazed_terracotta_pebble", () -> Blocks.CYAN_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> PURPLE_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("purple_glazed_terracotta_stairs", Blocks.PURPLE_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> PURPLE_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("purple_glazed_terracotta_slab", () -> Blocks.PURPLE_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> PURPLE_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("purple_glazed_terracotta_wall", () -> Blocks.PURPLE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> PURPLE_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("purple_glazed_terracotta_pressure_plate", false, MapColor.COLOR_PURPLE, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("purple_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("purple_glazed_terracotta_pebble", () -> Blocks.PURPLE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> BLUE_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("blue_glazed_terracotta_stairs", Blocks.BLUE_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> BLUE_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("blue_glazed_terracotta_slab", () -> Blocks.BLUE_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> BLUE_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("blue_glazed_terracotta_wall", () -> Blocks.BLUE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> BLUE_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blue_glazed_terracotta_pressure_plate", false, MapColor.COLOR_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("blue_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("blue_glazed_terracotta_pebble", () -> Blocks.BLUE_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> BROWN_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("brown_glazed_terracotta_stairs", Blocks.BROWN_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> BROWN_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("brown_glazed_terracotta_slab", () -> Blocks.BROWN_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> BROWN_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("brown_glazed_terracotta_wall", () -> Blocks.BROWN_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> BROWN_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("brown_glazed_terracotta_pressure_plate", false, MapColor.COLOR_BROWN, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("brown_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("brown_glazed_terracotta_pebble", () -> Blocks.BROWN_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> GREEN_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("green_glazed_terracotta_stairs", Blocks.GREEN_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> GREEN_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("green_glazed_terracotta_slab", () -> Blocks.GREEN_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> GREEN_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("green_glazed_terracotta_wall", () -> Blocks.GREEN_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> GREEN_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("green_glazed_terracotta_pressure_plate", false, MapColor.COLOR_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("green_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("green_glazed_terracotta_pebble", () -> Blocks.GREEN_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> RED_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("red_glazed_terracotta_stairs", Blocks.RED_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> RED_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("red_glazed_terracotta_slab", () -> Blocks.RED_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> RED_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("red_glazed_terracotta_wall", () -> Blocks.RED_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> RED_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("red_glazed_terracotta_pressure_plate", false, MapColor.COLOR_RED, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("red_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("red_glazed_terracotta_pebble", () -> Blocks.RED_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> BLACK_GLAZED_TERRACOTTA_STAIRS = RegisterHelper.registerStair("black_glazed_terracotta_stairs", Blocks.BLACK_GLAZED_TERRACOTTA::defaultBlockState);
-    public static final RegistryObject<Block> BLACK_GLAZED_TERRACOTTA_SLAB = RegisterHelper.registerSlab("black_glazed_terracotta_slab", () -> Blocks.BLACK_GLAZED_TERRACOTTA, false);
-    public static final RegistryObject<Block> BLACK_GLAZED_TERRACOTTA_WALL = RegisterHelper.registerWall("black_glazed_terracotta_wall", () -> Blocks.BLACK_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> BLACK_GLAZED_TERRACOTTA_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("black_glazed_terracotta_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_GLAZED_TERRACOTTA_BUTTON = RegisterHelper.registerButton("black_glazed_terracotta_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_GLAZED_TERRACOTTA_PEBBLE = RegisterHelper.registerPebble("black_glazed_terracotta_pebble", () -> Blocks.BLACK_GLAZED_TERRACOTTA);
-    public static final RegistryObject<Block> WHITE_CONCRETE_STAIRS = RegisterHelper.registerStair("white_concrete_stairs", Blocks.WHITE_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> WHITE_CONCRETE_SLAB = RegisterHelper.registerSlab("white_concrete_slab", () -> Blocks.WHITE_CONCRETE, false);
-    public static final RegistryObject<Block> WHITE_CONCRETE_WALL = RegisterHelper.registerWall("white_concrete_wall", () -> Blocks.WHITE_CONCRETE);
-    public static final RegistryObject<Block> WHITE_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("white_concrete_pressure_plate", false, MapColor.SNOW, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_CONCRETE_BUTTON = RegisterHelper.registerButton("white_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> WHITE_CONCRETE_PEBBLE = RegisterHelper.registerPebble("white_concrete_pebble", () -> Blocks.WHITE_CONCRETE);
-    public static final RegistryObject<Block> ORANGE_CONCRETE_STAIRS = RegisterHelper.registerStair("orange_concrete_stairs", Blocks.ORANGE_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> ORANGE_CONCRETE_SLAB = RegisterHelper.registerSlab("orange_concrete_slab", () -> Blocks.ORANGE_CONCRETE, false);
-    public static final RegistryObject<Block> ORANGE_CONCRETE_WALL = RegisterHelper.registerWall("orange_concrete_wall", () -> Blocks.ORANGE_CONCRETE);
-    public static final RegistryObject<Block> ORANGE_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("orange_concrete_pressure_plate", false, MapColor.COLOR_ORANGE, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_CONCRETE_BUTTON = RegisterHelper.registerButton("orange_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> ORANGE_CONCRETE_PEBBLE = RegisterHelper.registerPebble("orange_concrete_pebble", () -> Blocks.ORANGE_CONCRETE);
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_STAIRS = RegisterHelper.registerStair("magenta_concrete_stairs", Blocks.MAGENTA_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_SLAB = RegisterHelper.registerSlab("magenta_concrete_slab", () -> Blocks.MAGENTA_CONCRETE, false);
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_WALL = RegisterHelper.registerWall("magenta_concrete_wall", () -> Blocks.MAGENTA_CONCRETE);
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("magenta_concrete_pressure_plate", false, MapColor.COLOR_MAGENTA, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_BUTTON = RegisterHelper.registerButton("magenta_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_PEBBLE = RegisterHelper.registerPebble("magenta_concrete_pebble", () -> Blocks.MAGENTA_CONCRETE);
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_STAIRS = RegisterHelper.registerStair("light_blue_concrete_stairs", Blocks.LIGHT_BLUE_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_SLAB = RegisterHelper.registerSlab("light_blue_concrete_slab", () -> Blocks.LIGHT_BLUE_CONCRETE, false);
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_WALL = RegisterHelper.registerWall("light_blue_concrete_wall", () -> Blocks.LIGHT_BLUE_CONCRETE);
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_blue_concrete_pressure_plate", false, MapColor.COLOR_LIGHT_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_BUTTON = RegisterHelper.registerButton("light_blue_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_PEBBLE = RegisterHelper.registerPebble("light_blue_concrete_pebble", () -> Blocks.LIGHT_BLUE_CONCRETE);
-    public static final RegistryObject<Block> YELLOW_CONCRETE_STAIRS = RegisterHelper.registerStair("yellow_concrete_stairs", Blocks.YELLOW_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> YELLOW_CONCRETE_SLAB = RegisterHelper.registerSlab("yellow_concrete_slab", () -> Blocks.YELLOW_CONCRETE, false);
-    public static final RegistryObject<Block> YELLOW_CONCRETE_WALL = RegisterHelper.registerWall("yellow_concrete_wall", () -> Blocks.YELLOW_CONCRETE);
-    public static final RegistryObject<Block> YELLOW_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("yellow_concrete_pressure_plate", false, MapColor.COLOR_YELLOW, BlockSetType.STONE);
-    public static final RegistryObject<Block> YELLOW_CONCRETE_BUTTON = RegisterHelper.registerButton("yellow_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> YELLOW_CONCRETE_PEBBLE = RegisterHelper.registerPebble("yellow_concrete_pebble", () -> Blocks.YELLOW_CONCRETE);
-    public static final RegistryObject<Block> LIME_CONCRETE_STAIRS = RegisterHelper.registerStair("lime_concrete_stairs", Blocks.LIME_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> LIME_CONCRETE_SLAB = RegisterHelper.registerSlab("lime_concrete_slab", () -> Blocks.LIME_CONCRETE, false);
-    public static final RegistryObject<Block> LIME_CONCRETE_WALL = RegisterHelper.registerWall("lime_concrete_wall", () -> Blocks.LIME_CONCRETE);
-    public static final RegistryObject<Block> LIME_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("lime_concrete_pressure_plate", false, MapColor.COLOR_LIGHT_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_CONCRETE_BUTTON = RegisterHelper.registerButton("lime_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIME_CONCRETE_PEBBLE = RegisterHelper.registerPebble("lime_concrete_pebble", () -> Blocks.LIME_CONCRETE);
-    public static final RegistryObject<Block> PINK_CONCRETE_STAIRS = RegisterHelper.registerStair("pink_concrete_stairs", Blocks.PINK_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> PINK_CONCRETE_SLAB = RegisterHelper.registerSlab("pink_concrete_slab", () -> Blocks.PINK_CONCRETE, false);
-    public static final RegistryObject<Block> PINK_CONCRETE_WALL = RegisterHelper.registerWall("pink_concrete_wall", () -> Blocks.PINK_CONCRETE);
-    public static final RegistryObject<Block> PINK_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("pink_concrete_pressure_plate", false, MapColor.COLOR_PINK, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_CONCRETE_BUTTON = RegisterHelper.registerButton("pink_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PINK_CONCRETE_PEBBLE = RegisterHelper.registerPebble("pink_concrete_pebble", () -> Blocks.PINK_CONCRETE);
-    public static final RegistryObject<Block> GRAY_CONCRETE_STAIRS = RegisterHelper.registerStair("gray_concrete_stairs", Blocks.GRAY_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> GRAY_CONCRETE_SLAB = RegisterHelper.registerSlab("gray_concrete_slab", () -> Blocks.GRAY_CONCRETE, false);
-    public static final RegistryObject<Block> GRAY_CONCRETE_WALL = RegisterHelper.registerWall("gray_concrete_wall", () -> Blocks.GRAY_CONCRETE);
-    public static final RegistryObject<Block> GRAY_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("gray_concrete_pressure_plate", false, MapColor.COLOR_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_CONCRETE_BUTTON = RegisterHelper.registerButton("gray_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GRAY_CONCRETE_PEBBLE = RegisterHelper.registerPebble("gray_concrete_pebble", () -> Blocks.GRAY_CONCRETE);
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_STAIRS = RegisterHelper.registerStair("light_gray_concrete_stairs", Blocks.LIGHT_GRAY_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_SLAB = RegisterHelper.registerSlab("light_gray_concrete_slab", () -> Blocks.LIGHT_GRAY_CONCRETE, false);
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_WALL = RegisterHelper.registerWall("light_gray_concrete_wall", () -> Blocks.LIGHT_GRAY_CONCRETE);
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("light_gray_concrete_pressure_plate", false, MapColor.COLOR_LIGHT_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_BUTTON = RegisterHelper.registerButton("light_gray_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_PEBBLE = RegisterHelper.registerPebble("light_gray_concrete_pebble", () -> Blocks.LIGHT_GRAY_CONCRETE);
-    public static final RegistryObject<Block> CYAN_CONCRETE_STAIRS = RegisterHelper.registerStair("cyan_concrete_stairs", Blocks.CYAN_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> CYAN_CONCRETE_SLAB = RegisterHelper.registerSlab("cyan_concrete_slab", () -> Blocks.CYAN_CONCRETE, false);
-    public static final RegistryObject<Block> CYAN_CONCRETE_WALL = RegisterHelper.registerWall("cyan_concrete_wall", () -> Blocks.CYAN_CONCRETE);
-    public static final RegistryObject<Block> CYAN_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("cyan_concrete_pressure_plate", false, MapColor.COLOR_CYAN, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_CONCRETE_BUTTON = RegisterHelper.registerButton("cyan_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CYAN_CONCRETE_PEBBLE = RegisterHelper.registerPebble("cyan_concrete_pebble", () -> Blocks.CYAN_CONCRETE);
-    public static final RegistryObject<Block> PURPLE_CONCRETE_STAIRS = RegisterHelper.registerStair("purple_concrete_stairs", Blocks.PURPLE_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> PURPLE_CONCRETE_SLAB = RegisterHelper.registerSlab("purple_concrete_slab", () -> Blocks.PURPLE_CONCRETE, false);
-    public static final RegistryObject<Block> PURPLE_CONCRETE_WALL = RegisterHelper.registerWall("purple_concrete_wall", () -> Blocks.PURPLE_CONCRETE);
-    public static final RegistryObject<Block> PURPLE_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("purple_concrete_pressure_plate", false, MapColor.COLOR_PURPLE, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_CONCRETE_BUTTON = RegisterHelper.registerButton("purple_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> PURPLE_CONCRETE_PEBBLE = RegisterHelper.registerPebble("purple_concrete_pebble", () -> Blocks.PURPLE_CONCRETE);
-    public static final RegistryObject<Block> BLUE_CONCRETE_STAIRS = RegisterHelper.registerStair("blue_concrete_stairs", Blocks.BLUE_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> BLUE_CONCRETE_SLAB = RegisterHelper.registerSlab("blue_concrete_slab", () -> Blocks.BLUE_CONCRETE, false);
-    public static final RegistryObject<Block> BLUE_CONCRETE_WALL = RegisterHelper.registerWall("blue_concrete_wall", () -> Blocks.BLUE_CONCRETE);
-    public static final RegistryObject<Block> BLUE_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("blue_concrete_pressure_plate", false, MapColor.COLOR_BLUE, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_CONCRETE_BUTTON = RegisterHelper.registerButton("blue_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLUE_CONCRETE_PEBBLE = RegisterHelper.registerPebble("blue_concrete_pebble", () -> Blocks.BLUE_CONCRETE);
-    public static final RegistryObject<Block> BROWN_CONCRETE_STAIRS = RegisterHelper.registerStair("brown_concrete_stairs", Blocks.BROWN_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> BROWN_CONCRETE_SLAB = RegisterHelper.registerSlab("brown_concrete_slab", () -> Blocks.BROWN_CONCRETE, false);
-    public static final RegistryObject<Block> BROWN_CONCRETE_WALL = RegisterHelper.registerWall("brown_concrete_wall", () -> Blocks.BROWN_CONCRETE);
-    public static final RegistryObject<Block> BROWN_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("brown_concrete_pressure_plate", false, MapColor.COLOR_BROWN, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_CONCRETE_BUTTON = RegisterHelper.registerButton("brown_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BROWN_CONCRETE_PEBBLE = RegisterHelper.registerPebble("brown_concrete_pebble", () -> Blocks.BROWN_CONCRETE);
-    public static final RegistryObject<Block> GREEN_CONCRETE_STAIRS = RegisterHelper.registerStair("green_concrete_stairs", Blocks.GREEN_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> GREEN_CONCRETE_SLAB = RegisterHelper.registerSlab("green_concrete_slab", () -> Blocks.GREEN_CONCRETE, false);
-    public static final RegistryObject<Block> GREEN_CONCRETE_WALL = RegisterHelper.registerWall("green_concrete_wall", () -> Blocks.GREEN_CONCRETE);
-    public static final RegistryObject<Block> GREEN_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("green_concrete_pressure_plate", false, MapColor.COLOR_GREEN, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_CONCRETE_BUTTON = RegisterHelper.registerButton("green_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GREEN_CONCRETE_PEBBLE = RegisterHelper.registerPebble("green_concrete_pebble", () -> Blocks.GREEN_CONCRETE);
-    public static final RegistryObject<Block> RED_CONCRETE_STAIRS = RegisterHelper.registerStair("red_concrete_stairs", Blocks.RED_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> RED_CONCRETE_SLAB = RegisterHelper.registerSlab("red_concrete_slab", () -> Blocks.RED_CONCRETE, false);
-    public static final RegistryObject<Block> RED_CONCRETE_WALL = RegisterHelper.registerWall("red_concrete_wall", () -> Blocks.RED_CONCRETE);
-    public static final RegistryObject<Block> RED_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("red_concrete_pressure_plate", false, MapColor.COLOR_RED, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_CONCRETE_BUTTON = RegisterHelper.registerButton("red_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> RED_CONCRETE_PEBBLE = RegisterHelper.registerPebble("red_concrete_pebble", () -> Blocks.RED_CONCRETE);
-    public static final RegistryObject<Block> BLACK_CONCRETE_STAIRS = RegisterHelper.registerStair("black_concrete_stairs", Blocks.BLACK_CONCRETE::defaultBlockState);
-    public static final RegistryObject<Block> BLACK_CONCRETE_SLAB = RegisterHelper.registerSlab("black_concrete_slab", () -> Blocks.BLACK_CONCRETE, false);
-    public static final RegistryObject<Block> BLACK_CONCRETE_WALL = RegisterHelper.registerWall("black_concrete_wall", () -> Blocks.BLACK_CONCRETE);
-    public static final RegistryObject<Block> BLACK_CONCRETE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("black_concrete_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_CONCRETE_BUTTON = RegisterHelper.registerButton("black_concrete_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> BLACK_CONCRETE_PEBBLE = RegisterHelper.registerPebble("black_concrete_pebble", () -> Blocks.BLACK_CONCRETE);
-    public static final RegistryObject<Block> CALCITE_STAIRS = RegisterHelper.registerStair("calcite_stairs", Blocks.CALCITE::defaultBlockState);
-    public static final RegistryObject<Block> CALCITE_SLAB = RegisterHelper.registerSlab("calcite_slab", () -> Blocks.CALCITE, false);
-    public static final RegistryObject<Block> CALCITE_WALL = RegisterHelper.registerWall("calcite_wall", () -> Blocks.CALCITE);
-    public static final RegistryObject<Block> CALCITE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("calcite_pressure_plate", false, MapColor.TERRACOTTA_WHITE, BlockSetType.STONE);
-    public static final RegistryObject<Block> CALCITE_BUTTON = RegisterHelper.registerButton("calcite_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CALCITE_PEBBLE = RegisterHelper.registerPebble("calcite_pebble", () -> Blocks.CALCITE);
-    public static final RegistryObject<Block> TUFF_STAIRS = RegisterHelper.registerStair("tuff_stairs", Blocks.TUFF::defaultBlockState);
-    public static final RegistryObject<Block> TUFF_SLAB = RegisterHelper.registerSlab("tuff_slab", () -> Blocks.TUFF, false);
-    public static final RegistryObject<Block> TUFF_WALL = RegisterHelper.registerWall("tuff_wall", () -> Blocks.TUFF);
-    public static final RegistryObject<Block> TUFF_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("tuff_pressure_plate", false, MapColor.TERRACOTTA_GRAY, BlockSetType.STONE);
-    public static final RegistryObject<Block> TUFF_BUTTON = RegisterHelper.registerButton("tuff_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> TUFF_PEBBLE = RegisterHelper.registerPebble("tuff_pebble", () -> Blocks.TUFF);
-    public static final RegistryObject<Block> DRIPSTONE_STAIRS = RegisterHelper.registerStair("dripstone_stairs", Blocks.DRIPSTONE_BLOCK::defaultBlockState);
-    public static final RegistryObject<Block> DRIPSTONE_SLAB = RegisterHelper.registerSlab("dripstone_slab", () -> Blocks.DRIPSTONE_BLOCK, false);
-    public static final RegistryObject<Block> DRIPSTONE_WALL = RegisterHelper.registerWall("dripstone_wall", () -> Blocks.DRIPSTONE_BLOCK);
-    public static final RegistryObject<Block> DRIPSTONE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("dripstone_pressure_plate", false, MapColor.TERRACOTTA_BROWN, BlockSetType.STONE);
-    public static final RegistryObject<Block> DRIPSTONE_BUTTON = RegisterHelper.registerButton("dripstone_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> DRIPSTONE_PEBBLE = RegisterHelper.registerPebble("dripstone_pebble", () -> Blocks.DRIPSTONE_BLOCK);
-    public static final RegistryObject<Block> OBSIDIAN_STAIRS = RegisterHelper.registerStair("obsidian_stairs", Blocks.OBSIDIAN::defaultBlockState);
-    public static final RegistryObject<Block> OBSIDIAN_SLAB = RegisterHelper.registerSlab("obsidian_slab", () -> Blocks.OBSIDIAN, false);
-    public static final RegistryObject<Block> OBSIDIAN_WALL = RegisterHelper.registerWall("obsidian_wall", () -> Blocks.OBSIDIAN);
-    public static final RegistryObject<Block> OBSIDIAN_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("obsidian_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> OBSIDIAN_BUTTON = RegisterHelper.registerButton("obsidian_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("obsidian_pebble", () -> Blocks.OBSIDIAN);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_STAIRS = RegisterHelper.registerBlock("crying_obsidian_stairs", CryingObsidianStairs::new);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_SLAB = RegisterHelper.registerBlock("crying_obsidian_slab", CryingObsidianSlab::new);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_WALL = RegisterHelper.registerBlock("crying_obsidian_wall", CryingObsidianWall::new);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("crying_obsidian_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_BUTTON = RegisterHelper.registerButton("crying_obsidian_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> CRYING_OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("crying_obsidian_pebble", () -> Blocks.CRYING_OBSIDIAN);
-    public static final RegistryObject<Block> GLASS_STAIRS = RegisterHelper.registerStair("glass_stairs", Blocks.GLASS::defaultBlockState);
-    public static final RegistryObject<Block> GLASS_SLAB = RegisterHelper.registerSlab("glass_slab", () -> Blocks.GLASS, false);
-    public static final RegistryObject<Block> GLASS_WALL = RegisterHelper.registerGlassWall("glass_wall", () -> Blocks.GLASS);
-    public static final RegistryObject<Block> WHITE_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("white_stained_glass_stairs", Blocks.WHITE_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> WHITE_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("white_stained_glass_slab", () -> Blocks.WHITE_STAINED_GLASS, false);
-    public static final RegistryObject<Block> WHITE_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("white_stained_glass_wall", () -> Blocks.WHITE_STAINED_GLASS);
-    public static final RegistryObject<Block> ORANGE_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("orange_stained_glass_stairs", Blocks.ORANGE_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> ORANGE_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("orange_stained_glass_slab", () -> Blocks.ORANGE_STAINED_GLASS, false);
-    public static final RegistryObject<Block> ORANGE_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("orange_stained_glass_wall", () -> Blocks.ORANGE_STAINED_GLASS);
-    public static final RegistryObject<Block> MAGENTA_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("magenta_stained_glass_stairs", Blocks.MAGENTA_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> MAGENTA_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("magenta_stained_glass_slab", () -> Blocks.MAGENTA_STAINED_GLASS, false);
-    public static final RegistryObject<Block> MAGENTA_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("magenta_stained_glass_wall", () -> Blocks.MAGENTA_STAINED_GLASS);
-    public static final RegistryObject<Block> LIGHT_BLUE_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("light_blue_stained_glass_stairs", Blocks.LIGHT_BLUE_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_BLUE_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("light_blue_stained_glass_slab", () -> Blocks.LIGHT_BLUE_STAINED_GLASS, false);
-    public static final RegistryObject<Block> LIGHT_BLUE_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("light_blue_stained_glass_wall", () -> Blocks.LIGHT_BLUE_STAINED_GLASS);
-    public static final RegistryObject<Block> YELLOW_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("yellow_stained_glass_stairs", Blocks.YELLOW_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> YELLOW_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("yellow_stained_glass_slab", () -> Blocks.YELLOW_STAINED_GLASS, false);
-    public static final RegistryObject<Block> YELLOW_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("yellow_stained_glass_wall", () -> Blocks.YELLOW_STAINED_GLASS);
-    public static final RegistryObject<Block> LIME_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("lime_stained_glass_stairs", Blocks.LIME_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> LIME_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("lime_stained_glass_slab", () -> Blocks.LIME_STAINED_GLASS, false);
-    public static final RegistryObject<Block> LIME_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("lime_stained_glass_wall", () -> Blocks.LIME_STAINED_GLASS);
-    public static final RegistryObject<Block> PINK_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("pink_stained_glass_stairs", Blocks.PINK_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> PINK_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("pink_stained_glass_slab", () -> Blocks.PINK_STAINED_GLASS, false);
-    public static final RegistryObject<Block> PINK_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("pink_stained_glass_wall", () -> Blocks.PINK_STAINED_GLASS);
-    public static final RegistryObject<Block> GRAY_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("gray_stained_glass_stairs", Blocks.GRAY_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> GRAY_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("gray_stained_glass_slab", () -> Blocks.GRAY_STAINED_GLASS, false);
-    public static final RegistryObject<Block> GRAY_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("gray_stained_glass_wall", () -> Blocks.GRAY_STAINED_GLASS);
-    public static final RegistryObject<Block> LIGHT_GRAY_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("light_gray_stained_glass_stairs", Blocks.LIGHT_GRAY_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> LIGHT_GRAY_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("light_gray_stained_glass_slab", () -> Blocks.LIGHT_GRAY_STAINED_GLASS, false);
-    public static final RegistryObject<Block> LIGHT_GRAY_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("light_gray_stained_glass_wall", () -> Blocks.LIGHT_GRAY_STAINED_GLASS);
-    public static final RegistryObject<Block> CYAN_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("cyan_stained_glass_stairs", Blocks.CYAN_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> CYAN_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("cyan_stained_glass_slab", () -> Blocks.CYAN_STAINED_GLASS, false);
-    public static final RegistryObject<Block> CYAN_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("cyan_stained_glass_wall", () -> Blocks.CYAN_STAINED_GLASS);
-    public static final RegistryObject<Block> PURPLE_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("purple_stained_glass_stairs", Blocks.PURPLE_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> PURPLE_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("purple_stained_glass_slab", () -> Blocks.PURPLE_STAINED_GLASS, false);
-    public static final RegistryObject<Block> PURPLE_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("purple_stained_glass_wall", () -> Blocks.PURPLE_STAINED_GLASS);
-    public static final RegistryObject<Block> BLUE_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("blue_stained_glass_stairs", Blocks.BLUE_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> BLUE_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("blue_stained_glass_slab", () -> Blocks.BLUE_STAINED_GLASS, false);
-    public static final RegistryObject<Block> BLUE_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("blue_stained_glass_wall", () -> Blocks.BLUE_STAINED_GLASS);
-    public static final RegistryObject<Block> BROWN_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("brown_stained_glass_stairs", Blocks.BROWN_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> BROWN_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("brown_stained_glass_slab", () -> Blocks.BROWN_STAINED_GLASS, false);
-    public static final RegistryObject<Block> BROWN_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("brown_stained_glass_wall", () -> Blocks.BROWN_STAINED_GLASS);
-    public static final RegistryObject<Block> GREEN_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("green_stained_glass_stairs", Blocks.GREEN_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> GREEN_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("green_stained_glass_slab", () -> Blocks.GREEN_STAINED_GLASS, false);
-    public static final RegistryObject<Block> GREEN_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("green_stained_glass_wall", () -> Blocks.GREEN_STAINED_GLASS);
-    public static final RegistryObject<Block> RED_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("red_stained_glass_stairs", Blocks.RED_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> RED_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("red_stained_glass_slab", () -> Blocks.RED_STAINED_GLASS, false);
-    public static final RegistryObject<Block> RED_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("red_stained_glass_wall", () -> Blocks.RED_STAINED_GLASS);
-    public static final RegistryObject<Block> BLACK_STAINED_GLASS_STAIRS = RegisterHelper.registerStair("black_stained_glass_stairs", Blocks.BLACK_STAINED_GLASS::defaultBlockState);
-    public static final RegistryObject<Block> BLACK_STAINED_GLASS_SLAB = RegisterHelper.registerSlab("black_stained_glass_slab", () -> Blocks.BLACK_STAINED_GLASS, false);
-    public static final RegistryObject<Block> BLACK_STAINED_GLASS_WALL = RegisterHelper.registerGlassWall("black_stained_glass_wall", () -> Blocks.BLACK_STAINED_GLASS);
-    public static final RegistryObject<Block> WHITE_WOOL_STAIRS = RegisterHelper.registerStair("white_wool_stairs", Blocks.WHITE_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.WHITE_WOOL));
-    public static final RegistryObject<Block> WHITE_WOOL_SLAB = RegisterHelper.registerSlab("white_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.WHITE_WOOL), true);
-    public static final RegistryObject<Block> WHITE_WOOL_WALL = RegisterHelper.registerWoolWall("white_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.WHITE_WOOL));
-    public static final RegistryObject<Block> ORANGE_WOOL_STAIRS = RegisterHelper.registerStair("orange_wool_stairs", Blocks.ORANGE_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.ORANGE_WOOL));
-    public static final RegistryObject<Block> ORANGE_WOOL_SLAB = RegisterHelper.registerSlab("orange_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.ORANGE_WOOL), true);
-    public static final RegistryObject<Block> ORANGE_WOOL_WALL = RegisterHelper.registerWoolWall("orange_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.ORANGE_WOOL));
-    public static final RegistryObject<Block> MAGENTA_WOOL_STAIRS = RegisterHelper.registerStair("magenta_wool_stairs", Blocks.MAGENTA_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.MAGENTA_WOOL));
-    public static final RegistryObject<Block> MAGENTA_WOOL_SLAB = RegisterHelper.registerSlab("magenta_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.MAGENTA_WOOL), true);
-    public static final RegistryObject<Block> MAGENTA_WOOL_WALL = RegisterHelper.registerWoolWall("magenta_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.MAGENTA_WOOL));
-    public static final RegistryObject<Block> LIGHT_BLUE_WOOL_STAIRS = RegisterHelper.registerStair("light_blue_wool_stairs", Blocks.LIGHT_BLUE_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.LIGHT_BLUE_WOOL));
-    public static final RegistryObject<Block> LIGHT_BLUE_WOOL_SLAB = RegisterHelper.registerSlab("light_blue_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.LIGHT_BLUE_WOOL), true);
-    public static final RegistryObject<Block> LIGHT_BLUE_WOOL_WALL = RegisterHelper.registerWoolWall("light_blue_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.LIGHT_BLUE_WOOL));
-    public static final RegistryObject<Block> YELLOW_WOOL_STAIRS = RegisterHelper.registerStair("yellow_wool_stairs", Blocks.YELLOW_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.YELLOW_WOOL));
-    public static final RegistryObject<Block> YELLOW_WOOL_SLAB = RegisterHelper.registerSlab("yellow_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.YELLOW_WOOL), true);
-    public static final RegistryObject<Block> YELLOW_WOOL_WALL = RegisterHelper.registerWoolWall("yellow_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.YELLOW_WOOL));
-    public static final RegistryObject<Block> LIME_WOOL_STAIRS = RegisterHelper.registerStair("lime_wool_stairs", Blocks.LIME_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.LIME_WOOL));
-    public static final RegistryObject<Block> LIME_WOOL_SLAB = RegisterHelper.registerSlab("lime_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.LIME_WOOL), true);
-    public static final RegistryObject<Block> LIME_WOOL_WALL = RegisterHelper.registerWoolWall("lime_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.LIME_WOOL));
-    public static final RegistryObject<Block> PINK_WOOL_STAIRS = RegisterHelper.registerStair("pink_wool_stairs", Blocks.PINK_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.PINK_WOOL));
-    public static final RegistryObject<Block> PINK_WOOL_SLAB = RegisterHelper.registerSlab("pink_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.PINK_WOOL), true);
-    public static final RegistryObject<Block> PINK_WOOL_WALL = RegisterHelper.registerWoolWall("pink_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.PINK_WOOL));
-    public static final RegistryObject<Block> GRAY_WOOL_STAIRS = RegisterHelper.registerStair("gray_wool_stairs", Blocks.GRAY_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.GRAY_WOOL));
-    public static final RegistryObject<Block> GRAY_WOOL_SLAB = RegisterHelper.registerSlab("gray_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.GRAY_WOOL), true);
-    public static final RegistryObject<Block> GRAY_WOOL_WALL = RegisterHelper.registerWoolWall("gray_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.GRAY_WOOL));
-    public static final RegistryObject<Block> LIGHT_GRAY_WOOL_STAIRS = RegisterHelper.registerStair("light_gray_wool_stairs", Blocks.LIGHT_GRAY_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.LIGHT_GRAY_WOOL));
-    public static final RegistryObject<Block> LIGHT_GRAY_WOOL_SLAB = RegisterHelper.registerSlab("light_gray_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.LIGHT_GRAY_WOOL), true);
-    public static final RegistryObject<Block> LIGHT_GRAY_WOOL_WALL = RegisterHelper.registerWoolWall("light_gray_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.LIGHT_GRAY_WOOL));
-    public static final RegistryObject<Block> CYAN_WOOL_STAIRS = RegisterHelper.registerStair("cyan_wool_stairs", Blocks.CYAN_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.CYAN_WOOL));
-    public static final RegistryObject<Block> CYAN_WOOL_SLAB = RegisterHelper.registerSlab("cyan_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.CYAN_WOOL), true);
-    public static final RegistryObject<Block> CYAN_WOOL_WALL = RegisterHelper.registerWoolWall("cyan_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.CYAN_WOOL));
-    public static final RegistryObject<Block> PURPLE_WOOL_STAIRS = RegisterHelper.registerStair("purple_wool_stairs", Blocks.PURPLE_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.PURPLE_WOOL));
-    public static final RegistryObject<Block> PURPLE_WOOL_SLAB = RegisterHelper.registerSlab("purple_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.PURPLE_WOOL), true);
-    public static final RegistryObject<Block> PURPLE_WOOL_WALL = RegisterHelper.registerWoolWall("purple_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.PURPLE_WOOL));
-    public static final RegistryObject<Block> BLUE_WOOL_STAIRS = RegisterHelper.registerStair("blue_wool_stairs", Blocks.BLUE_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.BLUE_WOOL));
-    public static final RegistryObject<Block> BLUE_WOOL_SLAB = RegisterHelper.registerSlab("blue_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.BLUE_WOOL), true);
-    public static final RegistryObject<Block> BLUE_WOOL_WALL = RegisterHelper.registerWoolWall("blue_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.BLUE_WOOL));
-    public static final RegistryObject<Block> BROWN_WOOL_STAIRS = RegisterHelper.registerStair("brown_wool_stairs", Blocks.BROWN_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.BROWN_WOOL));
-    public static final RegistryObject<Block> BROWN_WOOL_SLAB = RegisterHelper.registerSlab("brown_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.BROWN_WOOL), true);
-    public static final RegistryObject<Block> BROWN_WOOL_WALL = RegisterHelper.registerWoolWall("brown_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.BROWN_WOOL));
-    public static final RegistryObject<Block> GREEN_WOOL_STAIRS = RegisterHelper.registerStair("green_wool_stairs", Blocks.GREEN_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.GREEN_WOOL));
-    public static final RegistryObject<Block> GREEN_WOOL_SLAB = RegisterHelper.registerSlab("green_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.GREEN_WOOL), true);
-    public static final RegistryObject<Block> GREEN_WOOL_WALL = RegisterHelper.registerWoolWall("green_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.GREEN_WOOL));
-    public static final RegistryObject<Block> RED_WOOL_STAIRS = RegisterHelper.registerStair("red_wool_stairs", Blocks.RED_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.RED_WOOL));
-    public static final RegistryObject<Block> RED_WOOL_SLAB = RegisterHelper.registerSlab("red_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.RED_WOOL), true);
-    public static final RegistryObject<Block> RED_WOOL_WALL = RegisterHelper.registerWoolWall("red_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.RED_WOOL));
-    public static final RegistryObject<Block> BLACK_WOOL_STAIRS = RegisterHelper.registerStair("black_wool_stairs", Blocks.BLACK_WOOL::defaultBlockState, () -> PropertyHelper.copyFromBlock(Blocks.BLACK_WOOL));
-    public static final RegistryObject<Block> BLACK_WOOL_SLAB = RegisterHelper.registerSlab("black_wool_slab", () -> PropertyHelper.copyFromBlock(Blocks.BLACK_WOOL), true);
-    public static final RegistryObject<Block> BLACK_WOOL_WALL = RegisterHelper.registerWoolWall("black_wool_wall", () -> PropertyHelper.copyFromBlock(Blocks.BLACK_WOOL));
-    public static final RegistryObject<Block> HORIZONTAL_GLASS_PANE = RegisterHelper.registerBlockWithoutBlockItem("horizontal_glass_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.GLASS)));
-    public static final RegistryObject<Block> WHITE_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("white_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.WHITE_STAINED_GLASS)));
-    public static final RegistryObject<Block> ORANGE_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("orange_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.ORANGE_STAINED_GLASS)));
-    public static final RegistryObject<Block> MAGENTA_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("magenta_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.MAGENTA_STAINED_GLASS)));
-    public static final RegistryObject<Block> LIGHT_BLUE_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("light_blue_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.LIGHT_BLUE_STAINED_GLASS)));
-    public static final RegistryObject<Block> YELLOW_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("yellow_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.YELLOW_STAINED_GLASS)));
-    public static final RegistryObject<Block> LIME_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("lime_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.LIME_STAINED_GLASS)));
-    public static final RegistryObject<Block> PINK_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("pink_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.PINK_STAINED_GLASS)));
-    public static final RegistryObject<Block> GRAY_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("gray_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.GRAY_STAINED_GLASS)));
-    public static final RegistryObject<Block> LIGHT_GRAY_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("light_gray_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.LIGHT_GRAY_STAINED_GLASS)));
-    public static final RegistryObject<Block> CYAN_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("cyan_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.CYAN_STAINED_GLASS)));
-    public static final RegistryObject<Block> PURPLE_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("purple_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.PURPLE_STAINED_GLASS)));
-    public static final RegistryObject<Block> BLUE_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("blue_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.BLUE_STAINED_GLASS)));
-    public static final RegistryObject<Block> BROWN_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("brown_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.BROWN_STAINED_GLASS)));
-    public static final RegistryObject<Block> GREEN_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("green_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.GREEN_STAINED_GLASS)));
-    public static final RegistryObject<Block> RED_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("red_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.RED_STAINED_GLASS)));
-    public static final RegistryObject<Block> BLACK_STAINED_GLASS_HORIZONTAL_PANE = RegisterHelper.registerBlockWithoutBlockItem("black_stained_glass_horizontal_pane", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.BLACK_STAINED_GLASS)));
-    public static final RegistryObject<Block> GOLD_GRATE = RegisterHelper.registerBlockWithoutBlockItem("gold_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(GOLD_BARS.get())));
-    public static final RegistryObject<Block> IRON_GRATE = RegisterHelper.registerBlockWithoutBlockItem("iron_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(Blocks.IRON_BARS)));
-    public static final RegistryObject<Block> OXIDIZED_COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("oxidized_copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(OXIDIZED_COPPER_BARS.get()), WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WEATHERED_COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("weathered_copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(WEATHERED_COPPER_BARS.get()), WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> EXPOSED_COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("exposed_copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(EXPOSED_COPPER_BARS.get()), WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(COPPER_BARS.get()), WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("waxed_oxidized_copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_BARS.get()), WeatheringCopper.WeatherState.OXIDIZED));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("waxed_weathered_copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_BARS.get()), WeatheringCopper.WeatherState.WEATHERED));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("waxed_exposed_copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_BARS.get()), WeatheringCopper.WeatherState.EXPOSED));
-    public static final RegistryObject<Block> WAXED_COPPER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("waxed_copper_grate", () -> new WeatheringHorizontalPaneBlock(PropertyHelper.copyFromBlock(WAXED_COPPER_BARS.get()), WeatheringCopper.WeatherState.UNAFFECTED));
-    public static final RegistryObject<Block> NETHERITE_GRATE = RegisterHelper.registerBlockWithoutBlockItem("netherite_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(NETHERITE_BARS.get())));
-    public static final RegistryObject<Block> SILVER_GRATE = RegisterHelper.registerBlockWithoutBlockItem("silver_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(SILVER_BARS.get())));
-    public static final RegistryObject<Block> ALUMINUM_GRATE = RegisterHelper.registerBlockWithoutBlockItem("aluminum_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(ALUMINUM_BARS.get())));
-    public static final RegistryObject<Block> BRONZE_GRATE = RegisterHelper.registerBlockWithoutBlockItem("bronze_grate", () -> new HorizontalPaneBlock(PropertyHelper.copyFromBlock(BRONZE_BARS.get())));
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN = RegisterHelper.registerUnmovableBlock("glowing_obsidian", () -> PropertyHelper.copyFromBlock(Blocks.OBSIDIAN).lightLevel(state -> 15));
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_STAIRS = RegisterHelper.registerStair("glowing_obsidian_stairs", () -> GLOWING_OBSIDIAN.get().defaultBlockState());
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_SLAB = RegisterHelper.registerSlab("glowing_obsidian_slab", GLOWING_OBSIDIAN, false);
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = RegisterHelper.registerWall("glowing_obsidian_wall", GLOWING_OBSIDIAN);
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("glowing_obsidian_pressure_plate", false, MapColor.COLOR_BLACK, BlockSetType.STONE);
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_BUTTON = RegisterHelper.registerButton("glowing_obsidian_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> GLOWING_OBSIDIAN_PEBBLE = RegisterHelper.registerPebble("glowing_obsidian_pebble", GLOWING_OBSIDIAN);
-    public static final RegistryObject<Block> ROPE = RegisterHelper.registerBlock("rope", RopeBlock::new);
-    public static final RegistryObject<Block> ROPE_TAIL = RegisterHelper.registerBlockWithoutBlockItem("rope_tail", RopeTailBlock::new);
-    public static final RegistryObject<Block> WARPED_WART = RegisterHelper.registerBlockWithoutBlockItem("warped_wart", WarpedWartBlock::new);
-    public static final RegistryObject<Block> POTTED_WARPED_WART = RegisterHelper.registerFlowerPot("potted_warped_wart", WARPED_WART);
-    public static final RegistryObject<Block> WARPED_NETHER_BRICKS = RegisterHelper.registerBlock("warped_nether_bricks", () -> PropertyHelper.copyFromBlock(Blocks.NETHER_BRICKS));
-    public static final RegistryObject<Block> CRACKED_WARPED_NETHER_BRICKS = RegisterHelper.registerBlock("cracked_warped_nether_bricks", () -> PropertyHelper.copyFromBlock(WARPED_NETHER_BRICKS.get()));
-    public static final RegistryObject<Block> CHISELED_WARPED_NETHER_BRICKS = RegisterHelper.registerBlock("chiseled_warped_nether_bricks", () -> PropertyHelper.copyFromBlock(WARPED_NETHER_BRICKS.get()));
-    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_STAIRS = RegisterHelper.registerStair("warped_nether_bricks_stairs", () -> WARPED_NETHER_BRICKS.get().defaultBlockState());
-    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_SLAB = RegisterHelper.registerSlab("warped_nether_bricks_slab", WARPED_NETHER_BRICKS, false);
-    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_WALL = RegisterHelper.registerWall("warped_nether_bricks_wall", WARPED_NETHER_BRICKS);
-    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("warped_nether_bricks_pressure_plate", false, MapColor.WARPED_WART_BLOCK, BlockSetType.STONE);
-    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_BUTTON = RegisterHelper.registerButton("warped_nether_bricks_button", false, BlockSetType.STONE);
-    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PEBBLE = RegisterHelper.registerPebble("warped_nether_bricks_pebble", WARPED_NETHER_BRICKS);
-    public static final RegistryObject<Block> HOLLOW_OAK_LOG = RegisterHelper.registerBlock("hollow_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.OAK_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_OAK_LOG = RegisterHelper.registerBlock("hollow_stripped_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_OAK_LOG)));
-    public static final RegistryObject<Block> OAK_LEAVES_CARPET = RegisterHelper.registerBlock("oak_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.OAK_LEAVES)));
-    public static final RegistryObject<Block> OAK_BUSH = RegisterHelper.registerBlock("oak_bush", () -> new TreeBushBlock(OakTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_OAK_BUSH = RegisterHelper.registerFlowerPot("potted_oak_bush", OAK_BUSH);
-    public static final RegistryObject<Block> OAK_BARREL = RegisterHelper.registerBlock("oak_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> HOLLOW_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.SPRUCE_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_SPRUCE_LOG = RegisterHelper.registerBlock("hollow_stripped_spruce_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_SPRUCE_LOG)));
-    public static final RegistryObject<Block> SPRUCE_LEAVES_CARPET = RegisterHelper.registerBlock("spruce_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.SPRUCE_LEAVES)));
-    public static final RegistryObject<Block> SPRUCE_CHEST = RegisterHelper.registerChest("spruce_chest", () -> MWBlockEntityTypes.SPRUCE_CHEST.get(), WoodType.SPRUCE);
-    public static final RegistryObject<Block> SPRUCE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("spruce_trapped_chest", () -> MWBlockEntityTypes.SPRUCE_TRAPPED_CHEST.get(), WoodType.SPRUCE);
-    public static final RegistryObject<Block> SPRUCE_BOOKSHELF = RegisterHelper.registerBookshelf("spruce_bookshelf");
-    public static final RegistryObject<Block> SPRUCE_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("spruce_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> SPRUCE_LECTERN = RegisterHelper.registerLectern("spruce_lectern", () -> MWBlockEntityTypes.SPRUCE_LECTERN.get());
-    public static final RegistryObject<Block> SPRUCE_BUSH = RegisterHelper.registerBlock("spruce_bush", () -> new TreeBushBlock(SpruceTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_SPRUCE_BUSH = RegisterHelper.registerFlowerPot("potted_spruce_bush", SPRUCE_BUSH);
-    public static final RegistryObject<Block> HOLLOW_BIRCH_LOG = RegisterHelper.registerBlock("hollow_birch_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.BIRCH_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_BIRCH_LOG = RegisterHelper.registerBlock("hollow_stripped_birch_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_BIRCH_LOG)));
-    public static final RegistryObject<Block> BIRCH_LEAVES_CARPET = RegisterHelper.registerBlock("birch_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.BIRCH_LEAVES)));
-    public static final RegistryObject<Block> BIRCH_BARREL = RegisterHelper.registerBlock("birch_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> BIRCH_CHEST = RegisterHelper.registerChest("birch_chest", () -> MWBlockEntityTypes.BIRCH_CHEST.get(), WoodType.BIRCH);
-    public static final RegistryObject<Block> BIRCH_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("birch_trapped_chest", () -> MWBlockEntityTypes.BIRCH_TRAPPED_CHEST.get(), WoodType.BIRCH);
-    public static final RegistryObject<Block> BIRCH_BOOKSHELF = RegisterHelper.registerBookshelf("birch_bookshelf");
-    public static final RegistryObject<Block> BIRCH_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("birch_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> BIRCH_LECTERN = RegisterHelper.registerLectern("birch_lectern", () -> MWBlockEntityTypes.BIRCH_LECTERN.get());
-    public static final RegistryObject<Block> BIRCH_BUSH = RegisterHelper.registerBlock("birch_bush", () -> new TreeBushBlock(BirchTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_BIRCH_BUSH = RegisterHelper.registerFlowerPot("potted_birch_bush", BIRCH_BUSH);
-    public static final RegistryObject<Block> HOLLOW_JUNGLE_LOG = RegisterHelper.registerBlock("hollow_jungle_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.JUNGLE_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_JUNGLE_LOG = RegisterHelper.registerBlock("hollow_stripped_jungle_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_JUNGLE_LOG)));
-    public static final RegistryObject<Block> JUNGLE_LEAVES_CARPET = RegisterHelper.registerBlock("jungle_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.JUNGLE_LEAVES)));
-    public static final RegistryObject<Block> JUNGLE_BARREL = RegisterHelper.registerBlock("jungle_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> JUNGLE_CHEST = RegisterHelper.registerChest("jungle_chest", () -> MWBlockEntityTypes.JUNGLE_CHEST.get(), WoodType.JUNGLE);
-    public static final RegistryObject<Block> JUNGLE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("jungle_trapped_chest", () -> MWBlockEntityTypes.JUNGLE_TRAPPED_CHEST.get(), WoodType.JUNGLE);
-    public static final RegistryObject<Block> JUNGLE_BOOKSHELF = RegisterHelper.registerBookshelf("jungle_bookshelf");
-    public static final RegistryObject<Block> JUNGLE_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("jungle_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> JUNGLE_LECTERN = RegisterHelper.registerLectern("jungle_lectern", () -> MWBlockEntityTypes.JUNGLE_LECTERN.get());
-    public static final RegistryObject<Block> JUNGLE_BUSH = RegisterHelper.registerBlock("jungle_bush", () -> new TreeBushBlock(JungleTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_JUNGLE_BUSH = RegisterHelper.registerFlowerPot("potted_jungle_bush", JUNGLE_BUSH);
-    public static final RegistryObject<Block> HOLLOW_ACACIA_LOG = RegisterHelper.registerBlock("hollow_acacia_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.ACACIA_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_ACACIA_LOG = RegisterHelper.registerBlock("hollow_stripped_acacia_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_ACACIA_LOG)));
-    public static final RegistryObject<Block> ACACIA_LEAVES_CARPET = RegisterHelper.registerBlock("acacia_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.ACACIA_LEAVES)));
-    public static final RegistryObject<Block> ACACIA_BARREL = RegisterHelper.registerBlock("acacia_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> ACACIA_CHEST = RegisterHelper.registerChest("acacia_chest", () -> MWBlockEntityTypes.ACACIA_CHEST.get(), WoodType.ACACIA);
-    public static final RegistryObject<Block> ACACIA_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("acacia_trapped_chest", () -> MWBlockEntityTypes.ACACIA_TRAPPED_CHEST.get(), WoodType.ACACIA);
-    public static final RegistryObject<Block> ACACIA_BOOKSHELF = RegisterHelper.registerBookshelf("acacia_bookshelf");
-    public static final RegistryObject<Block> ACACIA_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("acacia_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> ACACIA_LECTERN = RegisterHelper.registerLectern("acacia_lectern", () -> MWBlockEntityTypes.ACACIA_LECTERN.get());
-    public static final RegistryObject<Block> ACACIA_BUSH = RegisterHelper.registerBlock("acacia_bush", () -> new TreeBushBlock(AcaciaTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_ACACIA_BUSH = RegisterHelper.registerFlowerPot("potted_acacia_bush", ACACIA_BUSH);
-    public static final RegistryObject<Block> HOLLOW_DARK_OAK_LOG = RegisterHelper.registerBlock("hollow_dark_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.DARK_OAK_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_DARK_OAK_LOG = RegisterHelper.registerBlock("hollow_stripped_dark_oak_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_DARK_OAK_LOG)));
-    public static final RegistryObject<Block> DARK_OAK_LEAVES_CARPET = RegisterHelper.registerBlock("dark_oak_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.DARK_OAK_LEAVES)));
-    public static final RegistryObject<Block> DARK_OAK_BARREL = RegisterHelper.registerBlock("dark_oak_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> DARK_OAK_CHEST = RegisterHelper.registerChest("dark_oak_chest", () -> MWBlockEntityTypes.DARK_OAK_CHEST.get(), WoodType.DARK_OAK);
-    public static final RegistryObject<Block> DARK_OAK_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("dark_oak_trapped_chest", () -> MWBlockEntityTypes.DARK_OAK_TRAPPED_CHEST.get(), WoodType.DARK_OAK);
-    public static final RegistryObject<Block> DARK_OAK_BOOKSHELF = RegisterHelper.registerBookshelf("dark_oak_bookshelf");
-    public static final RegistryObject<Block> DARK_OAK_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("dark_oak_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> DARK_OAK_LECTERN = RegisterHelper.registerLectern("dark_oak_lectern", () -> MWBlockEntityTypes.DARK_OAK_LECTERN.get());
-    public static final RegistryObject<Block> DARK_OAK_BUSH = RegisterHelper.registerBlock("dark_oak_bush", () -> new TreeBushBlock(DarkOakTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_DARK_OAK_BUSH = RegisterHelper.registerFlowerPot("potted_dark_oak_bush", DARK_OAK_BUSH);
-    public static final RegistryObject<Block> HOLLOW_MANGROVE_LOG = RegisterHelper.registerBlock("hollow_mangrove_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.MANGROVE_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_MANGROVE_LOG = RegisterHelper.registerBlock("hollow_stripped_mangrove_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_MANGROVE_LOG)));
-    public static final RegistryObject<Block> MANGROVE_LEAVES_CARPET = RegisterHelper.registerBlock("mangrove_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.MANGROVE_LEAVES)));
-    public static final RegistryObject<Block> MANGROVE_BARREL = RegisterHelper.registerBlock("mangrove_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> MANGROVE_CHEST = RegisterHelper.registerChest("mangrove_chest", () -> MWBlockEntityTypes.MANGROVE_CHEST.get(), WoodType.MANGROVE);
-    public static final RegistryObject<Block> MANGROVE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("mangrove_trapped_chest", () -> MWBlockEntityTypes.MANGROVE_TRAPPED_CHEST.get(), WoodType.MANGROVE);
-    public static final RegistryObject<Block> MANGROVE_BOOKSHELF = RegisterHelper.registerBookshelf("mangrove_bookshelf");
-    public static final RegistryObject<Block> MANGROVE_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("mangrove_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> MANGROVE_LECTERN = RegisterHelper.registerLectern("mangrove_lectern", () -> MWBlockEntityTypes.MANGROVE_LECTERN.get());
-    public static final RegistryObject<Block> MANGROVE_BUSH = RegisterHelper.registerBlock("mangrove_bush", () -> new TreeBushBlock(() -> new MangroveTreeGrower(0.85F)));
-    public static final RegistryObject<Block> POTTED_MANGROVE_BUSH = RegisterHelper.registerFlowerPot("potted_mangrove_bush", MANGROVE_BUSH);
-    public static final RegistryObject<Block> HOLLOW_CHERRY_LOG = RegisterHelper.registerBlock("hollow_cherry_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.CHERRY_LOG)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_CHERRY_LOG = RegisterHelper.registerBlock("hollow_stripped_cherry_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_CHERRY_LOG)));
-    public static final RegistryObject<Block> CHERRY_LEAVES_CARPET = RegisterHelper.registerBlock("cherry_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.CHERRY_LEAVES)));
-    public static final RegistryObject<Block> CHERRY_BARREL = RegisterHelper.registerBlock("cherry_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL).sound(SoundType.CHERRY_WOOD)));
-    public static final RegistryObject<Block> CHERRY_CHEST = RegisterHelper.registerChest("cherry_chest", () -> MWBlockEntityTypes.CHERRY_CHEST.get(), WoodType.CHERRY);
-    public static final RegistryObject<Block> CHERRY_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("cherry_trapped_chest", () -> MWBlockEntityTypes.CHERRY_TRAPPED_CHEST.get(), WoodType.CHERRY);
-    public static final RegistryObject<Block> CHERRY_BOOKSHELF = RegisterHelper.registerBookshelf("cherry_bookshelf", SoundType.CHERRY_WOOD);
-    public static final RegistryObject<Block> CHERRY_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("cherry_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF).sound(SoundType.CHERRY_WOOD)));
-    public static final RegistryObject<Block> CHERRY_LECTERN = RegisterHelper.registerLectern("cherry_lectern", () -> MWBlockEntityTypes.CHERRY_LECTERN.get(), SoundType.CHERRY_WOOD);
-    public static final RegistryObject<Block> CHERRY_BUSH = RegisterHelper.registerBlock("cherry_bush", () -> new TreeBushBlock(CherryTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_CHERRY_BUSH = RegisterHelper.registerFlowerPot("potted_cherry_bush", CHERRY_BUSH);
-    public static final RegistryObject<Block> HOLLOW_BAMBOO_BLOCK = RegisterHelper.registerBlock("hollow_bamboo_block", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.BAMBOO_BLOCK)));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_BAMBOO_BLOCK = RegisterHelper.registerBlock("hollow_stripped_bamboo_block", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_BAMBOO_BLOCK)));
-    public static final RegistryObject<Block> BAMBOO_BARREL = RegisterHelper.registerBlock("bamboo_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL).sound(SoundType.BAMBOO_WOOD)));
-    public static final RegistryObject<Block> BAMBOO_CHEST = RegisterHelper.registerChest("bamboo_chest", () -> MWBlockEntityTypes.BAMBOO_CHEST.get(), WoodType.BAMBOO);
-    public static final RegistryObject<Block> BAMBOO_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("bamboo_trapped_chest", () -> MWBlockEntityTypes.BAMBOO_TRAPPED_CHEST.get(), WoodType.BAMBOO);
-    public static final RegistryObject<Block> BAMBOO_BOOKSHELF = RegisterHelper.registerBookshelf("bamboo_bookshelf", SoundType.BAMBOO_WOOD);
-    public static final RegistryObject<Block> BAMBOO_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("bamboo_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF).sound(SoundType.BAMBOO_WOOD)));
-    public static final RegistryObject<Block> BAMBOO_LECTERN = RegisterHelper.registerLectern("bamboo_lectern", () -> MWBlockEntityTypes.BAMBOO_LECTERN.get(), SoundType.BAMBOO_WOOD);
-    public static final RegistryObject<Block> HOLLOW_CRIMSON_STEM = RegisterHelper.registerBlock("hollow_crimson_stem", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.CRIMSON_STEM), false));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_CRIMSON_STEM = RegisterHelper.registerBlock("hollow_stripped_crimson_stem", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_CRIMSON_STEM), false));
-    public static final RegistryObject<Block> CRIMSON_BARREL = RegisterHelper.registerBlock("crimson_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL).sound(SoundType.NETHER_WOOD)));
-    public static final RegistryObject<Block> CRIMSON_CHEST = RegisterHelper.registerChest("crimson_chest", () -> MWBlockEntityTypes.CRIMSON_CHEST.get(), WoodType.CRIMSON);
-    public static final RegistryObject<Block> CRIMSON_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("crimson_trapped_chest", () -> MWBlockEntityTypes.CRIMSON_TRAPPED_CHEST.get(), WoodType.CRIMSON);
-    public static final RegistryObject<Block> CRIMSON_BOOKSHELF = RegisterHelper.registerBookshelf("crimson_bookshelf", SoundType.NETHER_WOOD);
-    public static final RegistryObject<Block> CRIMSON_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("crimson_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF).sound(SoundType.NETHER_WOOD)));
-    public static final RegistryObject<Block> CRIMSON_LECTERN = RegisterHelper.registerLectern("crimson_lectern", () -> MWBlockEntityTypes.CRIMSON_LECTERN.get(), SoundType.NETHER_WOOD);
-    public static final RegistryObject<Block> HOLLOW_WARPED_STEM = RegisterHelper.registerBlock("hollow_warped_stem", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.WARPED_STEM), false));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_WARPED_STEM = RegisterHelper.registerBlock("hollow_stripped_warped_stem", () -> new HollowBlock(PropertyHelper.copyFromBlock(Blocks.STRIPPED_WARPED_STEM), false));
-    public static final RegistryObject<Block> WARPED_BARREL = RegisterHelper.registerBlock("warped_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL).sound(SoundType.NETHER_WOOD)));
-    public static final RegistryObject<Block> WARPED_CHEST = RegisterHelper.registerChest("warped_chest", () -> MWBlockEntityTypes.WARPED_CHEST.get(), WoodType.WARPED);
-    public static final RegistryObject<Block> WARPED_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("warped_trapped_chest", () -> MWBlockEntityTypes.WARPED_TRAPPED_CHEST.get(), WoodType.WARPED);
-    public static final RegistryObject<Block> WARPED_BOOKSHELF = RegisterHelper.registerBookshelf("warped_bookshelf", SoundType.NETHER_WOOD);
-    public static final RegistryObject<Block> WARPED_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("warped_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF).sound(SoundType.NETHER_WOOD)));
-    public static final RegistryObject<Block> WARPED_LECTERN = RegisterHelper.registerLectern("warped_lectern", () -> MWBlockEntityTypes.WARPED_LECTERN.get(), SoundType.NETHER_WOOD);
-    public static final RegistryObject<Block> AZALEA_LEAVES_CARPET = RegisterHelper.registerBlock("azalea_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.AZALEA_LEAVES)));
-    public static final RegistryObject<Block> FLOWERING_AZALEA_LEAVES_CARPET = RegisterHelper.registerBlock("flowering_azalea_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.FLOWERING_AZALEA_LEAVES)));
-    public static final RegistryObject<Block> MANGROVE_ROOTS_CARPET = RegisterHelper.registerBlock("mangrove_roots_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(Blocks.MANGROVE_ROOTS)));
-    public static final RegistryObject<Block> MUDDY_MANGROVE_ROOTS_CARPET = RegisterHelper.registerBlock("muddy_mangrove_roots_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.MUDDY_MANGROVE_ROOTS)));
-    public static final RegistryObject<Block> NETHER_WART_CARPET = RegisterHelper.registerBlock("nether_wart_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.NETHER_WART_BLOCK)));
-    public static final RegistryObject<Block> WARPED_WART_CARPET = RegisterHelper.registerBlock("warped_wart_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.WARPED_WART_BLOCK)));
-    public static final RegistryObject<Block> GRASS_CARPET = RegisterHelper.registerBlock("grass_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.GRASS_BLOCK)));
-    public static final RegistryObject<Block> PODZOL_CARPET = RegisterHelper.registerBlock("podzol_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.PODZOL)));
-    public static final RegistryObject<Block> MYCELIUM_CARPET = RegisterHelper.registerBlock("mycelium_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.MYCELIUM)));
-    public static final RegistryObject<Block> DIRT_CARPET = RegisterHelper.registerBlock("dirt_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.DIRT)));
-    public static final RegistryObject<Block> COARSE_DIRT_CARPET = RegisterHelper.registerBlock("coarse_dirt_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.COARSE_DIRT)));
-    public static final RegistryObject<Block> ROOTED_DIRT_CARPET = RegisterHelper.registerBlock("rooted_dirt_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.ROOTED_DIRT)));
-    public static final RegistryObject<Block> MUD_CARPET = RegisterHelper.registerBlock("mud_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.MUD)));
-    public static final RegistryObject<Block> CLAY_CARPET = RegisterHelper.registerBlock("clay_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.CLAY)));
-    public static final RegistryObject<Block> CRIMSON_NYLIUM_CARPET = RegisterHelper.registerBlock("crimson_nylium_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.CRIMSON_NYLIUM)));
-    public static final RegistryObject<Block> WARPED_NYLIUM_CARPET = RegisterHelper.registerBlock("warped_nylium_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.WARPED_NYLIUM)));
-    public static final RegistryObject<Block> GRAVEL_CARPET = RegisterHelper.registerBlock("gravel_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.GRAVEL)));
-    public static final RegistryObject<Block> SAND_CARPET = RegisterHelper.registerBlock("sand_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.SAND)));
-    public static final RegistryObject<Block> RED_SAND_CARPET = RegisterHelper.registerBlock("red_sand_carpet", () -> new CarpetBlock(PropertyHelper.copyFromBlock(Blocks.RED_SAND)));
-    public static final RegistryObject<Block> WALL_HANGING_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(Blocks.LANTERN)));
-    public static final RegistryObject<Block> WALL_HANGING_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_soul_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(Blocks.SOUL_LANTERN)));
-    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_golden_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(GOLDEN_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_golden_soul_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(GOLDEN_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_netherite_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(NETHERITE_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_netherite_soul_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(NETHERITE_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_aluminum_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(ALUMINUM_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_aluminum_soul_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(ALUMINUM_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_SILVER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_silver_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SILVER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_SILVER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_silver_soul_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SILVER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_BRONZE_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_bronze_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(BRONZE_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_bronze_soul_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(BRONZE_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, PropertyHelper.copyFromBlock(COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_exposed_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED, PropertyHelper.copyFromBlock(EXPOSED_COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_exposed_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(EXPOSED_COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_weathered_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED, PropertyHelper.copyFromBlock(WEATHERED_COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_weathered_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WEATHERED_COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_oxidized_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, PropertyHelper.copyFromBlock(OXIDIZED_COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_oxidized_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(OXIDIZED_COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, PropertyHelper.copyFromBlock(WAXED_COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(WAXED_COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_exposed_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED, PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_exposed_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_weathered_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED, PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_weathered_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SOUL_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_soul_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get())));
-    public static final RegistryObject<Block> WOODCUTTER = RegisterHelper.registerBlock("woodcutter", WoodcutterBlock::new);
-    public static final RegistryObject<Block> LAVA_ROCK = RegisterHelper.registerBlock("lava_rock", () -> new MagmaBlock(PropertyHelper.copyFromBlock(Blocks.MAGMA_BLOCK).lightLevel(state -> 10).mapColor(MapColor.COLOR_BLACK)));
-    public static final RegistryObject<Block> PERENNIAL_ICE = RegisterHelper.registerBlock("perennial_ice", () -> PropertyHelper.copyFromBlock(Blocks.BLUE_ICE).strength(3.5F).friction(0.99F));
-    public static final RegistryObject<Block> BLUEBERRY_BUSH = RegisterHelper.registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
-    public static final RegistryObject<Block> FORGING_TABLE = RegisterHelper.registerBlock("forging_table", ForgingTableBlock::new);
-    public static final RegistryObject<Block> APPLE_LOG = RegisterHelper.registerBlock("apple_log", () -> new MWLogBlock(MWColors.APPLE.toMapColor()));
-    public static final RegistryObject<Block> HOLLOW_APPLE_LOG = RegisterHelper.registerBlock("hollow_apple_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(APPLE_LOG.get())));
-    public static final RegistryObject<Block> APPLE_WOOD = RegisterHelper.registerBlock("apple_wood", () -> new MWLogBlock(MWColors.APPLE.toMapColor()));
-    public static final RegistryObject<Block> STRIPPED_APPLE_LOG = RegisterHelper.registerBlock("stripped_apple_log", () -> new MWLogBlock(MWColors.APPLE.toMapColor()));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_APPLE_LOG = RegisterHelper.registerBlock("hollow_stripped_apple_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(STRIPPED_APPLE_LOG.get())));
-    public static final RegistryObject<Block> STRIPPED_APPLE_WOOD = RegisterHelper.registerBlock("stripped_apple_wood", () -> new MWLogBlock(MWColors.APPLE.toMapColor()));
-    public static final RegistryObject<Block> APPLE_PLANKS = RegisterHelper.registerPlanks("apple_planks", MWColors.APPLE.toMapColor());
-    public static final RegistryObject<Block> APPLE_LEAVES = RegisterHelper.registerLeaves("apple_leaves");
-    public static final RegistryObject<Block> APPLE_SAPLING = RegisterHelper.registerBlock("apple_sapling", () -> new SaplingBlock(new AppleTreeGrower(), PropertyHelper.copyFromBlock(Blocks.OAK_SAPLING)));
-    public static final RegistryObject<Block> POTTED_APPLE_SAPLING = RegisterHelper.registerFlowerPot("potted_apple_sapling", APPLE_SAPLING);
-    public static final RegistryObject<Block> POTTED_APPLE_LEAVES = RegisterHelper.registerFlowerPot("potted_apple_leaves", APPLE_LEAVES);
-    public static final RegistryObject<Block> APPLE_STAIRS = RegisterHelper.registerStair("apple_stairs", () -> APPLE_PLANKS.get().defaultBlockState());
-    public static final RegistryObject<Block> APPLE_SLAB = RegisterHelper.registerSlab("apple_slab", APPLE_PLANKS, true);
-    public static final RegistryObject<Block> APPLE_DOOR = RegisterHelper.registerDoor("apple_door", false, BlockSetType.OAK);
-    public static final RegistryObject<Block> APPLE_TRAPDOOR = RegisterHelper.registerTrapdoor("apple_trapdoor", false, BlockSetType.OAK);
-    public static final RegistryObject<Block> APPLE_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("apple_pressure_plate", true, MWColors.APPLE.toMapColor(), BlockSetType.OAK);
-    public static final RegistryObject<Block> APPLE_BUTTON = RegisterHelper.registerButton("apple_button", true, BlockSetType.OAK);
-    public static final RegistryObject<Block> APPLE_LEAVES_CARPET = RegisterHelper.registerBlock("apple_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(APPLE_LEAVES.get())));
-    public static final RegistryObject<Block> APPLE_BARREL = RegisterHelper.registerBlock("apple_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> APPLE_CHEST = RegisterHelper.registerChest("apple_chest", () -> MWBlockEntityTypes.APPLE_CHEST.get(), MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("apple_trapped_chest", () -> MWBlockEntityTypes.APPLE_TRAPPED_CHEST.get(), MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_BOOKSHELF = RegisterHelper.registerBookshelf("apple_bookshelf");
-    public static final RegistryObject<Block> APPLE_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("apple_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> APPLE_LECTERN = RegisterHelper.registerLectern("apple_lectern", () -> MWBlockEntityTypes.APPLE_LECTERN.get());
-    public static final RegistryObject<Block> APPLE_BUSH = RegisterHelper.registerBlock("apple_bush", () -> new TreeBushBlock(AppleTreeGrower::new));
-    public static final RegistryObject<Block> POTTED_APPLE_BUSH = RegisterHelper.registerFlowerPot("potted_apple_bush", APPLE_BUSH);
-    public static final RegistryObject<Block> APPLE_FENCE = RegisterHelper.registerFence("apple_fence", APPLE_PLANKS);
-    public static final RegistryObject<Block> APPLE_FENCE_GATE = RegisterHelper.registerFenceGate("apple_fence_gate", APPLE_PLANKS, MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_SIGN = RegisterHelper.registerStandingSign("apple_sign", MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_WALL_SIGN = RegisterHelper.registerWallSign("apple_wall_sign", MWWoodTypes.APPLE, APPLE_SIGN);
-    public static final RegistryObject<Block> APPLE_HANGING_SIGN = RegisterHelper.registerHangingSign("apple_hanging_sign", APPLE_LOG, MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> APPLE_WALL_HANGING_SIGN = RegisterHelper.registerWallHangingSign("apple_wall_hanging_sign", APPLE_LOG, APPLE_HANGING_SIGN, MWWoodTypes.APPLE);
-    public static final RegistryObject<Block> PALM_LOG = RegisterHelper.registerBlock("palm_log", () -> new MWLogBlock(MWColors.PALM.toMapColor()));
-    public static final RegistryObject<Block> HOLLOW_PALM_LOG = RegisterHelper.registerBlock("hollow_palm_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(PALM_LOG.get())));
-    public static final RegistryObject<Block> PALM_WOOD = RegisterHelper.registerBlock("palm_wood", () -> new MWLogBlock(MWColors.PALM.toMapColor()));
-    public static final RegistryObject<Block> STRIPPED_PALM_LOG = RegisterHelper.registerBlock("stripped_palm_log", () -> new MWLogBlock(MWColors.PALM.toMapColor()));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_PALM_LOG = RegisterHelper.registerBlock("hollow_stripped_palm_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(STRIPPED_PALM_LOG.get())));
-    public static final RegistryObject<Block> STRIPPED_PALM_WOOD = RegisterHelper.registerBlock("stripped_palm_wood", () -> new MWLogBlock(MWColors.PALM.toMapColor()));
-    public static final RegistryObject<Block> PALM_PLANKS = RegisterHelper.registerPlanks("palm_planks", MWColors.PALM.toMapColor());
-    public static final RegistryObject<Block> PALM_LEAVES = RegisterHelper.registerLeaves("palm_leaves");
-    public static final RegistryObject<Block> PALM_SAPLING = RegisterHelper.registerBlock("palm_sapling", PalmSaplingBlock::new);
-    public static final RegistryObject<Block> POTTED_PALM_SAPLING = RegisterHelper.registerFlowerPot("potted_palm_sapling", PALM_SAPLING);
-    public static final RegistryObject<Block> POTTED_PALM_LEAVES = RegisterHelper.registerFlowerPot("potted_palm_leaves", PALM_LEAVES);
-    public static final RegistryObject<Block> PALM_STAIRS = RegisterHelper.registerStair("palm_stairs", () -> PALM_PLANKS.get().defaultBlockState());
-    public static final RegistryObject<Block> PALM_SLAB = RegisterHelper.registerSlab("palm_slab", PALM_PLANKS, true);
-    public static final RegistryObject<Block> PALM_DOOR = RegisterHelper.registerDoor("palm_door", false, BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> PALM_TRAPDOOR = RegisterHelper.registerTrapdoor("palm_trapdoor", false, BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> PALM_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("palm_pressure_plate", true, MWColors.PALM.toMapColor(), BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> PALM_BUTTON = RegisterHelper.registerButton("palm_button", true, BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> PALM_LEAVES_CARPET = RegisterHelper.registerBlock("palm_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(PALM_LEAVES.get())));
-    public static final RegistryObject<Block> PALM_BARREL = RegisterHelper.registerBlock("palm_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL).sound(SoundType.BAMBOO_WOOD)));
-    public static final RegistryObject<Block> PALM_CHEST = RegisterHelper.registerChest("palm_chest", () -> MWBlockEntityTypes.PALM_CHEST.get(), MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("palm_trapped_chest", () -> MWBlockEntityTypes.PALM_TRAPPED_CHEST.get(), MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_BOOKSHELF = RegisterHelper.registerBookshelf("palm_bookshelf", SoundType.BAMBOO_WOOD);
-    public static final RegistryObject<Block> PALM_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("palm_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF).sound(SoundType.BAMBOO_WOOD)));
-    public static final RegistryObject<Block> PALM_LECTERN = RegisterHelper.registerLectern("palm_lectern", () -> MWBlockEntityTypes.PALM_LECTERN.get(), SoundType.BAMBOO_WOOD);
-    public static final RegistryObject<Block> PALM_BUSH = RegisterHelper.registerBlock("palm_bush", PalmBushBlock::new);
-    public static final RegistryObject<Block> POTTED_PALM_BUSH = RegisterHelper.registerFlowerPot("potted_palm_bush", PALM_BUSH);
-    public static final RegistryObject<Block> PALM_FENCE = RegisterHelper.registerFence("palm_fence", PALM_PLANKS);
-    public static final RegistryObject<Block> PALM_FENCE_GATE = RegisterHelper.registerFenceGate("palm_fence_gate", PALM_PLANKS, MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_SIGN = RegisterHelper.registerStandingSign("palm_sign", MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_WALL_SIGN = RegisterHelper.registerWallSign("palm_wall_sign", MWWoodTypes.PALM, PALM_SIGN);
-    public static final RegistryObject<Block> PALM_HANGING_SIGN = RegisterHelper.registerHangingSign("palm_hanging_sign", PALM_LOG, MWWoodTypes.PALM);
-    public static final RegistryObject<Block> PALM_WALL_HANGING_SIGN = RegisterHelper.registerWallHangingSign("palm_wall_hanging_sign", PALM_LOG, PALM_HANGING_SIGN, MWWoodTypes.PALM);
-    public static final RegistryObject<Block> DEAD_LOG = RegisterHelper.registerBlock("dead_log", () -> new MWLogBlock(MWColors.DEAD.toMapColor()));
-    public static final RegistryObject<Block> HOLLOW_DEAD_LOG = RegisterHelper.registerBlock("hollow_dead_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(DEAD_LOG.get())));
-    public static final RegistryObject<Block> DEAD_WOOD = RegisterHelper.registerBlock("dead_wood", () -> new MWLogBlock(MWColors.DEAD.toMapColor()));
-    public static final RegistryObject<Block> STRIPPED_DEAD_LOG = RegisterHelper.registerBlock("stripped_dead_log", () -> new MWLogBlock(MWColors.DEAD.toMapColor()));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_DEAD_LOG = RegisterHelper.registerBlock("hollow_stripped_dead_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(STRIPPED_DEAD_LOG.get())));
-    public static final RegistryObject<Block> STRIPPED_DEAD_WOOD = RegisterHelper.registerBlock("stripped_dead_wood", () -> new MWLogBlock(MWColors.DEAD.toMapColor()));
-    public static final RegistryObject<Block> DEAD_PLANKS = RegisterHelper.registerPlanks("dead_planks", MWColors.DEAD.toMapColor());
-    public static final RegistryObject<Block> DEAD_STAIRS = RegisterHelper.registerStair("dead_stairs", () -> DEAD_PLANKS.get().defaultBlockState());
-    public static final RegistryObject<Block> DEAD_SLAB = RegisterHelper.registerSlab("dead_slab", DEAD_PLANKS, true);
-    public static final RegistryObject<Block> DEAD_DOOR = RegisterHelper.registerDoor("dead_door", false, BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> DEAD_TRAPDOOR = RegisterHelper.registerTrapdoor("dead_trapdoor", false, BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> DEAD_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("dead_pressure_plate", true, MWColors.DEAD.toMapColor(), BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> DEAD_BUTTON = RegisterHelper.registerButton("dead_button", true, BlockSetType.JUNGLE);
-    public static final RegistryObject<Block> DEAD_BARREL = RegisterHelper.registerBlock("dead_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL)));
-    public static final RegistryObject<Block> DEAD_CHEST = RegisterHelper.registerChest("dead_chest", () -> MWBlockEntityTypes.DEAD_CHEST.get(), MWWoodTypes.DEAD);
-    public static final RegistryObject<Block> DEAD_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("dead_trapped_chest", () -> MWBlockEntityTypes.DEAD_TRAPPED_CHEST.get(), MWWoodTypes.DEAD);
-    public static final RegistryObject<Block> DEAD_BOOKSHELF = RegisterHelper.registerBookshelf("dead_bookshelf");
-    public static final RegistryObject<Block> DEAD_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("dead_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF)));
-    public static final RegistryObject<Block> DEAD_LECTERN = RegisterHelper.registerLectern("dead_lectern", () -> MWBlockEntityTypes.DEAD_LECTERN.get());
-    public static final RegistryObject<Block> DEAD_FENCE = RegisterHelper.registerFence("dead_fence", DEAD_PLANKS);
-    public static final RegistryObject<Block> DEAD_FENCE_GATE = RegisterHelper.registerFenceGate("dead_fence_gate", DEAD_PLANKS, MWWoodTypes.DEAD);
-    public static final RegistryObject<Block> DEAD_SIGN = RegisterHelper.registerStandingSign("dead_sign", MWWoodTypes.DEAD);
-    public static final RegistryObject<Block> DEAD_WALL_SIGN = RegisterHelper.registerWallSign("dead_wall_sign", MWWoodTypes.DEAD, DEAD_SIGN);
-    public static final RegistryObject<Block> DEAD_HANGING_SIGN = RegisterHelper.registerHangingSign("dead_hanging_sign", DEAD_LOG, MWWoodTypes.DEAD);
-    public static final RegistryObject<Block> DEAD_WALL_HANGING_SIGN = RegisterHelper.registerWallHangingSign("dead_wall_hanging_sign", DEAD_LOG, DEAD_HANGING_SIGN, MWWoodTypes.DEAD);
-    public static final RegistryObject<Block> STONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("stone_pointed_dripstone", () -> Blocks.STONE);
-    public static final RegistryObject<Block> SANDSTONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("sandstone_pointed_dripstone", () -> Blocks.SANDSTONE);
-    public static final RegistryObject<Block> RED_SANDSTONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("red_sandstone_pointed_dripstone", () -> Blocks.RED_SANDSTONE);
-    public static final RegistryObject<Block> ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("ice_pointed_dripstone", () -> Blocks.ICE);
-    public static final RegistryObject<Block> PACKED_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("packed_ice_pointed_dripstone", () -> Blocks.PACKED_ICE);
-    public static final RegistryObject<Block> BLUE_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("blue_ice_pointed_dripstone", () -> Blocks.BLUE_ICE);
-    public static final RegistryObject<Block> DEEPSLATE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("deepslate_pointed_dripstone", () -> Blocks.DEEPSLATE);
-    public static final RegistryObject<Block> GRANITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("granite_pointed_dripstone", () -> Blocks.GRANITE);
-    public static final RegistryObject<Block> DIORITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("diorite_pointed_dripstone", () -> Blocks.DIORITE);
-    public static final RegistryObject<Block> ANDESITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("andesite_pointed_dripstone", () -> Blocks.ANDESITE);
-    public static final RegistryObject<Block> CALCITE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("calcite_pointed_dripstone", () -> Blocks.CALCITE);
-    public static final RegistryObject<Block> TUFF_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("tuff_pointed_dripstone", () -> Blocks.TUFF);
-    public static final RegistryObject<Block> PRISMARINE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("prismarine_pointed_dripstone", () -> Blocks.PRISMARINE);
-    public static final RegistryObject<Block> NETHERRACK_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("netherrack_pointed_dripstone", () -> Blocks.NETHERRACK);
-    public static final RegistryObject<Block> CRIMSON_NYLIUM_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("crimson_nylium_pointed_dripstone", () -> Blocks.CRIMSON_NYLIUM);
-    public static final RegistryObject<Block> WARPED_NYLIUM_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("warped_nylium_pointed_dripstone", () -> Blocks.WARPED_NYLIUM);
-    public static final RegistryObject<Block> SOUL_SOIL_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("soul_soil_pointed_dripstone", () -> Blocks.SOUL_SOIL);
-    public static final RegistryObject<Block> BLACKSTONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("blackstone_pointed_dripstone", () -> Blocks.BLACKSTONE);
-    public static final RegistryObject<Block> BASALT_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("basalt_pointed_dripstone", () -> Blocks.BASALT);
-    public static final RegistryObject<Block> END_STONE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("end_stone_pointed_dripstone", () -> Blocks.END_STONE);
-    public static final RegistryObject<Block> PERENNIAL_ICE_POINTED_DRIPSTONE = RegisterHelper.registerIceDripstone("perennial_ice_pointed_dripstone", PERENNIAL_ICE);
-    public static final RegistryObject<Block> MARBLE_POINTED_DRIPSTONE = RegisterHelper.registerDripstone("marble_pointed_dripstone", MARBLE);
-    public static final RegistryObject<Block> CHRISTMAS_LIGHTS = RegisterHelper.registerBlock("christmas_lights", () -> new SidePanelBlock(PropertyHelper.basicBlockProperties(0.1F, false).instabreak().sound(SoundType.GLASS)));
-    public static final RegistryObject<Block> STRAY_SKULL = RegisterHelper.registerBlockWithoutBlockItem("stray_skull", () -> new MWSkullBlock(MWSkullBlock.Types.STRAY, PropertyHelper.basicBlockProperties(1.0F, false)));
-    public static final RegistryObject<Block> STRAY_WALL_SKULL = RegisterHelper.registerBlockWithoutBlockItem("stray_wall_skull", () -> new MWWallSkullBlock(MWSkullBlock.Types.STRAY, PropertyHelper.basicBlockProperties(1.0F, false).lootFrom(STRAY_SKULL)));
-    public static final RegistryObject<Block> HUSK_HEAD = RegisterHelper.registerBlockWithoutBlockItem("husk_head", () -> new MWSkullBlock(MWSkullBlock.Types.HUSK, PropertyHelper.basicBlockProperties(1.0F, false)));
-    public static final RegistryObject<Block> HUSK_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("husk_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.HUSK, PropertyHelper.basicBlockProperties(1.0F, false).lootFrom(HUSK_HEAD)));
-    public static final RegistryObject<Block> DROWNED_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_head", () -> new MWSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(1.0F, false)));
-    public static final RegistryObject<Block> DROWNED_WALL_HEAD = RegisterHelper.registerBlockWithoutBlockItem("drowned_wall_head", () -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, PropertyHelper.basicBlockProperties(1.0F, false).lootFrom(DROWNED_HEAD)));
-    public static final RegistryObject<Block> ICE_CHEST = RegisterHelper.registerChest("ice_chest", () -> MWBlockEntityTypes.ICE_CHEST.get(), MWWoodTypes.ICE);
-    public static final RegistryObject<Block> ICE_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("ice_trapped_chest", () -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get(), MWWoodTypes.ICE);
-    public static final RegistryObject<Block> SCULK_LOG = RegisterHelper.registerBlock("sculk_log", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
-    public static final RegistryObject<Block> HOLLOW_SCULK_LOG = RegisterHelper.registerBlock("hollow_sculk_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(SCULK_LOG.get())));
-    public static final RegistryObject<Block> SCULK_WOOD = RegisterHelper.registerBlock("sculk_wood", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
-    public static final RegistryObject<Block> STRIPPED_SCULK_LOG = RegisterHelper.registerBlock("stripped_sculk_log", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
-    public static final RegistryObject<Block> HOLLOW_STRIPPED_SCULK_LOG = RegisterHelper.registerBlock("hollow_stripped_sculk_log", () -> new HollowBlock(PropertyHelper.copyFromBlock(STRIPPED_SCULK_LOG.get())));
-    public static final RegistryObject<Block> STRIPPED_SCULK_WOOD = RegisterHelper.registerBlock("stripped_sculk_wood", () -> new MWLogBlock(MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD));
-    public static final RegistryObject<Block> SCULK_PLANKS = RegisterHelper.registerPlanks("sculk_planks", MWColors.SCULK.toMapColor(), MWSoundTypes.SCULK_WOOD);
-    public static final RegistryObject<Block> SCULK_LEAVES = RegisterHelper.registerLeaves("sculk_leaves");
-    public static final RegistryObject<Block> SCULK_SAPLING = RegisterHelper.registerBlock("sculk_sapling", SculkSaplingBlock::new);
-    public static final RegistryObject<Block> POTTED_SCULK_SAPLING = RegisterHelper.registerFlowerPot("potted_sculk_sapling", SCULK_SAPLING);
-    public static final RegistryObject<Block> POTTED_SCULK_LEAVES = RegisterHelper.registerFlowerPot("potted_sculk_leaves", SCULK_LEAVES);
-    public static final RegistryObject<Block> SCULK_STAIRS = RegisterHelper.registerStair("sculk_stairs", () -> SCULK_PLANKS.get().defaultBlockState());
-    public static final RegistryObject<Block> SCULK_SLAB = RegisterHelper.registerSlab("sculk_slab", SCULK_PLANKS, true);
-    public static final RegistryObject<Block> SCULK_DOOR = RegisterHelper.registerDoor("sculk_door", false, MWBlockSetTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_TRAPDOOR = RegisterHelper.registerTrapdoor("sculk_trapdoor", false, MWBlockSetTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_PRESSURE_PLATE = RegisterHelper.registerPressurePlate("sculk_pressure_plate", true, MWColors.SCULK.toMapColor(), MWBlockSetTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_BUTTON = RegisterHelper.registerButton("sculk_button", true, MWBlockSetTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_LEAVES_CARPET = RegisterHelper.registerBlock("sculk_leaves_carpet", () -> new LeaveCarpet(PropertyHelper.copyFromBlock(SCULK_LEAVES.get())));
-    public static final RegistryObject<Block> SCULK_BARREL = RegisterHelper.registerBlock("sculk_barrel", () -> new BarrelBlock(PropertyHelper.copyFromBlock(Blocks.BARREL).sound(MWSoundTypes.SCULK_WOOD)));
-    public static final RegistryObject<Block> SCULK_CHEST = RegisterHelper.registerChest("sculk_chest", () -> MWBlockEntityTypes.SCULK_CHEST.get(), MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_TRAPPED_CHEST = RegisterHelper.registerTrappedChest("sculk_trapped_chest", () -> MWBlockEntityTypes.SCULK_TRAPPED_CHEST.get(), MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_BOOKSHELF = RegisterHelper.registerBookshelf("sculk_bookshelf", MWSoundTypes.SCULK_WOOD);
-    public static final RegistryObject<Block> SCULK_CHISELED_BOOKSHELF = RegisterHelper.registerBlock("sculk_chiseled_bookshelf", () -> new ChiseledBookShelfBlock(PropertyHelper.copyFromBlock(Blocks.CHISELED_BOOKSHELF).sound(MWSoundTypes.SCULK_WOOD)));
-    public static final RegistryObject<Block> SCULK_LECTERN = RegisterHelper.registerLectern("sculk_lectern", () -> MWBlockEntityTypes.SCULK_LECTERN.get(), MWSoundTypes.SCULK_WOOD);
-    public static final RegistryObject<Block> SCULK_BUSH = RegisterHelper.registerBlock("sculk_bush", SculkBushBlock::new);
-    public static final RegistryObject<Block> POTTED_SCULK_BUSH = RegisterHelper.registerFlowerPot("potted_sculk_bush", SCULK_BUSH);
-    public static final RegistryObject<Block> SCULK_FENCE = RegisterHelper.registerFence("sculk_fence", SCULK_PLANKS, MWSoundTypes.SCULK_WOOD);
-    public static final RegistryObject<Block> SCULK_FENCE_GATE = RegisterHelper.registerFenceGate("sculk_fence_gate", SCULK_PLANKS, MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_SIGN = RegisterHelper.registerStandingSign("sculk_sign", MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_WALL_SIGN = RegisterHelper.registerWallSign("sculk_wall_sign", MWWoodTypes.SCULK, SCULK_SIGN);
-    public static final RegistryObject<Block> SCULK_HANGING_SIGN = RegisterHelper.registerHangingSign("sculk_hanging_sign", SCULK_LOG, MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> SCULK_WALL_HANGING_SIGN = RegisterHelper.registerWallHangingSign("sculk_wall_hanging_sign", SCULK_LOG, SCULK_HANGING_SIGN, MWWoodTypes.SCULK);
-    public static final RegistryObject<Block> BONE_ROD_BLOCK = RegisterHelper.registerBlockWithoutBlockItem("bone_rod_block", () -> new MWRodBlock(MapColor.TERRACOTTA_WHITE, SoundType.BONE_BLOCK));
-    public static final RegistryObject<Block> BLAZE_ROD_BLOCK = RegisterHelper.registerBlockWithoutBlockItem("blaze_rod_block", () -> new MWRodBlock(MapColor.TERRACOTTA_ORANGE, SoundType.METAL));
-    public static final RegistryObject<Block> STICK_ROD_BLOCK = RegisterHelper.registerBlockWithoutBlockItem("stick_rod_block", () -> new MWRodBlock(MapColor.WOOD, SoundType.WOOD));
-    public static final RegistryObject<Block> ETHEREAL_RUNE_ALPHA = RegisterHelper.registerBlock("ethereal_rune_alpha", EtherealRuneBlock::new);
-    public static final RegistryObject<Block> ETHEREAL_RUNE_BETA = RegisterHelper.registerBlock("ethereal_rune_beta", EtherealRuneBlock::new);
-    public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = RegisterHelper.registerBlock("ethereal_rune_gamma", EtherealRuneBlock::new);
-    public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = RegisterHelper.registerBlock("ethereal_rune_delta", EtherealRuneBlock::new);
-    public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = RegisterHelper.registerBlock("ethereal_rune_omega", EtherealRuneBlock::new);
-    public static final RegistryObject<Block> ETHEREAL_PORTAL = RegisterHelper.registerBlockWithoutBlockItem("ethereal_portal", EtherealPortalBlock::new);
-    public static final RegistryObject<Block> UNLIT_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_torch", UnlitTorchBlock::new);
-    public static final RegistryObject<Block> UNLIT_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_wall_torch", () -> new UnlitWallTorchBlock(false));
-    public static final RegistryObject<Block> UNLIT_SOUL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_torch", UnlitTorchBlock::new);
-    public static final RegistryObject<Block> UNLIT_SOUL_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_soul_wall_torch", () -> new UnlitWallTorchBlock(true));
-    public static final RegistryObject<Block> BROWN_MUSHROOM_WALL_FAN = RegisterHelper.registerBlockWithoutBlockItem("brown_mushroom_wall_fan",
-            () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_BROWN, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.BROWN_MUSHROOM)));
-    public static final RegistryObject<Block> RED_MUSHROOM_WALL_FAN = RegisterHelper.registerBlockWithoutBlockItem("red_mushroom_wall_fan",
-            () -> new BaseCoralWallFanBlock(PropertyHelper.basicBlockProperties(MapColor.COLOR_RED, 0F, 0F, true, SoundType.GRASS).noCollission().instabreak().dropsLike(Blocks.RED_MUSHROOM)));
-    public static final RegistryObject<Block> CATTAIL = RegisterHelper.registerBlock("cattail", CattailBlock::new);
-    public static final RegistryObject<Block> POTTED_CATTAIL = RegisterHelper.registerFlowerPot("potted_cattail", CATTAIL);
-    public static final RegistryObject<Block> GIFT = RegisterHelper.registerBlockWithoutBlockItem("gift", GiftBlock::new);
-    public static final RegistryObject<Block> END_FIRE = RegisterHelper.registerBlockWithoutBlockItem("end_fire", EndFireBlock::new);
-    public static final RegistryObject<Block> SCULK_FIRE = RegisterHelper.registerBlockWithoutBlockItem("sculk_fire", SculkFireBlock::new);
-    public static final RegistryObject<Block> END_SOIL = RegisterHelper.registerBlock("end_soil", EndSoilBlock::new);
-    public static final RegistryObject<Block> SCULK_SOIL = RegisterHelper.registerBlock("sculk_soil", SculkSoilBlock::new);
-    public static final RegistryObject<Block> END_LANTERN = RegisterHelper.registerLantern("end_lantern", EndFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> GOLDEN_END_LANTERN = RegisterHelper.registerLantern("golden_end_lantern", EndFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlock("oxidized_copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlock("weathered_copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlock("exposed_copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> COPPER_END_LANTERN = RegisterHelper.registerBlock("copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_COPPER_END_LANTERN = RegisterHelper.registerBlock("waxed_copper_end_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> NETHERITE_END_LANTERN = RegisterHelper.registerLantern("netherite_end_lantern", EndFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> ALUMINUM_END_LANTERN = RegisterHelper.registerLantern("aluminum_end_lantern", EndFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> BRONZE_END_LANTERN = RegisterHelper.registerLantern("bronze_end_lantern", EndFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> SILVER_END_LANTERN = RegisterHelper.registerLantern("silver_end_lantern", EndFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> WALL_HANGING_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_golden_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(GOLDEN_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_netherite_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(NETHERITE_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_aluminum_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(ALUMINUM_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_SILVER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_silver_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SILVER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_BRONZE_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_bronze_end_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(BRONZE_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_exposed_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(EXPOSED_COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_weathered_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WEATHERED_COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_oxidized_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(OXIDIZED_COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(WAXED_COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_exposed_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_weathered_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_END_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_end_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_END_LANTERN.get())));
-    public static final RegistryObject<Block> SCULK_LANTERN = RegisterHelper.registerLantern("sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> GOLDEN_SCULK_LANTERN = RegisterHelper.registerLantern("golden_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("oxidized_copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("weathered_copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("exposed_copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_oxidized_copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.OXIDIZED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_weathered_copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.WEATHERED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_exposed_copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.EXPOSED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> WAXED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlock("waxed_copper_sculk_lantern",
-            () -> new WeatheringCopperLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> NETHERITE_SCULK_LANTERN = RegisterHelper.registerLantern("netherite_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> ALUMINUM_SCULK_LANTERN = RegisterHelper.registerLantern("aluminum_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> BRONZE_SCULK_LANTERN = RegisterHelper.registerLantern("bronze_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> SILVER_SCULK_LANTERN = RegisterHelper.registerLantern("silver_sculk_lantern", SculkFireBlock.LIGHT_LEVEL);
-    public static final RegistryObject<Block> WALL_HANGING_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_golden_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(GOLDEN_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_netherite_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(NETHERITE_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_aluminum_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(ALUMINUM_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_SILVER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_silver_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(SILVER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_bronze_sculk_lantern", () -> new WallHangingLanternBlock(PropertyHelper.copyFromBlock(BRONZE_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_exposed_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(EXPOSED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_weathered_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WEATHERED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_oxidized_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(OXIDIZED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.UNAFFECTED,PropertyHelper.copyFromBlock(WAXED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_EXPOSED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_exposed_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.EXPOSED,PropertyHelper.copyFromBlock(WAXED_EXPOSED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_WEATHERED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_weathered_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.WEATHERED,PropertyHelper.copyFromBlock(WAXED_WEATHERED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> WALL_HANGING_WAXED_OXIDIZED_COPPER_SCULK_LANTERN = RegisterHelper.registerBlockWithoutBlockItem("wall_hanging_waxed_oxidized_copper_sculk_lantern", () -> new WeatheringWallHangingLanternBlock(WeatheringCopper.WeatherState.OXIDIZED,PropertyHelper.copyFromBlock(WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get())));
-    public static final RegistryObject<Block> END_TORCH = RegisterHelper.registerBlockWithoutBlockItem("end_torch", () -> new MWTorchBlock(EndFireBlock.LIGHT_LEVEL, () -> MWParticleTypes.END_FIRE_FLAME.get()));
-    public static final RegistryObject<Block> END_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("end_wall_torch", () -> new MWWallTorchBlock(EndFireBlock.LIGHT_LEVEL, END_TORCH.get(), () -> MWParticleTypes.END_FIRE_FLAME.get()));
-    public static final RegistryObject<Block> UNLIT_END_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_end_torch", UnlitTorchBlock::new);
-    public static final RegistryObject<Block> UNLIT_END_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_end_wall_torch", () -> new UnlitWallTorchBlock(END_WALL_TORCH));
-    public static final RegistryObject<Block> SCULK_TORCH = RegisterHelper.registerBlockWithoutBlockItem("sculk_torch", () -> new MWTorchBlock(EndFireBlock.LIGHT_LEVEL, () -> MWParticleTypes.SCULK_FIRE_FLAME.get()));
-    public static final RegistryObject<Block> SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("sculk_wall_torch", () -> new MWWallTorchBlock(SculkFireBlock.LIGHT_LEVEL, SCULK_TORCH.get(), () -> MWParticleTypes.SCULK_FIRE_FLAME.get()));
-    public static final RegistryObject<Block> UNLIT_SCULK_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_torch", UnlitTorchBlock::new);
-    public static final RegistryObject<Block> UNLIT_SCULK_WALL_TORCH = RegisterHelper.registerBlockWithoutBlockItem("unlit_sculk_wall_torch", () -> new UnlitWallTorchBlock(SCULK_WALL_TORCH));
-    public static final RegistryObject<Block> END_CAMPFIRE = RegisterHelper.registerBlock("end_campfire", () -> new MWCampfireBlock(1, EndFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> SCULK_CAMPFIRE = RegisterHelper.registerBlock("sculk_campfire", () -> new MWCampfireBlock(3, SculkFireBlock.LIGHT_LEVEL));
-    public static final RegistryObject<Block> SCULK_ROOTS = RegisterHelper.registerBlock("sculk_roots", SculkRootBlock::new);
-    public static final RegistryObject<Block> POTTED_SCULK_ROOTS = RegisterHelper.registerFlowerPot("potted_sculk_roots", SCULK_ROOTS);
-    public static final RegistryObject<Block> ANCIENT_ALTAR = RegisterHelper.registerBlock("ancient_altar", AncientAltarBlock::new);
+    //#region Registry
 
     /**
-     * Register the {@link MineWorld MineWorld} {@link Block blocks}
+     * The {@link DeferredRegister<Block> Block Registry}
+     */
+    private static final DeferredRegister<Block> BLOCKS = RegistryHelper.registry(ForgeRegistries.BLOCKS);
+
+    //#endregion
+
+    //#region Blocks
+
+    //#region Ores, Raw Ore Blocks and Ore Blocks
+
+    //#region Silver
+
+    public static final RegistryObject<Block> SILVER_ORE = registerOverworldOre("silver_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = registerOverworldOre("deepslate_silver_ore", true);
+    public static final RegistryObject<Block> RAW_SILVER_BLOCK = registerOreStorageBlock("raw_silver_block", MWColors.RAW_SILVER.toMapColor(), false);
+    public static final RegistryObject<Block> SILVER_BLOCK = registerOreStorageBlock("silver_block", MWColors.SILVER.toMapColor(), true);
+
+    //#endregion
+
+    //#region Aluminum
+
+    public static final RegistryObject<Block> ALUMINUM_ORE = registerOverworldOre("aluminum_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_ALUMINUM_ORE = registerOverworldOre("deepslate_aluminum_ore", true);
+    public static final RegistryObject<Block> RAW_ALUMINUM_BLOCK = registerOreStorageBlock("raw_aluminum_block", MWColors.RAW_ALUMINUM.toMapColor(), false);
+    public static final RegistryObject<Block> ALUMINUM_BLOCK = registerOreStorageBlock("aluminum_block", MWColors.ALUMINUM.toMapColor(), true);
+
+    //#endregion
+
+    //#region Ruby
+
+    public static final RegistryObject<Block> RUBY_ORE = registerOverworldOre("ruby_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_RUBY_ORE = registerOverworldOre("deepslate_ruby_ore", true);
+    public static final RegistryObject<Block> RUBY_BLOCK = registerOreStorageBlock("ruby_block", MWColors.RUBY.toMapColor(), true);
+
+    //#endregion
+
+    //#region Sapphire
+
+    public static final RegistryObject<Block> SAPPHIRE_ORE = registerOverworldOre("sapphire_ore", false);
+    public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = registerOverworldOre("deepslate_sapphire_ore", true);
+    public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerOreStorageBlock("sapphire_block", MWColors.SAPPHIRE.toMapColor(), true);
+
+    //#endregion
+
+    //#region Bronze
+
+    public static final RegistryObject<Block> RAW_BRONZE_BLOCK = registerOreStorageBlock("raw_bronze_block", MWColors.RAW_BRONZE.toMapColor(), false);
+    public static final RegistryObject<Block> BRONZE_BLOCK = registerBlock("bronze_block", () -> PropertyHelper.block(MWColors.BRONZE.toMapColor(),3.0F, 6.0F, true, SoundType.COPPER));
+
+    //#endregion
+
+    //#region Pyrite
+
+    public static final RegistryObject<Block> PYRITE_ORE = registerNetherOre("pyrite_ore");
+    public static final RegistryObject<Block> PYRITE_BLOCK = registerFuel("pyrite_block", MWColors.PYRITE.toMapColor(), 1200);
+
+    //#endregion
+
+    //#region Charcoal
+
+    public static final RegistryObject<Block> CHARCOAL_BLOCK = registerFuel("charcoal_block", MWColors.CHARCOAL.toMapColor(), 800);
+
+    //#endregion
+
+    //#endregion
+
+    //#region Wood Block Sets
+
+    //#region Oak
+
+    public static final RegistryObject<Block> HOLLOW_OAK_LOG = registerHollowLog(WoodType.OAK, false, Blocks.OAK_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_OAK_LOG = registerHollowLog(WoodType.OAK, true, Blocks.STRIPPED_OAK_LOG::defaultBlockState);
+    public static final RegistryObject<Block> OAK_LEAVES_CARPET = registerLeaveCarpet(WoodType.OAK, () -> Blocks.OAK_LEAVES);
+    public static final RegistryObject<Block> OAK_BUSH = registerBush(WoodType.OAK, OakTreeGrower::new);
+    public static final RegistryObject<Block> OAK_BARREL = registerBarrel(WoodType.OAK);
+
+    //#endregion
+
+    //#region Spruce
+
+    public static final RegistryObject<Block> HOLLOW_SPRUCE_LOG = registerHollowLog(WoodType.SPRUCE, false, Blocks.SPRUCE_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_SPRUCE_LOG = registerHollowLog(WoodType.SPRUCE, true, Blocks.STRIPPED_SPRUCE_LOG::defaultBlockState);
+    public static final RegistryObject<Block> SPRUCE_LEAVES_CARPET = registerLeaveCarpet(WoodType.SPRUCE, () -> Blocks.SPRUCE_LEAVES);
+    public static final RegistryObject<Block> SPRUCE_BUSH = registerBush(WoodType.SPRUCE, SpruceTreeGrower::new);
+    public static final RegistryObject<Block> SPRUCE_CHEST = registerChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_CHEST.get()));
+    public static final RegistryObject<Block> SPRUCE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> SPRUCE_BOOKSHELF = registerBookshelf(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_LECTERN = registerLectern(WoodType.SPRUCE);
+
+    //#endregion
+
+    //#region Birch
+
+    public static final RegistryObject<Block> HOLLOW_BIRCH_LOG = registerHollowLog(WoodType.BIRCH, false, Blocks.BIRCH_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_BIRCH_LOG = registerHollowLog(WoodType.BIRCH, true, Blocks.STRIPPED_BIRCH_LOG::defaultBlockState);
+    public static final RegistryObject<Block> BIRCH_LEAVES_CARPET = registerLeaveCarpet(WoodType.BIRCH, () -> Blocks.BIRCH_LEAVES);
+    public static final RegistryObject<Block> BIRCH_BUSH = registerBush(WoodType.BIRCH, BirchTreeGrower::new);
+    public static final RegistryObject<Block> BIRCH_BARREL = registerBarrel(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_CHEST = registerChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_CHEST.get()));
+    public static final RegistryObject<Block> BIRCH_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> BIRCH_BOOKSHELF = registerBookshelf(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_LECTERN = registerLectern(WoodType.BIRCH);
+
+    //#endregion
+
+    //#region Jungle
+
+    public static final RegistryObject<Block> HOLLOW_JUNGLE_LOG = registerHollowLog(WoodType.JUNGLE, false, Blocks.JUNGLE_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_JUNGLE_LOG = registerHollowLog(WoodType.JUNGLE, true, Blocks.STRIPPED_JUNGLE_LOG::defaultBlockState);
+    public static final RegistryObject<Block> JUNGLE_LEAVES_CARPET = registerLeaveCarpet(WoodType.JUNGLE, () -> Blocks.JUNGLE_LEAVES);
+    public static final RegistryObject<Block> JUNGLE_BUSH = registerBush(WoodType.JUNGLE, JungleTreeGrower::new);
+    public static final RegistryObject<Block> JUNGLE_BARREL = registerBarrel(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_CHEST = registerChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_CHEST.get()));
+    public static final RegistryObject<Block> JUNGLE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> JUNGLE_BOOKSHELF = registerBookshelf(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_LECTERN = registerLectern(WoodType.JUNGLE);
+
+    //#endregion
+
+    //#region Acacia
+
+    public static final RegistryObject<Block> HOLLOW_ACACIA_LOG = registerHollowLog(WoodType.ACACIA, false, Blocks.ACACIA_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_ACACIA_LOG = registerHollowLog(WoodType.ACACIA, true, Blocks.STRIPPED_ACACIA_LOG::defaultBlockState);
+    public static final RegistryObject<Block> ACACIA_LEAVES_CARPET = registerLeaveCarpet(WoodType.ACACIA, () -> Blocks.ACACIA_LEAVES);
+    public static final RegistryObject<Block> ACACIA_BUSH = registerBush(WoodType.ACACIA, AcaciaTreeGrower::new);
+    public static final RegistryObject<Block> ACACIA_BARREL = registerBarrel(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_CHEST = registerChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_CHEST.get()));
+    public static final RegistryObject<Block> ACACIA_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> ACACIA_BOOKSHELF = registerBookshelf(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_LECTERN = registerLectern(WoodType.ACACIA);
+
+    //#endregion
+
+    //#region Dark Oak
+
+    public static final RegistryObject<Block> HOLLOW_DARK_OAK_LOG = registerHollowLog(WoodType.DARK_OAK, false, Blocks.DARK_OAK_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_DARK_OAK_LOG = registerHollowLog(WoodType.DARK_OAK, true, Blocks.STRIPPED_DARK_OAK_LOG::defaultBlockState);
+    public static final RegistryObject<Block> DARK_OAK_LEAVES_CARPET = registerLeaveCarpet(WoodType.DARK_OAK, () -> Blocks.DARK_OAK_LEAVES);
+    public static final RegistryObject<Block> DARK_OAK_BUSH = registerBush(WoodType.DARK_OAK, DarkOakTreeGrower::new);
+    public static final RegistryObject<Block> DARK_OAK_BARREL = registerBarrel(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_CHEST = registerChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_CHEST.get()));
+    public static final RegistryObject<Block> DARK_OAK_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> DARK_OAK_BOOKSHELF = registerBookshelf(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_LECTERN = registerLectern(WoodType.DARK_OAK);
+
+    //#endregion
+
+    //#region Mangrove
+
+    public static final RegistryObject<Block> HOLLOW_MANGROVE_LOG = registerHollowLog(WoodType.MANGROVE, false, Blocks.MANGROVE_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_MANGROVE_LOG = registerHollowLog(WoodType.MANGROVE, true, Blocks.STRIPPED_MANGROVE_LOG::defaultBlockState);
+    public static final RegistryObject<Block> MANGROVE_LEAVES_CARPET = registerLeaveCarpet(WoodType.MANGROVE, () -> Blocks.MANGROVE_LEAVES);
+    public static final RegistryObject<Block> MANGROVE_ROOTS_CARPET = registerLeaveCarpet(WoodType.MANGROVE, "roots", () -> Blocks.MANGROVE_LEAVES);
+    public static final RegistryObject<Block> MUDDY_MANGROVE_ROOTS_CARPET = registerCarpet("muddy_mangrove_roots", () -> Blocks.MANGROVE_LEAVES);
+    public static final RegistryObject<Block> MANGROVE_BUSH = registerBush(WoodType.MANGROVE, () -> new MangroveTreeGrower(0.85F));
+    public static final RegistryObject<Block> MANGROVE_BARREL = registerBarrel(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_CHEST = registerChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_CHEST.get()));
+    public static final RegistryObject<Block> MANGROVE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> MANGROVE_BOOKSHELF = registerBookshelf(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_LECTERN = registerLectern(WoodType.MANGROVE);
+
+    //#endregion
+
+    //#region Cherry
+
+    public static final RegistryObject<Block> HOLLOW_CHERRY_LOG = registerHollowLog(WoodType.CHERRY, false, Blocks.CHERRY_LOG::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_CHERRY_LOG = registerHollowLog(WoodType.CHERRY, true, Blocks.STRIPPED_CHERRY_LOG::defaultBlockState);
+    public static final RegistryObject<Block> CHERRY_LEAVES_CARPET = registerLeaveCarpet(WoodType.CHERRY, () -> Blocks.CHERRY_LEAVES);
+    public static final RegistryObject<Block> CHERRY_BUSH = registerBush(WoodType.CHERRY, CherryTreeGrower::new);
+    public static final RegistryObject<Block> CHERRY_BARREL = registerBarrel(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_CHEST = registerChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_CHEST.get()));
+    public static final RegistryObject<Block> CHERRY_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> CHERRY_BOOKSHELF = registerBookshelf(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_LECTERN = registerLectern(WoodType.CHERRY);
+
+    //#endregion
+
+    //#region Bamboo
+
+    public static final RegistryObject<Block> HOLLOW_BAMBOO_BLOCK = registerHollowLog(WoodType.BAMBOO, false, "block", Blocks.BAMBOO_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_BAMBOO_BLOCK = registerHollowLog(WoodType.BAMBOO, true, "block", Blocks.STRIPPED_BAMBOO_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> BAMBOO_BARREL = registerBarrel(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_CHEST = registerChest(() -> WoodType.BAMBOO, Suppliers.memoize(() -> MWBlockEntityTypes.BAMBOO_CHEST.get()));
+    public static final RegistryObject<Block> BAMBOO_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.BAMBOO, Suppliers.memoize(() -> MWBlockEntityTypes.BAMBOO_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> BAMBOO_BOOKSHELF = registerBookshelf(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_LECTERN = registerLectern(WoodType.BAMBOO);
+
+    //#endregion
+
+    //#region Crimson
+
+    public static final RegistryObject<Block> HOLLOW_CRIMSON_STEM = registerHollowLog(WoodType.CRIMSON, false, "stem", Blocks.CRIMSON_STEM::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_CRIMSON_STEM = registerHollowLog(WoodType.CRIMSON, true, "stem", Blocks.STRIPPED_CRIMSON_STEM::defaultBlockState);
+    public static final RegistryObject<Block> NETHER_WART_CARPET = registerCarpet("nether_wart", () -> Blocks.NETHER_WART_BLOCK);
+    public static final RegistryObject<Block> CRIMSON_BARREL = registerBarrel(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_CHEST = registerChest(() -> WoodType.CRIMSON, Suppliers.memoize(() -> MWBlockEntityTypes.CRIMSON_CHEST.get()));
+    public static final RegistryObject<Block> CRIMSON_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.CRIMSON, Suppliers.memoize(() -> MWBlockEntityTypes.CRIMSON_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> CRIMSON_BOOKSHELF = registerBookshelf(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_LECTERN = registerLectern(WoodType.CRIMSON);
+
+    //#endregion
+
+    //#region Warped
+
+    public static final RegistryObject<Block> HOLLOW_WARPED_STEM = registerHollowLog(WoodType.WARPED, false, "stem", Blocks.WARPED_STEM::defaultBlockState);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_WARPED_STEM = registerHollowLog(WoodType.WARPED, true, "stem", Blocks.STRIPPED_WARPED_STEM::defaultBlockState);
+    public static final RegistryObject<Block> WARPED_WART_CARPET = registerCarpet("warped_wart", () -> Blocks.WARPED_WART_BLOCK);
+    public static final RegistryObject<Block> WARPED_BARREL = registerBarrel(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_CHEST = registerChest(() -> WoodType.WARPED, Suppliers.memoize(() -> MWBlockEntityTypes.WARPED_CHEST.get()));
+    public static final RegistryObject<Block> WARPED_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.WARPED, Suppliers.memoize(() -> MWBlockEntityTypes.WARPED_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> WARPED_BOOKSHELF = registerBookshelf(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_LECTERN = registerLectern(WoodType.WARPED);
+
+    //#endregion
+
+    //#region Azalea
+
+    public static final RegistryObject<Block> AZALEA_LEAVES_CARPET = registerLeaveCarpet("azalea", () -> Blocks.AZALEA_LEAVES);
+    public static final RegistryObject<Block> FLOWERING_AZALEA_LEAVES_CARPET = registerLeaveCarpet("flowering_azalea", () -> Blocks.FLOWERING_AZALEA_LEAVES);
+
+    //#endregion
+
+    //#region Apple
+
+    public static final RegistryObject<Block> APPLE_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, false, MWWoodTypes.APPLE, true);
+    public static final RegistryObject<Block> HOLLOW_APPLE_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.APPLE, false,  Suppliers.memoize(() -> APPLE_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_APPLE_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, true, MWWoodTypes.APPLE, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_APPLE_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.APPLE, true,  Suppliers.memoize(() -> STRIPPED_APPLE_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> APPLE_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, false, MWWoodTypes.APPLE, false);
+    public static final RegistryObject<Block> STRIPPED_APPLE_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.APPLE, true, MWWoodTypes.APPLE, false);
+    public static final RegistryObject<Block> APPLE_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, () -> SoundType.GRASS);
+    public static final RegistryObject<Block> APPLE_LEAVES_CARPET = registerLeaveCarpet(MWWoodTypes.MWWoodTypeNames.APPLE, Suppliers.memoize(() -> APPLE_LEAVES.get()));
+    public static final RegistryObject<Block> APPLE_SAPLING = registerSapling(MWWoodTypes.MWWoodTypeNames.APPLE, MWTreeGrowers.APPLE_TREE_GROWER);
+    public static final RegistryObject<Block> APPLE_BUSH = registerBush(MWWoodTypes.MWWoodTypeNames.APPLE, MWTreeGrowers.APPLE_TREE_GROWER);
+    public static final RegistryObject<Block> APPLE_STAIRS = registerStair(MWWoodTypes.MWWoodTypeNames.APPLE, Suppliers.memoize(() -> APPLE_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> APPLE_SLAB = registerSlab(MWWoodTypes.MWWoodTypeNames.APPLE, Suppliers.memoize(() -> APPLE_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> APPLE_DOOR = registerDoor(MWWoodTypes.MWWoodTypeNames.APPLE, false, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_TRAPDOOR = registerTrapdoor(MWWoodTypes.MWWoodTypeNames.APPLE, false, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_PRESSURE_PLATE = registerPressurePlate(MWWoodTypes.MWWoodTypeNames.APPLE, true, ResourceHelper.woodColor(MWWoodTypes.APPLE.get()), () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_BUTTON = registerButton(MWWoodTypes.MWWoodTypeNames.APPLE, true, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> APPLE_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.APPLE);
+    public static final RegistryObject<Block> APPLE_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_CHEST.get()));
+    public static final RegistryObject<Block> APPLE_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> MWBlockEntityTypes.APPLE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> APPLE_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> APPLE_SIGN.get()));
+    public static final RegistryObject<Block> APPLE_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> APPLE_HANGING_SIGN.get()));
+
+    //#endregion
+
+    //#region Palm
+
+    public static final RegistryObject<Block> PALM_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, false, MWWoodTypes.PALM, true);
+    public static final RegistryObject<Block> HOLLOW_PALM_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.PALM, false,  Suppliers.memoize(() -> PALM_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_PALM_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, true, MWWoodTypes.PALM, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_PALM_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.PALM, true,  Suppliers.memoize(() -> STRIPPED_PALM_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> PALM_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, false, MWWoodTypes.PALM, false);
+    public static final RegistryObject<Block> STRIPPED_PALM_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.PALM, true, MWWoodTypes.PALM, false);
+    public static final RegistryObject<Block> PALM_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, () -> SoundType.GRASS);
+    public static final RegistryObject<Block> PALM_LEAVES_CARPET = registerLeaveCarpet(MWWoodTypes.MWWoodTypeNames.PALM, Suppliers.memoize(() -> PALM_LEAVES.get()));
+    public static final RegistryObject<Block> PALM_SAPLING = registerBlock(MWWoodTypes.MWWoodTypeNames.PALM + "_sapling", Suppliers.memoize(PalmSaplingBlock::new));
+    public static final RegistryObject<Block> PALM_BUSH = registerBlock(MWWoodTypes.MWWoodTypeNames.PALM + "_bush", Suppliers.memoize(PalmBushBlock::new));
+    public static final RegistryObject<Block> PALM_STAIRS = registerStair(MWWoodTypes.MWWoodTypeNames.PALM, Suppliers.memoize(() -> PALM_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> PALM_SLAB = registerSlab(MWWoodTypes.MWWoodTypeNames.PALM, Suppliers.memoize(() -> PALM_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> PALM_DOOR = registerDoor(MWWoodTypes.MWWoodTypeNames.PALM, false, () -> BlockSetType.JUNGLE);
+    public static final RegistryObject<Block> PALM_TRAPDOOR = registerTrapdoor(MWWoodTypes.MWWoodTypeNames.PALM, false, () -> BlockSetType.JUNGLE);
+    public static final RegistryObject<Block> PALM_PRESSURE_PLATE = registerPressurePlate(MWWoodTypes.MWWoodTypeNames.PALM, true, ResourceHelper.woodColor(MWWoodTypes.PALM.get()), () -> BlockSetType.JUNGLE);
+    public static final RegistryObject<Block> PALM_BUTTON = registerButton(MWWoodTypes.MWWoodTypeNames.PALM, true, () -> BlockSetType.JUNGLE);
+    public static final RegistryObject<Block> PALM_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.PALM);
+    public static final RegistryObject<Block> PALM_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_CHEST.get()));
+    public static final RegistryObject<Block> PALM_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> MWBlockEntityTypes.PALM_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> PALM_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> PALM_SIGN.get()));
+    public static final RegistryObject<Block> PALM_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> PALM_HANGING_SIGN.get()));
+
+    //#endregion
+
+    //#region Dead
+
+    public static final RegistryObject<Block> DEAD_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, false,  MWWoodTypes.DEAD, true);
+    public static final RegistryObject<Block> HOLLOW_DEAD_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.DEAD, false,  Suppliers.memoize(() -> DEAD_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_DEAD_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, true, MWWoodTypes.DEAD, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_DEAD_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.DEAD, true,  Suppliers.memoize(() -> STRIPPED_DEAD_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> DEAD_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, false, MWWoodTypes.DEAD, false);
+    public static final RegistryObject<Block> STRIPPED_DEAD_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.DEAD, true, MWWoodTypes.DEAD, false);
+    public static final RegistryObject<Block> DEAD_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_STAIRS = registerStair(MWWoodTypes.MWWoodTypeNames.DEAD, Suppliers.memoize(() -> DEAD_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> DEAD_SLAB = registerSlab(MWWoodTypes.MWWoodTypeNames.DEAD, Suppliers.memoize(() -> DEAD_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> DEAD_DOOR = registerDoor(MWWoodTypes.MWWoodTypeNames.DEAD, false, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> DEAD_TRAPDOOR = registerTrapdoor(MWWoodTypes.MWWoodTypeNames.DEAD, false, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> DEAD_PRESSURE_PLATE = registerPressurePlate(MWWoodTypes.MWWoodTypeNames.DEAD, true, ResourceHelper.woodColor(MWWoodTypes.DEAD.get()), () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> DEAD_BUTTON = registerButton(MWWoodTypes.MWWoodTypeNames.DEAD, true, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> DEAD_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.DEAD);
+    public static final RegistryObject<Block> DEAD_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_CHEST.get()));
+    public static final RegistryObject<Block> DEAD_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> MWBlockEntityTypes.DEAD_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> DEAD_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> DEAD_SIGN.get()));
+    public static final RegistryObject<Block> DEAD_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> DEAD_HANGING_SIGN.get()));
+
+    //#endregion
+
+    //#region Sculk
+
+    public static final RegistryObject<Block> SCULK_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, false, MWWoodTypes.SCULK, true);
+    public static final RegistryObject<Block> HOLLOW_SCULK_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.SCULK, false,  Suppliers.memoize(() -> SCULK_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> STRIPPED_SCULK_LOG = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, true, MWWoodTypes.SCULK, true);
+    public static final RegistryObject<Block> HOLLOW_STRIPPED_SCULK_LOG = registerHollowLog(MWWoodTypes.MWWoodTypeNames.SCULK, true,  Suppliers.memoize(() -> STRIPPED_SCULK_LOG.get().defaultBlockState()));
+    public static final RegistryObject<Block> SCULK_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, false, MWWoodTypes.SCULK, false);
+    public static final RegistryObject<Block> STRIPPED_SCULK_WOOD = registerLog(MWWoodTypes.MWWoodTypeNames.SCULK, true, MWWoodTypes.SCULK, false);
+    public static final RegistryObject<Block> SCULK_PLANKS = registerPlanks(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_LEAVES = registerLeaves(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, () -> SoundType.SCULK);
+    public static final RegistryObject<Block> SCULK_LEAVES_CARPET = registerLeaveCarpet(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> SCULK_LEAVES.get()));
+    public static final RegistryObject<Block> SCULK_SAPLING = registerBlock(MWWoodTypes.MWWoodTypeNames.SCULK + "_sapling", Suppliers.memoize(SculkSaplingBlock::new));
+    public static final RegistryObject<Block> SCULK_BUSH = registerBlock(MWWoodTypes.MWWoodTypeNames.SCULK + "_bush", Suppliers.memoize(SculkBushBlock::new));
+    public static final RegistryObject<Block> SCULK_STAIRS = registerStair(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> SCULK_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> SCULK_SLAB = registerSlab(MWWoodTypes.MWWoodTypeNames.SCULK, Suppliers.memoize(() -> SCULK_PLANKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> SCULK_DOOR = registerDoor(MWWoodTypes.MWWoodTypeNames.SCULK, false, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> SCULK_TRAPDOOR = registerTrapdoor(MWWoodTypes.MWWoodTypeNames.SCULK, false, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> SCULK_PRESSURE_PLATE = registerPressurePlate(MWWoodTypes.MWWoodTypeNames.SCULK, true, MWColors.SCULK.toMapColor(), () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> SCULK_BUTTON = registerButton(MWWoodTypes.MWWoodTypeNames.SCULK, true, () -> BlockSetType.OAK);
+    public static final RegistryObject<Block> SCULK_BARREL = registerBarrel(MWWoodTypes.MWWoodTypeNames.SCULK);
+    public static final RegistryObject<Block> SCULK_CHEST = registerChest(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_CHEST.get()));
+    public static final RegistryObject<Block> SCULK_TRAPPED_CHEST = registerTrappedChest(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> MWBlockEntityTypes.SCULK_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> SCULK_BOOKSHELF = registerBookshelf(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_CHISELED_BOOKSHELF = registerChiseledBookshelf(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_LECTERN = registerLectern(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_FENCE = registerFence(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_FENCE_GATE = registerFenceGate(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_SIGN = registerSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> SCULK_SIGN.get()));
+    public static final RegistryObject<Block> SCULK_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> SCULK_HANGING_SIGN.get()));
+
+    //#endregion
+
+    //#endregion
+
+    //#region Stone Block Sets
+
+    //#region Marble
+
+    public static final RegistryObject<Block> MARBLE = registerBlock("marble", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.TUFF).mapColor(MWColors.MARBLE.toMapColor())));
+    public static final RegistryObject<Block> MARBLE_STAIRS = registerStair("marble", Suppliers.memoize(() -> MARBLE.get().defaultBlockState()));
+    public static final RegistryObject<Block> MARBLE_SLAB = registerSlab("marble", Suppliers.memoize(() -> MARBLE.get().defaultBlockState()));
+    public static final RegistryObject<Block> MARBLE_WALL = registerWall("marble", Suppliers.memoize(() -> MARBLE.get().defaultBlockState()));
+    public static final RegistryObject<Block> MARBLE_PRESSURE_PLATE = registerPressurePlate("marble", false, MWColors.MARBLE.toMapColor(), Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MARBLE_BUTTON = registerButton("marble", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Stone, Cobblestone, Mossy Stone, Mossy Cobblestone, Smooth Stone, Stone Bricks and Mossy Stone Bricks
+
+    public static final RegistryObject<Block> STONE_WALL = registerWall("stone", Blocks.STONE::defaultBlockState);
+    public static final RegistryObject<Block> COBBLESTONE_PRESSURE_PLATE = registerPressurePlate("cobblestone", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> COBBLESTONE_BUTTON = registerButton("cobblestone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MOSSY_STONE = registerBlock("mossy_stone", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.STONE)));
+    public static final RegistryObject<Block> MOSSY_STONE_STAIRS = registerStair("mossy_stone", Suppliers.memoize(() -> MOSSY_STONE.get().defaultBlockState()));
+    public static final RegistryObject<Block> MOSSY_STONE_SLAB = registerSlab("mossy_stone", Suppliers.memoize(() -> MOSSY_STONE.get().defaultBlockState()));
+    public static final RegistryObject<Block> MOSSY_STONE_WALL = registerWall("mossy_stone", Suppliers.memoize(() -> MOSSY_STONE.get().defaultBlockState()));
+    public static final RegistryObject<Block> MOSSY_STONE_PRESSURE_PLATE = registerPressurePlate("mossy_stone", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MOSSY_STONE_BUTTON = registerButton("mossy_stone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MOSSY_COBBLESTONE_PRESSURE_PLATE = registerPressurePlate("mossy_cobblestone", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MOSSY_COBBLESTONE_BUTTON = registerButton("mossy_cobblestone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_STONE_STAIRS = registerStair("smooth_stone", Blocks.SMOOTH_STONE::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_STONE_WALL = registerWall("smooth_stone", Blocks.SMOOTH_STONE::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_STONE_PRESSURE_PLATE = registerPressurePlate("smooth_stone", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_STONE_BUTTON = registerButton("smooth_stone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> STONE_BRICKS_PRESSURE_PLATE = registerPressurePlate("stone_bricks", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> STONE_BRICKS_BUTTON = registerButton("stone_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MOSSY_STONE_BRICKS_PRESSURE_PLATE = registerPressurePlate("mossy_stone_bricks", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MOSSY_STONE_BRICKS_BUTTON = registerButton("mossy_stone_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MOSSY_CHISELED_STONE_BRICKS = registerBlock("mossy_chiseled_stone_bricks", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.CHISELED_STONE_BRICKS)));
+    public static final RegistryObject<Block> MOSSY_CRACKED_STONE_BRICKS = registerBlock("mossy_cracked_stone_bricks", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.CRACKED_STONE_BRICKS)));
+
+    //#endregion
+
+    //#region Granite and Polished Granite
+
+    public static final RegistryObject<Block> GRANITE_PRESSURE_PLATE = registerPressurePlate("granite", false, MapColor.DIRT, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> GRANITE_BUTTON = registerButton("granite", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_GRANITE_WALL = registerWall("polished_granite", Blocks.POLISHED_GRANITE::defaultBlockState);
+    public static final RegistryObject<Block> POLISHED_GRANITE_PRESSURE_PLATE = registerPressurePlate("polished_granite", false, MapColor.DIRT, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_GRANITE_BUTTON = registerButton("polished_granite", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Diorite and Polished Diorite
+
+    public static final RegistryObject<Block> DIORITE_PRESSURE_PLATE = registerPressurePlate("diorite", false, MapColor.QUARTZ, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DIORITE_BUTTON = registerButton("diorite", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_DIORITE_WALL = registerWall("polished_diorite", Blocks.POLISHED_DIORITE::defaultBlockState);
+    public static final RegistryObject<Block> POLISHED_DIORITE_PRESSURE_PLATE = registerPressurePlate("polished_diorite", false, MapColor.QUARTZ, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_DIORITE_BUTTON = registerButton("polished_diorite", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Andesite and Polished Andesite
+
+    public static final RegistryObject<Block> ANDESITE_PRESSURE_PLATE = registerPressurePlate("andesite", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> ANDESITE_BUTTON = registerButton("andesite", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_ANDESITE_WALL = registerWall("polished_andesite", Blocks.POLISHED_ANDESITE::defaultBlockState);
+    public static final RegistryObject<Block> POLISHED_ANDESITE_PRESSURE_PLATE = registerPressurePlate("polished_andesite", false, MapColor.STONE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_ANDESITE_BUTTON = registerButton("polished_andesite", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Deepslate, Cobbled Deepslate, Polished Deepslate, Deepslate Bricks, Deepslate Tiles and Reinforced Deepslate
+
+    public static final RegistryObject<Block> DEEPSLATE_STAIRS = registerStair("deepslate", Blocks.DEEPSLATE::defaultBlockState);
+    public static final RegistryObject<Block> DEEPSLATE_SLAB = registerSlab("deepslate", Blocks.DEEPSLATE::defaultBlockState);
+    public static final RegistryObject<Block> DEEPSLATE_WALL = registerWall("deepslate", Blocks.DEEPSLATE::defaultBlockState);
+    public static final RegistryObject<Block> DEEPSLATE_PRESSURE_PLATE = registerPressurePlate("deepslate", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DEEPSLATE_BUTTON = registerButton("deepslate", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> COBBLED_DEEPSLATE_PRESSURE_PLATE = registerPressurePlate("cobbled_deepslate", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> COBBLED_DEEPSLATE_BUTTON = registerButton("cobbled_deepslate", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_DEEPSLATE_PRESSURE_PLATE = registerPressurePlate("polished_deepslate", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_DEEPSLATE_BUTTON = registerButton("polished_deepslate", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DEEPSLATE_BRICKS_PRESSURE_PLATE = registerPressurePlate("deepslate_bricks", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DEEPSLATE_BRICKS_BUTTON = registerButton("deepslate_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DEEPSLATE_TILES_PRESSURE_PLATE = registerPressurePlate("deepslate_tiles", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DEEPSLATE_TILES_BUTTON = registerButton("deepslate_tiles", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_STAIRS = registerStair("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_SLAB = registerSlab("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_WALL = registerWall("reinforced_deepslate", Blocks.REINFORCED_DEEPSLATE::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_PRESSURE_PLATE = registerPressurePlate("reinforced_deepslate", false, MapColor.DEEPSLATE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> REINFORCED_DEEPSLATE_BUTTON = registerButton("reinforced_deepslate", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Bricks and Mud Bricks
+
+    public static final RegistryObject<Block> BRICKS_PRESSURE_PLATE = registerPressurePlate("bricks", false, MapColor.COLOR_RED, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> BRICKS_BUTTON = registerButton("bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MUD_BRICKS_PRESSURE_PLATE = registerPressurePlate("mud_bricks", false, MapColor.TERRACOTTA_LIGHT_GRAY, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> MUD_BRICKS_BUTTON = registerButton("mud_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Sandstone, Smooth Sandstone, Cut Sandstone, Red Sandstone, Smooth Red Sandstone and Cut Red Sandstone
+
+    public static final RegistryObject<Block> SANDSTONE_PRESSURE_PLATE = registerPressurePlate("sandstone", false, MapColor.SAND, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SANDSTONE_BUTTON = registerButton("sandstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_SANDSTONE_WALL = registerWall("smooth_sandstone", Blocks.SANDSTONE::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_SANDSTONE_PRESSURE_PLATE = registerPressurePlate("smooth_sandstone", false, MapColor.SAND, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_SANDSTONE_BUTTON = registerButton("smooth_sandstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> CUT_SANDSTONE_STAIRS = registerStair("cut_sandstone", Blocks.CUT_SANDSTONE::defaultBlockState);
+    public static final RegistryObject<Block> CUT_SANDSTONE_WALL = registerWall("cut_sandstone", Blocks.CUT_SANDSTONE::defaultBlockState);
+    public static final RegistryObject<Block> RED_SANDSTONE_PRESSURE_PLATE = registerPressurePlate("red_sandstone", false, MapColor.COLOR_ORANGE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> RED_SANDSTONE_BUTTON = registerButton("red_sandstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_RED_SANDSTONE_WALL = registerWall("smooth_red_sandstone", Blocks.RED_SANDSTONE::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_RED_SANDSTONE_PRESSURE_PLATE = registerPressurePlate("smooth_red_sandstone", false, MapColor.COLOR_ORANGE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_RED_SANDSTONE_BUTTON = registerButton("smooth_red_sandstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> CUT_RED_SANDSTONE_STAIRS = registerStair("cut_red_sandstone", Blocks.CUT_RED_SANDSTONE::defaultBlockState);
+    public static final RegistryObject<Block> CUT_RED_SANDSTONE_WALL = registerWall("cut_red_sandstone", Blocks.CUT_RED_SANDSTONE::defaultBlockState);
+
+    //#endregion
+
+    //#region Prismarine, Prismarine Bricks and Dark Prismarine
+
+    public static final RegistryObject<Block> PRISMARINE_PRESSURE_PLATE = registerPressurePlate("prismarine", false, MapColor.COLOR_CYAN, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> PRISMARINE_BUTTON = registerButton("prismarine", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> PRISMARINE_BRICKS_WALL = registerWall("prismarine_bricks", Blocks.PRISMARINE_BRICKS::defaultBlockState);
+    public static final RegistryObject<Block> PRISMARINE_BRICKS_PRESSURE_PLATE = registerPressurePlate("prismarine_bricks", false, MapColor.DIAMOND, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> PRISMARINE_BRICKS_BUTTON = registerButton("prismarine_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DARK_PRISMARINE_WALL = registerWall("dark_prismarine", Blocks.DARK_PRISMARINE::defaultBlockState);
+    public static final RegistryObject<Block> DARK_PRISMARINE_PRESSURE_PLATE = registerPressurePlate("dark_prismarine", false, MapColor.DIAMOND, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DARK_PRISMARINE_BUTTON = registerButton("dark_prismarine", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Netherrack, Nether Bricks, Red Nether Bricks and Warped Nether Bricks
+
+    public static final RegistryObject<Block> NETHERRACK_STAIRS = registerStair("netherrack", Blocks.NETHERRACK::defaultBlockState);
+    public static final RegistryObject<Block> NETHERRACK_SLAB = registerSlab("netherrack", Blocks.NETHERRACK::defaultBlockState);
+    public static final RegistryObject<Block> NETHERRACK_WALL = registerWall("netherrack", Blocks.NETHERRACK::defaultBlockState);
+    public static final RegistryObject<Block> NETHERRACK_PRESSURE_PLATE = registerPressurePlate("netherrack", false, MapColor.NETHER, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> NETHERRACK_BUTTON = registerButton("netherrack", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> NETHER_BRICKS_PRESSURE_PLATE = registerPressurePlate("nether_bricks", false, MapColor.NETHER, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> NETHER_BRICKS_BUTTON = registerButton("nether_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> RED_NETHER_BRICKS_PRESSURE_PLATE = registerPressurePlate("red_nether_bricks", false, MapColor.NETHER, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> RED_NETHER_BRICKS_BUTTON = registerButton("red_nether_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> CRACKED_RED_NETHER_BRICKS = registerBlock("cracked_red_nether_bricks", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.RED_NETHER_BRICKS)));
+    public static final RegistryObject<Block> CHISELED_RED_NETHER_BRICKS = registerBlock("chiseled_red_nether_bricks", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.RED_NETHER_BRICKS)));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS = registerBlock("warped_nether_bricks", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.NETHER_BRICKS)));
+    public static final RegistryObject<Block> CRACKED_WARPED_NETHER_BRICKS = registerBlock("cracked_warped_nether_bricks",  Suppliers.memoize(() -> PropertyHelper.copy(WARPED_NETHER_BRICKS.get())));
+    public static final RegistryObject<Block> CHISELED_WARPED_NETHER_BRICKS = registerBlock("chiseled_warped_nether_bricks",  Suppliers.memoize(() -> PropertyHelper.copy(WARPED_NETHER_BRICKS.get())));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_STAIRS = registerStair("warped_nether_bricks",  Suppliers.memoize(() -> WARPED_NETHER_BRICKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_SLAB = registerSlab("warped_nether_bricks", Suppliers.memoize(() -> WARPED_NETHER_BRICKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_WALL = registerWall("warped_nether_bricks", Suppliers.memoize(() -> WARPED_NETHER_BRICKS.get().defaultBlockState()));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_PRESSURE_PLATE = registerPressurePlate("warped_nether_bricks", false, MapColor.WARPED_WART_BLOCK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> WARPED_NETHER_BRICKS_BUTTON = registerButton("warped_nether_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Basalt, Smooth Basalt and Polished Basalt
+
+    public static final RegistryObject<Block> BASALT_STAIRS = registerStair("basalt", Blocks.BASALT::defaultBlockState);
+    public static final RegistryObject<Block> BASALT_SLAB = registerSlab("basalt", Blocks.BASALT::defaultBlockState);
+    public static final RegistryObject<Block> BASALT_WALL = registerWall("basalt", Blocks.BASALT::defaultBlockState);
+    public static final RegistryObject<Block> BASALT_PRESSURE_PLATE = registerPressurePlate("basalt", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> BASALT_BUTTON = registerButton("basalt", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_BASALT_STAIRS = registerStair("smooth_basalt", Blocks.SMOOTH_BASALT::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_BASALT_SLAB = registerSlab("smooth_basalt", Blocks.SMOOTH_BASALT::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_BASALT_WALL = registerWall("smooth_basalt", Blocks.SMOOTH_BASALT::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_BASALT_PRESSURE_PLATE = registerPressurePlate("smooth_basalt", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_BASALT_BUTTON = registerButton("smooth_basalt", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_BASALT_STAIRS = registerStair("polished_basalt", Blocks.POLISHED_BASALT::defaultBlockState);
+    public static final RegistryObject<Block> POLISHED_BASALT_SLAB = registerSlab("polished_basalt", Blocks.POLISHED_BASALT::defaultBlockState);
+    public static final RegistryObject<Block> POLISHED_BASALT_WALL = registerWall("polished_basalt", Blocks.POLISHED_BASALT::defaultBlockState);
+    public static final RegistryObject<Block> POLISHED_BASALT_PRESSURE_PLATE = registerPressurePlate("polished_basalt", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_BASALT_BUTTON = registerButton("polished_basalt", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Blackstone, Polished Blackstone and Gilded Blackstone
+
+    public static final RegistryObject<Block> BLACKSTONE_PRESSURE_PLATE = registerPressurePlate("blackstone", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> BLACKSTONE_BUTTON = registerButton("blackstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_BLACKSTONE_BRICKS_PRESSURE_PLATE = registerPressurePlate("polished_blackstone_bricks", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_BLACKSTONE_BRICKS_BUTTON = registerButton("polished_blackstone_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> GILDED_BLACKSTONE_STAIRS = registerStair("gilded_blackstone", Blocks.GILDED_BLACKSTONE::defaultBlockState);
+    public static final RegistryObject<Block> GILDED_BLACKSTONE_SLAB = registerSlab("gilded_blackstone", Blocks.GILDED_BLACKSTONE::defaultBlockState);
+    public static final RegistryObject<Block> GILDED_BLACKSTONE_WALL = registerWall("gilded_blackstone", Blocks.GILDED_BLACKSTONE::defaultBlockState);
+    public static final RegistryObject<Block> GILDED_BLACKSTONE_PRESSURE_PLATE = registerPressurePlate("gilded_blackstone", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> GILDED_BLACKSTONE_BUTTON = registerButton("gilded_blackstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region End Stone and End Stone Bricks
+
+    public static final RegistryObject<Block> END_STONE_STAIRS = registerStair("end_stone", Blocks.END_STONE::defaultBlockState);
+    public static final RegistryObject<Block> END_STONE_SLAB = registerSlab("end_stone", Blocks.END_STONE::defaultBlockState);
+    public static final RegistryObject<Block> END_STONE_WALL = registerWall("end_stone", Blocks.END_STONE::defaultBlockState);
+    public static final RegistryObject<Block> END_STONE_PRESSURE_PLATE = registerPressurePlate("end_stone", false, MapColor.SAND, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> END_STONE_BUTTON = registerButton("end_stone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> END_STONE_BRICKS_PRESSURE_PLATE = registerPressurePlate("end_stone_bricks", false, MapColor.SAND, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> END_STONE_BRICKS_BUTTON = registerButton("end_stone_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Purpur and Purpur Pillar
+
+    public static final RegistryObject<Block> PURPUR_WALL = registerWall("purpur", Blocks.PURPUR_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> PURPUR_PRESSURE_PLATE = registerPressurePlate("purpur", false, MapColor.COLOR_MAGENTA, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> PURPUR_BUTTON = registerButton("purpur", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> PURPUR_PILLAR_STAIRS = registerStair("purpur_pillar", Blocks.PURPUR_PILLAR::defaultBlockState);
+    public static final RegistryObject<Block> PURPUR_PILLAR_SLAB = registerSlab("purpur_pillar", Blocks.PURPUR_PILLAR::defaultBlockState);
+    public static final RegistryObject<Block> PURPUR_PILLAR_WALL = registerWall("purpur_pillar", Blocks.PURPUR_PILLAR::defaultBlockState);
+    public static final RegistryObject<Block> PURPUR_PILLAR_PRESSURE_PLATE = registerPressurePlate("purpur_pillar", false, MapColor.COLOR_MAGENTA, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> PURPUR_PILLAR_BUTTON = registerButton("purpur_pillar", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Quartz, Smooth Quartz, Quartz Bricks and Quartz Pillar
+
+    public static final RegistryObject<Block> QUARTZ_WALL = registerWall("quartz", Blocks.QUARTZ_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> QUARTZ_PRESSURE_PLATE = registerPressurePlate("quartz", false, MapColor.QUARTZ, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> QUARTZ_BUTTON = registerButton("quartz", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_QUARTZ_WALL = registerWall("smooth_quartz", Blocks.SMOOTH_QUARTZ::defaultBlockState);
+    public static final RegistryObject<Block> SMOOTH_QUARTZ_PRESSURE_PLATE = registerPressurePlate("smooth_quartz", false, MapColor.QUARTZ, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> SMOOTH_QUARTZ_BUTTON = registerButton("smooth_quartz", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> QUARTZ_BRICKS_STAIRS = registerStair("quartz_bricks", Blocks.QUARTZ_BRICKS::defaultBlockState);
+    public static final RegistryObject<Block> QUARTZ_BRICKS_SLAB = registerSlab("quartz_bricks", Blocks.QUARTZ_BRICKS::defaultBlockState);
+    public static final RegistryObject<Block> QUARTZ_BRICKS_WALL = registerWall("quartz_bricks", Blocks.QUARTZ_BRICKS::defaultBlockState);
+    public static final RegistryObject<Block> QUARTZ_BRICKS_PRESSURE_PLATE = registerPressurePlate("quartz_bricks", false, MapColor.QUARTZ, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> QUARTZ_BRICKS_BUTTON = registerButton("quartz_bricks", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> QUARTZ_PILLAR_STAIRS = registerStair("quartz_pillar", Blocks.QUARTZ_PILLAR::defaultBlockState);
+    public static final RegistryObject<Block> QUARTZ_PILLAR_SLAB = registerSlab("quartz_pillar", Blocks.QUARTZ_PILLAR::defaultBlockState);
+    public static final RegistryObject<Block> QUARTZ_PILLAR_WALL = registerWall("quartz_pillar", Blocks.QUARTZ_PILLAR::defaultBlockState);
+    public static final RegistryObject<Block> QUARTZ_PILLAR_PRESSURE_PLATE = registerPressurePlate("quartz_pillar", false, MapColor.QUARTZ, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> QUARTZ_PILLAR_BUTTON = registerButton("quartz_pillar", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Terracotta
+
+    public static final RegistryObject<Block> TERRACOTTA_STAIRS = registerStair("terracotta", Blocks.TERRACOTTA::defaultBlockState);
+    public static final RegistryObject<Block> TERRACOTTA_SLAB = registerSlab("terracotta", Blocks.TERRACOTTA::defaultBlockState);
+    public static final RegistryObject<Block> TERRACOTTA_WALL = registerWall("terracotta", Blocks.TERRACOTTA::defaultBlockState);
+    public static final RegistryObject<Block> TERRACOTTA_PRESSURE_PLATE = registerPressurePlate("terracotta", false, MapColor.COLOR_ORANGE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> TERRACOTTA_BUTTON = registerButton("terracotta", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Calcite
+
+    public static final RegistryObject<Block> CALCITE_STAIRS = registerStair("calcite", Blocks.CALCITE::defaultBlockState);
+    public static final RegistryObject<Block> CALCITE_SLAB = registerSlab("calcite", Blocks.CALCITE::defaultBlockState);
+    public static final RegistryObject<Block> CALCITE_WALL = registerWall("calcite", Blocks.CALCITE::defaultBlockState);
+    public static final RegistryObject<Block> CALCITE_PRESSURE_PLATE = registerPressurePlate("calcite", false, MapColor.TERRACOTTA_WHITE, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> CALCITE_BUTTON = registerButton("calcite", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Tuff
+
+    public static final RegistryObject<Block> TUFF_STAIRS = registerStair("tuff", Blocks.TUFF::defaultBlockState);
+    public static final RegistryObject<Block> TUFF_SLAB = registerSlab("tuff", Blocks.TUFF::defaultBlockState);
+    public static final RegistryObject<Block> TUFF_WALL = registerWall("tuff", Blocks.TUFF::defaultBlockState);
+    public static final RegistryObject<Block> TUFF_PRESSURE_PLATE = registerPressurePlate("tuff", false, MapColor.TERRACOTTA_GRAY, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> TUFF_BUTTON = registerButton("tuff", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Dripstone
+
+    public static final RegistryObject<Block> DRIPSTONE_STAIRS = registerStair("dripstone", Blocks.DRIPSTONE_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> DRIPSTONE_SLAB = registerSlab("dripstone", Blocks.DRIPSTONE_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> DRIPSTONE_WALL = registerWall("dripstone", Blocks.DRIPSTONE_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> DRIPSTONE_PRESSURE_PLATE = registerPressurePlate("dripstone", false, MapColor.TERRACOTTA_BROWN, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> DRIPSTONE_BUTTON = registerButton("dripstone", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Obsidian, Crying Obsidian and Glowing Obsidian
+
+    public static final RegistryObject<Block> OBSIDIAN_STAIRS = registerStair("obsidian", Blocks.OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> OBSIDIAN_SLAB = registerSlab("obsidian", Blocks.OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> OBSIDIAN_WALL = registerWall("obsidian", Blocks.OBSIDIAN::defaultBlockState, PushReaction.BLOCK);
+    public static final RegistryObject<Block> OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> OBSIDIAN_BUTTON = registerButton("obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_STAIRS = registerBlock("crying_obsidian_stairs", CryingObsidianStairs::new);
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_SLAB = registerBlock("crying_obsidian_slab", CryingObsidianSlab::new);
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_WALL = registerBlock("crying_obsidian_wall", CryingObsidianWall::new);
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("crying_obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> CRYING_OBSIDIAN_BUTTON = registerButton("crying_obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN = registerBlock("glowing_obsidian", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.OBSIDIAN).lightLevel(state -> 15).pushReaction(PushReaction.BLOCK)));
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_STAIRS = registerStair("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()), PushReaction.BLOCK);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_SLAB = registerSlab("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()), PushReaction.BLOCK);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_WALL = registerWall("glowing_obsidian", Suppliers.memoize(() -> GLOWING_OBSIDIAN.get().defaultBlockState()), PushReaction.BLOCK);
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_PRESSURE_PLATE = registerPressurePlate("glowing_obsidian", false, MapColor.COLOR_BLACK, Suppliers.memoize(() -> BlockSetType.STONE));
+    public static final RegistryObject<Block> GLOWING_OBSIDIAN_BUTTON = registerButton("glowing_obsidian", false, Suppliers.memoize(() -> BlockSetType.STONE));
+
+    //#endregion
+
+    //#region Misc
+
+    public static final RegistryObject<Block> LAVA_ROCK = registerBlock("lava_rock", Suppliers.memoize(() -> new MagmaBlock(PropertyHelper.copy(Blocks.MAGMA_BLOCK).lightLevel(state -> 10).mapColor(MapColor.COLOR_BLACK))));
+    public static final RegistryObject<Block> PERENNIAL_ICE = registerBlock("perennial_ice", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.BLUE_ICE).strength(3.5F).friction(0.99F)));
+    public static final RegistryObject<Block> END_SOIL = registerBlock("end_soil", Suppliers.memoize(() -> new MWSoilBlock(MapColor.COLOR_GREEN, MWSoundTypes.END_SOIL, Blocks.END_STONE::defaultBlockState)));
+    public static final RegistryObject<Block> SCULK_SOIL = registerBlock("sculk_soil", Suppliers.memoize(SculkSoilBlock::new));
+
+    //#endregion
+
+    //#endregion
+
+    //#region Metal Block Sets
+
+    //#region Iron
+
+    public static final RegistryObject<Block> IRON_STAIRS = registerStair("iron", Blocks.IRON_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> IRON_SLAB = registerSlab("iron", Blocks.IRON_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> IRON_CAGE = registerCage("iron", Blocks.IRON_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> IRON_GRATE = registerHorizontalPane("iron_grate", Suppliers.memoize(() -> Blocks.IRON_BARS.defaultBlockState()));
+    public static final RegistryObject<Block> CUT_IRON = registerBlock("cut_iron", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> CUT_IRON_STAIRS = registerStair("cut_iron", Suppliers.memoize(() -> CUT_IRON.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_IRON_SLAB = registerSlab("cut_iron", Suppliers.memoize(() -> CUT_IRON.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_IRON_PRESSURE_PLATE = registerWeightedPressurePlate("cut_iron", 15, MapColor.METAL, Suppliers.memoize(() -> BlockSetType.IRON));
+    public static final RegistryObject<Block> WALL_HANGING_LANTERN = registerWallHangingLantern("", false, () -> Blocks.LANTERN);
+    public static final RegistryObject<Block> WALL_HANGING_SOUL_LANTERN = registerWallHangingLantern("", true, () -> Blocks.SOUL_LANTERN);
+    public static final RegistryObject<Block> END_LANTERN = registerLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_END_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> SCULK_LANTERN = registerLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_SCULK_LANTERN = registerWallHangingLantern(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
+
+    //#endregion
+
+    //#region Gold
+
+    public static final RegistryObject<Block> GOLDEN_STAIRS = registerStair("golden", Blocks.GOLD_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> GOLDEN_SLAB = registerSlab("golden", Blocks.GOLD_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> GOLDEN_DOOR = registerDoor("golden", true, Suppliers.memoize(() -> BlockSetType.GOLD));
+    public static final RegistryObject<Block> GOLDEN_TRAPDOOR = registerTrapdoor("golden", true, Suppliers.memoize(() -> BlockSetType.GOLD));
+    public static final RegistryObject<Block> GOLDEN_CHAIN = registerChain("golden");
+    public static final RegistryObject<Block> GOLDEN_LANTERN = registerLantern("golden", false);
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_LANTERN = registerWallHangingLantern("golden", false, Suppliers.memoize(() -> GOLDEN_LANTERN.get()));
+    public static final RegistryObject<Block> GOLDEN_SOUL_LANTERN = registerLantern("golden", true);
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SOUL_LANTERN = registerWallHangingLantern("golden", true, Suppliers.memoize(() -> GOLDEN_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> GOLDEN_END_LANTERN = registerLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_END_LANTERN = registerWallHangingLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> GOLDEN_SCULK_LANTERN = registerLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_GOLDEN_SCULK_LANTERN = registerWallHangingLantern("golden_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> GOLD_BARS = registerBars("gold");
+    public static final RegistryObject<Block> GOLDEN_CAGE = registerCage("golden", Blocks.GOLD_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> GOLD_GRATE = registerHorizontalPane("gold_grate", Suppliers.memoize(() -> GOLD_BARS.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_GOLD = registerBlock("cut_gold", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.GOLD_BLOCK)));
+    public static final RegistryObject<Block> CUT_GOLDEN_STAIRS = registerStair("cut_golden", Suppliers.memoize(() -> CUT_GOLD.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_GOLDEN_SLAB = registerSlab("cut_golden", Suppliers.memoize(() -> CUT_GOLD.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_GOLDEN_PRESSURE_PLATE = registerWeightedPressurePlate("cut_golden", 15, MapColor.GOLD, Suppliers.memoize(() -> BlockSetType.GOLD));
+
+    //#endregion
+
+    //#region Netherite
+
+    public static final RegistryObject<Block> NETHERITE_STAIRS = registerStair("netherite", Blocks.NETHERITE_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> NETHERITE_SLAB = registerSlab("netherite", Blocks.NETHERITE_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> NETHERITE_DOOR = registerDoor("netherite", true, MWBlockSetTypes.NETHERITE, () -> Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> NETHERITE_TRAPDOOR = registerTrapdoor("netherite", true, MWBlockSetTypes.NETHERITE, () -> Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("netherite", 100, MapColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
+    public static final RegistryObject<Block> NETHERITE_CHAIN = registerChain("netherite", () -> Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> NETHERITE_LANTERN = registerLantern("netherite", false);
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_LANTERN = registerWallHangingLantern("netherite", false, Suppliers.memoize(() -> NETHERITE_LANTERN.get()));
+    public static final RegistryObject<Block> NETHERITE_SOUL_LANTERN = registerLantern("netherite", true);
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SOUL_LANTERN = registerWallHangingLantern("netherite", true, Suppliers.memoize(() -> NETHERITE_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> NETHERITE_END_LANTERN = registerLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_END_LANTERN = registerWallHangingLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> NETHERITE_SCULK_LANTERN = registerLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_NETHERITE_SCULK_LANTERN = registerWallHangingLantern("netherite_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> NETHERITE_BARS = registerBars("netherite", () -> Blocks.NETHERITE_BLOCK);
+    public static final RegistryObject<Block> NETHERITE_CAGE = registerCage("netherite", Blocks.NETHERITE_BLOCK::defaultBlockState);
+    public static final RegistryObject<Block> NETHERITE_GRATE = registerHorizontalPane("netherite_grate", Suppliers.memoize(() -> NETHERITE_BARS.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_NETHERITE = registerBlock("cut_netherite", Suppliers.memoize(() -> PropertyHelper.copy(Blocks.NETHERITE_BLOCK)));
+    public static final RegistryObject<Block> CUT_NETHERITE_STAIRS = registerStair("cut_netherite", Suppliers.memoize(() -> CUT_NETHERITE.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_NETHERITE_SLAB = registerSlab("cut_netherite", Suppliers.memoize(() -> CUT_NETHERITE.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_NETHERITE_PRESSURE_PLATE = registerWeightedPressurePlate("cut_netherite", 100, MapColor.COLOR_BLACK, MWBlockSetTypes.NETHERITE);
+
+    //#endregion
+
+    //#region Aluminum
+
+    public static final RegistryObject<Block> ALUMINUM_STAIRS = registerStair("aluminum", Suppliers.memoize(() -> ALUMINUM_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> ALUMINUM_SLAB = registerSlab("aluminum", Suppliers.memoize(() -> ALUMINUM_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> ALUMINUM_DOOR = registerDoor("aluminum", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> ALUMINUM_TRAPDOOR = registerTrapdoor("aluminum", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> ALUMINUM_PRESSURE_PLATE = registerWeightedPressurePlate("aluminum", 15, MWColors.ALUMINUM.toMapColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> ALUMINUM_CHAIN = registerChain("aluminum");
+    public static final RegistryObject<Block> ALUMINUM_LANTERN = registerLantern("aluminum", false);
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_LANTERN = registerWallHangingLantern("aluminum", false, Suppliers.memoize(() -> ALUMINUM_LANTERN.get()));
+    public static final RegistryObject<Block> ALUMINUM_SOUL_LANTERN = registerLantern("aluminum", true);
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SOUL_LANTERN = registerWallHangingLantern("aluminum", true, Suppliers.memoize(() -> ALUMINUM_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> ALUMINUM_END_LANTERN = registerLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_END_LANTERN = registerWallHangingLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> ALUMINUM_SCULK_LANTERN = registerLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_ALUMINUM_SCULK_LANTERN = registerWallHangingLantern("aluminum_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> ALUMINUM_BARS = registerBars("aluminum");
+    public static final RegistryObject<Block> ALUMINUM_CAGE = registerCage("aluminum", Suppliers.memoize(() -> ALUMINUM_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> ALUMINUM_GRATE = registerHorizontalPane("aluminum_grate", Suppliers.memoize(() -> ALUMINUM_BARS.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_ALUMINUM = registerBlock("cut_aluminum", Suppliers.memoize(() -> PropertyHelper.copy(ALUMINUM_BLOCK.get())));
+    public static final RegistryObject<Block> CUT_ALUMINUM_STAIRS = registerStair("cut_aluminum", Suppliers.memoize(() -> CUT_ALUMINUM.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_ALUMINUM_SLAB = registerSlab("cut_aluminum", Suppliers.memoize(() -> CUT_ALUMINUM.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_ALUMINUM_PRESSURE_PLATE = registerWeightedPressurePlate("cut_aluminum", 15, MWColors.ALUMINUM.toMapColor(), MWBlockSetTypes.METAL);
+
+    //#endregion
+
+    //#region Silver
+
+    public static final RegistryObject<Block> SILVER_STAIRS = registerStair("silver", Suppliers.memoize(() -> SILVER_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> SILVER_SLAB = registerSlab("silver", Suppliers.memoize(() -> SILVER_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> SILVER_DOOR = registerDoor("silver", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> SILVER_TRAPDOOR = registerTrapdoor("silver", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> SILVER_PRESSURE_PLATE = registerWeightedPressurePlate("silver", 50, MWColors.SILVER.toMapColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> SILVER_CHAIN = registerChain("silver");
+    public static final RegistryObject<Block> SILVER_LANTERN = registerLantern("silver", false);
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_LANTERN = registerWallHangingLantern("silver", false, Suppliers.memoize(() -> SILVER_LANTERN.get()));
+    public static final RegistryObject<Block> SILVER_SOUL_LANTERN = registerLantern("silver", true);
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_SOUL_LANTERN = registerWallHangingLantern("silver", true, Suppliers.memoize(() -> SILVER_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> SILVER_END_LANTERN = registerLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_END_LANTERN = registerWallHangingLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> SILVER_SCULK_LANTERN = registerLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_SILVER_SCULK_LANTERN = registerWallHangingLantern("silver_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> SILVER_BARS = registerBars("silver");
+    public static final RegistryObject<Block> SILVER_CAGE = registerCage("silver", Suppliers.memoize(() -> SILVER_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> SILVER_GRATE = registerHorizontalPane("silver_grate", Suppliers.memoize(() -> SILVER_BARS.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_SILVER = registerBlock("cut_silver", Suppliers.memoize(() -> PropertyHelper.copy(SILVER_BLOCK.get())));
+    public static final RegistryObject<Block> CUT_SILVER_STAIRS = registerStair("cut_silver", Suppliers.memoize(() -> CUT_SILVER.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_SILVER_SLAB = registerSlab("cut_silver", Suppliers.memoize(() -> CUT_SILVER.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_SILVER_PRESSURE_PLATE = registerWeightedPressurePlate("cut_silver", 50, MWColors.SILVER.toMapColor(), MWBlockSetTypes.METAL);
+
+    //#endregion
+
+    //#region Bronze
+
+    public static final RegistryObject<Block> BRONZE_STAIRS = registerStair("bronze", Suppliers.memoize(() -> BRONZE_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> BRONZE_SLAB = registerSlab("bronze", Suppliers.memoize(() -> BRONZE_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> BRONZE_DOOR = registerDoor("bronze", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerTrapdoor("bronze", true, MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> BRONZE_PRESSURE_PLATE = registerWeightedPressurePlate("bronze", 15, MWColors.BRONZE.toMapColor(), MWBlockSetTypes.METAL);
+    public static final RegistryObject<Block> BRONZE_CHAIN = registerChain("bronze");
+    public static final RegistryObject<Block> BRONZE_LANTERN = registerLantern("bronze", false);
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_LANTERN = registerWallHangingLantern("bronze", false, Suppliers.memoize(() -> BRONZE_LANTERN.get()));
+    public static final RegistryObject<Block> BRONZE_SOUL_LANTERN = registerLantern("bronze", true);
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SOUL_LANTERN = registerWallHangingLantern("bronze", true, Suppliers.memoize(() -> BRONZE_SOUL_LANTERN.get()));
+    public static final RegistryObject<Block> BRONZE_END_LANTERN = registerLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_END_LANTERN = registerWallHangingLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.END), false, Suppliers.memoize(() -> END_LANTERN.get()), MWFireBlock.MWFireType.END.lightLevel());
+    public static final RegistryObject<Block> BRONZE_SCULK_LANTERN = registerLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> WALL_HANGING_BRONZE_SCULK_LANTERN = registerWallHangingLantern("bronze_" + ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), false, Suppliers.memoize(() -> SCULK_LANTERN.get()), MWFireBlock.MWFireType.SCULK.lightLevel());
+    public static final RegistryObject<Block> BRONZE_BARS = registerBars("bronze");
+    public static final RegistryObject<Block> BRONZE_CAGE = registerCage("bronze", Suppliers.memoize(() -> BRONZE_BLOCK.get().defaultBlockState()));
+    public static final RegistryObject<Block> BRONZE_GRATE = registerHorizontalPane("bronze_grate", Suppliers.memoize(() -> BRONZE_BARS.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_BRONZE = registerBlock("cut_bronze", Suppliers.memoize(() -> PropertyHelper.copy(BRONZE_BLOCK.get())));
+    public static final RegistryObject<Block> CUT_BRONZE_STAIRS = registerStair("cut_bronze", Suppliers.memoize(() -> CUT_BRONZE.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_BRONZE_SLAB = registerSlab("cut_bronze", Suppliers.memoize(() -> CUT_BRONZE.get().defaultBlockState()));
+    public static final RegistryObject<Block> CUT_BRONZE_PRESSURE_PLATE = registerWeightedPressurePlate("cut_bronze", 15, MWColors.BRONZE.toMapColor(), MWBlockSetTypes.METAL);
+
+    //#endregion
+
+    //#endregion
+
+    //#region Glass Block Sets
+
+    public static final RegistryObject<Block> GLASS_STAIRS = registerStair("glass", Blocks.GLASS::defaultBlockState);
+    public static final RegistryObject<Block> GLASS_SLAB = registerSlab("glass", Blocks.GLASS::defaultBlockState);
+    public static final RegistryObject<Block> GLASS_WALL = registerGlassWall("glass", Blocks.GLASS::defaultBlockState);
+
+    //#endregion
+
+    //#region Flowers, Crops and Plants
+
+    public static final RegistryObject<Block> BLUE_ROSE = registerFlower("blue_rose", Suppliers.memoize(() -> MobEffects.SATURATION));
+    public static final RegistryObject<Block> BLUE_ROSE_BUSH = registerTallFlower("blue_rose_bush");
+    public static final RegistryObject<Block> WHITE_ROSE = registerFlower("white_rose", () -> MobEffects.HEAL);
+    public static final RegistryObject<Block> WHITE_ROSE_BUSH = registerTallFlower("white_rose_bush");
+    public static final RegistryObject<Block> CORN = registerBlockWithoutBlockItem("corn", CornBlock::new);
+    public static final RegistryObject<Block> WARPED_WART = registerBlockWithoutBlockItem("warped_wart", WarpedWartBlock::new);
+    public static final RegistryObject<Block> BLUEBERRY_BUSH = registerBlockWithoutBlockItem("blueberry_bush", BlueberryBushBlock::new);
+    public static final RegistryObject<Block> BROWN_MUSHROOM_WALL_FAN = registerWallFan("brown_mushroom", MapColor.COLOR_BROWN, () -> Blocks.BROWN_MUSHROOM);
+    public static final RegistryObject<Block> RED_MUSHROOM_WALL_FAN = registerWallFan("red_mushroom", MapColor.COLOR_RED, () -> Blocks.RED_MUSHROOM);
+    public static final RegistryObject<Block> CATTAIL = registerBlock("cattail", CattailBlock::new);
+    public static final RegistryObject<Block> SCULK_ROOTS = registerBlock("sculk_roots", SculkRootBlock::new);
+
+    //#endregion
+
+    //#region Plant Carpets
+
+    public static final RegistryObject<Block> GRASS_CARPET = registerCarpet("grass", () -> Blocks.GRASS_BLOCK);
+    public static final RegistryObject<Block> PODZOL_CARPET = registerCarpet("podzol", () -> Blocks.PODZOL);
+    public static final RegistryObject<Block> MYCELIUM_CARPET = registerCarpet("mycelium", () -> Blocks.MYCELIUM);
+    public static final RegistryObject<Block> DIRT_CARPET = registerCarpet("dirt", () -> Blocks.DIRT);
+    public static final RegistryObject<Block> COARSE_DIRT_CARPET = registerCarpet("coarse_dirt", () -> Blocks.COARSE_DIRT);
+    public static final RegistryObject<Block> ROOTED_DIRT_CARPET = registerCarpet("rooted_dirt", () -> Blocks.ROOTED_DIRT);
+    public static final RegistryObject<Block> MUD_CARPET = registerCarpet("mud", () -> Blocks.MUD);
+    public static final RegistryObject<Block> CLAY_CARPET = registerCarpet("clay", () -> Blocks.CLAY);
+    public static final RegistryObject<Block> CRIMSON_NYLIUM_CARPET = registerCarpet("crimson_nylium", () -> Blocks.CRIMSON_NYLIUM);
+    public static final RegistryObject<Block> WARPED_NYLIUM_CARPET = registerCarpet("warped_nylium", () -> Blocks.WARPED_NYLIUM);
+    public static final RegistryObject<Block> GRAVEL_CARPET = registerCarpet("gravel", () -> Blocks.GRAVEL);
+    public static final RegistryObject<Block> SAND_CARPET = registerCarpet("sand", () -> Blocks.SAND);
+    public static final RegistryObject<Block> RED_SAND_CARPET = registerCarpet("red_sand", () -> Blocks.RED_SAND);
+
+    //#endregion
+
+    //#region TNT
+
+    public static final RegistryObject<Block> DISGUISED_GRASS_TNT = registerTnt(MWPrimedTnt.Type.DISGUISED_GRASS);
+    public static final RegistryObject<Block> DISGUISED_DIRT_TNT = registerTnt(MWPrimedTnt.Type.DISGUISED_DIRT);
+    public static final RegistryObject<Block> DISGUISED_SAND_TNT = registerFallableTnt(MWPrimedTnt.Type.DISGUISED_SAND, 14406560);
+    public static final RegistryObject<Block> DISGUISED_RED_SAND_TNT = registerFallableTnt(MWPrimedTnt.Type.DISGUISED_RED_SAND, 11098145);
+    public static final RegistryObject<Block> DISGUISED_STONE_TNT = registerTnt(MWPrimedTnt.Type.DISGUISED_STONE);
+    public static final RegistryObject<Block> DISGUISED_CAKE_TNT = registerTnt(MWPrimedTnt.Type.DISGUISED_CAKE);
+    public static final RegistryObject<Block> MEGA_TNT = registerTnt(MWPrimedTnt.Type.MEGA);
+    public static final RegistryObject<Block> SUPER_TNT = registerTnt(MWPrimedTnt.Type.SUPER);
+    public static final RegistryObject<Block> HYPER_TNT = registerTnt(MWPrimedTnt.Type.HYPER);
+
+    //#endregion
+
+    //#region Heads
+
+    public static final RegistryObject<Block> STRAY_SKULL = registerBlockWithoutBlockItem("stray_skull", Suppliers.memoize(() -> new MWSkullBlock(MWSkullBlock.Types.STRAY)));
+    public static final RegistryObject<Block> STRAY_WALL_SKULL = registerBlockWithoutBlockItem("stray_wall_skull", Suppliers.memoize(() -> new MWWallSkullBlock(MWSkullBlock.Types.STRAY, STRAY_SKULL)));
+    public static final RegistryObject<Block> HUSK_HEAD = registerBlockWithoutBlockItem("husk_head", Suppliers.memoize(() -> new MWSkullBlock(MWSkullBlock.Types.HUSK)));
+    public static final RegistryObject<Block> HUSK_WALL_HEAD = registerBlockWithoutBlockItem("husk_wall_head", Suppliers.memoize(() -> new MWWallSkullBlock(MWSkullBlock.Types.HUSK, HUSK_HEAD)));
+    public static final RegistryObject<Block> DROWNED_HEAD = registerBlockWithoutBlockItem("drowned_head", Suppliers.memoize(() -> new MWSkullBlock(MWSkullBlock.Types.DROWNED)));
+    public static final RegistryObject<Block> DROWNED_WALL_HEAD = registerBlockWithoutBlockItem("drowned_wall_head", Suppliers.memoize(() -> new MWWallSkullBlock(MWSkullBlock.Types.DROWNED, DROWNED_HEAD)));
+
+    //#endregion
+
+    //#region Rods
+
+    public static final RegistryObject<Block> BONE_ROD_BLOCK = registerRod("bone", MapColor.TERRACOTTA_WHITE, SoundType.BONE_BLOCK);
+    public static final RegistryObject<Block> BLAZE_ROD_BLOCK = registerRod("blaze", MapColor.TERRACOTTA_ORANGE, SoundType.COPPER);
+    public static final RegistryObject<Block> STICK_ROD_BLOCK = registerRod("stick", MapColor.WOOD, SoundType.WOOD);
+
+    //#endregion
+
+    //#region Torches
+
+    //#region Regular
+
+    public static final RegistryObject<Block> UNLIT_TORCH = registerUnlitTorch("");
+    public static final RegistryObject<Block> UNLIT_WALL_TORCH = registerUnlitWallTorch("", Suppliers.memoize(() -> UNLIT_TORCH.get()));
+
+    //#endregion
+
+    //#region Soul
+
+    public static final RegistryObject<Block> UNLIT_SOUL_TORCH = registerUnlitTorch("soul");
+    public static final RegistryObject<Block> UNLIT_SOUL_WALL_TORCH = registerUnlitWallTorch("soul", Suppliers.memoize(() -> UNLIT_SOUL_TORCH.get()));
+
+    //#endregion
+
+    //#region End
+
+    public static final RegistryObject<Block> END_TORCH = registerTorch(MWFireBlock.MWFireType.END, Suppliers.memoize(() -> MWParticleTypes.END_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> END_WALL_TORCH = registerWallTorch(MWFireBlock.MWFireType.END, Suppliers.memoize(() -> MWParticleTypes.END_FIRE_FLAME.get()), Suppliers.memoize(() -> END_TORCH.get()));
+    public static final RegistryObject<Block> UNLIT_END_TORCH = registerUnlitTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.END));
+    public static final RegistryObject<Block> UNLIT_END_WALL_TORCH = registerUnlitWallTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.END), Suppliers.memoize(() -> UNLIT_END_TORCH.get()));
+
+    //#endregion
+
+    //#region Sculk
+
+    public static final RegistryObject<Block> SCULK_TORCH = registerTorch(MWFireBlock.MWFireType.SCULK, Suppliers.memoize(() -> MWParticleTypes.SCULK_FIRE_FLAME.get()));
+    public static final RegistryObject<Block> SCULK_WALL_TORCH = registerWallTorch(MWFireBlock.MWFireType.SCULK, Suppliers.memoize(() -> MWParticleTypes.SCULK_FIRE_FLAME.get()), Suppliers.memoize(() -> SCULK_TORCH.get()));
+    public static final RegistryObject<Block> UNLIT_SCULK_TORCH = registerUnlitTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK));
+    public static final RegistryObject<Block> UNLIT_SCULK_WALL_TORCH = registerUnlitWallTorch(ResourceHelper.fireName(MWFireBlock.MWFireType.SCULK), Suppliers.memoize(() -> UNLIT_SCULK_TORCH.get()));
+
+    //#endregion
+
+    //#endregion
+
+    //#region Fires and Campfires
+
+    public static final RegistryObject<Block> END_FIRE = registerFireBlock(MWFireBlock.MWFireType.END);
+    public static final RegistryObject<Block> END_CAMPFIRE = registerCampfireBlock(MWFireBlock.MWFireType.END);
+    public static final RegistryObject<Block> SCULK_FIRE = registerFireBlock(MWFireBlock.MWFireType.SCULK);
+    public static final RegistryObject<Block> SCULK_CAMPFIRE = registerCampfireBlock(MWFireBlock.MWFireType.SCULK);
+
+    //#endregion
+
+    //#region Ethereal Runes, Ethereal Portal and Ancient Altar
+
+    public static final RegistryObject<Block> ETHEREAL_RUNE_ALPHA = registerEtherealRune(EtherealRuneBlock.Types.ALPHA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_BETA = registerEtherealRune(EtherealRuneBlock.Types.BETA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_GAMMA = registerEtherealRune(EtherealRuneBlock.Types.GAMMA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_DELTA = registerEtherealRune(EtherealRuneBlock.Types.DELTA);
+    public static final RegistryObject<Block> ETHEREAL_RUNE_OMEGA = registerEtherealRune(EtherealRuneBlock.Types.OMEGA);
+    public static final RegistryObject<Block> ETHEREAL_PORTAL = registerBlockWithoutBlockItem("ethereal_portal", Suppliers.memoize(() -> new EtherealPortalBlock()));
+    public static final RegistryObject<Block> ANCIENT_ALTAR = registerBlock("ancient_altar", Suppliers.memoize(() -> new AncientAltarBlock()));
+
+    //#endregion
+
+    //#region Misc
+
+    public static final RegistryObject<Block> DAYLIGHT_LAMP = registerBlock("daylight_lamp", Suppliers.memoize(() -> new DaylightLampBlock()));
+    public static final RegistryObject<Block> HORIZONTAL_GLASS_PANE = registerHorizontalPane("horizontal_glass_pane", Blocks.GLASS::defaultBlockState);
+    public static final RegistryObject<Block> ROPE = registerBlock("rope", Suppliers.memoize(() -> new RopeBlock()));
+    public static final RegistryObject<Block> ROPE_TAIL = registerBlockWithoutBlockItem("rope_tail", Suppliers.memoize(() -> new RopeTailBlock()));
+    public static final RegistryObject<Block> ICE_CHEST = registerChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_CHEST.get()));
+    public static final RegistryObject<Block> ICE_TRAPPED_CHEST = registerTrappedChest("ice", MWWoodTypes.ICE, Suppliers.memoize(() -> MWBlockEntityTypes.ICE_TRAPPED_CHEST.get()));
+    public static final RegistryObject<Block> CHRISTMAS_LIGHTS = registerBlock("christmas_lights", Suppliers.memoize(() -> new SidePanelBlock(PropertyHelper.block(0.15F, false).instabreak().sound(SoundType.GLASS))));
+    public static final RegistryObject<Block> GIFT = registerBlockWithoutBlockItem("gift", Suppliers.memoize(() -> new GiftBlock()));
+    public static final RegistryObject<Block> WOODCUTTER = registerBlock("woodcutter", Suppliers.memoize(() -> new WoodcutterBlock()));
+    public static final RegistryObject<Block> FORGING_TABLE = registerBlock("forging_table", Suppliers.memoize(() -> new ForgingTableBlock()));
+
+    //#endregion
+
+    //#endregion
+
+    //#region Methods
+
+    /**
+     * Register an {@link Block Overworld Ore Block}
      *
-     * @param eventBus {@link IEventBus The event bus}
+     * @param name {@link String The Block name}
+     * @param isDeepslateOre {@link Boolean If the Ore is a Deepslate Ore}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerOverworldOre(final String name, final boolean isDeepslateOre, final FeatureFlag... featureFlags) {
+        return registerOreBlock(name, PropertyHelper.ore(isDeepslateOre, featureFlags), 3, 7);
+    }
+
+    /**
+     * Register a {@link Block Nether Ore Block}
+     *
+     * @param name {@link String The Block name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerNetherOre(final String name, final FeatureFlag... featureFlags) {
+        return registerOreBlock(name, PropertyHelper.ore(false, featureFlags).mapColor(MapColor.NETHER).sound(SoundType.NETHER_ORE), 2, 5);
+    }
+
+    /**
+     * Register an {@link DropExperienceBlock Ore Block}
+     *
+     * @param name {@link String The Block name}
+     * @param properties {@link BlockBehaviour.Properties The Block Properties}
+     * @param minXp {@link Integer The minimum amount of XP dropped by the block}
+     * @param maxXp {@link Integer The maximum amount of XP dropped by the block}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerOreBlock(final String name, final BlockBehaviour.Properties properties, final int minXp, final int maxXp) {
+        return registerBlock(name, () -> new DropExperienceBlock(properties, UniformInt.of(minXp, maxXp)));
+    }
+
+    /**
+     * Register an {@link Block Ore Storage Block}
+     *
+     * @param name {@link String The Block name}
+     * @param mapColor {@link MapColor The Block Map color}
+     * @param isMetallic {@link Boolean If the Ore Storage Block is metallic}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerOreStorageBlock(final String name, final MapColor mapColor, final boolean isMetallic, final FeatureFlag... featureFlags) {
+        return registerBlock(name, Suppliers.memoize(() -> PropertyHelper.oreStorage(mapColor, isMetallic ? SoundType.METAL : SoundType.STONE, featureFlags)));
+    }
+
+    /**
+     * Register a {@link Block Fuel Block}
+     *
+     * @param name {@link String The Block name}
+     * @param mapColor {@link MapColor The Block Map color}
+     * @param burnTime {@link Integer The fuel burn time}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFuel(final String name, final MapColor mapColor, final int burnTime, final FeatureFlag...featureFlags) {
+        final RegistryObject<Block> block = registerBlockWithoutBlockItem(name, () -> new MWFlammableBlock(5, 5, PropertyHelper.oreStorage(mapColor, SoundType.STONE, featureFlags)));
+        MWItems.registerItem(name, () -> new MWFuelBlockItem(block, burnTime, featureFlags));
+        return block;
+    }
+
+    /**
+     * Register a {@link MWStairBlock Stair Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Stair is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerStair(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerStair(materialName, blockStateSupplier, PushReaction.NORMAL, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWStairBlock Stair Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Stair is based on}
+     * @param pushReaction {@link PushReaction The Block Push Reaction when moved by Pistons}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerStair(final String materialName, final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_stairs", () -> new MWStairBlock(blockStateSupplier, pushReaction, featureFlags));
+    }
+
+    /**
+     * Register a {@link MWSlabBlock Slab Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Slab is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerSlab(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerSlab(materialName, blockStateSupplier, PushReaction.NORMAL, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWSlabBlock Slab Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Slab is based on}
+     * @param pushReaction {@link PushReaction The Block Push Reaction when moved by Pistons}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerSlab(final String materialName, final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_slab", () -> new MWSlabBlock(blockStateSupplier, pushReaction, featureFlags));
+    }
+
+    /**
+     * Register a {@link MWWallBlock Wall Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Wall is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerWall(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerWall(materialName, blockStateSupplier, PushReaction.NORMAL, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWWallBlock Wall Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Wall is based on}
+     * @param pushReaction {@link PushReaction The Block Push Reaction when moved by Pistons}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerWall(final String materialName, final Supplier<BlockState> blockStateSupplier, final PushReaction pushReaction, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_wall", () -> new MWWallBlock(blockStateSupplier, pushReaction, featureFlags));
+    }
+
+    /**
+     * Register a {@link GlassWallBlock Glass Wall Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Supplier for the Block State the Wall is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerGlassWall(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_wall", () -> new GlassWallBlock(blockStateSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link PressurePlateBlock Pressure Plate Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isWooden {@link Boolean If the Pressure Plate is a Wooden Pressure Plate}
+     * @param mapColor {@link MapColor The Block Map color}
+     * @param blockSetTypeSupplier {@link Supplier<BlockSetType> The Block Set Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerPressurePlate(final String materialName, final boolean isWooden, final MapColor mapColor, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_pressure_plate", () -> new PressurePlateBlock(isWooden ? PressurePlateBlock.Sensitivity.EVERYTHING : PressurePlateBlock.Sensitivity.MOBS,
+                PropertyHelper.copy(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).mapColor(mapColor),
+                blockSetTypeSupplier.get())
+        );
+    }
+
+    /**
+     * Register a {@link WeightedPressurePlateBlock Weighted Pressure Plate Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param maxWeight {@link Integer The Weighted Pressure Plate max weight}
+     * @param mapColor {@link MapColor The Block Map color}
+     * @param blockSetTypeSupplier {@link Supplier<BlockSetType> The Block Set Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerWeightedPressurePlate(final String materialName, final int maxWeight, final MapColor mapColor, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_pressure_plate", () -> new WeightedPressurePlateBlock(maxWeight, PropertyHelper.copy(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags).mapColor(mapColor), blockSetTypeSupplier.get()));
+    }
+
+    /**
+     * Register a {@link ButtonBlock Button Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isWooden {@link Boolean If the Button is a Wooden Button}
+     * @param blockSetTypeSupplier {@link Supplier<BlockSetType> The Block Set Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerButton(final String materialName, final boolean isWooden, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_button", () -> new ButtonBlock(
+                PropertyHelper.copy(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags),
+                blockSetTypeSupplier.get(),
+                isWooden ? 30 : 20,
+                isWooden)
+        );
+    }
+
+    /**
+     * Register a {@link DoorBlock Door Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param requiresPower {@link Boolean If the Door needs redstone to be activated}
+     * @param blockSetTypeSupplier {@link BlockSetType The Door Block set type supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerDoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerDoor(materialName, requiresPower, blockSetTypeSupplier, () -> requiresPower ? Blocks.IRON_DOOR : Blocks.OAK_DOOR, featureFlags);
+    }
+
+    /**
+     * Register a {@link DoorBlock Door Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param requiresPower {@link Boolean If the Door needs redstone to be activated}
+     * @param blockSetTypeSupplier {@link BlockSetType The Door Block set type supplier}
+     * @param blockSupplier {@link Supplier<Block> The Suppliers for the Block this door is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerDoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_door", () -> new DoorBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags), blockSetTypeSupplier.get()));
+    }
+
+    /**
+     * Register a {@link TrapDoorBlock Trapdoor Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param requiresPower {@link Boolean If the Trapdoor needs redstone to be activated}
+     * @param blockSetTypeSupplier {@link BlockSetType The Trapdoor Block Set Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerTrapdoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerTrapdoor(materialName, requiresPower, blockSetTypeSupplier, () -> requiresPower ? Blocks.IRON_TRAPDOOR : Blocks.OAK_TRAPDOOR, featureFlags);
+    }
+
+    /**
+     * Register a {@link TrapDoorBlock Trapdoor Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param requiresPower {@link Boolean If the Trapdoor needs redstone to be activated}
+     * @param blockSetTypeSupplier {@link BlockSetType The Trapdoor Block Set Type}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this trapdoor is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerTrapdoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_trapdoor", () -> new TrapDoorBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags), blockSetTypeSupplier.get()));
+    }
+
+    /**
+     * Register a {@link ChainBlock Chain block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerChain(final String materialName, final FeatureFlag... featureFlags) {
+        return registerChain(materialName, () -> Blocks.CHAIN, featureFlags);
+    }
+
+    /**
+     * Register a {@link ChainBlock Chain block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this chain is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerChain(final String materialName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_chain", () -> new ChainBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags)));
+    }
+
+    /**
+     * Register a {@link LanternBlock Lantern Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isSoulLantern {@link Boolean If the Lantern is a soul lantern}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerLantern(final String materialName, final boolean isSoulLantern, final FeatureFlag... featureFlags) {
+        return registerLantern(materialName, isSoulLantern, isSoulLantern ? 10 : 15, featureFlags);
+    }
+
+    /**
+     * Register a {@link LanternBlock Lantern Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isSoulLantern {@link Boolean If the Lantern is a soul lantern}
+     * @param lightLevel {@link Integer The Lantern light level}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerLantern(final String materialName, final boolean isSoulLantern, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + (isSoulLantern ? "_soul_lantern" : "_lantern"), () -> new LanternBlock(PropertyHelper.copy(isSoulLantern ? Blocks.SOUL_LANTERN : Blocks.LANTERN, featureFlags).lightLevel(blockState -> lightLevel)));
+    }
+
+    /**
+     * Register a {@link WallHangingLanternBlock Wall Hanging Lantern Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isSoulLantern {@link Boolean If the Lantern is a soul lantern}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this lantern is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallHangingLantern(final String materialName, final boolean isSoulLantern, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerWallHangingLantern(materialName, isSoulLantern, blockSupplier, isSoulLantern ? 10 : 15, featureFlags);
+    }
+
+    /**
+     * Register a {@link WallHangingLanternBlock Wall Hanging Lantern Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param isSoulLantern {@link Boolean If the Lantern is a soul lantern}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this lantern is based on}
+     * @param lightLevel {@link Integer The Lantern light level}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallHangingLantern(final String materialName, final boolean isSoulLantern, final Supplier<Block> blockSupplier, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem("wall_hanging_" + materialName + (materialName.isEmpty() ? "" : "_") + (isSoulLantern ? "soul_lantern" : "lantern"), Suppliers.memoize(() -> new WallHangingLanternBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags).lightLevel(blockState -> lightLevel))));
+    }
+
+    /**
+     * Register a {@link IronBarsBlock Bar Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerBars(final String materialName, final FeatureFlag... featureFlags) {
+        return registerBars(materialName, () ->Blocks.IRON_BARS, featureFlags);
+    }
+
+    /**
+     * Register a {@link IronBarsBlock Bar Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockSupplier {@link Supplier<Block> The supplier for the Block these Bars are based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerBars(final String materialName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_bars", () -> new IronBarsBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags)));
+    }
+
+    /**
+     * Register a {@link Block Cage Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockStateSupplier {@link Supplier<BlockState> The Block State Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCage(final String materialName, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_cage", () -> new CageBlock(blockStateSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link MWFlowerBlock Flower Block}
+     *
+     * @param name {@link String The Block name}
+     * @param effectSupplier {@link Supplier<MobEffect> The Supplier for the flower effect when used in suspicious stews}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFlower(final String name, final Supplier<MobEffect> effectSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new MWFlowerBlock(effectSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link MWTallFlowerBlock Tall Flower Block}
+     *
+     * @param name {@link String The Block name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTallFlower(final String name, final FeatureFlag... featureFlags) {
+        return registerBlock(name, () -> new MWTallFlowerBlock(featureFlags));
+    }
+
+    /**
+     * Register a {@link MWTntBlock TNT Block}
+     *
+     * @param type {@link MWPrimedTnt.Type The TNT Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTnt(final MWPrimedTnt.Type type, final FeatureFlag... featureFlags) {
+        return registerBlock(ResourceHelper.tntName(type), () -> new MWTntBlock(type, featureFlags));
+    }
+
+    /**
+     * Register a {@link FallableTntBlock Fallable TNT Block}
+     *
+     * @param type {@link MWPrimedTnt.Type The TNT Type}
+     * @param dustColor {@link Integer The falling block dust color}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFallableTnt(final MWPrimedTnt.Type type, final int dustColor, final FeatureFlag... featureFlags) {
+        return registerBlock(ResourceHelper.tntName(type), () -> new FallableTntBlock(type, dustColor, featureFlags));
+    }
+
+    /**
+     * Register an {@link HorizontalPaneBlock horizontal pane Block}
+     *
+     * @param name {@link String The Block name}
+     * @param blockSupplier {@link Supplier<BlockState> The Supplier for the Block State this pane is based on}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerHorizontalPane(final String name, final Supplier<BlockState> blockSupplier) {
+        return registerBlockWithoutBlockItem(name, Suppliers.memoize(() -> new HorizontalPaneBlock(PropertyHelper.copy(blockSupplier.get().getBlock()))));
+    }
+
+    /**
+     * Register a {@link LeaveCarpet Leaves Carpet}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLeaveCarpet(final WoodType woodType, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerLeaveCarpet(ResourceHelper.woodName(woodType), blockSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link LeaveCarpet Leaves Carpet}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLeaveCarpet(final String woodName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerLeaveCarpet(woodName, "leaves", blockSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link LeaveCarpet Leaves Carpet}
+     *
+     * @param woodType {@link String The Wood name}
+     * @param suffix {@link String The Block name suffix}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLeaveCarpet(final WoodType woodType, final String suffix, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerLeaveCarpet(ResourceHelper.woodName(woodType), suffix, blockSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link LeaveCarpet Leaves Carpet}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param suffix {@link String The Block name suffix}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLeaveCarpet(final String woodName, final String suffix, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_" + suffix + "_carpet", Suppliers.memoize(() -> new LeaveCarpet(PropertyHelper.copy(blockSupplier.get(), featureFlags))));
+    }
+
+    /**
+     * Register a {@link CarpetBlock Carpet}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCarpet(final String materialName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(materialName + "_carpet", Suppliers.memoize(() -> new CarpetBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags))));
+    }
+
+    /**
+     * Register a {@link TreeBushBlock Bush Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBush(final WoodType woodType, final Supplier<AbstractTreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
+        return registerBush(ResourceHelper.woodName(woodType), treeGrowerSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link TreeBushBlock Bush Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBush(final String woodName, final Supplier<AbstractTreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_bush", Suppliers.memoize(() -> new TreeBushBlock(treeGrowerSupplier, featureFlags)));
+    }
+
+    /**
+     * Register an {@link MWLogBlock Log Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param isStrippedLog {@link Boolean If is a stripped log}
+     * @param woodTypeSupplier {@link WoodType The Supplier for the Wood Type}
+     * @param isLog {@link Boolean If the Block is a Log Block}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLog(final String woodName, final boolean isStrippedLog, final Supplier<WoodType> woodTypeSupplier, final boolean isLog) {
+        return registerBlock((isStrippedLog ? "stripped_" : "") + woodName + (isLog ? "_log" : "_wood"), Suppliers.memoize(() -> new MWLogBlock(ResourceHelper.woodColor(woodTypeSupplier.get()))));
+    }
+
+    /**
+     * Register an {@link HollowBlock Hollow Log}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param isStripped {@link Boolean If the Log is a Stripped Log}
+     * @param blockStateSupplier {@link Supplier<Block> The Supplier for the Block State this Hollow Log is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerHollowLog(final WoodType woodType, final boolean isStripped, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerHollowLog(woodType, isStripped, "log", blockStateSupplier, featureFlags);
+    }
+
+    /**
+     * Register an {@link HollowBlock Hollow Log}
+     *
+     * @param woodName {@link WoodType The Wood name}
+     * @param isStripped {@link Boolean If the Log is a Stripped Log}
+     * @param blockStateSupplier {@link Supplier<Block> The Supplier for the Block State this Hollow Log is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerHollowLog(final String woodName, final boolean isStripped, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerHollowLog(woodName, isStripped, "log", blockStateSupplier, featureFlags);
+    }
+
+    /**
+     * Register an {@link HollowBlock Hollow Log}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param isStripped {@link Boolean If the Log is a Stripped Log}
+     * @param suffix {@link String The block name suffix}
+     * @param blockStateSupplier {@link Supplier<Block> The Supplier for the Block State this Hollow Log is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerHollowLog(final WoodType woodType, final boolean isStripped, final String suffix, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerHollowLog(ResourceHelper.woodName(woodType), isStripped, suffix, blockStateSupplier, featureFlags);
+    }
+
+    /**
+     * Register an {@link HollowBlock Hollow Log}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param isStripped {@link Boolean If the Log is a Stripped Log}
+     * @param suffix {@link String The block name suffix}
+     * @param blockStateSupplier {@link Supplier<Block> The Supplier for the Block State this Hollow Log is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerHollowLog(final String woodName, final boolean isStripped, final String suffix, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock("hollow_" + (isStripped ? "stripped_" : "") + woodName + "_" + suffix, Suppliers.memoize(() -> new HollowBlock(blockStateSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWPlanksBlock Planks Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerPlanks(final String woodName, final Supplier<WoodType> woodTypeSupplier) {
+        return registerBlock(woodName + "_planks", Suppliers.memoize(() -> new MWPlanksBlock(woodTypeSupplier)));
+    }
+
+    /**
+     * Register a {@link SaplingBlock Sapling Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Tree Grower Supplier}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerSapling(final String woodName, final Supplier<AbstractTreeGrower> treeGrowerSupplier) {
+        return registerBlock(woodName + "_sapling", Suppliers.memoize(() -> new SaplingBlock(treeGrowerSupplier.get(), PropertyHelper.copy(Blocks.OAK_SAPLING))));
+    }
+
+    /**
+     * Register a {@link MWLeavesBlock Leaves Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param soundTypeSupplier {@link Supplier<SoundType> The Supplier for the Block Sound}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLeaves(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<SoundType> soundTypeSupplier) {
+        return registerBlock(woodName + "_leaves", Suppliers.memoize(() -> new MWLeavesBlock(woodTypeSupplier, soundTypeSupplier)));
+    }
+
+    /**
+     * Register a {@link MWFenceBlock Fence Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFence(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_fence", Suppliers.memoize(() -> new MWFenceBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWFenceGateBlock Fence Gate Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFenceGate(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_fence_gate", Suppliers.memoize(() -> new MWFenceGateBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWStandingSignBlock Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_sign", Suppliers.memoize(() -> new MWStandingSignBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWWallSignBlock Wall Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param signSupplier {@link Supplier<Block> The Supplier for the Standing Sign this Wall Sign is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<Block> signSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_wall_sign", Suppliers.memoize(() -> new MWWallSignBlock(woodTypeSupplier, signSupplier, featureFlags)));
+    }
+
+    /**
+     * Register an {@link MWCeilingHangingSignBlock Hanging Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerHangingSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_hanging_sign", Suppliers.memoize(() -> new MWCeilingHangingSignBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWWallHangingSignBlock Wall Hanging Sign Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param hangingSignSupplier {@link Supplier<Block> The Supplier for the Hanging Sign this Wall Hanging Sign is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallHangingSign(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<Block> hangingSignSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_wall_hanging_sign", Suppliers.memoize(() -> new MWWallHangingSignBlock(woodTypeSupplier, hangingSignSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link BarrelBlock Barrel Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBarrel(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBarrel(ResourceHelper.woodName(woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link BarrelBlock Barrel Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBarrel(final String woodName, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_barrel", Suppliers.memoize(() -> new BarrelBlock(PropertyHelper.copy(Blocks.BARREL, featureFlags))));
+    }
+
+    /**
+     * Register a {@link MWChestBlock Chest Block}
+     *
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChest(final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerChest(ResourceHelper.woodName(woodTypeSupplier.get()), woodTypeSupplier, blockEntityTypeSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWChestBlock Chest Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChest(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_chest", Suppliers.memoize(() -> new MWChestBlock(woodTypeSupplier, blockEntityTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWTrappedChestBlock Trapped Chest Block}
+     *
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTrappedChest(final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerTrappedChest(ResourceHelper.woodName(woodTypeSupplier.get()), woodTypeSupplier, blockEntityTypeSupplier, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWTrappedChestBlock Trapped Chest Block}
+     *
+     * @param woodName {@link String The Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type}
+     * @param blockEntityTypeSupplier {@link Supplier<BlockEntityType> The Chest Block Entity Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTrappedChest(final String woodName, final Supplier<WoodType> woodTypeSupplier, final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(woodName + "_trapped_chest", Suppliers.memoize(() -> new MWTrappedChestBlock(woodTypeSupplier, blockEntityTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWBookshelfBlock Bookshelf Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBookshelf(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBookshelf(ResourceHelper.woodName(woodType), () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWBookshelfBlock Bookshelf Block}
+     *
+     * @param woodName {@link String The Bookshelf Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBookshelf(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_bookshelf", Suppliers.memoize(() -> new MWBookshelfBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link ChiseledBookShelfBlock Chiseled Bookshelf Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChiseledBookshelf(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerChiseledBookshelf(ResourceHelper.woodName(woodType), () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link ChiseledBookShelfBlock Chiseled Bookshelf Block}
+     *
+     * @param woodName {@link String The Bookshelf Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerChiseledBookshelf(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_chiseled_bookshelf", Suppliers.memoize(() -> new ChiseledBookShelfBlock(PropertyHelper.copy(Blocks.CHISELED_BOOKSHELF, featureFlags).sound(woodTypeSupplier.get().soundType()))));
+    }
+
+    /**
+     * Register a {@link LecternBlock Lectern Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLectern(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerLectern(ResourceHelper.woodName(woodType), () -> woodType, featureFlags);
+    }
+
+    /**
+     * Register a {@link LecternBlock Lectern Block}
+     *
+     * @param woodName {@link String The Bookshelf Wood name}
+     * @param woodTypeSupplier {@link WoodType The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLectern(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_lectern", Suppliers.memoize(() -> new MWLecternBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWRodBlock Rod Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param color {@link MapColor The Block Color on maps}
+     * @param sound {@link SoundType The Block Sound}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerRod(final String materialName, final MapColor color, final SoundType sound, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(materialName + "_rod_block", Suppliers.memoize(() -> new MWRodBlock(color, sound, featureFlags)));
+    }
+
+    /**
+     * Register a {@link BaseCoralWallFanBlock Wall Fan Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param color {@link MapColor The Block Color on maps}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Block this Fan is based on}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallFan(final String materialName, final MapColor color, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(materialName + "_wall_fan", Suppliers.memoize(() -> new BaseCoralWallFanBlock(PropertyHelper.block(color, 0F, 0F, true, SoundType.GRASS, featureFlags).noCollission().instabreak().lootFrom(blockSupplier))));
+    }
+
+    /**
+     * Register a {@link MWTorchBlock Torch Block}
+     *
+     * @param fireType {@link MWFireBlock.MWFireType The Fire Type}
+     * @param particleSupplier {@link Supplier<ParticleOptions> The Torch Particle Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerTorch(final MWFireBlock.MWFireType fireType, final Supplier<? extends ParticleOptions> particleSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(ResourceHelper.fireName(fireType) + "_torch", Suppliers.memoize(() -> new MWTorchBlock(fireType.lightLevel(), particleSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWWallTorchBlock Wall Torch Block}
+     *
+     * @param fireType {@link MWFireBlock.MWFireType The Fire Type}
+     * @param particleSupplier {@link Supplier<ParticleOptions> The Torch Particle Supplier}
+     * {@link Supplier<Block> The Supplier for the Torch Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerWallTorch(final MWFireBlock.MWFireType fireType, final Supplier<? extends ParticleOptions> particleSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(ResourceHelper.fireName(fireType) + "_wall_torch", Suppliers.memoize(() -> new MWWallTorchBlock(fireType.lightLevel(), particleSupplier, blockSupplier, featureFlags)));
+    }
+
+    /**
+     * Register an {@link UnlitTorchBlock Unlit Torch Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerUnlitTorch(final String materialName, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem("unlit_" + materialName + (materialName.isEmpty() ? "" : "_") + "torch", Suppliers.memoize(() -> new UnlitTorchBlock(featureFlags)));
+    }
+
+    /**
+     * Register a {@link UnlitWallTorchBlock Unlit Wall Torch Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Torch Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerUnlitWallTorch(final String materialName, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem("unlit_" + materialName + (materialName.isEmpty() ? "" : "_") + "wall_torch", Suppliers.memoize(() -> new UnlitWallTorchBlock(blockSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWFireBlock Fire Block}
+     *
+     * @param type {@link MWFireBlock.MWFireType The Fire Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(ResourceHelper.fireName(type) + "_fire", Suppliers.memoize(() -> new MWFireBlock(type, featureFlags)));
+    }
+
+    /**
+     * Register a {@link MWCampfireBlock Campfire Block}
+     *
+     * @param type {@link MWFireBlock.MWFireType The Fire Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCampfireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
+        return registerBlock(ResourceHelper.fireName(type) + "_campfire", Suppliers.memoize(() -> new MWCampfireBlock(type, featureFlags)));
+    }
+
+    /**
+     * Register an {@link EtherealRuneBlock Ethereal Rune}
+     *
+     * @param type {@link EtherealRuneBlock.Types The Ethereal Rune Type}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerEtherealRune(final EtherealRuneBlock.Types type) {
+        return registerBlock(ResourceHelper.etherealRuneName(type), Suppliers.memoize(() -> new EtherealRuneBlock()));
+    }
+
+    /**
+     * Register a {@link MWPortalBlock Portal Block}
+     *
+     * @param dimension {@link MWDimensions.Dimensions The Dimension this portal is referring to}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the portal block}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerPortalBlock(final MWDimensions.Dimensions dimension, final Supplier<Block> blockSupplier) {
+        return registerBlock(ResourceHelper.portalName(dimension), blockSupplier);
+    }
+
+    /**
+     * Register a {@link Block Block} given its {@link BlockBehaviour.Properties Properties}
+     *
+     * @param name {@link String The Block name}
+     * @param propertiesSupplier {@link Supplier<BlockBehaviour.Properties> The Block Properties Supplier}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerBlock(final String name, final Supplier<BlockBehaviour.Properties> propertiesSupplier) {
+        return registerBlock(name, () -> new Block(propertiesSupplier.get()));
+    }
+
+    /**
+     * Register a {@link Block Block} without registering its {@link BlockItem Block Item}
+     *
+     * @param name {@link String The Block name}
+     * @param blockSupplier {@link Supplier The Block Supplier}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerBlockWithoutBlockItem(final String name, final Supplier<? extends Block> blockSupplier) {
+        return BLOCKS.register(name, blockSupplier);
+    }
+
+    /**
+     * Register a {@link Block Block}
+     *
+     * @param name {@link String The Block name}
+     * @param blockSupplier {@link Supplier The Block Supplier}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    static RegistryObject<Block> registerBlock(final String name, final Supplier<? extends Block> blockSupplier, final FeatureFlag... featureFlags) {
+        final RegistryObject<Block> block = registerBlockWithoutBlockItem(name, blockSupplier);
+        MWItems.registerBlockItem(name, block, featureFlags);
+        return block;
+    }
+
+    //#endregion
+
+    //#region Bus register
+
+    /**
+     * Register all {@link Block Blocks}
+     *
+     * @param eventBus {@link IEventBus The mod event bus}
      */
     public static void register(final IEventBus eventBus) {
-        RegisterHelper.registerBlocks(eventBus);
+        MWColoredBlocks.register();
+        MWCopperBlocks.register();
+        MWPointedDripstones.register();
+        MWPebbles.PebbleBlocks.register();
+        MWFlowerPots.register();
+        BLOCKS.register(eventBus);
     }
+
+    //#endregion
 
 }

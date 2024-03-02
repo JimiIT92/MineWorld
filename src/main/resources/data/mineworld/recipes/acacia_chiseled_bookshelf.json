@@ -1,7 +1,21 @@
 {
-  "type": "mineworld:woodcutting",
-  "ingredient": {
-    "item": "mineworld:acacia_bookshelf"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:acacia_planks"
+    },
+    "X": {
+      "item": "minecraft:acacia_slab"
+    }
   },
-  "result": "mineworld:acacia_chiseled_bookshelf"
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "item": "mineworld:acacia_chiseled_bookshelf"
+  },
+  "show_notification": true
 }

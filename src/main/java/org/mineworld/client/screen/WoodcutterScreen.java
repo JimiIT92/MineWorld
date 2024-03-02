@@ -15,8 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.block.WoodcutterBlock;
-import org.mineworld.helper.KeyHelper;
+import org.mineworld.helper.TextureHelper;
 import org.mineworld.inventory.WoodcutterMenu;
 import org.mineworld.recipe.WoodcutterRecipe;
 
@@ -24,38 +23,38 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link WoodcutterBlock woodcutter screen}
+ * {@link MineWorld MineWorld} {@link AbstractContainerScreen Woodcutter Screen}
  */
 @OnlyIn(Dist.CLIENT)
 public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
 
     /**
-     * {@link ResourceLocation The woodcutter screen texture location}
+     * {@link ResourceLocation The Woodcutter Screen Texture Location}
      */
-    private static final ResourceLocation BG_LOCATION = KeyHelper.container("woodcutter");
+    private static final ResourceLocation BG_LOCATION = TextureHelper.container("woodcutter");
     /**
-     * {@link Float The scroll offset}
+     * {@link Float The GUI Scroll offset}
      */
     private float scrollOffset;
     /**
-     * {@link Boolean If the player is scolling into the screen}
+     * {@link Boolean If the Player is scrolling into the Screen}
      */
     private boolean scrolling;
     /**
-     * {@link Integer The start slot index}
+     * {@link Integer The start Slot index}
      */
     private int startIndex;
     /**
-     * {@link Boolean If the screen is displaying some recipes}
+     * {@link Boolean If the Screen is displaying some recipes}
      */
     private boolean displayRecipes;
 
     /**
-     * Constructor. Set the screen properties
+     * Constructor. Set the {@link AbstractContainerScreen Screen Properties}
      *
-     * @param menu {@link WoodcutterMenu The woodcutter menu}
-     * @param inventory {@link Inventory The screen inventory}
-     * @param title {@link Component The screen title component}
+     * @param menu {@link WoodcutterMenu The Woodcutter menu}
+     * @param inventory {@link Inventory The Screen inventory}
+     * @param title {@link Component The Screen Title Component}
      */
     public WoodcutterScreen(final WoodcutterMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title);
@@ -64,12 +63,12 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     }
 
     /**
-     * Render the screen
+     * Render the {@link AbstractContainerScreen Screen}
      *
-     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
-     * @param screenX {@link Integer The screen X coordinate}
-     * @param screenY {@link Integer The screen Y coordinate}
-     * @param partialTicks {@link Float The screen partial ticks}
+     * @param guiGraphics {@link GuiGraphics The Screen Gui Graphics}
+     * @param screenX {@link Integer The Screen X coordinate}
+     * @param screenY {@link Integer The Screen Y coordinate}
+     * @param partialTicks {@link Float The Screen partial ticks}
      */
     public void render(final @NotNull GuiGraphics guiGraphics, final int screenX, final int screenY, final float partialTicks) {
         super.render(guiGraphics, screenX, screenY, partialTicks);
@@ -77,33 +76,33 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     }
 
     /**
-     * Render the screen background
+     * Render the {@link AbstractContainerScreen Screen} Background
      *
-     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
-     * @param partialTicks {@link Float The screen partial ticks}
-     * @param screenX {@link Integer The screen X coordinate}
-     * @param screenY {@link Integer The screen Y coordinate}
+     * @param guiGraphics {@link GuiGraphics The Screen Gui Graphics}
+     * @param partialTicks {@link Float The Screen partial ticks}
+     * @param screenX {@link Integer The Screen X coordinate}
+     * @param screenY {@link Integer The Screen Y coordinate}
      */
     protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, final int screenX, final int screenY) {
         RenderSystem.setShaderTexture(0, BG_LOCATION);
         final int x = this.leftPos;
         final int y = this.topPos;
         guiGraphics.blit(BG_LOCATION, x, y, 0, 0, this.imageWidth, this.imageHeight);
-        int scrollOffset = (int)(41.0F * this.scrollOffset);
+        final int scrollOffset = (int)(41.0F * this.scrollOffset);
         guiGraphics.blit(BG_LOCATION, x + 119, y + 15 + scrollOffset, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
-        int recipesX = this.leftPos + 52;
-        int recipesY = this.topPos + 14;
-        int recipesCount = this.startIndex + 12;
+        final int recipesX = this.leftPos + 52;
+        final int recipesY = this.topPos + 14;
+        final int recipesCount = this.startIndex + 12;
         this.renderButtons(guiGraphics, screenX, screenY, recipesX, recipesY, recipesCount);
         this.renderRecipes(guiGraphics, recipesX, recipesY, recipesCount);
     }
 
     /**
-     * Render the screen tooltips
+     * Render the {@link AbstractContainerScreen Screen} Tooltips
      *
-     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
-     * @param screenX {@link Integer The screen X coordinate}
-     * @param screenY {@link Integer The screen Y coordinate}
+     * @param guiGraphics {@link GuiGraphics The Screen Gui Graphics}
+     * @param screenX {@link Integer The Screen X coordinate}
+     * @param screenY {@link Integer The Screen Y coordinate}
      */
     protected void renderTooltip(final @NotNull GuiGraphics guiGraphics, final int screenX, final int screenY) {
         super.renderTooltip(guiGraphics, screenX, screenY);
@@ -112,32 +111,32 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
             final int y = this.topPos + 14;
             final int count = this.startIndex + 12;
             final List<RecipeHolder<WoodcutterRecipe>> recipes = this.menu.getRecipes();
-            for(int index = this.startIndex; index < count && index < this.menu.getNumRecipes(); ++index) {
-                int currentIndex = index - this.startIndex;
+            for(int i = this.startIndex; i < count && i < this.menu.getNumRecipes(); ++i) {
+                int currentIndex = i - this.startIndex;
                 int column = x + currentIndex % 4 * 16;
                 int row = y + currentIndex / 4 * 18 + 2;
                 if (screenX >= column && screenX < column + 16 && screenY >= row && screenY < row + 18) {
-                    guiGraphics.renderTooltip(this.font, recipes.get(index).value().getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), screenX, screenY);
+                    guiGraphics.renderTooltip(this.font, recipes.get(i).value().getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), screenX, screenY);
                 }
             }
         }
     }
 
     /**
-     * Render the screen buttons
+     * Render the {@link AbstractContainerScreen Screen} Buttons
      *
-     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
-     * @param screenX {@link Integer The screen X coordinate}
-     * @param screenY {@link Integer The screen Y coordinate}
-     * @param recipesX {@link Integer The screen recipes X coordinate}
-     * @param recipesY {@link Integer The screen recipes Y coordinate}
-     * @param count {@link Integer How many buttons to render}
+     * @param guiGraphics {@link GuiGraphics The Screen Gui Graphics}
+     * @param screenX {@link Integer The Screen X coordinate}
+     * @param screenY {@link Integer The Screen Y coordinate}
+     * @param recipesX {@link Integer The Screen Recipes X coordinate}
+     * @param recipesY {@link Integer The Screen Recipes Y coordinate}
+     * @param count {@link Integer The number of Buttons to render}
      */
     private void renderButtons(final GuiGraphics guiGraphics, final int screenX, final int screenY, final int recipesX, final int recipesY, final int count) {
         for(int i = this.startIndex; i < count && i < this.menu.getNumRecipes(); ++i) {
-            final int currentIndex = i - this.startIndex;
-            final int column = recipesX + currentIndex % 4 * 16;
-            final int row = recipesY + (currentIndex / 4) * 18 + 2;
+            int currentIndex = i - this.startIndex;
+            int column = recipesX + currentIndex % 4 * 16;
+            int row = recipesY + (currentIndex / 4) * 18 + 2;
             int imageHeight = this.imageHeight;
             if (i == this.menu.getSelectedRecipeIndex()) {
                 imageHeight += 18;
@@ -149,18 +148,18 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     }
 
     /**
-     * Render the screen recipes
+     * Render the {@link AbstractContainerScreen Screen} Recipes
      *
-     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
-     * @param screenX {@link Integer The screen X coordinate}
-     * @param screenY {@link Integer The screen Y coordinate}
-     * @param count {@link Integer How many recipes to render}
+     * @param guiGraphics {@link GuiGraphics The Screen Gui Graphics}
+     * @param screenX {@link Integer The Screen X coordinate}
+     * @param screenY {@link Integer The Screen Y coordinate}
+     * @param count {@link Integer The number of Buttons to render}
      */
     private void renderRecipes(final GuiGraphics guiGraphics, final int screenX, final int screenY, final int count) {
         final List<RecipeHolder<WoodcutterRecipe>> recipes = this.menu.getRecipes();
         for(int i = this.startIndex; i < count && i < this.menu.getNumRecipes(); ++i) {
-            final int currentIndex = i - this.startIndex;
-            final int column = screenX + currentIndex % 4 * 16;
+            int currentIndex = i - this.startIndex;
+            int column = screenX + currentIndex % 4 * 16;
             int row = screenY + (currentIndex / 4) * 18 + 2;
             guiGraphics.renderItem(recipes.get(i).value().getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), column, row);
         }
@@ -171,7 +170,7 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
      *
      * @param mouseX {@link Double The mouse X coordinate}
      * @param mouseY {@link Double The mouse Y coordinate}
-     * @param buttonId {@link Integer The mouse button id}
+     * @param buttonId {@link Integer The mouse Button id}
      * @return {@link Boolean True if the mouse click has been handled correctly}
      */
     public boolean mouseClicked(final double mouseX, final double mouseY, final int buttonId) {
@@ -181,13 +180,13 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
             int y = this.topPos + 14;
             final int count = this.startIndex + 12;
 
-            for(int l = this.startIndex; l < count; ++l) {
-                final int currentIndex = l - this.startIndex;
-                final double mouseOffsetX = mouseX - (double)(x + currentIndex % 4 * 16);
-                final double mouseOffsetY = mouseY - (double)(y + currentIndex / 4 * 18);
-                if (mouseOffsetX >= 0.0D && mouseOffsetY >= 0.0D && mouseOffsetX < 16.0D && mouseOffsetY < 18.0D && this.menu.clickMenuButton(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).player), l)) {
+            for(int i = this.startIndex; i < count; ++i) {
+                int currentIndex = i - this.startIndex;
+                double mouseOffsetX = mouseX - (double)(x + currentIndex % 4 * 16);
+                double mouseOffsetY = mouseY - (double)(y + currentIndex / 4 * 18);
+                if (mouseOffsetX >= 0.0D && mouseOffsetY >= 0.0D && mouseOffsetX < 16.0D && mouseOffsetY < 18.0D && this.menu.clickMenuButton(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).player), i)) {
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.WOOD_PLACE, 1.0F));
-                    Objects.requireNonNull(this.minecraft.gameMode).handleInventoryButtonClick((this.menu).containerId, l);
+                    Objects.requireNonNull(this.minecraft.gameMode).handleInventoryButtonClick((this.menu).containerId, i);
                     return true;
                 }
             }
@@ -206,10 +205,10 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
      *
      * @param mouseX {@link Double The mouse X coordinate}
      * @param mouseY {@link Double The mouse Y coordinate}
-     * @param buttonId {@link Integer The mouse button id}
+     * @param buttonId {@link Integer The mouse Button id}
      * @param offsetX {@link Double The mouse X coordinate offset}
      * @param offsetY {@link Double The mouse Y coordinate offset}
-     * @return {@link Boolean True if the drag has been handled correctly}
+     * @return {@link Boolean True if the mouse drag has been handled correctly}
      */
     public boolean mouseDragged(final double mouseX, final double mouseY, final int buttonId, final double offsetX, final double offsetY) {
         if (this.scrolling && this.isScrollBarActive()) {
@@ -229,12 +228,12 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
      * @param mouseX {@link Double The mouse X coordinate}
      * @param mouseY {@link Double The mouse Y coordinate}
      * @param scrollDistance {@link Double The mouse scroll distance}
-     * @return {@link Boolean True}
+     * @return {@link Boolean#TRUE True}
      */
     public boolean mouseScrolled(final double mouseX, final double mouseY, final double scrollDistance) {
         if (this.isScrollBarActive()) {
-            int offscreenRows = this.getOffscreenRows();
-            float scrollSize = (float)scrollDistance / (float)offscreenRows;
+            final int offscreenRows = this.getOffscreenRows();
+            final float scrollSize = (float)scrollDistance / (float)offscreenRows;
             this.scrollOffset = Mth.clamp(this.scrollOffset - scrollSize, 0.0F, 1.0F);
             this.startIndex = (int)((double)(this.scrollOffset * (float)offscreenRows) + 0.5D) * 4;
         }
@@ -244,16 +243,16 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
     /**
      * Check if the scrollbar is active
      *
-     * @return {@link Boolean True if is displaying more than 12 recipes}
+     * @return {@link Boolean True if the scrollbar is active}
      */
     private boolean isScrollBarActive() {
         return this.displayRecipes && this.menu.getNumRecipes() > 12;
     }
 
     /**
-     * Get the {@link Integer number of rows outside of the screen}
+     * Get the {@link Integer number of rows outside of the Screen}
      *
-     * @return {@link Integer The number of rows outside of the screen}
+     * @return {@link Integer The number of rows outside of the Screen}
      */
     protected int getOffscreenRows() {
         return (this.menu.getNumRecipes() + 4 - 1) / 4 - 3;

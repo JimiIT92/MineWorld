@@ -19,39 +19,39 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
-import org.mineworld.block.GiftBlock;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlockEntityTypes;
 
 /**
- * Implementation class for the {@link GiftBlock gift block entity}
+ * {@link MineWorld MineWorld} {@link RandomizableContainerBlockEntity Gift Block Entity}
  */
 public class GiftBlockEntity extends RandomizableContainerBlockEntity implements LidBlockEntity {
 
     /**
-     * {@link NonNullList<ItemStack> The gift items}
+     * {@link NonNullList<ItemStack> The Gift Content}
      */
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
     /**
-     * {@link ChestLidController The gift lid controller}
+     * {@link ChestLidController The Gift Lid Controller}
      */
     private final ChestLidController giftLidController = new ChestLidController();
     /**
-     * {@link IItemHandlerModifiable The gift handler}
+     * {@link IItemHandlerModifiable The Gift Item Handler}
      */
     private LazyOptional<IItemHandlerModifiable> giftHandler;
 
     /**
-     * Constructor. Set the block entity type
+     * Constructor. Set the Block Entity properties
      *
-     * @param pos {@link BlockPos The block entity pos}
-     * @param state {@link BlockState The block entity state}
+     * @param blockPos {@link BlockPos The Block Entity Block POs}
+     * @param blockState {@link BlockState The Block State for the Block Entity}
      */
-    public GiftBlockEntity(final BlockPos pos, final BlockState state) {
-        super(MWBlockEntityTypes.GIFT.get(), pos, state);
+    public GiftBlockEntity(final BlockPos blockPos, final BlockState blockState) {
+        super(MWBlockEntityTypes.GIFT.get(), blockPos, blockState);
     }
 
     /**
-     * Get the {@link Integer container size}
+     * Get the {@link Integer Container Size}
      *
      * @return {@link Integer 1}
      */
@@ -61,9 +61,9 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link Component gift container name}
+     * Get the {@link Component Container default name}
      *
-     * @return {@link Component#empty() Empty component}
+     * @return {@link Component#empty() Empty Component}
      */
     @Override
     protected @NotNull Component getDefaultName() {
@@ -71,11 +71,11 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
     }
 
     /**
-     * Create the gift menu
+     * Create the {@link AbstractContainerMenu Container Menu}
      *
-     * @param id {@link Integer The menu ID}
-     * @param inventory {@link Inventory The menu inventory}
-     * @return {@link AbstractContainerMenu null}
+     * @param id {@link Integer The Menu Id}
+     * @param inventory {@link Inventory The Menu Inventory}
+     * @return {@link AbstractContainerMenu Null}
      */
     @Override
     protected @NotNull AbstractContainerMenu createMenu(final int id, final @NotNull Inventory inventory) {
@@ -83,7 +83,7 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
     }
 
     /**
-     * Load the items from {@link CompoundTag NBT Tags}
+     * Load the Container content from the {@link CompoundTag NBT Tags}
      *
      * @param nbt {@link CompoundTag The NBT Tags}
      */
@@ -93,11 +93,10 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
         if (!this.tryLoadLootTable(nbt)) {
             ContainerHelper.loadAllItems(nbt, this.items);
         }
-
     }
 
     /**
-     * Save items to {@link CompoundTag NBT Tags}
+     * Save the Container content to the {@link CompoundTag NBT Tags}
      *
      * @param nbt {@link CompoundTag The NBT Tags}
      */
@@ -109,39 +108,39 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link NonNullList<ItemStack> gift items}
+     * Get the {@link NonNullList<ItemStack> Container content}
      *
-     * @return {@link NonNullList<ItemStack> The gift items}
+     * @return {@link NonNullList<ItemStack> The Container content}
      */
     protected @NotNull NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
     /**
-     * Set the {@link NonNullList<ItemStack> git items}
+     * Set the {@link NonNullList<ItemStack> Container content}
      *
-     * @param items {@link NonNullList<ItemStack> The gift items}
+     * @param items {@link NonNullList<ItemStack> The Container content}
      */
     public void setItems(final @NotNull NonNullList<ItemStack> items) {
         this.items = items;
     }
 
     /**
-     * Swap the content of two gifts
+     * Swap the content of two {@link GiftBlockEntity Gifts}
      *
-     * @param source {@link GiftBlockEntity The source block entity}
-     * @param destination {@link GiftBlockEntity The destination block entity}
+     * @param source {@link GiftBlockEntity The source Gift}
+     * @param destination {@link GiftBlockEntity The destination Gift}
      */
     public static void swapContents(final GiftBlockEntity source, final GiftBlockEntity destination) {
-        NonNullList<ItemStack> nonnulllist = source.getItems();
+        final NonNullList<ItemStack> nonnulllist = source.getItems();
         source.setItems(destination.getItems());
         destination.setItems(nonnulllist);
     }
 
     /**
-     * Set the {@link BlockState gift BlockState}
+     * Set the {@link BlockState Gift Block State}
      *
-     * @param state The {@link BlockState gift BlockState}
+     * @param state The {@link BlockState Gift Block State}
      */
     @Override
     public void setBlockState(final @NotNull BlockState state) {
@@ -154,35 +153,34 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link T gift capability}
+     * Get the {@link T Container Capability}
      *
-     * @param cap {@link Capability<T> The capability to check}
-     * @param side {@link Direction The Side to check from},
-     *   <strong>CAN BE NULL</strong>. Null is defined to represent 'internal' or 'self'
-     * @return {@link LazyOptional<T> The gift capability}, if any
-     * @param <T> The capability type
+     * @param capability {@link Capability<T> The Capability to check}
+     * @param side {@link Direction The Side to check from}
+     * @return {@link LazyOptional<T> The Container Capability}
+     * @param <T> The Capability type
      */
     @Override
-    public <T> @NotNull LazyOptional<T> getCapability(final @NotNull Capability<T> cap, final Direction side) {
-        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+    public <T> @NotNull LazyOptional<T> getCapability(final @NotNull Capability<T> capability, final Direction side) {
+        if (!this.remove && capability == ForgeCapabilities.ITEM_HANDLER) {
             if (this.giftHandler == null)
                 this.giftHandler = LazyOptional.of(this::createHandler);
             return this.giftHandler.cast();
         }
-        return super.getCapability(cap, side);
+        return super.getCapability(capability, side);
     }
 
     /**
-     * Get the {@link IItemHandlerModifiable gift handler}
+     * Get the {@link IItemHandlerModifiable Container Item Handler}
      *
-     * @return The {@link IItemHandlerModifiable gift handler}
+     * @return The {@link IItemHandlerModifiable Container Item Handler}
      */
     private IItemHandlerModifiable createHandler() {
         return new InvWrapper(this);
     }
 
     /**
-     * Invalidate the gift capabilities
+     * Invalidate the Container Capabilities
      */
     @Override
     public void invalidateCaps() {
@@ -194,14 +192,14 @@ public class GiftBlockEntity extends RandomizableContainerBlockEntity implements
     }
 
     /**
-     * Get the gift lid openness
+     * Get the {@link Float Gift Lid openness}
      *
-     * @param angle {@link Float The lid angle}
-     * @return {@link Float 0}
+     * @param angle {@link Float The Lid angle}
+     * @return {@link Float 0F}
      */
     @Override
     public float getOpenNess(final float angle) {
-        return 0;
+        return 0F;
     }
 
 }

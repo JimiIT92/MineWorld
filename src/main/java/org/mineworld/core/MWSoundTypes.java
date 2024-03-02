@@ -1,15 +1,18 @@
 package org.mineworld.core;
 
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.common.util.ForgeSoundType;
 import org.mineworld.MineWorld;
 
 import java.util.function.Supplier;
 
 /**
- * {@link MineWorld MineWorld} {@link ForgeSoundType sound types}
+ * {@link MineWorld MineWorld} {@link SoundType Sound Types}
  */
 public final class MWSoundTypes {
+
+    //#region Sound Types
 
     public static final ForgeSoundType SCULK_WOOD = createSoundType(
             MWSounds.SCULK_WOOD_BREAK,
@@ -40,6 +43,10 @@ public final class MWSoundTypes {
             MWSounds.END_SOIL_FALL
     );
 
+    //#endregion
+
+    //#region Methods
+
     /**
      * Get a {@link ForgeSoundType sound type}
      *
@@ -54,4 +61,5 @@ public final class MWSoundTypes {
         return new ForgeSoundType(1.0F, 1.0F, breakSoundSupplier, stepSoundSupplier, placeSoundSupplier, hitSoundSupplier, fallSoundSupplier);
     }
 
+    //#endregion
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "mineworld:block/hollow_dead_log",
+      "model": "mineworld:block/hollow_dead_log_horizontal",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "mineworld:block/hollow_dead_log"
     },
     "axis=z": {
-      "model": "mineworld:block/hollow_dead_log",
+      "model": "mineworld:block/hollow_dead_log_horizontal",
       "x": 90
     }
   }

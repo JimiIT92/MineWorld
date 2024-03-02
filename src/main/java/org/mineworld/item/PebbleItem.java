@@ -12,30 +12,28 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
-import org.mineworld.block.PebbleBlock;
-import org.mineworld.entity.ThrownPebble;
+import org.mineworld.entity.projectile.ThrownPebble;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
-/**
- * Implementation class for a throwable {@link PebbleBlock pebble id}
- */
+import java.util.function.Supplier;
+
 public class PebbleItem extends ItemNameBlockItem {
 
     /**
-     * Constructor. Set the id properties
+     * Constructor. Set the {@link Properties Item Properties}
      *
-     * @param pebbleBlock {@link Block The pebble block to be placed when right clicking on a block}
-     * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
+     * @param pebbleBlockSupplier {@link Supplier<Block> The Pebble Block that will be placed from this Item}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Item to work}
      */
-    public PebbleItem(final Block pebbleBlock, final FeatureFlag... featureFlags) {
-        super(pebbleBlock, PropertyHelper.basicItemProperties(featureFlags));
+    public PebbleItem(final Supplier<Block> pebbleBlockSupplier, final FeatureFlag... featureFlags) {
+        super(pebbleBlockSupplier.get(), PropertyHelper.item(featureFlags));
     }
 
     /**
-     * Shoot the pebble on id right click
+     * Shoot the pebble on right click
      *
-     * @param level {@link Level The world reference}
+     * @param level {@link Level The level reference}
      * @param player {@link Player The player that is shooting the pebble}
      * @param hand {@link InteractionHand The hand the player is shooting with}
      * @return {@link InteractionResultHolder<ItemStack> The interaction result}
@@ -55,4 +53,5 @@ public class PebbleItem extends ItemNameBlockItem {
 
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
+
 }

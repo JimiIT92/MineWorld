@@ -14,11 +14,11 @@ import org.mineworld.core.MWConfiguredFeatures;
 public class AppleTreeGrower extends AbstractTreeGrower {
 
     /**
-     * Get the {@link ConfiguredFeature apple tree configured feature}
+     * Get the {@link ConfiguredFeature Tree Configured Feature}
      *
-     * @param random {@link RandomSource The random reference}
-     * @param withBeeNest {@link Boolean If the tree should have a bee nest attached}
-     * @return {@link ConfiguredFeature The apple tree configured feature}
+     * @param random {@link RandomSource The Random reference}
+     * @param withBeeNest {@link Boolean If the Tree should have a Bee Nest attached}
+     * @return {@link ConfiguredFeature The Tree Configured Feature}
      */
     @Nullable
     @Override

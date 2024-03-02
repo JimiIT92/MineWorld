@@ -2,6 +2,7 @@ package org.mineworld.helper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.SplashRenderer;
+import net.minecraft.util.RandomSource;
 import org.mineworld.MineWorld;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Helper methods for splash screens
+ * Helper class for Splash texts
  */
 public final class SplashScreenHelper {
 
@@ -30,14 +31,15 @@ public final class SplashScreenHelper {
      * @return {@link String A random splash text}
      */
     public static Optional<SplashRenderer> getSplashText() {
-        if(isMineWorldBirhday()) {
+        if(isMineWorldBirthday()) {
             return Optional.of(birthdaySplashText);
         }
-        return !RandomHelper.choose() || isVanillaSplashTextSpecialDate() ? Optional.ofNullable(Minecraft.getInstance().getSplashManager().getSplash()) : RandomHelper.randomValue(splashTexts);
+        final RandomSource randomSource = RandomHelper.getRandom();
+        return !randomSource.nextBoolean() || isVanillaSplashTextSpecialDate() ? Optional.ofNullable(Minecraft.getInstance().getSplashManager().getSplash()) : RandomHelper.randomValue(splashTexts);
     }
 
     /**
-     * Check if the local date correspond to a special vanilla splash text date
+     * Check if the {@link Calendar Local Date} correspond to a special vanilla splash text date
      *
      * @return {@link Boolean True if is halloween, christmas or new year's eve}
      */
@@ -53,15 +55,15 @@ public final class SplashScreenHelper {
      *
      * @return {@link Boolean True if is November 30}
      */
-    private static boolean isMineWorldBirhday() {
+    private static boolean isMineWorldBirthday() {
         final Calendar calendar = getCalendar();
         return calendar.get(Calendar.MONTH) + 1 == 11 && calendar.get(Calendar.DATE) == 30;
     }
 
     /**
-     * Get the {@link Calendar calendar instance}
+     * Get the {@link Calendar Calendar instance}
      *
-     * @return {@link Calendar The calendar instance}
+     * @return {@link Calendar The Calendar instance}
      */
     private static Calendar getCalendar() {
         final Calendar calendar = Calendar.getInstance();
@@ -101,6 +103,7 @@ public final class SplashScreenHelper {
 
     static {
         splashTexts = loadSplashTexts();
-        birthdaySplashText = getSplashText("birthday",LocalDate.now().getYear() - 2013);
+        birthdaySplashText = getSplashText("birthday", LocalDate.now().getYear() - 2013);
     }
+
 }

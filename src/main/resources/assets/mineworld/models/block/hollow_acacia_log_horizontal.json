@@ -1,0 +1,9 @@
+{
+  "parent": "mineworld:block/hollow_cube_horizontal",
+  "textures": {
+    "end": "minecraft:block/acacia_log_top",
+    "side": "minecraft:block/acacia_log",
+    "inner": "minecraft:block/stripped_acacia_log",
+    "particle": "minecraft:block/acacia_log"
+  }
+}

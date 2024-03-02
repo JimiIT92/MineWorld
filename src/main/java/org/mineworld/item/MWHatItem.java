@@ -9,24 +9,24 @@ import org.mineworld.MineWorld;
 import java.util.function.Consumer;
 
 /**
- * Base class for a {@link MineWorld MineWorld} hat item
+ * {@link MineWorld MineWorld} {@link ArmorItem Hat Item}
  */
 public abstract class MWHatItem extends ArmorItem {
 
     /**
-     * Constructor. Set the {@link ArmorMaterial hat material}
+     * Constructor. Set the {@link Properties Item Properties}
      *
-     * @param material {@link ArmorMaterial The hat material}
-     * @param properties {@link Item.Properties The item properties}
+     * @param material {@link ArmorMaterial The Armor Material}
+     * @param properties {@link Item.Properties The Item Properties}
      */
     public MWHatItem(final ArmorMaterial material, final Item.Properties properties) {
         super(material, Type.HELMET, properties);
     }
 
     /**
-     * Initialize the client renderer
+     * Assign the special rendering to this {@link Item Item}
      *
-     * @param consumer {@link Consumer<IClientItemExtensions> The client consumer}
+     * @param consumer {@link Consumer<IClientItemExtensions> The Client Item Rendered Consumer}
      */
     @Override
     public void initializeClient(final Consumer<IClientItemExtensions> consumer) {
@@ -34,9 +34,9 @@ public abstract class MWHatItem extends ArmorItem {
     }
 
     /**
-     * Get the {@link IClientItemExtensions client armor renderer}
+     * Get the {@link IClientItemExtensions Armor Model Renderer}
      *
-     * @return The {@link IClientItemExtensions client armor renderer}
+     * @return {@link IClientItemExtensions The Armor Model Renderer}
      */
     public abstract IClientItemExtensions getArmorRenderer();
 

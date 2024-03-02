@@ -5,56 +5,35 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
+
+import java.util.Optional;
 
 /**
- * Helper methods for {@link Level level}
+ * Helper class for {@link Level Level}
  */
 public final class LevelHelper {
 
     /**
-     * Get the {@link BlockState block state} reaction when pushed by pistons
+     * Get a {@link Direction Random Horizontal Direction}
      *
-     * @param blockState {@link BlockState The block state to check}
-     * @return {@link PushReaction The piston push reaction}
+     * @param random {@link RandomSource The Random reference}
+     * @return {@link Direction The Random Horizontal Direction}
      */
-    public static PushReaction getPushReaction(final BlockState blockState) {
-        return blockState.is(Tags.Blocks.OBSIDIAN) || blockState.is(Blocks.REINFORCED_DEEPSLATE) ? PushReaction.BLOCK : blockState.getPistonPushReaction();
+    public static Direction getRandomHorizontalDirection(final RandomSource random) {
+        Direction direction;
+        do {
+            direction = Direction.getRandom(random);
+        } while (!direction.getAxis().isHorizontal());
+        return direction;
     }
 
     /**
-     * Convert a {@link Vec3 coordinate vector} to a {@link BlockPos block pos}
-     *
-     * @param vec3 {@link Vec3 The coordinate vector}
-     * @return {@link BlockPos The block pos}
-     */
-    public static BlockPos toBlockPos(final Vec3 vec3) {
-        return new BlockPos(adjustCoordinate(vec3.x), adjustCoordinate(vec3.y), adjustCoordinate(vec3.z));
-    }
-
-    /**
-     * Adjust a {@link Double coordinate} for the {@link BlockPos block pos} conversion.
-     * Specifically subtract 0.5 if the coordinate is negative, otherwise leaves it unchanged
-     * and returns it cast to int.
-     *
-     * @param coordinate {@link Double The coordinate to adjust}
-     * @return {@link Integer The adjusted coordinate}
-     */
-    private static int adjustCoordinate(double coordinate) {
-        return (int)(coordinate >= 0 ? coordinate : (coordinate - 0.5D));
-    }
-
-    /**
-     * Check if a location is underwater
+     * Check if a {@link BlockPos Block Pos} is underwater
      *
      * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The block pos to check}
-     * @return {@link Boolean True if the block pos is underwater}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if the location is underwater}
      */
     public static boolean isUnderwater(final Level level, final BlockPos blockPos) {
         return level.getFluidState(blockPos).is(Fluids.WATER) || level.getFluidState(blockPos.above()).is(Fluids.WATER)
@@ -64,21 +43,21 @@ public final class LevelHelper {
     }
 
     /**
-     * Get th{@link BlockPos block pos} offset by the specified {@link Direction direction}
+     * Get the {@link BlockPos Block Pos} offset by the specified {@link Direction Direction}
      *
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The offset direction}
-     * @return {@link BlockPos The offset block pos}
+     * @return {@link BlockPos The offset Block Pos}
      */
     public static BlockPos offset(final BlockPos blockPos, final Direction direction) {
         return blockPos.offset(direction.getStepX(), direction.getStepY(), direction.getStepZ());
     }
 
     /**
-     * Check if a block face is solid
+     * Check if a {@link Block Block} face is solid
      *
      * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction to check}
      * @return {@link Boolean True if the block face is solid}
      */
@@ -87,29 +66,44 @@ public final class LevelHelper {
     }
 
     /**
-     * Check if a {@link Block block} can be placed at the given {@link BlockPos location}
+     * Check if a {@link Block Block} is an air block
      *
      * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @return {@link Boolean True if there isn't a block or is replaceable}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if the block is air}
      */
-    public static boolean canPlace(final Level level, final BlockPos blockPos) {
-        final BlockState blockState = level.getBlockState(blockPos);
-        return blockState.isAir() || blockState.canBeReplaced();
+    public static boolean isAir(final Level level, final BlockPos blockPos) {
+        return level.getBlockState(blockPos).isAir();
     }
 
     /**
-     * Get a {@link Direction random horizontal direction}
+     * Check if a {@link Block Block} can be placed and replace another block
      *
-     * @param random {@link RandomSource The random reference}
-     * @return {@link Direction The random horizontal direction}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @return {@link Boolean True if the block can be replaced}
      */
-    public static Direction getRandomHorizontalDirection(final RandomSource random) {
-        Direction direction;
-        do {
-            direction = Direction.getRandom(random);
-        } while (!direction.getAxis().isHorizontal());
-        return direction;
+    public static boolean canReplace(final Level level, final BlockPos blockPos) {
+        return isAir(level, blockPos) || level.getBlockState(blockPos).canBeReplaced();
+    }
+
+    /**
+     * Get the {@link BlockPos Block Pos} for a {@link Block Block} that can replace another {@link Block Block}
+     *
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param direction {@link Direction The direction to check}
+     * @return The {@link Block Block} placing {@link BlockPos Block Pos}
+     */
+    public static Optional<BlockPos> getReplacingBlockPos(final Level level, final BlockPos blockPos, final Direction direction) {
+        if(canReplace(level, blockPos)) {
+            return Optional.of(blockPos);
+        }
+        final BlockPos offsetPos = offset(blockPos, direction);
+        if(isFaceSolid(level, blockPos, direction) && (isFaceSolid(level, offsetPos, direction) || canReplace(level, offsetPos))) {
+            return Optional.of(offsetPos);
+        }
+        return Optional.empty();
     }
 
 }

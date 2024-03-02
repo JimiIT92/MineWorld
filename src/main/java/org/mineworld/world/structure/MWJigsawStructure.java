@@ -14,71 +14,65 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import org.jetbrains.annotations.NotNull;
-import org.mineworld.core.MWStructures;
+import org.mineworld.MineWorld;
 
 import java.util.Optional;
 
 /**
- * {@link Structure Implementation class for a Jigsaw structure}
+ * Implementation class for a {@link MineWorld MineWorld} {@link Structure Jigsaw Structure}
  */
 public class MWJigsawStructure extends Structure {
 
     /**
-     * {@link StructureTemplatePool The starting structure template pool}
+     * {@link StructureTemplatePool The starting Structure template pool}
      */
     private final Holder<StructureTemplatePool> startPool;
     /**
-     * {@link ResourceLocation The starting structure jigsaw name}
+     * {@link ResourceLocation The starting Structure jigsaw name}
      */
     private final Optional<ResourceLocation> startJigsawName;
     /**
-     * {@link Integer The structure size}
+     * {@link Integer The Structure size}
      */
     private final int size;
     /**
-     * {@link HeightProvider The structure starting height for generation}
+     * {@link HeightProvider The Structure starting height for generation}
      */
     private final HeightProvider startHeight;
     /**
-     * {@link Heightmap.Types The structure generation heightmap types}
+     * {@link Heightmap.Types The Structure generation heightmap types}
      */
     private final Optional<Heightmap.Types> projectStartToHeightmap;
     /**
-     * {@link Integer The max distance from the structure center} that branches can spawn
+     * {@link Integer The max distance from the Structure center} that branches can spawn
      */
     private final int maxDistanceFromCenter;
 
     /**
-     * {@link Codec The structure serialization codec}
+     * {@link Codec The Structure Codec}
      */
     public static final Codec<MWJigsawStructure> CODEC = RecordCodecBuilder.<MWJigsawStructure>mapCodec(instance ->
             instance.group(MWJigsawStructure.settingsCodec(instance),
-                    StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
-                    ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
-                    Codec.intRange(0, 30).fieldOf("size").forGetter(structure -> structure.size),
-                    HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
-                    Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
-                    Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
+                    StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(Structure -> Structure.startPool),
+                    ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(Structure -> Structure.startJigsawName),
+                    Codec.intRange(0, 30).fieldOf("size").forGetter(Structure -> Structure.size),
+                    HeightProvider.CODEC.fieldOf("start_height").forGetter(Structure -> Structure.startHeight),
+                    Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(Structure -> Structure.projectStartToHeightmap),
+                    Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(Structure -> Structure.maxDistanceFromCenter)
             ).apply(instance, MWJigsawStructure::new)).codec();
 
     /**
-     * Constructor. Set the structure properties
+     * Constructor. Set the Structure properties
      *
-     * @param config {@link StructureSettings The structure settings}
-     * @param startPool {@link StructureTemplatePool The starting structure template pool}
-     * @param startJigsawName {@link ResourceLocation The starting structure jigsaw name}
-     * @param size {@link Integer The structure size}
-     * @param startHeight {@link HeightProvider The structure starting height for generation}
-     * @param projectStartToHeightmap {@link Heightmap.Types The structure generation heightmap types}
-     * @param maxDistanceFromCenter {@link Integer The max distance from the structure center} that branches can spawn
+     * @param config {@link StructureSettings The Structure settings}
+     * @param startPool {@link StructureTemplatePool The starting Structure template pool}
+     * @param startJigsawName {@link ResourceLocation The starting Structure jigsaw name}
+     * @param size {@link Integer The Structure size}
+     * @param startHeight {@link HeightProvider The Structure starting height for generation}
+     * @param projectStartToHeightmap {@link Heightmap.Types The Structure generation heightmap types}
+     * @param maxDistanceFromCenter {@link Integer The max distance from the Structure center} that branches can spawn
      */
-    protected MWJigsawStructure(Structure.StructureSettings config,
-                           Holder<StructureTemplatePool> startPool,
-                           Optional<ResourceLocation> startJigsawName,
-                           int size,
-                           HeightProvider startHeight,
-                           Optional<Heightmap.Types> projectStartToHeightmap,
-                           int maxDistanceFromCenter) {
+    protected MWJigsawStructure(final Structure.StructureSettings config, final Holder<StructureTemplatePool> startPool, final Optional<ResourceLocation> startJigsawName, final int size, final HeightProvider startHeight, final Optional<Heightmap.Types> projectStartToHeightmap, final int maxDistanceFromCenter) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;
@@ -89,35 +83,35 @@ public class MWJigsawStructure extends Structure {
     }
 
     /**
-     * Check if the structure can spawn
+     * Check if the Structure can spawn
      *
-     * @param context {@link GenerationContext The structure generation context}
-     * @return {@link Boolean True if the structure can spawn}
+     * @param context {@link GenerationContext The Structure generation context}
+     * @return {@link Boolean True if the Structure can spawn}
      */
-    private static boolean extraSpawningChecks(Structure.GenerationContext context) {
-        ChunkPos chunkpos = context.chunkPos();
+    protected boolean extraSpawningChecks(final Structure.GenerationContext context) {
+        final ChunkPos chunkPos = context.chunkPos();
         return context.chunkGenerator().getFirstOccupiedHeight(
-                chunkpos.getMinBlockX(),
-                chunkpos.getMinBlockZ(),
+                chunkPos.getMinBlockX(),
+                chunkPos.getMinBlockZ(),
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 context.heightAccessor(),
                 context.randomState()) < 150;
     }
 
     /**
-     * Find the structure generation point
+     * Find the Structure generation point
      *
-     * @param context {@link GenerationContext The structure generation context}
-     * @return {@link Optional<GenerationStub> The structure generation point, if any}
+     * @param context {@link GenerationContext The Structure generation context}
+     * @return {@link Optional<GenerationStub> The Structure generation point, if any}
      */
     @Override
-    protected @NotNull Optional<GenerationStub> findGenerationPoint(@NotNull GenerationContext context) {
+    protected @NotNull Optional<GenerationStub> findGenerationPoint(final @NotNull GenerationContext context) {
         if (!extraSpawningChecks(context)) {
             return Optional.empty();
         }
-        int startY = this.startHeight.sample(context.random(), new WorldGenerationContext(context.chunkGenerator(), context.heightAccessor()));
-        ChunkPos chunkPos = context.chunkPos();
-        BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), startY, chunkPos.getMinBlockZ());
+        final int startY = this.startHeight.sample(context.random(), new WorldGenerationContext(context.chunkGenerator(), context.heightAccessor()));
+        final ChunkPos chunkPos = context.chunkPos();
+        final BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), startY, chunkPos.getMinBlockZ());
         return JigsawPlacement.addPieces(
                 context,
                 this.startPool,
@@ -130,9 +124,9 @@ public class MWJigsawStructure extends Structure {
     }
 
     /**
-     * Get the {@link StructureType structure type}
+     * Get the {@link StructureType Structure Type}
      *
-     * @return {@link MWStructures#ICE_CASTLE The ice castle structure type}
+     * @return {@link StructureType#JIGSAW The Jigsaw Structure Type}
      */
     @Override
     public @NotNull StructureType<?> type() {

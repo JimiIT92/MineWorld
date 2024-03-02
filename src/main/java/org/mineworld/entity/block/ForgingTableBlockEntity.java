@@ -24,12 +24,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.StackedContentsCompatible;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -42,100 +40,101 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mineworld.MineWorld;
 import org.mineworld.block.ForgingTableBlock;
 import org.mineworld.core.MWBlockEntityTypes;
 import org.mineworld.core.MWRecipeTypes;
 import org.mineworld.helper.ItemHelper;
-import org.mineworld.helper.KeyHelper;
+import org.mineworld.helper.ResourceHelper;
 import org.mineworld.inventory.ForgingTableMenu;
 import org.mineworld.recipe.ForgingRecipe;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Implementation class for the forging table block entity
+ * {@link MineWorld MineWorld} {@link BlockEntity Forging Table Block Entity}
  */
 public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible {
 
     /**
-     * {@link Integer The base ingredient input slot id}
+     * {@link Integer The Base Ingredient Slot Id}
      */
     private static final int SLOT_INPUT_BASE = 0;
     /**
-     * {@link Integer The addition ingredient input slot id}
+     * {@link Integer The Addition Ingredient Slot Id}
      */
     private static final int SLOT_INPUT_ADDITION = 1;
     /**
-     * {@link Integer The fuel input slot id}
+     * {@link Integer The Fuel Slot Id}
      */
     private static final int SLOT_INPUT_FUEL = 2;
     /**
-     * {@link Integer The result output slot id}
+     * {@link Integer The Result Slot Id}
      */
     private static final int SLOT_OUTPUT_RESULT = 3;
     /**
-     * {@link Integer The interactable slots for the upper face}
+     * {@link Integer The Hopper Interactable Slots for the Upper Face}
      */
     private static final int[] SLOTS_FOR_UP = new int[]{SLOT_INPUT_BASE, SLOT_INPUT_ADDITION};
     /**
-     * {@link Integer The interactable slots for the bottom face}
+     * {@link Integer The Hopper Interactable Slots for the Lower Face}
      */
     private static final int[] SLOTS_FOR_DOWN = new int[]{SLOT_INPUT_FUEL, SLOT_OUTPUT_RESULT};
     /**
-     * {@link Integer The interactable slots for the side face}
+     * {@link Integer The Hopper Interactable Slots for the Side Faces}
      */
     private static final int[] SLOTS_FOR_SIDES = new int[]{SLOT_INPUT_FUEL};
     /**
-     * {@link String The lit time nbt key}
+     * {@link String The Lit Time NBT key}
      */
     private final String LIT_TIME_NBT_KEY = "LitTime";
     /**
-     * {@link String The forging progress nbt key}
+     * {@link String The Forging Progress NBT key}
      */
     private final String FORGING_PROGRESS_NBT_KEY = "ForgingProgress";
     /**
-     * {@link String The forging total time nbt key}
+     * {@link String The Forging Total Time NBT key}
      */
     private final String FORGING_TOTAL_TIME_NBT_KEY = "ForgingTotalTime";
     /**
-     * {@link String The recipes used nbt key}
+     * {@link String The Recipes Used NBT key}
      */
     private final String RECIPES_USED_NBT_KEY = "RecipesUsed";
     /**
-     * {@link Integer The forging table container size}
+     * {@link Integer The Container size}
      */
     private final int CONTAINER_SIZE = 4;
     /**
-     * {@link NonNullList<ItemStack> The forging table items}
+     * {@link NonNullList<ItemStack> The Container content}
      */
     private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
     /**
-     * {@link Integer The forging table lit time}
+     * {@link Integer The Forging Table Lit Time}
      */
     private int litTime;
     /**
-     * {@link Integer The forging table lit duration}
+     * {@link Integer The Forging Table Lit duration}
      */
     private int litDuration;
     /**
-     * {@link Integer The forging table current forging progress}
+     * {@link Integer The Forging Table current forging progress}
      */
     private int forgingProgress;
     /**
-     * {@link Integer The forging table total forging time}
+     * {@link Integer The Forging Table total forging time}
      */
     private int forgingTotalTime;
     /**
-     * {@link ContainerData The container data access}
+     * {@link ContainerData The Container Data Access}
      */
     private final ContainerData dataAccess = new ContainerData() {
 
         /**
-         * Get a data value from the container
+         * Get a Data Value from the Container
          *
-         * @param index {@link Integer The data value index}
-         * @return {@link Integer The data value}
+         * @param index {@link Integer The Data Value index}
+         * @return {@link Integer The Data Value}
          */
         public int get(final int index) {
             return switch (index) {
@@ -148,10 +147,10 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
         }
 
         /**
-         * Set a data value on the container
+         * Set a Data Value on the Container
          *
-         * @param index {@link Integer The data value index}
-         * @param value {@link Integer The data value to set}
+         * @param index {@link Integer The Data Value index}
+         * @param value {@link Integer The Data Value to set}
          */
         public void set(final int index, final int value) {
             switch (index) {
@@ -163,43 +162,43 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
         }
 
         /**
-         * Get the number of data values
+         * Get the number of Data Values
          *
-         * @return {@link Integer 4}
+         * @return {@link ForgingTableBlockEntity#CONTAINER_SIZE 4}
          */
         public int getCount() {
-            return 4;
+            return CONTAINER_SIZE;
         }
     };
     /**
-     * {@link Object2IntOpenHashMap<ResourceLocation> The used recipes map}
+     * {@link Object2IntOpenHashMap<ResourceLocation> The used Recipes map}
      */
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
     /**
-     * {@link RecipeManager.CachedCheck The quick recipe check}
+     * {@link RecipeManager.CachedCheck The Quick Recipe check manager}
      */
     private final RecipeManager.CachedCheck<Container, ? extends ForgingRecipe> quickCheck;
     /**
-     * {@link IItemHandler The forging table sided inventory item handlers}
+     * {@link IItemHandler The Container Sided Inventory Item Handlers}
      */
     private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
     /**
-     * Constructor. Set the block entity properties
+     * Constructor. Set the Block Entity properties
      *
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
+     * @param blockPos {@link BlockPos The Block Entity Block POs}
+     * @param blockState {@link BlockState The Block State for the Block Entity}
      */
     public ForgingTableBlockEntity(final BlockPos blockPos, final BlockState blockState) {
         this(blockPos, blockState, MWRecipeTypes.FORGING.get());
     }
 
     /**
-     * Constructor. Set the block entity properties and {@link RecipeType recipe type}
+     * Constructor. Set the Block Entity properties
      *
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @param recipeType {@link RecipeType The forging table recipe type}
+     * @param blockPos {@link BlockPos The Block Entity Block POs}
+     * @param blockState {@link BlockState The Block State for the Block Entity}
+     * @param recipeType {@link RecipeType<ForgingRecipe> The Recipe Type}
      */
     public ForgingTableBlockEntity(final BlockPos blockPos, final BlockState blockState, final RecipeType<? extends ForgingRecipe> recipeType) {
         super(MWBlockEntityTypes.FORGING_TABLE.get(), blockPos, blockState);
@@ -207,9 +206,9 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Load the forging table properties from the {@link CompoundTag nbt data}
+     * Load the Container content from the {@link CompoundTag NBT Tags}
      *
-     * @param nbt {@link CompoundTag The nbt data}
+     * @param nbt {@link CompoundTag The NBT Tags}
      */
     @Override
     public void load(final @NotNull CompoundTag nbt) {
@@ -221,13 +220,13 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
         this.forgingTotalTime = nbt.getInt(FORGING_TOTAL_TIME_NBT_KEY);
         this.litDuration = this.getBurnDuration(this.items.get(1));
         final CompoundTag recipesUsedNbt = nbt.getCompound(RECIPES_USED_NBT_KEY);
-        recipesUsedNbt.getAllKeys().forEach(recipe -> this.recipesUsed.put(KeyHelper.parseLocation(recipe), recipesUsedNbt.getInt(recipe)));
+        recipesUsedNbt.getAllKeys().forEach(recipe -> this.recipesUsed.put(ResourceHelper.parse(recipe), recipesUsedNbt.getInt(recipe)));
     }
 
     /**
-     * Save the forging table properties to the {@link CompoundTag nbt data}
+     * Save the Container content to the {@link CompoundTag NBT Tags}
      *
-     * @param nbt {@link CompoundTag The nbt data}
+     * @param nbt {@link CompoundTag The NBT Tags}
      */
     @Override
     protected void saveAdditional(final @NotNull CompoundTag nbt) {
@@ -242,9 +241,9 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link Component forging table container name}
+     * Get the {@link Component Container default name}
      *
-     * @return {@link Component The forging table container name}
+     * @return {@link ForgingTableBlock#CONTAINER_TITLE The Forging Table Container Title Component}
      */
     @Override
     protected @NotNull Component getDefaultName() {
@@ -252,11 +251,11 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link AbstractContainerMenu forging table menu}
+     * Create the {@link AbstractContainerMenu Container Menu}
      *
-     * @param id {@link Integer The forging table menu id}
-     * @param inventory {@link Inventory The forging table inventory}
-     * @return {@link AbstractContainerMenu The forging table menu}
+     * @param id {@link Integer The Menu Id}
+     * @param inventory {@link Inventory The Menu Inventory}
+     * @return {@link ForgingTableMenu The Forging Table Menu}
      */
     @Override
     protected @NotNull AbstractContainerMenu createMenu(final int id, final @NotNull Inventory inventory) {
@@ -264,41 +263,41 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Check if an {@link ItemStack item} is a forging table fuel
+     * Check if an {@link ItemStack Item Stack} is a Forging Table Fuel
      *
-     * @param itemStack {@link ItemStack The item stack to check}
-     * @return {@link Boolean True if is a lava bucket}
+     * @param itemStack {@link ItemStack The Item Stack to check}
+     * @return {@link Boolean True if is a Forging Table Fuel}
      */
     public static boolean isFuel(final ItemStack itemStack) {
         return itemStack.is(Items.LAVA_BUCKET);
     }
 
     /**
-     * Get the {@link ItemStack item burn duration}
+     * Get the {@link ItemStack Item burn duration}
      *
-     * @param itemStack {@link ItemStack The item stack to get the burn duration from}
-     * @return {@link Integer 20000 if is a forging table fuel, 0 otherwise or if the item stack is empty}
+     * @param itemStack {@link ItemStack The current Item Stack}
+     * @return {@link Integer 20000 if is a Forging Table Fuel}
      */
-    private int getBurnDuration(ItemStack itemStack) {
+    private int getBurnDuration(final ItemStack itemStack) {
         return itemStack.isEmpty() || !isFuel(itemStack) ? 0 : 20000;
     }
 
     /**
-     * Check if the forging table is lit
+     * Check if the Forging Table is Lit
      *
-     * @return {@link Boolean True if the lit time is greater than 0}
+     * @return {@link Boolean True if is Lit}
      */
     private boolean isLit() {
         return this.litTime > 0;
     }
 
     /**
-     * Make the forging table tick
+     * Tick the Forging Table
      *
      * @param level {@link Level The level reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @param blockEntity {@link ForgingTableBlockEntity The forging table block entity}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockEntity {@link ForgingTableBlockEntity The Forging Table Block Entity}
      */
     public static void serverTick(final Level level, final BlockPos blockPos, BlockState blockState, final ForgingTableBlockEntity blockEntity) {
         boolean isLit = blockEntity.isLit();
@@ -351,23 +350,23 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Check if there are ingredients
+     * Check if the Forging Table has some {@link Ingredient Ingredients}
      *
-     * @param items {@link NonNullList<ItemStack> The items to check}
-     * @return {@link Boolean True if the first 2 items are not empty}
+     * @param items {@link NonNullList<ItemStack> The Container Items}
+     * @return {@link Boolean True if the Input Slots has some Ingredients}
      */
     private static boolean hasIngredients(final NonNullList<ItemStack> items) {
         return items.size() >= 2 && !items.get(SLOT_INPUT_BASE).isEmpty() && !items.get(SLOT_INPUT_ADDITION).isEmpty();
     }
 
     /**
-     * Check if a recipe can be processed
+     * Check if a {@link Recipe Recipe} can be processed
      *
-     * @param registryAccess {@link RegistryAccess The registry access}
-     * @param recipe {@link Recipe The recipe to check}
-     * @param items {@link NonNullList<ItemStack> The recipe ingredients}
-     * @param count {@link Integer The recipe result count}
-     * @return {@link Boolean True if the recipe can be processed}
+     * @param registryAccess {@link RegistryAccess The Registry Access reference}
+     * @param recipe {@link Recipe The current Recipe}
+     * @param items {@link NonNullList<ItemStack> The Recipe Ingredients}
+     * @param count {@link Integer The Recipe Result count}
+     * @return {@link Boolean True if the Recipe can be processed}
      */
     private boolean canBurn(final RegistryAccess registryAccess, final @Nullable Recipe<?> recipe, final NonNullList<ItemStack> items, final int count) {
         if (hasIngredients(items) && recipe != null) {
@@ -388,13 +387,13 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Forge an item
+     * Forge an {@link ItemStack Item}
      *
-     * @param registryAccess {@link RegistryAccess The registry access}
-     * @param recipe {@link Recipe The recipe to process}
-     * @param items {@link NonNullList<ItemStack> The recipe ingredients}
-     * @param count {@link Integer The recipe result count}
-     * @return {@link Boolean True if the items has been forge successfully}
+     * @param registryAccess {@link RegistryAccess The Registry Access reference}
+     * @param recipe {@link Recipe The current Recipe}
+     * @param items {@link NonNullList<ItemStack> The Recipe Ingredients}
+     * @param count {@link Integer The Recipe Result count}
+     * @return {@link Boolean True if the Item has been forged successfully}
      */
     private boolean forge(final RegistryAccess registryAccess, final @Nullable Recipe<?> recipe, final NonNullList<ItemStack> items, final int count) {
         if (recipe != null && this.canBurn(registryAccess, recipe, items, count)) {
@@ -416,10 +415,10 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link Integer total forging time}
+     * Get the {@link Integer total Forging time}
      *
      * @param level {@link Level The level reference}
-     * @param blockEntity {@link BlockEntity The forging table block entity}
+     * @param blockEntity {@link BlockEntity The Forging Table Block Entity}
      * @return {@link Integer 400}
      */
     private static int getTotalForgingTime(final Level level, final ForgingTableBlockEntity blockEntity) {
@@ -427,11 +426,10 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link Integer slots} based on the {@link Direction face}
-     * for interaction with hoppers
+     * Get the {@link Integer Hopper interactable Slots} based on the {@link Direction Face}
      *
-     * @param direction {@link Direction The face the hopper is interacting from}
-     * @return {@link Integer The interactable slots}
+     * @param direction {@link Direction The Face the Hopper is interacting from}
+     * @return {@link Integer The Hopper interactable Slots}
      */
     @Override
     public int @NotNull [] getSlotsForFace(final @NotNull Direction direction) {
@@ -443,12 +441,12 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Check if an item can be placed by a hopper from a face
+     * Check if an {@link ItemStack Item} can be placed by a Hopper from a Face
      *
-     * @param slotId {@link Integer The slot id}
-     * @param itemStack {@link ItemStack The item stack to place}
-     * @param direction {@link Direction The face the hopper is interacting from}
-     * @return {@link Boolean True if the item can be placed}
+     * @param slotId {@link Integer The Container Slot Id}
+     * @param itemStack {@link ItemStack The Item Stack to place}
+     * @param direction {@link Direction The Face the Hopper is interacting from}
+     * @return {@link Boolean True if the Item can be placed}
      */
     @Override
     public boolean canPlaceItemThroughFace(final int slotId, final @NotNull ItemStack itemStack, final @Nullable Direction direction) {
@@ -456,12 +454,12 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Check if an item can be taken through a face by a hopper
+     * Check if an {@link ItemStack Item} can be taken by a Hopper from a Face
      *
-     * @param slotId {@link Integer The slot id}
-     * @param itemStack {@link ItemStack The item stack to take}
-     * @param direction {@link Direction The face the hopper is interacting from}
-     * @return {@link Boolean True if the item can be taken}
+     * @param slotId {@link Integer The Container Slot Id}
+     * @param itemStack {@link ItemStack The Item Stack to take}
+     * @param direction {@link Direction The Face the Hopper is interacting from}
+     * @return {@link Boolean#TRUE True}
      */
     @Override
     public boolean canTakeItemThroughFace(final int slotId, final @NotNull ItemStack itemStack, final @NotNull Direction direction) {
@@ -469,9 +467,9 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link Integer container size}
+     * Get the {@link Integer Container Size}
      *
-     * @return {@link #CONTAINER_SIZE 4}
+     * @return {@link Integer 1}
      */
     @Override
     public int getContainerSize() {
@@ -479,9 +477,9 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Check if the container is empty
+     * Check if the Container is empty
      *
-     * @return {@link Boolean True if all items are empty}
+     * @return {@link Boolean True if there are no Items}
      */
     @Override
     public boolean isEmpty() {
@@ -489,44 +487,44 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get an {@link ItemStack item} from the container
+     * Get an {@link Item Item} from the Container
      *
-     * @param index {@link Integer The container index}
-     * @return {@link ItemStack The item stack}
+     * @param slotId {@link Integer The Container Slot Id}
+     * @return {@link ItemStack The Item Stack}
      */
     @Override
-    public @NotNull ItemStack getItem(final int index) {
-        return this.items.get(index);
+    public @NotNull ItemStack getItem(final int slotId) {
+        return this.items.get(slotId);
     }
 
     /**
-     * Remove an item from the container
+     * Remove an {@link Item Item} from the Container
      *
-     * @param index {@link Integer The container index}
-     * @param count {@link Integer The amount of items to take}
-     * @return {@link ItemStack The removed item stack}
+     * @param slotId {@link Integer The Container Slot Id}
+     * @param amount {@link Integer The amount of Items to take}
+     * @return {@link ItemStack The removed Item Stack}
      */
     @Override
-    public @NotNull ItemStack removeItem(final int index, final int count) {
-        return ContainerHelper.removeItem(this.items, index, count);
+    public @NotNull ItemStack removeItem(final int slotId, final int amount) {
+        return ContainerHelper.removeItem(this.items, slotId, amount);
     }
 
     /**
-     * Remove an item from the container without causing updates
+     * Remove an {@link Item Item} from the Container without causing updates
      *
-     * @param index {@link Integer The container index}
-     * @return {@link ItemStack The removed item stack}
+     * @param slotId {@link Integer The Container Slot Id}
+     * @return {@link ItemStack The removed Item Stack}
      */
     @Override
-    public @NotNull ItemStack removeItemNoUpdate(final int index) {
-        return ContainerHelper.takeItem(this.items, index);
+    public @NotNull ItemStack removeItemNoUpdate(final int slotId) {
+        return ContainerHelper.takeItem(this.items, slotId);
     }
 
     /**
-     * Set an item inside the container
+     * Set an {@link Item Item} inside the Container
      *
-     * @param slotId {@link Integer The container slot id}
-     * @param itemStack {@link ItemStack The item stack to set}
+     * @param slotId {@link Integer The Container Slot Id}
+     * @param itemStack {@link ItemStack The Item Stack to set}
      */
     @Override
     public void setItem(final int slotId, final ItemStack itemStack) {
@@ -545,10 +543,10 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Check if the container is still valid
+     * Check if a {@link Player Player} can still interact with the {@link BlockEntity Block Entity}
      *
-     * @param player {@link Player The player interacting with the container}
-     * @return {@link Boolean True if is still valid}
+     * @param player {@link Player The Player interacting with the Block Entity}
+     * @return {@link Boolean True if the Block Entity can still be interacted}
      */
     @Override
     public boolean stillValid(final @NotNull Player player) {
@@ -556,11 +554,11 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Check if an item can be placed inside the container
+     * Check if an {@link ItemStack Item} can be placed inside the Container
      *
-     * @param slotId {@link Integer The container slot id}
-     * @param itemStack {@link ItemStack The item stack to place}
-     * @return {@link Boolean True if the item can be placed}
+     * @param slotId {@link Integer The Container Slot Id}
+     * @param itemStack {@link ItemStack The Item Stack to place}
+     * @return {@link Boolean True if the Item can be placed}
      */
     @Override
     public boolean canPlaceItem(final int slotId, final @NotNull ItemStack itemStack) {
@@ -572,7 +570,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Clear the container content
+     * Clear the Container Content
      */
     @Override
     public void clearContent() {
@@ -580,9 +578,9 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Mark a {@link Recipe recipe} as used
+     * Mark a {@link Recipe Recipe} as used
      *
-     * @param recipe {@link Recipe The recipe}
+     * @param recipe {@link Recipe The Recipe}
      */
     @Override
     public void setRecipeUsed(final @Nullable RecipeHolder<?> recipe) {
@@ -592,7 +590,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link Recipe used recipe}
+     * Get the {@link Recipe used Recipe}
      *
      * @return {@link Recipe Null}
      */
@@ -603,18 +601,18 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Award the {@link Player player} with the used recipe and experience
+     * Award the {@link Player Player} with the used {@link Recipe Recipes}
      *
-     * @param player {@link Player The player to award}
-     * @param itemStacks {@link List<ItemStack> The recipe item stacks}
+     * @param player {@link Player The Player to award}
+     * @param itemStacks {@link List<ItemStack> The Recipe Results}
      */
     public void awardUsedRecipes(@NotNull Player player, @NotNull List<ItemStack> itemStacks) {
     }
 
     /**
-     * Award the {@link ServerPlayer player} with the used recipe and experience
+     * Award the {@link Player Player} with the used {@link Recipe Recipes} and experience
      *
-     * @param player {@link ServerPlayer The player to award}
+     * @param player {@link Player The Player to award}
      */
     public void awardUsedRecipesAndPopExperience(final ServerPlayer player) {
         player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.serverLevel(), player.position()));
@@ -622,11 +620,11 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Get the {@link List<Recipe> recipes to award} to the {@link ServerPlayer player}
+     * Get the {@link List<Recipe> Recipes} to award to the {@link ServerPlayer Player}
      *
-     * @param player {@link Player The player to award}
-     * @param position {@link Vec3 The player position}
-     * @return {@link List<Recipe> The recipe list}
+     * @param player {@link Player The Player to award}
+     * @param position {@link Vec3 The Player position}
+     * @return {@link List<Recipe> The Recipes}
      */
     public List<RecipeHolder<?>> getRecipesToAwardAndPopExperience(final ServerLevel player, final Vec3 position) {
         final List<RecipeHolder<?>> recipes = Lists.newArrayList();
@@ -643,11 +641,11 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
      * Create some experience orbs
      *
      * @param level {@link ServerLevel The level reference}
-     * @param position {@link Vec3 The current position}
+     * @param position {@link Vec3 The current Location}
      * @param count {@link Integer How may orbs to create}
      * @param amount {@link Float The amount of experience to get}
      */
-    private static void createExperience(ServerLevel level, Vec3 position, int count, float amount) {
+    private static void createExperience(final ServerLevel level, final Vec3 position, final int count, final float amount) {
         int orbCount = Mth.floor((float)count * amount);
         final float extraOrbChance = Mth.frac((float)count * amount);
         if (extraOrbChance != 0.0F && Math.random() < (double)extraOrbChance) {
@@ -657,36 +655,36 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Fill the {@link StackedContents stacked contents}
+     * Fill the {@link StackedContents Stacked Contents}
      *
-     * @param stackedContents {@link StackedContents The stacked contents}
+     * @param stackedContents {@link StackedContents The Stacked Contents}
      */
     public void fillStackedContents(final @NotNull StackedContents stackedContents) {
         this.items.forEach(item -> stackedContents.accountStack(item));
     }
 
     /**
-     * Get the {@link Capability forging table capability} based on the {@link Direction direction}
+     * Get the {@link T Container Capability}
      *
-     * @param capability {@link Capability The forging table capability}
-     * @param direction {@link Direction The direction to get the capability from}
-     * @return {@link LazyOptional<T> The forging table capability}
-     * @param <T> {@link T The capability type}
+     * @param capability {@link Capability<T> The Capability to check}
+     * @param side {@link Direction The Side to check from}
+     * @return {@link LazyOptional<T> The Container Capability}
+     * @param <T> The Capability type
      */
     @Override
-    public <T> @NotNull LazyOptional<T> getCapability(final @NotNull Capability<T> capability, @Nullable Direction direction) {
-        if (!this.remove && direction != null && ForgeCapabilities.ITEM_HANDLER.equals(capability)) {
-            return switch (direction) {
+    public <T> @NotNull LazyOptional<T> getCapability(final @NotNull Capability<T> capability, final @Nullable Direction side) {
+        if (!this.remove && side != null && ForgeCapabilities.ITEM_HANDLER.equals(capability)) {
+            return switch (side) {
                 case UP -> handlers[0].cast();
                 case DOWN -> handlers[1].cast();
                 default -> handlers[2].cast();
             };
         }
-        return super.getCapability(capability, direction);
+        return super.getCapability(capability, side);
     }
 
     /**
-     * Invalidate the forging table capabilities
+     * Invalidate the Container Capabilities
      */
     @Override
     public void invalidateCaps() {
@@ -695,7 +693,7 @@ public class ForgingTableBlockEntity extends BaseContainerBlockEntity implements
     }
 
     /**
-     * Revive the forging table capabilities
+     * Initialize the Container Capabilities
      */
     @Override
     public void reviveCaps() {

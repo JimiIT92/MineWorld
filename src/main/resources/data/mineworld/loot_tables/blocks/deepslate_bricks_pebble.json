@@ -128,5 +128,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/deepslate_bricks_pebble"
 }

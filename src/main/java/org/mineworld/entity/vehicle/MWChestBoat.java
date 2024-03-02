@@ -31,43 +31,43 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
-
-import javax.annotation.Nullable;
+import org.mineworld.entity.block.MWPrimedTnt;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link ChestBoat chest boat}
+ * {@link MineWorld MineWorld} {@link ChestBoat Chest Boat Entity}
  */
 public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, ContainerEntity {
 
     /**
-     * {@link Integer The chest boat container size}
+     * {@link Integer The Chest Boat Container size}
      */
     private static final int CONTAINER_SIZE = 27;
     /**
-     * {@link NonNullList<ItemStack> The chest boat content}
+     * {@link NonNullList<ItemStack> The Chest Boat content}
      */
-    private NonNullList<ItemStack> itemStacks = NonNullList.withSize(27, ItemStack.EMPTY);
+    private NonNullList<ItemStack> itemStacks = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
     /**
-     * {@link ResourceLocation The chest boat loot table}
+     * {@link ResourceLocation The Chest Boat Loot Table}
      */
     @Nullable
     private ResourceLocation lootTable;
     /**
-     * {@link Long The chest boat loot table seed}
+     * {@link Long The Chest Boat Loot Table seed}
      */
     private long lootTableSeed;
     /**
-     * {@link LazyOptional<InvWrapper> The chest id handler}
+     * {@link LazyOptional<InvWrapper> The Chest Boat Item Handler}
      */
     private LazyOptional<?> itemHandler = LazyOptional.of(() -> new InvWrapper(this));
 
     /**
-     * Constructor. Set the {@link EntityType boat entity type}
+     * Constructor. Set the {@link EntityType Entity Type}
      *
-     * @param entityType {@link EntityType The boat entity type}
+     * @param entityType {@link EntityType The Entity Type}
      * @param level {@link Level The level reference}
      */
     public MWChestBoat(final EntityType<? extends Boat> entityType, final Level level) {
@@ -75,12 +75,12 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Full constructor. Set the {@link BlockPos boat pos}
+     * Constructor. Set the {@link BlockPos Minecart Block Pos} and {@link MWPrimedTnt.Type the TNT Type}
      *
      * @param level {@link Level The level reference}
-     * @param posX {@link Double The boat X coordinate}
-     * @param posY {@link Double The boat Y coordinate}
-     * @param posZ {@link Double The boat Z coordinate}
+     * @param posX {@link Double The minecart X coordinate}
+     * @param posY {@link Double The minecart Y coordinate}
+     * @param posZ {@link Double The minecart Z coordinate}
      */
     public MWChestBoat(final Level level, final double posX, final double posY, final double posZ) {
         this(MWEntityTypes.CHEST_BOAT.get(), level);
@@ -91,9 +91,9 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Get the {@link Float passenger X coordinate offset}
+     * Get the {@link Float Passenger X Offset}
      *
-     * @return {@link Float 0.15}
+     * @return {@link Float 0.15F}
      */
     protected float getSinglePassengerXOffset() {
         return 0.15F;
@@ -109,9 +109,9 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Save the chest content on the {@link CompoundTag boat nbt data}
+     * Save the {@link CompoundTag Entity NBT Data}
      *
-     * @param nbt {@link CompoundTag The boat nbt data}
+     * @param nbt {@link CompoundTag The Entity NBT Data}
      */
     protected void addAdditionalSaveData(final CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
@@ -119,9 +119,9 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Read the chest content from the {@link CompoundTag boat nbt data}
+     * Read the {@link CompoundTag Entity NBT Data}
      *
-     * @param nbt {@link CompoundTag The boat nbt data}
+     * @param nbt {@link CompoundTag The Entity NBT Data}
      */
     protected void readAdditionalSaveData(final CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
@@ -129,9 +129,9 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Drop the chest content on boat destroyed
+     * Drop the Chest Content when the Boat is destroyed
      *
-     * @param damageSource {@link DamageSource The damage source that destroyed the boat}
+     * @param damageSource {@link DamageSource The Damage Source that destroyed the Boat}
      */
     public void destroy(final @NotNull DamageSource damageSource) {
         super.destroy(damageSource);
@@ -139,9 +139,9 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Remove the chest boat from the {@link Level level}
+     * Remove the Chest Boat from the {@link Level level}
      *
-     * @param removalReason {@link Entity.RemovalReason The reason why the entity has been removed}
+     * @param removalReason {@link Entity.RemovalReason The reason why the Chest Boat has been removed}
      */
     public void remove(final Entity.@NotNull RemovalReason removalReason) {
         if (!this.level().isClientSide && removalReason.shouldDestroy()) {
@@ -151,15 +151,15 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Open the chest on {@link Player player} interaction
+     * Interact with the {@link Entity Entity}
      *
-     * @param player {@link Player The player interacting with the boat}
-     * @param interactionHand {@link InteractionHand The hand the player is interacting with}
+     * @param player {@link Player The Player interacting with the Entity}
+     * @param hand {@link InteractionHand The hand the Player is interacting with}
      * @return {@link InteractionResult The interaction result}
      */
-    public @NotNull InteractionResult interact(final @NotNull Player player, final @NotNull InteractionHand interactionHand) {
+    public @NotNull InteractionResult interact(final @NotNull Player player, final @NotNull InteractionHand hand) {
         if (this.canAddPassenger(player) && !player.isSecondaryUseActive()) {
-            return super.interact(player, interactionHand);
+            return super.interact(player, hand);
         }
         final InteractionResult interactionresult = this.interactWithContainerVehicle(player);
         if (interactionresult.consumesAction()) {
@@ -170,11 +170,11 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Open the chest GUI
+     * Open the Chest Screen
      *
-     * @param player {@link Player The player opening the chest}
+     * @param player {@link Player The Player opening the Chest}
      */
-    public void openCustomInventoryScreen(Player player) {
+    public void openCustomInventoryScreen(final Player player) {
         player.openMenu(this);
         if (!player.level().isClientSide) {
             this.gameEvent(GameEvent.CONTAINER_OPEN, player);
@@ -183,11 +183,13 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Get the {@link Item dropped id} when the boat is broken
+     * Get the {@link Item dropped Item Stack}
      *
-     * @return {@link Item The boat dropped id}
+     * @return {@link Item The dropped Item Stack}
      */
-    public @NotNull Item getDropItem() {
+    @Override
+    @NotNull
+    public Item getDropItem() {
         return switch (this.getBoatType()) {
             case CRIMSON -> MWItems.CRIMSON_CHEST_BOAT.get();
             case WARPED -> MWItems.WARPED_CHEST_BOAT.get();
@@ -199,94 +201,94 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Clear the chest content
+     * Clear the Chest Content
      */
     public void clearContent() {
         this.clearChestVehicleContent();
     }
 
     /**
-     * Get the {@link Integer chest content size}
+     * Get the {@link Integer Container Size}
      *
-     * @return {@link Integer 27}
+     * @return {@link #CONTAINER_SIZE 27}
      */
     public int getContainerSize() {
-        return 27;
+        return CONTAINER_SIZE;
     }
 
     /**
-     * Get an id from the chest
+     * Get an {@link Item Item} from the Chest
      *
-     * @param slotId {@link Integer The chest slot id}
-     * @return {@link ItemStack The id stack}
+     * @param slotId {@link Integer The Chest Slot Id}
+     * @return {@link ItemStack The Item Stack}
      */
     public @NotNull ItemStack getItem(final int slotId) {
         return this.getChestVehicleItem(slotId);
     }
 
     /**
-     * Remove an id from the chest
+     * Remove an {@link Item Item} from the Chest
      *
-     * @param slotId {@link Integer The chest slot id}
-     * @param amount {@link Integer The amount of items to take}
-     * @return {@link ItemStack The removed id stack}
+     * @param slotId {@link Integer The Chest Slot Id}
+     * @param amount {@link Integer The amount of Items to take}
+     * @return {@link ItemStack The removed Item Stack}
      */
     public @NotNull ItemStack removeItem(final int slotId, final int amount) {
         return this.removeChestVehicleItem(slotId, amount);
     }
 
     /**
-     * Remove an id from the chest without updating
+     * Remove an {@link Item Item} from the Chest without causing updates
      *
-     * @param slotId {@link Integer The chest slot id}
-     * @return {@link ItemStack The removed id stack}
+     * @param slotId {@link Integer The Chest Slot Id}
+     * @return {@link ItemStack The removed Item Stack}
      */
     public @NotNull ItemStack removeItemNoUpdate(final int slotId) {
         return this.removeChestVehicleItemNoUpdate(slotId);
     }
 
     /**
-     * Set an id inside the chest
+     * Set an {@link Item Item} inside the Chest
      *
-     * @param slotId {@link Integer The chest slot id}
-     * @param itemStack {@link ItemStack The id stack to set}
+     * @param slotId {@link Integer The Chest Slot Id}
+     * @param itemStack {@link ItemStack The Item Stack to set}
      */
     public void setItem(final int slotId, final @NotNull ItemStack itemStack) {
         this.setChestVehicleItem(slotId, itemStack);
     }
 
     /**
-     * Get a {@link SlotAccess chest slot}
+     * Get a {@link SlotAccess Chest Slot}
      *
-     * @param slotId {@link Integer The chest slot id}
-     * @return {@link SlotAccess The chest slot}
+     * @param slotId {@link Integer The Chest Slot Id}
+     * @return {@link SlotAccess The Chest Slot}
      */
     public @NotNull SlotAccess getSlot(final int slotId) {
         return this.getChestVehicleSlot(slotId);
     }
 
     /**
-     * Mark boat changes
+     * Set the {@link Entity Entity} as changed
      */
     public void setChanged() { }
 
     /**
-     * Check if the boat is still valid
+     * Check if a {@link Player Player} can still interact with the {@link Entity Entity}
      *
-     * @param player {@link Player The player interacting with the boat}
-     * @return {@link Boolean True if the boat is still valid}
+     * @param player {@link Player The Player interacting with the Entity}
+     * @return {@link Boolean True if the Entity can still be interacted}
      */
     public boolean stillValid(final @NotNull Player player) {
         return this.isChestVehicleStillValid(player);
     }
 
     /**
-     * Create the chest menu
+     * Create the {@link AbstractContainerMenu Container Menu}
      *
-     * @param size {@link Integer The menu size}
-     * @param inventory {@link Inventory The menu inventory}
-     * @param player {@link Player The player to show the menu}
-     * @return {@link AbstractContainerMenu The chest menu}
+     * @param size {@link Integer The Menu size}
+     * @param inventory {@link Inventory The Menu Inventory}
+     * @param player {@link Player The Player opening the Menu}
+     * @return {@link ChestMenu The Chest Menu}
      */
     @Nullable
     public AbstractContainerMenu createMenu(final int size, final @NotNull Inventory inventory, final @NotNull Player player) {
@@ -298,18 +300,18 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Fill the chest with the {@link LootTable loot table}
+     * Fill the Chest with a {@link LootTable Loot Table}
      *
-     * @param player {@link Player The player opening the chest}
+     * @param player {@link Player The Player opening the Chest}
      */
     public void unpackLootTable(final @Nullable Player player) {
         this.unpackChestVehicleLootTable(player);
     }
 
     /**
-     * Get the {@link ResourceLocation chest loot table}
+     * Get the {@link ResourceLocation Chest Loot Table}
      *
-     * @return {@link ResourceLocation The chest loot table}
+     * @return {@link ResourceLocation The Chest Loot Table}
      */
     @Nullable
     public ResourceLocation getLootTable() {
@@ -317,63 +319,63 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Set the {@link ResourceLocation chest loot table}
+     * Set the {@link ResourceLocation Chest Loot Table}
      *
-     * @param lootTable {@link ResourceLocation The chest loot table}
+     * @param lootTable {@link ResourceLocation The Chest Loot Table}
      */
     public void setLootTable(final @Nullable ResourceLocation lootTable) {
         this.lootTable = lootTable;
     }
 
     /**
-     * Get the {@link Long loot table seed}
+     * Get the {@link Long Chest Loot Table Seed}
      *
-     * @return {@link Long The loot table seed}
+     * @return {@link Long The Chest Loot Table Seed}
      */
     public long getLootTableSeed() {
         return this.lootTableSeed;
     }
 
     /**
-     * Set the {@link Long loot table seed}
+     * Set the {@link Long Chest Loot Table Seed}
      *
-     * @param seed {@link Long The loot table seed}
+     * @param seed {@link Long The Chest Loot Table Seed}
      */
     public void setLootTableSeed(final long seed) {
         this.lootTableSeed = seed;
     }
 
     /**
-     * Get the {@link NonNullList<ItemStack> chest content}
+     * Get the {@link NonNullList<ItemStack> Chest content}
      *
-     * @return {@link NonNullList<ItemStack> The chest content}
+     * @return {@link NonNullList<ItemStack> The Chest content}
      */
     public @NotNull NonNullList<ItemStack> getItemStacks() {
         return this.itemStacks;
     }
 
     /**
-     * Clear the chest content
+     * Clear the Chest content
      */
     public void clearItemStacks() {
         this.itemStacks = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
     }
 
     /**
-     * Get the {@link LazyOptional<T> chest boat capability}
+     * Get the {@link T Container Capability}
      *
-     * @param capability {@link Capability<T> The capability to check}
-     * @param facing {@link Direction The direction to check}
-     * @return {@link LazyOptional<T> The chest boat capability, if any}
-     * @param <T> {@link T The capability type}
+     * @param capability {@link Capability<T> The Capability to check}
+     * @param side {@link Direction The Side to check from}
+     * @return {@link LazyOptional<T> The Container Capability}
+     * @param <T> The Capability type
      */
     @Override
-    public <T> @NotNull LazyOptional<T> getCapability(final @NotNull Capability<T> capability, final @Nullable Direction facing) {
-        return this.isAlive() && ForgeCapabilities.ITEM_HANDLER.equals(capability) ? itemHandler.cast() : super.getCapability(capability, facing);
+    public <T> @NotNull LazyOptional<T> getCapability(final @NotNull Capability<T> capability, final @Nullable Direction side) {
+        return this.isAlive() && ForgeCapabilities.ITEM_HANDLER.equals(capability) ? itemHandler.cast() : super.getCapability(capability, side);
     }
 
     /**
-     * Invalidate the chest boat capabilities
+     * Invalidate the Container Capabilities
      */
     @Override
     public void invalidateCaps() {
@@ -382,7 +384,7 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Initialize the chest boat capabilities
+     * Initialize the Chest Boat Capabilities
      */
     @Override
     public void reviveCaps() {
@@ -391,9 +393,9 @@ public class MWChestBoat extends MWBoat implements HasCustomInventoryScreen, Con
     }
 
     /**
-     * Close the chest
+     * Close the Chest
      *
-     * @param player {@link Player The player closing the chest}
+     * @param player {@link Player The Player closing the Chest}
      */
     public void stopOpen(final @NotNull Player player) {
         this.level().gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));

@@ -11,31 +11,30 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
-import org.mineworld.block.ForgingTableBlock;
-import org.mineworld.helper.KeyHelper;
+import org.mineworld.helper.TextureHelper;
 import org.mineworld.inventory.ForgingTableMenu;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link ForgingTableBlock forging table screen}
+ * {@link MineWorld MineWorld} {@link AbstractContainerScreen Forging Table Screen}
  */
 @OnlyIn(Dist.CLIENT)
 public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu> {
 
     /**
-     * {@link ResourceLocation The forging table texture location}
+     * {@link ResourceLocation The Woodcutter Screen Texture Location}
      */
-    public static final ResourceLocation BACKGROUND_LOCATION = KeyHelper.container("forging_table");
+    public static final ResourceLocation BACKGROUND_LOCATION = TextureHelper.container("forging_table");
     /**
-     * {@link ForgingTableMenu The forging table menu}
+     * {@link ForgingTableMenu The Forging Table Menu}
      */
     private final ForgingTableMenu menu;
 
     /**
-     * Constructor. Set the screen properties
+     * Constructor. Set the {@link AbstractContainerScreen Screen Properties}
      *
-     * @param menu {@link ForgingTableMenu The forging table menu}
-     * @param inventory {@link Inventory The forging table inventory}
-     * @param title {@link Component The forigng table title}
+     * @param menu {@link ForgingTableMenu The Forging Table menu}
+     * @param inventory {@link Inventory The Screen inventory}
+     * @param title {@link Component The Screen Title Component}
      */
     public ForgingTableScreen(ForgingTableMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -43,12 +42,12 @@ public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu
     }
 
     /**
-     * Render the screen
+     * Render the {@link AbstractContainerScreen Screen}
      *
-     * @param guiGraphics {@link GuiGraphics The screen GUI graphics}
-     * @param screenX {@link Integer The screen X coordinate}
-     * @param screenY {@link Integer The screen Y coordinate}
-     * @param partialTicks {@link Float The screen partial ticks}
+     * @param guiGraphics {@link GuiGraphics The Screen Gui Graphics}
+     * @param screenX {@link Integer The Screen X coordinate}
+     * @param screenY {@link Integer The Screen Y coordinate}
+     * @param partialTicks {@link Float The Screen partial ticks}
      */
     public void render(final @NotNull GuiGraphics guiGraphics, final int screenX, final int screenY, final float partialTicks) {
         super.render(guiGraphics, screenX, screenY, partialTicks);
@@ -56,12 +55,12 @@ public class ForgingTableScreen extends AbstractContainerScreen<ForgingTableMenu
     }
 
     /**
-     * Render the forging table background
+     * Render the {@link AbstractContainerScreen Screen} Background
      *
-     * @param guiGraphics {@link GuiGraphics The forging table GUI graphics}
-     * @param partialTicks {@link Float The screen partial ticks}
-     * @param screenX {@link Integer The screen X coordinate}
-     * @param screenY {@link Integer The screen Y coordinate}
+     * @param guiGraphics {@link GuiGraphics The Screen Gui Graphics}
+     * @param partialTicks {@link Float The Screen partial ticks}
+     * @param screenX {@link Integer The Screen X coordinate}
+     * @param screenY {@link Integer The Screen Y coordinate}
      */
     @Override
     protected void renderBg(final @NotNull GuiGraphics guiGraphics, final float partialTicks, final int screenX, final int screenY) {

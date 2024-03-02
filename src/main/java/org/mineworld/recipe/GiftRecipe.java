@@ -8,37 +8,34 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWItems;
 import org.mineworld.core.MWRecipeSerializers;
-import org.mineworld.helper.ItemHelper;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} gift recipe
+ * {@link MineWorld MineWorld} {@link CustomRecipe Gift Recipe}
  */
 public class GiftRecipe extends CustomRecipe {
 
     /**
-     * Constructor. Set the {@link CraftingBookCategory crafting book category}
+     * Constructor. Set the {@link Recipe Recipe Properties}
      *
-     * @param category {@link CraftingBookCategory The crafting book category}
+     * @param category {@link CraftingBookCategory The Crafting Book Category}
      */
     public GiftRecipe(final CraftingBookCategory category) {
         super(category);
     }
 
     /**
-     * Check if some ingredients matches a recipe
+     * Check if the {@link Container Container} {@link Ingredient Ingredients} matches a {@link Recipe Recipe}
      *
-     * @param container {@link Container The container with the ingredients}
+     * @param container {@link Container The Recipe Container}
      * @param level {@link Level The level reference}
-     * @return {@link Boolean True if the ingredients matches some recipe}
+     * @return {@link Boolean True if the Ingredients matches a Recipe}
      */
     @Override
     public boolean matches(final @NotNull CraftingContainer container, final @NotNull Level level) {
@@ -60,15 +57,15 @@ public class GiftRecipe extends CustomRecipe {
     }
 
     /**
-     * Get the {@link ItemStack recipe result} based on the matched recipe
+     * Get the {@link ItemStack Recipe result} based on the matched Recipe
      *
-     * @param container {@link CraftingContainer The crafting container for the recipe}
-     * @param registryAccess {@link RegistryAccess The registry access}
-     * @return {@link ItemStack The recipe result}
+     * @param container {@link Container The container for the Recipe}
+     * @param registryAccess {@link RegistryAccess The Registry access}
+     * @return {@link ItemStack The Recipe result}
      */
     @Override
     public @NotNull ItemStack assemble(final @NotNull CraftingContainer container, final @NotNull RegistryAccess registryAccess) {
-        final ItemStack gift = ItemHelper.getDefaultStack(MWBlocks.GIFT.get());
+        final ItemStack gift = MWBlocks.GIFT.get().asItem().getDefaultInstance();
         final ItemStack content = container.getItems().size() >= 5 ? container.getItem(4) : ItemStack.EMPTY;
         if(!content.isEmpty()) {
             CompoundTag tag = gift.getOrCreateTag();
@@ -83,18 +80,24 @@ public class GiftRecipe extends CustomRecipe {
         return gift;
     }
 
+    /**
+     * Get the crafting {@link NonNullList<ItemStack> remaining Items}
+     *
+     * @param container {@link CraftingContainer The Crafting Container}
+     * @return {@link NonNullList<ItemStack> The crafting remaining Items}
+     */
     public @NotNull NonNullList<ItemStack> getRemainingItems(final CraftingContainer container) {
         container.setItem(4, ItemStack.EMPTY);
-        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
+        final NonNullList<ItemStack> remainingItems = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
 
-        for(int i = 0; i < nonnulllist.size(); ++i) {
-            ItemStack itemstack = container.getItem(i);
-            if (itemstack.hasCraftingRemainingItem()) {
-                nonnulllist.set(i, itemstack.getCraftingRemainingItem());
+        for(int i = 0; i < remainingItems.size(); ++i) {
+            ItemStack itemStack = container.getItem(i);
+            if (itemStack.hasCraftingRemainingItem()) {
+                remainingItems.set(i, itemStack.getCraftingRemainingItem());
             }
         }
 
-        return nonnulllist;
+        return remainingItems;
     }
 
     /**
@@ -102,7 +105,7 @@ public class GiftRecipe extends CustomRecipe {
      *
      * @param width {@link Integer The crafting container width}
      * @param height {@link Integer The crafting container height}
-     * @return {@link Boolean True if the crafting container is consistent of 2 slots}
+     * @return {@link Boolean True if the crafting container is of the correct size}
      */
     @Override
     public boolean canCraftInDimensions(int width, int height) {
@@ -110,9 +113,9 @@ public class GiftRecipe extends CustomRecipe {
     }
 
     /**
-     * Get the {@link RecipeSerializer recipe serializer}
+     * Get the {@link RecipeSerializer Recipe Serializer}
      *
-     * @return {@link RecipeSerializer The recipe serializer}
+     * @return {@link RecipeSerializer The Recipe Serializer}
      */
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {

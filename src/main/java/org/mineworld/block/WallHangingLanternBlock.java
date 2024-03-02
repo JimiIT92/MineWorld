@@ -15,7 +15,10 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -29,90 +32,88 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mineworld.core.MWBlocks;
-import org.mineworld.helper.ItemHelper;
+import org.mineworld.core.MWCopperBlocks;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-/**
- * Implementation class for a {@link LanternBlock wall hanging lantern block}
- */
 public class WallHangingLanternBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 
     /**
-     * {@link Supplier<Map> Wall hanging lanterns}
+     * {@link Supplier<Map> Wall Hanging Lanterns by Lantern}
      */
     public static final Supplier<BiMap<Item, Block>> HANGING_BY_LANTERNS = Suppliers.memoize(() -> ImmutableBiMap.<Item, Block>builder()
             .put(Items.LANTERN, MWBlocks.WALL_HANGING_LANTERN.get())
             .put(Items.SOUL_LANTERN, MWBlocks.WALL_HANGING_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.GOLDEN_LANTERN.get()), MWBlocks.WALL_HANGING_GOLDEN_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.GOLDEN_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_GOLDEN_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.NETHERITE_LANTERN.get()), MWBlocks.WALL_HANGING_NETHERITE_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.NETHERITE_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_NETHERITE_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.ALUMINUM_LANTERN.get()), MWBlocks.WALL_HANGING_ALUMINUM_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.ALUMINUM_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_ALUMINUM_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.SILVER_LANTERN.get()), MWBlocks.WALL_HANGING_SILVER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.SILVER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_SILVER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.BRONZE_LANTERN.get()), MWBlocks.WALL_HANGING_BRONZE_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.BRONZE_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_BRONZE_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.EXPOSED_COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_EXPOSED_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.EXPOSED_COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WEATHERED_COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_WEATHERED_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WEATHERED_COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.OXIDIZED_COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_OXIDIZED_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.OXIDIZED_COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_OXIDIZED_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_EXPOSED_COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_EXPOSED_COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_WEATHERED_COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_WEATHERED_COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_OXIDIZED_COPPER_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.END_LANTERN.get()), MWBlocks.WALL_HANGING_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.GOLDEN_END_LANTERN.get()), MWBlocks.WALL_HANGING_GOLDEN_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.NETHERITE_END_LANTERN.get()), MWBlocks.WALL_HANGING_NETHERITE_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.ALUMINUM_END_LANTERN.get()), MWBlocks.WALL_HANGING_ALUMINUM_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.SILVER_END_LANTERN.get()), MWBlocks.WALL_HANGING_SILVER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.BRONZE_END_LANTERN.get()), MWBlocks.WALL_HANGING_BRONZE_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.EXPOSED_COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_EXPOSED_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WEATHERED_COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_WEATHERED_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.OXIDIZED_COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_OXIDIZED_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_EXPOSED_COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_WEATHERED_COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_OXIDIZED_COPPER_END_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_END_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.GOLDEN_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_GOLDEN_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.NETHERITE_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_NETHERITE_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.ALUMINUM_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_ALUMINUM_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.SILVER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_SILVER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.BRONZE_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_BRONZE_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_COPPER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.EXPOSED_COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_EXPOSED_COPPER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WEATHERED_COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_WEATHERED_COPPER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.OXIDIZED_COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_OXIDIZED_COPPER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_COPPER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_EXPOSED_COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_WEATHERED_COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_SCULK_LANTERN.get())
-            .put(ItemHelper.getItem(MWBlocks.WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get()), MWBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get())
-        .build());
+            .put(MWBlocks.GOLDEN_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_GOLDEN_LANTERN.get())
+            .put(MWBlocks.GOLDEN_SOUL_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_GOLDEN_SOUL_LANTERN.get())
+            .put(MWBlocks.NETHERITE_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_NETHERITE_LANTERN.get())
+            .put(MWBlocks.NETHERITE_SOUL_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_NETHERITE_SOUL_LANTERN.get())
+            .put(MWBlocks.ALUMINUM_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_ALUMINUM_LANTERN.get())
+            .put(MWBlocks.ALUMINUM_SOUL_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_ALUMINUM_SOUL_LANTERN.get())
+            .put(MWBlocks.SILVER_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_SILVER_LANTERN.get())
+            .put(MWBlocks.SILVER_SOUL_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_SILVER_SOUL_LANTERN.get())
+            .put(MWBlocks.BRONZE_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_BRONZE_LANTERN.get())
+            .put(MWBlocks.BRONZE_SOUL_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_BRONZE_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_COPPER_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.EXPOSED_COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_EXPOSED_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.EXPOSED_COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_EXPOSED_COPPER_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.WEATHERED_COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WEATHERED_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.WEATHERED_COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WEATHERED_COPPER_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.OXIDIZED_COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_OXIDIZED_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.OXIDIZED_COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_OXIDIZED_COPPER_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_COPPER_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_EXPOSED_COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_EXPOSED_COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_WEATHERED_COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_WEATHERED_COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_SOUL_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_OXIDIZED_COPPER_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_SOUL_LANTERN.get())
+            .put(MWBlocks.END_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_END_LANTERN.get())
+            .put(MWBlocks.GOLDEN_END_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_GOLDEN_END_LANTERN.get())
+            .put(MWBlocks.NETHERITE_END_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_NETHERITE_END_LANTERN.get())
+            .put(MWBlocks.ALUMINUM_END_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_ALUMINUM_END_LANTERN.get())
+            .put(MWBlocks.SILVER_END_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_SILVER_END_LANTERN.get())
+            .put(MWBlocks.BRONZE_END_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_BRONZE_END_LANTERN.get())
+            .put(MWCopperBlocks.COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_COPPER_END_LANTERN.get())
+            .put(MWCopperBlocks.EXPOSED_COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_EXPOSED_COPPER_END_LANTERN.get())
+            .put(MWCopperBlocks.WEATHERED_COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WEATHERED_COPPER_END_LANTERN.get())
+            .put(MWCopperBlocks.OXIDIZED_COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_OXIDIZED_COPPER_END_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_COPPER_END_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_EXPOSED_COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_END_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_WEATHERED_COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_END_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_OXIDIZED_COPPER_END_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_END_LANTERN.get())
+            .put(MWBlocks.SCULK_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_SCULK_LANTERN.get())
+            .put(MWBlocks.GOLDEN_SCULK_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_GOLDEN_SCULK_LANTERN.get())
+            .put(MWBlocks.NETHERITE_SCULK_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_NETHERITE_SCULK_LANTERN.get())
+            .put(MWBlocks.ALUMINUM_SCULK_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_ALUMINUM_SCULK_LANTERN.get())
+            .put(MWBlocks.SILVER_SCULK_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_SILVER_SCULK_LANTERN.get())
+            .put(MWBlocks.BRONZE_SCULK_LANTERN.get().asItem(), MWBlocks.WALL_HANGING_BRONZE_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_COPPER_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.EXPOSED_COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_EXPOSED_COPPER_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.WEATHERED_COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WEATHERED_COPPER_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.OXIDIZED_COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_OXIDIZED_COPPER_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_COPPER_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_EXPOSED_COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_EXPOSED_COPPER_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_WEATHERED_COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_WEATHERED_COPPER_SCULK_LANTERN.get())
+            .put(MWCopperBlocks.WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get().asItem(), MWCopperBlocks.WALL_HANGING_WAXED_OXIDIZED_COPPER_SCULK_LANTERN.get())
+    .build());
+
     /**
-     * {@link Supplier<BiMap> Lantern by wall hanging lanterns}
+     * {@link Supplier<Map> Lanterns by Wall Hanging Lantern}
      */
     private static final Supplier<BiMap<Block, Item>> LANTERN_BY_WALL_HANGING_LANTERNS = Suppliers.memoize(() -> HANGING_BY_LANTERNS.get().inverse());
     /**
-     * {@link BooleanProperty The wall hanging lantern waterlogged property}
+     * {@link BooleanProperty The Block Waterlogged property}
      */
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /**
-     * {@link Map The wall hanging lantern block shapes}
+     * {@link VoxelShape The Wall Hanging Lantern Block Shapes}
      */
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.of(
@@ -124,60 +125,59 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
     );
 
     /**
-     * Constructor. Set the {@link BlockBehaviour.Properties block properties}
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param properties {@link BlockBehaviour.Properties The block properties}
+     * @param properties {@link BlockBehaviour.Properties The properties this Block is based on}
      */
     public WallHangingLanternBlock(final BlockBehaviour.Properties properties) {
-        super(properties);
+        super(properties.pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     /**
-     * Get the {@link BlockState wall hanging lantern block state}
-     * based on the {@link BlockState current block state}
+     * Get the {@link BlockState Wall Hanging Lantern Block State} based on the {@link ItemStack used Item Stack}
      *
-     * @param itemStack {@link BlockState The current block state}
-     * @return {@link Optional <BlockState> The wall hanging lantern state, if any}
+     * @param itemStack {@link ItemStack The used Item Stack}
+     * @return {@link Optional<BlockState> The Wall Hanging Lantern Block State}, if any
      */
-    public static Optional<BlockState> getWallHangingLantern(final ItemStack itemStack, final Direction face) {
-        return Optional.ofNullable(HANGING_BY_LANTERNS.get().get(itemStack.getItem())).map(block -> block.defaultBlockState().setValue(FACING, face.getOpposite()));
+    public static Optional<BlockState> getWallHangingLantern(final ItemStack itemStack, final Direction direction) {
+        return Optional.ofNullable(HANGING_BY_LANTERNS.get().get(itemStack.getItem())).map(block -> block.defaultBlockState().setValue(FACING, direction.getOpposite()));
     }
 
     /**
-     * Get the {@link ItemStack id stack} for the inventory when the {@link Player player} middle mouse click the block
+     * Get the {@link ItemStack Item Stack} for the inventory when the {@link Player player} middle mouse click the block
      *
-     * @param blockState {@link BlockState The current block state}
+     * @param blockState {@link BlockState The current Block State}
      * @param hitResult {@link HitResult The hit result}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param player {@link Player The player who is middle mouse clicking}
-     * @return {@link ItemStack The block id stack}
+     * @return {@link ItemStack The Block Item Stack}
      */
     @Override
     public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final BlockGetter blockGetter, final BlockPos blockPos, final Player player) {
-        return Optional.ofNullable(LANTERN_BY_WALL_HANGING_LANTERNS.get().get(blockState.getBlock())).map(ItemHelper::getDefaultStack).orElse(ItemStack.EMPTY);
+        return Optional.ofNullable(LANTERN_BY_WALL_HANGING_LANTERNS.get().get(blockState.getBlock())).map(block -> block.asItem().getDefaultInstance()).orElse(ItemStack.EMPTY);
     }
 
     /**
-     * Get the {@link VoxelShape block shape}
+     * Get the {@link VoxelShape Block Shape}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param collisionContext {@link CollisionContext The collision context}
-     * @return {@link VoxelShape The block shape}
+     * @return {@link VoxelShape The Block Shape}
      */
     public @NotNull VoxelShape getShape(final BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull CollisionContext collisionContext) {
         return SHAPES.get(blockState.getValue(FACING));
     }
 
     /**
-     * Check if the block can survive at current location
+     * Check if the Block can stay at the given {@link BlockPos location}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param levelReader {@link LevelReader The level reader reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param levelReader {@link LevelReader The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @return {@link Boolean True if the block can survive}
      */
     public boolean canSurvive(final BlockState blockState, final LevelReader levelReader, final BlockPos blockPos) {
@@ -185,17 +185,17 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
     }
 
     /**
-     * Get the {@link BlockState block state} for the block when is placed
+     * Get the {@link BlockState Block State} after the block has been placed
      *
-     * @param blockPlaceContext {@link BlockPlaceContext The block place context}
-     * @return {@link BlockState The placed block state}
+     * @param placeContext {@link BlockPlaceContext The block place context}
+     * @return {@link BlockState The placed Block State}
      */
     @Nullable
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
+    public BlockState getStateForPlacement(final BlockPlaceContext placeContext) {
         BlockState blockState = this.defaultBlockState();
-        final LevelReader level = blockPlaceContext.getLevel();
-        final BlockPos blockPos = blockPlaceContext.getClickedPos();
-        for(Direction direction : blockPlaceContext.getNearestLookingDirections()) {
+        final LevelReader level = placeContext.getLevel();
+        final BlockPos blockPos = placeContext.getClickedPos();
+        for(Direction direction : placeContext.getNearestLookingDirections()) {
             if (direction.getAxis().isHorizontal()) {
                 blockState = blockState.setValue(FACING, direction.getOpposite());
                 if (blockState.canSurvive(level, blockPos)) {
@@ -207,60 +207,50 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
     }
 
     /**
-     * Get the {@link PushReaction push reaction} when this block is pushed by pistons
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link PushReaction#DESTROY Destroy push reaction}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
-    public @NotNull PushReaction getPistonPushReaction(final @NotNull BlockState blockState) {
-        return PushReaction.DESTROY;
-    }
-
-    /**
-     * Update the {@link BlockState block state} based on neighbor updates
-     *
-     * @param blockState {@link BlockState The current block state}
-     * @param direction {@link Direction The update direction}
-     * @param neighborState {@link BlockState The neighbor block state}
-     * @param levelAccessor {@link LevelAccessor The level accessor reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param neighborPos {@link BlockPos The neighbor block pos}
-     * @return {@link BlockState The updated block state}
-     */
-    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
-        return blockState.getValue(FACING).equals(direction) && !blockState.canSurvive(levelAccessor, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighborState, levelAccessor, blockPos, neighborPos);
+        return blockState.getValue(FACING).equals(direction) && !blockState.canSurvive(levelAccessor, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
 
     /**
-     * Get the {@link FluidState block fluid state}
+     * Get the {@link FluidState Block Fluid State}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link FluidState The block fluid state}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Fluids#WATER Water if is Waterlogged}
      */
     public @NotNull FluidState getFluidState(final BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     /**
-     * Check if the block is pathfindable by mobs
+     * Check if the Block is pathfindable
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param pathComputationType {@link PathComputationType The path computation type}
-     * @return {@link Boolean False}
+     * @return {@link Boolean#FALSE False}
      */
     public boolean isPathfindable(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull PathComputationType pathComputationType) {
         return false;
     }
 
     /**
-     * Create the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state definition builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {

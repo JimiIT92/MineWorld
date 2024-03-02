@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-    id 'net.minecraftforge.gradle' version '[6.0.14,6.2)'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
@@ -103,11 +103,16 @@ mixin {
 
 tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
-            mc_version: mc_version, minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, forge_version_range: forge_version_range,
+            mc_version: mc_version,
+            minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version,
+            forge_version_range: forge_version_range,
             loader_version_range: forge_version_range,
-            mod_id: mod_id, mod_name: mod_name, mod_version: version,
-            mod_authors: mod_authors, terrablender_version: terrablender_version,
+            mod_id: mod_id,
+            mod_name: mod_name,
+            mod_version: version,
+            mod_authors: mod_authors,
+            terrablender_version: terrablender_version,
             jei_version: jei_version
     ]
     inputs.properties replaceProperties

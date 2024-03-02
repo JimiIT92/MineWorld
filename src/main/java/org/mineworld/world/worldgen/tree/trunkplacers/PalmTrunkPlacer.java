@@ -17,36 +17,35 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.core.MWTrunkPlacerTypes;
 import org.mineworld.helper.LevelHelper;
-import org.mineworld.helper.RandomHelper;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
 /**
- * Implementation class for a {@link TrunkPlacer palm trunk placer}
+ * Implementation class for a {@link TrunkPlacer Palm Trunk Placer}
  */
 public class PalmTrunkPlacer extends TrunkPlacer {
 
     /**
-     * {@link Codec<PalmTrunkPlacer> The palm trunk placer codec}
+     * {@link Codec<PalmTrunkPlacer> The Palm Trunk Placer Codec}
      */
     public static final Codec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.create(builder -> trunkPlacerParts(builder).apply(builder, PalmTrunkPlacer::new));
 
     /**
-     * Constructor. Set the trunk placer properties
+     * Constructor. Set the {@link TrunkPlacer Trunk Placer} Properties
      *
-     * @param minHeight {@link Integer The minimum tree height}
-     * @param heightRandA {@link Integer The additional height the tree can have}
-     * @param heightRandB {@link Integer The additional height the tree can have after the extra one}
+     * @param minHeight {@link Integer The minimum Tree height}
+     * @param additionalHeight {@link Integer The additional height the Tree can have}
+     * @param extraHeight {@link Integer The additional height the Tree can have after the extra one}
      */
-    public PalmTrunkPlacer(final int minHeight, final int heightRandA, final int heightRandB) {
-        super(minHeight, heightRandA, heightRandB);
+    public PalmTrunkPlacer(final int minHeight, final int additionalHeight, final int extraHeight) {
+        super(minHeight, additionalHeight, extraHeight);
     }
 
     /**
-     * Get the {@link TrunkPlacerType trunk placer type}
+     * Get the {@link TrunkPlacerType Trunk Placer Type}
      *
-     * @return {@link MWTrunkPlacerTypes#PALM_TRUNK_PLACER The palm trunk placer type}
+     * @return {@link MWTrunkPlacerTypes#PALM_TRUNK_PLACER The Palm Trunk Placer Type}
      */
     @Override
     protected @NotNull TrunkPlacerType<?> type() {
@@ -54,15 +53,15 @@ public class PalmTrunkPlacer extends TrunkPlacer {
     }
 
     /**
-     * Place the trunk inside the world
+     * Place the Trunk
      *
-     * @param levelSimulatedReader {@link LevelSimulatedReader The level simulated reader instance}
-     * @param stateBiConsumer {@link BiConsumer The block pos and block state bi-consumer}
-     * @param random {@link RandomSource The random reference}
-     * @param height {@link Integer The trunk height}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param treeConfiguration {@link TreeConfiguration The tree configuration}
-     * @return {@link List<FoliagePlacer.FoliageAttachment> The foliage attachment list}
+     * @param levelSimulatedReader {@link LevelSimulatedReader The level reference}
+     * @param stateBiConsumer {@link BiConsumer The Block Pos and Block State bi-consumer}
+     * @param random {@link RandomSource The Random reference}
+     * @param height {@link Integer The Trunk height}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param treeConfiguration {@link TreeConfiguration The Tree Configuration}
+     * @return {@link List<FoliagePlacer.FoliageAttachment> The Foliage attachment list}
      */
     @Override
     public @NotNull List<FoliagePlacer.FoliageAttachment> placeTrunk(final @NotNull LevelSimulatedReader levelSimulatedReader, final @NotNull BiConsumer<BlockPos, BlockState> stateBiConsumer, final @NotNull RandomSource random, final int height, BlockPos blockPos, final @NotNull TreeConfiguration treeConfiguration) {
@@ -79,7 +78,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 
         int bentTrunkHeight = Math.max(0, height - 4);
         for (int i = 0; i < bentTrunkHeight; ++i) {
-            if(RandomHelper.choose()) {
+            if(random.nextBoolean()) {
                 blockPos = blockPos.relative(direction);
             }
             this.placeLog(levelSimulatedReader, stateBiConsumer, random, blockPos.above(3 + i), treeConfiguration);

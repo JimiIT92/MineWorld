@@ -3,7 +3,7 @@
   "textures": {
     "end": "minecraft:block/bamboo_block_top",
     "side": "minecraft:block/bamboo_block",
-    "inner": "minecraft:block/stripped_bamboo_block",
+    "inner": "minecraft:block/bamboo_block",
     "particle": "minecraft:block/bamboo_block"
   }
 }

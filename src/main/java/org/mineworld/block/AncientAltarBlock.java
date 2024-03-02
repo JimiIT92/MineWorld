@@ -5,12 +5,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -28,38 +29,38 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWItems;
-import org.mineworld.helper.PlayerHelper;
 import org.mineworld.helper.PropertyHelper;
 
-import javax.annotation.Nullable;
-
 /**
- * Class for an Ancient Temple Block
+ * {@link MineWorld MineWorld} {@link Block Ancient Altar Block}
  */
 public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
 
     /**
-     * {@link BooleanProperty The Block Waterlogged Property}
+     * {@link BooleanProperty The Block Waterlogged property}
      */
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /**
-     * The {@link BooleanProperty hearted property}
+     * {@link BooleanProperty The Block Activated property}
      */
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public AncientAltarBlock() {
-        super(PropertyHelper.basicBlockProperties(MapColor.COLOR_BLACK, -1.0F, 3600000.0F, true, SoundType.SCULK_SHRIEKER)
+        super(PropertyHelper.block(MapColor.COLOR_BLACK, -1.0F, 3600000.0F, true, SoundType.SCULK_SHRIEKER)
                 .noLootTable()
-                .lightLevel(state -> state.getValue(ACTIVATED) ? 15 : 0));
+                .lightLevel(state -> state.getValue(ACTIVATED) ? 15 : 0)
+        );
         this.registerDefaultState(this.defaultBlockState().setValue(ACTIVATED, Boolean.FALSE).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     /**
-     * Create the {@link BlockState Block State} definition
+     * Create the {@link StateDefinition Block State definition}
      *
      * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
@@ -69,16 +70,16 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     /**
-     * Get the {@link BlockState block state} for the block when is placed
+     * Get the {@link BlockState Block State} after the block has been placed
      *
-     * @param blockPlaceContext {@link BlockPlaceContext The block place context}
-     * @return {@link BlockState The placed block state}
+     * @param placeContext {@link BlockPlaceContext The block place context}
+     * @return {@link BlockState The placed Block State}
      */
     @Nullable
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
-        BlockState blockState = this.defaultBlockState();
-        final LevelReader level = blockPlaceContext.getLevel();
-        final BlockPos blockPos = blockPlaceContext.getClickedPos();
+    public BlockState getStateForPlacement(final BlockPlaceContext placeContext) {
+        final BlockState blockState = this.defaultBlockState();
+        final LevelReader level = placeContext.getLevel();
+        final BlockPos blockPos = placeContext.getClickedPos();
         if (blockState.canSurvive(level, blockPos)) {
             return blockState.setValue(WATERLOGGED, level.getFluidState(blockPos).is(Fluids.WATER));
         }
@@ -86,62 +87,51 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     /**
-     * Update the {@link BlockState block state} based on neighbor updates
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param direction {@link Direction The update direction}
-     * @param neighborState {@link BlockState The neighbor block state}
-     * @param levelAccessor {@link LevelAccessor The level accessor reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param neighborPos {@link BlockPos The neighbor block pos}
-     * @return {@link BlockState The updated block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
-    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
-        return super.updateShape(blockState, direction, neighborState, levelAccessor, blockPos, neighborPos);
+        return super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
 
     /**
-     * Get the {@link FluidState block fluid state}
+     * Get the {@link FluidState Block Fluid State}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link FluidState The block fluid state}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Fluids#WATER Water if is Waterlogged}
      */
     public @NotNull FluidState getFluidState(final BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     /**
-     * Lit the Ethereal Rune when the {@link Player Player} right clicks
-     * it with the {@link Item Sculk Heart}
+     * Interact with the Block
      *
-     * @param state {@link BlockState The current Block State}
-     * @param level {@link Level The level reference}
-     * @param pos {@link BlockPos The current Block Pos}
-     * @param player {@link Player The player that interacted with the Block}
-     * @param hand {@link InteractionHand The hand used to interact with the Block}
-     * @param hitResult {@link BlockHitResult The Block hit result}
-     * @return {@link InteractionResult The interaction result}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player who interacted with the Block}
+     * @param hand {@link InteractionHand The hand the player has interacted with}
+     * @param hitResult {@link BlockHitResult The hit result for the block interaction}
+     * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
     @Override
-    public @NotNull InteractionResult use(final @NotNull BlockState state, final @NotNull Level level, final @NotNull BlockPos pos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if(itemstack.is(MWItems.DARK_SOUL.get()) && !state.getValue(ACTIVATED)) {
-            //level.setBlock(pos, state.setValue(ACTIVATED, Boolean.TRUE), 2);
-            spawnParticles(level, pos);
-            //ItemHelper.hurt(itemstack, player);
-            /*if (!level.isClientSide) {
-                final Vec3 vec3 = Vec3.atLowerCornerWithOffset(pos, 0.5D, 1.01D, 0.5D).offsetRandom(level.random, 0.1F);
-                final AncientGuardian ancientGuardian = MWEntityTypes.ANCIENT_GUARDIAN.get().create(level);
-                ancientGuardian.setPos(vec3);
-                ancientGuardian.makeInvulnerable();
-                level.getEntitiesOfClass(ServerPlayer.class, ancientGuardian.getBoundingBox().inflate(50.0D)).forEach(p -> CriteriaTriggers.SUMMONED_ENTITY.trigger(p, ancientGuardian));
-                level.addFreshEntity(ancientGuardian);
-            }*/
+    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
+        final ItemStack itemStack = player.getItemInHand(hand);
+        if(itemStack.is(MWItems.DARK_SOUL.get()) && !blockState.getValue(ACTIVATED)) {
+            spawnParticles(level, blockPos);
             player.displayClientMessage(Component.translatable("message.mineworld.ancient_altar_tease").withStyle(ChatFormatting.BLUE), true);
-            PlayerHelper.playSound(player, SoundEvents.WARDEN_ROAR);
+            player.playSound(SoundEvents.WARDEN_ROAR);
             return InteractionResult.SUCCESS;
         }
 
@@ -149,27 +139,27 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     /**
-     * Spawn the activation particles
+     * Spawn the Activation Particles
      *
      * @param level {@link Level The level reference}
-     * @param pos {@link BlockPos The current BlockPos}
+     * @param blockPos {@link BlockPos The current Block Pos}
      */
-    private static void spawnParticles(final Level level, final BlockPos pos) {
-        final double multiplier = 0.5625D;
+    private static void spawnParticles(final Level level, final BlockPos blockPos) {
+        final double offset = 1.0625D;
         final RandomSource random = level.random;
 
         for(Direction direction : Direction.values()) {
-            final BlockPos relativePos = pos.relative(direction);
+            final BlockPos relativePos = blockPos.relative(direction);
             if (!level.getBlockState(relativePos).isSolidRender(level, relativePos)) {
                 for (int i = 0; i < 3; i++) {
                     final Direction.Axis axis = direction.getAxis();
-                    final double x = axis.equals(Direction.Axis.X) ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)random.nextFloat();
-                    final double y = axis.equals(Direction.Axis.Y) ? 0.5D + 0.5625D * (double)direction.getStepY() : (double)random.nextFloat();
-                    final double z = axis.equals(Direction.Axis.Z) ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)random.nextFloat();
-                    level.addParticle(ParticleTypes.SCULK_SOUL, (double)pos.getX() + x, (double)pos.getY() + y, (double)pos.getZ() + z, 0.0D, 0.0D, 0.0D);
+                    final double x = axis.equals(Direction.Axis.X) ? offset * (double)direction.getStepX() : (double)random.nextFloat();
+                    final double y = axis.equals(Direction.Axis.Y) ? offset * (double)direction.getStepY() : (double)random.nextFloat();
+                    final double z = axis.equals(Direction.Axis.Z) ? offset * (double)direction.getStepZ() : (double)random.nextFloat();
+                    level.addParticle(ParticleTypes.SCULK_SOUL, (double)blockPos.getX() + x, (double)blockPos.getY() + y, (double)blockPos.getZ() + z, 0.0D, 0.0D, 0.0D);
                 }
             }
         }
-
     }
+
 }

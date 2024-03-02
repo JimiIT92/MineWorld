@@ -23,24 +23,30 @@ import org.mineworld.core.MWBlocks;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
 import org.mineworld.core.MWWoodTypes;
-import org.mineworld.helper.PropertyHelper;
+import org.mineworld.entity.block.MWPrimedTnt;
+import org.mineworld.helper.ResourceHelper;
 
 import java.util.function.IntFunction;
+import java.util.function.Supplier;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link Boat boat}
+ * {@link MineWorld MineWorld} {@link Boat Boat Entity}
  */
 public class MWBoat extends Boat {
 
     /**
-     * {@link EntityDataAccessor<Integer> The boat data type accessor}
+     * {@link String The Boat Type NBT tag key}
+     */
+    private final String boatTypeNBTTagKey = "Type";
+    /**
+     * {@link EntityDataAccessor<Integer> The Boat Type data value}
      */
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(MWBoat.class, EntityDataSerializers.INT);
 
     /**
-     * Constructor. Set the {@link EntityType boat entity type}
+     * Constructor. Set the {@link EntityType Entity Type}
      *
-     * @param entityType {@link EntityType The boat entity type}
+     * @param entityType {@link EntityType The Entity Type}
      * @param level {@link Level The level reference}
      */
     public MWBoat(final EntityType<? extends Boat> entityType, final Level level) {
@@ -48,12 +54,12 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Full constructor. Set the {@link BlockPos boat pos}
+     * Constructor. Set the {@link BlockPos Minecart Block Pos} and {@link MWPrimedTnt.Type the TNT Type}
      *
      * @param level {@link Level The level reference}
-     * @param posX {@link Double The boat X coordinate}
-     * @param posY {@link Double The boat Y coordinate}
-     * @param posZ {@link Double The boat Z coordinate}
+     * @param posX {@link Double The minecart X coordinate}
+     * @param posY {@link Double The minecart Y coordinate}
+     * @param posZ {@link Double The minecart Z coordinate}
      */
     public MWBoat(final Level level, final double posX, final double posY, final double posZ) {
         this(MWEntityTypes.BOAT.get(), level);
@@ -64,7 +70,7 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Define the entity synced data
+     * Define the {@link Entity Entity} Data
      */
     @Override
     protected void defineSynchedData() {
@@ -73,27 +79,27 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Set the {@link MWBoat.Type boat type}
+     * Set the {@link MWBoat.Type Boat Type}
      *
-     * @param type {@link MWBoat.Type The boat type}
+     * @param type {@link MWBoat.Type The Boat Type}
      */
     public void setBoatType(final MWBoat.Type type) {
         this.entityData.set(DATA_ID_TYPE, type.ordinal());
     }
 
     /**
-     * Get the {@link MWBoat.Type boat type}
+     * Get the {@link MWBoat.Type Boat Type}
      *
-     * @return {@link MWBoat.Type The boat type}
+     * @return {@link MWBoat.Type The Boat Type}
      */
     public MWBoat.Type getBoatType() {
         return MWBoat.Type.byId(this.entityData.get(DATA_ID_TYPE));
     }
 
     /**
-     * Get the {@link Item dropped id} when the boat is destroyed
+     * Get the {@link Item dropped Item Stack}
      *
-     * @return {@link Item The boat dropped id}
+     * @return {@link Item The dropped Item Stack}
      */
     @Override
     @NotNull
@@ -109,38 +115,38 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Save the {@link MWBoat.Type boat type} to the {@link CompoundTag nbt data}
+     * Save the {@link CompoundTag Entity NBT Data}
      *
-     * @param nbt {@link CompoundTag The boat nbt data}
+     * @param nbt {@link CompoundTag The Entity NBT Data}
      */
     protected void addAdditionalSaveData(final CompoundTag nbt) {
-        nbt.putString("Type", this.getBoatType().getSerializedName());
+        nbt.putString(this.boatTypeNBTTagKey, this.getBoatType().getSerializedName());
     }
 
     /**
-     * Read the {@link MWBoat.Type boat type} from the {@link CompoundTag nbt data}
+     * Read the {@link CompoundTag Entity NBT Data}
      *
-     * @param nbt {@link CompoundTag The boat nbt data}
+     * @param nbt {@link CompoundTag The Entity NBT Data}
      */
     protected void readAdditionalSaveData(final CompoundTag nbt) {
-        if (nbt.contains("Type", 8)) {
-            this.setBoatType(MWBoat.Type.byName(nbt.getString("Type")));
+        if (nbt.contains(this.boatTypeNBTTagKey, 8)) {
+            this.setBoatType(MWBoat.Type.byName(nbt.getString(this.boatTypeNBTTagKey)));
         }
     }
 
     /**
-     * Check if the boat is a raft
+     * Check if the Boat is a Raft
      *
-     * @return {@link Boolean True if is a raft}
+     * @return {@link Boolean True if is a Raft}
      */
     private boolean isRaft() {
         return Type.PALM.equals(this.getBoatType());
     }
 
     /**
-     * Get the {@link Vector3f boat passenger offset}
+     * Get the {@link Vector3f Boat Passenger attachment point}
      *
-     * @return {@link Vector3f The boat passenger offset}
+     * @return {@link Vector3f The Boat Passenger attachment point}
      */
     @Override
     protected @NotNull Vector3f getPassengerAttachmentPoint(final @NotNull Entity entity, final @NotNull EntityDimensions size, final float par3) {
@@ -149,95 +155,95 @@ public class MWBoat extends Boat {
     }
 
     /**
-     * Boat types
+     * {@link MineWorld MineWorld} Boat Types
      */
     public enum Type implements StringRepresentable {
-        CRIMSON(Blocks.CRIMSON_PLANKS, WoodType.CRIMSON),
-        WARPED(Blocks.WARPED_PLANKS, WoodType.WARPED),
-        APPLE(MWBlocks.APPLE_PLANKS.get(), MWWoodTypes.APPLE),
-        PALM(MWBlocks.PALM_PLANKS.get(), MWWoodTypes.PALM),
-        DEAD(MWBlocks.DEAD_PLANKS.get(), MWWoodTypes.DEAD),
-        SCULK(MWBlocks.SCULK_PLANKS.get(), MWWoodTypes.SCULK.get());
+        CRIMSON(() -> Blocks.CRIMSON_PLANKS, ResourceHelper.woodName(WoodType.CRIMSON)),
+        WARPED(() -> Blocks.WARPED_PLANKS, ResourceHelper.woodName(WoodType.WARPED)),
+        APPLE(MWBlocks.APPLE_PLANKS, MWWoodTypes.MWWoodTypeNames.APPLE),
+        PALM(MWBlocks.PALM_PLANKS, MWWoodTypes.MWWoodTypeNames.PALM),
+        DEAD(MWBlocks.DEAD_PLANKS, MWWoodTypes.MWWoodTypeNames.DEAD),
+        SCULK(MWBlocks.SCULK_PLANKS, MWWoodTypes.MWWoodTypeNames.SCULK);
 
         /**
-         * {@link String The boat type name}
+         * {@link String The Boat Type name}
          */
         private final String name;
         /**
-         * {@link Block The planks representing this boat type}
+         * {@link Supplier<Block> The Supplier for the Planks corresponding to this Boat Type}
          */
-        private final Block planks;
+        private final Supplier<Block> planksSupplier;
         /**
-         * {@link StringRepresentable.EnumCodec The boat type coded}
+         * {@link StringRepresentable.EnumCodec The Boat Type Codec}
          */
         public static final StringRepresentable.EnumCodec<MWBoat.Type> CODEC = StringRepresentable.fromEnum(MWBoat.Type::values);
         /**
-         * {@link IntFunction The boat type by ID function}
+         * {@link IntFunction The Boat Type by ID function}
          */
         private static final IntFunction<MWBoat.Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
 
         /**
-         * Constructor. Set the boat type properties
+         * Constructor. Set the Boat Type Properties
          *
-         * @param planks {@link Block The planks representing this boat type}
-         * @param woodType {@link WoodType The boat wood type}
+         * @param planksSupplier {@link Supplier<Block> The Supplier for the Planks corresponding to this Boat Type}
+         * @param woodName {@link String The Boat Wood name}
          */
-        Type(final Block planks, final WoodType woodType) {
-            this.name = PropertyHelper.getWoodTypeName(woodType);
-            this.planks = planks;
+        Type(final Supplier<Block> planksSupplier, final String woodName) {
+            this.name = woodName;
+            this.planksSupplier = planksSupplier;
         }
 
         /**
-         * Get the {@link String boat serialized name}
+         * Get the {@link String Boat Serialized name}
          *
-         * @return {@link String The boat serialized name}
+         * @return {@link String The Boat Serialized name}
          */
         public @NotNull String getSerializedName() {
             return this.name;
         }
 
         /**
-         * Get the {@link String boat name}
+         * Get the {@link String Boat name}
          *
-         * @return {@link String The boat name}
+         * @return {@link String The Boat name}
          */
         public String getName() {
             return this.name;
         }
 
         /**
-         * Get the {@link Block planks} dropped when the boat is destroyed
+         * Get the {@link Block Planks} dropped when the Boat is destroyed
          *
-         * @return {@link Block The boat planks}
+         * @return {@link Block The Boat Planks}
          */
-        public Block getPlanks() {
-            return this.planks;
+        public Block getPlanksSupplier() {
+            return this.planksSupplier.get();
         }
 
         /**
-         * Get the {@link String boat name}
+         * Get the {@link String Boat name}
          *
-         * @return {@link String The boat name}
+         * @return {@link String The Boat name}
          */
         public String toString() {
             return this.name;
         }
 
         /**
-         * Get the {@link MWBoat.Type boat type} given its {@link Integer id}
+         * Get the {@link MWBoat.Type Boat Type} given its {@link Integer ID}
          *
-         * @param id {@link Integer The boat id}
-         * @return {@link MWBoat.Type The boat type}
+         * @param id {@link Integer The Boat Type ID}
+         * @return {@link MWBoat.Type The Boat Type}
          */
         public static MWBoat.Type byId(final int id) {
             return BY_ID.apply(id);
         }
 
         /**
-         * Get the {@link MWBoat.Type boat type} given its {@link String name}
+         * Get the {@link MWBoat.Type Boat Type} given its {@link String name}
          *
-         * @param name {@link String The boat name}
-         * @return {@link MWBoat.Type The boat type}
+         * @param name {@link String The Boat Type name}
+         * @return {@link MWBoat.Type The Boat type}
          */
         public static MWBoat.Type byName(final String name) {
             return CODEC.byName(name, CRIMSON);

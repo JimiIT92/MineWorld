@@ -1,0 +1,7 @@
+{
+  "type": "mineworld:woodcutting",
+  "ingredient": {
+    "item": "mineworld:apple_bookshelf"
+  },
+  "result": "mineworld:apple_chiseled_bookshelf"
+}

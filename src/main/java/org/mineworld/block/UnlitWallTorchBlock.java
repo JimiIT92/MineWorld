@@ -1,190 +1,118 @@
 package org.mineworld.block;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
+import com.google.common.base.Suppliers;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.FlintAndSteelItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.helper.ItemHelper;
+import org.mineworld.helper.PropertyHelper;
 
-import javax.annotation.Nullable;
-import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * Implementation class for an {@link UnlitTorchBlock unlit wall torch block}
+ * {@link MineWorld MineWorld} {@link WallTorchBlock Unlit Wall Torch Block}
  */
-public class UnlitWallTorchBlock extends UnlitTorchBlock {
+public class UnlitWallTorchBlock extends WallTorchBlock {
 
     /**
-     * The {@link DirectionProperty facing direction property}
+     * {@link Supplier<BiMap> Unlit Torches by Torch}
      */
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    /**
-     * {@link VoxelShape The block bounding boxes}
-     */
-    private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(ImmutableMap.of(
-            Direction.NORTH, Block.box(5.5D, 3.0D, 11.0D, 10.5D, 13.0D, 16.0D),
-            Direction.SOUTH, Block.box(5.5D, 3.0D, 0.0D, 10.5D, 13.0D, 5.0D),
-            Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D),
-            Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D))
-    );
+    public static final Supplier<BiMap<Block, Block>> UNLIT_TORCHES = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder()
+            .put(Blocks.WALL_TORCH, MWBlocks.UNLIT_WALL_TORCH.get())
+            .put(Blocks.SOUL_WALL_TORCH, MWBlocks.UNLIT_SOUL_WALL_TORCH.get())
+            .put(MWBlocks.END_WALL_TORCH.get(), MWBlocks.UNLIT_END_WALL_TORCH.get())
+            .put(MWBlocks.SCULK_WALL_TORCH.get(), MWBlocks.UNLIT_SCULK_WALL_TORCH.get())
+    .build());
 
     /**
-     * Constructor. Set the block properties
+     * {@link Supplier<BiMap> Torch by Unlit Torch}
+     */
+    public static final Supplier<BiMap<Block, Block>> TORCH_BY_UNLIT = Suppliers.memoize(() -> UNLIT_TORCHES.get().inverse());
+
+    /**
+     * Constructor. Set the {@link Properties Block Properties}
      *
-     * @param isSoulTorch {@link Boolean If the torch is a soul torch}
+     * @param blockSupplier {@link Supplier<Block> The Supplier for the Torch Block}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public UnlitWallTorchBlock(boolean isSoulTorch) {
-        this(() -> isSoulTorch ? MWBlocks.UNLIT_SOUL_TORCH.get() : MWBlocks.UNLIT_TORCH.get());
+    public UnlitWallTorchBlock(final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
+        super(PropertyHelper.copy(Blocks.WALL_TORCH, featureFlags).lightLevel(blockState -> 0).noCollission().instabreak().sound(SoundType.WOOD).lootFrom(blockSupplier).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME);
     }
 
     /**
-     * Constructor. Set the block properties
+     * Display the {@link ParticleType Block Particles}
      *
-     * @param torchBlockSupplier {@link Supplier<Block> The torch block supplier}
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link Level The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param randomSource {@link RandomSource The random reference}
      */
-    public UnlitWallTorchBlock(final Supplier<Block> torchBlockSupplier) {
-        super(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.WOOD).dropsLike(torchBlockSupplier.get()).pushReaction(PushReaction.DESTROY));
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    public void animateTick(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
+
     }
 
     /**
-     * Get the {@link String Block Description}
+     * Get the corresponding {@link TorchBlock Torch Block}
      *
-     * @return {@link String The Block Description}
+     * @return {@link TorchBlock The Torch Block}
+     */
+    protected Block getTorchBlock() {
+        return TORCH_BY_UNLIT.get().getOrDefault(this, Blocks.TORCH);
+    }
+
+    /**
+     * Interact with the Block
+     *
+     * @param blockState {@link BlockState The current Block State}
+     * @param level {@link ServerLevel The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player who interacted with the Block}
+     * @param hand {@link InteractionHand The hand the player has interacted with}
+     * @param hitResult {@link BlockHitResult The hit result for the block interaction}
+     * @return {@link InteractionResult The interaction result based on the Player's held Item}
      */
     @Override
-    public @NotNull String getDescriptionId() {
-        return this.asItem().getDescriptionId();
-    }
-
-    /**
-     * Get the {@link VoxelShape Block Bounding Box}
-     *
-     * @param state {@link BlockState The current Block State}
-     * @param blockGetter {@link BlockGetter The block getter reference}
-     * @param pos {@link BlockPos The current Block Pos}
-     * @param context {@link CollisionContext The collision context}
-     * @return {@link VoxelShape The Block Bounding Box}
-     */
-    @Override
-    public @NotNull VoxelShape getShape(final @NotNull BlockState state, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos pos, final @NotNull CollisionContext context) {
-        return getShape(state);
-    }
-
-    /**
-     * Get the {@link VoxelShape Block Bounding Box}
-     *
-     * @param state {@link BlockState The current Block State}
-     * @return {@link VoxelShape The Block Bounding Box}
-     */
-    public static VoxelShape getShape(final BlockState state) {
-        return AABBS.get(state.getValue(FACING));
-    }
-
-    /**
-     * Check if the Block can survive at the given {@link BlockPos location}
-     *
-     * @param state {@link BlockState The current Block State}
-     * @param level {@link LevelReader The level reference}
-     * @param pos {@link BlockPos The current Block Pos}
-     * @return {@link Boolean True if the Block can survive}
-     */
-    public boolean canSurvive(final @NotNull BlockState state, final @NotNull LevelReader level, final BlockPos pos) {
-        Direction direction = state.getValue(FACING);
-        BlockPos blockpos = pos.relative(direction.getOpposite());
-        BlockState blockstate = level.getBlockState(blockpos);
-        return blockstate.isFaceSturdy(level, blockpos, direction);
-    }
-
-    /**
-     * Get the {@link BlockState placed Block State}
-     *
-     * @param context {@link BlockPlaceContext The block place context}
-     * @return {@link BlockState The placed Block State}
-     */
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(final BlockPlaceContext context) {
-        BlockState blockstate = this.defaultBlockState();
-        LevelReader levelreader = context.getLevel();
-        BlockPos blockpos = context.getClickedPos();
-        Direction[] adirection = context.getNearestLookingDirections();
-
-        for(Direction direction : adirection) {
-            if (direction.getAxis().isHorizontal()) {
-                Direction direction1 = direction.getOpposite();
-                blockstate = blockstate.setValue(FACING, direction1);
-                if (blockstate.canSurvive(levelreader, blockpos)) {
-                    return blockstate;
-                }
-            }
+    public @NotNull InteractionResult use(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if(itemstack.getItem() instanceof FlintAndSteelItem) {
+            level.setBlock(blockPos, getTorchBlock().withPropertiesOf(blockState), 2);
+            ItemHelper.hurt(itemstack, player);
+            player.level().playSound(player, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            return InteractionResult.SUCCESS;
         }
-
-        return null;
+        return InteractionResult.PASS;
     }
 
     /**
-     * Update the {@link BlockState Block State} based on neighbor updates
+     * Get an {@link UnlitTorchBlock Unlit Torch Block} for the given {@link Block Block}
      *
-     * @param state {@link BlockState The current Block State}
-     * @param direction {@link Direction The update direction}
-     * @param neighborBlockState {@link BlockState The neighbor Block State}
-     * @param level {@link LevelAccessor The level reference}
-     * @param pos {@link BlockPos The current Block Pos}
-     * @param neighborPos {@link BlockPos The neighbor Block Pos}
-     * @return {@link BlockState The updated Block State}
+     * @param block {@link Block The Block to get the Unlit Torch Block for}
+     * @return {@link UnlitTorchBlock The Unlit Torch Block}
      */
-    @Override
-    public @NotNull BlockState updateShape(final @NotNull BlockState state, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor level, final @NotNull BlockPos pos, final @NotNull BlockPos neighborPos) {
-        return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : state;
-    }
-
-    /**
-     * Rotate the {@link BlockState block state} based on the {@link Rotation current rotation}
-     *
-     * @param state {@link BlockState The current block state}
-     * @param rotation {@link Rotation The current rotation}
-     * @return {@link Rotation The rotated block state}
-     */
-    @Override
-    public @NotNull BlockState rotate(final BlockState state, final Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
-    }
-
-    /**
-     * Mirror the {@link BlockState block state}
-     *
-     * @param state {@link BlockState The current block state}
-     * @param mirror {@link Mirror The current mirroring}
-     * @return {@link BlockState The mirrored block state}
-     */
-    @Override
-    public @NotNull BlockState mirror(final BlockState state, final Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
-    }
-
-    /**
-     * Create the {@link StateDefinition block state definition}
-     *
-     * @param stateBuilder {@link StateDefinition.Builder The block state builder}
-     */
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(FACING);
+    public static Block getUnlitTorchBlockFor(final Block block) {
+        final Optional<Block> unlitTorch = Optional.ofNullable(UNLIT_TORCHES.get().get(block));
+        return unlitTorch.orElse(null);
     }
 
 }

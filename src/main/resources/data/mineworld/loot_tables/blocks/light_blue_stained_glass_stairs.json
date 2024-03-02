@@ -29,5 +29,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "mineworld:blocks/light_blue_stained_glass_stairs"
 }

@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CarpetBlock;
@@ -20,19 +19,19 @@ import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link CarpetBlock leaves carpet block}
+ * Implementation class for a {@link MineWorld MineWorld} {@link CarpetBlock Leaves Carpet Block}
  */
 public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
 
     /**
-     * {@link BooleanProperty The block waterlogged property}
+     * {@link BooleanProperty The Block Waterlogged Property}
      */
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     /**
-     * Constructor. Set the {@link BlockBehaviour.Properties block properties}
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param properties {@link BlockBehaviour.Properties The block properties}
+     * @param properties {@link BlockBehaviour.Properties The Block Properties}
      */
     public LeaveCarpet(final BlockBehaviour.Properties properties) {
         super(properties);
@@ -40,13 +39,13 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
     }
 
     /**
-     * Makes the block able to catch fire
+     * Check if the Block can catch fire
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link Level The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
-     * @return {@link Boolean True}
+     * @return {@link Boolean#TRUE True}
      */
     @Override
     public boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
@@ -54,11 +53,11 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
     }
 
     /**
-     * Get the block {@link Integer flammability value}
+     * Get the Block {@link Integer flammability value}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link Level The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
      * @return {@link Integer 60}
      */
@@ -68,11 +67,11 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
     }
 
     /**
-     * Get the block {@link Integer fire spread speed value}
+     * Get the Block {@link Integer fire spread speed value}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param blockGetter {@link Level The block getter reference}
-     * @param blockPos {@link BlockPos The current block pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockGetter {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
      * @param direction {@link Direction The direction the fire is coming from}
      * @return {@link Integer 30}
      */
@@ -82,47 +81,47 @@ public class LeaveCarpet extends CarpetBlock implements SimpleWaterloggedBlock {
     }
 
     /**
-     * Get the {@link BlockState block state} for the block when is placed
+     * Get the {@link BlockState Block State} after the block has been placed
      *
-     * @param blockPlaceContext {@link BlockPlaceContext The block place context}
-     * @return {@link BlockState The placed block state}
+     * @param placeContext {@link BlockPlaceContext The block place context}
+     * @return {@link BlockState The placed Block State}
      */
-    public BlockState getStateForPlacement(final BlockPlaceContext blockPlaceContext) {
-        return this.defaultBlockState().setValue(WATERLOGGED, Fluids.WATER.equals(blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos()).getType()));
+    public BlockState getStateForPlacement(final BlockPlaceContext placeContext) {
+        return this.defaultBlockState().setValue(WATERLOGGED, Fluids.WATER.equals(placeContext.getLevel().getFluidState(placeContext.getClickedPos()).getType()));
     }
 
     /**
-     * Updated the {@link BlockState block state} on neighbor updates
+     * Update the {@link BlockState Block State} on neighbor changes
      *
-     * @param blockState {@link BlockState The current block state}
-     * @param direction {@link Direction The update direction}
-     * @param neighborState {@link BlockState The neighbor block state}
-     * @param levelAccessor {@link LevelAccessor The level accessor reference}
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param neighborPos {@link BlockPos The neighbor block pos}
-     * @return {@link BlockState The updated block state}
+     * @param blockState {@link BlockState The current Block State}
+     * @param direction {@link Direction The direction the changes are coming}
+     * @param neighborBlockState {@link BlockState The neighbor Block State}
+     * @param levelAccessor {@link LevelAccessor The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param neighborBlockPos {@link BlockPos The neighbor Block Pos}
+     * @return {@link BlockState The updated Block State}
      */
-    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(final BlockState blockState, final @NotNull Direction direction, final @NotNull BlockState neighborBlockState, final @NotNull LevelAccessor levelAccessor, final @NotNull BlockPos blockPos, final @NotNull BlockPos neighborBlockPos) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
-        return super.updateShape(blockState, direction, neighborState, levelAccessor, blockPos, neighborPos);
+        return super.updateShape(blockState, direction, neighborBlockState, levelAccessor, blockPos, neighborBlockPos);
     }
 
     /**
-     * Create the {@link StateDefinition block state definition}
+     * Create the {@link StateDefinition Block State definition}
      *
-     * @param stateBuilder {@link StateDefinition.Builder The block state builder}
+     * @param stateBuilder {@link StateDefinition.Builder The Block State builder}
      */
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(WATERLOGGED);
     }
 
     /**
-     * Get the {@link FluidState block fluid state}
+     * Get the {@link FluidState Block Fluid State}
      *
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link FluidState The block fluid state}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link Fluids#WATER Water if is Waterlogged}
      */
     public @NotNull FluidState getFluidState(final BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);

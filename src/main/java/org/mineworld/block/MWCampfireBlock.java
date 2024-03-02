@@ -1,6 +1,7 @@
 package org.mineworld.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -13,33 +14,33 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlockEntityTypes;
 import org.mineworld.entity.block.MWCampfireBlockEntity;
-
-import javax.annotation.Nullable;
+import org.mineworld.helper.PropertyHelper;
 
 /**
- * Implementation class for a {@link MineWorld MineWorld} {@link CampfireBlock campfire block}
+ * {@link MineWorld MineWorld} {@link CampfireBlock Campfire Block}
  */
 public class MWCampfireBlock extends CampfireBlock {
 
     /**
-     * Constructor. Set the block properties
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param fireDamage {@link Integer The campfire fire damage}
-     * @param lightLevel {@link Integer The lit campfire light level}
+     * @param fireType {@link MWFireBlock.MWFireType The Fire Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public MWCampfireBlock(final int fireDamage, final int lightLevel) {
-        super(false, fireDamage, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(state -> lightLevel).noOcclusion().ignitedByLava());
+    public MWCampfireBlock(final MWFireBlock.MWFireType fireType, final FeatureFlag... featureFlags) {
+        super(false, fireType.campfireDamage(), PropertyHelper.block(MapColor.PODZOL,2.0F, 2.0F, false, SoundType.WOOD, featureFlags).instrument(NoteBlockInstrument.BASS).lightLevel(state -> fireType.lightLevel()).noOcclusion().ignitedByLava());
     }
 
     /**
-     * Get the {@link BlockEntity campfire block entity}
+     * Create the {@link MWCampfireBlockEntity Campfire Block Entity}
      *
-     * @param blockPos {@link BlockPos The current block pos}
-     * @param blockState {@link BlockState The current block state}
-     * @return {@link BlockEntity The campfire block entity}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param blockState {@link BlockState The current Block State}
+     * @return {@link BlockEntity The Campfire Block Entity}
      */
     @Override
     public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
@@ -47,21 +48,21 @@ public class MWCampfireBlock extends CampfireBlock {
     }
 
     /**
-     * Get the {@link BlockEntityTicker block ticker}
+     * Get the related ticker for this block
      *
      * @param level {@link Level The level reference}
-     * @param state {@link BlockState The current BlockState}
-     * @param type {@link BlockEntityType The block entity type}
-     * @return {@link BlockEntityTicker The block ticker}
-     * @param <T> {@link T The block entity type}
+     * @param blockState {@link BlockState The current Block State}
+     * @param blockEntityType {@link BlockEntityType The Block Entity Type}
+     * @return {@link BlockEntityTicker The Block Entity Ticker}
+     * @param <T> {@link T The Block Entity Type}
      */
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(final Level level, final @NotNull BlockState state, final @NotNull BlockEntityType<T> type) {
-        final BlockEntityType<MWCampfireBlockEntity> blockEntityType = MWBlockEntityTypes.CAMPFIRE.get();
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(final Level level, final @NotNull BlockState blockState, final @NotNull BlockEntityType<T> blockEntityType) {
+        final BlockEntityType<CampfireBlockEntity> campfireBlockEntityType = MWBlockEntityTypes.CAMPFIRE.get();
         if (level.isClientSide) {
-            return state.getValue(LIT) ? createTickerHelper(type,MWBlockEntityTypes.CAMPFIRE.get(), CampfireBlockEntity::particleTick) : null;
+            return blockState.getValue(LIT) ? createTickerHelper(blockEntityType,MWBlockEntityTypes.CAMPFIRE.get(), CampfireBlockEntity::particleTick) : null;
         }
-        return state.getValue(LIT) ? createTickerHelper(type,MWBlockEntityTypes.CAMPFIRE.get(), CampfireBlockEntity::cookTick) : createTickerHelper(type,MWBlockEntityTypes.CAMPFIRE.get(), CampfireBlockEntity::cooldownTick);
+        return blockState.getValue(LIT) ? createTickerHelper(blockEntityType, MWBlockEntityTypes.CAMPFIRE.get(), CampfireBlockEntity::cookTick) : createTickerHelper(blockEntityType,MWBlockEntityTypes.CAMPFIRE.get(), CampfireBlockEntity::cooldownTick);
     }
 
 }
