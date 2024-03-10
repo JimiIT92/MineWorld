@@ -35,7 +35,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWWeatheringCopperStairBlock(final WeatheringCopper.WeatherState weatherState, final Supplier<BlockState> blockStateSupplier, final FeatureFlag... featureFlags) {
-        super(blockStateSupplier, PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags));
+        super(blockStateSupplier.get(), PropertyHelper.copy(blockStateSupplier.get().getBlock(), featureFlags));
         this.weatherState = weatherState;
     }
 
@@ -49,7 +49,7 @@ public class MWWeatheringCopperStairBlock extends StairBlock implements IMWWeath
      */
     @Override
     public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
-        IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, randomSource);
+        IMWWeatheringBlock.changeOverTime(this, blockState, level, blockPos, randomSource);
     }
 
     /**

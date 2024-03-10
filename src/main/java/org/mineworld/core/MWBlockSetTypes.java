@@ -16,18 +16,10 @@ public final class MWBlockSetTypes {
 
     //#region Block Set Types
 
-    public static final Supplier<BlockSetType> COPPER = Suppliers.memoize(() -> registerBlockSetType("copper", false,
-            SoundType.COPPER,
-            SoundEvents.COPPER_FALL,
-            SoundEvents.COPPER_STEP,
-            SoundEvents.COPPER_FALL,
-            SoundEvents.COPPER_STEP,
-            SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF,
-            SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON,
-            SoundEvents.STONE_BUTTON_CLICK_OFF,
-            SoundEvents.STONE_BUTTON_CLICK_ON)
-    );
     public static final Supplier<BlockSetType> NETHERITE = Suppliers.memoize(() -> registerBlockSetType("netherite", false,
+            false,
+            false,
+            BlockSetType.PressurePlateSensitivity.MOBS,
             SoundType.NETHERITE_BLOCK,
             SoundEvents.NETHERITE_BLOCK_FALL,
             SoundEvents.NETHERITE_BLOCK_STEP,
@@ -39,6 +31,9 @@ public final class MWBlockSetTypes {
             SoundEvents.STONE_BUTTON_CLICK_ON)
     );
     public static final Supplier<BlockSetType> METAL = Suppliers.memoize(() -> registerBlockSetType("metal", false,
+            false,
+            false,
+            BlockSetType.PressurePlateSensitivity.EVERYTHING,
             SoundType.METAL,
             SoundEvents.METAL_FALL,
             SoundEvents.METAL_STEP,
@@ -49,7 +44,10 @@ public final class MWBlockSetTypes {
             SoundEvents.STONE_BUTTON_CLICK_OFF,
             SoundEvents.STONE_BUTTON_CLICK_ON)
     );
-    public static final Supplier<BlockSetType> ICE = Suppliers.memoize(() -> registerBlockSetType(MWWoodTypes.MWWoodTypeNames.ICE, false,
+    public static final Supplier<BlockSetType> ICE = Suppliers.memoize(() -> registerBlockSetType(MWWoodTypes.MWWoodTypeNames.ICE, true,
+            true,
+            true,
+            BlockSetType.PressurePlateSensitivity.EVERYTHING,
             SoundType.GLASS,
             SoundEvents.GLASS_FALL,
             SoundEvents.GLASS_STEP,
@@ -61,6 +59,9 @@ public final class MWBlockSetTypes {
             SoundEvents.GLASS_PLACE)
     );
     public static final Supplier<BlockSetType> SCULK = Suppliers.memoize(() -> registerBlockSetType(MWWoodTypes.MWWoodTypeNames.SCULK, true,
+            true,
+            true,
+            BlockSetType.PressurePlateSensitivity.EVERYTHING,
             MWSoundTypes.SCULK_WOOD,
             MWSounds.SCULK_DOOR_CLOSE.get(),
             MWSounds.SCULK_DOOR_OPEN.get(),
@@ -92,9 +93,12 @@ public final class MWBlockSetTypes {
      * @param buttonClickOnSound {@link SoundEvent The sound to play when a Button is pressed}
      * @return {@link BlockSetType The registered Block Set Type}
      */
-    public static BlockSetType registerBlockSetType(final String name, final boolean canOpenByHand, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
+    public static BlockSetType registerBlockSetType(final String name, final boolean canOpenByHand, final boolean canOpenByWindCharge, final boolean canButtonBeActivatedByArrows, final BlockSetType.PressurePlateSensitivity pressurePlateSensitivity, final SoundType defaultSound, final SoundEvent doorCloseSound, final SoundEvent doorOpenSound, final SoundEvent trapdoorCloseSound, final SoundEvent trapdoorOpenSound, final SoundEvent pressurePlateClickOffSound, final SoundEvent pressurePlateClickOnSound, final SoundEvent buttonClickOffSound, final SoundEvent buttonClickOnSound) {
         return BlockSetType.register(new BlockSetType(ResourceHelper.stringLocation(name),
                 canOpenByHand,
+                canOpenByWindCharge,
+                canButtonBeActivatedByArrows,
+                pressurePlateSensitivity,
                 defaultSound,
                 doorCloseSound,
                 doorOpenSound,

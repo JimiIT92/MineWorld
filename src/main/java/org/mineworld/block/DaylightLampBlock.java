@@ -1,5 +1,6 @@
 package org.mineworld.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -39,6 +40,10 @@ import javax.annotation.Nullable;
 public class DaylightLampBlock extends BaseEntityBlock {
 
     /**
+     * {@link MapCodec The Block Codec}
+     */
+    public static final MapCodec<DaylightLampBlock> CODEC = simpleCodec(DaylightLampBlock::new);
+    /**
      * {@link Boolean The lamp Lit property}
      */
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
@@ -57,7 +62,16 @@ public class DaylightLampBlock extends BaseEntityBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public DaylightLampBlock(final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.REDSTONE_LAMP, featureFlags));
+        this(PropertyHelper.copy(Blocks.REDSTONE_LAMP, featureFlags));
+    }
+
+    /**
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param properties The {@link BlockBehaviour.Properties Block Properties}
+     */
+    public DaylightLampBlock(final BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.FALSE).setValue(INVERTED, Boolean.FALSE).setValue(POWER, 0));
     }
 
@@ -275,6 +289,16 @@ public class DaylightLampBlock extends BaseEntityBlock {
     @Override
     public @NotNull RenderShape getRenderShape(final @NotNull BlockState blockState) {
         return RenderShape.MODEL;
+    }
+
+    /**
+     * Get the {@link MapCodec Block Codec}
+     *
+     * @return {@link MapCodec The Block Codec}
+     */
+    @Override
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
 }

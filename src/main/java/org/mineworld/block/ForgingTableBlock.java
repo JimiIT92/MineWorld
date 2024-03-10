@@ -1,5 +1,6 @@
 package org.mineworld.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -41,6 +42,10 @@ import static net.minecraft.world.level.block.Blocks.SMITHING_TABLE;
 public class ForgingTableBlock extends BaseEntityBlock {
 
     /**
+     * {@link MapCodec The Block Codec}
+     */
+    public static final MapCodec<ForgingTableBlock> CODEC = simpleCodec(ForgingTableBlock::new);
+    /**
      * {@link Component The Container Title}
      */
     public static final Component CONTAINER_TITLE = ComponentHelper.container("forging_table");
@@ -57,7 +62,16 @@ public class ForgingTableBlock extends BaseEntityBlock {
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public ForgingTableBlock() {
-        super(PropertyHelper.copy(SMITHING_TABLE));
+        this(PropertyHelper.copy(SMITHING_TABLE));
+    }
+
+    /**
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param properties The {@link BlockBehaviour.Properties Block Properties}
+     */
+    public ForgingTableBlock(final BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.FALSE));
     }
 
@@ -245,4 +259,14 @@ public class ForgingTableBlock extends BaseEntityBlock {
         return ForgingTableMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(blockPos));
     }
 
+    /**
+     * Get the {@link MapCodec Block Codec}
+     *
+     * @return {@link MapCodec The Block Codec}
+     */
+    @Override
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+    
 }

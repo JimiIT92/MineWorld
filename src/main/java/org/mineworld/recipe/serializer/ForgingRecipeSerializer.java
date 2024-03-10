@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -23,7 +23,7 @@ public class ForgingRecipeSerializer implements RecipeSerializer<ForgingRecipe> 
     private static final Codec<ForgingRecipe> CODEC = RecordCodecBuilder.create(builder ->
             builder.group(Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base()),
                     Ingredient.CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition()),
-                    CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result()),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result()),
                     Codec.INT.fieldOf("forging_time").forGetter(recipe -> recipe.forgingTime()),
                     Codec.FLOAT.fieldOf("experience").forGetter(recipe -> recipe.experience())
             ).apply(builder, ForgingRecipe::new));

@@ -47,7 +47,7 @@ public class WeatheringCopperBarsBlock extends IronBarsBlock implements IMWWeath
      */
     @Override
     public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
-        IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, randomSource);
+        IMWWeatheringBlock.changeOverTime(this, blockState, level, blockPos, randomSource);
     }
 
     /**

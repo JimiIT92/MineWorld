@@ -28,7 +28,7 @@ public class MWWallSignBlock extends WallSignBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWWallSignBlock(final Supplier<WoodType> woodTypeSupplier, final Supplier<Block> signSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.OAK_WALL_SIGN, featureFlags).lootFrom(signSupplier), woodTypeSupplier.get());
+        super(woodTypeSupplier.get(), PropertyHelper.copy(Blocks.OAK_WALL_SIGN, featureFlags).lootFrom(signSupplier));
     }
 
     /**

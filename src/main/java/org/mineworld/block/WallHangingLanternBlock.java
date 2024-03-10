@@ -5,6 +5,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -15,10 +16,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -41,6 +39,11 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class WallHangingLanternBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+
+    /**
+     * {@link MapCodec The Block Codec}
+     */
+    public static final MapCodec<WallHangingLanternBlock> CODEC = simpleCodec(WallHangingLanternBlock::new);
 
     /**
      * {@link Supplier<Map> Wall Hanging Lanterns by Lantern}
@@ -149,13 +152,13 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
      *
      * @param blockState {@link BlockState The current Block State}
      * @param hitResult {@link HitResult The hit result}
-     * @param blockGetter {@link BlockGetter The level reference}
+     * @param levelReader {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param player {@link Player The player who is middle mouse clicking}
      * @return {@link ItemStack The Block Item Stack}
      */
     @Override
-    public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final BlockGetter blockGetter, final BlockPos blockPos, final Player player) {
+    public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final LevelReader levelReader, final BlockPos blockPos, final Player player) {
         return Optional.ofNullable(LANTERN_BY_WALL_HANGING_LANTERNS.get().get(blockState.getBlock())).map(block -> block.asItem().getDefaultInstance()).orElse(ItemStack.EMPTY);
     }
 
@@ -255,6 +258,16 @@ public class WallHangingLanternBlock extends HorizontalDirectionalBlock implemen
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, WATERLOGGED);
+    }
+
+    /**
+     * Get the {@link MapCodec Block Codec}
+     *
+     * @return {@link MapCodec The Block Codec}
+     */
+    @Override
+    protected @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
 }

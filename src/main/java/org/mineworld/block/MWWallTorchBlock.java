@@ -39,7 +39,7 @@ public class MWWallTorchBlock extends WallTorchBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWWallTorchBlock(final int lightLevel, final Supplier<? extends ParticleOptions> particleSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.WALL_TORCH, featureFlags).noCollission().instabreak().lightLevel(blockState -> lightLevel).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).lootFrom(blockSupplier), ParticleTypes.FLAME);
+        super(ParticleTypes.FLAME, PropertyHelper.copy(Blocks.WALL_TORCH, featureFlags).noCollission().instabreak().lightLevel(blockState -> lightLevel).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).lootFrom(blockSupplier));
         this.particleSupplier = particleSupplier;
     }
 

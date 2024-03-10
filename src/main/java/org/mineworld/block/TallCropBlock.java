@@ -184,7 +184,7 @@ public class TallCropBlock extends CropBlock {
      * @param player {@link Player The player who broke the Crop}
      */
     @Override
-    public void playerWillDestroy(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final @NotNull Player player) {
+    public @NotNull BlockState playerWillDestroy(final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState, final @NotNull Player player) {
         if(!level.isClientSide) {
             if(player.isCreative()) {
                 preventCreativeDropsFromBottomPart(level, blockPos, blockState, player);
@@ -192,7 +192,7 @@ public class TallCropBlock extends CropBlock {
                 dropResources(blockState, level, blockPos, null, player, player.getMainHandItem());
             }
         }
-        super.playerWillDestroy(level, blockPos, blockState, player);
+        return super.playerWillDestroy(level, blockPos, blockState, player);
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.mineworld.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
@@ -34,6 +35,10 @@ import java.util.function.Supplier;
 public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
 
     /**
+     * {@link MapCodec The Block Codec}
+     */
+    public static final MapCodec<PebbleBlock> CODEC = simpleCodec(PebbleBlock::new);
+    /**
      * {@link Integer The maximum amount of pebbles that can be placed on a block}
      */
     private static final int MAX_AMOUNT = 8;
@@ -57,7 +62,16 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      * @param featureFlags {@link FeatureFlag Any feature flag that needs to be enabled for the block to be functional}
      */
     public PebbleBlock(final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(blockSupplier.get(), featureFlags).noCollission().requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY));
+        this(PropertyHelper.copy(blockSupplier.get(), featureFlags).noCollission().requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY));
+    }
+
+    /**
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param properties The {@link BlockBehaviour.Properties Block Properties}
+     */
+    public PebbleBlock(final BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -190,6 +204,16 @@ public class PebbleBlock extends BushBlock implements SimpleWaterloggedBlock {
      */
     public @NotNull FluidState getFluidState(final BlockState blockState) {
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
+    }
+
+    /**
+     * Get the {@link MapCodec Block Codec}
+     *
+     * @return {@link MapCodec The Block Codec}
+     */
+    @Override
+    protected @NotNull MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
     
 }

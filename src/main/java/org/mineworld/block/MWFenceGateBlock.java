@@ -26,10 +26,10 @@ public class MWFenceGateBlock extends FenceGateBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWFenceGateBlock(final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.OAK_FENCE, featureFlags)
+        super(woodTypeSupplier.get(), PropertyHelper.copy(Blocks.OAK_FENCE, featureFlags)
                 .mapColor(ResourceHelper.woodColor(woodTypeSupplier.get()))
                 .sound(woodTypeSupplier.get().soundType())
-                .strength(2.0F, 3.0F), woodTypeSupplier.get()
+                .strength(2.0F, 3.0F)
         );
     }
 

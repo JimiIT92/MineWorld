@@ -27,7 +27,7 @@ public class MWStandingSignBlock extends StandingSignBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWStandingSignBlock(final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.OAK_SIGN, featureFlags), woodTypeSupplier.get());
+        super(woodTypeSupplier.get(), PropertyHelper.copy(Blocks.OAK_SIGN, featureFlags));
     }
 
     /**

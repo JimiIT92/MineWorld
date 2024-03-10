@@ -164,9 +164,9 @@ public interface IMWWeatheringBlock extends IMWChangeOverTimeBlock {
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param randomSource {@link RandomSource The random reference}
      */
-    static void randomTick(final ChangeOverTimeBlock<WeatheringCopper.WeatherState> block, final BlockState blockState, final ServerLevel level, final BlockPos blockPos, final RandomSource randomSource) {
+    static void changeOverTime(final ChangeOverTimeBlock<WeatheringCopper.WeatherState> block, final BlockState blockState, final ServerLevel level, final BlockPos blockPos, final RandomSource randomSource) {
         if(!isWaxed(blockState)) {
-            block.onRandomTick(blockState, level, blockPos, randomSource);
+            block.changeOverTime(blockState, level, blockPos, randomSource);
         }
     }
 

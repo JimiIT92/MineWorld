@@ -39,9 +39,34 @@ public class MWSkullBlock extends SkullBlock {
      * {@link MineWorld MineWorld} Skull Block Types
      */
     public enum Types implements SkullBlock.Type {
-        STRAY,
-        HUSK,
-        DROWNED
+        STRAY("stray"),
+        HUSK("husk"),
+        DROWNED("drowned");
+
+        /**
+         * {@link String The skull type name}
+         */
+        private final String name;
+
+        /**
+         * Constructor. Set the {@link String skull type name}
+         *
+         * @param name {@link String The skull type name}
+         */
+        Types(final String name) {
+            this.name = name;
+            TYPES.put(name, this);
+        }
+
+        /**
+         * Get the {@link String skull type serialized name}
+         *
+         * @return The {@link String skull type serialized name}
+         */
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
     }
 
 }

@@ -166,7 +166,7 @@ public final class PropertyHelper {
      * @return {@link BlockBehaviour.Properties The Block Properties}
      */
     public static BlockBehaviour.Properties copy(final Block block, final FeatureFlag... featureFlags) {
-        return BlockBehaviour.Properties.copy(block).requiredFeatures(featureFlags);
+        return BlockBehaviour.Properties.ofFullCopy(block).requiredFeatures(featureFlags);
     }
 
 }

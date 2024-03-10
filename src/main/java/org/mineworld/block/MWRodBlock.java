@@ -3,6 +3,7 @@ package org.mineworld.block;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -38,6 +39,10 @@ import java.util.function.Supplier;
 public class MWRodBlock extends RodBlock {
 
     /**
+     * {@link MapCodec The Block Codec}
+     */
+    public static final MapCodec<MWRodBlock> CODEC = simpleCodec(MWRodBlock::new);
+    /**
      * {@link Supplier<BiMap> Rod Blocks by Item}
      */
     private static final Supplier<BiMap<Item, Block>> RODS = Suppliers.memoize(() -> ImmutableBiMap.<Item, Block>builder()
@@ -64,7 +69,16 @@ public class MWRodBlock extends RodBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWRodBlock(final MapColor color, final SoundType sound, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.block(color, 1.5F, 3.0F, false, sound, featureFlags).noOcclusion().forceSolidOn());
+        this(PropertyHelper.block(color, 1.5F, 3.0F, false, sound, featureFlags).noOcclusion().forceSolidOn());
+    }
+
+    /**
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param properties The {@link BlockBehaviour.Properties Block Properties}
+     */
+    public MWRodBlock(final BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -153,6 +167,16 @@ public class MWRodBlock extends RodBlock {
     public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         final Item item = getItemForRod(this);
         return item == null ? ItemStack.EMPTY : item.getDefaultInstance();
+    }
+
+    /**
+     * Get the {@link MapCodec Block Codec}
+     *
+     * @return {@link MapCodec The Block Codec}
+     */
+    @Override
+    protected @NotNull MapCodec<? extends RodBlock> codec() {
+        return CODEC;
     }
 
 }

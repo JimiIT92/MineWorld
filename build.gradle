@@ -21,7 +21,7 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: mappings_channel, version: mappings_version
+    mappings channel: 'official', version: mc_version
     copyIdeResources = true
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -144,4 +144,10 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }

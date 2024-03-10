@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -25,13 +26,13 @@ public class WarpedWartBlock extends NetherWartBlock {
     /**
      * Get the {@link ItemStack Item Stack} for the inventory when the {@link Player player} middle mouse click the block
      *
-     * @param blockGetter {@link BlockGetter The level reference}
+     * @param levelReader {@link BlockGetter The level reference}
      * @param blockPos {@link BlockPos The current Block Pos}
      * @param blockState {@link BlockState The current Block State}
      * @return {@link ItemStack The Block Item Stack}
      */
     @Override
-    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    public @NotNull ItemStack getCloneItemStack(final @NotNull LevelReader levelReader, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         return new ItemStack(MWItems.WARPED_WART.get());
     }
 

@@ -61,7 +61,7 @@ public class UnlitTorchBlock extends TorchBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public UnlitTorchBlock(final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.TORCH, featureFlags).lightLevel(blockState -> 0).noCollission().instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), ParticleTypes.FLAME);
+        super(ParticleTypes.FLAME, PropertyHelper.copy(Blocks.TORCH, featureFlags).lightLevel(blockState -> 0).noCollission().instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
     }
 
     /**

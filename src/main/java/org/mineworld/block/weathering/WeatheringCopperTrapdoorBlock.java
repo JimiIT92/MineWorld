@@ -10,11 +10,11 @@ import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraftforge.common.ToolAction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
-import org.mineworld.core.MWBlockSetTypes;
 import org.mineworld.helper.PropertyHelper;
 
 /**
@@ -34,7 +34,7 @@ public class WeatheringCopperTrapdoorBlock extends TrapDoorBlock implements IMWW
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public WeatheringCopperTrapdoorBlock(final WeatheringCopper.WeatherState weatherState, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.IRON_TRAPDOOR, featureFlags), MWBlockSetTypes.COPPER.get());
+        super(BlockSetType.COPPER, PropertyHelper.copy(Blocks.IRON_TRAPDOOR, featureFlags));
         this.weatherState = weatherState;
     }
 
@@ -48,7 +48,7 @@ public class WeatheringCopperTrapdoorBlock extends TrapDoorBlock implements IMWW
      */
     @Override
     public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
-        IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, randomSource);
+        IMWWeatheringBlock.changeOverTime(this, blockState, level, blockPos, randomSource);
     }
 
     /**

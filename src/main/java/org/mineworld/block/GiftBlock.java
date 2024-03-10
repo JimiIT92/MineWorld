@@ -1,5 +1,6 @@
 package org.mineworld.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
@@ -37,6 +38,10 @@ import org.mineworld.helper.PropertyHelper;
 public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
     /**
+     * {@link MapCodec The Block Codec}
+     */
+    public static final MapCodec<GiftBlock> CODEC = simpleCodec(GiftBlock::new);
+    /**
      * {@link DirectionProperty The facing direction property}
      */
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -49,7 +54,16 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public GiftBlock() {
-        super(PropertyHelper.block(MapColor.COLOR_CYAN, 0.5F, 0.5F, false, SoundType.WOOL).noLootTable());
+        this(PropertyHelper.block(MapColor.COLOR_CYAN, 0.5F, 0.5F, false, SoundType.WOOL).noLootTable());
+    }
+
+    /**
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param properties The {@link BlockBehaviour.Properties Block Properties}
+     */
+    public GiftBlock(final BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -222,6 +236,16 @@ public class GiftBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     @Override
     public BlockEntity newBlockEntity(final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
         return new GiftBlockEntity(blockPos, blockState);
+    }
+
+    /**
+     * Get the {@link MapCodec Block Codec}
+     *
+     * @return {@link MapCodec The Block Codec}
+     */
+    @Override
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
 }

@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineworld.MineWorld;
 import org.mineworld.block.MWFireBlock;
@@ -49,7 +50,7 @@ public final class MWCopperBlocks {
 
     //#region Doors and Trapdoors
 
-    public static final RegistryObject<Block> COPPER_DOOR = MWBlocks.registerDoor("copper", true, MWBlockSetTypes.COPPER);
+    public static final RegistryObject<Block> COPPER_DOOR = MWBlocks.registerDoor("copper", true, () -> BlockSetType.COPPER);
     public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = registerTrapdoor("copper", WeatheringCopper.WeatherState.OXIDIZED, false);
     public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = registerTrapdoor("copper", WeatheringCopper.WeatherState.WEATHERED, false);
     public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = registerTrapdoor("copper", WeatheringCopper.WeatherState.EXPOSED, false);

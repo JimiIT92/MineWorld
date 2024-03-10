@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 
@@ -120,7 +121,8 @@ public class MWJigsawStructure extends Structure {
                 blockPos,
                 false,
                 this.projectStartToHeightmap,
-                this.maxDistanceFromCenter);
+                this.maxDistanceFromCenter,
+                PoolAliasLookup.EMPTY);
     }
 
     /**

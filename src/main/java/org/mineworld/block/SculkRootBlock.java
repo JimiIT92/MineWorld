@@ -1,11 +1,9 @@
 package org.mineworld.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
@@ -23,10 +21,24 @@ import org.mineworld.helper.PropertyHelper;
 public class SculkRootBlock extends BushBlock {
 
     /**
+     * {@link MapCodec The Block Codec}
+     */
+    public static final MapCodec<SculkRootBlock> CODEC = simpleCodec(SculkRootBlock::new);
+
+    /**
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      */
     public SculkRootBlock() {
-        super(PropertyHelper.block(MapColor.COLOR_CYAN, 0F, 0F, false, SoundType.SCULK).replaceable().noCollission().ignitedByLava().offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+        this(PropertyHelper.block(MapColor.COLOR_CYAN, 0F, 0F, false, SoundType.SCULK).replaceable().noCollission().ignitedByLava().offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+    }
+
+    /**
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param properties The {@link BlockBehaviour.Properties Block Properties}
+     */
+    public SculkRootBlock(final BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     /**
@@ -54,6 +66,16 @@ public class SculkRootBlock extends BushBlock {
     @Override
     protected boolean mayPlaceOn(final @NotNull BlockState blockState, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos) {
         return blockState.is(Blocks.SCULK) || blockState.is(MWBlocks.SCULK_SOIL.get()) || super.mayPlaceOn(blockState, blockGetter, blockPos);
+    }
+
+    /**
+     * Get the {@link MapCodec Block Codec}
+     *
+     * @return {@link MapCodec The Block Codec}
+     */
+    @Override
+    protected @NotNull MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
 }

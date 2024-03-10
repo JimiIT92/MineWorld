@@ -27,11 +27,11 @@ public class MWCeilingHangingSignBlock extends CeilingHangingSignBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWCeilingHangingSignBlock(final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.copy(Blocks.OAK_HANGING_SIGN, featureFlags)
+        super(woodTypeSupplier.get(), PropertyHelper.copy(Blocks.OAK_HANGING_SIGN, featureFlags)
                 .mapColor(ResourceHelper.woodColor(woodTypeSupplier.get()))
                 .sound(woodTypeSupplier.get().soundType())
                 .strength(1.0F)
-                .noCollission(), woodTypeSupplier.get()
+                .noCollission()
         );
     }
 

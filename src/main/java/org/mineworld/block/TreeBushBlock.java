@@ -8,7 +8,7 @@ import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.AzaleaBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -23,17 +23,17 @@ import java.util.function.Supplier;
 public class TreeBushBlock extends AzaleaBlock {
 
     /**
-     * {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
+     * {@link Supplier<TreeGrower> The Supplier for the Tree Grower for this Bush}
      */
-    private final Supplier<AbstractTreeGrower> treeGrowerSupplier;
+    private final Supplier<TreeGrower> treeGrowerSupplier;
 
     /**
      * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
      *
-     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
+     * @param treeGrowerSupplier {@link Supplier<TreeGrower> The Supplier for the Tree Grower for this Bush}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public TreeBushBlock(final Supplier<AbstractTreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
+    public TreeBushBlock(final Supplier<TreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
         super(PropertyHelper.copy(Blocks.AZALEA, featureFlags));
         this.treeGrowerSupplier = treeGrowerSupplier;
     }

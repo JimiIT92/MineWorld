@@ -22,7 +22,7 @@ import org.mineworld.helper.PropertyHelper;
 /**
  * {@link MineWorld MineWorld} {@link BaseFireBlock Fire Block}
  */
-public class MWFireBlock extends BaseFireBlock {
+public abstract class MWFireBlock extends BaseFireBlock {
 
     /**
      * {@link MWFireType The Fire Type}
@@ -36,12 +36,22 @@ public class MWFireBlock extends BaseFireBlock {
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public MWFireBlock(final MWFireType type, final FeatureFlag... featureFlags) {
-        super(PropertyHelper.block(type.color(), 0F, 0F, false, SoundType.WOOL, featureFlags)
+        this(type, PropertyHelper.block(type.color(), 0F, 0F, false, SoundType.WOOL, featureFlags)
                 .replaceable()
                 .noCollission()
                 .instabreak()
                 .lightLevel(state -> type.lightLevel())
-                .pushReaction(PushReaction.DESTROY), type.damage());
+                .pushReaction(PushReaction.DESTROY));
+    }
+
+    /**
+     * Constructor. Set the {@link BlockBehaviour.Properties Block Properties}
+     *
+     * @param type {@link MWFireType The Fire Type}
+     * @param properties The {@link BlockBehaviour.Properties Block Properties}
+     */
+    public MWFireBlock(final MWFireType type, final BlockBehaviour.Properties properties) {
+        super(properties, type.damage());
         this.type = type;
     }
 

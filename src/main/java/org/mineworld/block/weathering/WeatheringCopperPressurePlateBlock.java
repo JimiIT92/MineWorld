@@ -10,11 +10,11 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.WeightedPressurePlateBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraftforge.common.ToolAction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
-import org.mineworld.core.MWBlockSetTypes;
 import org.mineworld.helper.PropertyHelper;
 
 /**
@@ -34,7 +34,7 @@ public class WeatheringCopperPressurePlateBlock extends WeightedPressurePlateBlo
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
     public WeatheringCopperPressurePlateBlock(final WeatheringCopper.WeatherState weatherState, final FeatureFlag... featureFlags) {
-        super(75, PropertyHelper.copy(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags), MWBlockSetTypes.COPPER.get());
+        super(75, BlockSetType.COPPER, PropertyHelper.copy(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags));
         this.weatherState = weatherState;
     }
 
@@ -48,7 +48,7 @@ public class WeatheringCopperPressurePlateBlock extends WeightedPressurePlateBlo
      */
     @Override
     public void randomTick(final @NotNull BlockState blockState, final @NotNull ServerLevel level, final @NotNull BlockPos blockPos, final @NotNull RandomSource randomSource) {
-        IMWWeatheringBlock.randomTick(this, blockState, level, blockPos, randomSource);
+        IMWWeatheringBlock.changeOverTime(this, blockState, level, blockPos, randomSource);
     }
 
     /**

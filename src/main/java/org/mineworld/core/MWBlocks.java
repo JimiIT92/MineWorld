@@ -112,7 +112,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_OAK_LOG = registerHollowLog(WoodType.OAK, false, Blocks.OAK_LOG::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_OAK_LOG = registerHollowLog(WoodType.OAK, true, Blocks.STRIPPED_OAK_LOG::defaultBlockState);
     public static final RegistryObject<Block> OAK_LEAVES_CARPET = registerLeaveCarpet(WoodType.OAK, () -> Blocks.OAK_LEAVES);
-    public static final RegistryObject<Block> OAK_BUSH = registerBush(WoodType.OAK, OakTreeGrower::new);
+    public static final RegistryObject<Block> OAK_BUSH = registerBush(WoodType.OAK, () -> TreeGrower.OAK);
     public static final RegistryObject<Block> OAK_BARREL = registerBarrel(WoodType.OAK);
 
     //#endregion
@@ -122,7 +122,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_SPRUCE_LOG = registerHollowLog(WoodType.SPRUCE, false, Blocks.SPRUCE_LOG::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_SPRUCE_LOG = registerHollowLog(WoodType.SPRUCE, true, Blocks.STRIPPED_SPRUCE_LOG::defaultBlockState);
     public static final RegistryObject<Block> SPRUCE_LEAVES_CARPET = registerLeaveCarpet(WoodType.SPRUCE, () -> Blocks.SPRUCE_LEAVES);
-    public static final RegistryObject<Block> SPRUCE_BUSH = registerBush(WoodType.SPRUCE, SpruceTreeGrower::new);
+    public static final RegistryObject<Block> SPRUCE_BUSH = registerBush(WoodType.SPRUCE, () -> TreeGrower.SPRUCE);
     public static final RegistryObject<Block> SPRUCE_CHEST = registerChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_CHEST.get()));
     public static final RegistryObject<Block> SPRUCE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.SPRUCE, Suppliers.memoize(() -> MWBlockEntityTypes.SPRUCE_TRAPPED_CHEST.get()));
     public static final RegistryObject<Block> SPRUCE_BOOKSHELF = registerBookshelf(WoodType.SPRUCE);
@@ -136,7 +136,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_BIRCH_LOG = registerHollowLog(WoodType.BIRCH, false, Blocks.BIRCH_LOG::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_BIRCH_LOG = registerHollowLog(WoodType.BIRCH, true, Blocks.STRIPPED_BIRCH_LOG::defaultBlockState);
     public static final RegistryObject<Block> BIRCH_LEAVES_CARPET = registerLeaveCarpet(WoodType.BIRCH, () -> Blocks.BIRCH_LEAVES);
-    public static final RegistryObject<Block> BIRCH_BUSH = registerBush(WoodType.BIRCH, BirchTreeGrower::new);
+    public static final RegistryObject<Block> BIRCH_BUSH = registerBush(WoodType.BIRCH, () -> TreeGrower.BIRCH);
     public static final RegistryObject<Block> BIRCH_BARREL = registerBarrel(WoodType.BIRCH);
     public static final RegistryObject<Block> BIRCH_CHEST = registerChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_CHEST.get()));
     public static final RegistryObject<Block> BIRCH_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.BIRCH, Suppliers.memoize(() -> MWBlockEntityTypes.BIRCH_TRAPPED_CHEST.get()));
@@ -151,7 +151,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_JUNGLE_LOG = registerHollowLog(WoodType.JUNGLE, false, Blocks.JUNGLE_LOG::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_JUNGLE_LOG = registerHollowLog(WoodType.JUNGLE, true, Blocks.STRIPPED_JUNGLE_LOG::defaultBlockState);
     public static final RegistryObject<Block> JUNGLE_LEAVES_CARPET = registerLeaveCarpet(WoodType.JUNGLE, () -> Blocks.JUNGLE_LEAVES);
-    public static final RegistryObject<Block> JUNGLE_BUSH = registerBush(WoodType.JUNGLE, JungleTreeGrower::new);
+    public static final RegistryObject<Block> JUNGLE_BUSH = registerBush(WoodType.JUNGLE, () -> TreeGrower.JUNGLE);
     public static final RegistryObject<Block> JUNGLE_BARREL = registerBarrel(WoodType.JUNGLE);
     public static final RegistryObject<Block> JUNGLE_CHEST = registerChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_CHEST.get()));
     public static final RegistryObject<Block> JUNGLE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.JUNGLE, Suppliers.memoize(() -> MWBlockEntityTypes.JUNGLE_TRAPPED_CHEST.get()));
@@ -166,7 +166,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_ACACIA_LOG = registerHollowLog(WoodType.ACACIA, false, Blocks.ACACIA_LOG::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_ACACIA_LOG = registerHollowLog(WoodType.ACACIA, true, Blocks.STRIPPED_ACACIA_LOG::defaultBlockState);
     public static final RegistryObject<Block> ACACIA_LEAVES_CARPET = registerLeaveCarpet(WoodType.ACACIA, () -> Blocks.ACACIA_LEAVES);
-    public static final RegistryObject<Block> ACACIA_BUSH = registerBush(WoodType.ACACIA, AcaciaTreeGrower::new);
+    public static final RegistryObject<Block> ACACIA_BUSH = registerBush(WoodType.ACACIA, () -> TreeGrower.ACACIA);
     public static final RegistryObject<Block> ACACIA_BARREL = registerBarrel(WoodType.ACACIA);
     public static final RegistryObject<Block> ACACIA_CHEST = registerChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_CHEST.get()));
     public static final RegistryObject<Block> ACACIA_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.ACACIA, Suppliers.memoize(() -> MWBlockEntityTypes.ACACIA_TRAPPED_CHEST.get()));
@@ -181,7 +181,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_DARK_OAK_LOG = registerHollowLog(WoodType.DARK_OAK, false, Blocks.DARK_OAK_LOG::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_DARK_OAK_LOG = registerHollowLog(WoodType.DARK_OAK, true, Blocks.STRIPPED_DARK_OAK_LOG::defaultBlockState);
     public static final RegistryObject<Block> DARK_OAK_LEAVES_CARPET = registerLeaveCarpet(WoodType.DARK_OAK, () -> Blocks.DARK_OAK_LEAVES);
-    public static final RegistryObject<Block> DARK_OAK_BUSH = registerBush(WoodType.DARK_OAK, DarkOakTreeGrower::new);
+    public static final RegistryObject<Block> DARK_OAK_BUSH = registerBush(WoodType.DARK_OAK, () -> TreeGrower.DARK_OAK);
     public static final RegistryObject<Block> DARK_OAK_BARREL = registerBarrel(WoodType.DARK_OAK);
     public static final RegistryObject<Block> DARK_OAK_CHEST = registerChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_CHEST.get()));
     public static final RegistryObject<Block> DARK_OAK_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.DARK_OAK, Suppliers.memoize(() -> MWBlockEntityTypes.DARK_OAK_TRAPPED_CHEST.get()));
@@ -198,7 +198,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> MANGROVE_LEAVES_CARPET = registerLeaveCarpet(WoodType.MANGROVE, () -> Blocks.MANGROVE_LEAVES);
     public static final RegistryObject<Block> MANGROVE_ROOTS_CARPET = registerLeaveCarpet(WoodType.MANGROVE, "roots", () -> Blocks.MANGROVE_LEAVES);
     public static final RegistryObject<Block> MUDDY_MANGROVE_ROOTS_CARPET = registerCarpet("muddy_mangrove_roots", () -> Blocks.MANGROVE_LEAVES);
-    public static final RegistryObject<Block> MANGROVE_BUSH = registerBush(WoodType.MANGROVE, () -> new MangroveTreeGrower(0.85F));
+    public static final RegistryObject<Block> MANGROVE_BUSH = registerBush(WoodType.MANGROVE, () -> TreeGrower.MANGROVE);
     public static final RegistryObject<Block> MANGROVE_BARREL = registerBarrel(WoodType.MANGROVE);
     public static final RegistryObject<Block> MANGROVE_CHEST = registerChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_CHEST.get()));
     public static final RegistryObject<Block> MANGROVE_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.MANGROVE, Suppliers.memoize(() -> MWBlockEntityTypes.MANGROVE_TRAPPED_CHEST.get()));
@@ -213,7 +213,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> HOLLOW_CHERRY_LOG = registerHollowLog(WoodType.CHERRY, false, Blocks.CHERRY_LOG::defaultBlockState);
     public static final RegistryObject<Block> HOLLOW_STRIPPED_CHERRY_LOG = registerHollowLog(WoodType.CHERRY, true, Blocks.STRIPPED_CHERRY_LOG::defaultBlockState);
     public static final RegistryObject<Block> CHERRY_LEAVES_CARPET = registerLeaveCarpet(WoodType.CHERRY, () -> Blocks.CHERRY_LEAVES);
-    public static final RegistryObject<Block> CHERRY_BUSH = registerBush(WoodType.CHERRY, CherryTreeGrower::new);
+    public static final RegistryObject<Block> CHERRY_BUSH = registerBush(WoodType.CHERRY, () -> TreeGrower.CHERRY);
     public static final RegistryObject<Block> CHERRY_BARREL = registerBarrel(WoodType.CHERRY);
     public static final RegistryObject<Block> CHERRY_CHEST = registerChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_CHEST.get()));
     public static final RegistryObject<Block> CHERRY_TRAPPED_CHEST = registerTrappedChest(() -> WoodType.CHERRY, Suppliers.memoize(() -> MWBlockEntityTypes.CHERRY_TRAPPED_CHEST.get()));
@@ -886,7 +886,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BROWN_MUSHROOM_WALL_FAN = registerWallFan("brown_mushroom", MapColor.COLOR_BROWN, () -> Blocks.BROWN_MUSHROOM);
     public static final RegistryObject<Block> RED_MUSHROOM_WALL_FAN = registerWallFan("red_mushroom", MapColor.COLOR_RED, () -> Blocks.RED_MUSHROOM);
     public static final RegistryObject<Block> CATTAIL = registerBlock("cattail", CattailBlock::new);
-    public static final RegistryObject<Block> SCULK_ROOTS = registerBlock("sculk_roots", SculkRootBlock::new);
+    public static final RegistryObject<Block> SCULK_ROOTS = registerBlock("sculk_roots", Suppliers.memoize(() -> new SculkRootBlock()));
 
     //#endregion
 
@@ -1050,7 +1050,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerOreBlock(final String name, final BlockBehaviour.Properties properties, final int minXp, final int maxXp) {
-        return registerBlock(name, () -> new DropExperienceBlock(properties, UniformInt.of(minXp, maxXp)));
+        return registerBlock(name, () -> new DropExperienceBlock(UniformInt.of(minXp, maxXp), properties));
     }
 
     /**
@@ -1179,9 +1179,8 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerPressurePlate(final String materialName, final boolean isWooden, final MapColor mapColor, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_pressure_plate", () -> new PressurePlateBlock(isWooden ? PressurePlateBlock.Sensitivity.EVERYTHING : PressurePlateBlock.Sensitivity.MOBS,
-                PropertyHelper.copy(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).mapColor(mapColor),
-                blockSetTypeSupplier.get())
+        return registerBlock(materialName + "_pressure_plate", () -> new PressurePlateBlock(blockSetTypeSupplier.get(),
+                PropertyHelper.copy(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags).mapColor(mapColor))
         );
     }
 
@@ -1196,7 +1195,7 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerWeightedPressurePlate(final String materialName, final int maxWeight, final MapColor mapColor, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_pressure_plate", () -> new WeightedPressurePlateBlock(maxWeight, PropertyHelper.copy(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags).mapColor(mapColor), blockSetTypeSupplier.get()));
+        return registerBlock(materialName + "_pressure_plate", () -> new WeightedPressurePlateBlock(maxWeight, blockSetTypeSupplier.get(), PropertyHelper.copy(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, featureFlags).mapColor(mapColor)));
     }
 
     /**
@@ -1210,10 +1209,9 @@ public final class MWBlocks {
      */
     static RegistryObject<Block> registerButton(final String materialName, final boolean isWooden, final Supplier<BlockSetType> blockSetTypeSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(materialName + "_button", () -> new ButtonBlock(
-                PropertyHelper.copy(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags),
                 blockSetTypeSupplier.get(),
                 isWooden ? 30 : 20,
-                isWooden)
+                PropertyHelper.copy(isWooden ? Blocks.OAK_PRESSURE_PLATE : Blocks.STONE_PRESSURE_PLATE, featureFlags))
         );
     }
 
@@ -1241,7 +1239,9 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerDoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_door", () -> new DoorBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags), blockSetTypeSupplier.get()));
+        return registerBlock(materialName + "_door", () -> new DoorBlock(
+                blockSetTypeSupplier.get(),
+                PropertyHelper.copy(blockSupplier.get(), featureFlags)));
     }
 
     /**
@@ -1268,7 +1268,9 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     static RegistryObject<Block> registerTrapdoor(final String materialName, final boolean requiresPower, final Supplier<BlockSetType> blockSetTypeSupplier, final Supplier<Block> blockSupplier, final FeatureFlag... featureFlags) {
-        return registerBlock(materialName + "_trapdoor", () -> new TrapDoorBlock(PropertyHelper.copy(blockSupplier.get(), featureFlags), blockSetTypeSupplier.get()));
+        return registerBlock(materialName + "_trapdoor", () -> new TrapDoorBlock(
+                blockSetTypeSupplier.get(),
+                PropertyHelper.copy(blockSupplier.get(), featureFlags)));
     }
 
     /**
@@ -1499,11 +1501,11 @@ public final class MWBlocks {
      * Register a {@link TreeBushBlock Bush Block}
      *
      * @param woodType {@link WoodType The Wood Type}
-     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
+     * @param treeGrowerSupplier {@link Supplier<TreeGrower> The Supplier for the Tree Grower for this Bush}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      * @return {@link RegistryObject<Block> The registered Block}
      */
-    private static RegistryObject<Block> registerBush(final WoodType woodType, final Supplier<AbstractTreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Block> registerBush(final WoodType woodType, final Supplier<TreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
         return registerBush(ResourceHelper.woodName(woodType), treeGrowerSupplier, featureFlags);
     }
 
@@ -1511,11 +1513,11 @@ public final class MWBlocks {
      * Register a {@link TreeBushBlock Bush Block}
      *
      * @param woodName {@link String The Wood name}
-     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Supplier for the Tree Grower for this Bush}
+     * @param treeGrowerSupplier {@link Supplier<TreeGrower> The Supplier for the Tree Grower for this Bush}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      * @return {@link RegistryObject<Block> The registered Block}
      */
-    private static RegistryObject<Block> registerBush(final String woodName, final Supplier<AbstractTreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
+    private static RegistryObject<Block> registerBush(final String woodName, final Supplier<TreeGrower> treeGrowerSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(woodName + "_bush", Suppliers.memoize(() -> new TreeBushBlock(treeGrowerSupplier, featureFlags)));
     }
 
@@ -1601,10 +1603,10 @@ public final class MWBlocks {
      * Register a {@link SaplingBlock Sapling Block}
      *
      * @param woodName {@link String The Wood name}
-     * @param treeGrowerSupplier {@link Supplier<AbstractTreeGrower> The Tree Grower Supplier}
+     * @param treeGrowerSupplier {@link Supplier<TreeGrower> The Tree Grower Supplier}
      * @return {@link RegistryObject<Block> The registered Block}
      */
-    private static RegistryObject<Block> registerSapling(final String woodName, final Supplier<AbstractTreeGrower> treeGrowerSupplier) {
+    private static RegistryObject<Block> registerSapling(final String woodName, final Supplier<TreeGrower> treeGrowerSupplier) {
         return registerBlock(woodName + "_sapling", Suppliers.memoize(() -> new SaplingBlock(treeGrowerSupplier.get(), PropertyHelper.copy(Blocks.OAK_SAPLING))));
     }
 
@@ -1917,7 +1919,16 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerFireBlock(final MWFireBlock.MWFireType type, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(ResourceHelper.fireName(type) + "_fire", Suppliers.memoize(() -> new MWFireBlock(type, featureFlags)));
+        final BlockBehaviour.Properties properties = PropertyHelper.block(type.color(), 0F, 0F, false, SoundType.WOOL, featureFlags)
+                .replaceable()
+                .noCollission()
+                .instabreak()
+                .lightLevel(state -> type.lightLevel())
+                .pushReaction(PushReaction.DESTROY);
+        return registerBlockWithoutBlockItem(ResourceHelper.fireName(type) + "_fire", Suppliers.memoize(() -> switch (type) {
+            case END -> new EndFireBlock(properties);
+            case SCULK -> new SculkFireBlock(properties);
+        }));
     }
 
     /**
