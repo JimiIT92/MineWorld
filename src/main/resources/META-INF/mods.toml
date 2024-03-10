@@ -15,7 +15,7 @@ Thanks to everyone that contributed through the years
 and supported the project.
 
 The full credits list can be found here:
-https://github.com/JimiIT92/Mineworld/blob/master/CREDITS.md
+https://github.com/JimiIT92/MineWorld/blob/master/CREDITS.md
 '''
 authors="${mod_authors}"
 displayTest="MATCH_VERSION"
