@@ -23,6 +23,27 @@ public final class RandomHelper {
     }
 
     /**
+     * Check if a random value corresponds to half of the provided {@link Integer value}
+     *
+     * @param maxValue The {@link Integer maximum value to choose from}
+     * @return {@link Boolean True if the value if half the provided one}
+     */
+    public static boolean nextInt(final int maxValue) {
+        return nextInt(Math.min(0, maxValue), Math.max(0, maxValue));
+    }
+
+    /**
+     * Check if a random value is between the provided {@link Integer minimum} and {@link Integer maximum} values
+     *
+     * @param minValue The {@link Integer minimum value to choose from}
+     * @param maxValue The {@link Integer maximum value to choose from}
+     * @return {@link Boolean True if the value if between the minimum and the maximum value}
+     */
+    public static boolean nextInt(final int minValue, final int maxValue) {
+        return randomSource.nextInt(minValue, maxValue) == (maxValue / 2);
+    }
+
+    /**
      * Get a {@link T random value} from a Collection
      *
      * @param collection {@link Collection<T> The Collection to get the value from}

@@ -35,7 +35,7 @@ public final class ColorHandlerEvents {
     public static void onRegisterBlockColorHandlers(final RegisterColorHandlersEvent.Block event) {
         registerGrassBlocks(event,
                 MWBlocks.DISGUISED_GRASS_TNT,
-                MWFlowerPots.POTTED_GRASS,
+                MWFlowerPots.POTTED_SHORT_GRASS,
                 MWFlowerPots.POTTED_TALL_GRASS,
                 MWFlowerPots.POTTED_LARGE_FERN,
                 MWBlocks.GRASS_CARPET

@@ -57,7 +57,7 @@ public final class MWFlowerPots {
     public static final RegistryObject<Block> POTTED_NETHER_WART_BLOCK = registerFlowerPot("nether_wart_block", Suppliers.memoize(() -> Blocks.NETHER_WART_BLOCK));
     public static final RegistryObject<Block> POTTED_WARPED_WART_BLOCK = registerFlowerPot("warped_wart_block", Suppliers.memoize(() -> Blocks.WARPED_WART_BLOCK));
     public static final RegistryObject<Block> POTTED_SHROOMLIGHT = registerLitFlowerPot("shroomlight", Suppliers.memoize(() -> Blocks.SHROOMLIGHT), 5);
-    public static final RegistryObject<Block> POTTED_GRASS = registerFlowerPot("grass", Suppliers.memoize(() -> Blocks.SHORT_GRASS));
+    public static final RegistryObject<Block> POTTED_SHORT_GRASS = registerFlowerPot("short_grass", Suppliers.memoize(() -> Blocks.SHORT_GRASS));
     public static final RegistryObject<Block> POTTED_SUGAR_CANE = registerFlowerPot("sugar_cane", Suppliers.memoize(() -> Blocks.SUGAR_CANE));
     public static final RegistryObject<Block> POTTED_SEAGRASS = registerFlowerPot("seagrass", Suppliers.memoize(() -> Blocks.SEAGRASS));
     public static final RegistryObject<Block> POTTED_TALL_GRASS = registerFlowerPot("tall_grass", Suppliers.memoize(() -> Blocks.TALL_GRASS));
