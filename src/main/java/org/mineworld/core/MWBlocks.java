@@ -936,7 +936,8 @@ public final class MWBlocks {
     //#region Rods
 
     public static final RegistryObject<Block> BONE_ROD_BLOCK = registerRod("bone", MapColor.TERRACOTTA_WHITE, SoundType.BONE_BLOCK);
-    public static final RegistryObject<Block> BLAZE_ROD_BLOCK = registerRod("blaze", MapColor.TERRACOTTA_ORANGE, SoundType.COPPER);
+    public static final RegistryObject<Block> WITHER_BONE_ROD_BLOCK = registerRod("wither_bone", MapColor.TERRACOTTA_BLACK, SoundType.BONE_BLOCK);
+    public static final RegistryObject<Block> BLAZE_ROD_BLOCK = registerRod("blaze", MapColor.TERRACOTTA_ORANGE, SoundType.COPPER, 5);
     public static final RegistryObject<Block> STICK_ROD_BLOCK = registerRod("stick", MapColor.WOOD, SoundType.WOOD);
 
     //#endregion
@@ -1847,7 +1848,21 @@ public final class MWBlocks {
      * @return {@link RegistryObject<Block> The registered Block}
      */
     private static RegistryObject<Block> registerRod(final String materialName, final MapColor color, final SoundType sound, final FeatureFlag... featureFlags) {
-        return registerBlockWithoutBlockItem(materialName + "_rod_block", Suppliers.memoize(() -> new MWRodBlock(color, sound, featureFlags)));
+        return registerRod(materialName, color, sound, 0, featureFlags);
+    }
+
+    /**
+     * Register a {@link MWRodBlock Rod Block}
+     *
+     * @param materialName {@link String The Block material name}
+     * @param color {@link MapColor The Block Color on maps}
+     * @param sound {@link SoundType The Block Sound}
+     * @param lightLevel {@link Integer The Block Light Level}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerRod(final String materialName, final MapColor color, final SoundType sound, final int lightLevel, final FeatureFlag... featureFlags) {
+        return registerBlockWithoutBlockItem(materialName + "_rod_block", Suppliers.memoize(() -> new MWRodBlock(color, sound, lightLevel, featureFlags)));
     }
 
     /**

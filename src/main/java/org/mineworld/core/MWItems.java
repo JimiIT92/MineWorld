@@ -321,6 +321,7 @@ public final class MWItems {
     public static final RegistryObject<Item> SCULK_HEART = registerRareItem("sculk_heart", Rarity.EPIC);
     public static final RegistryObject<Item> DARK_SOUL = registerRareItem("dark_soul", Rarity.EPIC);
     public static final RegistryObject<Item> SOUL = registerSimpleItem("soul");
+    public static final RegistryObject<Item> WITHER_BONE = registerSimpleItem("wither_bone");
 
     //#endregion
 

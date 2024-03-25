@@ -2182,6 +2182,7 @@ public final class CreativeModeTabEvents {
                 MWItems.ALUMINUM_INGOT,
                 MWItems.SILVER_INGOT,
                 MWItems.BRONZE_INGOT,
+                MWItems.WITHER_BONE,
                 MWItems.ECHOING_CHARGE_FRAGMENT,
                 MWItems.SOUL,
                 MWItems.WARPED_WART

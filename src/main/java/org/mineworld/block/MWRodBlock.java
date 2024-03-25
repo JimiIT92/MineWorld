@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RodBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -25,9 +26,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.core.MWItems;
 import org.mineworld.helper.PropertyHelper;
 
 import java.util.Optional;
@@ -48,6 +51,7 @@ public class MWRodBlock extends RodBlock {
     private static final Supplier<BiMap<Item, Block>> RODS = Suppliers.memoize(() -> ImmutableBiMap.<Item, Block>builder()
             .put(Items.STICK, MWBlocks.STICK_ROD_BLOCK.get())
             .put(Items.BONE, MWBlocks.BONE_ROD_BLOCK.get())
+            .put(MWItems.WITHER_BONE.get(), MWBlocks.WITHER_BONE_ROD_BLOCK.get())
             .put(Items.BLAZE_ROD, MWBlocks.BLAZE_ROD_BLOCK.get())
     .build());
 
@@ -66,10 +70,11 @@ public class MWRodBlock extends RodBlock {
      *
      * @param color {@link MapColor The Block Color on maps}
      * @param sound {@link SoundType The Block Sound}
+     * @param lightLevel {@link Integer The Block Light Level}
      * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
      */
-    public MWRodBlock(final MapColor color, final SoundType sound, final FeatureFlag... featureFlags) {
-        this(PropertyHelper.block(color, 1.5F, 3.0F, false, sound, featureFlags).noOcclusion().forceSolidOn());
+    public MWRodBlock(final MapColor color, final SoundType sound, final int lightLevel, final FeatureFlag... featureFlags) {
+        this(PropertyHelper.block(color, 1.5F, 3.0F, false, sound, featureFlags).lightLevel(state -> lightLevel).noOcclusion().forceSolidOn());
     }
 
     /**
@@ -159,12 +164,15 @@ public class MWRodBlock extends RodBlock {
     /**
      * Get the {@link ItemStack Item Stack} for the inventory when the {@link Player player} middle mouse click the block
      *
-     * @param blockGetter {@link BlockGetter The level reference}
-     * @param blockPos {@link BlockPos The current Block Pos}
      * @param blockState {@link BlockState The current Block State}
+     * @param hitResult {@link HitResult The hit result}
+     * @param levelReader {@link BlockGetter The level reference}
+     * @param blockPos {@link BlockPos The current Block Pos}
+     * @param player {@link Player The player who is middle mouse clicking}
      * @return {@link ItemStack The Block Item Stack}
      */
-    public @NotNull ItemStack getCloneItemStack(final @NotNull BlockGetter blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState blockState) {
+    @Override
+    public ItemStack getCloneItemStack(final BlockState blockState, final HitResult hitResult, final LevelReader levelReader, final BlockPos blockPos, final Player player) {
         final Item item = getItemForRod(this);
         return item == null ? ItemStack.EMPTY : item.getDefaultInstance();
     }

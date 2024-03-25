@@ -11,6 +11,7 @@ import org.mineworld.MineWorld;
 import org.mineworld.helper.RegistryHelper;
 import org.mineworld.loot.AddItemsModifier;
 import org.mineworld.loot.FieryTouchModifier;
+import org.mineworld.loot.ReplaceItemsModifier;
 
 import java.util.function.Supplier;
 
@@ -30,7 +31,8 @@ public final class MWLootModifiers {
 
     //#region Loot modifiers
 
-    public static final RegistryObject<Codec<AddItemsModifier>> ADD_ITEM = registerLootModifier("add_items", AddItemsModifier.CODEC);
+    public static final RegistryObject<Codec<AddItemsModifier>> ADD_ITEMS = registerLootModifier("add_items", AddItemsModifier.CODEC);
+    public static final RegistryObject<Codec<ReplaceItemsModifier>> REPLACE_ITEMS = registerLootModifier("replace_items", ReplaceItemsModifier.CODEC);
     public static final RegistryObject<Codec<FieryTouchModifier>> FIERY_TOUCH = registerLootModifier("fiery_touch", FieryTouchModifier.CODEC);
 
     //#endregion

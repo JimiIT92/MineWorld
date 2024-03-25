@@ -20,6 +20,7 @@
     "mineworld:entities/illusioner",
     "mineworld:entities/warden",
     "mineworld:entities/witch",
+    "mineworld:entities/wither_skeleton",
     "mineworld:enchantments/fiery_touch"
   ]
 }
