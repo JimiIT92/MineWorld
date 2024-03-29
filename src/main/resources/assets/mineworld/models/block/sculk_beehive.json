@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "mineworld:block/sculk_beehive_end",
+    "front": "mineworld:block/sculk_beehive_front",
+    "particle": "mineworld:block/sculk_beehive_side",
+    "side": "mineworld:block/sculk_beehive_side",
+    "top": "mineworld:block/sculk_beehive_end"
+  }
+}

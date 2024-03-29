@@ -25,6 +25,12 @@ public final class VillagerPoiEvents {
         event.register(ForgeRegistries.Keys.POI_TYPES, helper -> {
             helper.register(PoiTypes.FISHERMAN, MWPoiTypes.FISHERMAN.get());
             helper.register(PoiTypes.LIBRARIAN, MWPoiTypes.LIBRARIAN.get());
+            helper.register(PoiTypes.CARTOGRAPHER, MWPoiTypes.CARTOGRAPHER.get());
+            helper.register(PoiTypes.FLETCHER, MWPoiTypes.FLETCHER.get());
+            helper.register(PoiTypes.TOOLSMITH, MWPoiTypes.TOOLSMITH.get());
+            helper.register(PoiTypes.SHEPHERD, MWPoiTypes.SHEPHERD.get());
+            helper.register(PoiTypes.FARMER, MWPoiTypes.FARMER.get());
+            helper.register(PoiTypes.BEEHIVE, MWPoiTypes.BEEHIVE.get());
         });
     }
 

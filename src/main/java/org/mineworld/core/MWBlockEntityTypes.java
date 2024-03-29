@@ -84,6 +84,22 @@ public final class MWBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<ForgingTableBlockEntity>> FORGING_TABLE = registerBlockEntity("forging_table", ForgingTableBlockEntity::new,
             Suppliers.memoize((() -> MWBlocks.FORGING_TABLE.get()))
     );
+    public static final RegistryObject<BlockEntityType<BeehiveBlockEntity>> BEEHIVE = registerBlockEntity("beehive", MWBeehiveBlockEntity::new,
+            Suppliers.memoize(() -> MWBlocks.SPRUCE_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.BIRCH_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.JUNGLE_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.ACACIA_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.DARK_OAK_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.MANGROVE_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.CHERRY_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.BAMBOO_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.CRIMSON_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.WARPED_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.APPLE_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.PALM_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.DEAD_BEEHIVE.get()),
+            Suppliers.memoize(() -> MWBlocks.SCULK_BEEHIVE.get())
+    );
     public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> SPRUCE_CHEST = registerChest(WoodType.SPRUCE, false, SpruceChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_CHEST.get()));
     public static final RegistryObject<BlockEntityType<MWTrappedChestBlockEntity>> SPRUCE_TRAPPED_CHEST = registerChest(WoodType.SPRUCE, true, SpruceTrappedChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.SPRUCE_TRAPPED_CHEST.get()));
     public static final RegistryObject<BlockEntityType<MWChestBlockEntity>> BIRCH_CHEST = registerChest(WoodType.BIRCH, false, BirchChestBlockEntity::new, Suppliers.memoize(() -> MWBlocks.BIRCH_CHEST.get()));

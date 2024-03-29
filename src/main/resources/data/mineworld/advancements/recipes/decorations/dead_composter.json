@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:dead_composter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_dead_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:dead_slab"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dead_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:dead_composter"
+    ]
+  },
+  "sends_telemetry_event": false
+}

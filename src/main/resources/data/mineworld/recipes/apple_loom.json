@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:apple_planks"
+    },
+    "@": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "@@",    
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:apple_loom"
+  },
+  "show_notification": false
+}

@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_honeycomb": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:honeycomb"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:dead_beehive"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_dead_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:dead_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_honeycomb",
+      "has_dead_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:dead_beehive"
+    ]
+  },
+  "sends_telemetry_event": false
+}

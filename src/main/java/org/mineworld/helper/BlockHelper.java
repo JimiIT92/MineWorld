@@ -7,6 +7,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.Tags;
 
@@ -36,6 +37,16 @@ public final class BlockHelper {
      */
     public static boolean isFlammable(final BlockState blockState, final BlockGetter blockGetter, final BlockPos blockPos, final Direction direction) {
         return blockState.isFlammable(blockGetter, blockPos, direction) && !blockState.isFireSource((LevelReader) blockGetter, blockPos, direction);
+    }
+
+    /**
+     * Check if a Block can catch fire based on its {@link WoodType Wood Type}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @return {@link Boolean True if the source Block is flammable}
+     */
+    public static boolean isFlammable(final WoodType woodType) {
+        return !woodType.equals(WoodType.CRIMSON) && !woodType.equals(WoodType.WARPED);
     }
 
 }

@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "mineworld:spruce_beehive",
+    "mineworld:birch_beehive",
+    "mineworld:jungle_beehive",
+    "mineworld:acacia_beehive",
+    "mineworld:dark_oak_beehive",
+    "mineworld:mangrove_beehive",
+    "mineworld:cherry_beehive",
+    "mineworld:bamboo_beehive",
+    "mineworld:crimson_beehive",
+    "mineworld:warped_beehive",
+    "mineworld:apple_beehive",
+    "mineworld:palm_beehive",
+    "mineworld:dead_beehive",
+    "mineworld:sculk_beehive"
+  ]
+}

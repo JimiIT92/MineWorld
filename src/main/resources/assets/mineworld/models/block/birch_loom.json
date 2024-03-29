@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "mineworld:block/birch_loom_bottom",
+    "front": "mineworld:block/birch_loom_front",
+    "side": "mineworld:block/birch_loom_side",
+    "top": "mineworld:block/birch_loom_top"
+  }
+}

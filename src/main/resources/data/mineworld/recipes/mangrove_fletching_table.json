@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "@": {
+      "item": "minecraft:flint"
+    }
+  },
+  "pattern": [
+    "@@",    
+    "##",
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:mangrove_fletching_table"
+  },
+  "show_notification": false
+}

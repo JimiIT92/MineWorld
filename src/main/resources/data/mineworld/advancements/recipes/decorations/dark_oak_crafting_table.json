@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:dark_oak_crafting_table"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_dark_oak_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:dark_oak_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dark_oak_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:dark_oak_crafting_table"
+    ]
+  },
+  "sends_telemetry_event": false
+}

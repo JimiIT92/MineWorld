@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:cherry_composter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_cherry_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:cherry_slab"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cherry_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:cherry_composter"
+    ]
+  },
+  "sends_telemetry_event": false
+}

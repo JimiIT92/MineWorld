@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "mineworld:block/mangrove_loom_bottom",
+    "front": "mineworld:block/mangrove_loom_front",
+    "side": "mineworld:block/mangrove_loom_side",
+    "top": "mineworld:block/mangrove_loom_top"
+  }
+}

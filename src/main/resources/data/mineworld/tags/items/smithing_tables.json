@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:smithing_table",
+    "mineworld:oak_smithing_table",
+    "mineworld:spruce_smithing_table",
+    "mineworld:birch_smithing_table",
+    "mineworld:jungle_smithing_table",
+    "mineworld:acacia_smithing_table",
+    "mineworld:dark_oak_smithing_table",
+    "mineworld:cherry_smithing_table",
+    "mineworld:bamboo_smithing_table",
+    "mineworld:crimson_smithing_table",
+    "mineworld:warped_smithing_table",
+    "mineworld:apple_smithing_table",
+    "mineworld:palm_smithing_table",
+    "mineworld:dead_smithing_table",
+    "mineworld:sculk_smithing_table"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:composter",
+    "mineworld:oak_composter",
+    "mineworld:birch_composter",
+    "mineworld:jungle_composter",
+    "mineworld:acacia_composter",
+    "mineworld:dark_oak_composter",
+    "mineworld:mangrove_composter",
+    "mineworld:cherry_composter",
+    "mineworld:bamboo_composter",
+    "mineworld:crimson_composter",
+    "mineworld:warped_composter",
+    "mineworld:apple_composter",
+    "mineworld:palm_composter",
+    "mineworld:dead_composter",
+    "mineworld:sculk_composter"
+  ]
+}

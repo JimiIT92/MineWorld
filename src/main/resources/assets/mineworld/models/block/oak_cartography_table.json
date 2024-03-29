@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/oak_planks",
+    "east": "mineworld:block/oak_cartography_table_side3",
+    "north": "mineworld:block/oak_cartography_table_side3",
+    "particle": "mineworld:block/oak_cartography_table_side3",
+    "south": "mineworld:block/oak_cartography_table_side1",
+    "up": "mineworld:block/oak_cartography_table_top",
+    "west": "mineworld:block/oak_cartography_table_side2"
+  }
+}

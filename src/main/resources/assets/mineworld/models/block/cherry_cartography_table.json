@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/cherry_planks",
+    "east": "mineworld:block/cherry_cartography_table_side3",
+    "north": "mineworld:block/cherry_cartography_table_side3",
+    "particle": "mineworld:block/cherry_cartography_table_side3",
+    "south": "mineworld:block/cherry_cartography_table_side1",
+    "up": "mineworld:block/cherry_cartography_table_top",
+    "west": "mineworld:block/cherry_cartography_table_side2"
+  }
+}

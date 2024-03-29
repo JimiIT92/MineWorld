@@ -10,10 +10,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.grower.*;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -114,6 +115,10 @@ public final class MWBlocks {
     public static final RegistryObject<Block> OAK_LEAVES_CARPET = registerLeaveCarpet(WoodType.OAK, () -> Blocks.OAK_LEAVES);
     public static final RegistryObject<Block> OAK_BUSH = registerBush(WoodType.OAK, () -> TreeGrower.OAK);
     public static final RegistryObject<Block> OAK_BARREL = registerBarrel(WoodType.OAK);
+    public static final RegistryObject<Block> OAK_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.OAK);
+    public static final RegistryObject<Block> OAK_FLETCHING_TABLE = registerFletchingTable(WoodType.OAK);
+    public static final RegistryObject<Block> OAK_SMITHING_TABLE = registerSmithingTable(WoodType.OAK);
+    public static final RegistryObject<Block> OAK_COMPOSTER = registerComposter(WoodType.OAK);
 
     //#endregion
 
@@ -128,6 +133,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SPRUCE_BOOKSHELF = registerBookshelf(WoodType.SPRUCE);
     public static final RegistryObject<Block> SPRUCE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.SPRUCE);
     public static final RegistryObject<Block> SPRUCE_LECTERN = registerLectern(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_CRAFTING_TABLE = registerCraftingTable(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_FLETCHING_TABLE = registerFletchingTable(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_SMITHING_TABLE = registerSmithingTable(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_LOOM = registerLoom(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_BEEHIVE = registerBeehive(WoodType.SPRUCE);
 
     //#endregion
 
@@ -143,6 +154,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BIRCH_BOOKSHELF = registerBookshelf(WoodType.BIRCH);
     public static final RegistryObject<Block> BIRCH_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.BIRCH);
     public static final RegistryObject<Block> BIRCH_LECTERN = registerLectern(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_CRAFTING_TABLE = registerCraftingTable(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_SMITHING_TABLE = registerSmithingTable(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_LOOM = registerLoom(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_COMPOSTER = registerComposter(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_BEEHIVE = registerBeehive(WoodType.BIRCH);
 
     //#endregion
 
@@ -158,6 +175,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> JUNGLE_BOOKSHELF = registerBookshelf(WoodType.JUNGLE);
     public static final RegistryObject<Block> JUNGLE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.JUNGLE);
     public static final RegistryObject<Block> JUNGLE_LECTERN = registerLectern(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_CRAFTING_TABLE = registerCraftingTable(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_FLETCHING_TABLE = registerFletchingTable(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_SMITHING_TABLE = registerSmithingTable(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_LOOM = registerLoom(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_COMPOSTER = registerComposter(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_BEEHIVE = registerBeehive(WoodType.JUNGLE);
 
     //#endregion
 
@@ -173,6 +197,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ACACIA_BOOKSHELF = registerBookshelf(WoodType.ACACIA);
     public static final RegistryObject<Block> ACACIA_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.ACACIA);
     public static final RegistryObject<Block> ACACIA_LECTERN = registerLectern(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_CRAFTING_TABLE = registerCraftingTable(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_FLETCHING_TABLE = registerFletchingTable(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_SMITHING_TABLE = registerSmithingTable(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_LOOM = registerLoom(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_COMPOSTER = registerComposter(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_BEEHIVE = registerBeehive(WoodType.ACACIA);
 
     //#endregion
 
@@ -188,6 +219,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DARK_OAK_BOOKSHELF = registerBookshelf(WoodType.DARK_OAK);
     public static final RegistryObject<Block> DARK_OAK_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.DARK_OAK);
     public static final RegistryObject<Block> DARK_OAK_LECTERN = registerLectern(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_CRAFTING_TABLE = registerCraftingTable(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_FLETCHING_TABLE = registerFletchingTable(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_SMITHING_TABLE = registerSmithingTable(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_LOOM = registerLoom(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_COMPOSTER = registerComposter(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_BEEHIVE = registerBeehive(WoodType.DARK_OAK);
 
     //#endregion
 
@@ -205,6 +242,12 @@ public final class MWBlocks {
     public static final RegistryObject<Block> MANGROVE_BOOKSHELF = registerBookshelf(WoodType.MANGROVE);
     public static final RegistryObject<Block> MANGROVE_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.MANGROVE);
     public static final RegistryObject<Block> MANGROVE_LECTERN = registerLectern(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_CRAFTING_TABLE = registerCraftingTable(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_FLETCHING_TABLE = registerFletchingTable(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_LOOM = registerLoom(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_COMPOSTER = registerComposter(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_BEEHIVE = registerBeehive(WoodType.MANGROVE);
 
     //#endregion
 
@@ -220,6 +263,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CHERRY_BOOKSHELF = registerBookshelf(WoodType.CHERRY);
     public static final RegistryObject<Block> CHERRY_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.CHERRY);
     public static final RegistryObject<Block> CHERRY_LECTERN = registerLectern(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_CRAFTING_TABLE = registerCraftingTable(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_FLETCHING_TABLE = registerFletchingTable(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_SMITHING_TABLE = registerSmithingTable(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_LOOM = registerLoom(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_COMPOSTER = registerComposter(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_BEEHIVE = registerBeehive(WoodType.CHERRY);
 
     //#endregion
 
@@ -233,6 +283,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BAMBOO_BOOKSHELF = registerBookshelf(WoodType.BAMBOO);
     public static final RegistryObject<Block> BAMBOO_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.BAMBOO);
     public static final RegistryObject<Block> BAMBOO_LECTERN = registerLectern(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_CRAFTING_TABLE = registerCraftingTable(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_FLETCHING_TABLE = registerFletchingTable(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_SMITHING_TABLE = registerSmithingTable(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_LOOM = registerLoom(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_COMPOSTER = registerComposter(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_BEEHIVE = registerBeehive(WoodType.BAMBOO);
 
     //#endregion
 
@@ -247,6 +304,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CRIMSON_BOOKSHELF = registerBookshelf(WoodType.CRIMSON);
     public static final RegistryObject<Block> CRIMSON_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.CRIMSON);
     public static final RegistryObject<Block> CRIMSON_LECTERN = registerLectern(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_CRAFTING_TABLE = registerCraftingTable(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_FLETCHING_TABLE = registerFletchingTable(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_SMITHING_TABLE = registerSmithingTable(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_LOOM = registerLoom(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_COMPOSTER = registerComposter(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_BEEHIVE = registerBeehive(WoodType.CRIMSON);
 
     //#endregion
 
@@ -261,6 +325,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WARPED_BOOKSHELF = registerBookshelf(WoodType.WARPED);
     public static final RegistryObject<Block> WARPED_CHISELED_BOOKSHELF = registerChiseledBookshelf(WoodType.WARPED);
     public static final RegistryObject<Block> WARPED_LECTERN = registerLectern(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_CRAFTING_TABLE = registerCraftingTable(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_CARTOGRAPHY_TABLE = registerCartographyTable(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_FLETCHING_TABLE = registerFletchingTable(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_SMITHING_TABLE = registerSmithingTable(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_LOOM = registerLoom(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_COMPOSTER = registerComposter(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_BEEHIVE = registerBeehive(WoodType.WARPED);
 
     //#endregion
 
@@ -302,6 +373,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> APPLE_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> APPLE_SIGN.get()));
     public static final RegistryObject<Block> APPLE_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
     public static final RegistryObject<Block> APPLE_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE, Suppliers.memoize(() -> APPLE_HANGING_SIGN.get()));
+    public static final RegistryObject<Block> APPLE_CRAFTING_TABLE = registerCraftingTable(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_CARTOGRAPHY_TABLE = registerCartographyTable(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_FLETCHING_TABLE = registerFletchingTable(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_SMITHING_TABLE = registerSmithingTable(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
 
     //#endregion
 
@@ -336,6 +414,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PALM_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> PALM_SIGN.get()));
     public static final RegistryObject<Block> PALM_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
     public static final RegistryObject<Block> PALM_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM, Suppliers.memoize(() -> PALM_HANGING_SIGN.get()));
+    public static final RegistryObject<Block> PALM_CRAFTING_TABLE = registerCraftingTable(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_CARTOGRAPHY_TABLE = registerCartographyTable(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_FLETCHING_TABLE = registerFletchingTable(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_SMITHING_TABLE = registerSmithingTable(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
 
     //#endregion
 
@@ -366,6 +451,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DEAD_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> DEAD_SIGN.get()));
     public static final RegistryObject<Block> DEAD_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
     public static final RegistryObject<Block> DEAD_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD, Suppliers.memoize(() -> DEAD_HANGING_SIGN.get()));
+    public static final RegistryObject<Block> DEAD_CRAFTING_TABLE = registerCraftingTable(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_CARTOGRAPHY_TABLE = registerCartographyTable(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_FLETCHING_TABLE = registerFletchingTable(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_SMITHING_TABLE = registerSmithingTable(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
 
     //#endregion
 
@@ -400,6 +492,13 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SCULK_WALL_SIGN = registerWallSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> SCULK_SIGN.get()));
     public static final RegistryObject<Block> SCULK_HANGING_SIGN = registerHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
     public static final RegistryObject<Block> SCULK_WALL_HANGING_SIGN = registerWallHangingSign(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK, Suppliers.memoize(() -> SCULK_HANGING_SIGN.get()));
+    public static final RegistryObject<Block> SCULK_CRAFTING_TABLE = registerCraftingTable(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_CARTOGRAPHY_TABLE = registerCartographyTable(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_FLETCHING_TABLE = registerFletchingTable(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_SMITHING_TABLE = registerSmithingTable(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
 
     //#endregion
 
@@ -1836,6 +1935,167 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerLectern(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(woodName + "_lectern", Suppliers.memoize(() -> new MWLecternBlock(woodTypeSupplier, featureFlags)));
+    }
+
+    /**
+     * Register a {@link CraftingTableBlock Crafting Table Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCraftingTable(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerCraftingTable(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link CraftingTableBlock Crafting Table Block}
+     *
+     * @param woodName {@link String The Crafting table Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCraftingTable(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_crafting_table", () -> new MWCraftingTableBlock(woodTypeSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link CartographyTableBlock Cartography Table Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCartographyTable(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerCartographyTable(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link CartographyTableBlock Cartography Table Block}
+     *
+     * @param woodName {@link String The Cartography table Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerCartographyTable(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_cartography_table", () -> new MWCartographyTableBlock(woodTypeSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link FletchingTableBlock Fletching Table Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFletchingTable(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerFletchingTable(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link FletchingTableBlock Fletching Table Block}
+     *
+     * @param woodName {@link String The Fletching table Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerFletchingTable(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_fletching_table", () -> new FletchingTableBlock(PropertyHelper.copy(Blocks.FLETCHING_TABLE, featureFlags).mapColor(ResourceHelper.woodColor(woodTypeSupplier.get())).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(woodTypeSupplier.get().soundType()).ignitedByLava()));
+    }
+
+    /**
+     * Register a {@link SmithingTableBlock Smithing Table Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerSmithingTable(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerSmithingTable(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link SmithingTableBlock Smithing Table Block}
+     *
+     * @param woodName {@link String The Smithing table Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerSmithingTable(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_smithing_table", () -> new MWSmithingTableBlock(woodTypeSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link LoomBlock Loom Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLoom(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerLoom(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link LoomBlock Loom Block}
+     *
+     * @param woodName {@link String The Loom Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLoom(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_loom", () -> new MWLoomBlock(woodTypeSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link BeehiveBlock Bee Hive Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBeehive(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerBeehive(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link BeehiveBlock Bee Hive Block}
+     *
+     * @param woodName {@link String The BeeHive Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerBeehive(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_beehive", () -> new MWBeehiveBlock(woodTypeSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link LoomBlock Composter Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerComposter(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerComposter(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link ComposterBlock Composter Block}
+     *
+     * @param woodName {@link String The Composter Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerComposter(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_composter", () -> new MWComposterBlock(woodTypeSupplier, featureFlags));
     }
 
     /**

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "mineworld:block/dark_oak_loom_bottom",
+    "front": "mineworld:block/dark_oak_loom_front",
+    "side": "mineworld:block/dark_oak_loom_side",
+    "top": "mineworld:block/dark_oak_loom_top"
+  }
+}

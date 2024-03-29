@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:warped_fletching_table"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_flint": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:flint"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_warped_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:warped_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_flint",
+      "has_warped_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:warped_fletching_table"
+    ]
+  },
+  "sends_telemetry_event": false
+}

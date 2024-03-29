@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/composter",
+  "textures": {
+    "particle": "mineworld:block/cherry_composter_side",
+    "top": "mineworld:block/cherry_composter_top",
+    "bottom": "mineworld:block/cherry_composter_bottom",
+    "side": "mineworld:block/cherry_composter_side",
+    "inside": "mineworld:block/cherry_composter_bottom"
+  }
+}

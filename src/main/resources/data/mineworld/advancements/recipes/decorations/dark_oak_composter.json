@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:dark_oak_composter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_dark_oak_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:dark_oak_slab"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dark_oak_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:dark_oak_composter"
+    ]
+  },
+  "sends_telemetry_event": false
+}

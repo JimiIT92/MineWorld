@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:dead_planks"
+    },
+    "@": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "@@",    
+    "##",
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:dead_cartography_table"
+  },
+  "show_notification": false
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:apple_planks"
+    },
+    "@": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "@@",    
+    "##",
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:apple_cartography_table"
+  },
+  "show_notification": false
+}

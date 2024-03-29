@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:sculk_planks"
+    },
+    "@": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "@@",    
+    "##",
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:sculk_cartography_table"
+  },
+  "show_notification": false
+}

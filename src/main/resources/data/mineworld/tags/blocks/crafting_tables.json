@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:crafting_table",
+    "mineworld:spruce_crafting_table",
+    "mineworld:birch_crafting_table",
+    "mineworld:jungle_crafting_table",
+    "mineworld:acacia_crafting_table",
+    "mineworld:dark_oak_crafting_table",
+    "mineworld:mangrove_crafting_table",
+    "mineworld:cherry_crafting_table",
+    "mineworld:bamboo_crafting_table",
+    "mineworld:crimson_crafting_table",
+    "mineworld:warped_crafting_table",
+    "mineworld:apple_crafting_table",
+    "mineworld:palm_crafting_table",
+    "mineworld:dead_crafting_table",
+    "mineworld:sculk_crafting_table"
+  ]
+}

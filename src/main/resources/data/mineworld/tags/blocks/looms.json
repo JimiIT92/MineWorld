@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:loom",
+    "mineworld:spruce_loom",
+    "mineworld:birch_loom",
+    "mineworld:jungle_loom",
+    "mineworld:acacia_loom",
+    "mineworld:dark_oak_loom",
+    "mineworld:mangrove_loom",
+    "mineworld:cherry_loom",
+    "mineworld:bamboo_loom",
+    "mineworld:crimson_loom",
+    "mineworld:warped_loom",
+    "mineworld:apple_loom",
+    "mineworld:palm_loom",
+    "mineworld:dead_loom",
+    "mineworld:sculk_loom"
+  ]
+}

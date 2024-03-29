@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mineworld:block/sculk_planks",
+    "east": "mineworld:block/sculk_cartography_table_side3",
+    "north": "mineworld:block/sculk_cartography_table_side3",
+    "particle": "mineworld:block/sculk_cartography_table_side3",
+    "south": "mineworld:block/sculk_cartography_table_side1",
+    "up": "mineworld:block/sculk_cartography_table_top",
+    "west": "mineworld:block/sculk_cartography_table_side2"
+  }
+}

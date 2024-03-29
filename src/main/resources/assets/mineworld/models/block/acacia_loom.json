@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "mineworld:block/acacia_loom_bottom",
+    "front": "mineworld:block/acacia_loom_front",
+    "side": "mineworld:block/acacia_loom_side",
+    "top": "mineworld:block/acacia_loom_top"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mineworld:dead_planks"
+    },
+    "@": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "@@",    
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:dead_loom"
+  },
+  "show_notification": false
+}

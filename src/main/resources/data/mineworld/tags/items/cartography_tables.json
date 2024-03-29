@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cartography_table",
+    "mineworld:oak_cartography_table",
+    "mineworld:spruce_cartography_table",
+    "mineworld:birch_cartography_table",
+    "mineworld:jungle_cartography_table",
+    "mineworld:acacia_cartography_table",
+    "mineworld:mangrove_cartography_table",
+    "mineworld:cherry_cartography_table",
+    "mineworld:bamboo_cartography_table",
+    "mineworld:crimson_cartography_table",
+    "mineworld:warped_cartography_table",
+    "mineworld:apple_cartography_table",
+    "mineworld:palm_cartography_table",
+    "mineworld:dead_cartography_table",
+    "mineworld:sculk_cartography_table"
+  ]
+}

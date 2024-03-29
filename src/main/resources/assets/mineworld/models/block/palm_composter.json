@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/composter",
+  "textures": {
+    "particle": "mineworld:block/palm_composter_side",
+    "top": "mineworld:block/palm_composter_top",
+    "bottom": "mineworld:block/palm_composter_bottom",
+    "side": "mineworld:block/palm_composter_side",
+    "inside": "mineworld:block/palm_composter_bottom"
+  }
+}

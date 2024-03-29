@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:apple_crafting_table"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_apple_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:apple_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_apple_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:apple_crafting_table"
+    ]
+  },
+  "sends_telemetry_event": false
+}

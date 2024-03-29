@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mineworld:block/palm_planks",
+    "east": "mineworld:block/palm_crafting_table_side",
+    "north": "mineworld:block/palm_crafting_table_front",
+    "particle": "mineworld:block/palm_crafting_table_front",
+    "south": "mineworld:block/palm_crafting_table_side",
+    "up": "mineworld:block/palm_crafting_table_top",
+    "west": "mineworld:block/palm_crafting_table_front"
+  }
+}

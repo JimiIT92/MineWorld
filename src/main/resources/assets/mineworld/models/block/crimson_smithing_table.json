@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mineworld:block/crimson_smithing_table_bottom",
+    "east": "mineworld:block/crimson_smithing_table_side",
+    "north": "mineworld:block/crimson_smithing_table_front",
+    "particle": "mineworld:block/crimson_smithing_table_front",
+    "south": "mineworld:block/crimson_smithing_table_front",
+    "up": "minecraft:block/smithing_table_top",
+    "west": "mineworld:block/crimson_smithing_table_side"
+  }
+}

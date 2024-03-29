@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "mineworld:block/warped_loom_bottom",
+    "front": "mineworld:block/warped_loom_front",
+    "side": "mineworld:block/warped_loom_side",
+    "top": "mineworld:block/warped_loom_top"
+  }
+}

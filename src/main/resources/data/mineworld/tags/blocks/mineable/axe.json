@@ -19,6 +19,13 @@
     "#mineworld:wooden_trapdoors",
     "#mineworld:wooden_buttons",
     "#mineworld:wooden_pressure_plates",
-    "mineworld:woodcutter"
+    "mineworld:woodcutter",
+    "#mineworld:crafting_tables",
+    "#mineworld:cartography_tables",
+    "#mineworld:fletching_tables",
+    "#mineworld:smithing_tables",
+    "#mineworld:looms",
+    "#mineworld:composters",
+    "#mineworld:beehives"
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mineworld:block/dead_planks",
+    "east": "mineworld:block/dead_cartography_table_side3",
+    "north": "mineworld:block/dead_cartography_table_side3",
+    "particle": "mineworld:block/dead_cartography_table_side3",
+    "south": "mineworld:block/dead_cartography_table_side1",
+    "up": "mineworld:block/dead_cartography_table_top",
+    "west": "mineworld:block/dead_cartography_table_side2"
+  }
+}

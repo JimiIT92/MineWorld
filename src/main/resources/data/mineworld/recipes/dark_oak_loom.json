@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "@": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "@@",    
+    "##"
+  ],
+  "result": {
+    "item": "mineworld:dark_oak_loom"
+  },
+  "show_notification": false
+}

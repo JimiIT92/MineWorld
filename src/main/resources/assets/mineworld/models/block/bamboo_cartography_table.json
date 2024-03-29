@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/bamboo_planks",
+    "east": "mineworld:block/bamboo_cartography_table_side3",
+    "north": "mineworld:block/bamboo_cartography_table_side3",
+    "particle": "mineworld:block/bamboo_cartography_table_side3",
+    "south": "mineworld:block/bamboo_cartography_table_side1",
+    "up": "mineworld:block/bamboo_cartography_table_top",
+    "west": "mineworld:block/bamboo_cartography_table_side2"
+  }
+}

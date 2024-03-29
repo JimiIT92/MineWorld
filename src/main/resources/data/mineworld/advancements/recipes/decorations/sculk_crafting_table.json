@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mineworld:sculk_crafting_table"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_sculk_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mineworld:sculk_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sculk_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mineworld:sculk_crafting_table"
+    ]
+  },
+  "sends_telemetry_event": false
+}
