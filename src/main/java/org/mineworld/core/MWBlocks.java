@@ -139,6 +139,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SPRUCE_SMITHING_TABLE = registerSmithingTable(WoodType.SPRUCE);
     public static final RegistryObject<Block> SPRUCE_LOOM = registerLoom(WoodType.SPRUCE);
     public static final RegistryObject<Block> SPRUCE_BEEHIVE = registerBeehive(WoodType.SPRUCE);
+    public static final RegistryObject<Block> SPRUCE_LADDER = registerLadder(WoodType.SPRUCE);
 
     //#endregion
 
@@ -160,6 +161,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BIRCH_LOOM = registerLoom(WoodType.BIRCH);
     public static final RegistryObject<Block> BIRCH_COMPOSTER = registerComposter(WoodType.BIRCH);
     public static final RegistryObject<Block> BIRCH_BEEHIVE = registerBeehive(WoodType.BIRCH);
+    public static final RegistryObject<Block> BIRCH_LADDER = registerLadder(WoodType.BIRCH);
 
     //#endregion
 
@@ -182,6 +184,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> JUNGLE_LOOM = registerLoom(WoodType.JUNGLE);
     public static final RegistryObject<Block> JUNGLE_COMPOSTER = registerComposter(WoodType.JUNGLE);
     public static final RegistryObject<Block> JUNGLE_BEEHIVE = registerBeehive(WoodType.JUNGLE);
+    public static final RegistryObject<Block> JUNGLE_LADDER = registerLadder(WoodType.JUNGLE);
 
     //#endregion
 
@@ -204,6 +207,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> ACACIA_LOOM = registerLoom(WoodType.ACACIA);
     public static final RegistryObject<Block> ACACIA_COMPOSTER = registerComposter(WoodType.ACACIA);
     public static final RegistryObject<Block> ACACIA_BEEHIVE = registerBeehive(WoodType.ACACIA);
+    public static final RegistryObject<Block> ACACIA_LADDER = registerLadder(WoodType.ACACIA);
 
     //#endregion
 
@@ -225,6 +229,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DARK_OAK_LOOM = registerLoom(WoodType.DARK_OAK);
     public static final RegistryObject<Block> DARK_OAK_COMPOSTER = registerComposter(WoodType.DARK_OAK);
     public static final RegistryObject<Block> DARK_OAK_BEEHIVE = registerBeehive(WoodType.DARK_OAK);
+    public static final RegistryObject<Block> DARK_OAK_LADDER = registerLadder(WoodType.DARK_OAK);
 
     //#endregion
 
@@ -248,6 +253,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> MANGROVE_LOOM = registerLoom(WoodType.MANGROVE);
     public static final RegistryObject<Block> MANGROVE_COMPOSTER = registerComposter(WoodType.MANGROVE);
     public static final RegistryObject<Block> MANGROVE_BEEHIVE = registerBeehive(WoodType.MANGROVE);
+    public static final RegistryObject<Block> MANGROVE_LADDER = registerLadder(WoodType.MANGROVE);
 
     //#endregion
 
@@ -270,6 +276,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CHERRY_LOOM = registerLoom(WoodType.CHERRY);
     public static final RegistryObject<Block> CHERRY_COMPOSTER = registerComposter(WoodType.CHERRY);
     public static final RegistryObject<Block> CHERRY_BEEHIVE = registerBeehive(WoodType.CHERRY);
+    public static final RegistryObject<Block> CHERRY_LADDER = registerLadder(WoodType.CHERRY);
 
     //#endregion
 
@@ -290,6 +297,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> BAMBOO_LOOM = registerLoom(WoodType.BAMBOO);
     public static final RegistryObject<Block> BAMBOO_COMPOSTER = registerComposter(WoodType.BAMBOO);
     public static final RegistryObject<Block> BAMBOO_BEEHIVE = registerBeehive(WoodType.BAMBOO);
+    public static final RegistryObject<Block> BAMBOO_LADDER = registerLadder(WoodType.BAMBOO);
 
     //#endregion
 
@@ -311,6 +319,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> CRIMSON_LOOM = registerLoom(WoodType.CRIMSON);
     public static final RegistryObject<Block> CRIMSON_COMPOSTER = registerComposter(WoodType.CRIMSON);
     public static final RegistryObject<Block> CRIMSON_BEEHIVE = registerBeehive(WoodType.CRIMSON);
+    public static final RegistryObject<Block> CRIMSON_LADDER = registerLadder(WoodType.CRIMSON);
 
     //#endregion
 
@@ -332,6 +341,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> WARPED_LOOM = registerLoom(WoodType.WARPED);
     public static final RegistryObject<Block> WARPED_COMPOSTER = registerComposter(WoodType.WARPED);
     public static final RegistryObject<Block> WARPED_BEEHIVE = registerBeehive(WoodType.WARPED);
+    public static final RegistryObject<Block> WARPED_LADDER = registerLadder(WoodType.WARPED);
 
     //#endregion
 
@@ -380,6 +390,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> APPLE_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
     public static final RegistryObject<Block> APPLE_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
     public static final RegistryObject<Block> APPLE_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
+    public static final RegistryObject<Block> APPLE_LADDER = registerLadder(MWWoodTypes.MWWoodTypeNames.APPLE, MWWoodTypes.APPLE);
 
     //#endregion
 
@@ -421,6 +432,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> PALM_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
     public static final RegistryObject<Block> PALM_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
     public static final RegistryObject<Block> PALM_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
+    public static final RegistryObject<Block> PALM_LADDER = registerLadder(MWWoodTypes.MWWoodTypeNames.PALM, MWWoodTypes.PALM);
 
     //#endregion
 
@@ -458,6 +470,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> DEAD_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
     public static final RegistryObject<Block> DEAD_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
     public static final RegistryObject<Block> DEAD_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
+    public static final RegistryObject<Block> DEAD_LADDER = registerLadder(MWWoodTypes.MWWoodTypeNames.DEAD, MWWoodTypes.DEAD);
 
     //#endregion
 
@@ -499,6 +512,7 @@ public final class MWBlocks {
     public static final RegistryObject<Block> SCULK_LOOM = registerLoom(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
     public static final RegistryObject<Block> SCULK_COMPOSTER = registerComposter(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
     public static final RegistryObject<Block> SCULK_BEEHIVE = registerBeehive(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
+    public static final RegistryObject<Block> SCULK_LADDER = registerLadder(MWWoodTypes.MWWoodTypeNames.SCULK, MWWoodTypes.SCULK);
 
     //#endregion
 
@@ -2096,6 +2110,29 @@ public final class MWBlocks {
      */
     private static RegistryObject<Block> registerComposter(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
         return registerBlock(woodName + "_composter", () -> new MWComposterBlock(woodTypeSupplier, featureFlags));
+    }
+
+    /**
+     * Register a {@link LadderBlock Ladder Block}
+     *
+     * @param woodType {@link WoodType The Wood Type}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLadder(final WoodType woodType, final FeatureFlag... featureFlags) {
+        return registerLadder(ResourceHelper.woodName(woodType), Suppliers.memoize(() -> woodType), featureFlags);
+    }
+
+    /**
+     * Register a {@link LadderBlock Ladder Block}
+     *
+     * @param woodName {@link String The BeeHive Wood name}
+     * @param woodTypeSupplier {@link Supplier<WoodType> The Wood Type Supplier}
+     * @param featureFlags {@link FeatureFlag The Feature Flags that must be enabled for the Block to work}
+     * @return {@link RegistryObject<Block> The registered Block}
+     */
+    private static RegistryObject<Block> registerLadder(final String woodName, final Supplier<WoodType> woodTypeSupplier, final FeatureFlag... featureFlags) {
+        return registerBlock(woodName + "_ladder", () -> new LadderBlock(PropertyHelper.copy(Blocks.LADDER, featureFlags).forceSolidOff().strength(0.4F).sound(SoundType.LADDER).noOcclusion().pushReaction(PushReaction.DESTROY)));
     }
 
     /**

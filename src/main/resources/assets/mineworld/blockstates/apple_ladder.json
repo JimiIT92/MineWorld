@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mineworld:block/apple_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "mineworld:block/apple_ladder"
+    },
+    "facing=south": {
+      "model": "mineworld:block/apple_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mineworld:block/apple_ladder",
+      "y": 270
+    }
+  }
+}

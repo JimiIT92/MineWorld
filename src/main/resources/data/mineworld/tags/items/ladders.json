@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:ladder",
+    "mineworld:spruce_ladder",
+    "mineworld:birch_ladder",
+    "mineworld:jungle_ladder",
+    "mineworld:acacia_ladder",
+    "mineworld:dark_oak_ladder",
+    "mineworld:mangrove_ladder",
+    "mineworld:cherry_ladder",
+    "mineworld:bamboo_ladder",
+    "mineworld:crimson_ladder",
+    "mineworld:warped_ladder",
+    "mineworld:apple_ladder",
+    "mineworld:palm_ladder",
+    "mineworld:dead_ladder",
+    "mineworld:sculk_ladder"
+  ]
+}

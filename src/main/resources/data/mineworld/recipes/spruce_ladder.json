@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "P": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
+  "pattern": [
+    "# #",
+    "#P#",
+    "# #"
+  ],
+  "result": {
+    "count": 3,
+    "item": "mineworld:spruce_ladder"
+  },
+  "show_notification": true
+}

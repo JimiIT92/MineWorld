@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "P": {
+      "item": "mineworld:sculk_planks"
+    }
+  },
+  "pattern": [
+    "# #",
+    "#P#",
+    "# #"
+  ],
+  "result": {
+    "count": 3,
+    "item": "mineworld:sculk_ladder"
+  },
+  "show_notification": true
+}

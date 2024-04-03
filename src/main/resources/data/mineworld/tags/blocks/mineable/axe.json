@@ -26,6 +26,7 @@
     "#mineworld:smithing_tables",
     "#mineworld:looms",
     "#mineworld:composters",
-    "#mineworld:beehives"
+    "#mineworld:beehives",
+    "#mineworld:ladders"
   ]
 }

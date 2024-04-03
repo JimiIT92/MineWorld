@@ -3,6 +3,7 @@
   "values": [
     "#mineworld:chains",
     "mineworld:rope",
-    "mineworld:rope_tail"
+    "mineworld:rope_tail",
+    "#mineworld:ladders"
   ]
 }
