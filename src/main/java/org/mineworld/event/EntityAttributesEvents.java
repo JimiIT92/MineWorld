@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.entity.Reaper;
+import org.mineworld.entity.boss.AncientGuardianBoss;
 
 /**
  * Handle all events for {@link Attribute Entity Attributes}
@@ -25,6 +26,7 @@ public final class EntityAttributesEvents {
     @SubscribeEvent
     public static void onEntityAttributeCreation(final EntityAttributeCreationEvent event) {
         registerAttribute(event, MWEntityTypes.REAPER.get(), Reaper.createAttributes());
+        registerAttribute(event, MWEntityTypes.ANCIENT_GUARDIAN.get(), AncientGuardianBoss.createAttributes());
     }
 
     /**

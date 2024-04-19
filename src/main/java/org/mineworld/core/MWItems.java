@@ -310,6 +310,7 @@ public final class MWItems {
 
     public static final RegistryObject<Item> ILLUSIONER_SPAWN_EGG = registerSpawnEgg("illusioner", () -> EntityType.ILLUSIONER, 0x135793, 0x959B9B);
     public static final RegistryObject<Item> REAPER_SPAWN_EGG = registerSpawnEgg("reaper", Suppliers.memoize(() -> MWEntityTypes.REAPER.get()),  0x0C4144, 0x010C0F);
+    public static final RegistryObject<Item> ANCIENT_GUARDIAN_SPAWN_EGG = registerSpawnEgg("ancient_guardian", Suppliers.memoize(() -> MWEntityTypes.ANCIENT_GUARDIAN.get()),  0x111531, 0xFBEEEC, Rarity.EPIC);
 
     //#endregion
 
@@ -682,7 +683,21 @@ public final class MWItems {
      * @return {@link RegistryObject<Item> The registered Item}
      */
     private static RegistryObject<Item> registerSpawnEgg(final String entityName, final Supplier<EntityType<? extends Mob>> entityTypeSupplier, final int primaryColor, final int secondaryColor, final FeatureFlag...featureFlags) {
-        return registerItem(entityName + "_spawn_egg", Suppliers.memoize(() -> new ForgeSpawnEggItem(entityTypeSupplier, primaryColor, secondaryColor, PropertyHelper.item(featureFlags))));
+        return registerSpawnEgg(entityName, entityTypeSupplier, primaryColor, secondaryColor, Rarity.COMMON, featureFlags);
+    }
+
+    /**
+     * Register a {@link ForgeSpawnEggItem Spawn Egg}
+     *
+     * @param entityName {@link String The Entity name}
+     * @param entityTypeSupplier {@link Supplier<EntityType> The Supplier for the Entity Type spawned by this egg}
+     * @param primaryColor {@link Integer The primary Spawn Egg color}
+     * @param secondaryColor {@link Integer The secondary Spawn Egg color}
+     * @param rarity {@link Rarity The item rarity}
+     * @return {@link RegistryObject<Item> The registered Item}
+     */
+    private static RegistryObject<Item> registerSpawnEgg(final String entityName, final Supplier<EntityType<? extends Mob>> entityTypeSupplier, final int primaryColor, final int secondaryColor, final Rarity rarity, final FeatureFlag...featureFlags) {
+        return registerItem(entityName + "_spawn_egg", Suppliers.memoize(() -> new ForgeSpawnEggItem(entityTypeSupplier, primaryColor, secondaryColor, PropertyHelper.item(featureFlags).rarity(rarity))));
     }
 
     /**

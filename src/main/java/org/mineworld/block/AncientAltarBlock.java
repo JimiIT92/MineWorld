@@ -1,11 +1,11 @@
 package org.mineworld.block;
 
-import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -31,7 +31,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
+import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
+import org.mineworld.entity.boss.AncientGuardianBoss;
 import org.mineworld.helper.PropertyHelper;
 
 /**
@@ -130,8 +132,20 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
         final ItemStack itemStack = player.getItemInHand(hand);
         if(itemStack.is(MWItems.DARK_SOUL.get()) && !blockState.getValue(ACTIVATED)) {
             spawnParticles(level, blockPos);
-            player.displayClientMessage(Component.translatable("message.mineworld.ancient_altar_tease").withStyle(ChatFormatting.BLUE), true);
-            player.playSound(SoundEvents.WARDEN_ROAR);
+            final AncientGuardianBoss ancientGuardian = MWEntityTypes.ANCIENT_GUARDIAN.get().create(level);
+            if(ancientGuardian != null) {
+                ancientGuardian.moveTo((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.55D, (double)blockPos.getZ() + 0.5D, 0F, 0.0F);
+                ancientGuardian.makeInvulnerable();
+
+                for(ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, ancientGuardian.getBoundingBox().inflate(50.0D))) {
+                    CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, ancientGuardian);
+                }
+
+                level.addFreshEntity(ancientGuardian);
+                player.playSound(SoundEvents.WARDEN_ROAR);
+
+                level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVATED, true));
+            }
             return InteractionResult.SUCCESS;
         }
 

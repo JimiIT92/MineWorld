@@ -61,7 +61,7 @@ if so, specifiy the version you are using when reporting a problem.
 
 You can download MineWorld on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/mine-world-mod).
 
-**I will post new releases only there**. When a new version or spapshot is released, a new blog post will be available on
+**I will post new releases only there**. When a new version or snapshot is released, a new blog post will be available on
 [the official MineWorld blog](http://mineworldminecraft.altervista.org/blog), which will give more details and insights about the update.
 
 Any other websites that offers you MineWorld shouldn't be trusted and should be reported immediately (as they could be a scam and contain malicious software)!
@@ -97,6 +97,6 @@ Any other website asking you money for this project is a scam, and you should im
 Minecraft is getting bigger and better with every release. With MineWorld we can make it even better!
 
 I hope you enjoy MineWorld as much as I enjoy develop new ideas and content for it, 
-and let me know if there are any issues on the issue tracker.
+and let me know if there are any issues on the [issue tracker](https://github.com/JimiIT92/MineWorld/issues/new?assignees=JimiIT92&labels=enhancement&template=bug_report.md&title=).
 
 Have a nice day! 😁
