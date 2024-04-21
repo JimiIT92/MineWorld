@@ -44,6 +44,15 @@ public final class RandomHelper {
     }
 
     /**
+     * Check if a random value is {@link Boolean True}
+     *
+     * @return {@link Boolean The random value}
+     */
+    public static boolean nextBoolean() {
+        return randomSource.nextBoolean();
+    }
+
+    /**
      * Get a {@link T random value} from a Collection
      *
      * @param collection {@link Collection<T> The Collection to get the value from}

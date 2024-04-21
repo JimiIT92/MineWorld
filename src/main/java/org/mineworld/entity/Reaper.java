@@ -287,21 +287,22 @@ public class Reaper extends Monster {
     /**
      * Get the {@link SoundEvent Entity Ambient Sound}
      *
-     * @return {@link MWSounds#REAPER_DEATH The Reaper Death Sound}
-     */
-    @Override
-    protected SoundEvent getDeathSound() {
-        return MWSounds.REAPER_DEATH.get();
-    }
-
-    /**
-     * Get the {@link SoundEvent Entity Ambient Sound}
-     *
+     * @param damageSource {@link DamageSource The damage source}
      * @return {@link MWSounds#REAPER_HURT The Reaper Hurt Sound}
      */
     @Override
     protected SoundEvent getHurtSound(final @NotNull DamageSource damageSource) {
         return MWSounds.REAPER_HURT.get();
+    }
+
+    /**
+     * Get the {@link SoundEvent Entity Ambient Sound}
+     *
+     * @return {@link MWSounds#REAPER_DEATH The Reaper Death Sound}
+     */
+    @Override
+    protected SoundEvent getDeathSound() {
+        return MWSounds.REAPER_DEATH.get();
     }
 
     /**

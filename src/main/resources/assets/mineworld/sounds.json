@@ -382,5 +382,11 @@
       "minecraft:item/armor/equip_diamond6"
     ],
     "subtitle": "subtitles.mineworld.item.armor.equip_sapphire"
+  },
+  "ancient_guardian_summon": {
+    "sounds": [
+      "mineworld:ancient_guardian/summon"
+    ],
+    "subtitle": "subtitles.mineworld.ancient_guardian.summon"
   }
 }

@@ -14,6 +14,7 @@ import org.mineworld.MineWorld;
 import org.mineworld.client.renderer.block.MWPrimedTntRenderer;
 import org.mineworld.client.renderer.entity.ReaperRenderer;
 import org.mineworld.client.renderer.entity.boss.AncientGuardianRenderer;
+import org.mineworld.client.renderer.projectile.DarknessChargeRenderer;
 import org.mineworld.client.renderer.vehicle.MWBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestBoatRenderer;
 import org.mineworld.client.renderer.vehicle.MWChestMinecartRenderer;
@@ -21,6 +22,7 @@ import org.mineworld.client.renderer.vehicle.MWTntMinecartRenderer;
 import org.mineworld.entity.Reaper;
 import org.mineworld.entity.block.MWPrimedTnt;
 import org.mineworld.entity.boss.AncientGuardianBoss;
+import org.mineworld.entity.projectile.DarknessCharge;
 import org.mineworld.entity.projectile.ThrownGrenade;
 import org.mineworld.entity.projectile.ThrownPebble;
 import org.mineworld.entity.vehicle.MWBoat;
@@ -104,6 +106,12 @@ public final class MWEntityTypes {
                     .sized(2F, 2F)
                     .clientTrackingRange(10)
     );
+    public static final RegistryObject<EntityType<DarknessCharge>> DARKNESS_CHARGE = registerEntityType("darkness_charge",
+            EntityType.Builder.<DarknessCharge>of(DarknessCharge::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+    );
 
     //#endregion
 
@@ -169,6 +177,7 @@ public final class MWEntityTypes {
         registerRenderer(CHEST_BOAT, MWChestBoatRenderer::new);
         registerRenderer(REAPER, ReaperRenderer::new);
         registerRenderer(ANCIENT_GUARDIAN, AncientGuardianRenderer::new);
+        registerRenderer(DARKNESS_CHARGE, DarknessChargeRenderer::new);
         registerRenderer(ThrownItemRenderer::new,
                 PEBBLE,
                 GRENADE

@@ -1,7 +1,5 @@
 package org.mineworld.entity.boss;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -10,15 +8,13 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -28,53 +24,102 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.WitherSkull;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.mineworld.MineWorld;
+import org.mineworld.core.MWEntityTypes;
+import org.mineworld.core.MWSounds;
+import org.mineworld.entity.Reaper;
+import org.mineworld.entity.projectile.DarknessCharge;
+import org.mineworld.helper.RandomHelper;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
+/**
+ * {@link MineWorld MineWorld} {@link AncientGuardianBoss Ancient Guardian Boss}
+ */
 public class AncientGuardianBoss extends Monster implements PowerableMob, RangedAttackMob {
 
+    /**
+     * {@link Integer Invulnerability Ticks} {@link EntityDataAccessor Entity Data Accessor}
+     */
     private static final EntityDataAccessor<Integer> DATA_ID_INV = SynchedEntityData.defineId(AncientGuardianBoss.class, EntityDataSerializers.INT);
-    private static final int INVULNERABLE_TICKS = 220;
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-    private static final Predicate<LivingEntity> LIVING_ENTITY_SELECTOR = (p_31504_) -> {
-        return p_31504_ instanceof Player && p_31504_.attackable();
-    };
-    private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forCombat().range(20.0D).selector(LIVING_ENTITY_SELECTOR);
+    /**
+     * {@link Float Entity invulnerable max ticks}
+     */
+    private static final int INVULNERABLE_TICKS = 110;
+    /**
+     * {@link ServerBossEvent The Entity Boss Bar}
+     */
+    private final ServerBossEvent BOSS_BAR = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
 
-    public AncientGuardianBoss(EntityType<? extends AncientGuardianBoss> p_31437_, Level p_31438_) {
-        super(p_31437_, p_31438_);
+    /**
+     * Constructor. Set the {@link EntityType Entity Type}
+     *
+     * @param entityType {@link EntityType The Entity Type}
+     * @param level {@link Level The level reference}
+     */
+    public AncientGuardianBoss(final EntityType<? extends AncientGuardianBoss> entityType, final Level level) {
+        super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 10, false);
         this.setHealth(this.getMaxHealth());
-        this.xpReward = 50;
+        this.setNoGravity(true);
+        this.xpReward = 100;
     }
 
-    protected PathNavigation createNavigation(Level p_186262_) {
-        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_186262_);
+    /**
+     * Create the {@link PathNavigation entity navigation}
+     *
+     * @param level {@link Level The level reference}
+     * @return {@link PathNavigation The entity navigation}
+     */
+    protected @NotNull PathNavigation createNavigation(final @NotNull Level level) {
+        final FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
         flyingpathnavigation.setCanPassDoors(true);
         return flyingpathnavigation;
     }
 
+    /**
+     * Calculate the {@link Entity Entity} {@link Integer fall damage}
+     *
+     * @param distance {@link Float The fall distance}
+     * @param damageMultiplier {@link Float The damage multiplier}
+     * @return {@link Integer 0}
+     */
     @Override
-    protected float getStandingEyeHeight(Pose p_21131_, EntityDimensions p_21132_) {
+    protected int calculateFallDamage(final float distance, final float damageMultiplier) {
+        return 0;
+    }
+
+    /**
+     * Get the {@link Float Entity Standing Eye height}
+     *
+     * @param pose {@link Pose The Entity Pose}
+     * @param size {@link EntityDimensions The Entity dimensions}
+     * @return {@link Float 1.1F}
+     */
+    @Override
+    protected float getStandingEyeHeight(final @NotNull Pose pose, final @NotNull EntityDimensions size) {
         return 1.1F;
     }
 
+    /**
+     * Register the {@link Goal Entity Goals}
+     */
+    @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new AncientGuardianBoss.WitherDoNothingGoal());
-        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 40, 20.0F));
+        this.goalSelector.addGoal(0, new AncientGuardianDoNothingGoal());
+        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 10, 20.0F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -82,218 +127,393 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
     }
 
+    /**
+     * Define the {@link Entity Entity} Data
+     */
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_ID_INV, 0);
     }
 
-    public void addAdditionalSaveData(CompoundTag p_31485_) {
-        super.addAdditionalSaveData(p_31485_);
-        p_31485_.putInt("Invul", this.getInvulnerableTicks());
+    /**
+     * Save the {@link CompoundTag Entity NBT Data}
+     *
+     * @param nbt {@link CompoundTag The Entity NBT Data}
+     */
+    @Override
+    public void addAdditionalSaveData(final @NotNull CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putInt("Invul", this.getInvulnerableTicks());
     }
 
-    public void readAdditionalSaveData(CompoundTag p_31474_) {
-        super.readAdditionalSaveData(p_31474_);
-        this.setInvulnerableTicks(p_31474_.getInt("Invul"));
+    /**
+     * Read the {@link CompoundTag Entity NBT Data}
+     *
+     * @param nbt {@link CompoundTag The Entity NBT Data}
+     */
+    @Override
+    public void readAdditionalSaveData(final @NotNull CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.setInvulnerableTicks(nbt.getInt("Invul"));
         if (this.hasCustomName()) {
-            this.bossEvent.setName(this.getDisplayName());
-        }
-
-    }
-
-    public void setCustomName(@Nullable Component p_31476_) {
-        super.setCustomName(p_31476_);
-        this.bossEvent.setName(this.getDisplayName());
-    }
-
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.WITHER_AMBIENT;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource p_31500_) {
-        return SoundEvents.WITHER_HURT;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.WITHER_DEATH;
-    }
-
-    public void aiStep() {
-        Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D);
-        this.setDeltaMovement(vec3);
-        if (vec3.horizontalDistanceSqr() > 0.05D) {
-            this.setYRot((float) Mth.atan2(vec3.z, vec3.x) * (180F / (float)Math.PI) - 90.0F);
-        }
-
-        super.aiStep();
-        this.level().addParticle(ParticleTypes.SCULK_SOUL, this.getX() + this.random.nextGaussian() * (double)0.3F, this.getY() + this.random.nextGaussian() * (double)0.3F, this.getZ() + this.random.nextGaussian() * (double)0.3F, 0.0D, 0.0D, 0.0D);
-
-    }
-
-    protected void customServerAiStep() {
-        if (this.getInvulnerableTicks() > 0) {
-            int k1 = this.getInvulnerableTicks() - 1;
-            this.bossEvent.setProgress(1.0F - (float)k1 / 220.0F);
-            if (k1 <= 0) {
-                this.level().explode(this, this.getX(), this.getEyeY(), this.getZ(), 7.0F, false, Level.ExplosionInteraction.MOB);
-            }
-
-            this.setInvulnerableTicks(k1);
-            if (this.tickCount % 10 == 0) {
-                this.heal(10.0F);
-            }
-
-        } else {
-            super.customServerAiStep();
-            if (this.tickCount % 20 == 0) {
-                this.heal(1.0F);
-            }
-
-            this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+            this.BOSS_BAR.setName(this.getDisplayName());
         }
     }
 
     /**
-     * @deprecated Forge: Use {@link BlockState#canEntityDestroy(net.minecraft.world.level.BlockGetter, BlockPos, Entity)} instead.
+     * Set the {@link Component entity custom name}
+     *
+     * @param name {@link Component The entity custom name}
      */
-    @Deprecated
-    public static boolean canDestroy(BlockState p_31492_) {
-        return !p_31492_.isAir() && !p_31492_.is(BlockTags.WITHER_IMMUNE);
+    @Override
+    public void setCustomName(final @Nullable Component name) {
+        super.setCustomName(name);
+        this.BOSS_BAR.setName(this.getDisplayName());
     }
 
+    /**
+     * Get the {@link SoundEvent Entity Ambient Sound}
+     *
+     * @return {@link MWSounds#ANCIENT_GUARDIAN_AMBIENT The Ancient Guardian Ambient Sound}
+     */
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return MWSounds.ANCIENT_GUARDIAN_AMBIENT.get();
+    }
+
+    /**
+     * Get the {@link SoundEvent Entity Ambient Sound}
+     *
+     * @param damageSource {@link DamageSource The damage source}
+     * @return {@link MWSounds#ANCIENT_GUARDIAN_HURT The Ancient Guardian Hurt Sound}
+     */
+    @Override
+    protected SoundEvent getHurtSound(final @NotNull DamageSource damageSource) {
+        return MWSounds.ANCIENT_GUARDIAN_HURT.get();
+    }
+
+    /**
+     * Get the {@link SoundEvent Entity Ambient Sound}
+     *
+     * @return {@link MWSounds#ANCIENT_GUARDIAN_DEATH The Ancient Guardian Death Sound}
+     */
+    @Override
+    protected SoundEvent getDeathSound() {
+        return MWSounds.ANCIENT_GUARDIAN_DEATH.get();
+    }
+
+    /**
+     * Make the {@link Goal Entity Goals} tick
+     */
+    @Override
+    public void aiStep() {
+        final Vec3 movementVec = this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D);
+        this.setDeltaMovement(movementVec);
+        if (movementVec.horizontalDistanceSqr() > 0.05D) {
+            this.setYRot((float) Mth.atan2(movementVec.z, movementVec.x) * (180F / (float)Math.PI) - 90.0F);
+        }
+        super.aiStep();
+    }
+
+    /**
+     * Add a custom AI to the {@link Entity entity}
+     */
+    @Override
+    protected void customServerAiStep() {
+        if (this.getInvulnerableTicks() > 0) {
+            final int invulnerableTicks = this.getInvulnerableTicks() - 1;
+            this.BOSS_BAR.setProgress(1.0F - (float)invulnerableTicks / INVULNERABLE_TICKS);
+
+            if(RandomHelper.nextInt(5)) {
+                this.level().playSound(null, this.blockPosition(), MWSounds.ANCIENT_GUARDIAN_CHARGE.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+            }
+
+            if (invulnerableTicks <= 0) {
+                this.setInvisible(false);
+                this.level().explode(this, this.getX(), this.getEyeY(), this.getZ(), 7.0F, false, Level.ExplosionInteraction.MOB);
+            }
+
+            this.setInvulnerableTicks(invulnerableTicks);
+            if (this.tickCount % 10 == 0) {
+                this.heal(10.0F);
+            }
+        } else {
+            super.customServerAiStep();
+
+            if (this.tickCount % 20 == 0) {
+                this.heal(1.0F);
+            }
+
+            if(this.isPowered()) {
+                if(RandomHelper.nextBoolean()) {
+                    this.setInvisible(true);
+                    this.randomTeleport(this.getX() + RandomHelper.getRandom().nextInt(10), this.getY() + RandomHelper.getRandom().nextInt(10), this.getZ() + RandomHelper.getRandom().nextInt(10), true);
+                }
+            }
+
+            this.BOSS_BAR.setProgress(this.getHealth() / this.getMaxHealth());
+        }
+    }
+
+    /**
+     * Make the {@link Entity entity} invulnerable
+     */
     public void makeInvulnerable() {
-        this.setInvulnerableTicks(220);
-        this.bossEvent.setProgress(0.0F);
+        this.setInvulnerableTicks(INVULNERABLE_TICKS);
+        this.BOSS_BAR.setProgress(0.0F);
         this.setHealth(this.getMaxHealth() / 3.0F);
     }
 
-    public void makeStuckInBlock(BlockState p_31471_, Vec3 p_31472_) {
+    /**
+     * Show the {@link #BOSS_BAR boss bar} to a {@link ServerPlayer player}
+     *
+     * @param player {@link ServerPlayer The player}
+     */
+    public void startSeenByPlayer(final @NotNull ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.BOSS_BAR.addPlayer(player);
     }
 
-    public void startSeenByPlayer(ServerPlayer p_31483_) {
-        super.startSeenByPlayer(p_31483_);
-        this.bossEvent.addPlayer(p_31483_);
+    /**
+     * Hide the {@link #BOSS_BAR boss bar} from a {@link ServerPlayer player}
+     *
+     * @param player {@link ServerPlayer The player}
+     */
+    public void stopSeenByPlayer(final @NotNull ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.BOSS_BAR.removePlayer(player);
     }
 
-    public void stopSeenByPlayer(ServerPlayer p_31488_) {
-        super.stopSeenByPlayer(p_31488_);
-        this.bossEvent.removePlayer(p_31488_);
-    }
+    /**
+     * Shoot a {@link WitherSkull projectile} to a target
+     *
+     * @param entity {@link LivingEntity The target entity}
+     * @param distance {@link Float The distance}
+     */
+    public void performRangedAttack(final @NotNull LivingEntity entity, final float distance) {
+        if(RandomHelper.nextInt(10)) {
+            final double x = entity.getX();
+            final double y = entity.getY() + (double)entity.getEyeHeight() * 0.5D;
+            final double z = entity.getZ();
+            if (!this.isSilent()) {
+                this.level().playSound(entity, this.blockPosition(), MWSounds.DARKNESS_CHARGE_SHOOT.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+            }
 
-    private void performRangedAttack(int p_31458_, LivingEntity p_31459_) {
-        this.performRangedAttack(p_31458_, p_31459_.getX(), p_31459_.getY() + (double)p_31459_.getEyeHeight() * 0.5D, p_31459_.getZ(), p_31458_ == 0 && this.random.nextFloat() < 0.001F);
-    }
+            final float angle = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));
+            final double projectileX = this.getX() + (double)angle * 1.3D;
+            final double projectileY = this.getY() + 2.2D;
+            final double projectileZ = this.getZ() + (double)angle * 1.3D;
+            final double targetX = x - projectileX;
+            final double targetY = y - projectileY;
+            final double targetZ = z - projectileZ;
 
-    private void performRangedAttack(int p_31449_, double p_31450_, double p_31451_, double p_31452_, boolean p_31453_) {
-        if (!this.isSilent()) {
-            this.level().levelEvent((Player)null, 1024, this.blockPosition(), 0);
+            final DarknessCharge darknessCharge = new DarknessCharge(this.level(), this, targetX, targetY, targetZ);
+            darknessCharge.setOwner(this);
+            darknessCharge.setPosRaw(projectileX, projectileY, projectileZ);
+            this.level().addFreshEntity(darknessCharge);
         }
-
-        float f = this.yBodyRot * ((float)Math.PI / 180F);
-        float f1 = Mth.cos(f);
-        double d0 = this.getX() + (double)f1 * 1.3D;
-        double d1 = this.getY() + 2.2D;
-        double d2 = this.getZ() + (double)f1 * 1.3D;
-        double d3 = p_31450_ - d0;
-        double d4 = p_31451_ - d1;
-        double d5 = p_31452_ - d2;
-
-        WitherSkull witherskull = new WitherSkull(this.level(), this, d3, d4, d5);
-        witherskull.setOwner(this);
-        if (p_31453_) {
-            witherskull.setDangerous(true);
-        }
-
-        witherskull.setPosRaw(d0, d1, d2);
-        this.level().addFreshEntity(witherskull);
     }
 
-    public void performRangedAttack(LivingEntity p_31468_, float p_31469_) {
-        this.performRangedAttack(0, p_31468_);
+    /**
+     * Check if the {@link Boolean entity} is invulnerable to a {@link DamageSource damage source}
+     *
+     * @param damageSource {@link DamageSource The damage source}
+     * @return {@link Boolean True if the entity is invulnerable to the provided damage source}
+     */
+    @Override
+    public boolean isInvulnerableTo(final @NotNull DamageSource damageSource) {
+        return damageSource.getEntity() instanceof Warden || super.isInvulnerableTo(damageSource);
     }
 
-    public boolean hurt(DamageSource p_31461_, float p_31462_) {
-        if (this.isInvulnerableTo(p_31461_)) {
+    /**
+     * Hurt the {@link Entity entity}
+     *
+     * @param damageSource {@link DamageSource The damage source}
+     * @param amount {@link Float The damage amount}
+     * @return {@link Boolean True if the entity has been damaged}
+     */
+    public boolean hurt(final @NotNull DamageSource damageSource, final float amount) {
+        if (this.isInvulnerableTo(damageSource)) {
             return false;
-        } else if (!p_31461_.is(DamageTypeTags.WITHER_IMMUNE_TO) && !(p_31461_.getEntity() instanceof AncientGuardianBoss)) {
-            if (this.getInvulnerableTicks() > 0 && !p_31461_.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+        }
+        if (!(damageSource.getEntity() instanceof AncientGuardianBoss)) {
+            if (this.getInvulnerableTicks() > 0 && !damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
                 return false;
-            } else {
-                if (this.isPowered()) {
-                    Entity entity = p_31461_.getDirectEntity();
-                    if (entity instanceof AbstractArrow) {
-                        return false;
+            }
+            if (damageSource.getDirectEntity() instanceof AbstractArrow arrow) {
+                arrow.discard();
+                return false;
+            }
+
+            final Entity attacker = damageSource.getEntity();
+            if (!(attacker instanceof Player) && attacker instanceof LivingEntity && ((LivingEntity) attacker).getMobType().equals(this.getMobType())) {
+                return false;
+            }
+
+            if(attacker instanceof Player player) {
+                final int chance = switch (this.level().getDifficulty()) {
+                    case NORMAL -> 10;
+                    case HARD -> 30;
+                    default -> 0;
+                };
+                if(chance > 0 && RandomHelper.getRandom().nextInt(100) <= chance) {
+                    for (int i = 0; i < 1 + RandomHelper.getRandom().nextInt(3); i++) {
+                        final Reaper reaper = new Reaper(MWEntityTypes.REAPER.get(), this.level());
+                        reaper.setPos(attacker.position());
+                        reaper.setTarget(player);
+                        reaper.setCharging(true);
+                        this.level().addFreshEntity(reaper);
                     }
                 }
 
-                Entity entity1 = p_31461_.getEntity();
-                if (!(entity1 instanceof Player) && entity1 instanceof LivingEntity && ((LivingEntity) entity1).getMobType() == this.getMobType()) {
-                    return false;
-                } else {
-
-                    return super.hurt(p_31461_, p_31462_);
+                if(this.isPowered() && RandomHelper.nextInt(10)) {
+                    if(RandomHelper.nextBoolean()) {
+                        final int seconds = switch (this.level().getDifficulty()) {
+                            case NORMAL -> 5;
+                            case HARD -> 15;
+                            default -> 0;
+                        };
+                        if(seconds > 0) {
+                            player.setSecondsOnFire(seconds);
+                        }
+                    } else {
+                        final LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
+                        lightningBolt.setPos(player.position());
+                        lightningBolt.setVisualOnly(false);
+                        this.level().addFreshEntity(lightningBolt);
+                    }
                 }
             }
-        } else {
-            return false;
+
+            return super.hurt(damageSource, amount);
         }
+        return false;
     }
 
+    /**
+     * Check if the {@link Entity entity} should despawn
+     */
     public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty().equals(Difficulty.PEACEFUL) && this.shouldDespawnInPeaceful()) {
             this.discard();
         } else {
             this.noActionTime = 0;
         }
     }
 
-    public boolean addEffect(MobEffectInstance p_182397_, @Nullable Entity p_182398_) {
+    /**
+     * Make the {@link AncientGuardianBoss Ancient Guardian} immune to potion effects
+     *
+     * @param effect {@link MobEffectInstance The effect to apply}
+     * @param attacker {@link Entity The entity that is applying the effect}
+     * @return {@link Boolean#FALSE False}
+     */
+    public boolean addEffect(final @NotNull MobEffectInstance effect, final @Nullable Entity attacker) {
         return false;
     }
 
+    /**
+     * Get the {@link AttributeSupplier.Builder Entity Attributes Builder}
+     *
+     * @return {@link AttributeSupplier.Builder The Entity Attributes Builder}
+     */
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 200.0D)
-                .add(Attributes.MOVEMENT_SPEED, (double)0.3F)
-                .add(Attributes.FLYING_SPEED, (double)0.3F)
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 500.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.5F)
+                .add(Attributes.FLYING_SPEED, 0.5F)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
-                .add(Attributes.ARMOR, 4.0D);
+                .add(Attributes.ARMOR, 12.0D);
     }
 
+    /**
+     * Get the {@link Integer remaining invulnerability ticks}
+     *
+     * @return {@link Integer The remaining invulnerability ticks}
+     */
     public int getInvulnerableTicks() {
         return this.entityData.get(DATA_ID_INV);
     }
 
-    public void setInvulnerableTicks(int p_31511_) {
-        this.entityData.set(DATA_ID_INV, p_31511_);
+    /**
+     * Set the {@link Integer invulnerability ticks}
+     *
+     * @param ticks {@link Integer The invulnerability ticks}
+     */
+    public void setInvulnerableTicks(final int ticks) {
+        this.entityData.set(DATA_ID_INV, ticks);
     }
 
+    /**
+     * Check if the {@link Entity entity} is powered
+     *
+     * @return {@link Boolean True if the entity is powered}
+     */
     public boolean isPowered() {
-        return this.getHealth() <= this.getMaxHealth() / 2.0F;
+        return this.getHealth() <= this.getMaxHealth() / 2F;
     }
 
-    public MobType getMobType() {
+    /**
+     * Get the {@link MobType entity mob type}
+     *
+     * @return {@link MobType#UNDEAD Undead Mob Type}
+     */
+    public @NotNull MobType getMobType() {
         return MobType.UNDEAD;
     }
 
-    protected boolean canRide(Entity p_31508_) {
+    /**
+     * Check if the {@link Entity entity} can ride another one
+     *
+     * @param entity {@link Entity The entity to ride}
+     * @return {@link Boolean#FALSE False}
+     */
+    protected boolean canRide(final @NotNull Entity entity) {
         return false;
     }
 
+    /**
+     * Check if the {@link Entity entity} can change dimension
+     *
+     * @return {@link Boolean#FALSE False}
+     */
     public boolean canChangeDimensions() {
         return false;
     }
 
-    public boolean canBeAffected(MobEffectInstance p_31495_) {
-        return p_31495_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_31495_);
+    /**
+     * Check if the {@link Entity entity} can be affected  by a {@link MobEffectInstance potion effect}
+     *
+     * @param effect {@link MobEffectInstance The potion effect}
+     * @return {@link Boolean#FALSE False}
+     */
+    public boolean canBeAffected(final @NotNull MobEffectInstance effect) {
+        return false;
     }
 
-    class WitherDoNothingGoal extends Goal {
-        public WitherDoNothingGoal() {
+    /**
+     * {@link MineWorld MineWorld} {@link AncientGuardianBoss Ancient Guardian} {@link Goal do nothing Goal}
+     */
+    class AncientGuardianDoNothingGoal extends Goal {
+
+        /**
+         * Constructor. Set the Goal properties
+         */
+        public AncientGuardianDoNothingGoal() {
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
+        /**
+         * Check if the {@link AncientGuardianBoss Ancient Guardian} should do nothing
+         *
+         * @return {@link Boolean True if the Ancient Guardian is invulnerable}
+         */
+        @Override
         public boolean canUse() {
             return AncientGuardianBoss.this.getInvulnerableTicks() > 0;
         }
+
     }
+
 }

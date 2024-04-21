@@ -6,7 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
+import org.mineworld.core.MWSounds;
 import org.mineworld.entity.boss.AncientGuardianBoss;
 import org.mineworld.helper.PropertyHelper;
 
@@ -134,7 +134,7 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
             spawnParticles(level, blockPos);
             final AncientGuardianBoss ancientGuardian = MWEntityTypes.ANCIENT_GUARDIAN.get().create(level);
             if(ancientGuardian != null) {
-                ancientGuardian.moveTo((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.55D, (double)blockPos.getZ() + 0.5D, 0F, 0.0F);
+                ancientGuardian.moveTo((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.55D, (double)blockPos.getZ() + 0.5D, 0F, 0F);
                 ancientGuardian.makeInvulnerable();
 
                 for(ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, ancientGuardian.getBoundingBox().inflate(50.0D))) {
@@ -142,7 +142,7 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
                 }
 
                 level.addFreshEntity(ancientGuardian);
-                player.playSound(SoundEvents.WARDEN_ROAR);
+                player.playSound(MWSounds.ANCIENT_GUARDIAN_SUMMON.get());
 
                 level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVATED, true));
             }
