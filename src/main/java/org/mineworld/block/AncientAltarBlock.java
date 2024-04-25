@@ -59,6 +59,7 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
         super(PropertyHelper.block(MapColor.COLOR_BLACK, -1.0F, 3600000.0F, true, SoundType.SCULK_SHRIEKER)
                 .noLootTable()
                 .lightLevel(state -> state.getValue(ACTIVATED) ? 15 : 0)
+                .noOcclusion()
         );
         this.registerDefaultState(this.defaultBlockState().setValue(ACTIVATED, Boolean.FALSE).setValue(WATERLOGGED, Boolean.FALSE));
     }

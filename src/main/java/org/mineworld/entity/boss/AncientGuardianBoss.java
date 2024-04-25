@@ -374,7 +374,7 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
                         }
                     } else {
                         if(RandomHelper.nextBoolean()) {
-                            SonicBoomHelper.fire(level(), this, 15, 5.0F);
+                            SonicBoomHelper.fire(level(), this, 15, this.level().getDifficulty().equals(Difficulty.HARD) ? 7F : 5F);
                         } else {
                             final LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
                             lightningBolt.setPos(player.position());
