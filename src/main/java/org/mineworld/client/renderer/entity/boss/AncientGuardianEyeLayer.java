@@ -54,9 +54,12 @@ public class AncientGuardianEyeLayer extends EyesLayer<AncientGuardianBoss, Anci
      * @param headPitch The {@link Float entity head pitch value}
      */
     @Override
-    public void render(final @NotNull PoseStack poseStack, final MultiBufferSource multiBufferSource, final int packedLight, final AncientGuardianBoss entity, final float limbSwing, final float limbSwingAmount, final float partialTick, final float ageInTicks, final float netHeadYaw, final float headPitch) {
+    public void render(final @NotNull PoseStack poseStack, final @NotNull MultiBufferSource multiBufferSource, final int packedLight, final AncientGuardianBoss entity, final float limbSwing, final float limbSwingAmount, final float partialTick, final float ageInTicks, final float netHeadYaw, final float headPitch) {
+        if(entity.getInvulnerableTicks() > 0) {
+            return;
+        }
         VertexConsumer vertexconsumer = multiBufferSource.getBuffer(ANCIENT_GUARDIAN_EYE);
-        if (entity.isPowered() && !entity.isInvulnerable()) {
+        if (entity.isPowered()) {
             vertexconsumer = multiBufferSource.getBuffer(ANCIENT_GUARDIAN_ANGRY_EYE);
         }
         this.getParentModel().renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 0.5F, 0.5F, 0.5F, 1.0F);

@@ -383,10 +383,40 @@
     ],
     "subtitle": "subtitles.mineworld.item.armor.equip_sapphire"
   },
+  "darkness_charge_shoot": {
+    "sounds": [
+      "mineworld:darkness_charge/shoot"
+    ],
+    "subtitle": "subtitles.mineworld.darkness_charge.shoot"
+  },
   "ancient_guardian_summon": {
     "sounds": [
       "mineworld:ancient_guardian/summon"
     ],
     "subtitle": "subtitles.mineworld.ancient_guardian.summon"
+  },
+  "ancient_guardian_charging": {
+    "sounds": [
+      "mineworld:ancient_guardian/charging"
+    ],
+    "subtitle": "subtitles.mineworld.ancient_guardian.charging"
+  },
+  "ancient_guardian_hurt": {
+    "sounds": [
+      "mineworld:ancient_guardian/hurt"
+    ],
+    "subtitle": "subtitles.mineworld.ancient_guardian.hurt"
+  },
+  "ancient_guardian_death": {
+    "sounds": [
+      "mineworld:ancient_guardian/death"
+    ],
+    "subtitle": "subtitles.mineworld.ancient_guardian.death"
+  },
+  "ancient_guardian_ambient": {
+    "sounds": [
+      "mineworld:ancient_guardian/ambient"
+    ],
+    "subtitle": "subtitles.mineworld.ancient_guardian.ambient"
   }
 }

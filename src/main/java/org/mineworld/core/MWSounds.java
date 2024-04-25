@@ -64,7 +64,7 @@ public final class MWSounds {
     public static final RegistryObject<SoundEvent> REAPER_IDLE = registerSound("reaper_idle");
     public static final RegistryObject<SoundEvent> DARKNESS_CHARGE_SHOOT = registerSound("darkness_charge_shoot");
     public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_SUMMON = registerSound("ancient_guardian_summon");
-    public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_CHARGE = registerSound("ancient_guardian_charge");
+    public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_CHARGING = registerSound("ancient_guardian_charging");
     public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_HURT = registerSound("ancient_guardian_hurt");
     public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_DEATH = registerSound("ancient_guardian_death");
     public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_AMBIENT = registerSound("ancient_guardian_idle");

@@ -39,6 +39,7 @@ import org.mineworld.core.MWSounds;
 import org.mineworld.entity.Reaper;
 import org.mineworld.entity.projectile.DarknessCharge;
 import org.mineworld.helper.RandomHelper;
+import org.mineworld.helper.SonicBoomHelper;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -72,6 +73,7 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
         this.moveControl = new FlyingMoveControl(this, 10, false);
         this.setHealth(this.getMaxHealth());
         this.setNoGravity(true);
+        this.getNavigation().setCanFloat(true);
         this.xpReward = 100;
     }
 
@@ -221,35 +223,28 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
      */
     @Override
     protected void customServerAiStep() {
-        if (this.getInvulnerableTicks() > 0) {
-            final int invulnerableTicks = this.getInvulnerableTicks() - 1;
+        int invulnerableTicks = this.getInvulnerableTicks();
+        if (invulnerableTicks > 0) {
+            if(invulnerableTicks == INVULNERABLE_TICKS) {
+                this.level().playSound(null, this.blockPosition(), MWSounds.ANCIENT_GUARDIAN_CHARGING.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+            }
+            invulnerableTicks--;
             this.BOSS_BAR.setProgress(1.0F - (float)invulnerableTicks / INVULNERABLE_TICKS);
 
-            if(RandomHelper.nextInt(5)) {
-                this.level().playSound(null, this.blockPosition(), MWSounds.ANCIENT_GUARDIAN_CHARGE.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
-            }
-
             if (invulnerableTicks <= 0) {
-                this.setInvisible(false);
-                this.level().explode(this, this.getX(), this.getEyeY(), this.getZ(), 7.0F, false, Level.ExplosionInteraction.MOB);
+                this.level().explode(this, this.getX(), this.getEyeY(), this.getZ(), 8.0F, false, Level.ExplosionInteraction.MOB);
+                this.setHealth(this.getMaxHealth());
             }
 
             this.setInvulnerableTicks(invulnerableTicks);
-            if (this.tickCount % 10 == 0) {
-                this.heal(10.0F);
+            if (this.tickCount % 5 == 0) {
+                this.heal(5.0F);
             }
         } else {
             super.customServerAiStep();
 
             if (this.tickCount % 20 == 0) {
                 this.heal(1.0F);
-            }
-
-            if(this.isPowered()) {
-                if(RandomHelper.nextBoolean()) {
-                    this.setInvisible(true);
-                    this.randomTeleport(this.getX() + RandomHelper.getRandom().nextInt(10), this.getY() + RandomHelper.getRandom().nextInt(10), this.getZ() + RandomHelper.getRandom().nextInt(10), true);
-                }
             }
 
             this.BOSS_BAR.setProgress(this.getHealth() / this.getMaxHealth());
@@ -323,7 +318,7 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
      */
     @Override
     public boolean isInvulnerableTo(final @NotNull DamageSource damageSource) {
-        return damageSource.getEntity() instanceof Warden || super.isInvulnerableTo(damageSource);
+        return damageSource.is(DamageTypeTags.IS_EXPLOSION) || damageSource.getEntity() instanceof Warden || super.isInvulnerableTo(damageSource);
     }
 
     /**
@@ -378,10 +373,14 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
                             player.setSecondsOnFire(seconds);
                         }
                     } else {
-                        final LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
-                        lightningBolt.setPos(player.position());
-                        lightningBolt.setVisualOnly(false);
-                        this.level().addFreshEntity(lightningBolt);
+                        if(RandomHelper.nextBoolean()) {
+                            SonicBoomHelper.fire(level(), this, 15, 5.0F);
+                        } else {
+                            final LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
+                            lightningBolt.setPos(player.position());
+                            lightningBolt.setVisualOnly(false);
+                            this.level().addFreshEntity(lightningBolt);
+                        }
                     }
                 }
             }
@@ -420,7 +419,7 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
      */
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 500.0D)
+                .add(Attributes.MAX_HEALTH, 250.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.5F)
                 .add(Attributes.FLYING_SPEED, 0.5F)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
@@ -460,7 +459,7 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
      * @return {@link MobType#UNDEAD Undead Mob Type}
      */
     public @NotNull MobType getMobType() {
-        return MobType.UNDEAD;
+        return MobType.UNDEFINED;
     }
 
     /**

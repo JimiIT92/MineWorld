@@ -9,6 +9,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -32,9 +34,9 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
-import org.mineworld.core.MWSounds;
 import org.mineworld.entity.boss.AncientGuardianBoss;
 import org.mineworld.helper.PropertyHelper;
+import org.mineworld.helper.RandomHelper;
 
 /**
  * {@link MineWorld MineWorld} {@link Block Ancient Altar Block}
@@ -134,6 +136,14 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
             spawnParticles(level, blockPos);
             final AncientGuardianBoss ancientGuardian = MWEntityTypes.ANCIENT_GUARDIAN.get().create(level);
             if(ancientGuardian != null) {
+
+                for (int i = 0; i < 3 + RandomHelper.getRandom().nextInt(8); i++) {
+                    final LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lightningBolt.setPos(blockPos.getX() + RandomHelper.getRandom().nextFloat(), blockPos.getY(), blockPos.getZ() + RandomHelper.getRandom().nextFloat());
+                    lightningBolt.setVisualOnly(true);
+                    level.addFreshEntity(lightningBolt);
+                }
+
                 ancientGuardian.moveTo((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.55D, (double)blockPos.getZ() + 0.5D, 0F, 0F);
                 ancientGuardian.makeInvulnerable();
 
@@ -142,8 +152,6 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
                 }
 
                 level.addFreshEntity(ancientGuardian);
-                player.playSound(MWSounds.ANCIENT_GUARDIAN_SUMMON.get());
-
                 level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVATED, true));
             }
             return InteractionResult.SUCCESS;

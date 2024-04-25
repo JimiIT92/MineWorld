@@ -9,7 +9,7 @@
   "has_ceiling": false,
   "coordinate_scale": 1.0,
   "fixed_time": 18000,
-  "ambient_light": 0,
+  "ambient_light": 3,
   "logical_height": 256,
   "effects": "minecraft:the_nether",
   "infiniburn": "#mineworld:infiniburn_ethereal",
@@ -22,5 +22,5 @@
       "max_inclusive": 7
     }
   },
-  "monster_spawn_block_light_limit": 0
+  "monster_spawn_block_light_limit": 3
 }

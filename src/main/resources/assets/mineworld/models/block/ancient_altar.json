@@ -1,5 +1,6 @@
 {
 	"parent": "minecraft:block/block",
+	"render_type": "cutout",
 	"textures": {
 		"particle": "mineworld:block/ancient_altar_side",
 		"side": "mineworld:block/ancient_altar_side",
