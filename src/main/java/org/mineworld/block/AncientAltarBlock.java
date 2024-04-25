@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -34,6 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWEntityTypes;
 import org.mineworld.core.MWItems;
+import org.mineworld.core.MWSounds;
 import org.mineworld.entity.boss.AncientGuardianBoss;
 import org.mineworld.helper.PropertyHelper;
 import org.mineworld.helper.RandomHelper;
@@ -137,6 +139,8 @@ public class AncientAltarBlock extends Block implements SimpleWaterloggedBlock {
             spawnParticles(level, blockPos);
             final AncientGuardianBoss ancientGuardian = MWEntityTypes.ANCIENT_GUARDIAN.get().create(level);
             if(ancientGuardian != null) {
+
+                level.playSound(player, blockPos, MWSounds.ANCIENT_GUARDIAN_SUMMON.get(), SoundSource.BLOCKS);
 
                 for (int i = 0; i < 3 + RandomHelper.getRandom().nextInt(8); i++) {
                     final LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);

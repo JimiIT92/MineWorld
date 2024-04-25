@@ -121,6 +121,7 @@ public class DarknessCharge extends AbstractHurtingProjectile {
 
                 if (seconds > 0) {
                     target.removeAllEffects();
+                    target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * seconds, 2), this.getEffectSource());
                     target.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 20 * seconds, 2), this.getEffectSource());
                 }
             }

@@ -403,7 +403,9 @@
   },
   "ancient_guardian_hurt": {
     "sounds": [
-      "mineworld:ancient_guardian/hurt"
+      "mineworld:ancient_guardian/hurt1",
+      "mineworld:ancient_guardian/hurt2",
+      "mineworld:ancient_guardian/hurt3"
     ],
     "subtitle": "subtitles.mineworld.ancient_guardian.hurt"
   },
@@ -415,7 +417,9 @@
   },
   "ancient_guardian_ambient": {
     "sounds": [
-      "mineworld:ancient_guardian/ambient"
+      "mineworld:ancient_guardian/ambient1",
+      "mineworld:ancient_guardian/ambient2",
+      "mineworld:ancient_guardian/ambient3"
     ],
     "subtitle": "subtitles.mineworld.ancient_guardian.ambient"
   }

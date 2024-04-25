@@ -28,7 +28,7 @@
     "overrides": [
         {
             "predicate": {
-                "tooting": 1
+                "mineworld:tooting": 1
             },
             "model": "mineworld:item/tooting_sculk_horn"
         }

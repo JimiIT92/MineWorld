@@ -292,7 +292,7 @@ public class AncientGuardianBoss extends Monster implements PowerableMob, Ranged
             final double y = entity.getY() + (double)entity.getEyeHeight() * 0.5D;
             final double z = entity.getZ();
             if (!this.isSilent()) {
-                this.level().playSound(entity, this.blockPosition(), MWSounds.DARKNESS_CHARGE_SHOOT.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+                this.playSound(MWSounds.DARKNESS_CHARGE_SHOOT.get());
             }
 
             final float angle = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F));

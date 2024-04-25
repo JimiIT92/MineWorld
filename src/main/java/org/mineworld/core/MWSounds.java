@@ -67,7 +67,7 @@ public final class MWSounds {
     public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_CHARGING = registerSound("ancient_guardian_charging");
     public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_HURT = registerSound("ancient_guardian_hurt");
     public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_DEATH = registerSound("ancient_guardian_death");
-    public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_AMBIENT = registerSound("ancient_guardian_idle");
+    public static final RegistryObject<SoundEvent> ANCIENT_GUARDIAN_AMBIENT = registerSound("ancient_guardian_ambient");
     public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COPPER = registerSound("equip_copper");
     public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SILVER = registerSound("equip_silver");
     public static final RegistryObject<SoundEvent> ARMOR_EQUIP_BRONZE = registerSound("equip_bronze");
