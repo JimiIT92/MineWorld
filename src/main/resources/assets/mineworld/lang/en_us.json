@@ -1,4 +1,6 @@
 {
+  "key.category.mineworld": "MineWorld",
+  "key.mineworld.crawl": "Crawl",
   "itemGroup.mineworld.building_blocks": "Building Blocks (MineWorld)",
   "itemGroup.mineworld.colored_blocks": "Colored Blocks (MineWorld)",
   "itemGroup.mineworld.natural":  "Natural Blocks (MineWorld)",

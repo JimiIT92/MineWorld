@@ -2,6 +2,7 @@ package org.mineworld.helper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -59,6 +60,16 @@ public final class PlayerHelper {
      */
     public static void addItem(final Player player, final int slot, final ItemStack itemStack) {
         player.getInventory().add(slot, itemStack);
+    }
+
+    /**
+     * Toggle a {@link Pose pose} for the {@link Player Player}
+     *
+     * @param player {@link Player The Player}
+     * @param pose {@link Pose The Pose to toggle}
+     */
+    public static void togglePose(final Player player, final Pose pose) {
+        player.setForcedPose(player.hasPose(pose) ? null : pose);
     }
 
 }

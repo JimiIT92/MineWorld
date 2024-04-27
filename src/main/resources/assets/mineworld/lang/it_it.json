@@ -1,4 +1,6 @@
 {
+  "key.category.mineworld": "MineWorld",
+  "key.mineworld.crawl": "Striscia",
   "itemGroup.mineworld.building_blocks": "Blocchi da costruzione (MineWorld)",
   "itemGroup.mineworld.colored_blocks": "Blocchi colorati (MineWorld)",
   "itemGroup.mineworld.natural": "Blocchi naturali (MineWorld)",
