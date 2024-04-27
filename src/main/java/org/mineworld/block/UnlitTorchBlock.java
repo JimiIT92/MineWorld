@@ -28,6 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.MWBlocks;
+import org.mineworld.event.SwordEvents;
 import org.mineworld.helper.ItemHelper;
 import org.mineworld.helper.PropertyHelper;
 
@@ -98,10 +99,10 @@ public class UnlitTorchBlock extends TorchBlock {
      */
     @Override
     public @NotNull InteractionResult use(final @NotNull BlockState blockState, final @NotNull Level level, final @NotNull BlockPos blockPos, final @NotNull Player player, final @NotNull InteractionHand hand, final @NotNull BlockHitResult hitResult) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if(itemstack.getItem() instanceof FlintAndSteelItem) {
+        final ItemStack itemStack = player.getItemInHand(hand);
+        if(itemStack.getItem() instanceof FlintAndSteelItem || SwordEvents.isFireAspectSword(itemStack)) {
             level.setBlock(blockPos, getTorchBlock().withPropertiesOf(blockState), 2);
-            ItemHelper.hurt(itemstack, player);
+            ItemHelper.hurt(itemStack, player);
             player.level().playSound(player, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
         }
