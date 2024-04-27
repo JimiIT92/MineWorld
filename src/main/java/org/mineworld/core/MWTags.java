@@ -1,8 +1,10 @@
 package org.mineworld.core;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.mineworld.MineWorld;
@@ -37,6 +39,18 @@ public final class MWTags {
 
     }
 
+    /**
+     * {@link TagKey<Instrument> Instrument tags}
+     */
+    public static class Instruments {
+
+        public static final TagKey<Instrument> BASS_COPPER_HORNS = registerInstrumentTag("bass_copper_horns");
+        public static final TagKey<Instrument> HARMONY_COPPER_HORNS = registerInstrumentTag("harmony_copper_horns");
+        public static final TagKey<Instrument> MELODY_COPPER_HORNS = registerInstrumentTag("melody_copper_horns");
+        public static final TagKey<Instrument> COPPER_HORNS = registerInstrumentTag("copper_horns");
+
+    }
+
     //#endregion
 
     //#region Methods
@@ -57,6 +71,15 @@ public final class MWTags {
      */
     public static TagKey<Item> registerItemTag(final String name) {
         return ItemTags.create(ResourceHelper.resourceLocation(name));
+    }
+
+    /**
+     * Register an {@link TagKey<Instrument> Instrument Tag}
+     *
+     * @param name {@link String The Tag name}
+     */
+    public static TagKey<Instrument> registerInstrumentTag(final String name) {
+        return TagKey.create(Registries.INSTRUMENT, ResourceHelper.resourceLocation(name));
     }
 
     //#endregion

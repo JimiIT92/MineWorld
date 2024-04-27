@@ -1,6 +1,7 @@
 package org.mineworld.event;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.mineworld.MineWorld;
 import org.mineworld.core.*;
+import org.mineworld.item.CopperHornItem;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -2130,6 +2132,7 @@ public final class CreativeModeTabEvents {
                 MWItems.DARK_SOUL,
                 MWItems.MAGIC_MIRROR
         );
+        BuiltInRegistries.INSTRUMENT.asLookup().get(MWTags.Instruments.MELODY_COPPER_HORNS).ifPresent(instruments -> instruments.forEach(instrumentHolder -> event.accept(CopperHornItem.create(MWItems.COPPER_HORN.get(), instrumentHolder), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS)));
     }
 
     /**

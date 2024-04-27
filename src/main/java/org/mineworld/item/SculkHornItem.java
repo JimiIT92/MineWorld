@@ -51,8 +51,8 @@ public class SculkHornItem extends Item {
      * Use the {@link Item Sculk Horn}
      *
      * @param level {@link Level The level reference}
-     * @param player {@link Player The player that is shooting the grenade}
-     * @param hand {@link InteractionHand The hand the player is shooting with}
+     * @param player {@link Player The player that is using the item}
+     * @param hand {@link InteractionHand The hand the player is interacting with}
      * @return {@link InteractionResultHolder<ItemStack> The interaction result}
      */
     public @NotNull InteractionResultHolder<ItemStack> use(final @NotNull Level level, final Player player, final @NotNull InteractionHand hand) {

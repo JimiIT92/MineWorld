@@ -193,6 +193,7 @@ public final class MWItems {
     public static final RegistryObject<Item> INVISIBILITY_CLOAK = registerItem("invisibility_cloak", Suppliers.memoize(() -> new InvisibilityCloakItem()));
     public static final RegistryObject<Item> MAGIC_MIRROR = registerItem("magic_mirror", Suppliers.memoize(() -> new MagicMirrorItem()));
     public static final RegistryObject<Item> SCULK_HORN = registerItem("sculk_horn", Suppliers.memoize(() -> new SculkHornItem()));
+    public static final RegistryObject<Item> COPPER_HORN = registerItem("copper_horn", Suppliers.memoize(() -> new CopperHornItem()));
 
     //#endregion
 
@@ -764,7 +765,7 @@ public final class MWItems {
      * Register the custom {@link ItemProperties Item Properties}
      */
     public static void registerItemProperties() {
-        registerItemProperty("tooting", SCULK_HORN);
+        registerItemProperty("tooting", SCULK_HORN, COPPER_HORN);
     }
 
     //#endregion

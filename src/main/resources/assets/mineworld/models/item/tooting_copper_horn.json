@@ -1,0 +1,6 @@
+{
+  "parent": "mineworld:item/template_tooting_horn",
+  "textures": {
+    "layer0": "mineworld:item/copper_horn"
+  }
+}

@@ -86,6 +86,7 @@ public final class MineWorld {
         event.enqueueWork(MWDispenseBehaviors::register);
         event.enqueueWork(MWCompostables::registerCompostables);
         event.enqueueWork(MWBiomes::registerOverworldBiomes);
+        event.enqueueWork(MWInstruments::registerInstruments);
         event.enqueueWork(() -> Raid.RaiderType.create("illusioner", EntityType.ILLUSIONER, new int[]{0, 0, 0, 0, 1, 1, 2, 2}));
     }
 

@@ -1,12 +1,12 @@
 {
     "parent": "mineworld:item/template_horn",
     "textures": {
-        "layer0": "mineworld:item/sculk_horn"
+        "layer0": "mineworld:item/copper_horn"
     },
     "overrides": [{
         "predicate": {
             "mineworld:tooting": 1
         },
-        "model": "mineworld:item/tooting_sculk_horn"
+        "model": "mineworld:item/tooting_copper_horn"
     }]
 }

@@ -422,5 +422,197 @@
       "mineworld:ancient_guardian/ambient3"
     ],
     "subtitle": "subtitles.mineworld.ancient_guardian.ambient"
+  },
+  "goat_horn_fly": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/goat_horns/fly"
+    ]
+  },
+  "goat_horn_resist": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/goat_horns/resist"
+    ]
+  },
+  "copper_horn_great_sky_falling": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/great_sky_falling"
+    ]
+  },
+  "copper_horn_great_sky_falling_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/great_sky_falling_bass"
+    ]
+  },
+  "copper_horn_great_sky_falling_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/great_sky_falling_harmony"
+    ]
+  },
+  "copper_horn_old_hymn_resting": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/old_hymn_resting"
+    ]
+  },
+  "copper_horn_old_hymn_resting_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/old_hymn_resting_bass"
+    ]
+  },
+  "copper_horn_old_hymn_resting_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/old_hymn_resting_harmony"
+    ]
+  },
+  "copper_horn_pure_water_desire": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/pure_water_desire"
+    ]
+  },
+  "copper_horn_pure_water_desire_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/pure_water_desire_bass"
+    ]
+  },
+  "copper_horn_pure_water_desire_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/pure_water_desire_harmony"
+    ]
+  },
+  "copper_horn_mumble_fire_memory": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/mumble_fire_memory"
+    ]
+  },
+  "copper_horn_mumble_fire_memory_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/mumble_fire_memory_bass"
+    ]
+  },
+  "copper_horn_mumble_fire_memory_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/mumble_fire_memory_harmony"
+    ]
+  },
+  "copper_horn_dry_urge_anger": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/dry_urge_anger"
+    ]
+  },
+  "copper_horn_dry_urge_anger_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/dry_urge_anger_bass"
+    ]
+  },
+  "copper_horn_dry_urge_anger_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/dry_urge_anger_harmony"
+    ]
+  },
+  "copper_horn_clear_temper_journey": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/clear_temper_journey"
+    ]
+  },
+  "copper_horn_clear_temper_journey_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/clear_temper_journey_bass"
+    ]
+  },
+  "copper_horn_clear_temper_journey_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/clear_temper_journey_harmony"
+    ]
+  },
+  "copper_horn_fresh_nest_thought": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/fresh_nest_thought"
+    ]
+  },
+  "copper_horn_fresh_nest_thought_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/fresh_nest_thought_bass"
+    ]
+  },
+  "copper_horn_fresh_nest_thought_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/fresh_nest_thought_harmony"
+    ]
+  },
+  "copper_horn_secret_lake_tear": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/secret_lake_tear"
+    ]
+  },
+  "copper_horn_secret_lake_tear_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/secret_lake_tear_bass"
+    ]
+  },
+  "copper_horn_secret_lake_tear_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/secret_lake_tear_harmony"
+    ]
+  },
+  "copper_horn_fearless_river_gift": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/fearless_river_gift"
+    ]
+  },
+  "copper_horn_fearless_river_gift_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/fearless_river_gift_bass"
+    ]
+  },
+  "copper_horn_fearless_river_gift_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/fearless_river_gift_harmony"
+    ]
+  },
+  "copper_horn_sweet_moon_love": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/sweet_moon_love"
+    ]
+  },
+  "copper_horn_sweet_moon_love_bass": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/sweet_moon_love_bass"
+    ]
+  },
+  "copper_horn_sweet_moon_love_harmony": {
+    "subtitle": "subtitles.item.goat_horn.play",
+    "sounds": [
+      "mineworld:instruments/copper_horns/sweet_moon_love_harmony"
+    ]
   }
 }
